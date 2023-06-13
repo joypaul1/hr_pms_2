@@ -9,12 +9,11 @@
 
   <meta name="description" content="" />
   <?php
-  header("Cache-Control: no-cache, must-revalidate");
-  header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
-  // header("Content-Type: application/xml; charset=utf-8");
+  $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+  // echo $baseUrl;
+
   ?>
-  <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
-  <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
@@ -25,26 +24,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
   <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="assets/vendor/fonts/boxicons.css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/fonts/boxicons.css" />
 
   <!-- Core CSS -->
-  <link rel="stylesheet" href="assets/vendor/css/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-  <link rel="stylesheet" href="assets/css/demo.css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/css/core.css" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/css/demo.css" />
 
   <!-- Vendors CSS -->
-  <link rel="stylesheet" href="assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
 
-  <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
+  <link rel="stylesheet" href="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/libs/apex-charts/apex-charts.css" />
 
   <!-- Page CSS -->
 
   <!-- Helpers -->
-  <script src="assets/vendor/js/helpers.js"></script>
+  <script src="<?php  echo $baseUrl.'/rHR' ?>/assets/vendor/js/helpers.js"></script>
 
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="assets/js/config.js"></script>
+  <script src="<?php  echo $baseUrl.'/rHR' ?>/assets/js/config.js"></script>
 </head>
 
 <body>
