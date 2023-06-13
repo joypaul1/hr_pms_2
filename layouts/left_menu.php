@@ -55,19 +55,62 @@
 
      <?php
       // Admin Role
-      if ($_SESSION['HR']['hr_role'] == 2) { ?>
-       <li class="menu-item active">
-         <a href="dashboard_hr.php" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-           <div data-i18n="Analytics">Dashboard</div>
-         </a>
-       </li>
+      // if ($_SESSION['HR']['hr_role'] == 2) { 
+      ?>
+     <li class="menu-item active">
+       <a href="dashboard_hr.php" class="menu-link">
+         <i class="menu-icon tf-icons bx bx-home-circle"></i>
+         <div data-i18n="Analytics">Dashboard</div>
+       </a>
+     </li>
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">Multiple Role Permission</b></span>
+     </li>
+     <li class="menu-item 
+			  <?php
+        if (
+          $v_page == 'role'
+          || $v_page == 'permission'
+          || $v_page == 'role_permission'
+          || $v_page == 'user_role'
+        )
+          echo $v_active_open;
+        ?>">
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc"> Role Permission Module </div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
+           <a href="user_apps.php" class="menu-link">
+             <div data-i18n="Error">Role List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_web_create') echo $v_active; ?>">
+           <a href="user_web_create.php" class="menu-link">
+             <div data-i18n="Error">Permssion List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
+           <a href="user_web.php" class="menu-link">
+             <div data-i18n="Error">Role & Permission </div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
+           <a href="user_apps_access.php" class="menu-link">
+             <div data-i18n="Error">User Apss Access</div>
+           </a>
+         </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR Admin Module</b></span>
-       </li>
 
-       <li class="menu-item 
+
+       </ul>
+     </li>
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR Admin Module</b></span>
+     </li>
+
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'department' ||
@@ -77,37 +120,37 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-dock-top"></i>
-           <div data-i18n="Account Settings">Admin Settings</div>
-         </a>
-         <ul class="menu-sub">
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-dock-top"></i>
+         <div data-i18n="Account Settings">Admin Settings</div>
+       </a>
+       <ul class="menu-sub">
 
-           <li class="menu-item <?php if ($v_page == 'department') echo $v_active; ?>">
-             <a href="department.php" class="menu-link">
-               <div data-i18n="Notifications">Department List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'designation') echo $v_active; ?>">
-             <a href="designation.php" class="menu-link">
-               <div data-i18n="Connections">Designation List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'branch') echo $v_active; ?>">
-             <a href="branch.php" class="menu-link">
-               <div data-i18n="Connections">Branch List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'hr_holiday') echo $v_active; ?>">
-             <a href="hr_holiday.php" class="menu-link">
-               <div data-i18n="Connections">Holiday List</div>
-             </a>
-           </li>
+         <li class="menu-item <?php if ($v_page == 'department') echo $v_active; ?>">
+           <a href="department.php" class="menu-link">
+             <div data-i18n="Notifications">Department List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'designation') echo $v_active; ?>">
+           <a href="designation.php" class="menu-link">
+             <div data-i18n="Connections">Designation List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'branch') echo $v_active; ?>">
+           <a href="branch.php" class="menu-link">
+             <div data-i18n="Connections">Branch List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'hr_holiday') echo $v_active; ?>">
+           <a href="hr_holiday.php" class="menu-link">
+             <div data-i18n="Connections">Holiday List</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'user' ||
@@ -116,31 +159,32 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-user"></i>
-           <div data-i18n="Account Settings">Apps User Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'user_create') echo $v_active; ?>">
-             <a href="user_create.php" class="menu-link">
-               <div data-i18n="Account">User Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user') echo $v_active; ?>">
-             <a href="user.php" class="menu-link">
-               <div data-i18n="Account">User List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user_transfer') echo $v_active; ?>">
-             <a href="user_transfer.php" class="menu-link">
-               <div data-i18n="Account">User Transfer</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-user"></i>
+         <div data-i18n="Account Settings">Apps User Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'user_create') echo $v_active; ?>">
+           <a href="user_create.php" class="menu-link">
+             <div data-i18n="Account">User Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user') echo $v_active; ?>">
+           <a href="user.php" class="menu-link">
+             <div data-i18n="Account">User List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_transfer') echo $v_active; ?>">
+           <a href="user_transfer.php" class="menu-link">
+             <div data-i18n="Account">User Transfer</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
-       <li class="menu-item 
+
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'leave' ||
@@ -151,85 +195,41 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-           <div data-i18n="Authentications">Leave Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
-             <a href="leave_create.php" class="menu-link">
-               <div data-i18n="Basic">Leave Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
-             <a href="leave.php" class="menu-link">
-               <div data-i18n="Basic">Leave List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
-             <a href="leave_approval_list.php" class="menu-link">
-               <div data-i18n="Basic">Leave Approval</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
-             <a href="leave_assign.php" class="menu-link">
-               <div data-i18n="Vertical Form">Leave Assign</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
-             <a href="leave_report.php" class="menu-link">
-               <div data-i18n="Vertical Form">Advance Report</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
+         <div data-i18n="Authentications">Leave Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
+           <a href="leave_create.php" class="menu-link">
+             <div data-i18n="Basic">Leave Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
+           <a href="leave.php" class="menu-link">
+             <div data-i18n="Basic">Leave List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
+           <a href="leave_approval_list.php" class="menu-link">
+             <div data-i18n="Basic">Leave Approval</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
+           <a href="leave_assign.php" class="menu-link">
+             <div data-i18n="Vertical Form">Leave Assign</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
+           <a href="leave_report.php" class="menu-link">
+             <div data-i18n="Vertical Form">Advance Report</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
-       <li class="menu-item 
-			   <?php
-          if (
-            $v_page == 'leave' ||
-            $v_page == 'leave_create' ||
-            $v_page == 'leave_approval_list' ||
-            $v_page == 'leave_assign' ||
-            $v_page == 'leave_report'
-          )
-            echo $v_active_open;
-          ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-           <div data-i18n="Authentications">Leave Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
-             <a href="leave_create.php" class="menu-link">
-               <div data-i18n="Basic">Leave Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
-             <a href="leave.php" class="menu-link">
-               <div data-i18n="Basic">Leave List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
-             <a href="leave_approval_list.php" class="menu-link">
-               <div data-i18n="Basic">Leave Approval</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
-             <a href="leave_assign.php" class="menu-link">
-               <div data-i18n="Vertical Form">Leave Assign</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
-             <a href="leave_report.php" class="menu-link">
-               <div data-i18n="Vertical Form">Advance Report</div>
-             </a>
-           </li>
+       </ul>
+     </li>
 
-         </ul>
-       </li>
-
-       <li class="menu-item 
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'tour_create' ||
@@ -237,25 +237,25 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-layout"></i>
-           <div data-i18n="Authentications">Tour Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'tour_create') echo $v_active; ?>">
-             <a href="tour_create.php" class="menu-link">
-               <div data-i18n="Basic">Tour Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'tour') echo $v_active; ?>">
-             <a href="tour.php" class="menu-link">
-               <div data-i18n="Basic">Tour List</div>
-             </a>
-           </li>
-         </ul>
-       </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-layout"></i>
+         <div data-i18n="Authentications">Tour Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'tour_create') echo $v_active; ?>">
+           <a href="tour_create.php" class="menu-link">
+             <div data-i18n="Basic">Tour Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'tour') echo $v_active; ?>">
+           <a href="tour.php" class="menu-link">
+             <div data-i18n="Basic">Tour List</div>
+           </a>
+         </li>
+       </ul>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'hr_manual_attendance' ||
@@ -265,35 +265,35 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-           <div data-i18n="Misc">Attendance Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'hr_manual_attendance') echo $v_active; ?>">
-             <a href="hr_manual_attendance.php" class="menu-link">
-               <div data-i18n="Error">Manual Entry</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'single_attendance') echo $v_active; ?>">
-             <a href="single_attendance.php" class="menu-link">
-               <div data-i18n="Basic Inputs">Single Report</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'department_attendance') echo $v_active; ?>">
-             <a href="department_attendance.php" class="menu-link">
-               <div data-i18n="Input groups">Advance Report</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'punch_data_syn') echo $v_active; ?>">
-             <a href="punch_data_syn.php" class="menu-link">
-               <div data-i18n="Under Maintenance">Punch Data SYN</div>
-             </a>
-           </li>
-         </ul>
-       </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+         <div data-i18n="Misc">Attendance Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'hr_manual_attendance') echo $v_active; ?>">
+           <a href="hr_manual_attendance.php" class="menu-link">
+             <div data-i18n="Error">Manual Entry</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'single_attendance') echo $v_active; ?>">
+           <a href="single_attendance.php" class="menu-link">
+             <div data-i18n="Basic Inputs">Single Report</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'department_attendance') echo $v_active; ?>">
+           <a href="department_attendance.php" class="menu-link">
+             <div data-i18n="Input groups">Advance Report</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'punch_data_syn') echo $v_active; ?>">
+           <a href="punch_data_syn.php" class="menu-link">
+             <div data-i18n="Under Maintenance">Punch Data SYN</div>
+           </a>
+         </li>
+       </ul>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			   <?php
           if (
             $v_page == 'roster_create' ||
@@ -301,30 +301,30 @@
           )
             echo $v_active_open;
           ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-           <div data-i18n="Misc">Roster Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'roster_create') echo $v_active; ?>">
-             <a href="roster_create.php" class="menu-link">
-               <div data-i18n="Error">Roster Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'roster') echo $v_active; ?>">
-             <a href="roster.php" class="menu-link">
-               <div data-i18n="Under Maintenance">Roster List</div>
-             </a>
-           </li>
-         </ul>
-       </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+         <div data-i18n="Misc">Roster Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'roster_create') echo $v_active; ?>">
+           <a href="roster_create.php" class="menu-link">
+             <div data-i18n="Error">Roster Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'roster') echo $v_active; ?>">
+           <a href="roster.php" class="menu-link">
+             <div data-i18n="Under Maintenance">Roster List</div>
+           </a>
+         </li>
+       </ul>
+     </li>
 
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR PMS Module</b></span>
-       </li>
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR PMS Module</b></span>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'pms_hr' ||
@@ -333,28 +333,28 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-crown"></i>
-           <div data-i18n="Misc">PMS Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'pms_hr') echo $v_active; ?>">
-             <a href="pms_hr.php" class="menu-link">
-               <div data-i18n="Error">PMS List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-             <a href="pms_kpi_list.php" class="menu-link">
-               <div data-i18n="Error">KPI List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pmp_hr_approval_list') echo $v_active; ?>">
-             <a href="pmp_hr_approval_list.php" class="menu-link">
-               <div data-i18n="Under Maintenance">PMS Approval List</div>
-             </a>
-           </li>
-         </ul>
-       </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-crown"></i>
+         <div data-i18n="Misc">PMS Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'pms_hr') echo $v_active; ?>">
+           <a href="pms_hr.php" class="menu-link">
+             <div data-i18n="Error">PMS List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
+           <a href="pms_kpi_list.php" class="menu-link">
+             <div data-i18n="Error">KPI List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pmp_hr_approval_list') echo $v_active; ?>">
+           <a href="pmp_hr_approval_list.php" class="menu-link">
+             <div data-i18n="Under Maintenance">PMS Approval List</div>
+           </a>
+         </li>
+       </ul>
+     </li>
 
 
 
@@ -365,66 +365,67 @@
 
 
      <?php
-        // Self Role 
-      } else if ($_SESSION['HR']['hr_role'] == 4) { ?>
-       <li class="menu-item active">
-         <a href="dashboard_nu.php" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-           <div data-i18n="Analytics">Dashboard</div>
-         </a>
-       </li>
+      // Self Role 
+      // } else if ($_SESSION['HR']['hr_role'] == 4) { 
+      ?>
+     <li class="menu-item active">
+       <a href="dashboard_nu.php" class="menu-link">
+         <i class="menu-icon tf-icons bx bx-home-circle"></i>
+         <div data-i18n="Analytics">Dashboard</div>
+       </a>
+     </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR Apps Module</b></span>
-       </li>
-       <li class="menu-item 
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR Apps Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if ($v_page == 'leave_create_self' || $v_page == 'leave_self')
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Leave Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
-             <a href="leave_create_self.php" class="menu-link">
-               <div data-i18n="Error">Leave Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
-             <a href="leave_self.php" class="menu-link">
-               <div data-i18n="Error">Leave Report</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Leave Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
+           <a href="leave_create_self.php" class="menu-link">
+             <div data-i18n="Error">Leave Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
+           <a href="leave_self.php" class="menu-link">
+             <div data-i18n="Error">Leave Report</div>
+           </a>
+         </li>
 
-         </ul>
+       </ul>
 
-       </li>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			  <?php
         if ($v_page == 'tour_create_self' || $v_page == 'tour_self')
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-task"></i>
-           <div data-i18n="Misc">Tour Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
-             <a href="tour_create_self.php" class="menu-link">
-               <div data-i18n="Error">Tour Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
-             <a href="tour_self.php" class="menu-link">
-               <div data-i18n="Error">Tour Report</div>
-             </a>
-           </li>
-         </ul>
-       </li>
-       <li class="menu-item 
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-task"></i>
+         <div data-i18n="Misc">Tour Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
+           <a href="tour_create_self.php" class="menu-link">
+             <div data-i18n="Error">Tour Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
+           <a href="tour_self.php" class="menu-link">
+             <div data-i18n="Error">Tour Report</div>
+           </a>
+         </li>
+       </ul>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'lm_self_attendance' ||
@@ -432,26 +433,26 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-table"></i>
-           <div data-i18n="Misc">Attendance Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
-             <a href="lm_self_attendance.php" class="menu-link">
-               <div data-i18n="Error">Self Attendance</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-table"></i>
+         <div data-i18n="Misc">Attendance Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
+           <a href="lm_self_attendance.php" class="menu-link">
+             <div data-i18n="Error">Self Attendance</div>
+           </a>
+         </li>
 
-           <li class="menu-item <?php if ($v_page == 'self_outdoor_attn') echo $v_active; ?>">
-             <a href="self_outdoor_attn.php" class="menu-link">
-               <div data-i18n="Error">Outdoor Attendance</div>
-             </a>
-           </li>
+         <li class="menu-item <?php if ($v_page == 'self_outdoor_attn') echo $v_active; ?>">
+           <a href="self_outdoor_attn.php" class="menu-link">
+             <div data-i18n="Error">Outdoor Attendance</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
-       <li class="menu-item 
+       </ul>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'pms_kra_create' ||
@@ -461,45 +462,46 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-crown"></i>
-           <div data-i18n="Misc">PMS Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-             <a href="pms_list_self.php" class="menu-link">
-               <div data-i18n="Error">PMS List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-             <a href="pms_kra_create.php" class="menu-link">
-               <div data-i18n="Error">KRA List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-             <a href="pms_kpi_list.php" class="menu-link">
-               <div data-i18n="Under Maintenance">KPI List</div>
-             </a>
-           </li>
-         </ul>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-crown"></i>
+         <div data-i18n="Misc">PMS Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
+           <a href="pms_list_self.php" class="menu-link">
+             <div data-i18n="Error">PMS List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
+           <a href="pms_kra_create.php" class="menu-link">
+             <div data-i18n="Error">KRA List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
+           <a href="pms_kpi_list.php" class="menu-link">
+             <div data-i18n="Under Maintenance">KPI List</div>
+           </a>
+         </li>
+       </ul>
 
-       </li>
+     </li>
 
 
      <?php
-        // IT Role
-      } else if ($_SESSION['HR']['hr_role'] == 1) { ?>
-       <li class="menu-item active">
-         <a href="dashboard_it.php" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-           <div data-i18n="Analytics">Dashboard</div>
-         </a>
-       </li>
+      // IT Role
+      // } else if ($_SESSION['HR']['hr_role'] == 1) { 
+      ?>
+     <li class="menu-item active">
+       <a href="dashboard_it.php" class="menu-link">
+         <i class="menu-icon tf-icons bx bx-home-circle"></i>
+         <div data-i18n="Analytics">Dashboard</div>
+       </a>
+     </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR User Module</b></span>
-       </li>
-       <li class="menu-item 
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR User Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'user_apps'
@@ -509,71 +511,73 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Apps user Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
-             <a href="user_apps.php" class="menu-link">
-               <div data-i18n="Error">Apps User</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user_web_create') echo $v_active; ?>">
-             <a href="user_web_create.php" class="menu-link">
-               <div data-i18n="Error">Web User Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
-             <a href="user_web.php" class="menu-link">
-               <div data-i18n="Error">Web User</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
-             <a href="user_apps_access.php" class="menu-link">
-               <div data-i18n="Error">User Apss Access</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Apps user Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
+           <a href="user_apps.php" class="menu-link">
+             <div data-i18n="Error">Apps User</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_web_create') echo $v_active; ?>">
+           <a href="user_web_create.php" class="menu-link">
+             <div data-i18n="Error">Web User Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
+           <a href="user_web.php" class="menu-link">
+             <div data-i18n="Error">Web User</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
+           <a href="user_apps_access.php" class="menu-link">
+             <div data-i18n="Error">User Apss Access</div>
+           </a>
+         </li>
 
 
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">Report Module</b></span>
-       </li>
-       <li class="menu-item 
+
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">Report Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if ($v_page == 'hr_app_session' || $v_page == 'dd')
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Admin Report</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'hr_app_session') echo $v_active; ?>">
-             <a href="hr_app_session.php" class="menu-link">
-               <div data-i18n="Error">App Session Data</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Admin Report</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'hr_app_session') echo $v_active; ?>">
+           <a href="hr_app_session.php" class="menu-link">
+             <div data-i18n="Error">App Session Data</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
      <?php
-      } else if ($_SESSION['HR']['hr_role'] == 5) { ?>
-       <li class="menu-item active">
-         <a href="dashboard_rmwl.php" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-           <div data-i18n="Analytics">Dashboard</div>
-         </a>
-       </li>
+      // } else if ($_SESSION['HR']['hr_role'] == 5) { 
+      ?>
+     <li class="menu-item active">
+       <a href="dashboard_rmwl.php" class="menu-link">
+         <i class="menu-icon tf-icons bx bx-home-circle"></i>
+         <div data-i18n="Analytics">Dashboard</div>
+       </a>
+     </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR User Module</b></span>
-       </li>
-       <li class="menu-item 
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR User Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'new_emp_create_rmwl' ||
@@ -583,39 +587,39 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Apps Admin Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'new_emp_create_rmwl') echo $v_active; ?>">
-             <a href="new_emp_create_rmwl.php" class="menu-link">
-               <div data-i18n="Error">New User Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'user_list_rmwl') echo $v_active; ?>">
-             <a href="user_list_rmwl.php" class="menu-link">
-               <div data-i18n="Error">Apps User List</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Apps Admin Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'new_emp_create_rmwl') echo $v_active; ?>">
+           <a href="new_emp_create_rmwl.php" class="menu-link">
+             <div data-i18n="Error">New User Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'user_list_rmwl') echo $v_active; ?>">
+           <a href="user_list_rmwl.php" class="menu-link">
+             <div data-i18n="Error">Apps User List</div>
+           </a>
+         </li>
 
-           <li class="menu-item <?php if ($v_page == 'hr_emp_transfer_rmwl') echo $v_active; ?>">
-             <a href="hr_emp_transfer_rmwl.php" class="menu-link">
-               <div data-i18n="Error">Workstation Change</div>
-             </a>
-           </li>
+         <li class="menu-item <?php if ($v_page == 'hr_emp_transfer_rmwl') echo $v_active; ?>">
+           <a href="hr_emp_transfer_rmwl.php" class="menu-link">
+             <div data-i18n="Error">Workstation Change</div>
+           </a>
+         </li>
 
-           <li class="menu-item <?php if ($v_page == 'rmwl_manual_attendance') echo $v_active; ?>">
-             <a href="rmwl_manual_attendance.php" class="menu-link">
-               <div data-i18n="Error">New Attendance</div>
-             </a>
-           </li>
+         <li class="menu-item <?php if ($v_page == 'rmwl_manual_attendance') echo $v_active; ?>">
+           <a href="rmwl_manual_attendance.php" class="menu-link">
+             <div data-i18n="Error">New Attendance</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
 
-       <li class="menu-item 
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'rmwl_leave' ||
@@ -625,31 +629,31 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Leave Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'rmwl_leave') echo $v_active; ?>">
-             <a href="rmwl_leave.php" class="menu-link">
-               <div data-i18n="Error">New Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_list_rmwl') echo $v_active; ?>">
-             <a href="leave_list_rmwl.php" class="menu-link">
-               <div data-i18n="Error">Leave List</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Leave Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'rmwl_leave') echo $v_active; ?>">
+           <a href="rmwl_leave.php" class="menu-link">
+             <div data-i18n="Error">New Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_list_rmwl') echo $v_active; ?>">
+           <a href="leave_list_rmwl.php" class="menu-link">
+             <div data-i18n="Error">Leave List</div>
+           </a>
+         </li>
 
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">Report Module</b></span>
-       </li>
-       <li class="menu-item 
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">Report Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'rmwl_single_attendance' ||
@@ -658,48 +662,49 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Report Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'rmwl_single_attendance') echo $v_active; ?>">
-             <a href="rmwl_single_attendance.php" class="menu-link">
-               <div data-i18n="Error">Single Attendance</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'attendance_report_rmwl') echo $v_active; ?>">
-             <a href="attendance_report_rmwl.php" class="menu-link">
-               <div data-i18n="Error">Advance Report</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'rmwl_outdoor') echo $v_active; ?>">
-             <a href="rmwl_outdoor.php" class="menu-link">
-               <div data-i18n="Error">Outdoor Attendance</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Report Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'rmwl_single_attendance') echo $v_active; ?>">
+           <a href="rmwl_single_attendance.php" class="menu-link">
+             <div data-i18n="Error">Single Attendance</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'attendance_report_rmwl') echo $v_active; ?>">
+           <a href="attendance_report_rmwl.php" class="menu-link">
+             <div data-i18n="Error">Advance Report</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'rmwl_outdoor') echo $v_active; ?>">
+           <a href="rmwl_outdoor.php" class="menu-link">
+             <div data-i18n="Error">Outdoor Attendance</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
 
 
 
 
      <?php
-        // Line Manager
-      } else if ($_SESSION['HR']['hr_role'] == 3) { ?>
-       <li class="menu-item active">
-         <a href="dashboard_lm.php" class="menu-link">
-           <i class="menu-icon tf-icons bx bx-home-circle"></i>
-           <div data-i18n="Analytics">Dashboard</div>
-         </a>
-       </li>
+      // Line Manager
+      // } else if ($_SESSION['HR']['hr_role'] == 3) { 
+      ?>
+     <li class="menu-item active">
+       <a href="dashboard_lm.php" class="menu-link">
+         <i class="menu-icon tf-icons bx bx-home-circle"></i>
+         <div data-i18n="Analytics">Dashboard</div>
+       </a>
+     </li>
 
-       <li class="menu-header small text-uppercase">
-         <span class="menu-header-text"><b style="color:red;">HR Apps Module</b></span>
-       </li>
-       <li class="menu-item 
+     <li class="menu-header small text-uppercase">
+       <span class="menu-header-text"><b style="color:red;">HR Apps Module</b></span>
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'leave_create_self' ||
@@ -708,32 +713,32 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-collection"></i>
-           <div data-i18n="Misc">Leave Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
-             <a href="leave_create_self.php" class="menu-link">
-               <div data-i18n="Error">Leave Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
-             <a href="leave_self.php" class="menu-link">
-               <div data-i18n="Error">Self Report</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'leave_concern') echo $v_active; ?>">
-             <a href="leave_concern.php" class="menu-link">
-               <div data-i18n="Error">Concern Report</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-collection"></i>
+         <div data-i18n="Misc">Leave Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
+           <a href="leave_create_self.php" class="menu-link">
+             <div data-i18n="Error">Leave Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
+           <a href="leave_self.php" class="menu-link">
+             <div data-i18n="Error">Self Report</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'leave_concern') echo $v_active; ?>">
+           <a href="leave_concern.php" class="menu-link">
+             <div data-i18n="Error">Concern Report</div>
+           </a>
+         </li>
 
-         </ul>
+       </ul>
 
-       </li>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'tour_create_self' ||
@@ -742,30 +747,30 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-task"></i>
-           <div data-i18n="Misc">Tour Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
-             <a href="tour_create_self.php" class="menu-link">
-               <div data-i18n="Error">Tour Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
-             <a href="tour_self.php" class="menu-link">
-               <div data-i18n="Error">Self Report</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'tour_concern') echo $v_active; ?>">
-             <a href="tour_concern.php" class="menu-link">
-               <div data-i18n="Error">Concern Report</div>
-             </a>
-           </li>
-         </ul>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-task"></i>
+         <div data-i18n="Misc">Tour Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
+           <a href="tour_create_self.php" class="menu-link">
+             <div data-i18n="Error">Tour Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
+           <a href="tour_self.php" class="menu-link">
+             <div data-i18n="Error">Self Report</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'tour_concern') echo $v_active; ?>">
+           <a href="tour_concern.php" class="menu-link">
+             <div data-i18n="Error">Concern Report</div>
+           </a>
+         </li>
+       </ul>
 
-       </li>
-       <li class="menu-item 
+     </li>
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'lm_outdoor_approval' ||
@@ -775,36 +780,36 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-envelope"></i>
-           <div data-i18n="Misc">Approval Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'lm_outdoor_approval') echo $v_active; ?>">
-             <a href="lm_outdoor_approval.php" class="menu-link">
-               <div data-i18n="Error">Attendance Approval</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'lm_leave_approval') echo $v_active; ?>">
-             <a href="lm_leave_approval.php" class="menu-link">
-               <div data-i18n="Error">Leave Approval</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'lm_tour_approval') echo $v_active; ?>">
-             <a href="lm_tour_approval.php" class="menu-link">
-               <div data-i18n="Error">Tour Approval</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'lm_pms_approval') echo $v_active; ?>">
-             <a href="lm_pms_approval.php" class="menu-link">
-               <div data-i18n="Error">PMS Approval</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-envelope"></i>
+         <div data-i18n="Misc">Approval Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'lm_outdoor_approval') echo $v_active; ?>">
+           <a href="lm_outdoor_approval.php" class="menu-link">
+             <div data-i18n="Error">Attendance Approval</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'lm_leave_approval') echo $v_active; ?>">
+           <a href="lm_leave_approval.php" class="menu-link">
+             <div data-i18n="Error">Leave Approval</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'lm_tour_approval') echo $v_active; ?>">
+           <a href="lm_tour_approval.php" class="menu-link">
+             <div data-i18n="Error">Tour Approval</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'lm_pms_approval') echo $v_active; ?>">
+           <a href="lm_pms_approval.php" class="menu-link">
+             <div data-i18n="Error">PMS Approval</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
+       </ul>
+     </li>
 
-       <li class="menu-item 
+     <li class="menu-item 
 			  <?php
         if (
           $v_page == 'lm_self_attendance' ||
@@ -813,60 +818,60 @@
         )
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-table"></i>
-           <div data-i18n="Misc">Report Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
-             <a href="lm_self_attendance.php" class="menu-link">
-               <div data-i18n="Error">Self Attendance</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'concern_attendance') echo $v_active; ?>">
-             <a href="concern_attendance.php" class="menu-link">
-               <div data-i18n="Error">Concern Attendance</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'concern_outdoor_attn') echo $v_active; ?>">
-             <a href="concern_outdoor_attn.php" class="menu-link">
-               <div data-i18n="Error">Outdoor Attendance</div>
-             </a>
-           </li>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-table"></i>
+         <div data-i18n="Misc">Report Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
+           <a href="lm_self_attendance.php" class="menu-link">
+             <div data-i18n="Error">Self Attendance</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'concern_attendance') echo $v_active; ?>">
+           <a href="concern_attendance.php" class="menu-link">
+             <div data-i18n="Error">Concern Attendance</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'concern_outdoor_attn') echo $v_active; ?>">
+           <a href="concern_outdoor_attn.php" class="menu-link">
+             <div data-i18n="Error">Outdoor Attendance</div>
+           </a>
+         </li>
 
-         </ul>
-       </li>
-       <li class="menu-item 
+       </ul>
+     </li>
+     <li class="menu-item 
 			  <?php
         if ($v_page == 'pms_kra_create' || $v_page == 'pms_list_self' || $v_page == 'pms_kpi_list')
           echo $v_active_open;
         ?>">
-         <a href="javascript:void(0);" class="menu-link menu-toggle">
-           <i class="menu-icon tf-icons bx bx-crown"></i>
-           <div data-i18n="Misc">PMP Module</div>
-         </a>
-         <ul class="menu-sub">
-           <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-             <a href="pms_list_self.php" class="menu-link">
-               <div data-i18n="Error">PMS List</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-             <a href="pms_kra_create.php" class="menu-link">
-               <div data-i18n="Error">KRA Create</div>
-             </a>
-           </li>
-           <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-             <a href="pms_kpi_list.php" class="menu-link">
-               <div data-i18n="Under Maintenance">KPI List</div>
-             </a>
-           </li>
-         </ul>
+       <a href="javascript:void(0);" class="menu-link menu-toggle">
+         <i class="menu-icon tf-icons bx bx-crown"></i>
+         <div data-i18n="Misc">PMP Module</div>
+       </a>
+       <ul class="menu-sub">
+         <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
+           <a href="pms_list_self.php" class="menu-link">
+             <div data-i18n="Error">PMS List</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
+           <a href="pms_kra_create.php" class="menu-link">
+             <div data-i18n="Error">KRA Create</div>
+           </a>
+         </li>
+         <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
+           <a href="pms_kpi_list.php" class="menu-link">
+             <div data-i18n="Under Maintenance">KPI List</div>
+           </a>
+         </li>
+       </ul>
 
-       </li>
+     </li>
 
      <?php
-      }
+      // }
       ?>
    </ul>
  </aside>
