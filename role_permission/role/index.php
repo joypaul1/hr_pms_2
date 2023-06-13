@@ -2,18 +2,27 @@
 session_start();
 session_regenerate_id(TRUE);
 
-
-require_once('../../inc/config.php');
 require_once('../../layouts/header.php');
 
-$v_page        = 'rmwl_leave';
+$v_page        = 'role';
 $v_active_open = 'active open';
 $v_active      = 'active';
-
+require_once('../../inc/config.php'); // Include config file
 require_once('../../layouts/left_menu.php');
 require_once('../../layouts/top_menu.php');
-require_once('../../inc/connoracle.php');
+
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+
+// Initialize an empty array
+$dataArray = array();
+$sql       = "SELECT * FROM tbl_roles"; //  select query execution
+$result    = mysqli_query($conn_hr, $sql);
+// Loop through the fetched rows
+while ($row = mysqli_fetch_array($result)) {
+    $dataArray[] = $row; // Append the row data to the array
+}
+
+mysqli_close($conn_hr);
 
 ?>
 
@@ -27,15 +36,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                    $leftSideName  = 'Role List';
-                    $rightSideName = 'Role Create';
-                    $routePath     = '/role_permission/role/create.php';
-                    include('../../layouts/_tableHeader.php');
+                $leftSideName  = 'Role List';
+                $rightSideName = 'Role Create';
+                $routePath     = '/role_permission/role/create.php';
+                include('../../layouts/_tableHeader.php');
 
                 ?>
-            <!-- End table  header -->
+                <!-- End table  header -->
 
-                
+
 
                 <div class="card-body">
                     <div class="table-responsive text-nowrap" "="">
@@ -50,28 +59,29 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Public</td>
-                                <td>public</td>
-                                <td>
-                                    <a href="http://192.168.172.61:8082/role/7/edit" class="btn btn-sm btn-secondary float-right">
-                                        <i class="bx bx-edit-alt me-1"></i>
-                                    </a>
-                                    <button data-href="http://192.168.172.61:8082/role/7" type="button"
-                                        class="btn btn-sm btn-danger float-right delete_check">
-                                        <i class="bx bx-trash-alt me-1"></i>
-                                    </button>
-                                </td>
 
-                            </tr>
+                            <?php
+
+                            foreach ($dataArray as $key => $row) {
+
+                                echo "<tr>";
+                                echo "<td>" . $row['id'] . "</td>";
+                                echo "<td>" . $row['name'] . "</td>";
+                                echo "<td>" . $row['slug'] . "</td>";
+                                echo "<td>";
+                                echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary float-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                echo ' <button data-href="' . $basePath . '/' . 'action/role_permission/role.php?deleteID=' . $row['id'] . '" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                echo "</tr>";
+                            }
+
+                            ?>
+
+
 
                         </tbody>
                         </table>
                     </div>
-                    <div class="d-flex">
 
-                    </div>
                 </div>
             </div>
         </div>
@@ -81,7 +91,42 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 </div>
 
+
 <!-- / Content -->
 
 <?php require_once('../../layouts/footer_info.php'); ?>
 <?php require_once('../../layouts/footer.php'); ?>
+<script>
+    $(document).on('click', '.delete_check', function() {
+        // var id = $(this).data('id');
+        let url =  $(this).data('href');
+        console.log(url);
+        // swal.fire({
+        //     title: 'Are you sure?',
+        //     text: "You won't be able to revert this!",
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, delete it!',
+        // }).then((result) => {
+        //     if (result.value) {
+        //         $.ajax({
+        //                 url: url,
+        //                 type: 'GET',
+        //                 // data: 'id=' + id,
+        //                 dataType: 'json'
+        //             })
+        //             .done(function(response) {
+        //                 swal.fire('Deleted!', response.message, response.status);
+        //                 fetch();
+        //             })
+        //             .fail(function() {
+        //                 swal.fire('Oops...', 'Something went wrong with ajax !', 'error');
+        //             });
+        //     }
+
+        // })
+
+    });
+</script>

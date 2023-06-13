@@ -6,7 +6,7 @@ session_regenerate_id(TRUE);
 require_once('../../inc/config.php');
 require_once('../../layouts/header.php');
 
-$v_page        = 'rmwl_leave';
+$v_page        = 'role';
 $v_active_open = 'active open';
 $v_active      = 'active';
 
@@ -39,8 +39,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="col-6">
 
                         <form  method="post"  action="<?php echo ($basePath.'/'.'action/role_permission/role.php'); ?>">
-                            <input type="hidden" name="formType" value="create">
-                            <!-- <input type="hidden" name="_token" value="<?  bin2hex(random_bytes(32)) ?>"> -->
+                            <input type="hidden" name="actionType" value="create">
+                         
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name</label>
                                 <input type="text" name="name" class="form-control" id="name" placeholder="Role Name.." >
