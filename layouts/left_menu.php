@@ -67,7 +67,7 @@
     // Admin Role
     if ($_SESSION['HR']['hr_role'] == 2) { ?>
       <li class="menu-item active">
-        <a href="dashboard_hr.php" class="menu-link">
+        <a href="<?php  echo $basePath ?>/dashboard_hr.php" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Dashboard</div>
         </a>
@@ -94,22 +94,22 @@
         <ul class="menu-sub">
 
           <li class="menu-item <?php if ($v_page == 'department') echo $v_active; ?>">
-            <a href="department.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/department.php" class="menu-link">
               <div data-i18n="Notifications">Department List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'designation') echo $v_active; ?>">
-            <a href="designation.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/designation.php" class="menu-link">
               <div data-i18n="Connections">Designation List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'branch') echo $v_active; ?>">
-            <a href="branch.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/branch.php" class="menu-link">
               <div data-i18n="Connections">Branch List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'hr_holiday') echo $v_active; ?>">
-            <a href="hr_holiday.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/hr_holiday.php" class="menu-link">
               <div data-i18n="Connections">Holiday List</div>
             </a>
           </li>
@@ -132,17 +132,17 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'user_create') echo $v_active; ?>">
-            <a href="user_create.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/user_create.php" class="menu-link">
               <div data-i18n="Account">User Create</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'user') echo $v_active; ?>">
-            <a href="user.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/user.php" class="menu-link">
               <div data-i18n="Account">User List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'user_transfer') echo $v_active; ?>">
-            <a href="user_transfer.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/user_transfer.php" class="menu-link">
               <div data-i18n="Account">User Transfer</div>
             </a>
           </li>
@@ -167,27 +167,27 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
-            <a href="leave_create.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_create.php" class="menu-link">
               <div data-i18n="Basic">Leave Create</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
-            <a href="leave.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave.php" class="menu-link">
               <div data-i18n="Basic">Leave List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
-            <a href="leave_approval_list.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_approval_list.php" class="menu-link">
               <div data-i18n="Basic">Leave Approval</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
-            <a href="leave_assign.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_assign.php" class="menu-link">
               <div data-i18n="Vertical Form">Leave Assign</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
-            <a href="leave_report.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_report.php" class="menu-link">
               <div data-i18n="Vertical Form">Advance Report</div>
             </a>
           </li>
@@ -211,27 +211,27 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
-            <a href="leave_create.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_create.php" class="menu-link">
               <div data-i18n="Basic">Leave Create</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
-            <a href="leave.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave.php" class="menu-link">
               <div data-i18n="Basic">Leave List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
-            <a href="leave_approval_list.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_approval_list.php" class="menu-link">
               <div data-i18n="Basic">Leave Approval</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
-            <a href="leave_assign.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_assign.php" class="menu-link">
               <div data-i18n="Vertical Form">Leave Assign</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
-            <a href="leave_report.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/leave_report.php" class="menu-link">
               <div data-i18n="Vertical Form">Advance Report</div>
             </a>
           </li>
@@ -253,12 +253,12 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'tour_create') echo $v_active; ?>">
-            <a href="tour_create.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/tour_create.php" class="menu-link">
               <div data-i18n="Basic">Tour Create</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'tour') echo $v_active; ?>">
-            <a href="tour.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/tour.php" class="menu-link">
               <div data-i18n="Basic">Tour List</div>
             </a>
           </li>
@@ -281,22 +281,22 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'hr_manual_attendance') echo $v_active; ?>">
-            <a href="hr_manual_attendance.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/hr_manual_attendance.php" class="menu-link">
               <div data-i18n="Error">Manual Entry</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'single_attendance') echo $v_active; ?>">
-            <a href="single_attendance.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/single_attendance.php" class="menu-link">
               <div data-i18n="Basic Inputs">Single Report</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'department_attendance') echo $v_active; ?>">
-            <a href="department_attendance.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/department_attendance.php" class="menu-link">
               <div data-i18n="Input groups">Advance Report</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'punch_data_syn') echo $v_active; ?>">
-            <a href="punch_data_syn.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/punch_data_syn.php" class="menu-link">
               <div data-i18n="Under Maintenance">Punch Data SYN</div>
             </a>
           </li>
@@ -317,12 +317,12 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'roster_create') echo $v_active; ?>">
-            <a href="roster_create.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/roster_create.php" class="menu-link">
               <div data-i18n="Error">Roster Create</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'roster') echo $v_active; ?>">
-            <a href="roster.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/roster.php" class="menu-link">
               <div data-i18n="Under Maintenance">Roster List</div>
             </a>
           </li>
@@ -349,17 +349,17 @@
         </a>
         <ul class="menu-sub">
           <li class="menu-item <?php if ($v_page == 'pms_hr') echo $v_active; ?>">
-            <a href="pms_hr.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/pms_hr.php" class="menu-link">
               <div data-i18n="Error">PMS List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-            <a href="pms_kpi_list.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/pms_kpi_list.php" class="menu-link">
               <div data-i18n="Error">KPI List</div>
             </a>
           </li>
           <li class="menu-item <?php if ($v_page == 'pmp_hr_approval_list') echo $v_active; ?>">
-            <a href="pmp_hr_approval_list.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/pmp_hr_approval_list.php" class="menu-link">
               <div data-i18n="Under Maintenance">PMS Approval List</div>
             </a>
           </li>
@@ -379,7 +379,7 @@
     }
     else if ($_SESSION['HR']['hr_role'] == 4) { ?>
         <li class="menu-item active">
-          <a href="dashboard_nu.php" class="menu-link">
+          <a href="<?php  echo $basePath ?>/dashboard_nu.php" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Dashboard</div>
           </a>
@@ -399,12 +399,12 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
-              <a href="leave_create_self.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/leave_create_self.php" class="menu-link">
                 <div data-i18n="Error">Leave Create</div>
               </a>
             </li>
             <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
-              <a href="leave_self.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/leave_self.php" class="menu-link">
                 <div data-i18n="Error">Leave Report</div>
               </a>
             </li>
@@ -424,12 +424,12 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
-              <a href="tour_create_self.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/tour_create_self.php" class="menu-link">
                 <div data-i18n="Error">Tour Create</div>
               </a>
             </li>
             <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
-              <a href="tour_self.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/tour_self.php" class="menu-link">
                 <div data-i18n="Error">Tour Report</div>
               </a>
             </li>
@@ -449,13 +449,13 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
-              <a href="lm_self_attendance.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/lm_self_attendance.php" class="menu-link">
                 <div data-i18n="Error">Self Attendance</div>
               </a>
             </li>
 
             <li class="menu-item <?php if ($v_page == 'self_outdoor_attn') echo $v_active; ?>">
-              <a href="self_outdoor_attn.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/self_outdoor_attn.php" class="menu-link">
                 <div data-i18n="Error">Outdoor Attendance</div>
               </a>
             </li>
@@ -478,17 +478,17 @@
           </a>
           <ul class="menu-sub">
             <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-              <a href="pms_list_self.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/pms_list_self.php" class="menu-link">
                 <div data-i18n="Error">PMS List</div>
               </a>
             </li>
             <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-              <a href="pms_kra_create.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/pms_kra_create.php" class="menu-link">
                 <div data-i18n="Error">KRA List</div>
               </a>
             </li>
             <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-              <a href="pms_kpi_list.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/pms_kpi_list.php" class="menu-link">
                 <div data-i18n="Under Maintenance">KPI List</div>
               </a>
             </li>
@@ -502,7 +502,7 @@
     }
     else if ($_SESSION['HR']['hr_role'] == 1) { ?>
           <li class="menu-item active">
-            <a href="dashboard_it.php" class="menu-link">
+            <a href="<?php  echo $basePath ?>/dashboard_it.php" class="menu-link">
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
@@ -527,7 +527,7 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
-                <a href="user_apps.php" class="menu-link">
+                <a href="<?php  echo $basePath ?>/user_apps.php" class="menu-link">
                   <div data-i18n="Error">Apps User</div>
                 </a>
               </li>
@@ -537,12 +537,12 @@
                 </a>
               </li>
               <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
-                <a href="user_web.php" class="menu-link">
+                <a href="<?php  echo $basePath ?>/user_web.php" class="menu-link">
                   <div data-i18n="Error">Web User</div>
                 </a>
               </li>
               <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
-                <a href="user_apps_access.php" class="menu-link">
+                <a href="<?php  echo $basePath ?>/user_apps_access.php" class="menu-link">
                   <div data-i18n="Error">User Apss Access</div>
                 </a>
               </li>
@@ -566,7 +566,7 @@
             </a>
             <ul class="menu-sub">
               <li class="menu-item <?php if ($v_page == 'hr_app_session') echo $v_active; ?>">
-                <a href="hr_app_session.php" class="menu-link">
+                <a href="<?php  echo $basePath ?>/hr_app_session.php" class="menu-link">
                   <div data-i18n="Error">App Session Data</div>
                 </a>
               </li>
@@ -577,7 +577,7 @@
     }
     else if ($_SESSION['HR']['hr_role'] == 5) { ?>
             <li class="menu-item active">
-              <a href="dashboard_rmwl.php" class="menu-link">
+              <a href="<?php  echo $basePath ?>/dashboard_rmwl.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
@@ -602,24 +602,24 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item <?php if ($v_page == 'new_emp_create_rmwl') echo $v_active; ?>">
-                  <a href="new_emp_create_rmwl.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/new_emp_create_rmwl.php" class="menu-link">
                     <div data-i18n="Error">New User Create</div>
                   </a>
                 </li>
                 <li class="menu-item <?php if ($v_page == 'user_list_rmwl') echo $v_active; ?>">
-                  <a href="user_list_rmwl.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/user_list_rmwl.php" class="menu-link">
                     <div data-i18n="Error">Apps User List</div>
                   </a>
                 </li>
 
                 <li class="menu-item <?php if ($v_page == 'hr_emp_transfer_rmwl') echo $v_active; ?>">
-                  <a href="hr_emp_transfer_rmwl.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/hr_emp_transfer_rmwl.php" class="menu-link">
                     <div data-i18n="Error">Workstation Change</div>
                   </a>
                 </li>
 
                 <li class="menu-item <?php if ($v_page == 'rmwl_manual_attendance') echo $v_active; ?>">
-                  <a href="rmwl_manual_attendance.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/rmwl_manual_attendance.php" class="menu-link">
                     <div data-i18n="Error">New Attendance</div>
                   </a>
                 </li>
@@ -644,12 +644,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item <?php if ($v_page == 'rmwl_leave') echo $v_active; ?>">
-                  <a href="rmwl_leave.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/rmwl_leave.php" class="menu-link">
                     <div data-i18n="Error">New Create</div>
                   </a>
                 </li>
                 <li class="menu-item <?php if ($v_page == 'leave_list_rmwl') echo $v_active; ?>">
-                  <a href="leave_list_rmwl.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/leave_list_rmwl.php" class="menu-link">
                     <div data-i18n="Error">Leave List</div>
                   </a>
                 </li>
@@ -677,17 +677,17 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item <?php if ($v_page == 'rmwl_single_attendance') echo $v_active; ?>">
-                  <a href="rmwl_single_attendance.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/rmwl_single_attendance.php" class="menu-link">
                     <div data-i18n="Error">Single Attendance</div>
                   </a>
                 </li>
                 <li class="menu-item <?php if ($v_page == 'attendance_report_rmwl') echo $v_active; ?>">
-                  <a href="attendance_report_rmwl.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/attendance_report_rmwl.php" class="menu-link">
                     <div data-i18n="Error">Advance Report</div>
                   </a>
                 </li>
                 <li class="menu-item <?php if ($v_page == 'rmwl_outdoor') echo $v_active; ?>">
-                  <a href="rmwl_outdoor.php" class="menu-link">
+                  <a href="<?php  echo $basePath ?>/rmwl_outdoor.php" class="menu-link">
                     <div data-i18n="Error">Outdoor Attendance</div>
                   </a>
                 </li>
@@ -704,7 +704,7 @@
     }
     else if ($_SESSION['HR']['hr_role'] == 3) { ?>
               <li class="menu-item active">
-                <a href="dashboard_lm.php" class="menu-link">
+                <a href="<?php  echo $basePath ?>/dashboard_lm.php" class="menu-link">
                   <i class="menu-icon tf-icons bx bx-home-circle"></i>
                   <div data-i18n="Analytics">Dashboard</div>
                 </a>
@@ -728,17 +728,17 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item <?php if ($v_page == 'leave_create_self') echo $v_active; ?>">
-                    <a href="leave_create_self.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/leave_create_self.php" class="menu-link">
                       <div data-i18n="Error">Leave Create</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'leave_self') echo $v_active; ?>">
-                    <a href="leave_self.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/leave_self.php" class="menu-link">
                       <div data-i18n="Error">Self Report</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'leave_concern') echo $v_active; ?>">
-                    <a href="leave_concern.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/leave_concern.php" class="menu-link">
                       <div data-i18n="Error">Concern Report</div>
                     </a>
                   </li>
@@ -762,17 +762,17 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item <?php if ($v_page == 'tour_create_self') echo $v_active; ?>">
-                    <a href="tour_create_self.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/tour_create_self.php" class="menu-link">
                       <div data-i18n="Error">Tour Create</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'tour_self') echo $v_active; ?>">
-                    <a href="tour_self.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/tour_self.php" class="menu-link">
                       <div data-i18n="Error">Self Report</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'tour_concern') echo $v_active; ?>">
-                    <a href="tour_concern.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/tour_concern.php" class="menu-link">
                       <div data-i18n="Error">Concern Report</div>
                     </a>
                   </li>
@@ -795,22 +795,22 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item <?php if ($v_page == 'lm_outdoor_approval') echo $v_active; ?>">
-                    <a href="lm_outdoor_approval.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/lm_outdoor_approval.php" class="menu-link">
                       <div data-i18n="Error">Attendance Approval</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'lm_leave_approval') echo $v_active; ?>">
-                    <a href="lm_leave_approval.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/lm_leave_approval.php" class="menu-link">
                       <div data-i18n="Error">Leave Approval</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'lm_tour_approval') echo $v_active; ?>">
-                    <a href="lm_tour_approval.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/lm_tour_approval.php" class="menu-link">
                       <div data-i18n="Error">Tour Approval</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'lm_pms_approval') echo $v_active; ?>">
-                    <a href="lm_pms_approval.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/lm_pms_approval.php" class="menu-link">
                       <div data-i18n="Error">PMS Approval</div>
                     </a>
                   </li>
@@ -833,17 +833,17 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item <?php if ($v_page == 'lm_self_attendance') echo $v_active; ?>">
-                    <a href="lm_self_attendance.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/lm_self_attendance.php" class="menu-link">
                       <div data-i18n="Error">Self Attendance</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'concern_attendance') echo $v_active; ?>">
-                    <a href="concern_attendance.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/concern_attendance.php" class="menu-link">
                       <div data-i18n="Error">Concern Attendance</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'concern_outdoor_attn') echo $v_active; ?>">
-                    <a href="concern_outdoor_attn.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/concern_outdoor_attn.php" class="menu-link">
                       <div data-i18n="Error">Outdoor Attendance</div>
                     </a>
                   </li>
@@ -861,17 +861,17 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-                    <a href="pms_list_self.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/pms_list_self.php" class="menu-link">
                       <div data-i18n="Error">PMS List</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-                    <a href="pms_kra_create.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/pms_kra_create.php" class="menu-link">
                       <div data-i18n="Error">KRA Create</div>
                     </a>
                   </li>
                   <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-                    <a href="pms_kpi_list.php" class="menu-link">
+                    <a href="<?php  echo $basePath ?>/pms_kpi_list.php" class="menu-link">
                       <div data-i18n="Under Maintenance">KPI List</div>
                     </a>
                   </li>
@@ -900,24 +900,24 @@
         <div data-i18n="Misc"> Role Permission </div>
       </a>
       <ul class="menu-sub">
-        <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
-          <a href="role_permission/role/index.php" class="menu-link">
+        <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
+          <a href="<?php  echo $basePath ?>/role_permission/role/index.php" class="menu-link">
             <div data-i18n="Error">Role List</div>
           </a>
         </li>
-        <li class="menu-item <?php if ($v_page == 'user_web_create') echo $v_active; ?>">
-          <a href="user_web_create.php" class="menu-link">
+        <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
+          <a href="<?php  echo $basePath ?>/role_permission/permission/index.php" class="menu-link">
             <div data-i18n="Error">Permssion List</div>
           </a>
         </li>
-        <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
-          <a href="user_web.php" class="menu-link">
+        <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
+          <a href="<?php  echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
             <div data-i18n="Error">Role & Permission </div>
           </a>
         </li>
-        <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
-          <a href="user_apps_access.php" class="menu-link">
-            <div data-i18n="Error">User Apss Access</div>
+        <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
+          <a href="<?php  echo $basePath ?>/role_permission/user_role/index.php" class="menu-link">
+            <div data-i18n="Error">User Role</div>
           </a>
         </li>
 
