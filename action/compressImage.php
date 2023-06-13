@@ -19,5 +19,5 @@ function compressImage($ext, $uploadedfile, $path, $actual_image_name, $newwidth
     $filename = $path . $newwidth . '_' . $actual_image_name; //PixelSize_TimeStamp.jpg
     imagejpeg($tmp, $filename, 100);
     imagedestroy($tmp);
-    return $filename;
+    return str_replace('../','',$filename);
 }

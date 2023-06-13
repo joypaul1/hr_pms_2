@@ -26,14 +26,15 @@
 	// require_once('inc/config.php');
 	require_once('../../layouts/header.php'); 
 	
-	$v_page='leave_list_rmwl';
-	$v_active_open='active open';
-	$v_active='active';
+	// $v_page='role';
+	// $v_active_open='active open';
+	// $v_active='active';
 	
 	
 	require_once('../../layouts/left_menu.php'); 
 	require_once('../../layouts/top_menu.php'); 
-	require_once('../../inc/connoracle.php');
+	require_once('../../layouts/footer.php'); 
+	
 	
 	
 	

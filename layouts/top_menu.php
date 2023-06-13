@@ -54,7 +54,7 @@
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
               <img
-                src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? 'uploads/' . $_SESSION['HR']['emp_image_hr'] : "assets/img/avatars/1.png"; ?>"
+                src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ?($baseUrl.'/'.'rHR/'.$_SESSION['HR']['emp_image_hr']) : "assets/img/avatars/1.png"; ?>"
                 alt class="w-px-40 h-auto rounded-circle" />
             </div>
           </a>
@@ -65,7 +65,7 @@
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
                       <img
-                        src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? 'uploads/' . $_SESSION['HR']['emp_image_hr'] : "assets/img/avatars/1.png"; ?>"
+                        src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ?($baseUrl.'/'.'rHR/'.$_SESSION['HR']['emp_image_hr']) : "assets/img/avatars/1.png"; ?>"
                         alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </div>

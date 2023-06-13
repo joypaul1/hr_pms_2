@@ -882,6 +882,49 @@
       <?php
     }
     ?>
+    <li class="menu-header small text-uppercase">
+      <span class="menu-header-text"><b style="color:red;">Multiple Role Permission</b></span>
+    </li>
+    <li class="menu-item 
+        <?php
+        if (
+          $v_page == 'role'
+          || $v_page == 'permission'
+          || $v_page == 'role_permission'
+          || $v_page == 'user_role'
+        )
+          echo $v_active_open;
+        ?>">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-collection"></i>
+        <div data-i18n="Misc"> Role Permission </div>
+      </a>
+      <ul class="menu-sub">
+        <li class="menu-item <?php if ($v_page == 'user_apps') echo $v_active; ?>">
+          <a href="role_permission/role/index.php" class="menu-link">
+            <div data-i18n="Error">Role List</div>
+          </a>
+        </li>
+        <li class="menu-item <?php if ($v_page == 'user_web_create') echo $v_active; ?>">
+          <a href="user_web_create.php" class="menu-link">
+            <div data-i18n="Error">Permssion List</div>
+          </a>
+        </li>
+        <li class="menu-item <?php if ($v_page == 'user_web') echo $v_active; ?>">
+          <a href="user_web.php" class="menu-link">
+            <div data-i18n="Error">Role & Permission </div>
+          </a>
+        </li>
+        <li class="menu-item <?php if ($v_page == 'user_apps_access') echo $v_active; ?>">
+          <a href="user_apps_access.php" class="menu-link">
+            <div data-i18n="Error">User Apss Access</div>
+          </a>
+        </li>
+
+
+
+      </ul>
+    </li>
   </ul>
 </aside>
 <!-- / Menu -->
