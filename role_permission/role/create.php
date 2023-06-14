@@ -43,8 +43,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                          
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name</label>
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Role Name.." >
-                                <small class="text-danger"></small>
+                                <input type="text" name="name" class="form-control" id="name" required placeholder="Role Name.." >
+                              
                             </div>
 
                             <div class="b-block text-right">

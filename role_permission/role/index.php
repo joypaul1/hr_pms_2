@@ -69,14 +69,12 @@ mysqli_close($conn_hr);
                                 echo "<td>" . $row['name'] . "</td>";
                                 echo "<td>" . $row['slug'] . "</td>";
                                 echo "<td>";
-                                echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary float-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                echo ' <button data-id="'. $row['id'].'" data-href="' .$basePath.'/' . 'action/role_permission/role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                 echo "</tr>";
                             }
 
                             ?>
-
-
 
                         </tbody>
                         </table>
@@ -99,7 +97,7 @@ mysqli_close($conn_hr);
 <script>
     $(document).on('click', '.delete_check', function() {
         var id = $(this).data('id');
-        let url =  $(this).data('href');
+        let url = $(this).data('href');
         console.log(url);
         swal.fire({
             title: 'Are you sure?',
@@ -111,20 +109,29 @@ mysqli_close($conn_hr);
             confirmButtonText: 'Yes, delete it!',
         }).then((result) => {
             if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
                 $.ajax({
                         url: url,
-                        type: 'POST',
-                        data: {deleteID:id},
+                        type: 'GET',
+                        data: {
+                            deleteID: id
+                        },
                         dataType: 'json'
                     })
                     .done(function(response) {
                         console.log(response);
                         swal.fire('Deleted!', response.message, response.status);
-                        fetch();
+                        location.reload();// Reload the page
                     })
                     .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
+
             }
 
         })

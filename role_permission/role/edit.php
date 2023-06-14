@@ -97,9 +97,9 @@ else {
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name</label>
                                 <input type="text" name="name" class="form-control" 
-                                value="<?php echo  $data['name'] ?>" 
+                                value="<?php echo  $data['name'] ?>" required
                                 id="name" placeholder="Role Name..">
-                                <small class="text-danger"></small>
+                                
                             </div>
 
                             <div class="b-block text-right">
