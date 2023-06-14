@@ -29,7 +29,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <?php
                 $leftSideName  = 'Role Create';
                 $rightSideName = 'Role List';
-                $routePath     = '/role_permission/role/index.php';
+                $routePath     = 'role_permission/role/index.php';
                 include('../../layouts/_tableHeader.php');
 
                 ?>

@@ -82,7 +82,7 @@ else {
                 <?php
                 $leftSideName  = 'Role Edit';
                 $rightSideName = 'Role List';
-                $routePath     = '/role_permission/role/index.php';
+                $routePath     = 'role_permission/role/index.php';
                 include('../../layouts/_tableHeader.php');
                 
                 ?>
