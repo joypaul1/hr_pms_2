@@ -10,16 +10,16 @@ $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
 
-require_once('../../layouts/left_menu.php');
-require_once('../../layouts/top_menu.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+// require_once('../../layouts/left_menu.php');
+// require_once('../../layouts/top_menu.php');
+
 
 $data = [];
-
+echo 'sdfsd';die();
 // Check existence of id parameter before processing further
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
 
-    $sql = "SELECT * FROM tbl_roles_permissions WHERE id = ?"; // Prepare a select statement
+    $sql = "SELECT * FROM tbl_roles_permissions WHERE role_id = ?"; // Prepare a select statement
     if ($stmt = mysqli_prepare($conn_hr, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $param_id); // Bind variables to the prepared statement as parameters
         // Set parameters

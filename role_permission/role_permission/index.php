@@ -8,8 +8,8 @@ $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
 require_once('../../inc/config.php'); // Include config file
-require_once('../../layouts/left_menu.php');
-require_once('../../layouts/top_menu.php');
+// require_once('../../layouts/left_menu.php');
+// require_once('../../layouts/top_menu.php');
 
 
 
@@ -24,14 +24,31 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
-$result     = mysqli_query($conn_hr, $sql);
+// $sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
+// $result     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
+// while ($row = mysqli_fetch_array($result)) {
+//     $dataArray[] = $row; // Append the row data to the array
+// }
+
+$sql  =  "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
+FROM tbl_roles AS r
+JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
+JOIN tbl_permissions AS p ON rp.permission_id = p.id
+GROUP BY role_id";
+
+$result     = mysqli_query($conn_hr, $sql);
 while ($row = mysqli_fetch_array($result)) {
     $dataArray[] = $row; // Append the row data to the array
+   
 }
 
-//;
+// echo "</br>";
+  
+// print_r( $dataArray[0]['permissions']);
+// echo "</br>";
+
+// die();
 
 ?>
 
@@ -72,14 +89,14 @@ while ($row = mysqli_fetch_array($result)) {
                                 <?php
 
                                 foreach ($dataArray as $key => $row) {
-
+                                
                                     echo "<tr>";
-                                    echo "<td>" . $row['id'] . "</td>";
-                                    echo "<td>" . $row['role_id'] . "</td>";
-                                    echo "<td>" . $row['permission_id'] . "</td>";
+                                    echo "<td>" . $key+1 . "</td>";
+                                    echo "<td>" . $row['role_name'] . "</td>";
+                                    echo "<td>" . $row['permissions'] . "</td>";
                                     echo "<td>";
-                                    echo '<a href="edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                     echo "</tr>";
                                 }
 
