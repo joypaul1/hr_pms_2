@@ -15,7 +15,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 // Initialize an empty array
 $dataArray = array();
-$num_per_page = 05;
+$tableName = 'tbl_permissions';
+$num_per_page = 10;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
@@ -23,14 +24,13 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-$sql       = "SELECT * FROM tbl_permissions limit $start_from,$num_per_page"; //  select query execution
-$result    = mysqli_query($conn_hr, $sql);
+$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
+$result     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 while ($row = mysqli_fetch_array($result)) {
     $dataArray[] = $row; // Append the row data to the array
 }
 
-mysqli_close($conn_hr);
 
 ?>
 
@@ -88,23 +88,13 @@ mysqli_close($conn_hr);
 
                 </div>
                 <div class="card-title">
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item active">
-                                <span class="page-link">
-                                    2
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li>
-                        </ul>
-                    </nav>
+
+                    <?php
+                    require_once('../../helper/pagination.php');
+                    echo generatePagination($tableName, $page, $num_per_page);
+                  
+                    mysqli_close($conn_hr)
+                    ?>
                 </div>
             </div>
         </div>

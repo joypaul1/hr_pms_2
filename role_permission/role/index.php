@@ -15,8 +15,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 // Initialize an empty array
 $dataArray = array();
-
-$num_per_page = 01;
+$tableName = 'tbl_roles';
+$num_per_page = 10;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
@@ -24,8 +24,8 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-$sql       = "SELECT * FROM tbl_roles limit $start_from,$num_per_page"; //  select query execution
-$result    = mysqli_query($conn_hr, $sql);
+$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
+$result     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 while ($row = mysqli_fetch_array($result)) {
     $dataArray[] = $row; // Append the row data to the array
@@ -91,50 +91,16 @@ while ($row = mysqli_fetch_array($result)) {
 
                 </div>
                 <div class="card-title">
-                    <nav aria-label="...">
-                        <ul class="pagination justify-content-center">
+                   
 
-                            <?php
-                            $sql       = "SELECT * FROM tbl_roles"; //  select query execution
-                            $result    = mysqli_query($conn_hr, $sql);
-                            $total_record = mysqli_num_rows($result);
-                            $total_page = ceil($total_record / $num_per_page);
-                           
+                    <?php
+                    require_once('../../helper/pagination.php');
+                    echo generatePagination($tableName, $page, $num_per_page);
+                   
+                    mysqli_close($conn_hr)
+                    ?>
 
-                            if ($page > 1) {
-                                echo " <li class='page-item'><a href='".$basePath . '/' . $routePath."?page=" . ($page - 1) . "' class='page-link'>Previous</a></li>";
-                                // echo "<a  class='btn btn-danger'>Previous</a>";
-                            }
-
-                            // echo($total_page);
-                            for ($i = 1; $i < $total_page; $i++) {
-                                echo (" <li class='page-item active'>
-                                        <a href='index.php?page=" . $i . "' class='page-link'>
-                                        $i
-                                        </a>
-                                    </li>");
-                            }
-
-                            if ($i > $page) {
-                                echo " <li class='page-item'><a href='".$basePath . '/' . $routePath."?page=" . ($page + 1) . "' class='page-link'>Next</a></li>";
-                            }
-                            mysqli_close($conn_hr)
-                            ?>
-                            <!-- <li class="page-item disabled">
-                                <span class="page-link">Previous</span>
-                            </li> -->
-
-                            <!-- <li class='page-item active'>
-                                <span class='page-link'>
-                                    2
-                                </span>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">Next</a>
-                            </li> -->
-                        </ul>
-                    </nav>
+                       
 
                 </div>
             </div>
