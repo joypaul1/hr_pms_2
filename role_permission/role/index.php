@@ -11,7 +11,7 @@ require_once('../../inc/config.php'); // Include config file
 require_once('../../layouts/left_menu.php');
 require_once('../../layouts/top_menu.php');
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+
 
 // Initialize an empty array
 $dataArray = array();
@@ -117,10 +117,11 @@ while ($row = mysqli_fetch_array($result)) {
 <?php require_once('../../layouts/footer_info.php'); ?>
 <?php require_once('../../layouts/footer.php'); ?>
 <script>
+    //delete data processing
+
     $(document).on('click', '.delete_check', function() {
         var id = $(this).data('id');
         let url = $(this).data('href');
-        console.log(url);
         swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
