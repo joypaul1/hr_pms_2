@@ -8,13 +8,14 @@ $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
 require_once('../../inc/config.php'); // Include config file
-// require_once('../../layouts/left_menu.php');
-// require_once('../../layouts/top_menu.php');
+require_once('../../layouts/left_menu.php');
+require_once('../../layouts/top_menu.php');
 
 
 
 // Initialize an empty array
 $dataArray = array();
+$roleWisepermission = array();
 $tableName = 'tbl_roles_permissions';
 $num_per_page = 10;
 if (isset($_GET["page"])) {
@@ -24,34 +25,27 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
-$result     = mysqli_query($conn_hr, $sql);
-// Loop through the fetched rows
-while ($row = mysqli_fetch_array($result)) {
-    $dataArray[] = $row; // Append the row data to the array
-}
+// $sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
 
-$sql  =  "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
+
+$sql  ="SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
 FROM tbl_roles AS r
 JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
 JOIN tbl_permissions AS p ON rp.permission_id = p.id
 GROUP BY role_id";
 
+
 $result     = mysqli_query($conn_hr, $sql);
 if($result){
     while ($row = mysqli_fetch_array($result)) {
-        $dataArray[] = $row; // Append the row data to the array
-       
+        $roleWisepermission[] = array(
+            'role_id' => $row['role_id'],
+            'role_name' => $row['role_name'],
+            'permissions' => $row['permissions']
+        );
     }
 }
 
-
-// echo "</br>";
-  
-// print_r( $dataArray[0]['permissions']);
-// echo "</br>";
-
-// die();
 
 ?>
 
@@ -91,8 +85,9 @@ if($result){
 
                                 <?php
 
-                                foreach ($dataArray as $key => $row) {
-                                
+                                foreach ($roleWisepermission as $key => $row) {
+                                 
+
                                     echo "<tr>";
                                     echo "<td>" . $key+1 . "</td>";
                                     echo "<td>" . $row['role_name'] . "</td>";

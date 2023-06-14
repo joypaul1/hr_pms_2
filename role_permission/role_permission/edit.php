@@ -18,16 +18,19 @@ $roleWisepermission = [];
 $permissionArray = [];
 
 $sql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
-$result     = mysqli_query($conn_hr, $sql);
+$perResult     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
-// while ($row = mysqli_fetch_array($result)) {
-//     $permissionArray[] = $row; // Append the row data to the array
-// }
-foreach(mysqli_fetch_assoc($result) as $key=>$data){
-    $permissionArray[] = $data;
+if ($perResult) {
+    while ($row = mysqli_fetch_array($perResult)) {
+        $permissionArray[] = array(
+            'id' => $row['id'],
+            'name' => $row['name']
+        );
+    }
 }
-print_r($permissionArray);
-die();
+
+// print_r(array_column($permissionArray, 'name'));
+// die();
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
@@ -47,10 +50,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
             $result = mysqli_stmt_get_result($stmt);
             if (mysqli_num_rows($result)) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $roleWisepermission[] = $row; // Append the row data to the array
+                    // $roleWisepermission[] = $row; // Append the row data to the array
+                    // print_r($row);
+                    // die();
+                    $roleWisepermission[] = array(
+                        'role_name' => $row['role_name'],
+                        'role_id' => $row['role_id'],
+                        'permission_id' => $row['permission_id']
+                    );
                 }
-                print_r($roleWisepermission);
-die();
+                // print_r($roleWisepermission);
+
             } else {
                 // URL doesn't contain valid id parameter. Redirect to role_permission index page
                 $message                  = [
@@ -99,8 +109,8 @@ die();
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName  = 'Role Edit';
-                $rightSideName = 'Role List';
+                $leftSideName  = 'Role & Permission Edit';
+                $rightSideName = 'Role & Permission List';
                 $routePath     = 'role_permission/role_permission/index.php';
                 include('../../layouts/_tableHeader.php');
 
@@ -117,8 +127,8 @@ die();
                                     <div class="col-md-3">
                                         <label for="name" class="col-12 col-form-label text-md-center">Role</label>
                                         <hr>
-                                        <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($dataArray[0]['role_name']) ?>
-                                        <input type="hidden" name="role_id" value="<?php print_r($dataArray[0]['role_id']) ?>">
+                                        <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleWisepermission[0]['role_name']) ?>
+                                        <input type="hidden" name="role_id" value="<?php print_r($roleWisepermission[0]['role_id']) ?>">
 
                                     </div>
                                     <div class="col-md-9">
@@ -127,13 +137,15 @@ die();
                                         <hr>
                                         <?php
 
-                                        // foreach ($dataArray as $key => $row) {
-                                        //     echo ('<div class="form-ch k-inline col-3">
-                                        //      <input class="form-check-input" type="checkbox" name="permission_id[]"
-                                        //         checked="" id="checkbox1" value="' . $row['permission_id'] . '">
-                                        //         <label class="form-check-label" for="checkbox1">' . $row['permission_name'] . '</label>
-                                        //     </div>');
-                                        // }
+                                            foreach ($permissionArray as $key => $row) {
+                                                echo '<div class="form-check-inline col-4">
+                                                        <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
+                                                        (in_array($row["id"], array_column($permissionArray, 'id')) ? 'checked' : '') . '
+                                                        id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
+                                                        <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
+                                                    </div>';
+                                            }
+
 
                                         ?>
                                     </div>
