@@ -10,16 +10,33 @@ $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
 
-// require_once('../../layouts/left_menu.php');
-// require_once('../../layouts/top_menu.php');
+require_once('../../layouts/left_menu.php');
+require_once('../../layouts/top_menu.php');
 
 
-$data = [];
-echo 'sdfsd';die();
-// Check existence of id parameter before processing further
+$roleWisepermission = [];
+$permissionArray = [];
+
+$sql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
+$result     = mysqli_query($conn_hr, $sql);
+// Loop through the fetched rows
+// while ($row = mysqli_fetch_array($result)) {
+//     $permissionArray[] = $row; // Append the row data to the array
+// }
+foreach(mysqli_fetch_assoc($result) as $key=>$data){
+    $permissionArray[] = $data;
+}
+print_r($permissionArray);
+die();
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
 
-    $sql = "SELECT * FROM tbl_roles_permissions WHERE role_id = ?"; // Prepare a select statement
+    $sql = "SELECT r.id AS role_id, r.name AS role_name, p.id AS permission_id
+    FROM tbl_roles AS r
+    JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
+    JOIN tbl_permissions AS p ON rp.permission_id = p.id
+    WHERE r.id =?"; // Prepare a select statement
     if ($stmt = mysqli_prepare($conn_hr, $sql)) {
         mysqli_stmt_bind_param($stmt, "i", $param_id); // Bind variables to the prepared statement as parameters
         // Set parameters
@@ -28,26 +45,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result) == 1) {
-                $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            }else {
+            if (mysqli_num_rows($result)) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $roleWisepermission[] = $row; // Append the row data to the array
+                }
+                print_r($roleWisepermission);
+die();
+            } else {
                 // URL doesn't contain valid id parameter. Redirect to role_permission index page
                 $message                  = [
                     'text'   => "URL doesn't contain valid id parameter.",
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-              
+
                 header("location:" . $basePath . "/role_permission/role_permission/index.php");
                 exit();
             }
-        }else {
+        } else {
             $message                  = [
                 'text'   => "Oops! Something went wrong. Please try again later.",
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            
+
             header("location:" . $basePath . "/role_permission/role_permission/index.php");
         }
         mysqli_stmt_close($stmt);
@@ -55,8 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
         // Close connection
         mysqli_close($conn_hr);
     }
-}
-else {
+} else {
     $message                  = [
         'text'   => "Oops! Something went wrong. Please try again later.",
         'status' => 'false',
@@ -66,8 +86,7 @@ else {
     header("location:" . $basePath . "/role_permission/role_permission/index.php");
     exit();
 }
-// print_r($data['name']);
-// die();
+
 ?>
 
 <!-- / Content -->
@@ -84,31 +103,53 @@ else {
                 $rightSideName = 'Role List';
                 $routePath     = 'role_permission/role_permission/index.php';
                 include('../../layouts/_tableHeader.php');
-                
+
                 ?>
 
                 <!-- End table  header -->
                 <div class="card-body">
-                    <div class="col-6">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <form method="POST" action="http://192.168.172.61:8082/role-permission/1">
+                                <input type="hidden" name="_token" value="zRGsb4gttAKAMJaAdMJyNt1dioO3RodgUZUsCKUy"> <input type="hidden" name="_method" value="PUT">
+                                <div class="row mb-3">
 
-                        <form method="post" action="<?php echo ($basePath .'/action/role_permission/role_permission.php?editID='.trim($_GET["id"])); ?>">
-                            <input type="hidden" name="actionType" value="update">
-                            <input type="hidden" name="editId" value="<?php echo  $data['id'] ?>" >
-                            <div class="mb-3">
-                                <label class="form-label" for="name"> Name</label>
-                                <input type="text" name="name" class="form-control" 
-                                value="<?php echo  $data['name'] ?>" required
-                                id="name" placeholder="Role Name..">
-                                
-                            </div>
+                                    <div class="col-md-3">
+                                        <label for="name" class="col-12 col-form-label text-md-center">Role</label>
+                                        <hr>
+                                        <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($dataArray[0]['role_name']) ?>
+                                        <input type="hidden" name="role_id" value="<?php print_r($dataArray[0]['role_id']) ?>">
 
-                            <div class="b-block text-right">
+                                    </div>
+                                    <div class="col-md-9">
+                                        <label for="name" class="col-12 col-form-label text-md-center">All
+                                            Permission</label>
+                                        <hr>
+                                        <?php
 
-                                <input type="submit" value="update" name="submit" class="btn btn-primary">
+                                        // foreach ($dataArray as $key => $row) {
+                                        //     echo ('<div class="form-ch k-inline col-3">
+                                        //      <input class="form-check-input" type="checkbox" name="permission_id[]"
+                                        //         checked="" id="checkbox1" value="' . $row['permission_id'] . '">
+                                        //         <label class="form-check-label" for="checkbox1">' . $row['permission_name'] . '</label>
+                                        //     </div>');
+                                        // }
 
-                            </div>
-                        </form>
+                                        ?>
+                                    </div>
+                                </div>
 
+
+                                <div class="row mb-0">
+                                    <div class="d-block text-center">
+                                        <button type="submit" class="btn btn-primary">
+                                            Submit
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

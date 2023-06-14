@@ -24,12 +24,12 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-// $sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
-// $result     = mysqli_query($conn_hr, $sql);
+$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
+$result     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
-// while ($row = mysqli_fetch_array($result)) {
-//     $dataArray[] = $row; // Append the row data to the array
-// }
+while ($row = mysqli_fetch_array($result)) {
+    $dataArray[] = $row; // Append the row data to the array
+}
 
 $sql  =  "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
 FROM tbl_roles AS r
@@ -38,10 +38,13 @@ JOIN tbl_permissions AS p ON rp.permission_id = p.id
 GROUP BY role_id";
 
 $result     = mysqli_query($conn_hr, $sql);
-while ($row = mysqli_fetch_array($result)) {
-    $dataArray[] = $row; // Append the row data to the array
-   
+if($result){
+    while ($row = mysqli_fetch_array($result)) {
+        $dataArray[] = $row; // Append the row data to the array
+       
+    }
 }
+
 
 // echo "</br>";
   
