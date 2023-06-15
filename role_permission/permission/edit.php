@@ -1,20 +1,13 @@
 <?php
-session_start();
-session_regenerate_id(TRUE);
-
-
-require_once('../../inc/config.php');
-require_once('../../layouts/header.php');
+require_once('../../helper/com_conn.php');
 
 $v_page        = 'permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
 
-require_once('../../layouts/left_menu.php');
-require_once('../../layouts/top_menu.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 $data = [];
+
 
 // Check existence of id parameter before processing further
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {

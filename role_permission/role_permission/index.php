@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../helper/com_con.php');
+require_once('../../helper/com_conn.php');
 
 $v_page        = 'role_permission';
 $v_active_open = 'active open';
