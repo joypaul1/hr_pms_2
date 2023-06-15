@@ -125,7 +125,7 @@ if (($_GET["deleteID"])) {
         if (mysqli_stmt_execute($stmt)) {
 
             $response['status']  = 'success';
-            $response['message'] = 'Deleted Successfully1111 ...';
+            $response['message'] = 'Deleted Successfully ...';
             echo json_encode($response);
             exit();
         } else {

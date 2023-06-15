@@ -1,9 +1,10 @@
 <?php
-require_once('../../helper/com_conn.php');
-
 $v_page        = 'permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
+
+require_once('../../helper/com_conn.php');
+
 
 
 $data = [];

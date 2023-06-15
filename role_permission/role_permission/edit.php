@@ -1,13 +1,14 @@
 <?php
-require_once('../../helper/com_conn.php');
-
-
 $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
+
+require_once('../../helper/com_conn.php');
+
+
+
 $roleWisepermission = [];
 $permissionArray = [];
-
 $sql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
 $perResult     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
@@ -19,7 +20,6 @@ if ($perResult) {
         );
     }
 }
-
 
 
 
@@ -105,51 +105,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
                 <!-- End table  header -->
                 <div class="card-body">
-                    <div class="card-body">
-                        <div class="col-12">
-                            <form method="POST" action="http://192.168.172.61:8082/role-permission/1">
-                                <input type="hidden" name="_token" value="zRGsb4gttAKAMJaAdMJyNt1dioO3RodgUZUsCKUy"> <input type="hidden" name="_method" value="PUT">
-                                <div class="row mb-3">
 
-                                    <div class="col-md-3">
-                                        <label for="name" class="col-12 col-form-label text-md-center">Role</label>
-                                        <hr>
-                                        <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleWisepermission[0]['role_name']) ?>
-                                        <input type="hidden" name="role_id" value="<?php print_r($roleWisepermission[0]['role_id']) ?>">
+                    <div class="col-12">
+                        <form method="POST" action="<?php echo ($basePath . '/action/role_permission/role_permission.php?editID=' . trim($_GET["id"])); ?>">
+                            <input type="hidden" name="actionType" value="update">
+                            <input type="hidden" name="editId" value="<?php echo  $data['id'] ?>">
+                            <div class="row mb-3">
 
-                                    </div>
-                                    <div class="col-md-9">
-                                        <label for="name" class="col-12 col-form-label text-md-center">All
-                                            Permission</label>
-                                        <hr>
-                                        <?php
+                                <div class="col-md-3">
+                                    <label for="name" class="col-12 col-form-label text-md-center">Role</label>
+                                    <hr>
+                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleWisepermission[0]['role_name']) ?>
 
-                                        foreach ($permissionArray as $key => $row) {
-                                            echo '<div class="form-check-inline col-4">
+
+                                </div>
+                                <div class="col-md-9">
+                                    <label for="name" class="col-12 col-form-label text-md-center">All
+                                        Permission</label>
+                                    <hr>
+                                    <?php
+
+                                    foreach ($permissionArray as $key => $row) {
+                                        echo '<div class="form-check-inline col-4">
                                                     <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
-                                                    (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                            (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
                                                     id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
                                                     <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
                                                 </div>';
-                                        }
+                                    }
 
 
-                                        ?>
-                                    </div>
+                                    ?>
                                 </div>
+                            </div>
 
 
-                                <div class="row mb-0">
-                                    <div class="d-block text-center">
-                                        <button type="submit" class="btn btn-primary">
-                                            Submit
-                                        </button>
+                            <div class="row mb-0">
+                                <div class="d-block text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        Submit
+                                    </button>
 
-                                    </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
+
                 </div>
             </div>
         </div>

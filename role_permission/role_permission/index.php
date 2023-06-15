@@ -1,10 +1,11 @@
 <?php
-
-require_once('../../helper/com_conn.php');
-
 $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
+
+require_once('../../helper/com_conn.php');
+
+
 
 
 // Initialize an empty array
@@ -103,8 +104,8 @@ if($result){
 
 
                     <?php
-                    require_once('../../helper/pagination.php');
-                    echo generatePagination($tableName, $page, $num_per_page);
+                    // require_once('../../helper/pagination.php');
+                    // echo generatePagination($tableName, $page, $num_per_page);
 
                     mysqli_close($conn_hr)
                     ?>
