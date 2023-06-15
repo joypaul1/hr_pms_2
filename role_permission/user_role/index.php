@@ -86,8 +86,8 @@ if ($result) {
                                     echo "<td>" . $row['u_name'] . "</td>";
                                     echo "<td>" . $row['roles'] . "</td>";
                                     echo "<td>";
-                                    echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['u_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    echo ' <button data-id="' . $row['u_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    echo '<a href="' . $basePath . '/role_permission/user_role/edit.php?id=' . $row['u_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    echo ' <button data-id="' . $row['u_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/user_role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                     echo "</tr>";
                                 }
 

@@ -45,8 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                         'role_id' => $row['role_id'],
                         'permission_id' => $row['permission_id']
                     );
+                   
                 }
-                // print_r($roleWisepermission);
 
             } else {
                 // URL doesn't contain valid id parameter. Redirect to role_permission index page
