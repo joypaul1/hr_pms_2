@@ -1,19 +1,10 @@
 <?php
-session_start();
-session_regenerate_id(TRUE);
+require_once('../../helper/com_con.php');
 
-
-require_once('../../inc/config.php');
-require_once('../../layouts/header.php');
 
 $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
-
-require_once('../../layouts/left_menu.php');
-require_once('../../layouts/top_menu.php');
-
-
 $roleWisepermission = [];
 $permissionArray = [];
 
@@ -29,8 +20,7 @@ if ($perResult) {
     }
 }
 
-// print_r(array_column($permissionArray, 'name'));
-// die();
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
@@ -50,9 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
             $result = mysqli_stmt_get_result($stmt);
             if (mysqli_num_rows($result)) {
                 while ($row = mysqli_fetch_assoc($result)) {
-                    // $roleWisepermission[] = $row; // Append the row data to the array
-                    // print_r($row);
-                    // die();
                     $roleWisepermission[] = array(
                         'role_name' => $row['role_name'],
                         'role_id' => $row['role_id'],
@@ -137,14 +124,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                                         <hr>
                                         <?php
 
-                                            foreach ($permissionArray as $key => $row) {
-                                                echo '<div class="form-check-inline col-4">
-                                                        <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
-                                                        (in_array($row["id"], array_column($permissionArray, 'id')) ? 'checked' : '') . '
-                                                        id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
-                                                        <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
-                                                    </div>';
-                                            }
+                                        foreach ($permissionArray as $key => $row) {
+                                            echo '<div class="form-check-inline col-4">
+                                                    <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
+                                                    (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                                    id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
+                                                    <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
+                                                </div>';
+                                        }
 
 
                                         ?>

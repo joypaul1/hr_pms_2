@@ -1,16 +1,10 @@
 <?php
-session_start();
-session_regenerate_id(TRUE);
 
-require_once('../../layouts/header.php');
+require_once('../../helper/com_con.php');
 
 $v_page        = 'role_permission';
 $v_active_open = 'active open';
 $v_active      = 'active';
-require_once('../../inc/config.php'); // Include config file
-require_once('../../layouts/left_menu.php');
-require_once('../../layouts/top_menu.php');
-
 
 
 // Initialize an empty array
