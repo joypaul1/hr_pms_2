@@ -36,7 +36,7 @@ oci_execute($strSQL);
 
 ?>
 <?php
-//  print_r(checkPermission('leave-create')) ; die();
+//  echo (checkPermission('leave-create')) ; die();
  ?>
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">

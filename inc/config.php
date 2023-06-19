@@ -23,14 +23,48 @@ function getUserAccessRoleByID($id)
 
 function checkPermission($permissionSlug)
 {
-
+	global $conn_hr;
 	$isPermission = false;
 	$permissionName = getUserWisePermissionName();
-	$allperSlug = array_column($permissionName, 'slug');
-	if (in_array($permissionSlug, $allperSlug)) {
-		$isPermission = true;
+
+	if (count($permissionName) > 0) {
+		$allperSlug = array_column($permissionName, 'slug');
+		if (in_array($permissionSlug, $allperSlug)) {
+			$isPermission = true;
+		}
+		return $isPermission;
+	} else {
+		$permissionArray = [];
+		$permissionSlugData = [];
+		
+		$rolesql        = "SELECT * FROM tbl_roles_permissions  Where role_id =7"; //  select query execution
+		$result     = mysqli_query($conn_hr, $rolesql);
+		if ($result) {
+			while ($row = mysqli_fetch_array($result)) {
+				$permissionArray[] = array(
+					'permission_id' => $row['permission_id']
+				);
+			}
+		}
+		$permissionArray = array_column($permissionArray, 'permission_id');
+		foreach ($permissionArray as $key => $value) {
+			$sql        = "SELECT * FROM tbl_permissions  Where id=" . $value; //  select query execution
+			$perResult     = mysqli_query($conn_hr, $sql);
+			if ($perResult) {
+				while ($row = mysqli_fetch_array($perResult)) {
+					$permissionSlugData[] = array(
+						'slug' => $row['slug']
+					);
+				}
+			}
+		}
+		$allperSlug = array_column($permissionSlugData, 'slug');
+		if (in_array($permissionSlug, $allperSlug)) {
+			$isPermission = true;
+		}
+		return $isPermission;
+		
 	}
-	return $isPermission;
 }
 
 function getUserWisePermissionName()
