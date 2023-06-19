@@ -52,7 +52,6 @@ if (isset($_POST['login_hr'])) {
 
 if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   // session_unset($_SESSION["HR"]);
-
   session_start();
   session_unset();
   session_destroy();

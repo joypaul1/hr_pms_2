@@ -112,7 +112,7 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="index.php?logout_hr=true">
+              <a class="dropdown-item" href="<?php  echo $basePath ?>/index.php?logout_hr=true">
                 <i class="bx bx-power-off me-2"></i>
                 <span class="align-middle">Log Out</span>
               </a>

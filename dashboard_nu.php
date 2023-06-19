@@ -18,10 +18,10 @@ require_once('layouts/header.php');
 
 $v_active_open = '';
 $v_active = '';
-
 require_once('layouts/left_menu.php');
 require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
+
 
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
@@ -35,6 +35,9 @@ $strSQL  = oci_parse($objConnect, "select A.id,
 oci_execute($strSQL);
 
 ?>
+<?php
+//  print_r(checkPermission('leave-create')) ; die();
+ ?>
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
