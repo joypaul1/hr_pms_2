@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
     $get_role_id = ($_POST["role_id"]);
     $get_permission_id = $_POST['permission_id'];
 
-    if (empty($get_role_id) && count($get_permission_id)> 0) {
+    if (empty($get_role_id) && count($get_permission_id) > 0) {
         $message = [
             'text' => 'Please Select Role & Permission Data!',
             'status' => 'false',
@@ -32,11 +32,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 
                 mysqli_stmt_bind_param($stmt, "ss", $param_role_id, $param_permission_id); // Bind variables to the prepared statement as parameters
                 foreach ($get_permission_id as $key => $permission_id) {
-                                    // Set parameters
+                    // Set parameters
                     $param_role_id = $get_role_id;
                     $param_permission_id = $permission_id;
                     // Attempt to execute the prepared statement
-                    $result =mysqli_stmt_execute($stmt);
+                    $result = mysqli_stmt_execute($stmt);
                     if (!$result) {
                         $message = [
                             'text' =>  "Oops! Something went wrong. Please try again later.",
@@ -44,14 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
                         ];
                         $_SESSION['noti_message'] = $message;
                         header("location:" . $basePath . "/role_permission/role_permission/create.php");
-                     
-                    } 
+                    }
                 }
             }
             mysqli_stmt_close($stmt);  // Close statement
             $conn_hr->commit();
         } catch (Exception $e) {
-            $conn_hr->rollback();  
+            $conn_hr->rollback();
             // Handle the exception
             $message = [
                 'text' =>   $e->getMessage(),
@@ -70,39 +69,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
     $_SESSION['noti_message'] = $message;
     header("location:" . $basePath . "/role_permission/role_permission/index.php");
     exit();
-  
 }
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'update') {
 
-    // $name = trim($_POST["name"]);
-    $role_id  = trim($_GET["editID"]);
+    $user_id  = trim($_GET["editID"]);
+
     $deleteID  = [];
     $insertID  = [];
-    $getRoleWisePermission = getRoleWisePermission($conn_hr, $role_id);
-    $newPermission_id = $_REQUEST['permission_id'];
-    $oldPermission_id =  array_column($getRoleWisePermission, 'permission_id');
+    $getUserWiseRole = getUserWiseRole($conn_hr, $user_id);
+    $newRole_id = $_REQUEST['role_id'] ?? [];
+    $getUserWiseRole  = array_column($getUserWiseRole, 'role_id');
 
-    $deleteID = array_diff($oldPermission_id, $newPermission_id); // form tbl_role_permission
-    $insertID = array_diff($newPermission_id, $oldPermission_id); // form tbl_role_permission
-
+    $deleteID = array_diff($getUserWiseRole, $newRole_id); // form tbl_user_role
+    $insertID = array_diff($newRole_id, $getUserWiseRole); // form tbl_user_role
+   
     // Begin the database transaction
     try {
         $conn_hr->begin_transaction();
         //delete data from database
         if (count($deleteID) > 0) {
-            foreach ($deleteID as $key => $perID) {
-                $sql = "DELETE FROM tbl_roles_permissions  WHERE role_id = $role_id AND permission_id = $perID";
+            foreach ($deleteID as $key => $roleID) {
+                $sql = "DELETE FROM tbl_users_roles  WHERE user_id = $user_id AND role_id = $roleID"; //user role delete    
                 $result = $conn_hr->query($sql);
-                if ($result != TRUE) {
+                if ($result) {
+                    //delete user role wise permission 
+                    $getRoleWisePermission = getRoleWisePermission($conn_hr, $roleID);
+                    $getUserWisePermission = getUserWisePermission($conn_hr, $user_id);
+                    foreach ($getRoleWisePermission as $key => $permissionData) {
+                        $getUserWiseDeletePermission = getUserWiseDeletePermission($conn_hr, $user_id, $permissionData);
+                    }
+                    //end delete user role wise permission 
+                } else {
+
                     $message = [
                         'text' =>  $conn_hr->error,
                         'status' => 'false',
                     ];
                     $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/role_permission/role_permissions/index.php");
+                    header("location:" . $basePath . "/role_permission/user_role/index.php");
                 }
             }
         }  //end delete data from database
@@ -110,15 +117,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
         //insert data from database
         if (count($insertID) > 0) {
             foreach ($insertID as $key => $inID) {
-                $sql = "INSERT INTO tbl_roles_permissions (role_id , permission_id)  VALUES  ($role_id , $inID)";
+                $sql = "INSERT INTO tbl_users_roles (user_id , role_id)  VALUES  ($user_id , $inID)";
                 $result = $conn_hr->query($sql);
-                if ($result != TRUE) {
+
+                if ($result) {
+
+                    $getRoleWisePermission = getRoleWisePermission($conn_hr, $inID);
+
+                    foreach ($getRoleWisePermission as $key => $permissionData) {
+
+                        $getUserWiseDeletePermission = getUserWiseInsertPermission($conn_hr, $user_id, $permissionData);
+                    }
+                    //end insert user role wise permission 
+                } else {
+
                     $message = [
                         'text' =>  $conn_hr->error,
                         'status' => 'false',
                     ];
                     $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/role_permission/role_permission/edit.php?id=" . $role_id . "&amp;&amp;actionType=edit");
+                    header("location:" . $basePath . "/role_permission/user_role/edit.php?id=" . $role_id . "&amp;&amp;actionType=edit");
                 }
             }
         }  //end insert data from database
@@ -135,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
         'status' => 'true',
     ];
     $_SESSION['noti_message'] = $message;
-    header("location:" . $basePath . "/role_permission/role_permission/index.php");
+    header("location:" . $basePath . "/role_permission/user_role/index.php");
     exit();
 }
 
@@ -178,12 +196,29 @@ if (($_GET["deleteID"])) {
         $response['status']  = 'error';
         $response['message'] = "URL doesn't contain id parameter!";
         echo json_encode($response);
-        header("location:" . $basePath . "/role_permission/role_permissions/index.php");
+        header("location:" . $basePath . "/role_permission/user_role/index.php");
         exit();
     }
 }
 
 
+
+function getUserWiseRole($conn_hr, $user_id)
+{
+    $userRoleArray = [];
+    // $sql        = "SELECT * FROM tbl_roles_permissions Where role_id =" . $role_id; 
+    $sql = "SELECT role_id FROM tbl_users_roles WHERE user_id=" . $user_id; //  select query execution
+    $perResult     = mysqli_query($conn_hr, $sql);
+    // Loop through the fetched rows
+    if ($perResult) {
+        while ($row = mysqli_fetch_array($perResult)) {
+            $userRoleArray[] = array(
+                'role_id' => $row['role_id'],
+            );
+        }
+    }
+    return $userRoleArray;
+}
 
 function getRoleWisePermission($conn_hr, $role_id)
 {
@@ -194,10 +229,67 @@ function getRoleWisePermission($conn_hr, $role_id)
     if ($perResult) {
         while ($row = mysqli_fetch_array($perResult)) {
             $permissionArray[] = array(
-                'role_id' => $row['role_id'],
                 'permission_id' => $row['permission_id']
             );
         }
     }
-    return $permissionArray;
+    return   $permissionArray = array_column($permissionArray, 'permission_id');
+}
+function getUserWisePermission($conn_hr, $user_id)
+{
+
+    $permissionArray = [];
+    $sql        = "SELECT * FROM tbl_users_permissions  Where user_id=" . $user_id; //  select query execution
+    $perResult     = mysqli_query($conn_hr, $sql);
+    // Loop through the fetched rows
+    if ($perResult) {
+        while ($row = mysqli_fetch_array($perResult)) {
+            $permissionArray[] = array(
+                'permission_id' => $row['permission_id']
+            );
+        }
+    }
+    return $permissionArray = array_column($permissionArray, 'permission_id');
+}
+function getUserWiseDeletePermission($conn_hr, $user_id, $permission_id)
+{
+    global $basePath;
+
+    $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //user role delete 
+    $result     = mysqli_query($conn_hr, $sql);
+    if (mysqli_num_rows($result) > 0) {
+        $sql = "DELETE FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //user role delete 
+        $perResult     = mysqli_query($conn_hr, $sql);
+        if ($perResult != TRUE) {
+            $message = [
+                'text' =>  $conn_hr->error,
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            header("location:" . $basePath . "/role_permission/user_role/index.php");
+        }
+    }
+    return true;
+}
+function getUserWiseInsertPermission($conn_hr, $user_id, $permission_id)
+{
+    global $basePath;
+
+    $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //get user wise permission
+    $result     = mysqli_query($conn_hr, $sql);
+
+    if (mysqli_num_rows($result) == 0) {
+
+        $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)"; //user wise permission insert 
+        $perResult     = mysqli_query($conn_hr, $sql);
+        if ($perResult != TRUE) {
+            $message = [
+                'text' =>  $conn_hr->error,
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            header("location:" . $basePath . "/role_permission/user_role/index.php");
+        }
+    }
+    return true;
 }

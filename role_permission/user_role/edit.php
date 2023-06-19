@@ -6,84 +6,15 @@ $v_active      = 'active';
 require_once('../../helper/com_conn.php');
 
 
-
-$roleWisepermission = [];
-$roleArray = [];
-$sql        = "SELECT id,name FROM tbl_roles"; //  select query execution
-$perResult     = mysqli_query($conn_hr, $sql);
-// Loop through the fetched rows
-if ($perResult) {
-    while ($row = mysqli_fetch_array($perResult)) {
-        $roleArray[] = array(
+$userInfo = [];
+$userSql        = "SELECT id,first_name FROM tbl_users WHERE id=" . trim($_GET["id"]); //  select query execution
+$useResult     = mysqli_query($conn_hr, $userSql); 
+if (mysqli_num_rows($useResult) == 1) {
+    while ($row = mysqli_fetch_array($useResult)) {
+        $userInfo = array(
             'id' => $row['id'],
-            'name' => $row['name']
+            'first_name' => $row['first_name']
         );
-    }
-}
-
-
-
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
-
-    $sql = "SELECT role_id FROM tbl_users_roles WHERE user_id=".trim($_GET["id"]); // Prepare a select statement
-
-
-    $result     = mysqli_query($conn_hr, $sql);
-    if ($result) {
-        while ($row = mysqli_fetch_array($result)) {
-            print_r($row);
-            $roleArray[] = array(
-                'role_id' => $row['role_id']
-            );
-            print_r($roleArray);
-            die();
-        }
-   
-    }
-    die();
-
-    if ($stmt = mysqli_prepare($conn_hr, $sql)) {
-        mysqli_stmt_bind_param($stmt, "i", $param_id); // Bind variables to the prepared statement as parameters
-        // Set parameters
-        $param_id = trim($_GET["id"]);
-
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result)) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $roleWisepermission[] = array(
-                        'role_name' => $row['role_name'],
-                        'role_id' => $row['role_id'],
-                        'permission_id' => $row['permission_id']
-                    );
-                }
-                // print_r($roleWisepermission);
-
-            } else {
-                // URL doesn't contain valid id parameter. Redirect to role_permission index page
-                $message                  = [
-                    'text'   => "URL doesn't contain valid id parameter.",
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-
-                header("location:" . $basePath . "/role_permission/user_role/index.php");
-                exit();
-            }
-        } else {
-            $message                  = [
-                'text'   => "Oops! Something went wrong. Please try again later.",
-                'status' => 'false',
-            ];
-            $_SESSION['noti_message'] = $message;
-
-            header("location:" . $basePath . "/role_permission/user_role/index.php");
-        }
-        mysqli_stmt_close($stmt);
-
-        // Close connection
-        mysqli_close($conn_hr);
     }
 } else {
     $message                  = [
@@ -96,6 +27,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
     exit();
 }
 
+
+
+
+$roleArray = [];
+$userRoleArray = [];
+
+$sql        = "SELECT id,name FROM tbl_roles"; //  select query execution
+$perResult     = mysqli_query($conn_hr, $sql);
+// Loop through the fetched rows
+if ($perResult) {
+    while ($row = mysqli_fetch_array($perResult)) {
+        $roleArray[] = array(
+            'id' => $row['id'],
+            'name' => $row['name']
+        );
+    }
+} else {
+    $message                  = [
+        'text'   => "Oops! Something went wrong. Please try again later.",
+        'status' => 'false',
+    ];
+    $_SESSION['noti_message'] = $message;
+    print_r($_SESSION['noti_message']['status']);
+    header("location:" . $basePath . "/role_permission/user_role/index.php");
+    exit();
+}
+
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
+
+    $sql = "SELECT role_id FROM tbl_users_roles WHERE user_id=" . trim($_GET["id"]); // Prepare a select statement
+
+    $result     = mysqli_query($conn_hr, $sql);
+    if ($result) {
+        while ($row = mysqli_fetch_array($result)) {
+            $userRoleArray[] = array(
+                'role_id' => $row['role_id']
+            );
+           
+        }
+    }
+} else {
+    $message                  = [
+        'text'   => "Oops! Something went wrong. Please try again later.",
+        'status' => 'false',
+    ];
+    $_SESSION['noti_message'] = $message;
+    print_r($_SESSION['noti_message']['status']);
+    header("location:" . $basePath . "/role_permission/user_role/index.php");
+    exit();
+}
+//  print_r($userRoleArray);
+//  die();
 ?>
 
 <!-- / Content -->
@@ -119,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                 <div class="card-body">
 
                     <div class="col-12">
-                        <form method="POST" action="<?php echo ($basePath . '/action/role_permission/role_permission.php?editID=' . trim($_GET["id"])); ?>">
+                        <form method="POST" action="<?php echo ($basePath . '/action/role_permission/user_role.php?editID=' . trim($_GET["id"])); ?>">
                             <input type="hidden" name="actionType" value="update">
                             <input type="hidden" name="editId" value="<?php echo  $data['id'] ?>">
                             <div class="row mb-3">
@@ -127,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                                 <div class="col-md-3">
                                     <label for="name" class="col-12 col-form-label text-md-center">Role</label>
                                     <hr>
-                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleWisepermission[0]['role_name']) ?>
+                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php echo($userInfo['first_name']) ?>
 
 
                                 </div>
@@ -139,8 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
                                     foreach ($roleArray as $key => $row) {
                                         echo '<div class="form-check-inline col-4">
-                                                    <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
-                                            (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                                    <input class="form-check-input" type="checkbox" name="role_id[]" ' .
+                                            (in_array($row["id"], array_column($userRoleArray, 'role_id')) ? 'checked' : '') . '
                                                     id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
                                                     <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
                                                 </div>';

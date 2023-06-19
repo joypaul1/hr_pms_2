@@ -55,8 +55,6 @@ if($result){
                 <!-- table header -->
                 <?php
                 $leftSideName  = 'Role & Permission List';
-                $rightSideName = 'Role & Permission Create';
-                $routePath     = 'role_permission/role_permission/create.php';
                 include('../../layouts/_tableHeader.php');
 
                 ?>

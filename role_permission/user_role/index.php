@@ -28,7 +28,7 @@ if ($result) {
     // Process the query result
     while ($row = $result->fetch_assoc()) {
         // Access the retrieved data
-        $dataArray [] = [
+        $dataArray[] = [
             'u_id' => $row['u_id'],
             'u_name' => $row['u_name'],
             'roles' => $row['roles'],
@@ -54,8 +54,6 @@ if ($result) {
                 <!-- table header -->
                 <?php
                 $leftSideName  = 'User Role List';
-                $rightSideName = 'User Role Create';
-                $routePath     = 'role_permission/use_role/create.php';
                 include('../../layouts/_tableHeader.php');
 
                 ?>
@@ -80,7 +78,7 @@ if ($result) {
                                 <?php
 
                                 foreach ($dataArray as $key => $row) {
-                                    
+
                                     echo "<tr>";
                                     echo "<td>" .  $key + 1 . "</td>";
                                     echo "<td>" . $row['u_name'] . "</td>";
