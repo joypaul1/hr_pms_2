@@ -54,6 +54,8 @@
 
 
     <?php
+   
+   
     // Admin Role
     if ($_SESSION['HR']['hr_role'] == 2) { ?>
       <li class="menu-item active">

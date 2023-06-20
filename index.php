@@ -58,7 +58,8 @@ if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   session_write_close();
   setcookie(session_name(), '', 0, '/');
   session_regenerate_id(true);
-  header("location:index.php");
+  // header("location:index.php");
+  header("location:" . $basePath . "/index.php");
   exit;
 }
 
