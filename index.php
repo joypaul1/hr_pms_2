@@ -29,20 +29,22 @@ if (isset($_POST['login_hr'])) {
 
       $_SESSION['HR'] = $getUserRow_hr;
 
-      $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['hr_role']);
+      // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
+      // echo($USER_ROLE_HR);
+      header('location:dashboard_nu.php');
+      // die();
 
-
-      if ($USER_ROLE_HR == "HR") {
-        header('location:dashboard_hr.php');
-      } else if ($USER_ROLE_HR == "NU") {
-        header('location:dashboard_nu.php');
-      } else if ($USER_ROLE_HR == "LM") {
-        header('location:dashboard_lm.php');
-      } else if ($USER_ROLE_HR == "ADMIN") {
-        header('location:dashboard_it.php');
-      } else if ($USER_ROLE_HR == "RMWL") {
-        header('location:dashboard_rmwl.php');
-      }
+      // if ($USER_ROLE_HR == "HR") {
+      //   header('location:dashboard_hr.php');
+      // } else if ($USER_ROLE_HR == "NU") {
+      //   header('location:dashboard_nu.php');
+      // } else if ($USER_ROLE_HR == "LM") {
+      //   header('location:dashboard_lm.php');
+      // } else if ($USER_ROLE_HR == "ADMIN") {
+      //   header('location:dashboard_it.php');
+      // } else if ($USER_ROLE_HR == "RMWL") {
+      //   header('location:dashboard_rmwl.php');
+      // }
       exit;
     } else {
       $errorMsg = "Wrong EMP-ID or password";
@@ -59,7 +61,7 @@ if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   setcookie(session_name(), '', 0, '/');
   session_regenerate_id(true);
   // header("location:index.php");
-  header("location:" . $basePath . "/index.php");
+  header("location:/rHR/index.php");
   exit;
 }
 

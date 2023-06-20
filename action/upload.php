@@ -62,6 +62,6 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
 // Display status message
 session_start();
 $_SESSION['imageStatus'] = $imageStatus;
-header("location: /rHR/imageChange.php");
+header("location:" . $basePath . "/imageChange.php");
 
 exit;

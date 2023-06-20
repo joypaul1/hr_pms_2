@@ -13,12 +13,21 @@ if (!$conn_hr) {
 function getUserAccessRoleByID($id)
 {
 	global $conn_hr;
-	$query = "select user_role from tbl_user_role where  id = " . $id;
+	$userRoleArray=[];
+	$sql = "SELECT r.* FROM tbl_users_roles ur
+        JOIN tbl_roles r ON ur.role_id = r.id
+        WHERE ur.user_id = $id";
+	$rs = mysqli_query($conn_hr, $sql);
+	if (mysqli_num_rows($rs)> 0) {
+        while ($row = mysqli_fetch_assoc($rs)) {
+            array_push($userRoleArray,$row['name']);
+        }
+    }else{
+		array_push($userRoleArray, "Public");
 
-	$rs = mysqli_query($conn_hr, $query);
-	$row = mysqli_fetch_assoc($rs);
-
-	return $row['user_role'];
+	}
+	return $userRoleArray;
+	
 }
 
 function checkPermission($permissionSlug)

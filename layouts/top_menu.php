@@ -30,7 +30,6 @@
       <?php
       if (isset($_POST['search_input'])) {
         $v_search_input = $_REQUEST['search_input'];
-        //echo 'user_profile.php?emp_id='.$v_search_input;
         echo "<script>window.location = 'user_profile.php?emp_id=$v_search_input'</script>";
       }
 
@@ -74,7 +73,7 @@
                       <?php echo $_SESSION['HR']['first_name_hr']; ?>
                     </span>
                     <small class="text-muted">
-                      <?php echo getUserAccessRoleByID($_SESSION['HR']['hr_role']); ?>
+                      <?php echo (implode(',', getUserAccessRoleByID($_SESSION['HR']['id_hr']))); ?>
                     </small>
                   </div>
                 </div>
@@ -84,7 +83,7 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="user_profile_self.php">
+              <a class="dropdown-item" href="<?php  echo $basePath ?>/user_profile_self.php">
                 <i class="bx bx-user me-2"></i>
                 <span class="align-middle">My Profile</span>
               </a>
@@ -93,7 +92,7 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="imageChange.php">
+              <a class="dropdown-item" href="<?php  echo $basePath ?>/imageChange.php">
                 <i class="bx bx-image me-2"></i>
                 <span class="align-middle">Image Change</span>
               </a>
@@ -102,7 +101,7 @@
               <div class="dropdown-divider"></div>
             </li>
             <li>
-              <a class="dropdown-item" href="password_change.php">
+              <a class="dropdown-item" href="<?php  echo $basePath ?>/password_change.php">
                 <i class="bx bx-user me-2"></i>
                 <span class="align-middle">Password Change</span>
               </a>

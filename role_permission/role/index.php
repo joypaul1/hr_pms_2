@@ -24,9 +24,8 @@ while ($row = mysqli_fetch_array($result)) {
     $dataArray[] = $row; // Append the row data to the array
 }
 
-//;
-
 ?>
+
 
 <!-- / Content -->
 
