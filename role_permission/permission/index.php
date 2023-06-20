@@ -40,8 +40,11 @@ while ($row = mysqli_fetch_array($result)) {
                 <!-- table header -->
                 <?php
                 $leftSideName  = 'Permissions List';
-                $rightSideName = 'Permissions Create';
-                $routePath     = 'role_permission/permission/create.php';
+                if (checkPermission('permission-create')) {
+                    $rightSideName = 'Permissions Create';
+                    $routePath     = 'role_permission/permission/create.php';
+                }
+
                 include('../../layouts/_tableHeader.php');
 
                 ?>
@@ -70,9 +73,14 @@ while ($row = mysqli_fetch_array($result)) {
                                     echo "<td>" . $row['name'] . "</td>";
                                     echo "<td>" . $row['slug'] . "</td>";
                                     echo "<td>";
+                                    if (checkPermission('permission-edit')) {
                                     echo '<a href="' . $basePath . '/role_permission/permission/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    echo ' <button data-id="'. $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/permission.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    }
+                                    if (checkPermission('permission-delete')) {
+                                    echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/permission.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    }
                                     echo "</tr>";
+
                                 }
 
                                 ?>
@@ -87,7 +95,7 @@ while ($row = mysqli_fetch_array($result)) {
                     <?php
                     require_once('../../helper/pagination.php');
                     echo generatePagination($tableName, $page, $num_per_page);
-                  
+
                     mysqli_close($conn_hr)
                     ?>
                 </div>
