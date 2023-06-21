@@ -54,8 +54,8 @@
 
 
     <?php
-   
-   
+
+
     // Admin Role
     if ($_SESSION['HR']['hr_role'] == 2) { ?>
       <li class="menu-item active">
@@ -954,6 +954,75 @@
 
 
 
+      </ul>
+    </li>
+    <li class="menu-item" style="">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon tf-icons bx bx-user"></i>
+        <div>Users</div>
+      </a>
+
+
+      <ul class="menu-sub">
+
+
+        <li class="menu-item" style="">
+          <a href="javascript:void(0)" class="menu-link menu-toggle">
+            <div>View</div>
+          </a>
+
+
+          <ul class="menu-sub">
+
+            <li class="menu-item ">
+              <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/user/view/account" class="menu-link">
+                <div>Account</div>
+              </a>
+
+
+            </li>
+
+
+
+            <li class="menu-item ">
+              <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/user/view/security" class="menu-link">
+                <div>Security</div>
+              </a>
+
+
+            </li>
+
+
+
+            <li class="menu-item ">
+              <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/user/view/billing" class="menu-link">
+                <div>Billing &amp; Plans</div>
+              </a>
+
+
+            </li>
+
+
+
+            <li class="menu-item ">
+              <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/user/view/notifications" class="menu-link">
+                <div>Notifications</div>
+              </a>
+
+
+            </li>
+
+
+
+            <li class="menu-item ">
+              <a href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-1/app/user/view/connections" class="menu-link">
+                <div>Connections</div>
+              </a>
+
+
+            </li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>

@@ -30,21 +30,22 @@ if (isset($_POST['login_hr'])) {
       $_SESSION['HR'] = $getUserRow_hr;
 
       // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
+      $USER_ROLE_HR ='HR';
       // echo($USER_ROLE_HR);
-      header('location:dashboard_nu.php');
+      // header('location:dashboard_nu.php');
       // die();
 
-      // if ($USER_ROLE_HR == "HR") {
-      //   header('location:dashboard_hr.php');
-      // } else if ($USER_ROLE_HR == "NU") {
-      //   header('location:dashboard_nu.php');
-      // } else if ($USER_ROLE_HR == "LM") {
-      //   header('location:dashboard_lm.php');
-      // } else if ($USER_ROLE_HR == "ADMIN") {
-      //   header('location:dashboard_it.php');
-      // } else if ($USER_ROLE_HR == "RMWL") {
-      //   header('location:dashboard_rmwl.php');
-      // }
+      if ($USER_ROLE_HR == "HR") {
+        header('location:dashboard_hr.php');
+      } else if ($USER_ROLE_HR == "NU") {
+        header('location:dashboard_nu.php');
+      } else if ($USER_ROLE_HR == "LM") {
+        header('location:dashboard_lm.php');
+      } else if ($USER_ROLE_HR == "ADMIN") {
+        header('location:dashboard_it.php');
+      } else if ($USER_ROLE_HR == "RMWL") {
+        header('location:dashboard_rmwl.php');
+      }
       exit;
     } else {
       $errorMsg = "Wrong EMP-ID or password";
