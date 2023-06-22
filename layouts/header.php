@@ -9,8 +9,8 @@
 
   <meta name="description" content="" />
   <?php
-  $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-  $basePath =  $baseUrl.'/rHR';
+    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+    $basePath =  $baseUrl.'/rHR';
     if(!isset($_SESSION['HR'])){
       header("location:" . $basePath . "/index.php");
       exit();
