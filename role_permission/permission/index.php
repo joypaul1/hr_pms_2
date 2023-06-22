@@ -11,7 +11,7 @@ require_once('../../helper/2step_com_conn.php');
 // Initialize an empty array
 $dataArray = array();
 $tableName = 'tbl_permissions';
-$num_per_page = 10;
+$num_per_page = 100;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {
@@ -19,14 +19,17 @@ if (isset($_GET["page"])) {
 }
 
 $start_from = ($page - 1) * $num_per_page;
-$sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
+$sql = "SELECT p.id, p.name, p.slug, m.name as permission_module
+FROM tbl_permissions p
+LEFT JOIN tbl_permission_module m ON p.permission_module_id = m.id";
+// $sql        = "SELECT * FROM tbl_permissions RIGHT Join tbl_permission_module as pm ON  tbl_permissions.permission_module_id = pm.id "; //  select query execution
 $result     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 while ($row = mysqli_fetch_array($result)) {
     $dataArray[] = $row; // Append the row data to the array
 }
-
-
+// print_r($dataArray[0]['permission_name']);
+// die();
 ?>
 
 <!-- / Content -->
@@ -40,10 +43,10 @@ while ($row = mysqli_fetch_array($result)) {
                 <!-- table header -->
                 <?php
                 $leftSideName  = 'Permissions List';
-                if (checkPermission('permission-create')) {
+                // if (checkPermission('permission-create')) {
                     $rightSideName = 'Permissions Create';
                     $routePath     = 'role_permission/permission/create.php';
-                }
+                // }
 
                 include('../../layouts/_tableHeader.php');
 
@@ -58,6 +61,7 @@ while ($row = mysqli_fetch_array($result)) {
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Slug</th>
+                                    <th>permission_module</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -72,15 +76,15 @@ while ($row = mysqli_fetch_array($result)) {
                                     echo "<td>" . $row['id'] . "</td>";
                                     echo "<td>" . $row['name'] . "</td>";
                                     echo "<td>" . $row['slug'] . "</td>";
+                                    echo "<td>" . $row['permission_module'] . "</td>";
                                     echo "<td>";
-                                    if (checkPermission('permission-edit')) {
-                                    echo '<a href="' . $basePath . '/role_permission/permission/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    }
-                                    if (checkPermission('permission-delete')) {
-                                    echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/permission.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
-                                    }
+                                    // if (checkPermission('permission-edit')) {
+                                        echo '<a href="' . $basePath . '/role_permission/permission/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    // }
+                                    // if (checkPermission('permission-delete')) {
+                                        echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/permission.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    // }
                                     echo "</tr>";
-
                                 }
 
                                 ?>

@@ -25,14 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
         header("location:" . $basePath . "/role_permission/permission/create.php");
         exit;
     } else {
-        $sql = "INSERT INTO  tbl_permissions ( name, slug) VALUES (?, ?)";
+        $sql = "INSERT INTO  tbl_permissions ( name, slug, permission_module_id) VALUES (?, ?,?)";
 
         if ($stmt = mysqli_prepare($conn_hr, $sql)) {
 
-            mysqli_stmt_bind_param($stmt, "ss", $param_name, $param_slug); // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ssi", $param_name, $param_slug,  $param_permission_module_id); // Bind variables to the prepared statement as parameters
 
             // Set parameters
-            $param_name = trim($_POST["name"]);
+            $param_name =  $name;
+            $param_permission_module_id = trim($_POST["permission_module_id"]);
             $param_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $param_name)));
 
             // Attempt to execute the prepared statement
@@ -73,14 +74,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
         header("location:" . $basePath . "/role_permission/permission/edit.php?id=" . $id . "&amp;&amp;actionType=edit");
         exit;
     } else {
-        $sql = "UPDATE tbl_permissions SET name=?, slug=? WHERE id=?";
+        $sql = "UPDATE tbl_permissions SET name=?, slug=?,permission_module_id=? WHERE id=?";
 
-        if ($stmt = mysqli_prepare($conn_hr, $sql)) {
+        if ($stmt = mysqli_prepare($conn_hr, $sql)) { 
 
-            mysqli_stmt_bind_param($stmt, "ssi", $param_name, $param_slug, $param_id); // Bind variables to the prepared statement as parameters
+            mysqli_stmt_bind_param($stmt, "ssii", $param_name, $param_slug, $param_permission_module_id, $param_id); // Bind variables to the prepared statement as parameters
 
             // Set parameters
             $param_name = $name;
+            $param_permission_module_id = trim($_POST["permission_module_id"]);
             $param_slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $param_name)));
             $param_id =  $id;
 
