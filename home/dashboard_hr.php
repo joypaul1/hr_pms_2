@@ -83,7 +83,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                     </div>
                     <div class="col-sm-5 text-center text-sm-left">
                         <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
+                            <img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                                 <div class="card-body">
                                     <div class="card-title d-flex align-items-start justify-content-between">
                                         <div class="avatar flex-shrink-0">
-                                            <img src="assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
+                                            <img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
                                         </div>
                                         <div class="dropdown">
                                             <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -139,7 +139,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                                 <div class="card-body">
                                     <div class="card-title d-flex align-items-start justify-content-between">
                                         <div class="avatar flex-shrink-0">
-                                            <img src="assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded" />
+                                            <img src="<?php echo $basePath ?>/assets/img/icons/unicons/wallet-info.png" alt="Credit Card" class="rounded" />
                                         </div>
                                         <div class="dropdown">
                                             <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -172,7 +172,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
         <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
             <div class="card">
 
-                <img src="images/dashing_images.png" class="img-fluid" style="width: auto; height: 410px;">
+                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="width: auto; height: 410px;">
 
             </div>
         </div>
@@ -189,7 +189,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                         <div class="card-body">
                             <div class="card-title d-flex align-items-start justify-content-between">
                                 <div class="avatar flex-shrink-0">
-                                    <img src="assets/img/icons/unicons/chart-success.png" alt="Credit Card" class="rounded" />
+                                    <img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="Credit Card" class="rounded" />
                                 </div>
                                 <div class="dropdown">
                                     <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -212,7 +212,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                         <div class="card-body">
                             <div class="card-title d-flex align-items-start justify-content-between">
                                 <div class="avatar flex-shrink-0">
-                                    <img src="assets/img/icons/unicons/chart-success.png" alt="Credit Card" class="rounded" />
+                                    <img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="Credit Card" class="rounded" />
                                 </div>
                                 <div class="dropdown">
                                     <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -247,7 +247,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                                     </div>
                                 </div>
                                 <div id="">
-                                    <img class="card-img-top" src="images/birthday_images.png" style="width: 150px; height: 150px;" />
+                                    <img class="card-img-top" src="<?php echo $basePath ?>/images/birthday_images.png"  />
                                 </div>
                             </div>
                         </div>
@@ -360,7 +360,7 @@ while ($row = oci_fetch_assoc($joinSQL)) {
                         ?>
                             <li class="d-flex mb-4 pb-1">
                                 <div class="avatar flex-shrink-0 me-3">
-                                    <img src="assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
+                                    <img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart.png" alt="User" class="rounded" />
                                 </div>
                                 <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                     <div class="me-2">
