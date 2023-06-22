@@ -213,11 +213,11 @@ if (isset($_GET['lmsg_hr']) && $_GET['lmsg_hr'] == true) {
             </form>
 
             <p class="text-center">
-              <span>New on our platform? Contract With firoz.ocp@gmail.com</span>
-              <!--<span>All Reserve @Rangs Motors Ltd.</span>
+              <span>New on our platform? Contract With Rangs IT</span>
+              <!-- <span>All Reserve @Rangs Motors Ltd.</span>
                  <a href="auth-register-basic.html">
                   <span>Create an account</span>
-                </a>-->
+                </a> -->
             </p>
           </div>
         </div>
