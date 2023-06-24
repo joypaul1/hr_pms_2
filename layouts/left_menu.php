@@ -74,6 +74,7 @@
                         <div>Self Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('self-leave-create')) { ?>
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\self_panel\create.php" class="menu-link withoutIcon">
                                 <div>
@@ -82,12 +83,17 @@
                                 </div>
                             </a>
                         </li>
+                        <?php } ?>
+                    <?php if (checkPermission('self-leave-list')) { ?>
+                        
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\self_panel\index.php" class="menu-link withoutIcon">
 
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
                             </a>
                         </li>
+                        <?php } ?>
+
                     </ul>
                 </li>
                 <li class="menu-item" style="">
@@ -95,16 +101,24 @@
                         <div>HR Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('hr-leave-create')) { ?>
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\hr_panel\create.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('hr-leave-list')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\hr_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
                             </a>
                         </li>
+                        <?php } ?>
 
 
                     </ul>
@@ -114,17 +128,25 @@
                         <div>LM Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('lm-leave-create')) { ?>
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\lm_panel\create.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('lm-leave-list')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\lm_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
                             </a>
                         </li>
 
+                        <?php } ?>
 
                     </ul>
                 </li>
@@ -133,16 +155,23 @@
                         <div>Concern Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('concern-leave-create')) { ?>
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\concern_panel\create.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                    <?php if (checkPermission('concern-leave-list')) { ?>
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/leave_module\view\concern_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
                             </a>
                         </li>
+                        <?php } ?>
 
 
                     </ul>
@@ -160,16 +189,26 @@
                         <div>Self Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('self-tour-create')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('self-tour-list')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                             </a>
                         </li>
+                        <?php } ?>
+
                     </ul>
                 </li>
                 <li class="menu-item" style="">
@@ -177,16 +216,25 @@
                         <div>HR Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('hr-tour-create')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('hr-tour-report')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                             </a>
                         </li>
+                        <?php } ?>
 
 
                     </ul>
@@ -196,16 +244,25 @@
                         <div>LM Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('lm-tour-create')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('hr-tour-report')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                             </a>
                         </li>
+                        <?php } ?>
 
 
                     </ul>
@@ -215,18 +272,25 @@
                         <div>Concern Panel</div>
                     </a>
                     <ul class="menu-sub">
+                    <?php if (checkPermission('concern-tour-report')) { ?>
+
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                             </a>
                         </li>
+                        <?php } ?>
+
+                    <?php if (checkPermission('concern-tour-createt')) { ?>
+
                         <li class="menu-item ">
                             <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                             </a>
                         </li>
 
-
+                        <?php } ?>
                     </ul>
                 </li>
             </ul>
@@ -409,41 +473,41 @@
                 <div data-i18n="Misc"> Role Permission </div>
             </a>
             <ul class="menu-sub">
-                <?php if (checkPermission('role-list')) { ?>
+                <?php //if (checkPermission('role-list')) { ?>
 
                     <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
                         <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
                             <div data-i18n="Error">Role List</div>
                         </a>
                     </li>
-                <?php } ?>
+                <?php //} ?>
 
-                <?php if (checkPermission('permission-list')) { ?>
+                <?php //if (checkPermission('permission-list')) { ?>
 
                     <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
                         <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
                             <div data-i18n="Error">Permssion List</div>
                         </a>
                     </li>
-                <?php } ?>
+                <?php //} ?>
 
-                <?php if (checkPermission('role-permission-list')) { ?>
+                <?php //if (checkPermission('role-permission-list')) { ?>
 
                     <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
                         <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
                             <div data-i18n="Error">Role & Permission </div>
                         </a>
                     </li>
-                <?php } ?>
+                <?php// } ?>
 
-                <?php if (checkPermission('user-role-list')) { ?>
+                <?php //if (checkPermission('user-role-list')) { ?>
 
                     <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
                         <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
                             <div data-i18n="Error">User Role</div>
                         </a>
                     </li>
-                <?php } ?>
+                <?php //} ?>
 
 
 

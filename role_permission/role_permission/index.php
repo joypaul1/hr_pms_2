@@ -23,13 +23,16 @@ $start_from = ($page - 1) * $num_per_page;
 // $sql        = "SELECT * FROM $tableName limit $start_from,$num_per_page"; //  select query execution
 
 
-$sql  = "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
+// $sql  = "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
+// FROM tbl_roles AS r
+// INNER  JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
+// LEFT  JOIN tbl_permissions AS p ON rp.permission_id = p.id
+// GROUP BY role_id";
+$sql ="SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
 FROM tbl_roles AS r
-JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
-JOIN tbl_permissions AS p ON rp.permission_id = p.id
-GROUP BY role_id";
-
-
+LEFT  JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
+LEFT JOIN tbl_permissions AS p ON rp.permission_id = p.id
+GROUP BY role_name, role_id;";
 $result     = mysqli_query($conn_hr, $sql);
 if ($result) {
     while ($row = mysqli_fetch_array($result)) {
@@ -40,7 +43,8 @@ if ($result) {
         );
     }
 }
-
+// print_r( $roleWisepermission);
+// die();
 
 ?>
 
@@ -86,14 +90,14 @@ if ($result) {
                                     echo "<td>" . $row['role_name'] . "</td>";
                                     echo "<td>" . $row['permissions'] . "</td>";
                                     echo "<td>";
-                                    if (checkPermission('role-permission-edit')) {
+                                    // if (checkPermission('role-permission-edit')) {
 
                                         echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    }
-                                    if (checkPermission('role-permission-delete')) {
+                                    // }
+                                    // if (checkPermission('role-permission-delete')) {
 
                                         echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
-                                    }
+                                    //}
                                     echo "</tr>";
                                 }
 

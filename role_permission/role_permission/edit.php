@@ -7,10 +7,11 @@ require_once('../../helper/2step_com_conn.php');
 
 
 
+$roleData = [];
 $roleWisepermission = [];
 $permissionArray = [];
-$sql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
-$perResult     = mysqli_query($conn_hr, $sql);
+$permissionSql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
+$perResult     = mysqli_query($conn_hr, $permissionSql);
 // Loop through the fetched rows
 if ($perResult) {
     while ($row = mysqli_fetch_array($perResult)) {
@@ -21,6 +22,17 @@ if ($perResult) {
     }
 }
 
+$roleSql        = "SELECT id,name FROM tbl_roles Where id=" . trim($_GET["id"]); //  select query execution
+$roleResult     = mysqli_query($conn_hr, $roleSql);
+// Loop through the fetched rows
+if ($roleResult) {
+    while ($row = mysqli_fetch_assoc($roleResult)) {
+        $roleData = array(
+            'id' => $row['id'],
+            'name' => $row['name']
+        );
+    }
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
@@ -38,26 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result)) {
+
+            if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     $roleWisepermission[] = array(
-                        'role_name' => $row['role_name'],
-                        'role_id' => $row['role_id'],
+                        // 'role_name' => $row['role_name'],
+                        // 'role_id' => $row['role_id'],
                         'permission_id' => $row['permission_id']
                     );
-                   
                 }
-
-            } else {
-                // URL doesn't contain valid id parameter. Redirect to role_permission index page
-                $message                  = [
-                    'text'   => "URL doesn't contain valid id parameter.",
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-
-                header("location:" . $basePath . "/role_permission/role_permission/index.php");
-                exit();
             }
         } else {
             $message                  = [
@@ -68,10 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
             header("location:" . $basePath . "/role_permission/role_permission/index.php");
         }
-        mysqli_stmt_close($stmt);
+
 
         // Close connection
-        mysqli_close($conn_hr);
+
     }
 } else {
     $message                  = [
@@ -83,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
     header("location:" . $basePath . "/role_permission/role_permission/index.php");
     exit();
 }
+mysqli_close($conn_hr);
 
 ?>
 
@@ -115,20 +117,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                                 <div class="col-md-3">
                                     <label for="name" class="col-12 col-form-label text-md-center">Role</label>
                                     <hr>
-                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleWisepermission[0]['role_name']) ?>
+                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php print_r($roleData['name']) ?>
 
 
                                 </div>
                                 <div class="col-md-9">
-                                    <label for="name" class="col-12 col-form-label text-md-center">All
-                                        Permission</label>
+                                    <div class="">
+                                    <label for="name" class="col-12 col-form-label text-md-center">All Permission
+
+                                    <span>  <input type="checkbox" onclick="checkAll(this);"> Check All</span>
+
+                                    </label>
+                                    
+                                    </div>
                                     <hr>
                                     <?php
 
                                     foreach ($permissionArray as $key => $row) {
                                         echo '<div class="form-check-inline col-4">
-                                                    <input class="form-check-input" type="checkbox" name="permission_id[]" ' .
-                                            (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                                    <input class="form-check-input" type="checkbox" name="permission_id[]" '
+                                            . (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
                                                     id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
                                                     <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
                                                 </div>';
@@ -159,6 +167,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
 
 </div>
+
+
+<script>
+    function checkAll(source) {
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>
 
 <!-- / Content -->
 
