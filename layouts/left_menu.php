@@ -2,7 +2,7 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="" class="app-brand-link">
+        <a href="<?php echo $basePath ?>/home/dashboard.php" class="app-brand-link">
             <span class="app-brand-logo demo">
                 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <defs>
@@ -404,182 +404,182 @@
                         </ul>
                     </li>
                 <?php } ?>
-                <?php if (checkPermission('lm-attendance-create')|| (checkPermission('lm-attendance-report'))) { ?>
+                <?php if (checkPermission('lm-attendance-create') || (checkPermission('lm-attendance-report'))) { ?>
 
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div>LM Panel</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <?php if (checkPermission('lm-attendance-create')) { ?>
-                            <li class="menu-item ">
-                                <a href="<?php echo $basePath ?>/attendance_module\view\lm_panel\create.php" class="menu-link withoutIcon">
-                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
-                                    </div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('lm-attendance-report')) { ?>
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <div>LM Panel</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <?php if (checkPermission('lm-attendance-create')) { ?>
+                                <li class="menu-item ">
+                                    <a href="<?php echo $basePath ?>/attendance_module\view\lm_panel\create.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (checkPermission('lm-attendance-report')) { ?>
 
-                        <li class="menu-item ">
-                            <a href="<?php echo $basePath ?>/attendance_module\view\lm_panel\index.php" class="menu-link withoutIcon">
-                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
-                                </div>
-                            </a>
-                        </li>
-                        <?php } ?>
+                                <li class="menu-item ">
+                                    <a href="<?php echo $basePath ?>/attendance_module\view\lm_panel\index.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
 
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 <?php } ?>
 
                 <?php if (checkPermission('concern-attendance-create') || (checkPermission('concern-attendance-report'))) { ?>
 
-                <li class="menu-item">
-                    <a href="javascript:void(0)" class="menu-link menu-toggle">
-                        <div>Concern Panel</div>
-                    </a>
-                    <ul class="menu-sub">
-                    <?php if (checkPermission('concern-attendance-create')) { ?>
+                    <li class="menu-item">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <div>Concern Panel</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <?php if (checkPermission('concern-attendance-create')) { ?>
 
-                        <li class="menu-item ">
-                            <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\create.php" class="menu-link withoutIcon">
-                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
-                                </div>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <?php if (checkPermission('concern-attendance-report')) { ?>
-                        <li class="menu-item ">
-                            <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\index.php" class="menu-link withoutIcon">
-                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
-                                </div>
-                            </a>
-                        </li>
-                        <?php } ?>
+                                <li class="menu-item ">
+                                    <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\create.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (checkPermission('concern-attendance-report')) { ?>
+                                <li class="menu-item ">
+                                    <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\index.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
 
 
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 <?php } ?>
 
             </ul>
         </li>
 
-        <?php if (checkPermission('pms-list') ||(checkPermission('pms-kra-list'))||(checkPermission('pms-kpi-list')) ) { ?>
+        <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
 
-        <li class="menu-item 
+            <li class="menu-item 
         <?php
-        if (
-            $v_page == 'pms_kra_create' ||
-            $v_page == 'pms_list_self' ||
-            $v_page == 'pms_kpi_list' ||
-            $v_page == 'pms_kpi_list_update'
-        )
-            echo $v_active_open;
+            if (
+                $v_page == 'pms_kra_create' ||
+                $v_page == 'pms_list_self' ||
+                $v_page == 'pms_kpi_list' ||
+                $v_page == 'pms_kpi_list_update'
+            )
+                echo $v_active_open;
         ?>">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-crown"></i>
-                <div data-i18n="Misc">PMS Module</div>
-            </a>
-            <ul class="menu-sub">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-crown"></i>
+                    <div data-i18n="Misc">PMS Module</div>
+                </a>
+                <ul class="menu-sub">
 
-                <?php if (checkPermission('pms-list')) { ?>
+                    <?php if (checkPermission('pms-list')) { ?>
 
-                    <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-                        <a href="<?php echo $basePath ?>/pms_list_self.php" class="menu-link">
-                            <div data-i18n="Error">PMS List</div>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if (checkPermission('pms-kra-list')) { ?>
+                        <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/pms_list_self.php" class="menu-link">
+                                <div data-i18n="Error">PMS List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (checkPermission('pms-kra-list')) { ?>
 
-                    <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-                        <a href="<?php echo $basePath ?>/pms_kra_create.php" class="menu-link">
-                            <div data-i18n="Error">KRA List</div>
-                        </a>
-                    </li>
-                <?php } ?>
-                <?php if (checkPermission('pms-kpi-list')) { ?>
+                        <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/pms_kra_create.php" class="menu-link">
+                                <div data-i18n="Error">KRA List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (checkPermission('pms-kpi-list')) { ?>
 
-                    <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-                        <a href="<?php echo $basePath ?>/pms_kpi_list.php" class="menu-link">
-                            <div data-i18n="Under Maintenance">KPI List</div>
-                        </a>
-                    </li>
-                <?php } ?>
-            </ul>
+                        <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/pms_kpi_list.php" class="menu-link">
+                                <div data-i18n="Under Maintenance">KPI List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
 
-        </li>
+            </li>
         <?php } ?>
 
-        <?php if (checkPermission('role-list') || (checkPermission('permission-list')||  (checkPermission('role-permission-list')) 
-        || (checkPermission('user-role-list'))
+        <?php if (checkPermission('role-list') || (checkPermission('permission-list') ||  (checkPermission('role-permission-list'))
+            || (checkPermission('user-role-list'))
         )) { ?>
 
 
-        <li class="menu-item 
+            <li class="menu-item 
         <?php
-        if (
-            $v_page == 'role'
-            || $v_page == 'permission'
-            || $v_page == 'role_permission'
-            || $v_page == 'user_role'
-        )
-            echo $v_active_open;
+            if (
+                $v_page == 'role'
+                || $v_page == 'permission'
+                || $v_page == 'role_permission'
+                || $v_page == 'user_role'
+            )
+                echo $v_active_open;
         ?>">
 
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-accessibility"></i>
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-accessibility"></i>
 
-                <div data-i18n="Misc"> Role Permission </div>
-            </a>
-            <ul class="menu-sub">
-                <?php if (checkPermission('role-list')) { ?>
+                    <div data-i18n="Misc"> Role Permission </div>
+                </a>
+                <ul class="menu-sub">
+                    <?php if (checkPermission('role-list')) { ?>
 
-                <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
-                    <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
-                        <div data-i18n="Error">Role List</div>
-                    </a>
-                </li>
-                <?php } ?>
+                        <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
+                                <div data-i18n="Error">Role List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
 
-                <?php if (checkPermission('permission-list')) { 
-                ?>
+                    <?php if (checkPermission('permission-list')) {
+                    ?>
 
-                <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
-                    <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
-                        <div data-i18n="Error">Permssion List</div>
-                    </a>
-                </li>
-                <?php }  ?>
+                        <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
+                                <div data-i18n="Error">Permssion List</div>
+                            </a>
+                        </li>
+                    <?php }  ?>
 
-                <?php if (checkPermission('role-permission-list')) {  ?>
+                    <?php if (checkPermission('role-permission-list')) {  ?>
 
-                <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
-                    <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
-                        <div data-i18n="Error">Role & Permission </div>
-                    </a>
-                </li>
-                <?php  } ?>
+                        <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
+                                <div data-i18n="Error">Role & Permission </div>
+                            </a>
+                        </li>
+                    <?php  } ?>
 
-                <?php if (checkPermission('user-role-list')) { ?>
+                    <?php if (checkPermission('user-role-list')) { ?>
 
-                <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
-                    <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
-                        <div data-i18n="Error">User Role</div>
-                    </a>
-                </li>
-                <?php } 
-                ?>
-
-
+                        <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
+                            <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
+                                <div data-i18n="Error">User Role</div>
+                            </a>
+                        </li>
+                    <?php }
+                    ?>
 
 
-            </ul>
-        </li>
+
+
+                </ul>
+            </li>
         <?php } ?>
 
 

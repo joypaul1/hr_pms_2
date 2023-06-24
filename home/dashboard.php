@@ -3,7 +3,6 @@ $v_page        = 'role';
 $v_active_open = 'active open';
 $v_active      = 'active';
 require_once('../helper/com_conn.php');
-require_once('../inc/connoracle.php');
 
 
 
@@ -15,7 +14,7 @@ require_once('../inc/connoracle.php');
                 <marquee >DEMO TEXT</marquee>
             </div>
         </div>
-        <div class="col-lg-8 mb-4 order-0">
+        <div class="col-lg-6 mb-4 order-0">
             <div class="card">
                 <div class="d-flex align-items-end row">
                     <div class="col-sm-7">

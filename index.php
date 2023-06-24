@@ -32,7 +32,7 @@ if (isset($_POST['login_hr'])) {
       // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
       $USER_ROLE_HR = 'HR';
       // echo($USER_ROLE_HR);
-      header('location:home/dashboard/dashboard.php');
+      header('location:home/dashboard.php');
       // die();
 
       // if ($USER_ROLE_HR == "HR") {
