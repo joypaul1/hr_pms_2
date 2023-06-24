@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'update') {
 
     $user_id  = trim($_GET["editID"]);
-
+  
     $deleteID  = [];
     $insertID  = [];
     $getUserWiseRole = getUserWiseRole($conn_hr, $user_id);
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
    
     // Begin the database transaction
     try {
-        $conn_hr->begin_transaction();
+        // $conn_hr->begin_transaction();
         //delete data from database
         if (count($deleteID) > 0) {
             foreach ($deleteID as $key => $roleID) {
@@ -123,11 +123,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
                 if ($result) {
 
                     $getRoleWisePermission = getRoleWisePermission($conn_hr, $inID);
+                   
+                    foreach ($getRoleWisePermission as $key => $permission_id) {
 
-                    foreach ($getRoleWisePermission as $key => $permissionData) {
-
-                        $getUserWiseDeletePermission = getUserWiseInsertPermission($conn_hr, $user_id, $permissionData);
+                        // $getUserWiseInsertPermission = getUserWiseInsertPermission($conn_hr, $user_id, $permission_id);
+                        $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //get user wise permission
+                        $result     = mysqli_query($conn_hr, $sql);
+                    
+                        if (mysqli_num_rows($result) == 0) {
+                            $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)"; //user wise permission insert 
+                            mysqli_query($conn_hr, $sql);
+                        }
                     }
+                    // print_r($getUserWiseInsertPermission);
+                    // die();
                     //end insert user role wise permission 
                 } else {
 
@@ -143,11 +152,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
 
         $conn_hr->commit();
     } catch (Exception $e) {
-        $conn_hr->rollback();
-        echo 'An error occurred: ' . $e->getMessage();  // Handle the exception
-        exit();
+        // $conn_hr->rollback();
+        // echo 'An error occurred: ' . $e->getMessage();  // Handle the exception
+        $message = [
+            'text' => $e->getMessage(),
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        header("location:" . $basePath . "/role_permission/user_role/index.php");
     }
-    $conn_hr->close();
+    // $conn_hr->close();
     $message = [
         'text' => 'Data Updated Successfully.',
         'status' => 'true',
@@ -273,7 +287,6 @@ function getUserWiseDeletePermission($conn_hr, $user_id, $permission_id)
 }
 function getUserWiseInsertPermission($conn_hr, $user_id, $permission_id)
 {
-    global $basePath;
 
     $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //get user wise permission
     $result     = mysqli_query($conn_hr, $sql);
@@ -281,15 +294,8 @@ function getUserWiseInsertPermission($conn_hr, $user_id, $permission_id)
     if (mysqli_num_rows($result) == 0) {
 
         $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)"; //user wise permission insert 
-        $perResult     = mysqli_query($conn_hr, $sql);
-        if ($perResult != TRUE) {
-            $message = [
-                'text' =>  $conn_hr->error,
-                'status' => 'false',
-            ];
-            $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/role_permission/user_role/index.php");
-        }
+        mysqli_query($conn_hr, $sql);
     }
     return true;
+   
 }

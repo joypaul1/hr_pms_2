@@ -87,7 +87,7 @@ if ($result) {
                                     if (checkPermission('user-role-edit')) {
                                         echo '<a href="' . $basePath . '/role_permission/user_role/edit.php?id=' . $row['u_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
                                     }
-                                    if (checkPermission('user-role-edit')) {
+                                    if (checkPermission('user-role-delete')) {
                                         echo ' <button data-id="' . $row['u_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/user_role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                     }
                                     echo "</tr>";
