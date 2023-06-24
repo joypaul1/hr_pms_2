@@ -467,6 +467,9 @@
 
             </ul>
         </li>
+
+        <?php if (checkPermission('pms-list') ||(checkPermission('pms-kra-list'))||(checkPermission('pms-kpi-list')) ) { ?>
+
         <li class="menu-item 
         <?php
         if (
@@ -510,6 +513,13 @@
             </ul>
 
         </li>
+        <?php } ?>
+
+        <?php if (checkPermission('role-list') || (checkPermission('permission-list')||  (checkPermission('role-permission-list')) 
+        || (checkPermission('user-role-list'))
+        )) { ?>
+
+
         <li class="menu-item 
         <?php
         if (
@@ -570,6 +580,8 @@
 
             </ul>
         </li>
+        <?php } ?>
+
 
 
     </ul>
