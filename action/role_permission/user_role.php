@@ -80,7 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
     $deleteID  = [];
     $insertID  = [];
     $getUserWiseRole = getUserWiseRole($conn_hr, $user_id);
-    $newRole_id = $_REQUEST['role_id'] ?? [];
+    $newRole_id = $_REQUEST['role_id'];
+    if(count($_REQUEST['role_id'])> 0){
+        $newRole_id = $_REQUEST['role_id'];
+
+    }
     $getUserWiseRole  = array_column($getUserWiseRole, 'role_id');
 
     $deleteID = array_diff($getUserWiseRole, $newRole_id); // form tbl_user_role
