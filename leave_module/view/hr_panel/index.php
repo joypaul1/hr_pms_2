@@ -9,76 +9,25 @@ $v_page = 'leave_create_self';
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
-$v_excel_download = 0;
 
 ?>
 
+<!-- / Content -->
+
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="col-lg-12">
+    <div class="card col-lg-12">
         <form action="" method="post">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label for="title">RML ID</label>
-                    <div class="input-group">
-                        <input class="form-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' />
+            <div class="card-body row">
+            <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-controll" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
                     </div>
                 </div>
-                <div class="col-sm-3">
-                    <label for="title">Select Company</label>
-                    <select name="company_name" class="form-control">
-                        <option selected value="">--</option>
-                        <?php
 
-                        $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                        ?>
-                            <option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['company_name']) && $_POST['company_name'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <label for="title">Select Leave Year</label>
-                    <select required="" name="leave_year" class="form-control">
-                        <?php
-                        $strSQL  = oci_parse($objConnect, "select YEAR from RML_HR_EMP_LEAVE_PERIOD WHERE IS_ACTIVE=1");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                        ?>
-
-                            <option value="<?php echo $row['YEAR']; ?>"><?php echo $row['YEAR']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="col-sm-3">
-                    <label for="title">Select Leave Type</label>
-                    <select name="leave_type" class="form-control">
-                        <option selected value="">--</option>
-                        <?php
-                        $strSQL  = oci_parse($objConnect, "select LEAVE_TITLE,SHORT_NAME  from RML_HR_EMP_LEAVE_NAME 
-															order by LEAVE_TITLE");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                        ?>
-                            <option value="<?php echo $row['SHORT_NAME']; ?>"><?php echo $row['LEAVE_TITLE']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-
-
-
-            </div>
-            <div class="row">
-                <div class="col-sm-9"></div>
-                <div class="col-sm-3">
+                <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control btn btn-primary" type="submit" value="Search Data">
@@ -93,91 +42,129 @@ $v_excel_download = 0;
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header"><b>Yearly Leave Assign</b></h5>
+        <h5 class="card-header"><b>Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" id="table">
+                <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr>
                             <th>SL</th>
+                            <th scope="col">Emp ID</th>
                             <th scope="col">Name</th>
+                            <th scope="col">Dept.</th>
                             <th scope="col">Leave Type</th>
-                            <th scope="col">Assign Leave Days</th>
-                            <th scope="col">Leave Taken Days</th>
-                            <th scope="col">Late to Leave</th>
-
-                            <th scope="col">Company</th>
-                            <th scope="col">Department</th>
+                            <th scope="col">To Date</th>
+                            <th scope="col">From Date</th>
+                            <th scope="col">Entry From</th>
                             <th scope="col">Branch</th>
-                            <th scope="col">Concern</th>
-                            <th scope="col">DOJ</th>
-                            <th scope="col">Leave Year</th>
-                            <th scope="col">Process Date</th>
-
+                            <th scope="col">Approval Status</th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                        if (isset($_POST['company_name'])) {
-                            $v_rml_id = $_REQUEST['rml_id'];
-                            $company_name = $_REQUEST['company_name'];
-                            $leave_type = $_REQUEST['leave_type'];
-                            $leave_year = $_REQUEST['leave_year'];
+                        if (isset($_POST['emp_id'])) {
+
+                            $v_emp_id = $_REQUEST['emp_id'];
 
                             $strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT  RML_ID,
-                                     EMP_NAME,
-                                     R_CONCERN,
-                                     DEPT_NAME,R_CONCERN,
-                                     BRANCH_NAME,
-                                     DOJ,
-                                     DOC,
-                                     LEAVE_TYPE,
-                                     LEAVE_ASSIGN,
-									 LEAVE_TAKEN,
-									 LATE_LEAVE,
-                                     DAY_CALCULATION,
-                                     LEAVE_PERIOD,
-                                     PROCESS_DATE 									 
-								FROM LEAVE_DETAILS_INFORMATION B
-									 WHERE  ('$v_rml_id' IS NULL OR B.RML_ID='$v_rml_id')
-									 AND ('$company_name' IS NULL OR B.R_CONCERN='$company_name')
-									 AND  ('$leave_type' IS NULL OR B.LEAVE_TYPE='$leave_type')
-									 AND B.LEAVE_PERIOD='$leave_year'
-									 ORDER BY B.RML_ID"
+                                "SELECT B.RML_ID,
+								B.EMP_NAME,
+								B.DEPT_NAME,
+								B.BRANCH_NAME,
+								A.LEAVE_TYPE,
+								A.START_DATE,
+								A.END_DATE,
+								A.ENTRY_FROM,
+								A.IS_APPROVED
+							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
+							WHERE  A.RML_ID=B.RML_ID
+							AND A.RML_ID='$v_emp_id'
+							ORDER BY START_DATE DESC"
                             );
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
-                                $v_excel_download = 1;
                         ?>
                                 <tr>
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php echo $row['EMP_NAME'] . '(' . $row['RML_ID'] . ')'; ?></td>
-                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
-                                    <td><?php echo $row['LEAVE_ASSIGN']; ?></td>
-
-                                    <td><?php echo $row['LEAVE_TAKEN']; ?></td>
-                                    <td><?php echo $row['LATE_LEAVE']; ?></td>
-                                    <td><?php echo $row['PROCESS_DATE']; ?></td>
-
-
-
-                                    <td><?php echo $row['R_CONCERN']; ?></td>
+                                    <td><?php echo $row['RML_ID']; ?></td>
+                                    <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
+                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
+                                    <td><?php echo $row['START_DATE']; ?></td>
+                                    <td><?php echo $row['END_DATE']; ?></td>
+                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['R_CONCERN']; ?></td>
-                                    <td><?php echo $row['DOJ']; ?></td>
-                                    <td><?php echo $row['LEAVE_PERIOD']; ?></td>
+                                    <td><?php
+                                        if ($row['IS_APPROVED'] == '1') {
+                                            echo 'Approved';
+                                        } else if ($row['IS_APPROVED'] == '0') {
+                                            echo 'Denied';
+                                        } else {
+                                            echo 'Pending';
+                                        }
+
+                                        ?></td>
 
                                 </tr>
 
 
+                            <?php
+                            }
+                        } else {
+
+
+                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $allDataSQL  = oci_parse(
+                                $objConnect,
+                                "SELECT B.RML_ID,
+								B.EMP_NAME,
+								B.DEPT_NAME,
+								B.BRANCH_NAME,
+								A.LEAVE_TYPE,
+								A.START_DATE,
+								A.END_DATE,
+								A.ENTRY_FROM,
+								A.IS_APPROVED
+							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
+							WHERE  A.RML_ID=B.RML_ID
+							AND START_DATE BETWEEN to_date((SELECT TO_CHAR(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1),'dd/mm/yyyy') FROM dual),'dd/mm/yyyy') AND to_date(( SELECT TO_CHAR(add_months(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1), 1) -1,'dd/mm/yyyy') FROM dual),'dd/mm/yyyy')
+							ORDER BY START_DATE DESC"
+                            );
+
+                            oci_execute($allDataSQL);
+                            $number = 0;
+                            while ($row = oci_fetch_assoc($allDataSQL)) {
+                                $number++;
+                            ?>
+                                <tr>
+                                    <td>
+                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                    </td>
+                                    <td><?php echo $row['RML_ID']; ?></td>
+                                    <td><?php echo $row['EMP_NAME']; ?></td>
+                                    <td><?php echo $row['DEPT_NAME']; ?></td>
+                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
+                                    <td><?php echo $row['START_DATE']; ?></td>
+                                    <td><?php echo $row['END_DATE']; ?></td>
+                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
+                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
+                                    <td><?php
+                                        if ($row['IS_APPROVED'] == '1') {
+                                            echo 'Approved';
+                                        } else if ($row['IS_APPROVED'] == '0') {
+                                            echo 'Denied';
+                                        } else {
+                                            echo 'Pending';
+                                        }
+
+                                        ?></td>
+                                </tr>
                         <?php
                             }
                         }
@@ -188,38 +175,14 @@ $v_excel_download = 0;
                     </tbody>
                 </table>
             </div>
-            <?php
-            if ($v_excel_download == 1) {
-            ?>
-                <div>
-                    <a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to excel</a>
-                </div>
-            <?php
-            }
-            ?>
         </div>
     </div>
     <!--/ Bordered Table -->
 
 
+
 </div>
+
 <!-- / Content -->
-
-
-<script>
-	function exportF(elem) {
-		var table = document.getElementById("table");
-		table.style.border = "1px solid red";
-
-
-		var html = table.outerHTML;
-		var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
-		elem.setAttribute("href", url);
-
-		elem.setAttribute("download", "EMP_LEAVE_ASSIGN.xls"); // Choose the file name
-		return false;
-	}
-</script>
-
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
