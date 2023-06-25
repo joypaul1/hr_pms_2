@@ -496,7 +496,7 @@ function isActive($url)
             || (checkPermission('user-role-list')))) { ?>
 
 
-            <li class="menu-item ">
+            <li class="menu-item  <?php echo isActive('/role_permission');?> ">
 
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-accessibility"></i>
