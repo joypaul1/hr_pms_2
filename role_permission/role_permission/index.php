@@ -81,12 +81,12 @@ if ($result) {
                             <tbody>
 
                                 <?php
-
+$si=1;
                                 foreach ($roleWisepermission as $key => $row) {
 
 
                                     echo "<tr>";
-                                    echo "<td>" . $key ++ . "</td>";
+                                    echo "<td>" . $si ++ . "</td>";
                                     echo "<td>" . $row['role_name'] . "</td>";
                                     echo "<td>" . $row['permissions'] . "</td>";
                                     echo "<td>";
