@@ -86,7 +86,7 @@ if ($result) {
 
 
                                     echo "<tr>";
-                                    echo "<td>" . $key + 1 . "</td>";
+                                    echo "<td>" . $key ++ . "</td>";
                                     echo "<td>" . $row['role_name'] . "</td>";
                                     echo "<td>" . $row['permissions'] . "</td>";
                                     echo "<td>";
