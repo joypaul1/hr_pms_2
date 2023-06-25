@@ -93,7 +93,7 @@ function isActive($url)
                         <?php } ?>
                     </ul>
                 </li>
-
+                
                 <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-list')) { ?>
                     <li class="menu-item <?php echo isActive('/hr_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -209,7 +209,7 @@ function isActive($url)
 
 
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                                     </a>
                                 </li>
@@ -219,7 +219,7 @@ function isActive($url)
 
 
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/tour_module\view\self_panel\index.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                                     </a>
                                 </li>
@@ -295,23 +295,23 @@ function isActive($url)
         <!-- roster-list -->
         <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
 
-            <li class="menu-item ">
+            <li class="menu-item <?php echo isActive('/roster'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="Misc">Roster Module</div>
                 </a>
                 <ul class="menu-sub">
                     <?php if (checkPermission('roster-create')) { ?>
-                        <li class="menu-item <?php if ($v_page == 'roster_create') echo $v_active; ?>">
-                            <a href="<?php echo $basePath ?>/roster_create.php" class="menu-link">
+                        <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
+                            <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
                                 <div data-i18n="Error">Roster Create</div>
                             </a>
                         </li>
                     <?php } ?>
 
                     <?php if ((checkPermission('roster-list'))) { ?>
-                        <li class="menu-item <?php if ($v_page == 'roster') echo $v_active; ?>">
-                            <a href="<?php echo $basePath ?>/roster.php" class="menu-link">
+                        <li class="menu-item <?php echo isActive('/roster/view/index.php'); ?>">
+                            <a href="<?php echo $basePath ?>/roster/view/index.php" class="menu-link">
                                 <div data-i18n="Under Maintenance">Roster List</div>
                             </a>
                         </li>
@@ -336,7 +336,7 @@ function isActive($url)
                         <ul class="menu-sub">
 
                             <li class="menu-item ">
-                                <a href="<?php echo $basePath ?>/attendance_module\view\self_panel\index.php" class="menu-link withoutIcon">
+                                <a href="<?php echo $basePath ?>/attendance_module/view/self_panel/index.php" class="menu-link withoutIcon">
                                     <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
                                     </div>
                                 </a>
@@ -352,25 +352,22 @@ function isActive($url)
                         <ul class="menu-sub">
                             <?php if (checkPermission('hr-attendance-create')) { ?>
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\hr_panel\create.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/create.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create</div>
                                     </a>
                                 </li>
                             <?php } ?>
                             <?php if (checkPermission('hr-attendance-single-report')) { ?>
-
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\hr_panel\index.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Single Report</div>
                                     </a>
                                 </li>
                             <?php } ?>
 
                             <?php if (checkPermission('hr-attendance-advance-report')) { ?>
-
-
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\hr_panel\advance.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Advance Report</div>
                                     </a>
                                 </li>
@@ -379,7 +376,7 @@ function isActive($url)
                             <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
                                 <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\hr_panel\punch_data_syn.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/punch_data_syn.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Punch Data Syn</div>
                                     </a>
                                 </li>
@@ -453,7 +450,7 @@ function isActive($url)
 
             </ul>
         </li>
-        <!-- C:\xampp\htdocs\rHRT\pms\view\pms_list_self.php -->
+        <!-- -->
         <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
 
             <li class="menu-item  <?php echo isActive('/pms');?>">

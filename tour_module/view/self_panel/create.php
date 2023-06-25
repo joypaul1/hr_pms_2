@@ -11,21 +11,22 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-	<div class="col-lg-12">
+	<div class="col-lg-12 card">
 		<form id="Form1" action="" method="post"></form>
 		<form id="Form2" action="" method="post"></form>
-		<div class="row">
+		<div class="card-body row ">
+			<div class="col-sm-2"></div>
 			<div class="col-sm-4">
 				<div class="form-group">
 					<label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-					<input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
+					<input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
 				</div>
 			</div>
 
 			<div class="col-sm-4">
 				<div class="form-group">
 					<label class="form-label" for="basic-default-fullname">&nbsp;</label>
-					<input form="Form1" class="form-control btn btn-primary" name="submit_search" type="submit" value="Search Data">
+					<input form="Form1" class="form-control btn btn-primary cust-control" name="submit_search" type="submit" value="Search Data">
 				</div>
 			</div>
 		</div>
@@ -120,9 +121,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 									<textarea id="basic-default-message" class="form-control cust-control" form="Form2" name="remarks" placeholder="Hi, Do you have any Remarks?" required="" aria-describedby="basic-icon-default-message2"></textarea>
 								</div>
 							</div>
-							<div class="row justify-content-end">
-								<div class="col-sm-10">
-									<button form="Form2" type="submit" name="submit_leave" class="btn cust-control  btn-primary">Create Tour</button>
+							<div class="row">
+								<div class="text-right">
+									<button form="Form2" type="submit" name="submit_leave" class="btn btn-sm cust-control btn-primary">Create Tour</button>
 								</div>
 							</div>
 
