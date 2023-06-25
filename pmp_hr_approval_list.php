@@ -16,7 +16,7 @@
 	require_once('inc/config.php');
 	require_once('layouts/header.php'); 
 	
-	$v_page='pmp_hr_approval_list';
+	$v_page='lm_pms_approval';
 	$v_active_open='active open';
 	$v_active='active';
 	
@@ -26,139 +26,186 @@
 	require_once('inc/connoracle.php');
 	
 	
-	
-
+	$emp_session_id=$_SESSION['HR']['emp_id_hr'];
+    $v_view_approval=0;
 ?>
 
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-
-    <div class="col-lg-12">
-		<form action="" method="post">
-			<div class="row">
-				<div class="col-sm-4">
-					<div class="form-group">
-					 <label class="form-label" for="basic-default-fullname">Department Name</label>
-					  <input  required="" placeholder="Department Name" name="department_name" class="form-control"  type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' />
-					  </div>
+<div class="row">
+				<div class="col-lg-12">
+				    <form id="Form1" action="" method="post"></form>
+					<form id="Form2" action="" method="post"></form>
+					<form id="Form3" action="" method="post"></form>
+						<div class="row">
+						    <div class="col-sm-8"></div>
+						    <div class="col-sm-4">
+							<label>Select Your Concern:</label>
+								<select name="emp_concern" class="form-control" form="Form1" > 
+								 <option selected value="">Select Concern</option>
+								      <?php
+						                $strSQL  = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+																		where PMS_HR_APPROVER_ID ='$emp_session_id'
+																		and is_active=1 
+																		order by EMP_NAME"); 
+						                oci_execute($strSQL);
+									   while($row=oci_fetch_assoc($strSQL)){	
+									  ?>
+	
+									  <option value="<?php echo $row['RML_ID'];?>"><?php echo $row['EMP_NAME'];?></option>
+									  <?php
+									   }
+									  ?>
+							</select>
+							</div>
+							
+							
+							
+						</div>	
+						<div class="row mt-3">		
+                              <div class="col-sm-4">
+							  </div>
+							 <div class="col-sm-4">
+							  </div>
+                             <div class="col-sm-4">
+							    <input class="form-control btn btn-primary" type="submit" value="Search Approval Data" form="Form1">
+							  </div>							  	
+						</div>
+						
+					</form>
 				</div>
-				 
-				<div class="col-sm-4">
-					<div class="form-group">
-					  <label for="title"> <br></label>
-					  <input class="form-control btn btn-primary" type="submit" value="Search Data">
-					</div>
-				</div>
-			</div>	
-		</form>
-	</div>
-	</br>		
 				
-		
+				<div class="col-lg-12">
+				    <form id="Form1" action="" method="post">
+					<div class="md-form mt-5">
+					 <div class="resume-item d-flex flex-column flex-md-row">
+					   <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">  
+						<thead class="thead-dark">
+								<tr>
+								  <th class="text-center">Sl</th>
+								  <th scope="col">PMS Info</th>
+								</tr>
+					   </thead>
+					   
+					  
 
-  <!-- Bordered Table -->
-  <div class="card">
-	<h5 class="card-header"><b>PMP Approval HR</b></h5>
-	<div class="card-body">
-	  <div class="table-responsive text-nowrap">
-		<table class="table table-bordered">
-		  <thead class="table-dark">
-			<tr>
-			  <th>SL</th>
-			  <th>Department Name</th>
-			  <th>Approvar HR</th>
-			  <th>Creator ID</th>
-			  <th>Create Date</th>
-			  <th>Status</th>
-			</tr>
-		  </thead>
-		  <tbody>
-		    
-			<?php
-			if(isset($_POST['department_name'])){
-			 
-			   $department_name = $_REQUEST['department_name'];
-			  
-			   $strSQL  = oci_parse($objConnect, "select ID,DEPT_NAME,CREATED_BY,CREATED_DATE,IS_ACTIVE,RESPONSIBLE_HR,UPDATED_DATE from RML_HR_DEPARTMENT where DEPT_NAME like '%$department_name%'"); 
-				oci_execute($strSQL);
-				$number=0;	
-                while($row=oci_fetch_assoc($strSQL)){	
-				$number++;
-                 ?>	
-                <tr>
-			      <td>
-				  <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number;?></strong>
-			    </td>
-			    <td><?php echo $row['DEPT_NAME'];?></td>
-				<td><?php echo $row['RESPONSIBLE_HR'];?></td>
-				<td><?php echo $row['CREATED_BY'];?></td>
-				<td><?php echo $row['CREATED_DATE'];?></td>
-				<td><?php 
-				    if($row['IS_ACTIVE']==1)
-					    echo 'Active';
-					else 
-					    echo 'In-Active';	 
-				    ?>
-				</td>
-			    
-			</tr>
- 
-
-           <?php
-			}
-			}
-			else{	 
-			
-			
-			$emp_session_id=$_SESSION['HR']['emp_id_hr'];
-		    $allDataSQL  = oci_parse($objConnect, 
-			            "select 
-						    ID,
-						    DEPT_NAME,
-							CREATED_BY,
-							CREATED_DATE,
-							IS_ACTIVE,
-							RESPONSIBLE_HR
-							FROM RML_HR_DEPARTMENT"); 
+						<?php
+						if(isset($_POST['emp_concern'])){
+                          $emp_concern = $_REQUEST['emp_concern'];
+						  $strSQL  = oci_parse($objConnect, "SELECT A.ID,
+							           A.EMP_ID,
+							           A.EMP_NAME,
+									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
+									   A.EMP_WORK_STATION,
+									   A.EMP_DESIGNATION,
+									   A.GROUP_NAME,
+									   A.GROUP_CONCERN,
+									   A.CREATED_DATE,
+									   A.CREATED_BY,
+									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+									FROM HR_PMS_EMP A
+									WHERE SELF_SUBMITTED_STATUS=1
+									   AND LINE_MANAGER_1_STATUS =1
+									   AND LINE_MANAGER_2_STATUS =1
+									   AND HR_STATUS is null
+									AND A.EMP_ID='$emp_concern'"); 
 									
-			oci_execute($allDataSQL);
-			$number=0;
-		    while($row=oci_fetch_assoc($allDataSQL)){	
+						  oci_execute($strSQL);
+						  $number=0;
+							
+		                  while($row=oci_fetch_assoc($strSQL)){	
 						   $number++;
-            ?>
-			<tr>
-			    <td>
-				<i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number;?></strong>
-			    </td>
-			    <td><?php echo $row['DEPT_NAME'];?></td>
-				<td><?php echo $row['RESPONSIBLE_HR'];?></td>
-				<td><?php echo $row['CREATED_BY'];?></td>
-				<td><?php echo $row['CREATED_DATE'];?></td>
-				<td><?php 
-					if($row['IS_ACTIVE']==1)
-						echo 'Active';
-					else 
-					    echo 'In-Active';	 
-					?></td>
-			  
-			</tr>
-			<?php
-		    }
-			}
-			?>
+						   $v_view_approval=1;
+                           ?>
+						   <tbody>
+						   <tr>
+							    <td class="text-center"> <?php echo $number;?></td>
+							    <td>
+								<a href="pms_kpi_dtls_lm.php?key=<?php echo $row['HR_PMS_LIST_ID'].'&emp_id='.$row['EMP_ID'];?>"><?php echo $row['PMS_TITLE'];?></a>
+							     <?php echo ',<br>';
+								       echo $row['EMP_NAME'];
+							           echo '[';
+									   echo $row['EMP_ID'];
+									   echo '],<br>';
+									   echo $row['EMP_DESIGNATION'];
+									   echo ', ';
+									   echo $row['EMP_DEPT'];
+									   echo ', ';
+									   echo $row['EMP_WORK_STATION'];
+									   echo ',<br>';
+									   echo 'Submitted Date: '.$row['SELF_SUBMITTED_DATE'];
+									   echo '.<br>';?>
+									   <a href="pms_approve_denied_3.php?key=<?php echo $row['HR_PMS_LIST_ID'].'&emp_id='.$row['EMP_ID'].'&tab_id='.$row['ID'];?>"><button type="button" class="btn btn-primary">View for Approval</button></a>
+								</td>
+								
+						 </tr>
+						 <?php
+						  } 
+						  }else{
+						     $allDataSQL  = oci_parse($objConnect, 
+							   "SELECT A.ID,
+							           A.EMP_ID,
+							           A.EMP_NAME,
+									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
+									   A.EMP_WORK_STATION,
+									   A.EMP_DESIGNATION,
+									   A.GROUP_NAME,
+									   A.GROUP_CONCERN,
+									   A.CREATED_DATE,
+									   A.CREATED_BY,
+									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+									FROM HR_PMS_EMP A
+									WHERE SELF_SUBMITTED_STATUS=1
+									   AND LINE_MANAGER_1_STATUS =1
+									   AND LINE_MANAGER_2_STATUS =1
+									   AND HR_STATUS IS NULL"); 
+									
+						  oci_execute($allDataSQL);
+						  $number=0; 
+						  
+						  while($row1=oci_fetch_assoc($allDataSQL)){	
+						   $number++;
+						   $v_view_approval=1;
+                           ?>
+						   <tr>
+							    <td class="text-center"> <?php echo $number;?></td>
+							    <td>
+								<a href="pms_kpi_dtls_lm.php?key=<?php echo $row1['HR_PMS_LIST_ID'].'&emp_id='.$row1['EMP_ID'];?>"><?php echo $row['PMS_TITLE'];?></a>
+							     <?php echo ',<br>';
+								       echo $row1['EMP_NAME'];
+							           echo '[';
+									   echo $row1['EMP_ID'];
+									   echo '],<br>';
+									   echo $row1['EMP_DESIGNATION'];
+									   echo ', ';
+									   echo $row1['EMP_DEPT'];
+									   echo ', ';
+									   echo $row1['EMP_WORK_STATION'];
+									   echo ',<br>';
+									   echo 'Submitted Date: '.$row1['SELF_SUBMITTED_DATE'];
+									   echo '.<br>';?>
+									   <a href="pms_approve_denied_3.php?key=<?php echo $row1['HR_PMS_LIST_ID'].'&emp_id='.$row1['EMP_ID'].'&tab_id='.$row1['ID'];?>"><button type="button" class="btn btn-primary">View for Approval</button></a>
+								</td>
+								
+						 </tr>
+						 <?php
+						  }
+						 
+						  }
+						  ?>
+					</tbody>	
+				 
+		              </table>
+					</div>
+					
+				  </div>
+				</div>
+			  </form>
 			
-			
-			
-		  </tbody>
-		</table>
-	  </div>
-	</div>
-  </div>
-  <!--/ Bordered Table -->
-
-  
-
+			</div>
 </div>
 
 <!-- / Content -->

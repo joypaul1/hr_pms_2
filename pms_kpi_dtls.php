@@ -39,7 +39,19 @@
 	oci_execute($strSQL);
 	while($row=oci_fetch_assoc($strSQL)){
       $SUBMITTED_STATUS = $row['SELF_SUBMITTED_STATUS'];
-	}		
+	}	
+
+
+
+
+    // Weaightage value
+	 $v_previous_weightage=0;
+     $WATESQL  = oci_parse($objConnect, 
+				       "SELECT PMS_WEIGHTAGE('$emp_session_id',$v_key) AS WEIGHTAGE  FROM DUAL"); 
+                oci_execute($WATESQL);
+				 while($row=oci_fetch_assoc($WATESQL)){	
+				 $v_previous_weightage=$row['WEIGHTAGE'];
+				 }	
 	
 ?>
 
@@ -56,7 +68,7 @@
 				<div class="col-lg-12">
 					<form action="" method="post">
 					<div class="row">						
-						<div class="col-sm-4">
+						<div class="col-sm-6">
 							<label for="exampleInputEmail1">Select KRA:</label>
 						    <select required=""  name="kra_id" class="form-control">
 							    <option selected value="">--</option>
@@ -71,36 +83,51 @@
 							</select>
 						</div>
 					</div>
-					<div class="row">						
+					<div class="row  mt-3">						
 						<div class="col-sm-6">
-							<div class="md-form mt-3">
+							<div class="md-form">
 								<label for="comment">KPI Name:</label>
-								<textarea required=""  class="form-control" rows="2" id="comment" name="kpi_name"></textarea>
+								<textarea required=""  class="form-control" rows="1" id="comment" name="kpi_name"></textarea>
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<div class="md-form mt-3">
-								<label for="comment">Remarks:</label>
-								<textarea  class="form-control" rows="2" id="comment" name="ramarks"></textarea>
-							</div>
-						</div>
-					</div>
-					<div class="row  mt-3">
 						
-						<div class="col-sm-4">
-							<label for="exampleInputEmail1">Weightage(%):</label>
-                           <input required="" class="form-control"  type='text'  name="weightage"/>
-						</div>	
-						<div class="col-sm-4">
+						<div class="col-sm-3">
+							<label for="exampleInputEmail1">Select Weightage(%):</label>
+								<select required=""  name="weightage" class="form-control">
+									<option selected value="">--</option>
+									<option value="5">5</option>	  
+									<option value="10">10</option>	  
+									<option value="15">15</option>	  
+									<option value="20">20</option>	  
+									<option value="25">25</option>	  
+									<option value="30">30</option>	  
+								</select>
+							</div>
+							
+						<div class="col-sm-3">
 							<label for="exampleInputEmail1">Target(%):</label>
 							<input required="" class="form-control"  type='text'  name="target"/>
 						</div>	
+						
+					</div>
+					<div class="row  mt-3">
+					   <div class="col-sm-6">
+							<label for="exampleInputEmail1">Eligibility Factor:</label>
+							<input required="" class="form-control"  type='text'  name="eligi_factor"/>
+						</div>	
+						<div class="col-sm-6">
+							<div class="md-form">
+								<label for="comment">Remarks:</label>
+								<textarea  class="form-control" rows="1" id="comment" name="ramarks"></textarea>
+							</div>
+						</div>
+						
 					</div>	
 					
 						
 					<div class="row">
-                        <div class="col-sm-8"></div>					
-						<div class="col-sm-4">
+                        <div class="col-sm-9"></div>					
+						<div class="col-sm-3">
 							<div class="md-form mt-3">
 								<input class="form-control btn btn-primary" type="submit" value="Submit to Create">
 							</div>
@@ -124,8 +151,17 @@
 				$v_weightage = $_REQUEST['weightage'];
 				$v_target = $_REQUEST['target'];
 				$v_ramarks = $_REQUEST['ramarks'];
-
-				$strSQL  = oci_parse($objConnect, 
+				$v_eligi_factor = $_REQUEST['eligi_factor'];
+				
+				if(($v_previous_weightage+$v_weightage)>100){
+					$error='Overflow. Your total weightage value must equal to 100.Please check your weaightage sum';
+					echo '<div class="alert alert-danger">';
+					echo $error;
+					echo '</div>';
+					
+				}else{
+					
+					$strSQL  = oci_parse($objConnect, 
 				       "INSERT INTO HR_PMS_KPI_LIST (
                                        KPI_NAME, 
 									   HR_KRA_LIST_ID, 
@@ -134,7 +170,8 @@
 									   IS_ACTIVE,
 									   WEIGHTAGE,
 									   REMARKS,
-									   TARGET) 
+									   TARGET,
+									   ELIGIBILITY_FACTOR) 
                                VALUES ( 
                                        '$v_kpi_name',
                                         $v_kra_id,
@@ -143,39 +180,25 @@
 										1,
 										$v_weightage,
 										'$v_ramarks',
-										$v_target
-										)"); 
-						
-						  if(@oci_execute($strSQL)){
-							  ?>
-							
-                                 <div class="container-fluid">
-							      <div class="md-form mt-5">
-							        <ol class="breadcrumb">
-									<li class="breadcrumb-item">
-									  KPI is created successfully.
-									</li>
-								   </ol>
-								  </div>
-								  </div>
-							  <?php
+										$v_target,
+										$v_eligi_factor
+										)");
+										
+					if(@oci_execute($strSQL)){
+							  echo 'KPI is created successfully.'; 
 						}else{
 							 $lastError = error_get_last();
 				             $error=$lastError ? "".$lastError["message"]."":"";
 							 if (strpos($error, 'ATTN_DATE_PK') !== false) {
-											?>
-											 <div class="container-fluid">
-											  <div class="md-form mt-5">
-												<ol class="breadcrumb">
-												<li class="breadcrumb-item">
-												  Contact With IT.
-												</li>
-											   </ol>
-											  </div>
-											  </div>
-											<?php
-										 }
-						                }
+								  echo 'Contact With IT.';
+								}
+						}					
+										
+										
+				}
+				 
+						
+						  
 						               }
                            ?>
 
@@ -196,6 +219,7 @@
 								  <th scope="col">Key Performance indicators<br>KPI</th>
 								  <th scope="col">Weightage(%)<br>(Range of 5-30)</th>
 								  <th scope="col">Target</th>
+								  <th scope="col">Eligibility Factor</th>
 								  <th scope="col">Remarks</th>
 								</tr>
 					   </thead>
@@ -261,6 +285,22 @@
 							       <tr>
 							        
 									 <td height="60px" class="align-middle"><?php echo $rowIN['TARGET'];?></td>
+								   </tr>
+							    <?php 
+							     }
+							    ?>
+							    </table>
+							  </td> 
+							   <td class="align-middle">
+							    <table width="100%">
+								<?php 
+							     $strSQLInner  = oci_parse($objConnect, "select ELIGIBILITY_FACTOR from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID"); 
+						         oci_execute($strSQLInner);
+							     while($rowIN=oci_fetch_assoc($strSQLInner)){	
+									 ?>
+							       <tr>
+							        
+									 <td height="60px" class="align-middle"><?php echo $rowIN['ELIGIBILITY_FACTOR'];?></td>
 								   </tr>
 							    <?php 
 							     }

@@ -49,6 +49,8 @@
 								  <th scope="col">KRA Name</th>
 								  <th scope="col">WEIGHTAGE</th>
 								  <th scope="col">TARGET</th>
+								  <th scope="col">Achievement (%)</th>
+								  <th scope="col">Eligibility Factor</th>
 								  <th scope="col">Remarks</th>
 								  <th scope="col">Status</th>
 								  <th scope="col">Action</th>
@@ -61,13 +63,20 @@
 					
 						
 						  
-						  $strSQL  = oci_parse($objConnect, "SELECT 
-													ID, KPI_NAME, HR_KRA_LIST_ID, 
-													   WEIGHTAGE, TARGET, REMARKS, 
-													   CREATED_BY, CREATED_DATE, IS_ACTIVE, 
-													   TARGET_LOCK_STATUS
-													FROM HR_PMS_KPI_LIST
-													WHERE CREATED_BY='$emp_session_id'"); 
+						  $strSQL  = oci_parse($objConnect, 
+						                    "SELECT 
+											    B.ID, 
+												B.KPI_NAME, 
+												(SELECT KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)KRA_NAME, 
+												WEIGHTAGE, 
+												TARGET,ELIGIBILITY_FACTOR, 
+												REMARKS, 
+												CREATED_BY, 
+												CREATED_DATE, 
+												IS_ACTIVE,ACHIVEMENT, 
+												ACHIEVEMENT_LOCK_STATUS
+											FROM HR_PMS_KPI_LIST B
+											WHERE CREATED_BY='$emp_session_id'"); 
 						  oci_execute($strSQL);
 						  $number=0;
 							
@@ -78,9 +87,11 @@
 						   <tr>
 							  <td class="text-center"><?php echo $number;?></td>
 							  <td><?php echo $row['KPI_NAME'];?></td>
-							  <td><?php echo $row['HR_KRA_LIST_ID'];?></td>
+							  <td><?php echo $row['KRA_NAME'];?></td>
 							  <td><?php echo $row['WEIGHTAGE'];?></td>
 							  <td><?php echo $row['TARGET'];?></td>
+							  <td><?php echo $row['ACHIVEMENT'];?></td>
+							  <td><?php echo $row['ELIGIBILITY_FACTOR'];?></td>
 							  <td><?php echo $row['REMARKS'];?></td>
 							  <td>
 							      <?php 
@@ -93,6 +104,15 @@
 							   <td>
 								<input form="Form2" name="table_id" class="form-control"  type='text' value='<?php echo $row['ID'];?>' style="display:none"/>
 								<a class="btn btn-warning btn-sm" href="pms_kpi_list_update.php?key=<?php echo $row['ID'];?>">Update</a>
+								
+								<?php 
+								  if($row['ACHIEVEMENT_LOCK_STATUS']=='1'){
+									   ?>
+								<input form="Form2" name="table_id" class="form-control"  type='text' value='<?php echo $row['ID'];?>' style="display:none"/>
+								<a class="btn btn-warning btn-sm" href="pms_kpi_list_update.php?key=<?php echo $row['ID'];?>">Achivement</a>
+								  <?php 
+								  } 
+								  ?>
 							   </td>
 							 
 						 </tr>

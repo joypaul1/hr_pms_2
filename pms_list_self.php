@@ -29,15 +29,21 @@
 	$emp_session_id=$_SESSION['HR']['emp_id_hr'];
 	$strSQL  = oci_parse($objConnect, 
 								"select RML_ID,
-										EMP_NAME,
-										R_CONCERN,DEPT_NAME,BRANCH_NAME,
-										DESIGNATION,EMP_GROUP,
-									    (SELECT aa.EMP_NAME from RML_HR_APPS_USER aa where aa.RML_ID=bb.PMS_LINE_MANAGER_1_ID) LINE_MANAGER_1_NAME,
-										(SELECT aa.EMP_NAME from RML_HR_APPS_USER aa where aa.RML_ID=bb.PMS_LINE_MANAGER_2_ID) LINE_MANAGER_2_NAME
-								from RML_HR_APPS_USER bb
-								where RML_ID='$emp_session_id'"); 
+								       EMPLOYEE_NAME EMP_NAME,
+									   COMPANY_NAME R_CONCERN,
+									   DEPARTMENT DEPT_NAME,
+									   WORKSTATION BRANCH_NAME,
+									   DESIGNATION,
+									   BRAND EMP_GROUP,
+									   COLL_HR_EMP_NAME((SELECT aa.LINE_MANAGER_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_1_NAME,
+									   COLL_HR_EMP_NAME((SELECT aa.DEPT_HEAD_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_2_NAME
+								from empinfo_view_api@ERP_PAYROLL bb where RML_ID='$emp_session_id'"); 
 						  
     oci_execute($strSQL);
+	
+	
+	
+	
 
 ?>
 
@@ -221,13 +227,15 @@
 										LINE_MANAGER_2_STATUS, 
                                         LINE_MANAGER_2_UPDATED, 
 										HR_PMS_LIST_ID,
+										PMS_WEIGHTAGE(EMP_ID,HR_PMS_LIST_ID) AS  PMS_WEIGHTAGE_STATUS,
                                        (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,									
 										HR_ID, 
                                         HR_STATUS, 
 										HR_STATUS_DATE, 
 										CREATED_BY, 
                                         CREATED_DATE, 
-										IS_ACTIVE
+										IS_ACTIVE,
+										LINE_MANAGE_1_REMARKS
                                     FROM HR_PMS_EMP PMS
 									WHERE EMP_ID='$emp_session_id'"); 
 			 						
@@ -282,9 +290,11 @@
 								 if($row['LINE_MANAGER_1_STATUS']==1)
 									echo 'Status: Approved';
 								 else if($row['LINE_MANAGER_1_STATUS']=='')
-									 echo 'Status: Pending';
+									 echo '';
 								 else if($row['LINE_MANAGER_1_STATUS']==0)
-									 echo 'Status: Decline';
+									  echo '<i style="color:red;"><b>Status: Decline</b></i> ';
+								 echo '<br>';
+								 echo 'Remarks: '.$row['LINE_MANAGE_1_REMARKS'];
 								 echo '<br>';
 								 echo $row['LINE_MANAGER_1_UPDATED'];
 								?>
@@ -301,7 +311,7 @@
 								 if($row['LINE_MANAGER_2_STATUS']==1)
 									echo 'Status: Approved';
 								 else if($row['LINE_MANAGER_2_STATUS']=='')
-									 echo 'Status: Pending';
+									 echo '';
 								 else if($row['LINE_MANAGER_2_STATUS']==0)
 									 echo 'Status: Decline';
 								 
@@ -319,7 +329,7 @@
 							    </td>
 							  <td align="center">
 							    <?php
-								if($row['SELF_SUBMITTED_STATUS']==0)
+								if(($row['SELF_SUBMITTED_STATUS']==0 && $row['PMS_WEIGHTAGE_STATUS']>=100) || $row['LINE_MANAGER_1_STATUS']==0)
 								{
 							     ?>
 								<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit"/>	
@@ -343,7 +353,11 @@
 					$table_id = $_REQUEST['table_id'];
                     
 					$updateSQL  = oci_parse($objConnect, 
-						            "UPDATE HR_PMS_EMP SET SELF_SUBMITTED_STATUS=1,SELF_SUBMITTED_DATE=SYSDATE WHERE ID='$table_id'"); 
+						            "UPDATE HR_PMS_EMP SET 
+									SELF_SUBMITTED_STATUS=1,
+									SELF_SUBMITTED_DATE=SYSDATE ,
+									LINE_MANAGER_1_STATUS=null
+									WHERE ID='$table_id'"); 
 			 						
 					if(oci_execute($updateSQL)){
 						echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_list_self.php'</script>";

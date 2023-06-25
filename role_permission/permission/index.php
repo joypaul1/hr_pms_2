@@ -65,13 +65,9 @@ while ($row = mysqli_fetch_array($result)) {
                                     <th>Action</th>
                                 </tr>
                             </thead>
-
                             <tbody>
-
                                 <?php
-
                                 foreach ($dataArray as $key => $row) {
-
                                     echo "<tr>";
                                     echo "<td>" . $row['id'] . "</td>";
                                     echo "<td>" . $row['name'] . "</td>";
