@@ -18,7 +18,7 @@ if (isset($_GET["page"])) {
 
 $start_from = ($page - 1) * $num_per_page;
 // Retrieve user-wise roles
-$sql = "SELECT u.id as u_id, u.first_name as u_name,  GROUP_CONCAT(r.name) AS roles
+$sql = "SELECT u.id as u_id, u.first_name as u_name, u.emp_id,  GROUP_CONCAT(r.name) AS roles
         FROM tbl_users u
         LEFT JOIN tbl_users_roles ur ON u.id = ur.user_id
         LEFT JOIN tbl_roles r ON ur.role_id = r.id
@@ -31,6 +31,7 @@ if ($result) {
         $dataArray[] = [
             'u_id' => $row['u_id'],
             'u_name' => $row['u_name'],
+            'u_emp_id' => $row['emp_id'],
             'roles' => $row['roles'],
 
         ];
@@ -66,8 +67,9 @@ if ($result) {
                         <table class=" table table-bordered text-center dataTable">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Serial No.</th>
                                     <th>User Name</th>
+                                    <th>User ID</th>
                                     <th>Role Name</th>
                                     <th>Action</th>
                                 </tr>
@@ -82,6 +84,7 @@ if ($result) {
                                     echo "<tr>";
                                     echo "<td>" .$sirial++ ."</td>";
                                     echo "<td>" . $row['u_name'] . "</td>";
+                                    echo "<td>" . $row['u_emp_id'] . "</td>";
                                     echo "<td>" . $row['roles'] . "</td>";
                                     echo "<td>";
                                     if (checkPermission('user-role-edit')) {
