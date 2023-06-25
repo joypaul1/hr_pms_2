@@ -76,11 +76,11 @@ if ($result) {
                             <tbody>
 
                                 <?php
-
+                                $sirial=1;
                                 foreach ($dataArray as $key => $row) {
 
                                     echo "<tr>";
-                                    echo "<td>" .  $key + 1 . "</td>";
+                                    echo "<td>" .$sirial++ ."</td>";
                                     echo "<td>" . $row['u_name'] . "</td>";
                                     echo "<td>" . $row['roles'] . "</td>";
                                     echo "<td>";
