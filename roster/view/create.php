@@ -29,41 +29,22 @@ require_once('../../inc/connoracle.php');
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="container-fluid ">
-        <div class="card row">
-            <div class="col-lg-12 card-body">
+    <div class="">
+        <div class="card">
+            <div class=" card-body">
                 <form id="Form1" action="" method="post"></form>
                 <form id="Form2" action="" method="post"></form>
                 <form id="Form3" action="" method="post"></form>
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label for="title">RML ID:</label>
                             <input name="rml_id" form="Form1" class="form-control cust-control" type='text'
                                 value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>' />
                         </div>
                     </div>
-                </div>
-                <script>
-                    function onChangeCompany(company_name) {
-                        if (window.XMLHttpRequest) {
-                            xmlhttp = new XMLHttpRequest();
-                        } else {
-                            xmlhttp = new ActiveXObject("Migrosoft.XMLHTTP");
-                        }
-                        xmlhttp.onreadystatechange = function () {
-                            if (this.readyState == 4 && this.status == 200) {
-                                document.getElementById('department_name').innerHTML = this.responseText;
-                            }
-                        };
-                        xmlhttp.open("GET", "populate_comp_to_dept.php?company_name=" + company_name, true);
-                        xmlhttp.send();
-                    }
-                </script>
-
-                <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <label for="title">Select Company:</label>
                         <select name="r_concern" class="form-control cust-control" onchange="onChangeCompany(this.value)" form="Form1">
                             <option selected value="">--</option>
@@ -83,7 +64,7 @@ require_once('../../inc/connoracle.php');
                             ?>
                         </select>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label for="title">Select Department:</label>
                             <div id="branch_name">
@@ -93,10 +74,33 @@ require_once('../../inc/connoracle.php');
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label for="title"><br></label>
                         <input class="form-control btn  btn-primary cust-control" type="submit" value="Search Data" form="Form1">
                     </div>
+                </div>
+                
+                
+                <script>
+                    function onChangeCompany(company_name) {
+                        if (window.XMLHttpRequest) {
+                            xmlhttp = new XMLHttpRequest();
+                        } else {
+                            xmlhttp = new ActiveXObject("Migrosoft.XMLHTTP");
+                        }
+                        xmlhttp.onreadystatechange = function () {
+                            if (this.readyState == 4 && this.status == 200) {
+                                document.getElementById('department_name').innerHTML = this.responseText;
+                            }
+                        };
+                        xmlhttp.open("GET", "populate_comp_to_dept.php?company_name=" + company_name, true);
+                        xmlhttp.send();
+                    }
+                </script>
+
+                <div class="row">
+                    
+                  
 
 
                     </form>
@@ -107,7 +111,7 @@ require_once('../../inc/connoracle.php');
                         <div class="row">
                             <div class="col-sm-4">
                                 <label for="title">Roster Day Name:</label>
-                                <select required="" name="day_name" class="form-control">
+                                <select required="" name="day_name" class="form-control cust-control">
                                     <option selected value="">--</option>
                                     <option value="SATURDAY">Saturday</option>
                                     <option value="SUNDAY">Sunday</option>
@@ -134,7 +138,7 @@ require_once('../../inc/connoracle.php');
                         <div class="md-form">
                             <div class="resume-item d-flex flex-column flex-md-row">
                                 <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
-                                    <thead class="table-dark">
+                                    <thead style="background: beige;">
                                         <tr>
                                             <th scope="col">Sl</th>
                                             <th scope="col">
