@@ -453,10 +453,10 @@ function isActive($url)
 
             </ul>
         </li>
-
+        <!-- C:\xampp\htdocs\rHRT\pms\view\pms_list_self.php -->
         <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
 
-            <li class="menu-item ">
+            <li class="menu-item  <?php echo isActive('/pms');?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-crown"></i>
                     <div data-i18n="Misc">PMS Module</div>
@@ -465,24 +465,24 @@ function isActive($url)
 
                     <?php if (checkPermission('pms-list')) { ?>
 
-                        <li class="menu-item <?php if ($v_page == 'pms_list_self') echo $v_active; ?>">
-                            <a href="<?php echo $basePath ?>/pms_list_self.php" class="menu-link">
+                        <li class="menu-item <?php echo isActive('pms/view/pms_list_self.php');?>">
+                            <a href="<?php echo $basePath ?>/pms/view/pms_list_self.php" class="menu-link">
                                 <div data-i18n="Error">PMS List</div>
                             </a>
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('pms-kra-list')) { ?>
 
-                        <li class="menu-item <?php if ($v_page == 'pms_kra_create') echo $v_active; ?>">
-                            <a href="<?php echo $basePath ?>/pms_kra_create.php" class="menu-link">
+                        <li class="menu-item <?php echo isActive('pms/view/pms_kra_create.php');?>">
+                            <a href="<?php echo $basePath ?>/pms/view/pms_kra_create.php" class="menu-link">
                                 <div data-i18n="Error">KRA List</div>
                             </a>
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('pms-kpi-list')) { ?>
 
-                        <li class="menu-item <?php if ($v_page == 'pms_kpi_list') echo $v_active; ?>">
-                            <a href="<?php echo $basePath ?>/pms_kpi_list.php" class="menu-link">
+                        <li class="menu-item <?php echo isActive('pms/view/pms_kpi_list.php');?>">
+                            <a href="<?php echo $basePath ?>/pms/view/pms_kpi_list.php" class="menu-link">
                                 <div data-i18n="Under Maintenance">KPI List</div>
                             </a>
                         </li>
