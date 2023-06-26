@@ -2,14 +2,7 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
-// $v_page = 'leave_create_self';
-// $v_active_open = 'active open';
-// $v_active = 'active';
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
-
 
 ?>
 
@@ -26,14 +19,14 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 							<input readonly name="emp_id" class="form-control cust-control" type='text' value='<?php echo $emp_session_id; ?>' />
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
 							<input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
 						</div>
 					</div>
-					<div class="col-sm-3">
+					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
@@ -49,14 +42,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 						</select>
 					</div>
-					<div class="col-sm-9"></div>
-					<div class="col-sm-3">
-						<div class="form-group">
-							<label class="form-label" for="basic-default-fullname">&nbsp;</label>
-							<input class="form-control btn btn-md btn-primary" type="submit" value="Search Data ">
-
-						</div>
+					<div class="col-sm-2">
+						<label class="form-label" for="basic-default-fullname">&nbsp;</label>
+						<input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data ">
 					</div>
+					
 				</div>
 
 			</form>
