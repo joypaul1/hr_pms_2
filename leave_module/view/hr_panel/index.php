@@ -3,10 +3,6 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-$v_page = 'leave_create_self';
-// $v_active_open = 'active open';
-// $v_active = 'active';
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
@@ -19,18 +15,18 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     <div class="card col-lg-12">
         <form action="" method="post">
             <div class="card-body row">
-            <div class="col-sm-2"></div>
+                <div class="col-sm-2"></div>
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-controll" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
                     </div>
                 </div>
 
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-primary" type="submit" value="Search Data">
+                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
                     </div>
                 </div>
             </div>
@@ -38,11 +34,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     </div>
     </br>
 
-
-
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header"><b>Leave Taken List</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">

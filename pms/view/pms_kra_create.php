@@ -52,7 +52,7 @@ require_once('../../inc/connoracle.php');
 						<div class="col-sm-8"></div>
 						<div class="col-sm-4">
 							<div class="md-form mt-3">
-								<input class="form-control btn btn-primary cust-control" form="Form1" type="submit" value="Submit to Create">
+								<input class="form-control  btn  btn-sm  btn-primary" form="Form1" type="submit" value="Submit to Create">
 							</div>
 						</div>
 					</div>

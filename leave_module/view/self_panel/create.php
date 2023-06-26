@@ -29,21 +29,13 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
     <div class="container-xxl flex-grow-1 container-p-y">
 
-        <!-- <div class="col-lg-12">
-            <form id="Form2" action="" method="post"></form>
-        </div> -->
-        <!-- </br> -->
-
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
             <!-- Basic Layout -->
             <div class="col-xxl">
                 <div class="card mb-4">
-                    <!-- <div class="card-header d-flex align-items-center justify-content-between">
-                        <h5 class="mb-0">Leave Application Form</h5>
-                        <small class="text-muted float-end">Leave Entry</small>
-                    </div> -->
+                   
 
                     <?php
                     $leftSideName  = 'Leave Create';
@@ -138,11 +130,11 @@ while ($row = @oci_fetch_assoc($strSQL)) {
                                 <textarea id="basic-default-message" class="form-control" form="Form2" name="remarks" placeholder="Hi, Do you have any Remarks?" required="" aria-describedby="basic-icon-default-message2"></textarea>
                             </div>
                         </div>
-                       
+
                         <div class="text-right">
                             <button form="Form2" type="submit" name="submit_leave" class="btn btn-primary">Create Leave</button>
                         </div>
-                       
+
 
 
                     </div>

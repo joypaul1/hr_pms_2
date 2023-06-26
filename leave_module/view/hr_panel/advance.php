@@ -1,43 +1,20 @@
 <?php
-session_start();
-session_regenerate_id(TRUE);
 
-if ($_SESSION['HR']['hr_role'] != 2) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
 
-if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
-require_once('inc/config.php');
-require_once('layouts/header.php');
-
-$v_page = 'leave_report';
-$v_active_open = 'active open';
-$v_active = 'active';
-
-
-require_once('layouts/left_menu.php');
-require_once('layouts/top_menu.php');
-require_once('inc/connoracle.php');
-
-
-
-$v_excel_download = 0;
+$v_excel_download=0; 
 ?>
-
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-	<div class="col-lg-12">
+	<div class="card card-body">
 		<form action="" method="post">
 			<div class="row">
 				<div class="col-sm-3">
 					<label class="form-label" for="basic-default-fullname">Select Company</label>
-					<select name="company_name" class="form-control">
+					<select name="company_name" class="form-control  cust-control">
 						<option selected value="">All</option>
 						<?php
 
@@ -51,29 +28,29 @@ $v_excel_download = 0;
 						?>
 					</select>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-2">
 					<label class="form-label" for="basic-default-fullname">Select Start Date*</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" type="date" name="start_date" class="form-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+						<input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
 					</div>
 				</div>
-				<div class="col-sm-3">
+				<div class="col-sm-2">
 					<label class="form-label" for="basic-default-fullname">Select End Date*</label>
 					<div class="input-group">
 						<div class="input-group-addon">
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" type="date" name="end_date" class="form-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+						<input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
 					</div>
 				</div>
 				<div class="col-sm-3">
 					<label class="form-label" for="basic-default-fullname">Select Leave Type</label>
-					<select name="emp_leave" class="form-control">
+					<select name="emp_leave" class="form-control  cust-control">
 						<option selected value="">All</option>
 						<?php
 
@@ -89,18 +66,16 @@ $v_excel_download = 0;
 						?>
 					</select>
 				</div>
-
-
-			</div>
-			<div class="row">
-				<div class="col-sm-9"></div>
-				<div class="col-sm-3">
+				<div class="col-sm-2">
 					<div class="form-group">
 						<label class="form-label" for="basic-default-fullname">&nbsp;</label>
-						<input class="form-control btn btn-primary" type="submit" value="Search Data">
+						<input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
 					</div>
 				</div>
+
+
 			</div>
+			
 		</form>
 	</div>
 	</br>
@@ -109,7 +84,7 @@ $v_excel_download = 0;
 
 	<!-- Bordered Table -->
 	<div class="card">
-		<h5 class="card-header"><b>Leave Taken List</b></h5>
+		<h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> <b>Leave Taken List</b></h5>
 		<div class="card-body">
 			<div class="table-responsive text-nowrap">
 				<table class="table table-bordered" id="table">
@@ -233,5 +208,8 @@ $v_excel_download = 0;
 	}
 </script>
 
-<?php require_once('layouts/footer_info.php'); ?>
-<?php require_once('layouts/footer.php'); ?>
+
+
+
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>

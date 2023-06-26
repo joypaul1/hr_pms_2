@@ -6201,7 +6201,7 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
 }
 
 .table-dark {
-  --bs-table-bg: #233446;
+  --bs-table-bg: beige;
   --bs-table-striped-bg: #2a3a4c;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #394859;
@@ -6209,7 +6209,8 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
   --bs-table-hover-bg: #304051;
   --bs-table-hover-color: #fff;
   color: #fff;
-  border-color: #394859;
+  border-color: inherit;
+  /* border-color: #394859; */
 }
 .table-dark th {
   border-bottom-color: #394859 !important;

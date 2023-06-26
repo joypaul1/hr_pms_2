@@ -26,7 +26,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 			<div class="col-sm-4">
 				<div class="form-group">
 					<label class="form-label" for="basic-default-fullname">&nbsp;</label>
-					<input form="Form1" class="form-control btn btn-primary cust-control" name="submit_search" type="submit" value="Search Data">
+					<input form="Form1" class="form-control  btn  btn-sm  btn-primary" name="submit_search" type="submit" value="Search Data">
 				</div>
 			</div>
 		</div>

@@ -31,7 +31,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control cust-control btn btn-primary" type="submit" value="Search Data">
+                            <input class="form-control  btn  btn-sm  btn-primary" type="submit" value="Search Data">
                         </div>
                     </div>
                 </div>

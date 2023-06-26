@@ -97,7 +97,7 @@ oci_execute($strSQL);
 							<div class="col-sm-6"></div>
 							<div class="col-sm-3">
 								<div class="md-form mt-3">
-									<input class="form-control btn btn-primary cust-control" type="submit" form="Form1" value="Create PMS Profile">
+									<input class="form-control  btn  btn-sm  btn-primary" type="submit" form="Form1" value="Create PMS Profile">
 								</div>
 							</div>
 

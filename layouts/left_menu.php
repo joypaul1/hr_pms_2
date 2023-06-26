@@ -114,6 +114,27 @@ function isActive($url)
                                     </a>
                                 </li>
                             <?php } ?>
+                            <?php if (checkPermission('hr-leave-approval')) { ?>
+                                <li class="menu-item <?php echo isActive('/hr_panel/approval.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Approval</div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php //if (checkPermission('hr-leave-assign')) { ?>
+                                <li class="menu-item <?php echo isActive('/hr_panel/assign.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign</div>
+                                    </a>
+                                </li>
+                            <?php //} ?>
+                            <?php //if (checkPermission('hr-leave-advance')) { ?>
+                                <li class="menu-item <?php echo isActive('/hr_panel/advance.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Advance</div>
+                                    </a>
+                                </li>
+                            <?php // } ?>
                         </ul>
                     </li>
                 <?php } ?>
@@ -124,17 +145,18 @@ function isActive($url)
                             <div>LM Panel</div>
                         </a>
                         <ul class="menu-sub">
-                            <?php if (checkPermission('lm-leave-create')) { ?>
-                                <li class="menu-item <?php echo isActive('/lm_panel/create.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/create.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create</div>
-                                    </a>
-                                </li>
-                            <?php } ?>
+                            
                             <?php if (checkPermission('lm-leave-list')) { ?>
                                 <li class="menu-item <?php echo isActive('/lm_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (checkPermission('lm-leave-create')) { ?>
+                                <li class="menu-item <?php echo isActive('/lm_panel/approval.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create</div>
                                     </a>
                                 </li>
                             <?php } ?>

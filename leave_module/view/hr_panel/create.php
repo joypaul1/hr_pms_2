@@ -23,7 +23,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                    <input form="Form1" class="form-control btn btn-primary cust-control" name="submit_search" type="submit" value="Search Data">
+                    <input form="Form1" class="form-control  btn  btn-sm  btn-primary" name="submit_search" type="submit" value="Search Data">
                 </div>
             </div>
         </div>
@@ -51,8 +51,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-xxl">
                     <div class="card mb-4">
                         <div class="card-header d-flex align-items-center justify-content-between">
-                            <h5 class="mb-0">Leave Application Form</h5>
-                            <small class="text-muted float-end">Leave Entry</small>
+                            <h5 class="mb-0"> Leave Application Form <small></small> </h5>
+                            <small class="text-muted float-end">Leave Entry <i class="menu-icon tf-icons bx bx-pencil" style="margin:0;"></i></small>
                         </div>
                         <div class="card-body">
                             <div class="row mb-3">
