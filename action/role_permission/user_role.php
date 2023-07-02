@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 }
 
 
-
+// Handle edit request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'update') {
 
     $user_id  = trim($_GET["editID"]);
@@ -139,8 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
                             mysqli_query($conn_hr, $sql);
                         }
                     }
-                    // print_r($getUserWiseInsertPermission);
-                    // die();
+                  
                     //end insert user role wise permission 
                 } else {
 

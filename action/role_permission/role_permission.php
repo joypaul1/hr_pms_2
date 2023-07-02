@@ -1,5 +1,5 @@
 <?php
-header('Content-type: application/json; charset=UTF-8');
+
 
 require_once('../../inc/config.php');
 
@@ -74,10 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 }
 
 
-
+// Handle edit request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'update') {
 
-    // $name = trim($_POST["name"]);
     $role_id  = trim($_GET["editID"]);
     $deleteID  = [];
     $insertID  = [];

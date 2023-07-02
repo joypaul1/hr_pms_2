@@ -61,7 +61,7 @@ function isActive($url)
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
 
-        <li class="menu-item  <?php echo isActive('/leave_module'); ?>">
+        <li class="menu-item  <?php echo isActive('/leave_module/view/leave_module'); ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div>Leave Module</div>
@@ -95,7 +95,7 @@ function isActive($url)
                 </li>
                 
                 <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-list')) { ?>
-                    <li class="menu-item <?php echo isActive('/hr_panel'); ?>">
+                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>HR Panel</div>
                         </a>
@@ -140,7 +140,7 @@ function isActive($url)
                 <?php } ?>
 
                 <?php if (checkPermission('lm-leave-create') || checkPermission('lm-leave-list')) { ?>
-                    <li class="menu-item <?php echo isActive('/lm_panel'); ?>">
+                    <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>LM Panel</div>
                         </a>
@@ -165,7 +165,7 @@ function isActive($url)
                 <?php } ?>
 
                 <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-list')) { ?>
-                    <li class="menu-item <?php echo isActive('/concern_panel'); ?>">
+                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>Concern Panel</div>
                         </a>
@@ -191,13 +191,13 @@ function isActive($url)
 
         </li>
     
-        <li class="menu-item <?php echo isActive('/tour_module'); ?>">
+        <li class="menu-item <?php echo isActive('/tour_module/view'); ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-briefcase"></i>
                 <div>Tour Module</div>
             </a>
             <ul class="menu-sub">
-                <li class="menu-item <?php echo isActive('/self_panel'); ?>">
+                <li class="menu-item <?php echo isActive('/tour_module/view/self_panel'); ?>">
                     <a href="javascript:void(0)" class="menu-link menu-toggle">
                         <div>Self Panel</div>
                     </a>
@@ -221,7 +221,7 @@ function isActive($url)
                     </ul>
                 </li>
                 <?php if (checkPermission('hr-tour-create') || (checkPermission('hr-tour-report'))) { ?>
-                    <li class="menu-item <?php echo isActive('/hr_panel'); ?>" >
+                    <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel'); ?>" >
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>HR Panel</div>
                         </a>
@@ -229,7 +229,7 @@ function isActive($url)
                             <?php if (checkPermission('hr-tour-create')) { ?>
 
 
-                                <li class="menu-item <?php echo isActive('/hr_panel'); ?>">
+                                <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel'); ?>">
                                     <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                                     </a>
