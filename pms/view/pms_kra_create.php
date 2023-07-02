@@ -14,11 +14,11 @@ require_once('../../inc/connoracle.php');
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-	<div class="container-fluid">
+	<div class="">
 
 		<div class="card">
-			<div class="row card-body">
-				<div class="col-lg-12">
+			<div class="card-body">
+				<div class="">
 					<form id="Form1" action="" method="post"></form>
 					<form id="Form2" action="" method="post"></form>
 					<!--<form action="" method="post">  -->
@@ -125,7 +125,7 @@ require_once('../../inc/connoracle.php');
 			</div>
 		</div>
 
-		<div class="card mt-3">
+		<div class="card mt-2">
 			<div class="row card-body ">
 
 

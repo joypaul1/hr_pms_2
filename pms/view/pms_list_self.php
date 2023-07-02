@@ -26,7 +26,7 @@ oci_execute($strSQL);
 
 
 <div class="container-xxl flex-grow-1 container-p-y">
-	<div class="container-fluids">
+	<div class="">
 
 		<div class=" card">
 			<div class="row card-body">
@@ -154,7 +154,7 @@ oci_execute($strSQL);
 			</div>
 		</div>
 
-		<div class="card mt-5">
+		<div class="card mt-2">
 			<div class="row card-body">
 
 
