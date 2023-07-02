@@ -249,14 +249,14 @@ function isActive($url)
                     </li>
                 <?php } ?>
                 <?php if (checkPermission('lm-tour-create') || (checkPermission('lm-tour-report'))) { ?>
-                    <li class="menu-item">
+                    <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>LM Panel</div>
                         </a>
                         <ul class="menu-sub">
                             <?php if (checkPermission('lm-tour-create')) { ?>
 
-                                <li class="menu-item ">
+                                <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                                     </a>
@@ -265,8 +265,8 @@ function isActive($url)
 
                             <?php if (checkPermission('hr-tour-report')) { ?>
 
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/index.php" class="menu-link withoutIcon">
+                                <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/approval.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Approval</div>
                                     </a>
                                 </li>

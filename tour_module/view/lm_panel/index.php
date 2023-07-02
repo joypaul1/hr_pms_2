@@ -9,78 +9,71 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="col-lg-12">
-        <form action="" method="post">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label>Select a Concern:</label>
-                    <select name="emp_concern" class="form-control">
-                        <option selected value="">---</option>
-                        <?php
-                        $strSQL  = oci_parse(
-                            $objConnect,
-                            "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+    <div class="card col-lg-12 mb-3">
+        <div class="card-body">
+
+            <form action="" method="post">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label>Select a Concern:</label>
+                        <select name="emp_concern" class="form-control cust-control">
+                            <option selected value="">---</option>
+                            <?php
+                            $strSQL  = oci_parse(
+                                $objConnect,
+                                "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
 									where LINE_MANAGER_RML_ID ='$emp_session_id'
 										and is_active=1 order by EMP_NAME"
-                        );
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                        ?>
-                            <option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="col-sm-3">
-                    <label>From Date:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
+                            );
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+                            ?>
+                                <option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <label>From Date:</label>
+                        <input required="" class="form-control cust-control" name="start_date" type="date" />
+
+                    </div>
+                    <div class="col-sm-2">
+                        <label>To Date:</label>
+                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" />
+
+                    </div>
+                    <div class="col-sm-3">
+                        <label> Approval Status:</label>
+                        <select name="app_status" class="form-control text-center cust-control ">
+                            <option hidden value=""><-- Select Status--></option>
+                            <option value="1">Approved</option>
+                            <option value="0">Denied</option>
+
+
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                            <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
                         </div>
-                        <input required="" class="form-control" name="start_date" type="date" />
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <label>To Date:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" class="form-control" id="date" name="end_date" type="date" />
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <label>Select Approval Status:</label>
-                    <select name="app_status" class="form-control">
-                        <option selected value="">---</option>
-                        <option value="1">Approved</option>
-                        <option value="0">Denied</option>
 
-
-                    </select>
                 </div>
 
-            </div>
-            <div class="row">
-                <div class="col-sm-9"></div>
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-primary" type="submit" value="Search Data">
-                    </div>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
+
     </div>
-    </br>
+
 
 
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header"><b>Tour Taken List</b></h5>
+        <h5 class="card-header"><b>Concern Tour Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">

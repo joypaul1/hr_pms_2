@@ -81,7 +81,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card">
-        <h5 class="card-header"><b>Leave Taken List</b></h5>
+        <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
