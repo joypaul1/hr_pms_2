@@ -4,6 +4,7 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $v_view_approval = 0;
 
+$emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 ?>
 
@@ -56,8 +57,8 @@ $v_view_approval = 0;
 
         </div>
 
-        <div class="card  col-lg-12 mt-3">
-            <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
+        <div class="card  col-lg-12 mt-2">
+            <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Attendance Approval List</b></h5>
             <form id="Form1" action="" method="post " class ="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">

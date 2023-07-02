@@ -190,7 +190,7 @@
 				<div class="col-lg-12">
 					 <div class="table-responsive">
 					   <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-						<thead class="thead-dark">
+						<thead class="table-dark">
 								<tr>
 								  <th class="text-center">Sl</th>
 								  <th scope="col">PMS Title</th>

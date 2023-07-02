@@ -86,7 +86,7 @@
 					<div class="md-form mt-2">
 					 <div class="resume-item d-flex flex-column flex-md-row">
 					   <table class="table table-bordered piechart-key" id="table" style="width:100%">  
-						<thead class="thead-dark">
+						<thead class="table-dark">
 								<tr>
 								  <th scope="col">Sl</th>
 								  <th scope="col">Emp ID</th>

@@ -42,7 +42,7 @@
 					<div class="md-form mt-2">
 					 <div class="resume-item d-flex flex-column flex-md-row">
 					   <table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
-						<thead class="thead-dark">
+						<thead class="table-dark">
 								<tr>
 								  <th class="text-center">Sl</th>
 								  <th scope="col">KPI Name</th>
