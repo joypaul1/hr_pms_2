@@ -112,7 +112,7 @@ require_once('../../inc/connoracle.php');
                                 <option hidden value="<? echo null ?>"><-- day--></option>
                                 <option value="SATURDAY">Saturday</option>
                                 <option value="SUNDAY">Sunday</option>
-                                <option value="MONDAY">Monday</option>
+                                <option value="MONDAY">Monday</option>  
                                 <option value="TUESDAY">Tuesday</option>
                                 <option value="WEDNESDAY">Wednesday</option>
                                 <option value="THURSDAY">Thursday</option>
@@ -306,8 +306,8 @@ require_once('../../inc/connoracle.php');
         <?php
 
         if (isset($_POST['submit_approval'])) {
-            $emp_session_id    = $_SESSION['emp_id'];
-            // $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+            // $emp_session_id    = $_SESSION['emp_id'];
+            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
             $roster_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
             $roster_end_date   = date("d/m/Y", strtotime($_REQUEST['end_date']));

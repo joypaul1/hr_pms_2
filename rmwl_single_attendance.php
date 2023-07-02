@@ -105,7 +105,8 @@
 					   <tbody>
 
 						<?php
-						$emp_sesssion_id=$_SESSION['emp_id'];
+						// $emp_sesssion_id=$_SESSION['emp_id'];
+						$emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						@$emp_id = $_REQUEST['emp_id'];
 						@$attn_status = $_REQUEST['attn_status'];
 						@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
