@@ -364,28 +364,28 @@ function isActive($url)
                     </li>
                 <?php } ?>
                 <?php if (checkPermission('hr-attendance-create') || checkPermission('hr-attendance-single-report') || checkPermission('hr-attendance-advance-report') || (checkPermission('hr-attendance-punch-data-syn'))) { ?>
-                    <li class="menu-item">
+                    <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel'); ?>"">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>HR Panel</div>
                         </a>
                         <ul class="menu-sub">
                             <?php if (checkPermission('hr-attendance-create')) { ?>
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/create.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create</div>
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/manualEntry.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/manualEntry.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Manual Entry</div>
                                     </a>
                                 </li>
                             <?php } ?>
                             <?php if (checkPermission('hr-attendance-single-report')) { ?>
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/index.php" class="menu-link withoutIcon">
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/single_attendance.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/single_attendance.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Single Report</div>
                                     </a>
                                 </li>
                             <?php } ?>
 
                             <?php if (checkPermission('hr-attendance-advance-report')) { ?>
-                                <li class="menu-item ">
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Advance Report</div>
                                     </a>
@@ -394,7 +394,7 @@ function isActive($url)
 
                             <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
-                                <li class="menu-item ">
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/punch_data_syn.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Punch Data Syn</div>
                                     </a>
