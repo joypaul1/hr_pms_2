@@ -36,7 +36,8 @@ require_once('../../inc/connoracle.php');
                         <div class="col-sm-3">
                             <label for="title">Day Name:</label>
                             <select name="day_name" class="form-control cust-control">
-                                <option selected value="">--</option>
+                            <option hidden value="<? echo null ?>"><-- day--></option>
+
                                 <option value="SATURDAY">Saturday</option>
                                 <option value="SUNDAY">Sunday</option>
                                 <option value="MONDAY">Monday</option>
@@ -65,6 +66,7 @@ require_once('../../inc/connoracle.php');
             </div>
         </div>
         <div class="row card mt-2">
+        <h5 class="card-header"><b>Roster List</b></h5>
             <div class="col-lg-12 card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">

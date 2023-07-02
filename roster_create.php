@@ -2,15 +2,15 @@
 session_start();
 session_regenerate_id(TRUE);
 
-if ($_SESSION['HR']['hr_role'] != 2) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
+// if ($_SESSION['HR']['hr_role'] != 2) {
+// 	header('location:index.php?lmsg_hr=true');
+// 	exit;
+// }
 
-if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
+// if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
+// 	header('location:index.php?lmsg_hr=true');
+// 	exit;
+// }
 require_once('inc/config.php');
 require_once('layouts/header.php');
 
