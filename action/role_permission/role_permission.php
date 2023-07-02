@@ -84,9 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
 
     $deleteID = array_diff($oldPermission_id, $newPermission_id); // form tbl_role_permission
     $insertID = array_diff($newPermission_id, $oldPermission_id); // form tbl_role_permission
-    // print_r(count($deleteID));
 
-    // die();
     // Begin the database transaction
     try {
         $conn_hr->begin_transaction();
