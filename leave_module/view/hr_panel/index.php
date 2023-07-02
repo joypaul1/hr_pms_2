@@ -32,10 +32,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             </div>
         </form>
     </div>
-    </br>
+  
 
     <!-- Bordered Table -->
-    <div class="card">
+    <div class="card mt-2">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">

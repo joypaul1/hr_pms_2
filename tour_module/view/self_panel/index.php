@@ -9,7 +9,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
-	<div class="card col-lg-12 mb-5">
+	<div class="card col-lg-12 mb-2">
 		<div class="card-body">
 			<form action="" method="post">
 				<div class="row">

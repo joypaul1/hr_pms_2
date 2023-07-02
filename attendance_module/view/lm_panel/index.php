@@ -75,12 +75,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             
         </form>
     </div>
- 
+    </br>
 
 
 
     <!-- Bordered Table -->
-    <div class="card mt-2">
+    <div class="card">
         <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">

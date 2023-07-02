@@ -56,7 +56,7 @@ $v_view_approval = 0;
 
         </div>
 
-        <div class="card  col-lg-12 mt-2">
+        <div class="card  col-lg-12 mt-3">
             <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
             <form id="Form1" action="" method="post " class ="card-body">
                 <div class="">

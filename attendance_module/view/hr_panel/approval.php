@@ -115,7 +115,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 </form>
             </div>
 
-            <div class="card card-body col-lg-12 mt-2">
+            <div class="card card-body col-lg-12 mt-3">
                 <form id="Form1" action="" method="post">
                     <div class="md-form mt-5">
                         <div class="table-responsive text-nowrap">

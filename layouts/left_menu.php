@@ -61,7 +61,7 @@ function isActive($url)
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
 
-        <li class="menu-item  <?php echo isActive('/leave_module/view/leave_module'); ?>">
+        <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div>Leave Module</div>
@@ -337,14 +337,14 @@ function isActive($url)
 
         <?php } ?>
 
-        <li class="menu-item">
+        <li class="menu-item <?php echo isActive('/attendance_module/view'); ?>">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-fingerprint"></i>
                 <div>Attendance Module</div>
             </a>
             <ul class="menu-sub">
                 <?php if (checkPermission('self-attendance-report')) { ?>
-                    <li class="menu-item">
+                    <li class="menu-item <?php echo isActive('/attendance_module/view/self_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>Self Panel</div>
                         </a>
@@ -352,7 +352,7 @@ function isActive($url)
 
                             <li class="menu-item ">
                                 <a href="<?php echo $basePath ?>/attendance_module/view/self_panel/index.php" class="menu-link withoutIcon">
-                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
+                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend Report
                                     </div>
                                 </a>
                             </li>

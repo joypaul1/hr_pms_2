@@ -28,7 +28,7 @@ $start_from = ($page - 1) * $num_per_page;
 // INNER  JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
 // LEFT  JOIN tbl_permissions AS p ON rp.permission_id = p.id
 // GROUP BY role_id";
-$sql ="SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
+$sql = "SELECT r.name AS role_name, r.id AS role_id, GROUP_CONCAT(p.name) AS permissions
 FROM tbl_roles AS r
 LEFT  JOIN tbl_roles_permissions AS rp ON r.id = rp.role_id
 LEFT JOIN tbl_permissions AS p ON rp.permission_id = p.id
@@ -73,31 +73,43 @@ if ($result) {
                                 <tr>
                                     <th>Id</th>
                                     <th>Role </th>
-                                    <th>Permission </th>
                                     <th>Action</th>
+                                    <th>Permission </th>
                                 </tr>
                             </thead>
 
                             <tbody>
 
                                 <?php
-$si=1;
+                                $si = 1;
                                 foreach ($roleWisepermission as $key => $row) {
 
 
                                     echo "<tr>";
-                                    echo "<td>" . $si ++ . "</td>";
+                                    echo "<td>" . $si++ . "</td>";
+                                    
                                     echo "<td>" . $row['role_name'] . "</td>";
-                                    echo "<td>" . $row['permissions'] . "</td>";
                                     echo "<td>";
                                     // if (checkPermission('role-permission-edit')) {
 
-                                        echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
                                     // }
                                     // if (checkPermission('role-permission-delete')) {
 
-                                        echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                     //}
+                                    echo "</td>";
+                                    echo "<td>" . $row['permissions'] . "</td>";
+                                    // echo "<td>";
+                                    // // if (checkPermission('role-permission-edit')) {
+
+                                    // echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    // // }
+                                    // // if (checkPermission('role-permission-delete')) {
+
+                                    // echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    // //}
+                                    // echo "</td>";
                                     echo "</tr>";
                                 }
 
