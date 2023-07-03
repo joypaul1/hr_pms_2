@@ -8,9 +8,9 @@ require_once('../helper/com_conn.php');
 
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="">
-        <div class=" card card-title ">
-            <div class="col-lg-12 p-2">
+    <div class="row">
+        <div class=" col-lg-12 ">
+            <div class=" card card-title p-2">
                 <marquee >DEMO TEXT</marquee>
             </div>
         </div>
@@ -37,9 +37,9 @@ require_once('../helper/com_conn.php');
         </div>
        
         <!-- Total Revenue -->
-        <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+        <div class="col-lg-6 ">
             <div class="card">
-                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="width: auto; height: 410px;">
+                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="height:242px">
             </div>
         </div>
        
