@@ -13,10 +13,10 @@ function isActive($url)
     <div class="app-brand demo">
         <a href="<?php echo $basePath ?>/home/dashboard.php" class="app-brand-link">
             <span class="app-brand-logo demo">
-               <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
+                <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
             </span>
             <span class="demo menu-text fw-bolder mt-3" style="margin-left: 2px;">
-                <h3>Rangs Group</h3>
+                <h3 style="color:#fff">Rangs Group</h3>
             </span>
         </a>
 
@@ -334,8 +334,8 @@ function isActive($url)
                 <?php } ?>
                 <?php if (checkPermission('hr-attendance-create') || checkPermission('hr-attendance-single-report') || checkPermission('hr-attendance-advance-report') || (checkPermission('hr-attendance-punch-data-syn'))) { ?>
                     <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel'); ?>"">
-                        <a href="javascript:void(0)" class="menu-link menu-toggle">
-                            <div>HR Panel</div>
+                        <a href=" javascript:void(0)" class="menu-link menu-toggle">
+                        <div>HR Panel</div>
                         </a>
                         <ul class="menu-sub">
                             <?php if (checkPermission('hr-attendance-create')) { ?>
@@ -432,7 +432,7 @@ function isActive($url)
                             <?php if (checkPermission('concern-attendance-report')) { ?>
                                 <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Report
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report
                                         </div>
                                     </a>
                                 </li>
