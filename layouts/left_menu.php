@@ -282,23 +282,23 @@ function isActive($url)
                 <?php } ?>
                 <?php if (checkPermission('concern-tour-create') || (checkPermission('concern-tour-report'))) { ?>
 
-                    <li class="menu-item">
+                    <li class="menu-item  <?php echo isActive('/tour_module/view/concern_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>Concern Panel</div>
                         </a>
                         <ul class="menu-sub">
-                            <?php if (checkPermission('concern-tour-report')) { ?>
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php" class="menu-link withoutIcon">
+                            <?php if (checkPermission('concern-tour-create')) { ?>
+                                <li class="menu-item <?php echo isActive('/tour_module/view/concern_panel/create.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/create.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                                     </a>
                                 </li>
                             <?php } ?>
 
-                            <?php if (checkPermission('concern-tour-createt')) { ?>
+                            <?php if (checkPermission('concern-tour-report')) { ?>
 
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php" class="menu-link withoutIcon">
+                                <li class="menu-item <?php echo isActive('/tour_module/view/concern_panel/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                                     </a>
                                 </li>
@@ -446,24 +446,24 @@ function isActive($url)
 
                 <?php if (checkPermission('concern-attendance-create') || (checkPermission('concern-attendance-report'))) { ?>
 
-                    <li class="menu-item">
+                    <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>Concern Panel</div>
                         </a>
                         <ul class="menu-sub">
                             <?php if (checkPermission('concern-attendance-create')) { ?>
 
-                                <li class="menu-item ">
+                                <!-- <li class="menu-item ">
                                     <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\create.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
                                         </div>
                                     </a>
-                                </li>
+                                </li> -->
                             <?php } ?>
                             <?php if (checkPermission('concern-attendance-report')) { ?>
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\index.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Report
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/index.php" class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Report
                                         </div>
                                     </a>
                                 </li>

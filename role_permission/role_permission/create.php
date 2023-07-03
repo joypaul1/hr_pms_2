@@ -9,7 +9,7 @@ require_once('../../helper/2step_com_conn.php');
 $permissionArray = [];
 $roleArray = [];
 
-$sql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
+$sql        = "SELECT id, name FROM tbl_permissions"; //  select query execution
 $perResult     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 if ($perResult) {
@@ -25,14 +25,14 @@ $roleResult     = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 if ($roleResult) {
     while ($row = mysqli_fetch_array($roleResult)) {
+       
         $roleArray[] = array(
             'id' => $row['id'],
             'name' => $row['name']
         );
     }
 }
-// print_r($roleArray);
-// die();
+
 ?>
 
 <!-- / Content -->
@@ -70,7 +70,7 @@ if ($roleResult) {
                                             echo ('<div class="form-check-inline col-12">
                                             <input class="form-check-input" type="radio" name="role_id" 
                                             id="role' . $row['id'] . '" value="' . $row['id'] . '">
-                                            <label class="form-check-label" for="role' . $row['id'] . '">'. $row['name'] .'</label>
+                                            <label class="form-check-label" for="role' . $row['id'] . '">' . $row['name'] . '</label>
                                             </div>');
                                         }
                                         ?>
