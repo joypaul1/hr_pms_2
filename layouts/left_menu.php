@@ -267,7 +267,7 @@ function isActive($url)
                                 </li>
                             <?php } ?>
 
-                            <?php if (checkPermission('hr-tour-report')) { ?>
+                            <?php if (checkPermission('lm-tour-report')) { ?>
 
                                 <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/approval.php'); ?>">
                                     <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
