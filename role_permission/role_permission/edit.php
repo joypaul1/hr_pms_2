@@ -10,15 +10,24 @@ require_once('../../helper/2step_com_conn.php');
 $roleData = [];
 $roleWisepermission = [];
 $permissionArray = [];
-$permissionSql        = "SELECT id,name FROM tbl_permissions"; //  select query execution
+$permissionSql        =
+    "SELECT p.permission_module_id, pm.name AS permission_module_name, GROUP_CONCAT(p.id) AS ids, GROUP_CONCAT(p.name) AS names
+    FROM tbl_permissions p
+    JOIN tbl_permission_module pm ON p.permission_module_id = pm.id
+    GROUP BY p.permission_module_id, pm.name"; //  select query execution
+
 $perResult     = mysqli_query($conn_hr, $permissionSql);
 // Loop through the fetched rows
 if ($perResult) {
     while ($row = mysqli_fetch_array($perResult)) {
-        $permissionArray[] = array(
-            'id' => $row['id'],
-            'name' => $row['name']
-        );
+
+        $permission_data = [
+            "permission_module_id" => $row['permission_module_id'],
+            "permission_module_name" => $row['permission_module_name'],
+            "ids" => explode(",", $row['ids']),
+            "names" => explode(",", $row['names'])
+        ];
+        $permissionArray[] = $permission_data;
     }
 }
 
@@ -123,23 +132,52 @@ mysqli_close($conn_hr);
                                 </div>
                                 <div class="col-md-9">
                                     <div class="">
-                                    <label for="name" class="col-12 col-form-label text-md-center">All Permission
+                                        <label for="name" class="col-12 col-form-label text-md-center">All Permission
 
-                                    <span>  <input type="checkbox" onclick="checkAll(this);"> Check All</span>
+                                            <span> <input type="checkbox" onclick="checkAll(this);"> Check All</span>
 
-                                    </label>
-                                    
+                                        </label>
+
                                     </div>
                                     <hr>
-                                    <?php
 
+                                    <!-- <fieldset>
+                                        <legend>What is Your Favorite Pet?</legend>
+                                        <input type="checkbox" name="favorite_pet" value="Cats">Cats<br>
+                                        <input type="checkbox" name="favorite_pet" value="Dogs">Dogs<br>
+                                        <input type="checkbox" name="favorite_pet" value="Birds">Birds<br>
+                                        <br>
+                                        <input type="submit" value="Submit now">
+                                    </fieldset> -->
+
+                                    <!-- //           echo '<div class="form-check-inline col-4">
+                                    //           <input class="form-check-input" type="checkbox" name="permission_id[]" '
+                                    //   . (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                    //           id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
+                                    //           <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
+                                    //       </div>'; -->
+                                    <?php
                                     foreach ($permissionArray as $key => $row) {
-                                        echo '<div class="form-check-inline col-4">
-                                                    <input class="form-check-input" type="checkbox" name="permission_id[]" '
-                                            . (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
-                                                    id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
-                                                    <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
-                                                </div>';
+
+                                        echo '<div style="
+                                        border: 1px solid #eee5e5;
+                                        padding: 2%;
+                                        box-shadow: 1px 1px 1px 1px lightgray;
+                                        margin: 2%;
+                                    ">
+                                        <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-star m-0 text-info"></i> ' . $row['permission_module_name'] . ' <span style="font-size: 12px;"> <input type="checkbox" onclick="checkdivArea($(this));"> ALL CHECK?</span></h5> ';
+                                        foreach ($row['ids'] as $keyId => $dataId) {
+                                            echo '<div class="form-check-inline col-5">
+                                            <input type="checkbox" class="form-check-input" 
+                                            '. (in_array($dataId, array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                            value ="'.$dataId.'"
+                                            name="permission_id[]"  id="check_' . $dataId . '">
+                                            <label class="form-check-label" for="check_' . $dataId . '">' . $row['names'][$keyId] . '</label>
+                                            </div>';
+                                        }
+
+
+                                        echo '</div>';
                                     }
 
 
@@ -149,7 +187,7 @@ mysqli_close($conn_hr);
 
 
                             <div class="row mb-0">
-                                <div class="d-block text-center">
+                                <div class="d-block text-right">
                                     <button type="submit" class="btn btn-primary">
                                         Submit
                                     </button>
@@ -175,6 +213,12 @@ mysqli_close($conn_hr);
         for (var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = source.checked;
         }
+    }
+    function checkdivArea(here) {
+        var checkboxes =(here.parents('h5').parent().find('input[type="checkbox"]'))
+    //    for (var i = 0; i < checkboxes.length; i++) {
+            // checkboxes[i].checked = source.checked;
+        // }
     }
 </script>
 
