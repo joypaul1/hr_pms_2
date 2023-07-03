@@ -19,7 +19,8 @@
 
 
   <!-- Favicon -->
-  <link rel="icon" type="image/x-icon" href="<?php echo $basePath ?>/assets/img/favicon/favicon.ico" />
+  <!-- <link rel="icon" type="image/x-icon" href="<?php echo $basePath ?>/assets/img/favicon/favicon.ico" /> -->
+  <link rel="icon" type="image/x-icon" href="<?php echo $basePath ?>/images/app_icon_hr.png" />
 
   <!-- Fonts -->
 
