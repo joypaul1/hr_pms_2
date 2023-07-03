@@ -39,8 +39,8 @@ require_once('../inc/connoracle.php');
         <!-- Total Revenue -->
         <div class="col-lg-6 mb-4 order-0">
             <div class="card">
-			   <div class="d-flex align-items-end row">
-                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="height:242px">
+			   <div class="">
+                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="height:242px;width: 100%;border-radius: 2%;">
                </div>
             </div>
         </div>
