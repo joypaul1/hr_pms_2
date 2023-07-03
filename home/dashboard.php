@@ -35,7 +35,7 @@ require_once('../inc/connoracle.php');
                 </div>
             </div>
         </div>
-       
+      
         <!-- Total Revenue -->
         <div class="col-lg-6 mb-4 order-0">
             <div class="card">
