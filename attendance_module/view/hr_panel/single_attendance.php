@@ -11,13 +11,13 @@ $is_exel_download_eanble = 0;
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="">
-        <div class="card card-body">
+        <div class="">
             <div class="">
-                <div class="">
+                <div class="card card-body">
                     <form action="" method="post">
                         <div class="row">
                             <div class="col-sm-3">
-                                <input required="" class="form-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
+                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -25,7 +25,7 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -34,16 +34,16 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <select name="attn_status" class="form-control">
-                                    <option selected value="">Select Attendance Status</option>
-                                    <option value="P">Present</option>
-                                    <option value="L">Late</option>
-                                    <option value="A">Absent</option>
-                                    <option value="RP">Roster Present</option>
+                                <select name="attn_status" class="form-control cust-control">
+                                    <option value="">Select Attendance Status</option>
+                                    <option <?PHP echo ($_POST['attn_status']) == 'P' ? 'Selected' : ''; ?> value="P">Present</option>
+                                    <option <?PHP echo ($_POST['attn_status']) == 'L' ? 'Selected' : ''; ?> value="L">Late</option>
+                                    <option <?PHP echo ($_POST['attn_status']) == 'A' ? 'Selected' : ''; ?> value="A">Absent</option>
+                                    <option <?PHP echo ($_POST['attn_status']) == 'RP' ? 'Selected' : ''; ?> value="RP">Roster Present</option>
                                 </select>
 
                             </div>
@@ -56,11 +56,11 @@ $is_exel_download_eanble = 0;
                             <div class="col-sm-3">
                             </div>
                             <div class="col-sm-3">
-                                <input class="form-control btn btn-primary" type="submit" value="Search Attendance">
+                                <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Attendance">
                             </div>
 
                         </div>
-                        <hr>
+                        <!-- <hr> -->
                     </form>
                 </div>
                 <?php
@@ -73,10 +73,10 @@ $is_exel_download_eanble = 0;
 
 
 
-                <div class="card" id="table">
+                <div class="card mt-2" id="table">
                     <div class="card-body">
                         <div class="">
-                            <div class="d-block mt-3 text-uppercase text-center">
+                            <div class="d-block text-uppercase text-center">
                                 <div>
                                     <h3><b>RANGS MOTORS LIMITED</b></h3>
 
@@ -104,13 +104,24 @@ $is_exel_download_eanble = 0;
                         </div>
                     </div>
 
+                    <!-- style for table-->
+                    <style>
+                        .table> :not(caption)>*>* {
+                            padding: 0;
+                        }
 
+                        .subbtn {
+                            color: #fff !important;
+                            background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+                        }
+                    </style>
+                    <!-- style for table-->
 
 
                     <div class="card-body">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-responsive" style="width:100%">
-                                <thead class="table-dark">
+                                <thead class="table-dark text-center">
                                     <tr>
                                         <th scope="col">Sl</th>
                                         <th scope="col">Emp ID</th>
@@ -135,24 +146,24 @@ $is_exel_download_eanble = 0;
                                         $strSQL  = oci_parse(
                                             $objConnect,
                                             "select RML_ID,
-						           ATTN_DATE,
-								   RML_NAME,
-								   IN_TIME,
-								   OUT_TIME,
-								   STATUS,
-								   DEPT_NAME,
-								   IN_LAT,
-								   IN_LANG,
-								   DAY_NAME,
-								   BRANCH_NAME,
-								   LOCK_STATUS,
-								   LOCAK_DATE,
-								   LATE_TIME
-                            from RML_HR_ATTN_DAILY_PROC
-                                where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
-                                and ('$attn_status' is null OR STATUS='$attn_status')
-								and ('$emp_id' is null or RML_ID='$emp_id')
-                                order by ATTN_DATE"
+                                                ATTN_DATE,
+                                                RML_NAME,
+                                                IN_TIME,
+                                                OUT_TIME,
+                                                STATUS,
+                                                DEPT_NAME,
+                                                IN_LAT,
+                                                IN_LANG,
+                                                DAY_NAME,
+                                                BRANCH_NAME,
+                                                LOCK_STATUS,
+                                                LOCAK_DATE,
+                                                LATE_TIME
+                                            from RML_HR_ATTN_DAILY_PROC
+                                                where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
+                                                and ('$attn_status' is null OR STATUS='$attn_status')
+                                                and ('$emp_id' is null or RML_ID='$emp_id')
+                                                order by ATTN_DATE"
                                         );
 
                                         oci_execute($strSQL);
@@ -256,9 +267,9 @@ $is_exel_download_eanble = 0;
                         <?php
                         if ($is_exel_download_eanble != 0) {
                         ?>
-                            <div class="d-block text-right">
-                                <a class="btn  btn-sm  btn-primary subbtn" id="downloadLink" onclick="exportF(this)">
-                                    Export to excel <i class="menu-icon tf-icons bx bx-file"></i></a>
+                            <div class="d-block text-right mt-1">
+                                <a class="btn btn-sm btn-info subbtn" id="downloadLink" onclick="exportF(this)">
+                                    Export to excel <i class="menu-icon tf-icons bx bx-download"></i></a>
                             </div>
                         <?php
                         }
@@ -270,7 +281,7 @@ $is_exel_download_eanble = 0;
         </div>
 
 
-        <div style="height: 1000px;"></div>
+        <!-- <div style="height: 1000px;"></div> -->
     </div>
 </div>
 <!-- / Content -->

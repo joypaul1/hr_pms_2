@@ -2,212 +2,325 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$is_exel_download_eanble = 0;
 
-$v_excel_download=0; 
 ?>
+
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-
-	<div class="card card-body">
-		<form action="" method="post">
-			<div class="row">
-				<div class="col-sm-3">
-					<label class="form-label" for="basic-default-fullname">Select Company</label>
-					<select name="company_name" class="form-control  cust-control">
-						<option selected value="">All</option>
-						<?php
-
-						$strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
-						oci_execute($strSQL);
-						while ($row = oci_fetch_assoc($strSQL)) {
-						?>
-							<option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['company_name']) && $_POST['company_name'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
-						<?php
-						}
-						?>
-					</select>
-				</div>
-				<div class="col-sm-2">
-					<label class="form-label" for="basic-default-fullname">Select Start Date*</label>
-					<div class="input-group">
-						<div class="input-group-addon">
-							<i class="fa fa-calendar">
-							</i>
+	<div class="">
+		<!-- Breadcrumbs-->
+		<div class="">
+			<div class="">
+				<div class="card card-body">
+				
+					<form action="" method="post">
+						<div class="row">
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname">Select Department Type</label>
+								<select name="emp_dept" class="form-control cust-control">
+									<option selected value="">---</option>
+									<?php
+									$strSQL  = oci_parse($objConnect, "select distinct(DEPT_NAME) AS  DEPT_NAME from RML_HR_APPS_USER 
+																			where DEPT_NAME is not null and is_active=1 
+																			order by DEPT_NAME");
+									oci_execute($strSQL);
+									while ($row = oci_fetch_assoc($strSQL)) {
+									?>
+										<option <?php if(isset($_POST['emp_dept'])){
+											echo ($_POST['emp_dept']) ===  $row['DEPT_NAME'] ? 'Selected' : '';
+										} 
+										
+										
+										?> value="<?php  $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
+									<?php
+									}
+									?>
+								</select>
+							</div>
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname" style="color:red;">Select Start Date<b>**</b></label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar">
+										</i>
+									</div>
+									<input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname" style="color:red;">Select End Date<b>**</b></label>
+								<div class="input-group">
+									<div class="input-group-addon">
+										<i class="fa fa-calendar">
+										</i>
+									</div>
+									<input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname">Select Attendance Status</label>
+								<select name="attn_status" class="form-control cust-control">
+									<option selected value="">---</option>
+									<option value="P">Present</option>
+									<option value="L">Late</option>
+									<option value="A">Absent</option>
+									<option value="RP">Roster Present</option>
+								</select>
+							</div>
 						</div>
-						<input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
-					</div>
-				</div>
-				<div class="col-sm-2">
-					<label class="form-label" for="basic-default-fullname">Select End Date*</label>
-					<div class="input-group">
-						<div class="input-group-addon">
-							<i class="fa fa-calendar">
-							</i>
+						<div class="row mt-3">
+							<div class="col-sm-3">
+							</div>
+							<div class="col-sm-3">
+							</div>
+							<div class="col-sm-3">
+						<?php print_r ($_REQUEST['emp_dept']) ?>
+
+							</div>
+							<div class="col-sm-3">
+								<input class="form-control btn btn-sm btn-primary" type="submit" value="Search Attendance">
+							</div>
+
 						</div>
-						<input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
-					</div>
+						<!-- <hr> -->
+					</form>
 				</div>
-				<div class="col-sm-3">
-					<label class="form-label" for="basic-default-fullname">Select Leave Type</label>
-					<select name="emp_leave" class="form-control  cust-control">
-						<option selected value="">All</option>
-						<?php
+				<?php
 
-						$strSQL  = oci_parse($objConnect, "select distinct(LEAVE_TYPE) LEAVE_TYPE from RML_HR_EMP_LEAVE 
-															where LEAVE_TYPE is not null 
-															order by LEAVE_TYPE");
-						oci_execute($strSQL);
-						while ($row = oci_fetch_assoc($strSQL)) {
-						?>
-							<option value="<?php echo $row['LEAVE_TYPE']; ?>"><?php echo $row['LEAVE_TYPE']; ?></option>
-						<?php
+				@$emp_id = $_REQUEST['emp_id'];
+				@$attn_status = $_REQUEST['attn_status'];
+
+				@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+				@$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+				?>
+
+
+
+				<div class="card mt-2" id="table">
+					<!-- <div class="card-body">
+						<div class="col-lg-12">
+							<div class="row mt-3 text-uppercase d-flex justify-content-center">
+								<h3><b>RANGS MOTORS LIMITED</b></h3>
+								<h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
+								<h6>Tejgoan,Dhaka-1215</h6>
+								<h6>Date :- <?php if (isset($_POST['attn_status'])) {
+												echo  $attn_start_date . ' -To- ' . $attn_end_date;
+											} ?>
+									<h6>
+							</div>
+
+						</div>
+					</div> -->
+
+
+					<div class="card-body">
+						<div class="">
+							<div class="d-block text-uppercase text-center">
+								<div>
+									<h3><b>RANGS MOTORS LIMITED</b></h3>
+
+								</div>
+								<div>
+									<h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
+
+								</div>
+								<div>
+									<h6>Tejgoan,Dhaka-1215</h6>
+
+								</div>
+								<div>
+									<h6>Date :- <?php if (isset($_POST['attn_status'])) {
+													echo  $attn_start_date . ' -To- ' . $attn_end_date;
+												} ?>
+										<h6>
+
+								</div>
+
+
+
+							</div>
+
+						</div>
+					</div>
+
+					<!-- style for table-->
+					<style>
+						.table> :not(caption)>*>* {
+							padding: 0;
 						}
-						?>
-					</select>
-				</div>
-				<div class="col-sm-2">
-					<div class="form-group">
-						<label class="form-label" for="basic-default-fullname">&nbsp;</label>
-						<input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
-					</div>
-				</div>
 
+						.subbtn {
+							color: #fff !important;
+							background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+						}
+					</style>
+					<!-- style for table-->
 
-			</div>
-			
-		</form>
-	</div>
-	</br>
+					<div class="card-body">
+						<div class="table-responsive text-nowrap">
+							<table class="table table-bordered table-responsive" style="width:100%">
+								<thead class="table-dark text-center">
+									<tr>
+										<th scope="col">Sl</th>
+										<th scope="col">Emp ID</th>
+										<th scope="col">User Name</th>
+										<th scope="col">Date</th>
+										<th scope="col">IN Time</th>
+										<th scope="col">OUT Time</th>
+										<th scope="col">Late Time(Minutes)</th>
+										<th scope="col">Status</th>
+										<th scope="col">Branch Name</th>
+										<th scope="col">Dept. Name</th>
+										<th scope="col">ATTN Lock Status</th>
+									</tr>
+								</thead>
 
+								<tbody>
 
+									<?php
 
-	<!-- Bordered Table -->
-	<div class="card">
-		<h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> <b>Leave Taken List</b></h5>
-		<div class="card-body">
-			<div class="table-responsive text-nowrap">
-				<table class="table table-bordered" id="table">
-					<thead class="table-dark">
-						<tr>
-							<th>SL</th>
-							<th scope="col">Emp ID</th>
-							<th scope="col">Name</th>
-							<th scope="col">Dept.</th>
-							<th scope="col">Leave Type</th>
-							<th scope="col">To Date</th>
-							<th scope="col">From Date</th>
-							<th scope="col">Entry From</th>
-							<th scope="col">Branch</th>
-							<th scope="col">Approval Status</th>
-						</tr>
-					</thead>
-					<tbody>
+									if (isset($_POST['attn_status'])) {
+										$v_emp_dept = $_REQUEST['emp_dept'];
+										$strSQL  = oci_parse(
+											$objConnect,
+											"select RML_ID,
+						           ATTN_DATE,
+								   RML_NAME,
+								   IN_TIME,
+								   OUT_TIME,
+								   STATUS,
+								   DEPT_NAME,
+								   IN_LAT,
+								   IN_LANG,
+								   DAY_NAME,
+								   BRANCH_NAME,
+								   LOCK_STATUS,
+								   LOCAK_DATE,
+								   LATE_TIME
+                            from RML_HR_ATTN_DAILY_PROC
+                                where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
+                                and ('$attn_status' is null OR STATUS='$attn_status')
+								and ('$emp_id' is null or RML_ID='$emp_id')
+								and ('$v_emp_dept' is null or DEPT_NAME='$v_emp_dept')
+                                order by ATTN_DATE"
+										);
 
-						<?php
-						if (isset($_POST['start_date'])) {
-							$company_name = $_REQUEST['company_name'];
-							$leave_type = $_REQUEST['emp_leave'];
-							$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-							$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+										oci_execute($strSQL);
+										$number = 0;
+										$lateCount = 0;
+										$presentCount = 0;
+										$absentCount = 0;
+										$tourCount = 0;
+										$leaveCount = 0;
+										$weekendCount = 0;
+										$holidayCount = 0;
+										$lateMinutesCount = 0;
 
-							$strSQL  = oci_parse(
-								$objConnect,
-								"SELECT 
-						        B.RML_ID,
-								B.EMP_NAME,
-								B.R_CONCERN,
-								B.DEPT_NAME,
-								B.DESIGNATION,
-								B.BRANCH_NAME,
-								A.LEAVE_TYPE,
-								A.START_DATE,
-								A.END_DATE,
-								A.ENTRY_FROM,
-								A.IS_APPROVED
-							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
-							WHERE  A.RML_ID=B.RML_ID
-							AND ('$leave_type' is null OR A.LEAVE_TYPE='$leave_type')
-							AND ('$company_name' is null OR B.R_CONCERN='$company_name')
-							AND (trunc(A.START_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy') OR
-																		 trunc(A.END_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy') )
-							ORDER BY START_DATE DESC"
-							);
-							oci_execute($strSQL);
-							$number = 0;
-							while ($row = oci_fetch_assoc($strSQL)) {
-								$number++;
-								$v_excel_download = 1;
-						?>
-								<tr>
-									<td>
-										<i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
-									</td>
-									<td><?php echo $row['RML_ID']; ?></td>
-									<td><?php echo $row['EMP_NAME']; ?></td>
-									<td><?php echo $row['DEPT_NAME']; ?></td>
-									<td><?php echo $row['LEAVE_TYPE']; ?></td>
-									<td><?php echo $row['START_DATE']; ?></td>
-									<td><?php echo $row['END_DATE']; ?></td>
-									<td><?php echo $row['ENTRY_FROM']; ?></td>
-									<td><?php echo $row['BRANCH_NAME']; ?></td>
-									<td><?php
-										if ($row['IS_APPROVED'] == '1') {
-											echo 'Approved';
-										} else if ($row['IS_APPROVED'] == '0') {
-											echo 'Denied';
-										} else {
-											echo 'Pending';
+										while ($row = oci_fetch_assoc($strSQL)) {
+											$number++;
+											$is_exel_download_eanble = 1;
+									?>
+											<tr>
+												<td><?php echo $number; ?></td>
+												<td><?php echo $row['RML_ID']; ?></td>
+												<td><?php echo $row['RML_NAME']; ?></td>
+												<td><?php echo $row['ATTN_DATE']; ?></td>
+												<td><?php echo $row['IN_TIME']; ?></td>
+												<td><?php echo $row['OUT_TIME']; ?></td>
+												<td align="center"><?php echo $row['LATE_TIME'];
+																	$lateMinutesCount += $row['LATE_TIME']; ?></td>
+												<td align="center">
+													<?php
+													if ($row['STATUS'] == 'L') {
+														echo '<span style="color:red;text-align:center;">Late</span>';
+														$lateCount++;
+													} elseif ($row['STATUS'] == 'A') {
+														echo '<span style="color:red;text-align:center;">Absent</span>';
+														$absentCount++;
+													} elseif ($row['STATUS'] == 'T') {
+														echo '<span style="color:green;text-align:center;">Tour</span>';
+														$tourCount++;
+													} elseif ($row['STATUS'] == 'W') {
+														echo 'Weekend';
+														$weekendCount++;
+													} elseif ($row['STATUS'] == 'H') {
+														echo 'Holiday';
+														$holidayCount++;
+													} elseif ($row['STATUS'] == 'P') {
+														echo 'Present';
+														$presentCount++;
+													} elseif (
+														$row['STATUS'] == 'SL' ||
+														$row['STATUS'] == 'CL' ||
+														$row['STATUS'] == 'EL' ||
+														$row['STATUS'] == 'PL' ||
+														$row['STATUS'] == 'ML'
+													) {
+														echo $row['STATUS'];
+														$leaveCount++;
+													} else {
+														echo $row['STATUS'];
+														$presentCount++;
+													}
+
+													?>
+												</td>
+												<td><?php echo $row['BRANCH_NAME']; ?></td>
+												<td><?php echo $row['DEPT_NAME']; ?></td>
+												<td><?php
+													if ($row['LOCK_STATUS'] == 1)
+														echo 'Locked-' . $row['LOCAK_DATE'];
+													?>
+
+												</td>
+
+											</tr>
+									<?php
 										}
+									}
 
-										?></td>
+									?>
+								</tbody>
 
-								</tr>
+							</table>
 
+						</div>
 
 						<?php
-							}
+						if ($is_exel_download_eanble != 0) {
+						?>
+							<div class="d-block text-right mt-1">
+								<a class="btn btn-sm btn-info subbtn" id="downloadLink" onclick="exportF(this)">
+									Export to excel <i class="menu-icon tf-icons bx bx-download"></i></a>
+							</div>
+						<?php
 						}
 						?>
 
-
-
-					</tbody>
-				</table>
-			</div>
-			<?php
-			if ($v_excel_download == 1) {
-			?>
-				<div>
-					<a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to excel</a>
+					</div>
 				</div>
-			<?php
-			}
-			?>
+			</div>
 		</div>
+
+
+		<div style="height: 1000px;"></div>
 	</div>
-	<!--/ Bordered Table -->
-
-
-
 </div>
 <!-- / Content -->
 
 <script>
 	function exportF(elem) {
 		var table = document.getElementById("table");
-		table.style.border = "1px solid red";
-
-
 		var html = table.outerHTML;
 		var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
 		elem.setAttribute("href", url);
-
-		elem.setAttribute("download", "EMP_LEAVE_REPORT.xls"); // Choose the file name
+		elem.setAttribute("download", "EMP_ATTN.xls"); // Choose the file name
 		return false;
 	}
 </script>
-
 
 
 

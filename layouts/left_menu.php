@@ -385,7 +385,7 @@ function isActive($url)
                             <?php } ?>
 
                             <?php if (checkPermission('hr-attendance-advance-report')) { ?>
-                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/index.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/advance.php'); ?>">
                                     <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Advance Report</div>
                                     </a>
@@ -394,7 +394,7 @@ function isActive($url)
 
                             <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
-                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/index.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/punch_data_syn.php'); ?>">
                                     <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/punch_data_syn.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Punch Data Syn</div>
                                     </a>

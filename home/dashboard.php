@@ -8,7 +8,7 @@ require_once('../helper/com_conn.php');
 
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="row">
+    <div class="">
         <div class=" card card-title ">
             <div class="col-lg-12 p-2">
                 <marquee >DEMO TEXT</marquee>
