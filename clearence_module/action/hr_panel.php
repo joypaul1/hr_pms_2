@@ -7,9 +7,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
 $basePath =  $baseUrl . '/rHRT';
 
-// print_r($_REQUEST);
-// die();
-// Check if the form is submitted
+// Check if the form is submitted create clearence 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'create') {
     // Validate emp_id field
     if (!isset($_POST['emp_id']) || empty($_POST['emp_id'])) {
