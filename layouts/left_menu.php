@@ -63,7 +63,7 @@ function isActive($url)
                                     </a>
                                 </li>
                             <?php } ?>
-                            <?php if (checkPermission('self-leave-list')) { ?>
+                            <?php if (checkPermission('self-leave-report')) { ?>
                                 <li class="menu-item <?php echo isActive('/leave_module/view/self_panel/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/leave_module/view/self_panel/index.php" class="menu-link withoutIcon">
                                         <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
@@ -73,7 +73,7 @@ function isActive($url)
                         </ul>
                     </li>
 
-                    <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-list')) { ?>
+                    <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-report')) { ?>
                         <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>HR Panel</div>
@@ -86,7 +86,7 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('hr-leave-list')) { ?>
+                                <?php if (checkPermission('hr-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
@@ -100,43 +100,41 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php //if (checkPermission('hr-leave-assign')) { 
+                                <?php if (checkPermission('hr-leave-assign')) {
                                 ?>
-                                <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/assign.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign</div>
-                                    </a>
-                                </li>
-                                <?php //} 
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/assign.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (checkPermission('hr-leave-advance')) {
                                 ?>
-                                <?php //if (checkPermission('hr-leave-advance')) { 
-                                ?>
-                                <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/advance.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Advance</div>
-                                    </a>
-                                </li>
-                                <?php // } 
-                                ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/advance.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Advance</div>
+                                        </a>
+                                    </li>
+                                <?php }   ?>
                             </ul>
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('lm-leave-create') || checkPermission('lm-leave-list')) { ?>
+                    <?php if (checkPermission('lm-leave-approval') || checkPermission('lm-leave-report')) { ?>
                         <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
 
-                                <?php if (checkPermission('lm-leave-list')) { ?>
+                                <?php if (checkPermission('lm-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('lm-leave-create')) { ?>
+                                <?php if (checkPermission('lm-leave-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Approval</div>
@@ -147,7 +145,7 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-list')) { ?>
+                    <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-report')) { ?>
                         <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
@@ -160,7 +158,7 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('concern-leave-list')) { ?>
+                                <?php if (checkPermission('concern-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report</div>
@@ -237,7 +235,7 @@ function isActive($url)
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('lm-tour-create')) { ?>
+                                <?php if (checkPermission('lm-tour-report')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/index.php" class="menu-link withoutIcon">
@@ -246,7 +244,7 @@ function isActive($url)
                                     </li>
                                 <?php } ?>
 
-                                <?php if (checkPermission('lm-tour-report')) { ?>
+                                <?php if (checkPermission('lm-tour-approval')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
@@ -342,13 +340,13 @@ function isActive($url)
                             </ul>
                         </li>
                     <?php } ?>
-                    <?php if (checkPermission('hr-attendance-create') || checkPermission('hr-attendance-single-report') || checkPermission('hr-attendance-advance-report') || (checkPermission('hr-attendance-punch-data-syn'))) { ?>
+                    <?php if (checkPermission('hr-attendance-manual-entry') || checkPermission('hr-attendance-single-report') || checkPermission('hr-attendance-advance-report') || (checkPermission('hr-attendance-punch-data-syn'))) { ?>
                         <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel'); ?>"">
                         <a href=" javascript:void(0)" class="menu-link menu-toggle">
                             <div>HR Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('hr-attendance-create')) { ?>
+                                <?php if (checkPermission('hr-attendance-manual-entry')) { ?>
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/manualEntry.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/manualEntry.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Manual Entry</div>
@@ -385,14 +383,14 @@ function isActive($url)
                             </ul>
                         </li>
                     <?php } ?>
-                    <?php if (checkPermission('lm-attendance-create') || (checkPermission('lm-attendance-report'))) { ?>
+                    <?php if (checkPermission('lm-attendance-concern') || (checkPermission('lm-attendance-report')) ||       (checkPermission('lm-attendance-outdoor'))) { ?>
 
                         <li class="menu-item  <?php echo isActive('/attendance_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('lm-attendance-create')) { ?>
+                                <?php if (checkPermission('lm-attendance-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend. Approval
@@ -400,7 +398,7 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('lm-attendance-report')) { ?>
+                                <?php if (checkPermission('lm-attendance-concern')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/concern.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/concern.php" class="menu-link withoutIcon">
@@ -409,7 +407,7 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('lm-attendance-report')) { ?>
+                                <?php if (checkPermission('lm-attendance-outdoor')) { ?>
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/outdoor.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/outdoor.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend. Outdoor
@@ -423,22 +421,14 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-attendance-create') || (checkPermission('concern-attendance-report'))) { ?>
+                    <?php if ((checkPermission('concern-attendance-report'))) { ?>
 
                         <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('concern-attendance-create')) { ?>
 
-                                    <!-- <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/attendance_module\view\concern_panel\create.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attendance Create
-                                        </div>
-                                    </a>
-                                </li> -->
-                                <?php } ?>
                                 <?php if (checkPermission('concern-attendance-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/index.php" class="menu-link withoutIcon">
@@ -562,31 +552,30 @@ function isActive($url)
                     <div>Clearence Module</div>
                 </a>
 
-
                 <ul class="menu-sub">
 
 
-                    <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-list')) { ?>
+                    <?php if (checkPermission('hr-clearence-create') || checkPermission('hr-clearence-report')) { ?>
                         <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>HR Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('hr-leave-create')) { ?>
+                                <?php if (checkPermission('hr-clearence-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/create.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('hr-leave-list')) { ?>
+                                <?php if (checkPermission('hr-clearence-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('hr-leave-approval')) { ?>
+                                <?php if (checkPermission('hr-clearence-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
@@ -598,20 +587,20 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('lm-leave-create') || checkPermission('lm-leave-list')) { ?>
+                    <?php if (checkPermission('lm-clearence-approval') || checkPermission('lm-clearence-report')) { ?>
                         <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('lm-leave-create')) { ?>
+                                <?php if (checkPermission('lm-clearence-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('lm-leave-list')) { ?>
+                                <?php if (checkPermission('lm-clearence-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/lm_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
@@ -622,20 +611,22 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-list')) { ?>
+                    <?php if (checkPermission('concern-clearence-create') || checkPermission('concern-clearence-report')) { ?>
                         <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('concern-leave-create')) { ?>
+                                <?php if (checkPermission('concern-clearence-create')) {
+
+                                ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/concern_panel/create.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('concern-leave-list')) { ?>
+                                <?php if (checkPermission('concern-clearence-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/concern_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>

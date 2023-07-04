@@ -141,21 +141,6 @@ mysqli_close($conn_hr);
                                     </div>
                                     <hr>
 
-                                    <!-- <fieldset>
-                                        <legend>What is Your Favorite Pet?</legend>
-                                        <input type="checkbox" name="favorite_pet" value="Cats">Cats<br>
-                                        <input type="checkbox" name="favorite_pet" value="Dogs">Dogs<br>
-                                        <input type="checkbox" name="favorite_pet" value="Birds">Birds<br>
-                                        <br>
-                                        <input type="submit" value="Submit now">
-                                    </fieldset> -->
-
-                                    <!-- //           echo '<div class="form-check-inline col-4">
-                                    //           <input class="form-check-input" type="checkbox" name="permission_id[]" '
-                                    //   . (in_array($row["id"], array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
-                                    //           id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
-                                    //           <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
-                                    //       </div>'; -->
                                     <?php
                                     foreach ($permissionArray as $key => $row) {
 
@@ -169,8 +154,8 @@ mysqli_close($conn_hr);
                                         foreach ($row['ids'] as $keyId => $dataId) {
                                             echo '<div class="form-check-inline col-5">
                                             <input type="checkbox" class="form-check-input" 
-                                            '. (in_array($dataId, array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
-                                            value ="'.$dataId.'"
+                                            ' . (in_array($dataId, array_column($roleWisepermission, 'permission_id')) ? 'checked' : '') . '
+                                            value ="' . $dataId . '"
                                             name="permission_id[]"  id="check_' . $dataId . '">
                                             <label class="form-check-label" for="check_' . $dataId . '">' . $row['names'][$keyId] . '</label>
                                             </div>';
@@ -214,11 +199,18 @@ mysqli_close($conn_hr);
             checkboxes[i].checked = source.checked;
         }
     }
+
     function checkdivArea(here) {
-        var checkboxes =(here.parents('h5').parent().find('input[type="checkbox"]'))
-    //    for (var i = 0; i < checkboxes.length; i++) {
-            // checkboxes[i].checked = source.checked;
-        // }
+        var checkboxes = (here.parents('h5').closest('div').find('input[type="checkbox"]'));
+        if (here.is(':checked')) {
+            for (var i = 1; i < checkboxes.length; i++) {
+                checkboxes[i].checked = true;
+            }
+        } else {
+            for (var i = 1; i < checkboxes.length; i++) {
+                checkboxes[i].checked = false;
+            }
+        }
     }
 </script>
 
