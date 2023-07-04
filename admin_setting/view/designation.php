@@ -9,20 +9,21 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="col-lg-12">
+    <div class="card card-body col-lg-12">
+  
         <form action="" method="post">
-            <div class="row">
+        <div class="row justify-content-center">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Designation Name</label>
-                        <input required="" placeholder="Designation Name" name="department_name" class="form-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' />
+                        <input required="" placeholder="Designation Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' />
                     </div>
                 </div>
 
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-primary" type="submit" value="Search Data">
+                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
                     </div>
                 </div>
             </div>

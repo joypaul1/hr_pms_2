@@ -11,23 +11,17 @@ $errorMsg = '';
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="col-lg-12">
+    <div class="card card-body col-lg-12 ">
 
         <form action="" method="post">
             <div class="row">
                 <div class="col-sm-4">
                     <label for="exampleInputEmail1">Select Date:</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" class="form-control" id="date" name="holiday_date" type="date" />
-                    </div>
+                    <input required="" class="form-control cust-control" id="date" name="holiday_date" type="date" />
                 </div>
                 <div class="col-sm-4">
                     <label for="exampleInputEmail1">Select Type:</label>
-                    <select required="" name="holiday_type" class="form-control">
+                    <select required="" name="holiday_type" class="form-control cust-control">
                         <option selected value="">---</option>
                         <option value="W">Weekend</option>
                         <option value="H">Holiday</option>
@@ -35,7 +29,7 @@ $errorMsg = '';
                 </div>
                 <div class="col-sm-4">
                     <label for="exampleInputEmail1">Select Concern:</label>
-                    <select required="" name="emp_concern" class="form-control">
+                    <select required="" name="emp_concern" class="form-control cust-control">
                         <option selected value="">---</option>
                         <option value="ALL">ALL</option>
                         <option value="RG">RG</option>
@@ -62,7 +56,7 @@ $errorMsg = '';
                 <div class="col-sm-8"> </div>
                 <div class="col-sm-4">
                     <div class="md-form mt-3">
-                        <input class="form-control btn btn-primary" type="submit" value="Submit to Create">
+                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Submit to Create">
                     </div>
                 </div>
             </div>
