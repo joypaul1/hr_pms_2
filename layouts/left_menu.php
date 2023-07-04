@@ -35,15 +35,11 @@ function isActive($url)
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-        
-        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
-            <!-- <li class="menu-header small text-uppercase">
-                <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
-            </li> -->
-            <li class="menu-header small text-uppercase" style=" border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;">
-                <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
-            </li>
 
+        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
+        </li>
+        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-user"></i>
@@ -553,6 +549,106 @@ function isActive($url)
                     </ul>
                 </li>
             <?php } ?>
+        </section>
+
+
+        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class="menu-header-text"><b style="color:red;">Employee Clearence Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
+        </li>
+        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
+            <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-file "></i>
+                    <div>Clearence Module</div>
+                </a>
+
+
+                <ul class="menu-sub">
+
+
+                    <?php if (checkPermission('hr-leave-create') || checkPermission('hr-leave-list')) { ?>
+                        <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel'); ?>">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>HR Panel</div>
+                            </a>
+                            <ul class="menu-sub">
+                                <?php if (checkPermission('hr-leave-create')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/create.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (checkPermission('hr-leave-list')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/index.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (checkPermission('hr-leave-approval')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/approval.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+
+                            </ul>
+                        </li>
+                    <?php } ?>
+
+                    <?php if (checkPermission('lm-leave-create') || checkPermission('lm-leave-list')) { ?>
+                        <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel'); ?>">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>LM Panel</div>
+                            </a>
+                            <ul class="menu-sub">
+                                <?php if (checkPermission('lm-leave-create')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/approval.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (checkPermission('lm-leave-list')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/index.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
+
+                    <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-list')) { ?>
+                        <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel'); ?>">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>Concern Panel</div>
+                            </a>
+                            <ul class="menu-sub">
+                                <?php if (checkPermission('concern-leave-create')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/create.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <?php if (checkPermission('concern-leave-list')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/index.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                            </ul>
+                        </li>
+                    <?php } ?>
+                </ul>
+
+            </li>
+
         </section>
     </ul>
 </aside>
