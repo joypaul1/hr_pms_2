@@ -40,6 +40,8 @@ function isActive($url)
             <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
         </li>
         <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
+            <!-- Leave- module-list -->
+
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-user"></i>
@@ -171,6 +173,9 @@ function isActive($url)
                 </ul>
 
             </li>
+            <!-- Leave- module-list -->
+
+            <!-- Tour- module-list -->
 
             <li class="menu-item <?php echo isActive('/tour_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -287,8 +292,9 @@ function isActive($url)
 
                 </ul>
             </li>
+            <!-- tour- module-list -->
 
-            <!-- roster-list -->
+            <!-- roster - module-list -->
             <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
 
                 <li class="menu-item <?php echo isActive('/roster'); ?>">
@@ -317,6 +323,8 @@ function isActive($url)
                 </li>
 
             <?php } ?>
+            <!-- roster-list -->
+            <!-- attendance-module-list -->
 
             <li class="menu-item <?php echo isActive('/attendance_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -420,7 +428,6 @@ function isActive($url)
                             </ul>
                         </li>
                     <?php } ?>
-
                     <?php if ((checkPermission('concern-attendance-report'))) { ?>
 
                         <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel'); ?>">
@@ -446,7 +453,10 @@ function isActive($url)
 
                 </ul>
             </li>
-            <!-- -->
+            <!-- attendance-module-list -->
+
+            <!--pms Module -->
+
             <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
 
                 <li class="menu-item  <?php echo isActive('/pms'); ?>">
@@ -484,6 +494,9 @@ function isActive($url)
 
                 </li>
             <?php } ?>
+            <!--pms Module -->
+
+            <!-- role&permission Module -->
 
             <?php if (checkPermission('role-list') || (checkPermission('permission-list') ||  (checkPermission('role-permission-list'))
                 || (checkPermission('user-role-list')))) { ?>
@@ -540,10 +553,11 @@ function isActive($url)
                 </li>
             <?php } ?>
         </section>
+        <!-- role&permission Module -->
 
-
+        <!-- Clearence Module -->
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
-            <span class="menu-header-text"><b style="color:red;">Employee Clearence Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
+            <span class="menu-header-text"><b style="color:red;"> Clearence Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
         </li>
         <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
             <li class="menu-item  <?php echo isActive('/clearence_module/view'); ?>">
@@ -641,6 +655,60 @@ function isActive($url)
             </li>
 
         </section>
+        <!-- Clearence Module -->
+        <!-- Application Setting Module -->
+        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class="menu-header-text"><b style="color:red;"> Setting Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
+        </li>
+        <?php if (checkPermission('designation-list') || (checkPermission('branch-list')) || (checkPermission('department-list')) || checkPermission('holiday-list')) { ?>
+
+            <li class="menu-item  <?php echo isActive('/admin_setting/view'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-crown"></i>
+                    <div data-i18n="Misc">Admin Setting </div>
+                </a>
+                <ul class="menu-sub">
+
+                    <?php if (checkPermission('department-list')) { ?>
+
+                        <li class="menu-item <?php echo isActive('admin_setting/view/department.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/department.php" class="menu-link">
+                                <div data-i18n="Error">Department List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (checkPermission('designation-list')) { ?>
+
+                        <li class="menu-item <?php echo isActive('admin_setting/view/designation.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/designation.php" class="menu-link">
+                                <div data-i18n="Error">Designation List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <?php if (checkPermission('branch-list')) { ?>
+
+                        <li class="menu-item <?php echo isActive('admin_setting/view/branch.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/branch.php" class="menu-link">
+                                <div data-i18n="Error">Branch List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+                    <?php if (checkPermission('holiday-list')) { ?>
+
+                        <li class="menu-item <?php echo isActive('admin_setting/view/holiday.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/holiday.php" class="menu-link">
+                                <div data-i18n="Under Maintenance">Holiday List</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                </ul>
+
+            </li>
+        <?php } ?>
+
+        <!-- Application Setting Module -->
+
     </ul>
 </aside>
 <!-- / Menu -->
