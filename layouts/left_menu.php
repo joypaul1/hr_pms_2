@@ -9,11 +9,27 @@ function isActive($url)
     return strpos($currentUrl, $url) !== false ? 'active open' : '';
 }
 ?>
+<style>
+        /* Add CSS for the smooth collapse transition */
+        #myCollapsible2 {
+            max-height: 1000px;
+            transition: max-height 0.8s ease;
+        }
+
+        #myCollapsible2.collapsed {
+            max-height: 0;
+            transition: max-height 0.8s ease;
+
+            overflow: hidden;
+        }
+
+       
+    </style>
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="<?php echo $basePath ?>/home/dashboard.php" class="app-brand-link">
             <span class="app-brand-logo demo">
-               <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
+                <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
             </span>
             <span class="demo menu-text fw-bolder mt-3" style="margin-left: 2px;">
                 <h3 style="color:#fff">Rangs Group</h3>
@@ -35,23 +51,23 @@ function isActive($url)
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
+        <li class="menu-header small text-uppercase" style="border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;">
+            <a href="#" onclick="toggleCollapsible()">
+                <span class="menu-header-text"><b style="color:red;">HR Admin Module <i id="collapseIcon" class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
+            </a>
+        </li>
 
-        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
-            <!-- <li class="menu-header small text-uppercase">
-                <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
-            </li> -->
-            <li class="menu-header small text-uppercase" style=" border-top: 1px solid #d2d2d2;border-bottom: 1px solid #d2d2d2;">
-                <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
-            </li>
+        <section class="collapsed" id="myCollapsible2"  style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;" >
+
 
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <a href="javascript:void(0);" class="menu-link menu-toggle" >
                     <i class="menu-icon tf-icons bx bx-user"></i>
                     <div>Leave Module</div>
                 </a>
 
 
-                <ul class="menu-sub">
+                <ul class="menu-sub" >
                     <li class="menu-item <?php echo isActive('/self_panel'); ?>">
                         <a href="javascript:void(0)" class="menu-link menu-toggle">
                             <div>Self Panel</div>
@@ -555,5 +571,18 @@ function isActive($url)
             <?php } ?>
         </section>
     </ul>
+
 </aside>
 <!-- / Menu -->
+<script type="text/javascript">
+    function toggleCollapsible() {
+        const collapsibleSection = document.getElementById('myCollapsible2');
+        collapsibleSection.classList.toggle('collapsed');
+
+        const collapseIcon = document.getElementById('collapseIcon');
+        collapseIcon.classList.toggle('bx-down-arrow');
+        collapseIcon.classList.toggle('bx-up-arrow');
+    }
+
+   
+</script>
