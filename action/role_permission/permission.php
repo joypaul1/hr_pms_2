@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'update') {
 
-    $name = trim($_POST["name"],);
+    $name = trim($_POST["name"]);
     $id  = trim($_GET["editID"]);
     if (empty($name)) {
         $message = [
