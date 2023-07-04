@@ -294,36 +294,7 @@ function isActive($url)
             </li>
             <!-- tour- module-list -->
 
-            <!-- roster - module-list -->
-            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
 
-                <li class="menu-item <?php echo isActive('/roster'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                        <div data-i18n="Misc">Roster Module</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <?php if (checkPermission('roster-create')) { ?>
-                            <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
-                                <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
-                                    <div data-i18n="Error">Roster Create</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if ((checkPermission('roster-list'))) { ?>
-                            <li class="menu-item <?php echo isActive('/roster/view/index.php'); ?>">
-                                <a href="<?php echo $basePath ?>/roster/view/index.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">Roster List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                    </ul>
-                </li>
-
-            <?php } ?>
-            <!-- roster-list -->
             <!-- attendance-module-list -->
 
             <li class="menu-item <?php echo isActive('/attendance_module/view'); ?>">
@@ -454,112 +425,7 @@ function isActive($url)
                 </ul>
             </li>
             <!-- attendance-module-list -->
-
-            <!--pms Module -->
-
-            <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
-
-                <li class="menu-item  <?php echo isActive('/pms'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-crown"></i>
-                        <div data-i18n="Misc">PMS Module</div>
-                    </a>
-                    <ul class="menu-sub">
-
-                        <?php if (checkPermission('pms-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_list_self.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_list_self.php" class="menu-link">
-                                    <div data-i18n="Error">PMS List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('pms-kra-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_kra_create.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_kra_create.php" class="menu-link">
-                                    <div data-i18n="Error">KRA List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('pms-kpi-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_kpi_list.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_kpi_list.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">KPI List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-
-                </li>
-            <?php } ?>
-            <!--pms Module -->
-
-            <!-- role&permission Module -->
-
-            <?php if (checkPermission('role-list') || (checkPermission('permission-list') ||  (checkPermission('role-permission-list'))
-                || (checkPermission('user-role-list')))) { ?>
-
-
-                <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">
-
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-accessibility"></i>
-
-                        <div data-i18n="Misc"> Role Permission </div>
-                    </a>
-                    <ul class="menu-sub">
-                        <?php if (checkPermission('role-list')) { ?>
-
-                            <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
-                                <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
-                                    <div data-i18n="Error">Role List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-                        <?php if (checkPermission('permission-list')) {  ?>
-
-                            <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
-                                <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
-                                    <div data-i18n="Error">Permssion List</div>
-                                </a>
-                            </li>
-                        <?php }  ?>
-
-                        <?php if (checkPermission('role-permission-list')) {  ?>
-
-                            <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
-                                <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
-                                    <div data-i18n="Error">Role & Permission </div>
-                                </a>
-                            </li>
-                        <?php  } ?>
-
-                        <?php if (checkPermission('user-role-list')) { ?>
-
-                            <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
-                                <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
-                                    <div data-i18n="Error">User Role</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-
-
-
-
-                    </ul>
-                </li>
-            <?php } ?>
-        </section>
-        <!-- role&permission Module -->
-
-        <!-- Clearence Module -->
-        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
-            <span class="menu-header-text"><b style="color:red;"> Clearence Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
-        </li>
-        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
+            <!-- clearence Module  -->
             <li class="menu-item  <?php echo isActive('/clearence_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-file "></i>
@@ -567,8 +433,6 @@ function isActive($url)
                 </a>
 
                 <ul class="menu-sub">
-
-
                     <?php if (checkPermission('hr-clearence-create') || checkPermission('hr-clearence-report')) { ?>
                         <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
@@ -653,9 +517,136 @@ function isActive($url)
                 </ul>
 
             </li>
+            <!-- clearence Module  -->
+            <!--pms Module -->
 
+            <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
+
+                <li class="menu-item  <?php echo isActive('/pms'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-crown"></i>
+                        <div data-i18n="Misc">PMS Module</div>
+                    </a>
+                    <ul class="menu-sub">
+
+                        <?php if (checkPermission('pms-list')) { ?>
+
+                            <li class="menu-item <?php echo isActive('pms/view/pms_list_self.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms/view/pms_list_self.php" class="menu-link">
+                                    <div data-i18n="Error">PMS List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('pms-kra-list')) { ?>
+
+                            <li class="menu-item <?php echo isActive('pms/view/pms_kra_create.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms/view/pms_kra_create.php" class="menu-link">
+                                    <div data-i18n="Error">KRA List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('pms-kpi-list')) { ?>
+
+                            <li class="menu-item <?php echo isActive('pms/view/pms_kpi_list.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms/view/pms_kpi_list.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">KPI List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                    </ul>
+
+                </li>
+            <?php } ?>
+            <!--pms Module -->
+            <!-- roster - module-list -->
+            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
+
+                <li class="menu-item <?php echo isActive('/roster'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                        <div data-i18n="Misc">Roster Module</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <?php if (checkPermission('roster-create')) { ?>
+                            <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
+                                <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
+                                    <div data-i18n="Error">Roster Create</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if ((checkPermission('roster-list'))) { ?>
+                            <li class="menu-item <?php echo isActive('/roster/view/index.php'); ?>">
+                                <a href="<?php echo $basePath ?>/roster/view/index.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">Roster List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                    </ul>
+                </li>
+
+            <?php } ?>
+            <!-- roster-list -->
+            <!-- role&permission Module -->
+
+            <?php if (checkPermission('role-list') || (checkPermission('permission-list') ||  (checkPermission('role-permission-list'))
+                || (checkPermission('user-role-list')))) { ?>
+
+
+                <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">
+
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-accessibility"></i>
+
+                        <div data-i18n="Misc"> Role Permission </div>
+                    </a>
+                    <ul class="menu-sub">
+                        <?php if (checkPermission('role-list')) { ?>
+
+                            <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
+                                <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
+                                    <div data-i18n="Error">Role List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                        <?php if (checkPermission('permission-list')) {  ?>
+
+                            <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
+                                <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
+                                    <div data-i18n="Error">Permssion List</div>
+                                </a>
+                            </li>
+                        <?php }  ?>
+
+                        <?php if (checkPermission('role-permission-list')) {  ?>
+
+                            <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
+                                <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
+                                    <div data-i18n="Error">Role & Permission </div>
+                                </a>
+                            </li>
+                        <?php  } ?>
+
+                        <?php if (checkPermission('user-role-list')) { ?>
+
+                            <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
+                                <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
+                                    <div data-i18n="Error">User Role</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+
+
+
+                    </ul>
+                </li>
+            <?php } ?>
         </section>
-        <!-- Clearence Module -->
+        <!-- role&permission Module -->
+
         <!-- Application Setting Module -->
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class="menu-header-text"><b style="color:red;"> Setting Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
