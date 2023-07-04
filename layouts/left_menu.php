@@ -460,6 +460,13 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
+                                <?php if (checkPermission('hr-clearence-id-assign')) { ?>
+                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/id_assign.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/id_assign.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign</div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
 
                             </ul>
                         </li>
