@@ -17,9 +17,8 @@ function isActive($url)
         }
 
         #myCollapsible2.collapsed {
-            max-height: 0;
             transition: max-height 0.8s ease;
-
+            max-height: 0;
             overflow: hidden;
         }
 
