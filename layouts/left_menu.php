@@ -13,10 +13,10 @@ function isActive($url)
     <div class="app-brand demo">
         <a href="<?php echo $basePath ?>/home/dashboard.php" class="app-brand-link">
             <span class="app-brand-logo demo">
-                <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
+               <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
             </span>
             <span class="demo menu-text fw-bolder mt-3" style="margin-left: 2px;">
-                <h3>Rangs Group</h3>
+                <h3 style="color:#fff">Rangs Group</h3>
             </span>
         </a>
 
@@ -35,7 +35,7 @@ function isActive($url)
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
         </li>
-        
+
         <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
             <!-- <li class="menu-header small text-uppercase">
                 <span class="menu-header-text"><b style="color:red;">HR Admin Module <i class="menu-icon tf-icons bx bx-down-arrow"></i></b></span>
