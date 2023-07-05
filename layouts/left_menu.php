@@ -39,7 +39,7 @@ function isActive($url)
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class="menu-header-text"><b style="color:#566a7f;">HR Apps </b></span>
         </li>
-        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
+        <section style="width: 98%;">
             <!-- Leave- module-list -->
 
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">

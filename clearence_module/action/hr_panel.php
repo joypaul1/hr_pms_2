@@ -7,6 +7,25 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
 $basePath =  $baseUrl . '/rHRT';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'searchUser') {
+
+    $response = array();
+    
+    $strSQL  = oci_parse(
+        $objConnect,
+        "SELECT ID,EMP_NAME,MOBILE_NO,RML_ID,R_CONCERN,DEPT_NAME,DESIGNATION  FROM RML_HR_APPS_USER WHERE RML_ID LIKE '%" . trim($_POST['search']) . "%' FETCH FIRST 10 ROWS ONLY"
+    );
+    @oci_execute($strSQL);
+    while ($row = @oci_fetch_assoc($strSQL)) {
+        $response[] = array("value" => $row['RML_ID'], "label" => $row['RML_ID'], 'id' => $row['ID'], 'data' => $row);
+    }
+    if (empty($response)) {
+        $response[] = array("value" => 'Sorry! No Data Found!', "label" => null, 'id' => null);
+    }
+    echo json_encode($response);
+}
+
+
 // Check if the form is submitted create clearence 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'create') {
     // Validate emp_id field
@@ -31,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
             $strSQL  = oci_parse(
                 $objConnect,
                 "INSERT INTO HR_DEPT_CLEARENCE_CONCERN (RML_HR_APPS_USER_ID,R_CONCERN, RML_HR_DEPARTMENT_ID,CREATED_BY,CREATED_DATE)
-                VALUES ($emp_id,$concern_id,$depID,$emp_session_id,SYSDATE)"
+                VALUES (1,$concern_id,$depID,$emp_session_id,SYSDATE)"
             );
             $result = oci_execute($strSQL);
 
@@ -51,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 
         $message = [
             'text' => 'Clearence Created Successfully.',
-            'status' => 'false',
+            'status' => 'True',
         ];
         $_SESSION['noti_message'] = $message;
         header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");

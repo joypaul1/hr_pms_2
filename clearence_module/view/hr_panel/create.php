@@ -1,11 +1,9 @@
 <?php
-
+$dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+$dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
 ?>
-
 
 <!-- / Content -->
 
@@ -21,27 +19,22 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <input type='hidden' hidden name='actionType' value='create'>
             <div class="row justify-content-center">
                 <div class="col-sm-3">
-                    <label for="exampleInputEmail1">Emp. ID:</label>
-                    <input required class="form-control cust-control" id="date" name="emp_id" type="text" />
+                    <label for="emp_id">Emp. ID:</label>
+                    <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
+                    <input required class="form-control cust-control" id="emp_id" name="emp_id" type="text" />
+
                 </div>
-                <div class="col-sm-3">
-                    <label for="title">Select Concern</label>
-                    <select name="concern_id" class="form-control cust-control text-center" required>
-                        <option hidden value=""><-- Select Concern --></option>
-                        <?php
+                <div class="col-sm-6">
+                    <span class="d-block text-center text-info mb-2">
+                        <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee Information :
+                    </span>
+                    <span class="w-100" id="userInfo"></span>
 
-                        $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                        ?>
-                            <option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['company_name']) && $_POST['company_name'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
-                        <?php
-                        }
-                        ?>
-                    </select>
                 </div>
-
-
+                <div class="col-sm-12">
+                    <label for="exampleInputEmail1">Remarks? </label>
+                    <input required class="form-control cust-control" id="" name="emp_id" type="text" />
+                </div>
                 <div style="
                         border: 1px solid #eee5e5;
                         padding: 2%;
@@ -56,7 +49,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     while ($row = oci_fetch_assoc($strSQL)) {
                         echo ('
                             <div class="form-check-inline col-4">
-                                <input type="checkbox" class="form-check-input"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
+                                <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
                                 id="check_' . $row['ID'] . '">
                                 <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
                             </div>
@@ -65,12 +58,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     ?>
 
-
-
                 </div>
                 <div class="col-sm-2">
                     <div class="md-form mt-4">
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Submit to Create">
+                        <button class="form-control btn btn-sm btn-primary" type="submit">Submit to Create
+                        </button>
                     </div>
                 </div>
 
@@ -86,7 +78,103 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 </div>
 
 <!-- / Content -->
-
-
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    $(function() {
+
+        $("#autocomplete").autocomplete({
+
+            source: function(request, response) {
+                // Fetch data
+                $.ajax({
+                    url: "<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        actionType: 'searchUser',
+                        search: request.term
+                    },
+                    beforeSend: function() {
+                        $("#userInfo").empty();
+                        $("#emp_id").val(null);
+                        showPleaseWaitMessage();
+                    },
+                    success: function(data) {
+                        hidePleaseWaitMessage();
+                        // Process the response data here
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.label,
+                                value: item.value,
+                                id: item.id,
+                                empData: item
+                            };
+                        }));
+                    },
+                    error: function(data) {
+                        console.log(data)
+                        hidePleaseWaitMessage();
+                    }
+                });
+            },
+            select: function(event, ui) {
+                // Set selection
+                $('#autocomplete').val(ui.item.label); // display the selected text
+                $('#emp_id').val(ui.item.id); // save selected id to input
+                userInfo(ui.item.empData.data)
+                return false;
+            },
+            focus: function(event, ui) {
+                $("#autocomplete").val(ui.item.label);
+                $("#emp_id").val(ui.item.id);
+                return false;
+            },
+        });
+
+        // Function to display the "Please wait" message
+        function showPleaseWaitMessage() {
+            $('#message').text('Please wait for searching...');
+        }
+
+        // Function to hide the "Please wait" message
+        function hidePleaseWaitMessage() {
+            $('#message').empty();
+        }
+
+        function userInfo(info) {
+
+            let basePath = "/rHRT";
+            let html = `<div class="justify-content-center">
+                    <div class="card p-3">
+                        <div class="d-flex  text-center">
+                            <div class="w-100">
+                                <h4 class="mb-0 mt-0">${info.EMP_NAME}</h4>
+                                <span>${info.DESIGNATION}</span>
+                                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                    <div class="d-flex flex-column">
+                                        <span class="articles">ID</span>
+                                        <span class="number1">${info.RML_ID}</span>
+
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="followers">Concern</span>
+                                        <span class="number2">${info.R_CONCERN}</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">Department</span>
+                                        <span class="number3">${info.DEPT_NAME}</span>
+                                    </div>
+                                </div>
+                                <div class="mt-2 d-flex flex-row justify-content-center">
+                                    <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+            $("#userInfo").append(html);
+        }
+    });
+</script>
