@@ -208,10 +208,10 @@ require_once('../../../inc/connoracle.php');
             $("#userInfo").append(html);
         }
     });
-    $(document).on('click', '.concern_id', function(){
+    $(document).on('click', '.concern_id', function() {
         buttonValidation();
     });
-    $(document).on('click', '.department_id', function(){
+    $(document).on('click', '.department_id', function() {
         buttonValidation();
     });
 
