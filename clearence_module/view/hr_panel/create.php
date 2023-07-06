@@ -17,11 +17,11 @@ require_once('../../../inc/connoracle.php');
         </div>
         <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
             <input type='hidden' hidden name='actionType' value='create'>
-            <div class="row justify-content-center">
+            <div class="row ">
                 <div class="col-sm-3">
                     <label for="emp_id">Emp. ID:</label>
                     <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
-                    <input required class="form-control cust-control" id="emp_id" name="emp_id" type="text" />
+                    <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
 
                 </div>
                 <div class="col-sm-6">
@@ -33,45 +33,46 @@ require_once('../../../inc/connoracle.php');
                 </div>
                 <div class="col-sm-12">
                     <label for="exampleInputEmail1">Remarks? </label>
-                    <input required class="form-control cust-control" id="" name="emp_id" type="text" />
+                    <input required class="form-control" id="" name="emp_id" type="text" />
                 </div>
-                <div style="
+            </div>
+            <div class="row" style="
                         border: 1px solid #eee5e5;
-                        padding: 2%;
-                        box-shadow: 1px 1px 1px 1px lightgray;
-                        margin: 2%;
+                        /* padding: 2%; */
+                        margin-top: 2%;
                     ">
-                    <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
-                    <?php
-                    $departmentArray = [];
-                    $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
-                    oci_execute($strSQL);
-                    while ($row = oci_fetch_assoc($strSQL)) {
-                        echo ('
+                <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
+                
+                <hr />
+
+                <?php
+                $departmentArray = [];
+                $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
+                oci_execute($strSQL);
+                while ($row = oci_fetch_assoc($strSQL)) {
+                    echo ('
                             <div class="form-check-inline col-4">
                                 <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
                                 id="check_' . $row['ID'] . '">
                                 <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
                             </div>
                             ');
-                    }
+                }
 
-                    ?>
-
-                </div>
-                <div class="col-sm-2">
-                    <div class="md-form mt-4">
-                        <button class="form-control btn btn-sm btn-primary" type="submit">Submit to Create
-                        </button>
-                    </div>
-                </div>
+                ?>
 
             </div>
+            <div class="mt-2 w-25 mx-auto">
+                <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
+                </button>
+            </div>
 
-
-
-        </form>
     </div>
+
+
+
+    </form>
+</div>
 
 
 
@@ -99,6 +100,7 @@ require_once('../../../inc/connoracle.php');
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
                         showPleaseWaitMessage();
+
                     },
                     success: function(data) {
                         hidePleaseWaitMessage();
@@ -122,7 +124,8 @@ require_once('../../../inc/connoracle.php');
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
-                userInfo(ui.item.empData.data)
+                userInfo(ui.item.empData.data);
+                buttonValidation();
                 return false;
             },
             focus: function(event, ui) {
@@ -177,4 +180,36 @@ require_once('../../../inc/connoracle.php');
             $("#userInfo").append(html);
         }
     });
+
+    $(document).on('change', '#autocomplete', function() {
+        buttonValidation();
+    });
+    $(document).on('click', '.department_id', function() {
+        buttonValidation();
+    });
+
+    function buttonValidation() {
+
+        if ($("#emp_id").val() && derpartmentCheck()) {
+            $("button[type='submit']").prop('disabled', false);
+
+        } else {
+            $("button[type='submit']").prop('disabled', true);
+        }
+    }
+
+
+
+
+    function derpartmentCheck() {
+        let flag = false;
+        $('.department_id').each(function() {
+            var isChecked = $(this).prop('checked');
+            if (isChecked) {
+                flag = true;
+
+            }
+        });
+        return flag;
+    }
 </script>

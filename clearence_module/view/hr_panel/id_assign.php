@@ -17,12 +17,12 @@ require_once('../../../inc/connoracle.php');
         </div>
         <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
             <input type='hidden' hidden name='actionType' value='create'>
-            <div class="row justify-content-center">
+            <div class="row">
                 <div class="col-sm-4">
                     <label for="emp_id">Emp. ID:</label>
                     <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
                     <div class="text-info" id="message"></div>
-                    <input required class="form-control cust-control" id="emp_id" name="emp_id" type="hidden" hidden />
+                    <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden />
 
                 </div>
                 <div class="col-sm-6">
@@ -34,14 +34,13 @@ require_once('../../../inc/connoracle.php');
                 </div>
                 <div class="col-sm-12">
                     <label for="exampleInputEmail1">Remarks? </label>
-                    <input required class="form-control cust-control" id="" name="emp_id" type="text" />
+                    <input required class="form-control" id="" name="emp_id" type="text" />
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-sm-6">
                     <section style="border: 1px solid #eee5e5;
-                        padding: 2%;
-                        box-shadow: 1px 1px 1px 1px lightgray;">
+                        padding: 2%;">
 
 
                         <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
@@ -67,8 +66,7 @@ require_once('../../../inc/connoracle.php');
                 </div>
                 <div class="col-sm-6">
                     <section style="border: 1px solid #eee5e5;
-                        padding: 2%;
-                        box-shadow: 1px 1px 1px 1px lightgray;">
+                        padding: 2%;">
 
                         <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
                         <hr />
@@ -207,6 +205,10 @@ require_once('../../../inc/connoracle.php');
 
             $("#userInfo").append(html);
         }
+    });
+
+    $(document).on('change', '#autocomplete', function() {
+        buttonValidation();
     });
     $(document).on('click', '.concern_id', function() {
         buttonValidation();
