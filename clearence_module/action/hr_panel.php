@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'sea
 }
 
 
+
 // Check if the form is submitted create clearence 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'create') {
     // Validate emp_id field
