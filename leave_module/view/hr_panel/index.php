@@ -2,7 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
+if (!checkPermission('hr-leave-report')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 

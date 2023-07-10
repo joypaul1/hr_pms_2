@@ -1,13 +1,13 @@
 <?php
-if (!checkPermission('self-leave-create')){
-    
-}
+
 
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-
+if (!checkPermission('self-leave-create')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
@@ -211,7 +211,6 @@ while ($row = @oci_fetch_assoc($strSQL)) {
                                 ];
                                 $_SESSION['noti_message'] = $message;
                             }
-                           
                         }
                     }
                     ?>

@@ -3,9 +3,9 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-$v_page = 'leave_create_self';
-// $v_active_open = 'active open';
-// $v_active = 'active';
+if (!checkPermission('concern-leave-report')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
@@ -19,16 +19,28 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     <div class="col-lg-12 card">
         <div class="card-body text-center">
             <form action="" method="post">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                            <input required readonly name="emp_id" class="form-control cust-control" type='text' value='<?php echo $emp_session_id; ?>' />
+                <div class="row justify-content-center">
+                <input required  name="emp_id"type='hidden' value='<?php echo $emp_session_id; ?>' 
+                />
+                    
+                    <div class="col-sm-2">
+                        <label class="form-label" for="basic-default-fullname">From Date <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input required="" class="form-control cust-control" name="start_date" type="date">
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
+                        <div class="input-group">
+
+                            <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value="">
                         </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                             <input class="form-control  btn  btn-sm  btn-primary" type="submit" value="Search Data">
@@ -38,7 +50,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             </form>
         </div>
     </div>
-    
+
 
 
 
@@ -47,10 +59,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName  = 'Leave List';
-        if (checkPermission('self-leave-create')) {
+        $leftSideName  = 'Concern Leave List';
+        if (checkPermission('concern-leave-create')) {
             $rightSideName = 'Leave Create';
-            $routePath     = 'leave_module/view/self_panel/create.php';
+            $routePath     = 'leave_module/view/concern_panel/create.php';
         }
 
         include('../../../layouts/_tableHeader.php');

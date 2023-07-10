@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('lm-leave-approval')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 $v_view_approval = 0;
 
 
@@ -58,7 +61,7 @@ $v_view_approval = 0;
 
         <div class="card  col-lg-12 mt-2">
             <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
-            <form id="Form1" action="" method="post " class ="card-body">
+            <form id="Form1" action="" method="post " class="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -239,19 +242,29 @@ $v_view_approval = 0;
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 }
                 echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
@@ -278,19 +291,29 @@ $v_view_approval = 0;
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 }
                 echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
@@ -311,13 +334,25 @@ $v_view_approval = 0;
 
                     oci_execute($strSQL);
 
-                    echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
+                    // echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
+                    $message = [
+                        'text' => 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                        'status' => 'false',
+                    ];
+                    $_SESSION['noti_message'] = $message;
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                echo "<script> window.location.href ='$basePath/leave_module/view/lm_panel/approval.php'; </script>";
+                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+
             } else {
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
