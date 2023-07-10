@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 						 RML_HR_DEPARTMENT_ID,
 						 CREATED_BY,
 						 CREATED_DATE)
-                VALUES (
+                    VALUES (
 				        $emp_id,
 				        '$concernName',
 						'$depID',

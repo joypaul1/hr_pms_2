@@ -37,10 +37,10 @@ if (!checkPermission('hr-clearence-id-assign')) {
                     <span class="w-100" id="userInfo"></span>
 
                 </div>
-                <div class="col-sm-12">
+                <!-- <div class="col-sm-12">
                     <label for="exampleInputEmail1">Remarks? </label>
                     <input required class="form-control" id="" name="emp_id" type="text" />
-                </div>
+                </div> -->
             </div>
             <div class="row mt-2">
                 <div class="col-sm-6">
