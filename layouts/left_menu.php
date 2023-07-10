@@ -296,7 +296,6 @@ function isActive($url)
             </li>
             <!-- tour- module-list -->
 
-
             <!-- attendance-module-list -->
 
             <li class="menu-item <?php echo isActive('/attendance_module/view'); ?>">
