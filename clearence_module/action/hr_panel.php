@@ -30,8 +30,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
         foreach ($department_id as $key => $depID) {
             $strSQL  = oci_parse(
                 $objConnect,
-                "INSERT INTO HR_DEPT_CLEARENCE_CONCERN (RML_HR_APPS_USER_ID,R_CONCERN, RML_HR_DEPARTMENT_ID,CREATED_BY,CREATED_DATE)
-                VALUES ($emp_id,$concern_id,$depID,$emp_session_id,SYSDATE)"
+                "INSERT INTO HR_DEPT_CLEARENCE_CONCERN (
+				         RML_HR_APPS_USER_ID,
+						 R_CONCERN, 
+						 RML_HR_DEPARTMENT_ID,
+						 CREATED_BY,
+						 CREATED_DATE)
+                VALUES (
+				        $emp_id,
+				        '$concern_id',
+						$depID,
+						'$emp_session_id',
+						SYSDATE
+						)"
             );
             $result = oci_execute($strSQL);
 

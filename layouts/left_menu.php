@@ -32,14 +32,14 @@ function isActive($url)
         <li class="menu-item <?php echo isActive('/home/dashboard.php'); ?>">
             <a href="<?php echo $basePath ?>/home/dashboard.php" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+                <div data-i18n="Analytics">Home</div>
             </a>
         </li>
 
-        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+        <li class="menu-header small text-uppercase">
             <span class="menu-header-text"><b style="color:#566a7f;">HR Apps </b></span>
         </li>
-        <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;">
+         <!-- <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;"> -->
             <!-- Leave- module-list -->
 
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
@@ -442,21 +442,21 @@ function isActive($url)
                                 <?php if (checkPermission('hr-clearence-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-clearence-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-clearence-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -702,17 +702,17 @@ function isActive($url)
                     </ul>
                 </li>
             <?php } ?>
-        </section>
+       <!-- </section>-->
         <!-- role&permission Module -->
 
-        <!-- Application Setting Module -->
+        <!-- Application Setting Module 
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class="menu-header-text"><b style="color:#566a7f;"> Sells Apps </b></span>
         </li>
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class="menu-header-text"><b style="color:#566a7f;"> Collection Apps </b></span>
         </li>
-
+         -->
 
     </ul>
 </aside>

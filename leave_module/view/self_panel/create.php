@@ -4,8 +4,6 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
 $v_page = 'leave_create_self';
-// $v_active_open = 'active open';
-// $v_active = 'active';
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
@@ -48,12 +46,6 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
                     ?>
                     <div class="card-body">
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control " id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly />
-                            </div>
-                        </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-company">RML-ID</label>
                             <div class="col-sm-10">

@@ -36,7 +36,7 @@ require_once('../inc/connoracle.php');
             </div>
         </div>
       
-        <!-- Total Revenue -->
+        <!--  
         <div class="col-lg-6 mb-4 order-0">
             <div class="card">
 			   <div class="">
@@ -49,8 +49,8 @@ require_once('../inc/connoracle.php');
 		 <!-- Approval -->
 		<div class="col-6 mb-4 order-0">
 			<div class="card">
-				<h5 class="card-header"><u><b>Approval Pending List 2023: </b></u></h5>
-				<div class="card-body">
+			<div class="card-body">
+			<h5 class="card-title text-primary">Approval Pending List</h5>
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
 							<thead class="">
