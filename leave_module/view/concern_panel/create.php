@@ -28,14 +28,14 @@ while ($row = @oci_fetch_assoc($strSQL)) {
     <!-- / Content -->
 
     <div class="container-xxl flex-grow-1 container-p-y">
-
+        <form action="" method="POST" id="Form2"></form>
 
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
             <!-- Basic Layout -->
             <div class="col-xxl">
                 <div class="card mb-4">
-                   
+
 
                     <?php
                     $leftSideName  = 'Leave Create';
