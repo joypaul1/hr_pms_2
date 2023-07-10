@@ -41,17 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
     if (!isset($_POST['department_id']) || empty($_POST['department_id'])) {
         $errors[] = 'Department selection is required.';
     }
-    $emp_id = trim($_POST['emp_id']);
-    $concern_id = trim($_POST['concern_id']);
+    $emp_id = ($_POST['emp_id']);
+    $concern_id = ($_POST['concern_id']);
     $department_id = ($_POST['department_id']);
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
-        foreach ($department_id as $key => $depID) {
-            $strSQL  = oci_parse(
-                $objConnect,
 
-                "INSERT INTO HR_DEPT_CLEARENCE_CONCERN (
+        foreach ($concern_id as $key => $concernName) {
+            foreach ($department_id as $key => $depID) {
+                $strSQL  = oci_parse(
+                    $objConnect,
+
+                    "INSERT INTO HR_DEPT_CLEARENCE_CONCERN (
 				         RML_HR_APPS_USER_ID,
 						 R_CONCERN, 
 						 RML_HR_DEPARTMENT_ID,
@@ -59,31 +61,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
 						 CREATED_DATE)
                 VALUES (
 				        $emp_id,
-				        '$concern_id',
-						$depID,
+				        '$concernName',
+						'$depID',
 						'$emp_session_id',
 						SYSDATE
 						)"
-            );
-            $result = oci_execute($strSQL);
+                );
+                $result = oci_execute($strSQL);
 
-            if (!$result) {
-                $e = oci_error($strSQL);
-                // trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-                $message = [
-                    'text' =>  htmlentities($e['message']),
-                    'status' => 'false',
-                ];
+                if (!$result) {
+                    $e = oci_error($strSQL);
+                    // trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
+                    $message = [
+                        'text' =>  htmlentities($e['message'], ENT_QUOTES),
+                        'status' => 'false',
+                    ];
 
-                $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
-                exit();
+                    $_SESSION['noti_message'] = $message;
+                    header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+                    exit();
+                }
             }
         }
 
+
         $message = [
-            'text' => 'Clearence Created Successfully.',
-            'status' => 'True',
+            'text' => 'Clearence ID Assign Created Successfully.',
+            'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
