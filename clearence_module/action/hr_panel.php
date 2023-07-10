@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
                     ];
 
                     $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+                    header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
                     exit();
                 }
             }
@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+        header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
         exit();
     }
     $message = [
@@ -98,6 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
-    header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+    header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
     exit();
 }
