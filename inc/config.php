@@ -35,7 +35,8 @@ function checkPermission($permissionSlug)
 	global $conn_hr;
 	$isPermission = false;
 	$permissionName = getUserWisePermissionName();
-
+	// print_r($permissionName);
+	// die();
 	if (count($permissionName) > 0) {
 		$allperSlug = array_column($permissionName, 'slug');
 		if (in_array($permissionSlug, $allperSlug)) {
@@ -46,7 +47,7 @@ function checkPermission($permissionSlug)
 		$permissionArray = [];
 		$permissionSlugData = [];
 		
-		$rolesql        = "SELECT * FROM tbl_roles_permissions  Where role_id =7"; //  select query execution
+		$rolesql        = "SELECT * FROM tbl_roles  Where role_id =7"; //  select query execution
 		$result     = mysqli_query($conn_hr, $rolesql);
 		if ($result) {
 			while ($row = mysqli_fetch_array($result)) {

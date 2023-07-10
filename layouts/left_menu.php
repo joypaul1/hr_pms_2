@@ -604,7 +604,7 @@ function isActive($url)
 
                 <li class="menu-item  <?php echo isActive('/admin_setting/view'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-crown"></i>
+                        <i class="menu-icon tf-icons bx bx-cog"></i>
                         <div data-i18n="Misc">Admin Setting </div>
                     </a>
                     <ul class="menu-sub">

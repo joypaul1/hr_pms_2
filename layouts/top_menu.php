@@ -44,7 +44,9 @@
         <li class="nav-item lh-1 me-3">
           <a class="github-button" href="" data-icon="octicon-star" data-size="large" data-show-count="true"
             aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
-            <?php echo $_SESSION['HR']['first_name_hr']; ?>
+            <strong>
+              <?php echo $_SESSION['HR']['first_name_hr']; ?>
+            </strong>
           </a>
         </li>
 
