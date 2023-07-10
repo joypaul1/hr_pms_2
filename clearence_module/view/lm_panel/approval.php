@@ -3,6 +3,10 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $v_view_approval = 0;
+if (!checkPermission('lm-clearence-approval')) {
+
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 
 
 ?>
