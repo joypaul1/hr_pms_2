@@ -40,8 +40,8 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
 
                     <?php
-                    $leftSideName  = 'Leave Create';
-                    if (checkPermission('self-leave-list')) {
+                    $leftSideName  = 'Self Leave Create';
+                    if (checkPermission('self-leave-report')) {
                         $rightSideName = 'Leave Report';
                         $routePath     = 'leave_module/view/self_panel/index.php';
                     }

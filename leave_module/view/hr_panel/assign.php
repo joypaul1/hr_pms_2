@@ -2,7 +2,7 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-leave-asign')) {
+if (!checkPermission('hr-leave-assign')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
@@ -16,15 +16,15 @@ $v_excel_download = 0;
 
     <div class="card card-body">
         <form action="" method="post">
-            <div class="row">
-                <div class="col-sm-3">
-                    <label for="title">RML ID</label>
+            <div class="row justify-content-center">
+                <div class="col-sm-2">
+                    <label class="form-label" for="title">RML ID</label>
                     <div class="input-group">
                         <input class="form-control cust-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' />
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <label for="title">Select Company</label>
+                    <label class="form-label" for="title">Select Company</label>
                     <select name="company_name" class="form-control cust-control">
                         <option selected value="">--</option>
                         <?php
@@ -40,7 +40,7 @@ $v_excel_download = 0;
                     </select>
                 </div>
                 <div class="col-sm-2">
-                    <label for="title">Select Leave Year</label>
+                    <label class="form-label" for="title">Select Leave Year</label>
                     <select required="" name="leave_year" class="form-control cust-control">
                         <?php
                         $strSQL  = oci_parse($objConnect, "select YEAR from RML_HR_EMP_LEAVE_PERIOD WHERE IS_ACTIVE=1");
@@ -56,7 +56,7 @@ $v_excel_download = 0;
                 </div>
 
                 <div class="col-sm-2">
-                    <label for="title">Select Leave Type</label>
+                    <label class="form-label" for="title">Select Leave Type</label>
                     <select name="leave_type" class="form-control cust-control">
                         <option selected value="">--</option>
                         <?php
@@ -73,7 +73,7 @@ $v_excel_download = 0;
                 </div>
 
 
-                <div class="col-sm-3">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
@@ -94,7 +94,7 @@ $v_excel_download = 0;
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="table">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Name</th>
                             <th scope="col">Leave Type</th>

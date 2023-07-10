@@ -120,7 +120,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered piechart-key" id="" style="width:100%">
                                 <thead class="table-dark">
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col">Sl</th>
                                         <th scope="col">
                                             <center>Select ID</center>

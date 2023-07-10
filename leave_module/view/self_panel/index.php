@@ -62,7 +62,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName  = 'Leave List';
+        $leftSideName  = 'Self Leave List';
         if (checkPermission('self-leave-create')) {
             $rightSideName = 'Leave Create';
             $routePath     = 'leave_module/view/self_panel/create.php';
@@ -74,9 +74,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <!-- End table  header -->
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
+                <table class="table  table-bordered">
                     <thead style="background: beige;">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Leave Type</th>
                             <th scope="col">To Date</th>
