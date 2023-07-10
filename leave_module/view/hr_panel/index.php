@@ -14,16 +14,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <div class="card col-lg-12">
         <form action="" method="post">
-            <div class="card-body row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">
+            <div class="card-body row justify-content-center">
+                <!-- <div class="col-sm-2"></div> -->
+                <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
                         <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
                     </div>
                 </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </div>
+                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value="">
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Select End Date*</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </div>
+                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value="">
+                    </div>
+                </div>
 
-                <div class="col-sm-4">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">

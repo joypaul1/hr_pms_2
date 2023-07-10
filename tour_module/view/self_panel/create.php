@@ -11,11 +11,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-	<div class="col-lg-12">
-		<form id="Form2" action="" method="post"></form>
-	</div>
-	</br>
-
+	<form id="Form2" action="" method="post"></form>
 	<?php
 
 	$strSQL = oci_parse(
@@ -100,9 +96,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 							</div>
 						</div>
 						<!-- <div class="row justify-content-center"> -->
-							<div class="text-right">
-								<button form="Form2" type="submit" name="submit_leave" class="btn btn-sm btn-primary">Create Tour</button>
-							</div>
+						<div class="text-right">
+							<button form="Form2" type="submit" name="submit_leave" class="btn btn-sm btn-primary">Create Tour</button>
+						</div>
 						<!-- </div> -->
 
 
@@ -115,7 +111,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						if (isset($_POST['leave_end_date'])) {
 							$v_emp_id           = $_REQUEST['emp_id'];
 							$leave_remarks      = $_REQUEST['remarks'];
-							$leave_type         = $_REQUEST['leave_type'];
+							// $leave_type         = $_REQUEST['leave_type'];
 							$v_leave_start_date = date("d/m/Y", strtotime($_REQUEST['leave_start_date']));
 							$v_leave_end_date   = date("d/m/Y", strtotime($_REQUEST['leave_end_date']));
 
@@ -127,20 +123,37 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 							if (@oci_execute(@$strSQL)) {
 
 								$leaveSQL = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy')); END;");
+								// if (@oci_execute($leaveSQL)) {
+								// 	echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
+								// } else {
+								// 	echo "Sorry! Contact with IT.";
+								// }
+
 								if (@oci_execute($leaveSQL)) {
-									echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
-								} else {
-									echo "Sorry! Contact with IT.";
+									$message = [
+                                        'text' =>  "Tour Create Successfully Done and waiting for approve.",
+                                        'status' => 'true',
+                                    ];
+                                    $_SESSION['noti_message'] = $message;
+								}else{
+									$message = [
+                                        'text' =>  "Sorry! Contact with IT.",
+                                        'status' => 'false',
+                                    ];
+                                    $_SESSION['noti_message'] = $message;
 								}
-
-
 
 
 								//echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
 							} else {
 								@$lastError = error_get_last();
 								@$error = $lastError ? "" . $lastError["message"] . "" : "";
-								echo preg_split("/\@@@@/", @$error)[1];
+								// echo preg_split("/\@@@@/", @$error)[1];
+								$message = [
+									'text' =>  preg_split("/\@@@@/", @$error)[1],
+									'status' => 'false',
+								];
+								$_SESSION['noti_message'] = $message;
 							}
 						}
 					}
