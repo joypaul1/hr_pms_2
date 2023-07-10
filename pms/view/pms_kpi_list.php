@@ -1,12 +1,12 @@
 <?php
-
-
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
 
-
-
-
+if (!checkPermission('concern-clearence-create')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 ?>
 
 
