@@ -186,51 +186,7 @@
 
         </ul>
       </li>
-      <li class="menu-item 
-         <?php
-          if (
-            $v_page == 'leave' ||
-            $v_page == 'leave_create' ||
-            $v_page == 'leave_approval_list' ||
-            $v_page == 'leave_assign' ||
-            $v_page == 'leave_report'
-          )
-            echo $v_active_open;
-          ?>">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-          <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-          <div data-i18n="Authentications">Leave Module</div>
-        </a>
-        <ul class="menu-sub">
-          <li class="menu-item <?php if ($v_page == 'leave_create') echo $v_active; ?>">
-            <a href="<?php echo $basePath ?>/leave_create.php" class="menu-link">
-              <div data-i18n="Basic">Leave Create</div>
-            </a>
-          </li>
-          <li class="menu-item <?php if ($v_page == 'leave') echo $v_active; ?>">
-            <a href="<?php echo $basePath ?>/leave.php" class="menu-link">
-              <div data-i18n="Basic">Leave List</div>
-            </a>
-          </li>
-          <li class="menu-item <?php if ($v_page == 'leave_approval_list') echo $v_active; ?>">
-            <a href="<?php echo $basePath ?>/leave_approval_list.php" class="menu-link">
-              <div data-i18n="Basic">Leave Approval</div>
-            </a>
-          </li>
-          <li class="menu-item <?php if ($v_page == 'leave_assign') echo $v_active; ?>">
-            <a href="<?php echo $basePath ?>/leave_assign.php" class="menu-link">
-              <div data-i18n="Vertical Form">Leave Assign</div>
-            </a>
-          </li>
-          <li class="menu-item <?php if ($v_page == 'leave_report') echo $v_active; ?>">
-            <a href="<?php echo $basePath ?>/leave_report.php" class="menu-link">
-              <div data-i18n="Vertical Form">Advance Report</div>
-            </a>
-          </li>
-
-        </ul>
-      </li>
-
+      
       <li class="menu-item 
          <?php
           if (

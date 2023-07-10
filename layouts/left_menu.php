@@ -350,6 +350,8 @@ function isActive($url)
                                     </li>
                                 <?php } ?>
 
+                            
+
                                 <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/punch_data_syn.php'); ?>">
@@ -364,7 +366,7 @@ function isActive($url)
                             </ul>
                         </li>
                     <?php } ?>
-                    <?php if (checkPermission('lm-attendance-concern') || (checkPermission('lm-attendance-report')) ||       (checkPermission('lm-attendance-outdoor'))) { ?>
+                    <?php if (checkPermission('lm-attendance-concern') || (checkPermission('lm-attendance-approval')) ||       (checkPermission('lm-attendance-outdoor'))) { ?>
 
                         <li class="menu-item  <?php echo isActive('/attendance_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">

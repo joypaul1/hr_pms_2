@@ -2,6 +2,10 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('self-attendance-report')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
+
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 ?>
@@ -48,7 +52,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn  btn-sm  btn-primary"  placeholder=" Search Employee" type="submit" value="Search Data">
+                            <input class="form-control  btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit" value="Search Data">
                         </div>
                     </div>
                 </div>
@@ -58,7 +62,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     </div>
 
     <div class="card mt-2">
-    <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Attendance List</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>
+                Self Attendance List</b></h5>
         <div class="card-body ">
             <div class="resume-item d-flex flex-column flex-md-row">
                 <table class="table table-bordered piechart-key" id="" style="width:100%">

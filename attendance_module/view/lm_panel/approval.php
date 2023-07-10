@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('lm-attendance-approval')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $v_view_approval = 0;
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
@@ -59,7 +62,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
         <div class="card  col-lg-12 mt-2">
             <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Attendance Approval List</b></h5>
-            <form id="Form1" action="" method="post " class ="card-body">
+            <form id="Form1" action="" method="post " class="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -239,20 +242,32 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 									  begin SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID  INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
 
                     if (oci_execute($attnProcSQL)) {
-                        //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // //$errorMsg = "Your Selected Leave Successfully Approved";
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+
+                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
@@ -279,19 +294,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
+
+                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
@@ -312,13 +339,25 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     oci_execute($strSQL);
 
-                    echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
+                    // echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
+                    $message = [
+                        'text' => 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                        'status' => 'true',
+                    ];
+                    $_SESSION['noti_message'] = $message;
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
+
+                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
             }
         }
 
