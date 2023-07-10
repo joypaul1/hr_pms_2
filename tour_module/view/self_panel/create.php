@@ -2,7 +2,11 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
+if (!checkPermission('self-tour-create')) {
+	echo "<script>
+		window.location.href = '$basePath/index.php?logout=true';
+	</script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 ?>
@@ -131,16 +135,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 								if (@oci_execute($leaveSQL)) {
 									$message = [
-                                        'text' =>  "Tour Create Successfully Done and waiting for approve.",
-                                        'status' => 'true',
-                                    ];
-                                    $_SESSION['noti_message'] = $message;
-								}else{
+										'text' =>  "Tour Create Successfully Done and waiting for approve.",
+										'status' => 'true',
+									];
+									$_SESSION['noti_message'] = $message;
+								} else {
 									$message = [
-                                        'text' =>  "Sorry! Contact with IT.",
-                                        'status' => 'false',
-                                    ];
-                                    $_SESSION['noti_message'] = $message;
+										'text' =>  "Sorry! Contact with IT.",
+										'status' => 'false',
+									];
+									$_SESSION['noti_message'] = $message;
 								}
 
 

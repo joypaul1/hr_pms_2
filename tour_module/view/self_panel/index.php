@@ -2,6 +2,11 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('self-tour-report')) {
+	echo "<script>
+		window.location.href = '$basePath/index.php?logout=true';
+	</script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 ?>
@@ -13,7 +18,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		<div class="card-body">
 			<form action="" method="post">
 				<div class="row justify-content-center">
-				<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>' />
+					<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>' />
 					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
 						<div class="input-group">
@@ -41,13 +46,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						<label class="form-label" for="basic-default-fullname">&nbsp;</label>
 						<input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data ">
 					</div>
-					
+
 				</div>
 
 			</form>
 		</div>
 	</div>
-	
+
 
 
 	<!-- Bordered Table -->

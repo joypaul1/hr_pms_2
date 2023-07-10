@@ -236,7 +236,7 @@ function isActive($url)
                             </ul>
                         </li>
                     <?php } ?>
-                    <?php if (checkPermission('lm-tour-create') || (checkPermission('lm-tour-report'))) { ?>
+                    <?php if (checkPermission('lm-tour-approval') || (checkPermission('lm-tour-report'))) { ?>
                         <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
