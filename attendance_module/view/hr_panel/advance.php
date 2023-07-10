@@ -163,7 +163,7 @@ $is_exel_download_eanble = 0;
 						<div class="table-responsive text-nowrap">
 							<table class="table table-bordered table-responsive" style="width:100%">
 								<thead class="table-dark text-center">
-									<tr>
+									<tr class="text-center">
 										<th scope="col">Sl</th>
 										<th scope="col">Emp ID</th>
 										<th scope="col">User Name</th>

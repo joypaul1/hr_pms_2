@@ -162,7 +162,7 @@ oci_execute($strSQL);
 					<div class="table-responsive">
 						<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 							<thead style="background: beige;">
-								<tr>
+								<tr class="text-center">
 									<th class="text-center">Sl</th>
 									<th scope="col">PM Title</th>
 									<th scope="col">Self Information</th>

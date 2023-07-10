@@ -56,7 +56,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
                             <thead class="table-dark">
-                                <tr>
+                                <tr class="text-center">
                                     <th scope="col">Sl</th>
                                     <th scope="col">Emp ID</th>
                                     <th scope="col">Emp Name</th>

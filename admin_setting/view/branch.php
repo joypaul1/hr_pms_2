@@ -39,7 +39,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th>Branch Name</th>
                             <th>Lat</th>

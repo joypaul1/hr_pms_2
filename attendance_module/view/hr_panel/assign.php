@@ -92,7 +92,7 @@ $v_excel_download = 0;
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="table">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Name</th>
                             <th scope="col">Leave Type</th>

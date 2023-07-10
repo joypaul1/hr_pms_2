@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_array($result)) {
                     <div class="table-responsive text-nowrap">
                         <table class=" table table-bordered text-center dataTable">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>Id</th>
                                     <th>Name</th>
                                     <th>Slug</th>

@@ -70,7 +70,7 @@ if ($result) {
                     <div class="table-responsive text-nowrap">
                         <table class=" table table-bordered text-center dataTable">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>Id</th>
                                     <th>Role </th>
                                     <th>Action</th>

@@ -61,7 +61,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead style="background: beige;">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Leave Type</th>
                             <th scope="col">To Date</th>
