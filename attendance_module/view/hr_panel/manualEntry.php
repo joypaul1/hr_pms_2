@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('hr-attendance-manual-entry')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 ?>
 
@@ -31,7 +34,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         </form>
     </div>
 
-    
+
 
     <?php
 
@@ -220,23 +223,37 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_attn_start_date','dd/mm/yyyy'),TO_DATE('$v_attn_end_date','dd/mm/yyyy'));END;"
                                         );
                                         if (@oci_execute($attnSQL)) {
-                                            $errorMsg = "Attendance Process Successfully Done.Please Check Attendance.";
-                                            echo '<div class="alert alert-primary">';
-                                            echo $errorMsg;
-                                            echo '</div>';
+                                            // $errorMsg = "Attendance Process Successfully Done.Please Check Attendance.";
+                                            // echo '<div class="alert alert-primary">';
+                                            // echo $errorMsg;
+                                            // echo '</div>';
+                                            $message = [
+                                                'text' => "Attendance Process Successfully Done.Please Check Attendance.",
+                                                'status' => 'true',
+                                            ];
+                                            $_SESSION['noti_message'] = $message;
                                         } else {
-                                            $errorMsg = "Sorry! Contact with IT.";
-                                            echo '<div class="alert alert-danger">';
-                                            echo $errorMsg;
-                                            echo '</div>';
+                                            // echo '<div class="alert alert-danger">';
+                                            // echo 'Sorry! Contact with IT.';
+                                            // echo '</div>';
+                                            $message = [
+                                                'text' => "Sorry! Contact with IT.",
+                                                'status' => 'false',
+                                            ];
+                                            $_SESSION['noti_message'] = $message;
                                         }
                                     } else {
                                         @$lastError = error_get_last();
                                         @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                        $errorMsg = preg_split("/\@@@@/", @$error)[1];
-                                        echo '<div class="alert alert-danger">';
-                                        echo $errorMsg;
-                                        echo '</div>';
+                                        // $errorMsg = preg_split("/\@@@@/", @$error)[1];
+                                        // echo '<div class="alert alert-danger">';
+                                        // echo $errorMsg;
+                                        // echo '</div>';
+                                        $message = [
+                                            'text' => (preg_split("/\@@@@/", @$error)[1]),
+                                            'status' => 'false',
+                                        ];
+                                        $_SESSION['noti_message'] = $message;
                                     }
                                 }
                             }

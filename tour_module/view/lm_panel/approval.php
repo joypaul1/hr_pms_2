@@ -2,6 +2,11 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('lm-tour-approval')) {
+	echo "<script>
+		window.location.href = '$basePath/index.php?logout=true';
+	</script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_view_approval = 0;
 ?>
@@ -75,7 +80,7 @@ $v_view_approval = 0;
 						<div class="resume-item d-flex flex-column flex-md-row">
 							<table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
 								<thead class="table-dark text-center">
-									<tr>
+									<tr class="text-center">
 										<th scope="col">Sl</th>
 										<th scope="col">Emp Info</th>
 										<th scope="col">Entry Info</th>

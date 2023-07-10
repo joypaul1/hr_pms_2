@@ -118,7 +118,7 @@ $errorMsg = '';
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th scope="col">Sl</th>
                             <th scope="col">Group Concern</th>
                             <th scope="col">Date</th>

@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('hr-attendance-advance-report')) {
+	echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $is_exel_download_eanble = 0;
 
@@ -15,7 +18,7 @@ $is_exel_download_eanble = 0;
 		<div class="">
 			<div class="">
 				<div class="card card-body">
-				
+
 					<form action="" method="post">
 						<div class="row">
 							<div class="col-sm-3">
@@ -29,12 +32,12 @@ $is_exel_download_eanble = 0;
 									oci_execute($strSQL);
 									while ($row = oci_fetch_assoc($strSQL)) {
 									?>
-										<option <?php if(isset($_POST['emp_dept'])){
-											echo ($_POST['emp_dept']) ===  $row['DEPT_NAME'] ? 'Selected' : '';
-										} 
-										
-										
-										?> value="<?php  $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
+										<option <?php if (isset($_POST['emp_dept'])) {
+													echo ($_POST['emp_dept']) ===  $row['DEPT_NAME'] ? 'Selected' : '';
+												}
+
+
+												?> value="<?php $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
 									<?php
 									}
 									?>
@@ -77,7 +80,7 @@ $is_exel_download_eanble = 0;
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-3">
-						<?php print_r ($_REQUEST['emp_dept']) ?>
+								<?php print_r($_REQUEST['emp_dept']) ?>
 
 							</div>
 							<div class="col-sm-3">
@@ -163,7 +166,7 @@ $is_exel_download_eanble = 0;
 						<div class="table-responsive text-nowrap">
 							<table class="table table-bordered table-responsive" style="width:100%">
 								<thead class="table-dark text-center">
-									<tr>
+									<tr class="text-center">
 										<th scope="col">Sl</th>
 										<th scope="col">Emp ID</th>
 										<th scope="col">User Name</th>

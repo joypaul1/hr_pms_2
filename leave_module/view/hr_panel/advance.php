@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('hr-leave-advance')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 $v_excel_download=0; 
 ?>
@@ -89,7 +92,7 @@ $v_excel_download=0;
 			<div class="table-responsive text-nowrap">
 				<table class="table table-bordered" id="table">
 					<thead class="table-dark">
-						<tr>
+						<tr class="text-center">
 							<th>SL</th>
 							<th scope="col">Emp ID</th>
 							<th scope="col">Name</th>

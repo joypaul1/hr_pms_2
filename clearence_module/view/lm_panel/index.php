@@ -1,10 +1,13 @@
 <?php
 
 require_once('../../../helper/3step_com_conn.php');
-
 require_once('../../../inc/connoracle.php');
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+if (!checkPermission('lm-clearence-report')) {
+
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 
 
 ?>
@@ -86,7 +89,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead class="table-dark">
-                        <tr>
+                        <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Concern Name</th>
                             <th scope="col">Leave Type</th>

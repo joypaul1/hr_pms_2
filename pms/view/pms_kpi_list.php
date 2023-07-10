@@ -31,7 +31,7 @@ require_once('../../inc/connoracle.php');
                         <div class="resume-item d-flex flex-column flex-md-row">
                             <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                                 <thead style="background: beige;">
-                                    <tr>
+                                    <tr class="text-center">
                                         <th class="text-center">Sl</th>
                                         <th scope="col">KPI Name</th>
                                         <th scope="col">KRA Name</th>

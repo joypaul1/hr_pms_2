@@ -2,6 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('hr-leave-create')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 ?>
 
@@ -165,12 +168,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if (@oci_execute(@$strSQL)) {
 
                                     $leaveSQL = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
-                                    if (@oci_execute($leaveSQL)) {
-                                        echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
-                                    } else {
-                                        echo "Sorry! Contact with IT.";
-                                    }
 
+                                    // if (@oci_execute($leaveSQL)) {
+                                    //     echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
+                                    // } else {
+                                    //     echo "Sorry! Contact with IT.";
+                                    // }
+
+
+                                    if (@oci_execute($leaveSQL)) {
+
+                                        $message = [
+                                            'text' => "Leave Create and Attendance Process Successfully Done.Please Check Attendance.",
+                                            'status' => 'true',
+                                        ];
+                                        $_SESSION['noti_message'] = $message;
+                                    } else {
+                                        // echo '<div class="alert alert-danger">';
+                                        // echo 'Sorry! Contact with IT.';
+                                        // echo '</div>';
+                                        $message = [
+                                            'text' => "Sorry! Contact with IT.",
+                                            'status' => 'false',
+                                        ];
+                                        $_SESSION['noti_message'] = $message;
+                                    }
 
 
 
@@ -178,7 +200,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 } else {
                                     @$lastError = error_get_last();
                                     @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                    echo preg_split("/\@@@@/", @$error)[1];
+                                    // echo preg_split("/\@@@@/", @$error)[1];
+
+                                    $message = [
+                                        'text' => (preg_split("/\@@@@/", @$error)[1]),
+                                        'status' => 'false',
+                                    ];
+                                    $_SESSION['noti_message'] = $message;
                                 }
                             }
                         }

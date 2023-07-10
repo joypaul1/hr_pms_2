@@ -134,7 +134,7 @@ require_once('../../inc/connoracle.php');
 						<div class="resume-item d-flex flex-column flex-md-row">
 							<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
 								<thead style="background: beige;">
-									<tr>
+									<tr class="text-center">
 										<th class="text-center">Sl</th>
 										<th class="text-center">Key Result Areas</th>
 										<th class="text-center">PMS Title</th>

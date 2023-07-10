@@ -1,6 +1,9 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('lm-attendance-outdoor')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 ?>
 
@@ -70,7 +73,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="resume-item d-flex flex-column flex-md-row">
                     <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
                         <thead class="table-dark text-center">
-                            <tr>
+                            <tr class="text-center">
                                 <th scope="col">Sl</th>
                                 <th scope="col">Emp ID</th>
                                 <th scope="col">User Name</th>

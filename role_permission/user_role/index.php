@@ -66,7 +66,7 @@ if ($result) {
                     <div class="table-responsive text-nowrap">
                         <table class=" table table-bordered text-center dataTable">
                             <thead>
-                                <tr>
+                                <tr class="text-center">
                                     <th>Serial No.</th>
                                     <th>User Name</th>
                                     <th>User ID</th>

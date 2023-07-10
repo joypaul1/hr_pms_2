@@ -2,10 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
-$v_page = 'leave_create_self';
-// $v_active_open = 'active open';
-// $v_active = 'active';
+if (!checkPermission('hr-leave-approval')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
@@ -121,7 +120,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered piechart-key" id="" style="width:100%">
                                 <thead class="table-dark">
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col">Sl</th>
                                         <th scope="col">
                                             <center>Select ID</center>
@@ -278,11 +277,20 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 									  begin SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID INTO V_START_DATE,V_END_DATE,V_RML_ID FROM RML_HR_EMP_LEAVE WHERE ID='$TT_ID_SELECTTED'; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
 
                         oci_execute($attnProcSQL);
-
-                        echo 'Successfully Approved Leave, Syestem ID ' . $TT_ID_SELECTTED . "</br>";
+                        // echo 'Successfully Approved Leave, Syestem ID ' . $TT_ID_SELECTTED . "</br>";
+                        $message = [
+                            'text' => 'Successfully Approved Leave, Syestem ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 } else {
-                    echo 'Sorry! You have not select any ID Code.';
+                    // echo 'Sorry! You have not select any ID Code.';
+                    $message = [
+                        'text' => 'Sorry! You have not select any ID Code.',
+                        'status' => 'false',
+                    ];
+                    $_SESSION['noti_message'] = $message;
                 }
             }
 
@@ -302,11 +310,21 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         );
 
                         oci_execute($strSQL);
+                        // echo 'Successfully Denied Leave. System ID ' . $TT_ID_SELECTTED . "</br>";
 
-                        echo 'Successfully Denied Leave. System ID ' . $TT_ID_SELECTTED . "</br>";
+                        $message = [
+                            'text' => 'Successfully Denied Leave, Syestem ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 } else {
-                    echo 'Sorry! You have not select any ID Code.';
+                    // echo 'Sorry! You have not select any ID Code.';
+                    $message = [
+                        'text' => 'Sorry! You have not select any ID Code.',
+                        'status' => 'false',
+                    ];
+                    $_SESSION['noti_message'] = $message;
                 }
             }
 

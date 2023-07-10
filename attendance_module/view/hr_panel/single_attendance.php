@@ -1,6 +1,9 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+if (!checkPermission('hr-attendance-single-report')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $is_exel_download_eanble = 0;
 
@@ -122,7 +125,7 @@ $is_exel_download_eanble = 0;
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered table-responsive" style="width:100%">
                                 <thead class="table-dark text-center">
-                                    <tr>
+                                    <tr class="text-center">
                                         <th scope="col">Sl</th>
                                         <th scope="col">Emp ID</th>
                                         <th scope="col">User Name</th>

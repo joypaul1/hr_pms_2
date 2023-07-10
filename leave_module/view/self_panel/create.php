@@ -1,9 +1,13 @@
 <?php
 
+
+
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-$v_page = 'leave_create_self';
+if (!checkPermission('self-leave-create')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
@@ -27,17 +31,17 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
     <div class="container-xxl flex-grow-1 container-p-y">
 
-
+        <form id="Form2" action="" method="post"></form>
         <!-- Basic Layout & Basic with Icons -->
         <div class="row">
             <!-- Basic Layout -->
             <div class="col-xxl">
                 <div class="card mb-4">
-                   
+
 
                     <?php
-                    $leftSideName  = 'Leave Create';
-                    if (checkPermission('self-leave-list')) {
+                    $leftSideName  = 'Self Leave Create';
+                    if (checkPermission('self-leave-report')) {
                         $rightSideName = 'Leave Report';
                         $routePath     = 'leave_module/view/self_panel/index.php';
                     }
@@ -175,22 +179,37 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
                                 $leaveSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
                                 if (@oci_execute($leaveSQL)) {
-                                    echo '<div class="alert alert-primary">';
-                                    echo 'Leave Create Successfully Done and this are need to approve by your HOD.';
-                                    echo '</div>';
+                                    // echo '<div class="alert alert-primary">';
+                                    // echo 'Leave Create Successfully Done and this are need to approve by your HOD.';
+                                    // echo '</div>';
+                                    $message = [
+                                        'text' =>  "Leave Create Successfully Done and this are need to approve by your HOD.",
+                                        'status' => 'true',
+                                    ];
+                                    $_SESSION['noti_message'] = $message;
                                 } else {
-                                    echo '<div class="alert alert-danger">';
-                                    echo 'Sorry! Contact with IT.';
-                                    echo '</div>';
+                                    // echo '<div class="alert alert-danger">';
+                                    // echo 'Sorry! Contact with IT.';
+                                    // echo '</div>';
+                                    $message = [
+                                        'text' =>  "Sorry! Contact with IT.",
+                                        'status' => 'false',
+                                    ];
+                                    $_SESSION['noti_message'] = $message;
                                 }
 
                                 //echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
                             } else {
                                 @$lastError = error_get_last();
                                 @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                echo '<div class="alert alert-danger">';
-                                echo preg_split("/\@@@@/", @$error)[1];
-                                echo '</div>';
+                                // echo '<div class="alert alert-danger">';
+                                // echo preg_split("/\@@@@/", @$error)[1];
+                                // echo '</div>';
+                                $message = [
+                                    'text' => (preg_split("/\@@@@/", @$error)[1]),
+                                    'status' => 'false',
+                                ];
+                                $_SESSION['noti_message'] = $message;
                             }
                         }
                     }
