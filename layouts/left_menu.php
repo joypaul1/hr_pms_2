@@ -217,15 +217,15 @@ function isActive($url)
                                 <?php if (checkPermission('hr-tour-create')) { ?>
 
 
-                                    <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/index.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/create.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if (checkPermission('hr-tour-report')) { ?>
-                                    <li class="menu-item ">
+                                    <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
                                         </a>

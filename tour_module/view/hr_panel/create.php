@@ -150,17 +150,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 									$leaveSQL  = oci_parse($objConnect, "BEGIN  RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
 									if (@oci_execute($leaveSQL)) {
-										echo "Tour Create and Attendance Process Successfully Done.Please Check Attendance.";
+										// echo "Tour Create and Attendance Process Successfully Done.Please Check Attendance.";
+										$message = [
+											'text' =>  "Tour Create Successfully Done and waiting for approve.",
+											'status' => 'true',
+										];
+										$_SESSION['noti_message'] = $message;
+										
 									} else {
-										echo "Sorry! Contact with IT.";
+										// echo "Sorry! Contact with IT.";
+										$message = [
+											'text' =>  "Sorry! Contact with IT.",
+											'status' => 'false',
+										];
+										$_SESSION['noti_message'] = $message;
 									}
 
-
-									//echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
 								} else {
 									@$lastError = error_get_last();
 									@$error = $lastError ? "" . $lastError["message"] . "" : "";
-									echo preg_split("/\@@@@/", @$error)[1];
+									// echo preg_split("/\@@@@/", @$error)[1];
+									$message = [
+										'text' =>  preg_split("/\@@@@/", @$error)[1],
+										'status' => 'false',
+									];
+									$_SESSION['noti_message'] = $message;
 								}
 							}
 						}
