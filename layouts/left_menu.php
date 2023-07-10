@@ -40,6 +40,12 @@ function isActive($url)
             <span class="menu-header-text"><b style="color:#566a7f;">HR Apps </b></span>
         </li>
          <!-- <section style="width: 98%;box-shadow: 1px 2px 0px 1px #d9d8d8;"> -->
+
+        <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class=""><b>HR Apps </b></span>
+        </li>
+        <section style="width: 98%;">
+
             <!-- Leave- module-list -->
 
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
@@ -705,14 +711,20 @@ function isActive($url)
        <!-- </section>-->
         <!-- role&permission Module -->
 
+
         <!-- Application Setting Module 
         <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class="menu-header-text"><b style="color:#566a7f;"> Sells Apps </b></span>
+
+        <!-- Application Setting Module -->
+        <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class=""><b > Sells Apps </b></span>
+
         </li>
-        <li class="menu-header small text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
-            <span class="menu-header-text"><b style="color:#566a7f;"> Collection Apps </b></span>
+        <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <span class=""><b > Collection Apps </b></span>
         </li>
-         -->
+
 
     </ul>
 </aside>

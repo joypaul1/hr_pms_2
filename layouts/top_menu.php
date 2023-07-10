@@ -30,7 +30,7 @@
       <?php
       if (isset($_POST['search_input'])) {
         $v_search_input = $_REQUEST['search_input'];
-        echo "<script>window.location = 'user_profile.php?emp_id=$v_search_input'</script>";
+        echo "<script>window.location = '".$basePath."/user_profile.php?emp_id=$v_search_input'</script>";
       }
 
 
