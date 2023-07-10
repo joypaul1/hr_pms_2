@@ -1,9 +1,13 @@
 <?php
+if (!checkPermission('self-leave-create')){
+    
+}
+
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-$v_page = 'leave_create_self';
+
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
