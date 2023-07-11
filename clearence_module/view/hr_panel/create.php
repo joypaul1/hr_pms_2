@@ -28,6 +28,7 @@ if (!checkPermission('hr-clearence-create')) {
                     <label for="emp_id">Emp. ID:</label>
                     <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
                     <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
+                    <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
                 </div>
                 <div class="col-sm-6">
@@ -116,6 +117,7 @@ if (!checkPermission('hr-clearence-create')) {
                                 label: item.label,
                                 value: item.value,
                                 id: item.id,
+                                concern: item.concern,
                                 empData: item
                             };
                         }));
@@ -127,9 +129,11 @@ if (!checkPermission('hr-clearence-create')) {
                 });
             },
             select: function(event, ui) {
+                console.log(ui)
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
+                $('#concern_name').val(ui.item.concern); // save selected id to input
                 userInfo(ui.item.empData.data);
                 buttonValidation();
                 return false;
@@ -137,6 +141,7 @@ if (!checkPermission('hr-clearence-create')) {
             focus: function(event, ui) {
                 $("#autocomplete").val(ui.item.label);
                 $("#emp_id").val(ui.item.id);
+                $("#concern_name").val(ui.item.concern);
                 return false;
             },
         });

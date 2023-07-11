@@ -21,7 +21,7 @@ if (!checkPermission('hr-clearence-id-assign')) {
             </div>
         </div>
         <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
-            <input type='hidden' hidden name='actionType' value='create'>
+            <input type='hidden' hidden name='actionType' value='idAssign'>
             <div class="row">
                 <div class="col-sm-4">
                     <label for="emp_id">Emp. ID:</label>
