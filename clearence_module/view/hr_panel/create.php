@@ -22,7 +22,7 @@ if (!checkPermission('hr-clearence-create')) {
             </div>
         </div>
         <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
-            <input type='hidden' hidden name='actionType' value='create'>
+            <input type='hidden' hidden name='actionType' value='createClearence'>
             <div class="row ">
                 <div class="col-sm-3">
                     <label for="emp_id">Emp. ID:</label>
@@ -39,8 +39,8 @@ if (!checkPermission('hr-clearence-create')) {
 
                 </div>
                 <div class="col-sm-12">
-                    <label for="exampleInputEmail1">Remarks? </label>
-                    <input required class="form-control" id="" name="emp_id" type="text" />
+                    <label for="remarks">Remarks? </label>
+                    <input  class="form-control" id="remarks" name="remarks" type="text" />
                 </div>
             </div>
             <div class="row" style="
