@@ -68,13 +68,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $result = oci_execute($strSQL);
 
     if ($result) {
-
-        // Display the inserted ID
+        $inserted_id = $idDescriptor->load();
+       
         echo "Inserted ID: $inserted_id";
         die();
 
-        
-        
+
+        // Get the last inserted ID
+        // $query = oci_parse($objConnect, 'SELECT * FROM EMP_CLEARENCE WHERE ID = LAST_INSERT_ID()');
+        // oci_execute($query);
+
+        // // Fetch the inserted record
+        // $insertedRecord = oci_fetch_assoc($query);
+
+        // // Display the inserted record
+        // echo "Inserted record:\n";
+        // print_r($insertedRecord);
+
+
+
     }
     else {
 
