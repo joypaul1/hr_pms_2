@@ -47,16 +47,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
+        oci_parse( $objConnect, "SELECT EMP_CLEARENCE_seq.NEXTVAL from dual");
+        $insertId =;
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
             "INSERT INTO EMP_CLEARENCE (
+                ID,
                 RML_HR_APPS_USER_ID, 
                 APPROVAL_STATUS,
                 CREATED_BY,
                 CREATED_DATE
             )
             VALUES (
+                "$insertId",
                 $emp_id,
                 ' ',
                 '$emp_session_id',
