@@ -58,10 +58,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         $strSQL = oci_parse(
             $objConnect,
             "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'','$allDepartmentID','$empConcernID','$concern_name','');
-			END ");
-
-       
-
+			END;");
+	    
         $result = oci_execute($strSQL);
 
         if (!$result) {
