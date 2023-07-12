@@ -27,9 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'sear
 
 // Check if the form is submitted create clearence 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createClearence') {
-    // Validate emp_id field
+    
+	// Validate emp_id field
     if (!isset($_POST['emp_id']) || empty($_POST['emp_id'])) {
         $errors[] = 'Employee ID is required.';
+    }
+
+	if (!isset($_POST['emp_rml_id']) || empty($_POST['emp_rml_id'])) {
+        $errors[] = 'Employee Concern ID is required.';
     }
 
     // Validate concern_id field
@@ -42,79 +47,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $emp_id        = ($_POST['emp_id']);
     $concern_name  = ($_POST['concern_name']);
     $department_id = ($_POST['department_id']);
-
+	$empConcernID 	= ($_POST['emp_rml_id']);
 
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
+		$allDepartmentID = implode(" ,",$department_id);
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "INSERT INTO EMP_CLEARENCE (
-                RML_HR_APPS_USER_ID, 
-                APPROVAL_STATUS,
-                CREATED_BY,
-                CREATED_DATE
-            )
-            VALUES (
-                $emp_id,
-                ' ',
-                '$emp_session_id',
-                SYSDATE
-                ) RETURNING ID INTO :inserted_id"
+            "BEGIN
+			EMP_CLEARENCE_CREATE( $emp_id,'','$allDepartmentID','$empConcernID','$concern_name','');
+			END;"
         );
-        // <---- EMP_CLEARENCE query with values from the database table   ---->
-        oci_bind_by_name($strSQL, ':inserted_id', $inserted_id, 20, SQLT_INT);
-        //<----get the inserted id from the database table  ---->
+      
+      
 
         $result = oci_execute($strSQL);
 
-        if ($result) {
-            // Get the last inserted ID
-            // $emp_c_query = oci_parse($objConnect, 'SELECT * FROM EMP_CLEARENCE WHERE ID = LAST_INSERT_ID()');
-            // oci_execute($emp_c_query);
-            // $insertedRecord = oci_fetch_assoc($emp_c_query) ; // Fetch the inserted record
-            // $inserted_id = $insertedRecord['ID'];
-
-            echo "Inserted ID: $inserted_id"; // Display the inserted ID
-            die();
-
-            //<--- insert EMP_CLEARENCE_DTLS query  -->
-            foreach ($department_id as $key => $depID) {
-                $dtls_strSQL = oci_parse(
-                    $objConnect,
-                    "INSERT INTO EMP_CLEARENCE_DTLS  (
-            	        EMP_CLEARENCE_ID, 
-                        CONCERN_NAME, 
-                        DEPARTMENT_ID)
-                    VALUES (
-            	        '$inserted_id',
-            			'$concern_name',
-            			'$depID')"
-                );
-                $result = oci_execute($dtls_strSQL);
-
-                if (!$result) {
-                    $e = oci_error($dtls_strSQL);
-
-                    $message = [
-                        'text'   => htmlentities($e['message'], ENT_QUOTES),
-                        'status' => 'false',
-                    ];
-
-                    $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
-                    exit();
-                }
-            }
-            //<--- insert EMP_CLEARENCE_DTLS query  -->
-
-
-
-        }
-        else {
-            $e = oci_error($strSQL);
-
+        if (!$result) {
+			$e = oci_error($strSQL);
             $message = [
                 'text'   => htmlentities($e['message'], ENT_QUOTES),
                 'status' => 'false',
@@ -124,9 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
             exit();
         }
-
-
-
         $message                  = [
             'text'   => 'Clearence  Created Successfully.',
             'status' => 'true',

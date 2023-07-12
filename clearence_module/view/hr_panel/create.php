@@ -26,7 +26,7 @@ if (!checkPermission('hr-clearence-create')) {
             <div class="row ">
                 <div class="col-sm-3">
                     <label for="emp_id">Emp. ID:</label>
-                    <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
+                    <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
                     <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
                     <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
