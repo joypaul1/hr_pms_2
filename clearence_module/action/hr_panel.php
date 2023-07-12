@@ -47,43 +47,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $emp_id        = ($_POST['emp_id']);
     $concern_name  = ($_POST['concern_name']);
     $department_id = ($_POST['department_id']);
-	$empConcernID 	= ($_POST['emp_rml_id']);
+    $empConcernID  = ($_POST['emp_rml_id']);
 
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
-<<<<<<< HEAD
-		$allDepartmentID = implode(" ,",$department_id);
+
+	$allDepartmentID = implode(" ,",$department_id);
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "BEGIN
-			EMP_CLEARENCE_CREATE( $emp_id,'','$allDepartmentID','$empConcernID','$concern_name','');
-			END;"
-=======
-        oci_parse( $objConnect, "SELECT EMP_CLEARENCE_seq.NEXTVAL from dual");
-        $insertId =;
-        //<---- EMP_CLEARENCE query with values from the database table  ---->
-        $strSQL = oci_parse(
-            $objConnect,
-            "INSERT INTO EMP_CLEARENCE (
-                ID,
-                RML_HR_APPS_USER_ID, 
-                APPROVAL_STATUS,
-                CREATED_BY,
-                CREATED_DATE
-            )
-            VALUES (
-                "$insertId",
-                $emp_id,
-                ' ',
-                '$emp_session_id',
-                SYSDATE
-                ) RETURNING ID INTO :inserted_id"
->>>>>>> 4354861ddbfe5033a7f27e0750b40d73d3d35814
-        );
-      
-      
+            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'','$allDepartmentID','$empConcernID','$concern_name','');
+			END ");
+
+       
 
         $result = oci_execute($strSQL);
 
@@ -98,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
             exit();
         }
-        $message                  = [
+        $message = [
             'text'   => 'Clearence  Created Successfully.',
             'status' => 'true',
         ];
