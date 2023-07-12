@@ -50,7 +50,7 @@ if (!checkPermission('hr-clearence-report')) {
                             <th scope="col">EMP Info</th>
                             <th scope="col">Approval Status</th>
                             <th scope="col">Exit Interview Status</th>
-                            <th scope="col">Others</th>
+                            <th scope="col">Created Info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -163,14 +163,30 @@ if (!checkPermission('hr-clearence-report')) {
                                         }
                                         ?>
 									</td>
-                                    <td><?php echo $row['EMP_NAME']; ?></td>
-                                    <td><?php echo $row['DEPT_NAME']; ?></td>
-                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
-                                    <td><?php echo $row['START_DATE']; ?></td>
-                                    <td><?php echo $row['END_DATE']; ?></td>
-                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    
+                                    <td><?php
+                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                            echo 'Approved';
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_DATE']; 
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_BY']; 
+                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                            echo 'Denied';
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_DATE']; 
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_BY']; 
+                                        } else {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+									</td>
+                                     <td><?php 
+									     echo $row['CREATED_DATE']; 
+										 echo '</br>'; 
+										 echo $row['CREATED_BY']; 
+										 ?>
+									</td>
                                 </tr>
                         <?php
                             }
