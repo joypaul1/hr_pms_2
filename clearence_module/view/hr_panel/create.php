@@ -43,11 +43,7 @@ if (!checkPermission('hr-clearence-create')) {
                     <input  class="form-control" id="remarks" name="remarks" type="text" />
                 </div>
             </div>
-            <div class="row" style="
-                        border: 1px solid #eee5e5;
-                        /* padding: 2%; */
-                        margin-top: 2%;
-                    ">
+            <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
                 <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
                 
                 <hr />
@@ -129,12 +125,13 @@ if (!checkPermission('hr-clearence-create')) {
                 });
             },
             select: function(event, ui) {
-                console.log(ui)
+               
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
                 $('#concern_name').val(ui.item.concern); // save selected id to input
                 userInfo(ui.item.empData.data);
+                showDepartment();
                 buttonValidation();
                 return false;
             },
@@ -145,6 +142,17 @@ if (!checkPermission('hr-clearence-create')) {
                 return false;
             },
         });
+
+        // Function to display the "Please wait" message
+        function showDepartment() {
+            $('.showDepartment').text('Please wait for searching...');
+            if($('.showDepartment').css('display') == 'none')
+            {
+                $('.showDepartment').css('display') == 'block';
+            }else{
+                $('.showDepartment').css('display') == 'none'
+            }
+        }
 
         // Function to display the "Please wait" message
         function showPleaseWaitMessage() {
@@ -195,13 +203,14 @@ if (!checkPermission('hr-clearence-create')) {
     $(document).on('change', '#autocomplete', function() {
         buttonValidation();
     });
+     
     $(document).on('click', '.department_id', function() {
         buttonValidation();
     });
 
     function buttonValidation() {
 
-        if ($("#emp_id").val() && derpartmentCheck()) {
+        if ($("#emp_id").val()) {
             $("button[type='submit']").prop('disabled', false);
 
         } else {
