@@ -41,9 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     if (!isset($_POST['concern_name']) || empty($_POST['concern_name'])) {
         $errors[] = 'Concern is required.';
     }
-    if (!isset($_POST['department_id']) || empty($_POST['department_id'])) {
-        $errors[] = 'Department selection is required.';
-    }
+   
     $emp_id        = ($_POST['emp_id']);
     $concern_name  = ($_POST['concern_name']);
     $department_id = ($_POST['department_id']);

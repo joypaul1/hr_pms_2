@@ -76,7 +76,8 @@ if (!checkPermission('hr-clearence-report')) {
 									   CREATED_DATE,
 									   CREATED_BY
 								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-								  WHERE A.RML_HR_APPS_USER_ID=B.ID"
+								  WHERE A.RML_HR_APPS_USER_ID=B.ID
+								  AND B.RML_ID='$v_emp_id'"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -87,25 +88,50 @@ if (!checkPermission('hr-clearence-report')) {
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php echo $row['RML_ID']; ?></td>
-                                    <td><?php echo $row['EMP_NAME']; ?></td>
-                                    <td><?php echo $row['DEPT_NAME']; ?></td>
-                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
-                                    <td><?php echo $row['START_DATE']; ?></td>
-                                    <td><?php echo $row['END_DATE']; ?></td>
-                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php
-                                        if ($row['IS_APPROVED'] == '1') {
+                                    <td><?php 
+									     echo $row['RML_ID']; 
+										 echo '</br>'; 
+										 echo $row['EMP_NAME']; 
+										 echo '</br>'; 
+										 echo $row['DEPT_NAME'].'=>'.$row['R_CONCERN']; 
+										 echo '</br>'; 
+										 echo $row['DESIGNATION']; 
+										 ?>
+									</td>
+									<td><?php
+                                        if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
-                                        } else if ($row['IS_APPROVED'] == '0') {
+                                        } else if ($row['APPROVAL_STATUS'] == '0') {
                                             echo 'Denied';
                                         } else {
                                             echo 'Pending';
                                         }
-
-                                        ?></td>
-
+                                        ?>
+									</td>
+                                    <td><?php
+                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                            echo 'Approved';
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_DATE']; 
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_BY']; 
+                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                            echo 'Denied';
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_DATE']; 
+											echo '</br>'; 
+										    echo $row['EXIT_INTERVIEW_BY']; 
+                                        } else {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+									</td>
+                                     <td><?php 
+									     echo $row['CREATED_DATE']; 
+										 echo '</br>'; 
+										 echo $row['CREATED_BY']; 
+										 ?>
+									</td>
                                 </tr>
 
 

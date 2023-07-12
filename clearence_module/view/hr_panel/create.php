@@ -147,9 +147,9 @@ if (!checkPermission('hr-clearence-create')) {
         // Function to display the "Please wait" message
         function showDepartment() {
             if ($('.showDepartment').css('display') == 'none') {
-                $('.showDepartment').css('display') == 'block';
+                $('.showDepartment').css('display', 'block');
             } else {
-                $('.showDepartment').css('display') == 'none'
+                $('.showDepartment').css('display', 'none')
             }
         }
 

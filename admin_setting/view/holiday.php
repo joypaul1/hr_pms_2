@@ -132,18 +132,20 @@ $errorMsg = '';
 
                         <?php
 
-
                         $allDataSQL  = oci_parse(
                             $objConnect,
-                            "select CONCERN,
-								ATTN_DATE,
-								STATUS,
-								REMARKS,
-								ENTRY_DATE,
-								(SELECT A.EMP_NAME FROM RML_HR_APPS_USER A WHERE A.RML_ID=ENTRY_BY) AS ENTRY_BY
-							from RML_COLL_ATTN_HOLIDAY
-							where rownum <= 20
-							order by ID desc"
+                            "SELECT * FROM
+										(
+										select CONCERN,
+												ATTN_DATE,
+												STATUS,
+												REMARKS,
+												ENTRY_DATE,
+												(SELECT A.EMP_NAME FROM RML_HR_APPS_USER A WHERE A.RML_ID=ENTRY_BY) AS ENTRY_BY
+											from RML_COLL_ATTN_HOLIDAY
+											order by ATTN_DATE DESC
+										)
+										WHERE ROWNUM<=20"
                         );
 
                         oci_execute($allDataSQL);
