@@ -40,22 +40,17 @@ if (!checkPermission('hr-clearence-report')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Leave Taken List</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Clearence List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Emp ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Dept.</th>
-                            <th scope="col">Leave Type</th>
-                            <th scope="col">To Date</th>
-                            <th scope="col">From Date</th>
-                            <th scope="col">Entry From</th>
-                            <th scope="col">Branch</th>
+                            <th scope="col">EMP Info</th>
                             <th scope="col">Approval Status</th>
+                            <th scope="col">Exit Interview Status</th>
+                            <th scope="col">Others</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -67,19 +62,21 @@ if (!checkPermission('hr-clearence-report')) {
 
                             $strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT B.RML_ID,
-								B.EMP_NAME,
-								B.DEPT_NAME,
-								B.BRANCH_NAME,
-								A.LEAVE_TYPE,
-								A.START_DATE,
-								A.END_DATE,
-								A.ENTRY_FROM,
-								A.IS_APPROVED
-							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
-							WHERE  A.RML_ID=B.RML_ID
-							AND A.RML_ID='$v_emp_id'
-							ORDER BY START_DATE DESC"
+                                "SELECT A.ID,
+									   B.EMP_NAME,
+									   B.RML_ID,
+									   B.R_CONCERN,
+									   B.DEPT_NAME,
+									   B.DESIGNATION,
+									   RML_HR_APPS_USER_ID,
+									   APPROVAL_STATUS,
+									   EXIT_INTERVIEW_STATUS,
+									   EXIT_INTERVIEW_DATE,
+									   EXIT_INTERVIEW_BY,
+									   CREATED_DATE,
+									   CREATED_BY
+								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
+								  WHERE A.RML_HR_APPS_USER_ID=B.ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -120,19 +117,21 @@ if (!checkPermission('hr-clearence-report')) {
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT B.RML_ID,
-								B.EMP_NAME,
-								B.DEPT_NAME,
-								B.BRANCH_NAME,
-								A.LEAVE_TYPE,
-								A.START_DATE,
-								A.END_DATE,
-								A.ENTRY_FROM,
-								A.IS_APPROVED
-							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
-							WHERE  A.RML_ID=B.RML_ID
-							AND START_DATE BETWEEN to_date((SELECT TO_CHAR(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1),'dd/mm/yyyy') FROM dual),'dd/mm/yyyy') AND to_date(( SELECT TO_CHAR(add_months(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1), 1) -1,'dd/mm/yyyy') FROM dual),'dd/mm/yyyy')
-							ORDER BY START_DATE DESC"
+                                "SELECT A.ID,
+										   B.EMP_NAME,
+										   B.RML_ID,
+										   B.R_CONCERN,
+										   B.DEPT_NAME,
+										   B.DESIGNATION,
+										   RML_HR_APPS_USER_ID,
+										   APPROVAL_STATUS,
+										   EXIT_INTERVIEW_STATUS,
+										   EXIT_INTERVIEW_DATE,
+										   EXIT_INTERVIEW_BY,
+										   CREATED_DATE,
+										   CREATED_BY
+									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
+									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
                             );
 
                             oci_execute($allDataSQL);
@@ -144,7 +143,26 @@ if (!checkPermission('hr-clearence-report')) {
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php echo $row['RML_ID']; ?></td>
+                                    <td><?php 
+									     echo $row['RML_ID']; 
+										 echo '</br>'; 
+										 echo $row['EMP_NAME']; 
+										 echo '</br>'; 
+										 echo $row['DEPT_NAME'].'=>'.$row['R_CONCERN']; 
+										 echo '</br>'; 
+										 echo $row['DESIGNATION']; 
+										 ?>
+									</td>
+									<td><?php
+                                        if ($row['APPROVAL_STATUS'] == '1') {
+                                            echo 'Approved';
+                                        } else if ($row['APPROVAL_STATUS'] == '0') {
+                                            echo 'Denied';
+                                        } else {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+									</td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td><?php echo $row['LEAVE_TYPE']; ?></td>
@@ -152,24 +170,12 @@ if (!checkPermission('hr-clearence-report')) {
                                     <td><?php echo $row['END_DATE']; ?></td>
                                     <td><?php echo $row['ENTRY_FROM']; ?></td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php
-                                        if ($row['IS_APPROVED'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['IS_APPROVED'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-
-                                        ?></td>
+                                    
                                 </tr>
                         <?php
                             }
                         }
                         ?>
-
-
-
                     </tbody>
                 </table>
             </div>
