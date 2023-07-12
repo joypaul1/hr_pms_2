@@ -9,8 +9,6 @@ if (!checkPermission('concern-leave-report')) {
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
-
-
 ?>
 
 <!-- / Content -->
@@ -20,23 +18,25 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <div class="card-body text-center">
             <form action="" method="post">
                 <div class="row justify-content-center">
-                <input required  name="emp_id"type='hidden' value='<?php echo $emp_session_id; ?>' 
-                />
-                    
+              
                     <div class="col-sm-2">
-                        <label class="form-label" for="basic-default-fullname">From Date <span class="text-danger">*</span></label>
+                        <label class="form-label" for="emp_id">EMP RML ID<span class="text-danger">*</span></label>
+                         <input required="" class="form-control cust-control" name="emp_id" id="emp_id" type="text">
+                    </div>
+                    <div class="col-sm-2">
+                        <label class="form-label" for="start_date">From Date <span class="text-danger">*</span></label>
                         <div class="input-group">
                             <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </div>
-                            <input required="" class="form-control cust-control" name="start_date" type="date">
+                            <input required="" id="start_date" class="form-control cust-control" name="start_date" type="date">
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
+                        <label class="form-label"  for="end_date">End Date <span class="text-danger">*</span></label>
                         <div class="input-group">
 
-                            <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value="">
+                            <input required="" type="date" name="end_date" class="form-control cust-control" id="end_date" value="">
                         </div>
                     </div>
 
