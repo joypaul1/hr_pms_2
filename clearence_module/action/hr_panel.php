@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+        header("location:" . $basePath . "/clearence_module/view/hr_panel/index.php");
         exit();
     }
     $message                  = [
