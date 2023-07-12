@@ -52,8 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
-
-	$allDepartmentID = implode(" ,",$department_id);
+	if(count($department_id) > 0){
+		$allDepartmentID = implode(" ,",$department_id);
+	}else{
+		$allDepartmentID =0;
+	}
+	
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
