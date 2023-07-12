@@ -33,23 +33,20 @@ if (!checkPermission('hr-clearence-create')) {
                 </div>
                 <div class="col-sm-6">
                     <span class="d-block text-center text-info mb-2">
-                        <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee Information :
+                        <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee
+                        Information :
                     </span>
                     <span class="w-100" id="userInfo"></span>
 
                 </div>
                 <div class="col-sm-12">
                     <label for="remarks">Remarks? </label>
-                    <input  class="form-control" id="remarks" name="remarks" type="text" />
+                    <input class="form-control" id="remarks" name="remarks" type="text" />
                 </div>
             </div>
-            <div class="row" style="
-                        border: 1px solid #eee5e5;
-                        /* padding: 2%; */
-                        margin-top: 2%;
-                    ">
+            <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
                 <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
-                
+
                 <hr />
 
                 <?php
@@ -89,11 +86,11 @@ if (!checkPermission('hr-clearence-create')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    $(function() {
+    $(function () {
 
         $("#autocomplete").autocomplete({
 
-            source: function(request, response) {
+            source: function (request, response) {
                 // Fetch data
                 $.ajax({
                     url: "<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>",
@@ -103,16 +100,16 @@ if (!checkPermission('hr-clearence-create')) {
                         actionType: 'searchUser',
                         search: request.term
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
                         showPleaseWaitMessage();
 
                     },
-                    success: function(data) {
+                    success: function (data) {
                         hidePleaseWaitMessage();
                         // Process the response data here
-                        response($.map(data, function(item) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.label,
                                 value: item.value,
@@ -122,29 +119,39 @@ if (!checkPermission('hr-clearence-create')) {
                             };
                         }));
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data)
                         hidePleaseWaitMessage();
                     }
                 });
             },
-            select: function(event, ui) {
-                console.log(ui)
+            select: function (event, ui) {
+
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
                 $('#concern_name').val(ui.item.concern); // save selected id to input
                 userInfo(ui.item.empData.data);
+                showDepartment();
                 buttonValidation();
                 return false;
             },
-            focus: function(event, ui) {
+            focus: function (event, ui) {
                 $("#autocomplete").val(ui.item.label);
                 $("#emp_id").val(ui.item.id);
                 $("#concern_name").val(ui.item.concern);
                 return false;
             },
         });
+
+        // Function to display the "Please wait" message
+        function showDepartment() {
+            if ($('.showDepartment').css('display') == 'none') {
+                $('.showDepartment').css('display') == 'block';
+            } else {
+                $('.showDepartment').css('display') == 'none'
+            }
+        }
 
         // Function to display the "Please wait" message
         function showPleaseWaitMessage() {
@@ -190,37 +197,40 @@ if (!checkPermission('hr-clearence-create')) {
 
             $("#userInfo").append(html);
         }
-    });
-
-    $(document).on('change', '#autocomplete', function() {
-        buttonValidation();
-    });
-    $(document).on('click', '.department_id', function() {
-        buttonValidation();
-    });
-
-    function buttonValidation() {
-
-        if ($("#emp_id").val() && derpartmentCheck()) {
-            $("button[type='submit']").prop('disabled', false);
-
-        } else {
-            $("button[type='submit']").prop('disabled', true);
-        }
-    }
 
 
-
-
-    function derpartmentCheck() {
-        let flag = false;
-        $('.department_id').each(function() {
-            var isChecked = $(this).prop('checked');
-            if (isChecked) {
-                flag = true;
-
-            }
+        $(document).on('change', '#autocomplete', function () {
+            showDepartment();
+            buttonValidation();
         });
-        return flag;
-    }
+
+        $(document).on('click', '.department_id', function () {
+            buttonValidation();
+        });
+
+        function buttonValidation() {
+
+            if ($("#emp_id").val()) {
+                $("button[type='submit']").prop('disabled', false);
+
+            } else {
+                $("button[type='submit']").prop('disabled', true);
+            }
+        }
+
+
+
+
+        function derpartmentCheck() {
+            let flag = false;
+            $('.department_id').each(function () {
+                var isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    flag = true;
+
+                }
+            });
+            return flag;
+        }
+    });
 </script>
