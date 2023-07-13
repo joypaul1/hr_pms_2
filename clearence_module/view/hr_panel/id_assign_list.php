@@ -3,9 +3,9 @@ $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-clearence-id-assign-list')) {
-    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-}
+// if (!checkPermission('hr-clearence-id-assign-list')) {
+//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+// }
 
 ?>
 
