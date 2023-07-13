@@ -125,21 +125,14 @@ if (!checkPermission('hr-clearence-id-assign-report')) {
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT A.ID,
-										   B.EMP_NAME,
-										   B.RML_ID,
-										   B.R_CONCERN,
-										   B.DEPT_NAME,
-										   B.DESIGNATION,
-										   RML_HR_APPS_USER_ID,
-										   APPROVAL_STATUS,
-										   EXIT_INTERVIEW_STATUS,
-										   EXIT_INTERVIEW_DATE,
-										   EXIT_INTERVIEW_BY,
-										   CREATED_DATE,
-										   CREATED_BY
-									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
+                                "SELECT B.EMP_NAME,
+									   B.DEPT_NAME,
+									   B.DESIGNATION,
+									   B.R_CONCERN EMP_CONCERN,
+									   A.R_CONCERN RESPONSIBLE_CONCERN,
+									   (SELECT DEPT_NAME FROM RML_HR_DEPARTMENT WHERE ID=A.RML_HR_DEPARTMENT_ID) RESPONSIBLE_DEPT
+								FROM HR_DEPT_CLEARENCE_CONCERN A,RML_HR_APPS_USER B
+								WHERE A.RML_HR_APPS_USER_ID=B.ID"
                             );
 
                             oci_execute($allDataSQL);
