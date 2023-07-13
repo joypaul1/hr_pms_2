@@ -446,7 +446,7 @@ function isActive($url)
                                 <?php if (checkPermission('hr-clearence-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/create.php'); ?> <?php echo isActive('/clearence_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Report</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>   List</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -457,10 +457,10 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <?php if (checkPermission('hr-clearence-id-assign-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/clearence_module/view/hr_panel/id_assign_report.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/id_assign_report.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign </div>
+                                <?php if (checkPermission('hr-clearence-id-assign-list')) { ?>
+                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/clearence_module/view/hr_panel/id_assign_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign List</div>
                                         </a>
                                     </li>
                                 <?php } ?>

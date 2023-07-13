@@ -115,6 +115,7 @@ if (!checkPermission('hr-clearence-create')) {
                     beforeSend: function() {
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
+                        showDepartment();
                         showPleaseWaitMessage();
 
                     },
@@ -152,17 +153,21 @@ if (!checkPermission('hr-clearence-create')) {
                 $("#autocomplete").val(ui.item.label);
                 $("#emp_id").val(ui.item.id);
                 $("#concern_name").val(ui.item.concern);
+                buttonValidation();
+                showDepartment();
                 return false;
             },
         });
 
         // Function to display the "Please wait" message
         function showDepartment() {
-            if ($('.showDepartment').css('display') == 'none') {
+            if ($('#emp_id').val()) {
                 $('.showDepartment').css('display', 'block');
             } else {
                 $('.showDepartment').css('display', 'none')
+
             }
+
         }
 
         // Function to display the "Please wait" message
