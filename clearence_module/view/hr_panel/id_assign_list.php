@@ -30,9 +30,7 @@ if (!checkPermission('hr-clearence-id-assign-list')) {
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">EMP Info</th>
-                            <th scope="col">Approval Status</th>
-                            <th scope="col">Exit Interview Status</th>
-                            <th scope="col">Created Info</th>
+                            <th scope="col">Respondible Information</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,29 +42,23 @@ if (!checkPermission('hr-clearence-id-assign-list')) {
 
                             $strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT A.ID,
-									   B.EMP_NAME,
-									   B.RML_ID,
-									   B.R_CONCERN,
+                                "SELECT B.EMP_NAME,
+								       b.RML_ID,
 									   B.DEPT_NAME,
 									   B.DESIGNATION,
-									   RML_HR_APPS_USER_ID,
-									   APPROVAL_STATUS,
-									   EXIT_INTERVIEW_STATUS,
-									   EXIT_INTERVIEW_DATE,
-									   EXIT_INTERVIEW_BY,
-									   CREATED_DATE,
-									   CREATED_BY
-								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-								  WHERE A.RML_HR_APPS_USER_ID=B.ID
-								  AND B.RML_ID='$v_emp_id'"
+									   B.R_CONCERN EMP_CONCERN,
+									   A.R_CONCERN RESPONSIBLE_CONCERN,
+									   (SELECT DEPT_NAME FROM RML_HR_DEPARTMENT WHERE ID=A.RML_HR_DEPARTMENT_ID) RESPONSIBLE_DEPT
+								FROM HR_DEPT_CLEARENCE_CONCERN A,RML_HR_APPS_USER B
+								WHERE A.RML_HR_APPS_USER_ID=B.ID
+								AND b.RML_ID='$v_emp_id'"
                             );
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
                         ?>
-                                <tr>
+                               <tr>
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
@@ -75,43 +67,15 @@ if (!checkPermission('hr-clearence-id-assign-list')) {
                                         echo '</br>';
                                         echo $row['EMP_NAME'];
                                         echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
                                         echo '</br>';
                                         echo $row['DESIGNATION'];
                                         ?>
                                     </td>
                                     <td><?php
-                                        if ($row['APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        echo $row['CREATED_DATE'];
+                                        echo $row['RESPONSIBLE_CONCERN'];
                                         echo '</br>';
-                                        echo $row['CREATED_BY'];
+                                        echo $row['RESPONSIBLE_DEPT'];
                                         ?>
                                     </td>
                                 </tr>
@@ -126,6 +90,7 @@ if (!checkPermission('hr-clearence-id-assign-list')) {
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.EMP_NAME,
+								       b.RML_ID,
 									   B.DEPT_NAME,
 									   B.DESIGNATION,
 									   B.R_CONCERN EMP_CONCERN,
@@ -149,43 +114,15 @@ if (!checkPermission('hr-clearence-id-assign-list')) {
                                         echo '</br>';
                                         echo $row['EMP_NAME'];
                                         echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
                                         echo '</br>';
                                         echo $row['DESIGNATION'];
                                         ?>
                                     </td>
                                     <td><?php
-                                        if ($row['APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        echo $row['CREATED_DATE'];
+                                        echo $row['RESPONSIBLE_CONCERN'];
                                         echo '</br>';
-                                        echo $row['CREATED_BY'];
+                                        echo $row['RESPONSIBLE_DEPT'];
                                         ?>
                                     </td>
                                 </tr>
