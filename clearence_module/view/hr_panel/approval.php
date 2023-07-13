@@ -137,7 +137,7 @@ $v_view_approval = 0;
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				 )
 																AND B.DEPARTMENT_ID IN (
-																				SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+																				SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				)");
 
