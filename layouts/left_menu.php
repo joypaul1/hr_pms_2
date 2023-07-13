@@ -432,7 +432,7 @@ function isActive($url)
             <li class="menu-item  <?php echo isActive('/clearence_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-file "></i>
-                    <div>Clearence Module</div>
+                    <div>Offboarding Module</div>
                 </a>
 
                 <ul class="menu-sub">
