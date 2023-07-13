@@ -17,9 +17,9 @@ if (!checkPermission('hr-clearence-id-assign-create')) {
 
         <?php
         $leftSideName  = 'ID Assign';
-        if (checkPermission('hr-clearence-id-assign-report')) {
-            $rightSideName = 'ID Assign Report';
-            $routePath     = 'clearence_module/view/hr_panel/id_assign_report.php';
+        if (checkPermission('hr-clearence-id-assign-list')) {
+            $rightSideName = 'ID Assign List';
+            $routePath     = 'clearence_module/view/hr_panel/id_assign_list.php';
         }
 
         include('../../../layouts/_tableHeader.php');

@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAs
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
+        header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign_list.php");
         exit();
     }
     $message                  = [
