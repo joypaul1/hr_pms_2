@@ -2,7 +2,7 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-clearence-approval')) {
+if (!checkPermission('hr-clearence-exit-interview')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
