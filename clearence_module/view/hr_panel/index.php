@@ -5,7 +5,6 @@ require_once('../../../inc/connoracle.php');
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 if (!checkPermission('hr-clearence-report')) {
-
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -40,7 +39,16 @@ if (!checkPermission('hr-clearence-report')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Clearence List</b></h5>
+        <!-- <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Clearence List</b></h5> -->
+        <?php 
+         $leftSideName  = 'Clearence List';
+         if (checkPermission('hr-clearence-create')) {
+             $rightSideName = 'Clearence Create';
+             $routePath     = 'clearence_module/view/hr_panel/create.php';
+         }
+
+         include('../../../layouts/_tableHeader.php');
+        ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">

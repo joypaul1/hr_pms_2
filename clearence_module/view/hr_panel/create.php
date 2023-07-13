@@ -5,7 +5,6 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
 if (!checkPermission('hr-clearence-create')) {
-
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -15,67 +14,80 @@ if (!checkPermission('hr-clearence-create')) {
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="card card-body col-lg-12 ">
-        <div class='card-title'>
+    <div class="card  col-lg-12 ">
+
+        <?php
+        $leftSideName  = 'Clearence Create';
+        if (checkPermission('hr-clearence-report')) {
+            $rightSideName = 'Clearence Report';
+            $routePath     = 'clearence_module/view/hr_panel/index.php';
+        }
+
+        include('../../../layouts/_tableHeader.php');
+        ?>
+        <!-- <div class='card-title'>
             <div href="#" style="font-size: 18px;font-weight:700">
                 <i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;font-size:20px"></i>Clearence Create
             </div>
-        </div>
-        <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
-            <input type='hidden' hidden name='actionType' value='createClearence'>
-            <div class="row ">
-                <div class="col-sm-3">
-                    <label for="emp_id">Emp. ID:</label>
-                    <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
-                    <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
-                    <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
+        </div> -->
+        <div class="card-body">
+            <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
+                <input type='hidden' hidden name='actionType' value='createClearence'>
+                <div class="row ">
+                    <div class="col-sm-3">
+                        <label for="emp_id">Emp. ID:</label>
+                        <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
+                        <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
+                        <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="d-block text-center text-info mb-2">
+                            <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee
+                            Information :
+                        </span>
+                        <span class="w-100" id="userInfo"></span>
+
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="remarks">Remarks? </label>
+                        <input class="form-control" id="remarks" name="remarks" type="text" />
+                    </div>
                 </div>
-                <div class="col-sm-6">
-                    <span class="d-block text-center text-info mb-2">
-                        <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee
-                        Information :
-                    </span>
-                    <span class="w-100" id="userInfo"></span>
+                <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
+                    <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
 
-                </div>
-                <div class="col-sm-12">
-                    <label for="remarks">Remarks? </label>
-                    <input class="form-control" id="remarks" name="remarks" type="text" />
-                </div>
-            </div>
-            <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
-                <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
+                    <hr />
 
-                <hr />
-
-                <?php
-                $departmentArray = [];
-                $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
-                oci_execute($strSQL);
-                while ($row = oci_fetch_assoc($strSQL)) {
-                    echo ('
+                    <?php
+                    $departmentArray = [];
+                    $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
+                    oci_execute($strSQL);
+                    while ($row = oci_fetch_assoc($strSQL)) {
+                        echo ('
                             <div class="form-check-inline col-4">
                                 <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
                                 id="check_' . $row['ID'] . '">
                                 <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
                             </div>
                             ');
-                }
+                    }
 
-                ?>
+                    ?>
 
-            </div>
-            <div class="mt-2 w-25 mx-auto">
-                <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
-                </button>
-            </div>
+                </div>
+                <div class="mt-2 w-25 mx-auto">
+                    <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
+                    </button>
+                </div>
+
+            </form>
+        </div>
 
     </div>
 
 
 
-    </form>
 </div>
 
 
@@ -86,11 +98,11 @@ if (!checkPermission('hr-clearence-create')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    $(function () {
+    $(function() {
 
         $("#autocomplete").autocomplete({
 
-            source: function (request, response) {
+            source: function(request, response) {
                 // Fetch data
                 $.ajax({
                     url: "<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>",
@@ -100,16 +112,16 @@ if (!checkPermission('hr-clearence-create')) {
                         actionType: 'searchUser',
                         search: request.term
                     },
-                    beforeSend: function () {
+                    beforeSend: function() {
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
                         showPleaseWaitMessage();
 
                     },
-                    success: function (data) {
+                    success: function(data) {
                         hidePleaseWaitMessage();
                         // Process the response data here
-                        response($.map(data, function (item) {
+                        response($.map(data, function(item) {
                             return {
                                 label: item.label,
                                 value: item.value,
@@ -119,13 +131,13 @@ if (!checkPermission('hr-clearence-create')) {
                             };
                         }));
                     },
-                    error: function (data) {
+                    error: function(data) {
                         console.log(data)
                         hidePleaseWaitMessage();
                     }
                 });
             },
-            select: function (event, ui) {
+            select: function(event, ui) {
 
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
@@ -136,7 +148,7 @@ if (!checkPermission('hr-clearence-create')) {
                 buttonValidation();
                 return false;
             },
-            focus: function (event, ui) {
+            focus: function(event, ui) {
                 $("#autocomplete").val(ui.item.label);
                 $("#emp_id").val(ui.item.id);
                 $("#concern_name").val(ui.item.concern);
@@ -199,12 +211,12 @@ if (!checkPermission('hr-clearence-create')) {
         }
 
 
-        $(document).on('change', '#autocomplete', function () {
+        $(document).on('change', '#autocomplete', function() {
             showDepartment();
             buttonValidation();
         });
 
-        $(document).on('click', '.department_id', function () {
+        $(document).on('click', '.department_id', function() {
             buttonValidation();
         });
 
@@ -223,7 +235,7 @@ if (!checkPermission('hr-clearence-create')) {
 
         function derpartmentCheck() {
             let flag = false;
-            $('.department_id').each(function () {
+            $('.department_id').each(function() {
                 var isChecked = $(this).prop('checked');
                 if (isChecked) {
                     flag = true;

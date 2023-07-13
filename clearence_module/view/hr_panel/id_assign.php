@@ -3,8 +3,7 @@ $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-clearence-id-assign')) {
-
+if (!checkPermission('hr-clearence-id-assign-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -14,96 +13,105 @@ if (!checkPermission('hr-clearence-id-assign')) {
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="card card-body col-lg-12 ">
-        <div class='card-title'>
-            <div href="#" style="font-size: 18px;font-weight:700">
-                <i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;font-size:20px"></i>Clearence Create
-            </div>
-        </div>
-        <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
-            <input type='hidden' hidden name='actionType' value='idAssign'>
-            <div class="row">
-                <div class="col-sm-4">
-                    <label for="emp_id">Emp. ID:</label>
-                    <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
-                    <div class="text-info" id="message"></div>
-                    <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden />
+    <div class="card col-lg-12 ">
 
-                </div>
-                <div class="col-sm-6">
-                    <span class="d-block text-center text-info mb-2">
-                        <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee Information :
-                    </span>
-                    <span class="w-100" id="userInfo"></span>
+        <?php
+        $leftSideName  = 'ID Assign';
+        if (checkPermission('hr-clearence-id-assign-report')) {
+            $rightSideName = 'ID Assign Report';
+            $routePath     = 'clearence_module/view/hr_panel/id_assign_report.php';
+        }
 
-                </div>
-                <!-- <div class="col-sm-12">
+        include('../../../layouts/_tableHeader.php');
+        ?>
+        <div class="card-body">
+            <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
+                <input type='hidden' hidden name='actionType' value='idAssign'>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="emp_id">Emp. ID:</label>
+                        <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
+                        <div class="text-info" id="message"></div>
+                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden />
+
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="d-block text-center text-info mb-2">
+                            <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee Information :
+                        </span>
+                        <span class="w-100" id="userInfo"></span>
+
+                    </div>
+                    <!-- <div class="col-sm-12">
                     <label for="exampleInputEmail1">Remarks? </label>
                     <input required class="form-control" id="" name="emp_id" type="text" />
                 </div> -->
-            </div>
-            <div class="row mt-2">
-                <div class="col-sm-6">
-                    <section style="border: 1px solid #eee5e5;
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <section style="border: 1px solid #eee5e5;
                         padding: 2%;">
 
 
-                        <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
-                        <hr />
-                        <?php
-                        $departmentArray = [];
-                        $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                            echo ('
+                            <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
+                            <hr />
+                            <?php
+                            $departmentArray = [];
+                            $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+                                echo ('
                             <div class="form-check-inline col-12">
                                 <input type="checkbox" class="form-check-input concern_id"  value="' . $row['R_CONCERN'] . '" name="concern_id[]"' . (isset($_POST['concern_id']) && $_POST['concern_id'] == $row['R_CONCERN'] ? "checked" : "") . '
                                 id="check_' . $row['R_CONCERN'] . '">
                                 <label class="form-check-label" for="check_' . $row['R_CONCERN'] . '">' . $row['R_CONCERN'] . '</label>
                             </div>
                             ');
-                        }
+                            }
 
-                        ?>
-                    </section>
+                            ?>
+                        </section>
 
 
-                </div>
-                <div class="col-sm-6">
-                    <section style="border: 1px solid #eee5e5;
+                    </div>
+                    <div class="col-sm-6">
+                        <section style="border: 1px solid #eee5e5;
                         padding: 2%;">
 
-                        <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
-                        <hr />
-                        <?php
-                        $departmentArray = [];
-                        $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) {
-                            echo ('
+                            <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
+                            <hr />
+                            <?php
+                            $departmentArray = [];
+                            $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+                                echo ('
                             <div class="form-check-inline col-12">
                                 <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
                                 id="check_' . $row['ID'] . '">
                                 <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
                             </div>
                             ');
-                        }
+                            }
 
-                        ?>
+                            ?>
 
-                    </section>
+                        </section>
+
+                    </div>
+                    <div class="mt-2 w-25 mx-auto">
+                        <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
+                        </button>
+                    </div>
 
                 </div>
-                <div class="mt-2 w-25 mx-auto">
-                    <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
-                    </button>
-                </div>
-
-            </div>
 
 
 
-        </form>
+            </form>
+
+        </div>
+
     </div>
 
 
