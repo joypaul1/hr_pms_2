@@ -112,8 +112,58 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Denied';
                                         } else {
                                             echo 'Pending';
+                                            echo '</br>';
+                                            echo '<button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#statusModal">
+                                            See Status  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                          </button>';
                                         }
                                         ?>
+
+                                        <!--statusModal Modal -->
+                                        <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW FOR :
+                                                            <span class="text-info"> <?php echo $row['RML_ID'] ?> </span>
+
+                                                        </h5>
+
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row text-left">
+                                                            <?php
+                                                            $statusDataSQL = oci_parse($objConnect, "SELECT 
+                                                                d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
+                                                                d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
+                                                                d.APPROVE_DATE, h.DEPT_NAME
+                                                            FROM EMP_CLEARENCE_DTLS d
+                                                            JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID");
+
+                                                            oci_execute($statusDataSQL);
+
+                                                            while ($statusRow = oci_fetch_array($statusDataSQL)) {
+
+                                                                $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
+                                                                echo '<div class="form-check-inline col-5">
+                                                                    <input  type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
+                                                                    <label class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . '</label>
+                                                                </div>';
+                                                            }
+                                                            ?>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--statusModal Modal -->
                                     </td>
                                     <td><?php
                                         if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
@@ -172,9 +222,9 @@ if (!checkPermission('hr-offboarding-report')) {
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
                             ?>
-                                <tr>
+                                <tr class="text-center">
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];
@@ -193,8 +243,58 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Denied';
                                         } else {
                                             echo 'Pending';
+                                            echo '</br>';
+                                            echo '<button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#statusModal">
+                                            See Status  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                          </button>';
                                         }
                                         ?>
+
+                                        <!--statusModal Modal -->
+                                        <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW FOR :
+                                                            <span class="text-info"> <?php echo $row['RML_ID'] ?> </span>
+
+                                                        </h5>
+
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row text-left">
+                                                            <?php
+                                                            $statusDataSQL = oci_parse($objConnect, "SELECT 
+                                                                d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
+                                                                d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
+                                                                d.APPROVE_DATE, h.DEPT_NAME
+                                                            FROM EMP_CLEARENCE_DTLS d
+                                                            JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID");
+
+                                                            oci_execute($statusDataSQL);
+
+                                                            while ($statusRow = oci_fetch_array($statusDataSQL)) {
+
+                                                                $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
+                                                                echo '<div class="form-check-inline col-5">
+                                                                    <input  type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
+                                                                    <label class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . '</label>
+                                                                </div>';
+                                                            }
+                                                            ?>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--statusModal Modal -->
                                     </td>
                                     <td><?php
                                         if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
@@ -213,6 +313,8 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
+
+
                                     </td>
                                     <td><?php
                                         echo $row['CREATED_DATE'];
