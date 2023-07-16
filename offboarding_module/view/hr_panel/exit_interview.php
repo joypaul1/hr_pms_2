@@ -2,7 +2,7 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-offboarding-exit-interview')) {
+if (!checkPermission('hr-offboarding-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -137,7 +137,7 @@ $v_view_approval = 0;
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				 )
 																AND B.DEPARTMENT_ID IN (
-																				SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+																				SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				)");
 
@@ -209,7 +209,7 @@ $v_view_approval = 0;
                         echo '</div>';
                     }
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -272,7 +272,7 @@ $v_view_approval = 0;
 
                     echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 echo '<div class="alert alert-danger">';
                 echo 'Sorry! You have not select any ID Code.';
