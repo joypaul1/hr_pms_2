@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $department_id  = ($_POST['department_id']);
     $empConcernID   = ($_POST['emp_rml_id']);
     $remarks        = ($_POST['remarks']);
-
+    $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$remarks','$allDepartmentID','$empConcernID','$concern_name','');
+            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$remarks','$allDepartmentID','$emp_session_id','$concern_name','');
 			END;"
         );
 
