@@ -37,7 +37,11 @@ $v_view_approval = 0;
         </div>
 
         <div class="card  col-lg-12 mt-2">
-            <h5 class="card-header"><b>Offboarding Approval List</b></h5>
+            <!-- <h5 class="card-header"><b>Offboarding Approval List</b></h5> -->
+            <?php
+            $leftSideName  = 'Offboarding Approval List';
+            include('../../../layouts/_tableHeader.php');
+            ?>
             <form id="Form2" action="" method="post " class="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">

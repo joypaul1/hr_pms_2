@@ -46,7 +46,6 @@ if (!checkPermission('hr-offboarding-report')) {
             $rightSideName = 'Offboarding Create';
             $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-
         include('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
