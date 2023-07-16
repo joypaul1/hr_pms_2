@@ -214,13 +214,27 @@ $v_view_approval = 0;
                         echo '</div>';
                     }
                 }
+                $message = [
+                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
                 echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
+                exit();
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
+                exit();
+
             }
         }
 
@@ -248,13 +262,26 @@ $v_view_approval = 0;
                         echo '</div>';
                     }
                 }
+                $message = [
+                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
                 echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
+                exit();
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
+                exit();
             }
         }
 
@@ -277,11 +304,23 @@ $v_view_approval = 0;
 
                     echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
+                $message = [
+                    'text'   =>'Successfully Denied Outdoor Attendance ID',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
                 echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
             } else {
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                // echo '<div class="alert alert-danger">';
+                // echo 'Sorry! You have not select any ID Code.';
+                // echo '</div>';
+                $message = [
+                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
+                exit();
             }
         }
 

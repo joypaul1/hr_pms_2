@@ -200,19 +200,33 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
+
+                      
                     }
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                $message = [
+                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
+
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
+                $message = [
+                    'text'   => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
+
             }
         }
 
@@ -232,19 +246,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
+                        // echo '<div class="alert alert-primary">';
+                        // echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
+                        // echo '<br>';
+                        // echo '</div>';
                     }
                 }
+                $message = [
+                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
                 echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                $message = [
+                    'text'   => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
+
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
+
             }
 				
         }
@@ -263,13 +289,26 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     oci_execute($strSQL);
 
-                    echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
+                    // echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                $message = [
+                    'text'   =>'Successfully Denied Outdoor Attendance ID',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
+
             } else {
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
+                $message = [
+                    'text'   => "Sorry! You have not select any ID Code.",
+                    'status' => 'false',
+                ];
+
+                $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
+                exit();
+
             }
         }
 
