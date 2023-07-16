@@ -211,13 +211,12 @@ if (!checkPermission('hr-offboarding-report')) {
 										   B.R_CONCERN,
 										   B.DEPT_NAME,
 										   B.DESIGNATION,
-										   RML_HR_APPS_USER_ID,
-										   APPROVAL_STATUS,
-										   EXIT_INTERVIEW_STATUS,
-										   EXIT_INTERVIEW_DATE,
-										   EXIT_INTERVIEW_BY,
-										   CREATED_DATE,
-										   CREATED_BY
+									       A.APPROVAL_STATUS,
+										   A.EXIT_INTERVIEW_STATUS,
+										   A.EXIT_INTERVIEW_DATE,
+										   A.EXIT_INTERVIEW_BY,
+										   A.CREATED_DATE,
+										   A.CREATED_BY
 									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
 									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
                             );
@@ -226,6 +225,8 @@ if (!checkPermission('hr-offboarding-report')) {
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
+								//print_r ($row);
+								//die();
                             ?>
                                 <tr class="text-center">
                                     <td>
@@ -239,14 +240,15 @@ if (!checkPermission('hr-offboarding-report')) {
                                         echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
                                         echo '</br>';
                                         echo $row['DESIGNATION'];
+										
                                         ?>
                                     </td>
-                                    <td><?php
+                                    <td><?php  
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
                                             echo 'Denied';
-                                        } else {
+                                        } else if ($row['APPROVAL_STATUS'] == '') {
                                             echo 'Pending';
                                         }
                                         ?>

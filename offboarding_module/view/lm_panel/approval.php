@@ -194,11 +194,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             if (!empty($_POST['check_list'])) {
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                
-                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
-								SET    APPROVAL_STATUS  = 1,
-									   APPROVE_BY       = '$emp_session_id',
-									   APPROVE_DATE     = SYSDATE
-								WHERE  ID               = '$TT_ID_SELECTTED'");
+                    $attnProcSQL  = oci_parse($objConnect, "BEGIN
+															CLEARENCE_APPROVAL(1,'$emp_session_id',$TT_ID_SELECTTED);
+															END;");
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
@@ -228,11 +226,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 // Loop to store and display values of individual checked checkbox.
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                    
-                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
-								SET    APPROVAL_STATUS  = 1,
-									   APPROVE_BY       = '$emp_session_id',
-									   APPROVE_DATE     = SYSDATE
-								WHERE  ID               = $TT_ID_SELECTTED");
+                    $attnProcSQL  = oci_parse($objConnect, "BEGIN
+															CLEARENCE_APPROVAL(1,'$emp_session_id',$TT_ID_SELECTTED);
+															END;");
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
@@ -260,12 +256,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                     $strSQL = oci_parse(
                         $objConnect,
-                        "update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=0,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=0
-                                         where ID='$TT_ID_SELECTTED'"
+                        "BEGIN
+						CLEARENCE_APPROVAL(0,'$emp_session_id',$TT_ID_SELECTTED);
+						END;"
                     );
 
                     oci_execute($strSQL);

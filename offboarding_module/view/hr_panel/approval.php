@@ -202,11 +202,9 @@ $v_view_approval = 0;
             if (!empty($_POST['check_list'])) {
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
 
-                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
-								SET    APPROVAL_STATUS  = 1,
-									   APPROVE_BY       = '$emp_session_id',
-									   APPROVE_DATE     = SYSDATE
-								WHERE  ID               = '$TT_ID_SELECTTED'");
+                    $attnProcSQL  = oci_parse($objConnect, "BEGIN
+															CLEARENCE_APPROVAL(1,'$emp_session_id',$TT_ID_SELECTTED);
+															END;");
 
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
