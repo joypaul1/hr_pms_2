@@ -151,7 +151,7 @@ if (!checkPermission('hr-offboarding-report')) {
 
                                                                 echo '<div class="form-check-inline col-5">
                                                                 <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
-                                                                <label class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
+                                                                <label  style="opacity:1" class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
                                                             </div><div class=" col-5">
                                                             <input type="text" id="APPROVE_DATE" class="form-control cust-control" 
                                                             value="'. $statusRow['APPROVE_DATE']. '" disabled placeholder="APPROVE DATE">
@@ -285,9 +285,9 @@ if (!checkPermission('hr-offboarding-report')) {
                                                                 $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
                                                                 echo '<div class="form-check-inline col-5">
                                                                     <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
-                                                                    <label class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
+                                                                    <label style="opacity:1" class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
                                                                 </div><div class=" col-5">
-                                                                <input type="text" id="emailBasic" class="form-control cust-control" 
+                                                                <input  type="text" id="emailBasic" class="form-control cust-control" 
                                                                 value="'. $statusRow['APPROVE_DATE']. '" disabled placeholder="APPROVE DATE">
                                                                 </div>';
                                                             }
