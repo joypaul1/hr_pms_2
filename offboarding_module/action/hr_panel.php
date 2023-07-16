@@ -175,3 +175,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAs
     header("location:" . $basePath . "/offboarding_module/view/hr_panel/id_assign.php");
     exit();
 }
+
+
+
+// Check if the form is submitted create clearence 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'approvalStatus') {
+    // Validate emp_id field
+    if (!isset($_GET['rml_emp_id']) || empty($_GET['rml_emp_id'])) {
+        $errors[] = 'Employee ID is required.';
+    }
+
+    $emp_id        = ($_GET['rml_emp_id']);
+    // If there are no errors, proceed with further processing
+    if (empty($errors)) {
+
+        $statusDataSQL = oci_parse(
+            $objConnect,
+            "SELECT 
+                    d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
+                    d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
+                    d.APPROVE_DATE, h.DEPT_NAME
+                    FROM EMP_CLEARENCE_DTLS d
+                    JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID 
+                    WHERE  d.EMP_CLEARENCE_ID = {$emp_id}"
+        );
+        $result = oci_execute($statusDataSQL);
+        $html = '';
+        if ($result) {
+            while ($statusRow = oci_fetch_array($statusDataSQL)) {
+
+                $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
+                $html .=  '<div class="form-check-inline col-5">
+                    <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
+                    <label style="opacity:1" class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
+                </div><div class=" col-5">
+                <input  type="text" id="emailBasic" class="form-control cust-control" 
+                value="' . $statusRow['APPROVE_DATE'] . '" disabled placeholder="APPROVE DATE">
+                </div>';
+            }
+        }
+        if (empty($html)) {
+            $html  = "<p class='text-info text-center'> No Department Selected!</p>";
+        }
+        echo  $html;
+    }
+}
