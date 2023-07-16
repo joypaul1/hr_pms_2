@@ -4,7 +4,7 @@ $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
-if (!checkPermission('hr-clearence-create')) {
+if (!checkPermission('hr-offboarding-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -18,7 +18,7 @@ if (!checkPermission('hr-clearence-create')) {
 
         <?php
         $leftSideName  = 'Clearence Create';
-        if (checkPermission('hr-clearence-report')) {
+        if (checkPermission('hr-offboarding-report')) {
             $rightSideName = 'Clearence Report';
             $routePath     = 'clearence_module/view/hr_panel/index.php';
         }
