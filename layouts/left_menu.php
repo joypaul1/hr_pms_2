@@ -349,7 +349,7 @@ function isActive($url)
                                     </li>
                                 <?php } ?>
 
-                            
+
 
                                 <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
@@ -442,29 +442,29 @@ function isActive($url)
                                 <div>HR Panel</div>
                             </a>
                             <ul class="menu-sub">
-                              
+
                                 <?php if (checkPermission('hr-offboarding-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/create.php'); ?> <?php echo isActive('/offboarding_module/view/hr_panel/index.php'); ?>">
                                         <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>   List</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> List</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-offboarding-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Approval</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-offboarding-exit-interview')) { ?>
                                     <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/exit_interview.php'); ?>">
                                         <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/exit_interview.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Exit Interview</div>
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Exit Interview</div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                               
+
                                 <?php if (checkPermission("hr-offboarding-id-assign-list")) { ?>
                                     <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/offboarding_module/view/hr_panel/id_assign_list.php'); ?>">
                                         <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
@@ -707,21 +707,21 @@ function isActive($url)
                     </ul>
                 </li>
             <?php } ?>
-       <!-- </section>-->
-        <!-- role&permission Module -->
+            <!-- </section>-->
+            <!-- role&permission Module -->
 
-        <!-- Application Sells Module -->
-        <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <!-- Application Sells Module -->
+            <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class=""><b > Sells Apps </b></span> -->
 
-        <!-- Application Sells Module  -->
-        <!-- Application Collection Module  -->
-       
-        <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
+            <!-- Application Sells Module  -->
+            <!-- Application Collection Module  -->
+
+            <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
             <span class=""><b > Collection Apps </b></span>
         </li> -->
-        <!-- Application Collection Module  -->
-       
+            <!-- Application Collection Module  -->
+
 
     </ul>
 </aside>

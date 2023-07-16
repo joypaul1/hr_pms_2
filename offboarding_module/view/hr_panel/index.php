@@ -35,19 +35,19 @@ if (!checkPermission('hr-offboarding-report')) {
             </div>
         </form>
     </div>
-  
+
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Offboarding List</b></h5> -->
-        <?php 
-         $leftSideName  = 'Offboarding List';
-         if (checkPermission('hr-offboarding-create')) {
-             $rightSideName = 'Offboarding Create';
-             $routePath     = 'offboarding_module/view/hr_panel/create.php';
-         }
 
-         include('../../../layouts/_tableHeader.php');
+        <?php
+        $leftSideName  = 'Offboarding List';
+        if (checkPermission('hr-offboarding-create')) {
+            $rightSideName = 'Offboarding Create';
+            $routePath     = 'offboarding_module/view/hr_panel/create.php';
+        }
+
+        include('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
@@ -96,17 +96,17 @@ if (!checkPermission('hr-offboarding-report')) {
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '</br>'; 
-										 echo $row['EMP_NAME']; 
-										 echo '</br>'; 
-										 echo $row['DEPT_NAME'].'=>'.$row['R_CONCERN']; 
-										 echo '</br>'; 
-										 echo $row['DESIGNATION']; 
-										 ?>
-									</td>
-									<td><?php
+                                    <td><?php
+                                        echo $row['RML_ID'];
+                                        echo '</br>';
+                                        echo $row['EMP_NAME'];
+                                        echo '</br>';
+                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo '</br>';
+                                        echo $row['DESIGNATION'];
+                                        ?>
+                                    </td>
+                                    <td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -115,31 +115,31 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
-									</td>
+                                    </td>
                                     <td><?php
                                         if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
                                             echo 'Approved';
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_DATE']; 
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_BY']; 
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
                                         } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
                                             echo 'Denied';
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_DATE']; 
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_BY']; 
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
                                         } else {
                                             echo 'Pending';
                                         }
                                         ?>
-									</td>
-                                     <td><?php 
-									     echo $row['CREATED_DATE']; 
-										 echo '</br>'; 
-										 echo $row['CREATED_BY']; 
-										 ?>
-									</td>
+                                    </td>
+                                    <td><?php
+                                        echo $row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo $row['CREATED_BY'];
+                                        ?>
+                                    </td>
                                 </tr>
 
 
@@ -177,17 +177,17 @@ if (!checkPermission('hr-offboarding-report')) {
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '</br>'; 
-										 echo $row['EMP_NAME']; 
-										 echo '</br>'; 
-										 echo $row['DEPT_NAME'].'=>'.$row['R_CONCERN']; 
-										 echo '</br>'; 
-										 echo $row['DESIGNATION']; 
-										 ?>
-									</td>
-									<td><?php
+                                    <td><?php
+                                        echo $row['RML_ID'];
+                                        echo '</br>';
+                                        echo $row['EMP_NAME'];
+                                        echo '</br>';
+                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo '</br>';
+                                        echo $row['DESIGNATION'];
+                                        ?>
+                                    </td>
+                                    <td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -196,31 +196,31 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
-									</td>
+                                    </td>
                                     <td><?php
                                         if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
                                             echo 'Approved';
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_DATE']; 
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_BY']; 
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
                                         } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
                                             echo 'Denied';
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_DATE']; 
-											echo '</br>'; 
-										    echo $row['EXIT_INTERVIEW_BY']; 
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
                                         } else {
                                             echo 'Pending';
                                         }
                                         ?>
-									</td>
-                                     <td><?php 
-									     echo $row['CREATED_DATE']; 
-										 echo '</br>'; 
-										 echo $row['CREATED_BY']; 
-										 ?>
-									</td>
+                                    </td>
+                                    <td><?php
+                                        echo $row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo $row['CREATED_BY'];
+                                        ?>
+                                    </td>
                                 </tr>
                         <?php
                             }
