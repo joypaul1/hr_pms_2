@@ -72,6 +72,8 @@ $v_view_approval = 0;
 																FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 																WHERE A.ID=B.EMP_CLEARENCE_ID
 																AND A.RML_HR_APPS_USER_ID=C.ID
+																AND B.APPROVAL_STATUS IS NULL
+																AND A.APPROVAL_STATUS IS NULL
 																AND C.RML_ID='$emp_concern'
 																AND B.CONCERN_NAME IN (
 																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
@@ -136,6 +138,7 @@ $v_view_approval = 0;
 																WHERE A.ID=B.EMP_CLEARENCE_ID
 																AND A.RML_HR_APPS_USER_ID=C.ID
 																AND B.APPROVAL_STATUS IS NULL
+																AND A.APPROVAL_STATUS IS NULL
 																AND B.CONCERN_NAME IN (
 																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
