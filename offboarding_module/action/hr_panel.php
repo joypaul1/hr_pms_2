@@ -17,23 +17,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'sear
     );
     @oci_execute($strSQL);
     while ($row = @oci_fetch_assoc($strSQL)) {
-        $response[] = array( "value" => $row['RML_ID'], "label" => $row['RML_ID'], 'id' => $row['ID'], 'data' => $row, 'concern' => $row['R_CONCERN'] );
+        $response[] = array("value" => $row['RML_ID'], "label" => $row['RML_ID'], 'id' => $row['ID'], 'data' => $row, 'concern' => $row['R_CONCERN']);
     }
     if (empty($response)) {
-        $response[] = array( "value" => 'Sorry! No Data Found!', "label" => null, 'id' => null );
+        $response[] = array("value" => 'Sorry! No Data Found!', "label" => null, 'id' => null);
     }
     echo json_encode($response);
 }
 
 // Check if the form is submitted create clearence 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createClearence') {
-    
-	// Validate emp_id field
+
+    // Validate emp_id field
     if (!isset($_POST['emp_id']) || empty($_POST['emp_id'])) {
         $errors[] = 'Employee ID is required.';
     }
 
-	if (!isset($_POST['emp_rml_id']) || empty($_POST['emp_rml_id'])) {
+    if (!isset($_POST['emp_rml_id']) || empty($_POST['emp_rml_id'])) {
         $errors[] = 'Employee Concern ID is required.';
     }
 
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     if (!isset($_POST['concern_name']) || empty($_POST['concern_name'])) {
         $errors[] = 'Concern is required.';
     }
-   
+
     $emp_id         = ($_POST['emp_id']);
     $concern_name   = ($_POST['concern_name']);
     $department_id  = ($_POST['department_id']);
@@ -51,54 +51,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
-	if(count($department_id) > 0){
-		$allDepartmentID = implode(" ,",$department_id);
-	}else{
-		$allDepartmentID =0;
-	}
-	
+        if (count($department_id) > 0) {
+            $allDepartmentID = implode(" ,", $department_id);
+        } else {
+            $allDepartmentID = 0;
+        }
+
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
             "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$remarks','$allDepartmentID','$empConcernID','$concern_name','');
-			END;");
-	    
-     
-		
-		
-	if(@oci_execute($strSQL)){
-		
-	}
-    else {
-		
-		
-		 @$lastError = error_get_last();
-         @$error = $lastError ? "" . $lastError["message"] . "" : "";
-			
-		echo preg_split("/\@@@@/", @$error)[1];
-		die();
-		
-		
-		
-		/*	
-			$e = oci_error($strSQL);
+			END;"
+        );
+
+
+
+
+        if (@oci_execute($strSQL)) {
             $message = [
-                'text'   => htmlentities($e['message'], ENT_QUOTES),
+                'text'   => 'Offboarding  Created Successfully.',
+                'status' => 'true',
+            ];
+            $_SESSION['noti_message'] = $message;
+            header("location:" . $basePath . "/offboarding_module/view/hr_panel/index.php");
+            exit();
+        } else {
+
+            @$lastError = error_get_last();
+            @$error = $lastError ? "" . $lastError["message"] . "" : "";
+
+            // echo preg_split("/\@@@@/", @$error)[1];
+            // die();
+            $e = oci_error($strSQL);
+            $message = [
+                'text'   =>  preg_split("/\@@@@/", @$error)[1],
                 'status' => 'false',
             ];
 
             $_SESSION['noti_message'] = $message;
             header("location:" . $basePath . "/offboarding_module/view/hr_panel/create.php");
             exit();
-			*/
         }
-        $message = [
-            'text'   => 'Offboarding  Created Successfully.',
-            'status' => 'true',
-        ];
-        $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/offboarding_module/view/hr_panel/index.php");
-        exit();
     }
     $message                  = [
         'text'   => implode(' ', $errors),
