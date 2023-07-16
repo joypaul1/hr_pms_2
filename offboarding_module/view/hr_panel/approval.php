@@ -209,7 +209,7 @@ $v_view_approval = 0;
                         echo '</div>';
                     }
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -272,7 +272,7 @@ $v_view_approval = 0;
 
                     echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 echo '<div class="alert alert-danger">';
                 echo 'Sorry! You have not select any ID Code.';
