@@ -63,9 +63,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$remarks','$allDepartmentID','$empConcernID','$concern_name','');
 			END;");
 	    
-        $result = oci_execute($strSQL);
-
-        if (!$result) {
+     
+		
+		
+	if(@oci_execute($strSQL)){
+		
+	}
+    else {
+		
+		
+		 @$lastError = error_get_last();
+         @$error = $lastError ? "" . $lastError["message"] . "" : "";
+			
+		echo preg_split("/\@@@@/", @$error)[1];
+		die();
+		
+		
+		
+		/*	
 			$e = oci_error($strSQL);
             $message = [
                 'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -75,6 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             $_SESSION['noti_message'] = $message;
             header("location:" . $basePath . "/offboarding_module/view/hr_panel/create.php");
             exit();
+			*/
         }
         $message = [
             'text'   => 'Offboarding  Created Successfully.',
