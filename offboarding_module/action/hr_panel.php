@@ -42,10 +42,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         $errors[] = 'Concern is required.';
     }
    
-    $emp_id        = ($_POST['emp_id']);
-    $concern_name  = ($_POST['concern_name']);
-    $department_id = ($_POST['department_id']);
-    $empConcernID  = ($_POST['emp_rml_id']);
+    $emp_id         = ($_POST['emp_id']);
+    $concern_name   = ($_POST['concern_name']);
+    $department_id  = ($_POST['department_id']);
+    $empConcernID   = ($_POST['emp_rml_id']);
+    $remarks        = ($_POST['remarks']);
 
 
     // If there are no errors, proceed with further processing
@@ -59,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'','$allDepartmentID','$empConcernID','$concern_name','');
+            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,$remarks,'$allDepartmentID','$empConcernID','$concern_name','');
 			END;");
 	    
         $result = oci_execute($strSQL);
