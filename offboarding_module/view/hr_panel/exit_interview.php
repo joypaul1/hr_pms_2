@@ -60,7 +60,7 @@ $v_view_approval = 0;
 
                             if (isset($_POST['emp_concern'])) {
                                 $emp_concern = $_REQUEST['emp_concern'];
-                                $strSQL  = oci_parse($objConnect, "SELECT B.ID,
+                                $strSQL  = oci_parse($objConnect, "SELECT A.ID,
 																	   C.EMP_NAME,
 																	   C.RML_ID,
 																	   C.R_CONCERN,
@@ -69,18 +69,11 @@ $v_view_approval = 0;
 																	   C.BRANCH_NAME,
 																	   A.CREATED_DATE,
 																	   A.CREATED_BY
-																FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
-																WHERE A.ID=B.EMP_CLEARENCE_ID
-																AND A.RML_HR_APPS_USER_ID=C.ID
-																AND C.RML_ID='$emp_concern'
-																AND B.CONCERN_NAME IN (
-																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				 )
-																AND B.DEPARTMENT_ID IN (
-																				SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				)");
+																FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
+																WHERE A.RML_HR_APPS_USER_ID=C.ID
+																AND A.APPROVAL_STATUS=1
+																AND EXIT_INTERVIEW_STATUS IS NULL
+																AND C.RML_ID='$emp_concern'");
 
                                 oci_execute($strSQL);
                                 $number = 0;
@@ -123,7 +116,7 @@ $v_view_approval = 0;
                                 }
                             } else {
 
-                                $allDataSQL  = oci_parse($objConnect, "SELECT B.ID,
+                                $allDataSQL  = oci_parse($objConnect, "SELECT A.ID,
 																	   C.EMP_NAME,
 																	   C.RML_ID,
 																	   C.R_CONCERN,
@@ -132,18 +125,10 @@ $v_view_approval = 0;
 																	   C.BRANCH_NAME,
 																	   A.CREATED_DATE,
 																	   A.CREATED_BY
-																FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
-																WHERE A.ID=B.EMP_CLEARENCE_ID
-																AND A.RML_HR_APPS_USER_ID=C.ID
-																AND B.APPROVAL_STATUS IS NULL
-																AND B.CONCERN_NAME IN (
-																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				 )
-																AND B.DEPARTMENT_ID IN (
-																				SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				)");
+																FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
+																WHERE A.RML_HR_APPS_USER_ID=C.ID
+																AND A.APPROVAL_STATUS=1
+																AND EXIT_INTERVIEW_STATUS IS NULL");
 
                                 @oci_execute($allDataSQL);
                                 $number = 0;
@@ -195,35 +180,7 @@ $v_view_approval = 0;
         </div>
         <?php
 
-        if (isset($_POST['submit_approval_single'])) {
-            if (!empty($_POST['check_list'])) {
-                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-
-                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
-								SET    APPROVAL_STATUS  = 1,
-									   APPROVE_BY       = '$emp_session_id',
-									   APPROVE_DATE     = SYSDATE
-								WHERE  ID               = '$TT_ID_SELECTTED'");
-
-                    if (oci_execute($attnProcSQL)) {
-                        //$errorMsg = "Your Selected Leave Successfully Approved";
-                        echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
-                        echo '<br>';
-                        echo '</div>';
-                    }
-                }
-                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/exit_interview.php'</script>";
-            } else {
-                //$errorMsg = "Sorry! You have not select any ID Code.";
-
-                echo '<div class="alert alert-danger">';
-                echo 'Sorry! You have not select any ID Code.';
-                echo '</div>';
-            }
-        }
-
-
+       
 
 
 
@@ -233,10 +190,10 @@ $v_view_approval = 0;
                 // Loop to store and display values of individual checked checkbox.
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
 
-                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
-								SET    APPROVAL_STATUS  = 1,
-									   APPROVE_BY       = '$emp_session_id',
-									   APPROVE_DATE     = SYSDATE
+                    $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE
+								SET    EXIT_INTERVIEW_STATUS  = 1,
+									   EXIT_INTERVIEW_BY       = '$emp_session_id',
+									   EXIT_INTERVIEW_DATE     = SYSDATE
 								WHERE  ID               = $TT_ID_SELECTTED");
 
                     if (oci_execute($attnProcSQL)) {
@@ -264,12 +221,11 @@ $v_view_approval = 0;
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                     $strSQL = oci_parse(
                         $objConnect,
-                        "update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=0,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=0
-                                         where ID='$TT_ID_SELECTTED'"
+                        "UPDATE EMP_CLEARENCE
+								SET    EXIT_INTERVIEW_STATUS  = 0,
+									   EXIT_INTERVIEW_BY       = '$emp_session_id',
+									   EXIT_INTERVIEW_DATE     = SYSDATE
+								WHERE  ID               = $TT_ID_SELECTTED"
                     );
 
                     oci_execute($strSQL);
