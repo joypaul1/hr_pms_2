@@ -3,7 +3,7 @@ $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-offboarding-id-assign-list')) {
+if (!checkPermission('hr-offboarding-id-assign-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 
@@ -12,149 +12,107 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <div class="card col-lg-12">
-        <form action="" method="post">
-            <div class="card-body row">
-                <div class="col-sm-2"></div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
-                    </div>
-                </div>
 
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-    <div class="card col-lg-12 mt-2">
+    <div class="card col-lg-12 ">
+
         <?php
-        $leftSideName  = 'ID Assign List';
-        if (checkPermission('hr-offboarding-id-assign-create')) {
-            $rightSideName = 'ID Assign Create';
-            $routePath     = 'clearence_module/view/hr_panel/id_assign.php';
+        $leftSideName  = 'ID Assign';
+        if (checkPermission('hr-offboarding-id-assign-list')) {
+            $rightSideName = 'ID Assign List';
+            $routePath     = 'offboarding_module/view/hr_panel/id_assign_list.php';
         }
 
         include('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
-                    <thead class="table-dark">
-                        <tr class="text-center">
-                            <th>SL</th>
-                            <th scope="col">EMP Info</th>
-                            <th scope="col">Respondible Information</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            <form action="<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>" method="post">
+                <input type='hidden' hidden name='actionType' value='idAssign'>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <label for="emp_id">Emp. ID:</label>
+                        <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
+                        <div class="text-info" id="message"></div>
+                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden />
 
-                        <?php
-                        if (isset($_POST['emp_id'])) {
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="d-block text-center text-info mb-2">
+                            <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee Information :
+                        </span>
+                        <span class="w-100" id="userInfo"></span>
 
-                            $v_emp_id = $_REQUEST['emp_id'];
-
-                            $strSQL  = oci_parse(
-                                $objConnect,
-                                "SELECT B.EMP_NAME,
-								       b.RML_ID,
-									   B.DEPT_NAME,
-									   B.DESIGNATION,
-									   B.R_CONCERN EMP_CONCERN,
-									   A.R_CONCERN RESPONSIBLE_CONCERN,
-									   (SELECT DEPT_NAME FROM RML_HR_DEPARTMENT WHERE ID=A.RML_HR_DEPARTMENT_ID) RESPONSIBLE_DEPT
-								FROM HR_DEPT_CLEARENCE_CONCERN A,RML_HR_APPS_USER B
-								WHERE A.RML_HR_APPS_USER_ID=B.ID
-								AND b.RML_ID='$v_emp_id'"
-                            );
-                            oci_execute($strSQL);
-                            $number = 0;
-                            while ($row = oci_fetch_assoc($strSQL)) {
-                                $number++;
-                        ?>
-                               <tr>
-                                    <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        echo $row['RESPONSIBLE_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['RESPONSIBLE_DEPT'];
-                                        ?>
-                                    </td>
-                                </tr>
+                    </div>
+                    <!-- <div class="col-sm-12">
+                    <label for="exampleInputEmail1">Remarks? </label>
+                    <input required class="form-control" id="" name="emp_id" type="text" />
+                </div> -->
+                </div>
+                <div class="row mt-2">
+                    <div class="col-sm-6">
+                        <section style="border: 1px solid #eee5e5;
+                        padding: 2%;">
 
 
+                            <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
+                            <hr />
                             <?php
+                            $departmentArray = [];
+                            $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+                                echo ('
+                            <div class="form-check-inline col-12">
+                                <input type="checkbox" class="form-check-input concern_id"  value="' . $row['R_CONCERN'] . '" name="concern_id[]"' . (isset($_POST['concern_id']) && $_POST['concern_id'] == $row['R_CONCERN'] ? "checked" : "") . '
+                                id="check_' . $row['R_CONCERN'] . '">
+                                <label class="form-check-label" for="check_' . $row['R_CONCERN'] . '">' . $row['R_CONCERN'] . '</label>
+                            </div>
+                            ');
                             }
-                        } else {
 
-
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-                            $allDataSQL  = oci_parse(
-                                $objConnect,
-                                "SELECT B.EMP_NAME,
-								       b.RML_ID,
-									   B.DEPT_NAME,
-									   B.DESIGNATION,
-									   B.R_CONCERN EMP_CONCERN,
-									   A.R_CONCERN RESPONSIBLE_CONCERN,
-									   (SELECT DEPT_NAME FROM RML_HR_DEPARTMENT WHERE ID=A.RML_HR_DEPARTMENT_ID) RESPONSIBLE_DEPT
-								FROM HR_DEPT_CLEARENCE_CONCERN A,RML_HR_APPS_USER B
-								WHERE A.RML_HR_APPS_USER_ID=B.ID"
-                            );
-
-                            oci_execute($allDataSQL);
-                            $number = 0;
-                            while ($row = oci_fetch_assoc($allDataSQL)) {
-                                $number++;
                             ?>
-                                <tr>
-                                    <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
-                                        ?>
-                                    </td>
-                                    <td><?php
-                                        echo $row['RESPONSIBLE_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['RESPONSIBLE_DEPT'];
-                                        ?>
-                                    </td>
-                                </tr>
-                        <?php
+                        </section>
+
+
+                    </div>
+                    <div class="col-sm-6">
+                        <section style="border: 1px solid #eee5e5;
+                        padding: 2%;">
+
+                            <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
+                            <hr />
+                            <?php
+                            $departmentArray = [];
+                            $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+                                echo ('
+                            <div class="form-check-inline col-12">
+                                <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
+                                id="check_' . $row['ID'] . '">
+                                <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
+                            </div>
+                            ');
                             }
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
+
+                            ?>
+
+                        </section>
+
+                    </div>
+                    <div class="mt-2 w-25 mx-auto">
+                        <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create
+                        </button>
+                    </div>
+
+                </div>
+
+
+
+            </form>
+
         </div>
+
     </div>
-</div>
 
 
 
@@ -171,7 +129,7 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
             source: function(request, response) {
                 // Fetch data
                 $.ajax({
-                    url: "<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>",
+                    url: "<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>",
                     type: 'POST',
                     dataType: "json",
                     data: {

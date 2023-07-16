@@ -2,9 +2,9 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-if (!checkPermission('hr-offboarding-approval')) {
-    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-}
+// if (!checkPermission('hr-offboarding-exit-interview')) {
+//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+// }
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_view_approval = 0;
@@ -37,7 +37,7 @@ $v_view_approval = 0;
         </div>
 
         <div class="card  col-lg-12 mt-2">
-            <h5 class="card-header"><b>Clearence Approval List</b></h5>
+            <h5 class="card-header"><b>Offboarding Approval List</b></h5>
             <form id="Form2" action="" method="post " class="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
@@ -137,7 +137,7 @@ $v_view_approval = 0;
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				 )
 																AND B.DEPARTMENT_ID IN (
-																				SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+																				SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
 																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 																				)");
 
@@ -204,7 +204,7 @@ $v_view_approval = 0;
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
                         echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Clearence ID ' . $TT_ID_SELECTTED;
+                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
                         echo '<br>';
                         echo '</div>';
                     }
@@ -238,12 +238,12 @@ $v_view_approval = 0;
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
                         echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Clearence ID ' . $TT_ID_SELECTTED;
+                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
                         echo '<br>';
                         echo '</div>';
                     }
                 }
-                echo "<script>window.location = '$basePath/clearence_module/view/lm_panel/approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 

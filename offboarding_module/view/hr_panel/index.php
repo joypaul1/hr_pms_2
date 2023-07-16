@@ -39,12 +39,12 @@ if (!checkPermission('hr-offboarding-report')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Clearence List</b></h5> -->
+        <!-- <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Offboarding List</b></h5> -->
         <?php 
-         $leftSideName  = 'Clearence List';
+         $leftSideName  = 'Offboarding List';
          if (checkPermission('hr-offboarding-create')) {
-             $rightSideName = 'Clearence Create';
-             $routePath     = 'clearence_module/view/hr_panel/create.php';
+             $rightSideName = 'Offboarding Create';
+             $routePath     = 'offboarding_module/view/hr_panel/create.php';
          }
 
          include('../../../layouts/_tableHeader.php');

@@ -429,7 +429,7 @@ function isActive($url)
             </li>
             <!-- attendance-module-list -->
             <!-- clearence Module  -->
-            <li class="menu-item  <?php echo isActive('/clearence_module/view'); ?>">
+            <li class="menu-item  <?php echo isActive('/offboarding_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-file "></i>
                     <div>Offboarding Module</div>
@@ -437,37 +437,37 @@ function isActive($url)
 
                 <ul class="menu-sub">
                     <?php if (checkPermission('hr-offboarding-create') || checkPermission('hr-offboarding-report')) { ?>
-                        <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel'); ?>">
+                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>HR Panel</div>
                             </a>
                             <ul class="menu-sub">
                               
                                 <?php if (checkPermission('hr-offboarding-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/create.php'); ?> <?php echo isActive('/clearence_module/view/hr_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/index.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/create.php'); ?> <?php echo isActive('/offboarding_module/view/hr_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>   List</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-offboarding-approval')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/approval.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-offboarding-exit-interview')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/exit_interview.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/exit_interview.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/exit_interview.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/exit_interview.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>  Exit Interview</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                
                                 <?php if (checkPermission("hr-offboarding-id-assign-list")) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/clearence_module/view/hr_panel/id_assign_list.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/offboarding_module/view/hr_panel/id_assign_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign List</div>
                                         </a>
                                     </li>
@@ -478,22 +478,22 @@ function isActive($url)
                     <?php } ?>
 
                     <?php if (checkPermission('lm-offboarding-approval') || checkPermission('lm-offboarding-report')) { ?>
-                        <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel'); ?>">
+                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('lm-offboarding-approval')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Approval</div>
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/approval.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('lm-offboarding-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/lm_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/lm_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/index.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -502,7 +502,7 @@ function isActive($url)
                     <?php } ?>
 
                     <?php if (checkPermission('concern-offboarding-create') || checkPermission('concern-offboarding-report')) { ?>
-                        <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel'); ?>">
+                        <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
                             </a>
@@ -510,16 +510,16 @@ function isActive($url)
                                 <?php if (checkPermission('concern-offboarding-create')) {
 
                                 ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/concern_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Create</div>
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/create.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('concern-offboarding-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/clearence_module/view/concern_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/clearence_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Clearence Report</div>
+                                    <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/index.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>

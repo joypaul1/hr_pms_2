@@ -72,15 +72,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             ];
 
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+            header("location:" . $basePath . "/offboarding_module/view/hr_panel/create.php");
             exit();
         }
         $message = [
-            'text'   => 'Clearence  Created Successfully.',
+            'text'   => 'Offboarding  Created Successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/clearence_module/view/hr_panel/index.php");
+        header("location:" . $basePath . "/offboarding_module/view/hr_panel/index.php");
         exit();
     }
     $message                  = [
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
-    header("location:" . $basePath . "/clearence_module/view/hr_panel/create.php");
+    header("location:" . $basePath . "/offboarding_module/view/hr_panel/create.php");
     exit();
 }
 
@@ -144,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAs
                     ];
 
                     $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
+                    header("location:" . $basePath . "/offboarding_module/view/hr_panel/id_assign.php");
                     exit();
                 }
             }
@@ -152,11 +152,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAs
 
 
         $message                  = [
-            'text'   => 'Clearence ID Assign Created Successfully.',
+            'text'   => 'Offboarding ID Assign Created Successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign_list.php");
+        header("location:" . $basePath . "/offboarding_module/view/hr_panel/id_assign_list.php");
         exit();
     }
     $message                  = [
@@ -164,6 +164,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAs
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
-    header("location:" . $basePath . "/clearence_module/view/hr_panel/id_assign.php");
+    header("location:" . $basePath . "/offboarding_module/view/hr_panel/id_assign.php");
     exit();
 }

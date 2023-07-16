@@ -2,14 +2,14 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-// if (!checkPermission('hr-offboarding-exit-interview')) {
-//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-// }
+$v_view_approval = 0;
+if (!checkPermission('lm-offboarding-approval')) {
+
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$v_view_approval = 0;
 ?>
-
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -19,8 +19,8 @@ $v_view_approval = 0;
             <form id="Form2" action="" method="post"></form>
             <form id="Form3" action="" method="post"></form>
             <div class="row">
-                <div class="col-sm-6"></div>
-                <div class="col-sm-3">
+			     <div class="col-sm-6"></div>
+                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
                         <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' />
@@ -28,8 +28,8 @@ $v_view_approval = 0;
                 </div>
                 <div class="col-sm-3">
                     <label>&nbsp;</label>
-                    <div class="form-group">
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Approval Data" form="Form1">
+					<div class="form-group">
+                    <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Approval Data" form="Form1">
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@ $v_view_approval = 0;
         </div>
 
         <div class="card  col-lg-12 mt-2">
-            <h5 class="card-header"><b>Clearence Approval List</b></h5>
-            <form id="Form2" action="" method="post " class="card-body">
+            <h5 class="card-header"><b>Offboarding Approval List</b></h5>
+            <form id="Form2" action="" method="post " class ="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -52,8 +52,8 @@ $v_view_approval = 0;
 
 
                             <?php
-
-
+                           
+                            
                             if (isset($_POST['emp_concern'])) {
                                 $emp_concern = $_REQUEST['emp_concern'];
                                 $strSQL  = oci_parse($objConnect, "SELECT B.ID,
@@ -87,7 +87,7 @@ $v_view_approval = 0;
                             ?>
                                     <tbody>
                                         <tr>
-                                            <td><input form="Form2 type=" checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                            <td><input form="Form2 type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
                                             </td>
                                             <td>
@@ -100,7 +100,7 @@ $v_view_approval = 0;
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
+                                               <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
                                             </td>
                                         </tr>
                                     <?php
@@ -162,7 +162,7 @@ $v_view_approval = 0;
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
+                                               <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
                                             </td>
                                         </tr>
                                     <?php
@@ -178,10 +178,9 @@ $v_view_approval = 0;
                                             </td>
                                         </tr>
                                 <?php
-                                }
-                            }
+                                }}
                                 ?>
-                                    </tbody>
+                            </tbody>
 
                         </table>
                     </div>
@@ -194,7 +193,7 @@ $v_view_approval = 0;
         if (isset($_POST['submit_approval_single'])) {
             if (!empty($_POST['check_list'])) {
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-
+               
                     $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
 								SET    APPROVAL_STATUS  = 1,
 									   APPROVE_BY       = '$emp_session_id',
@@ -204,12 +203,12 @@ $v_view_approval = 0;
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
                         echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Clearence ID ' . $TT_ID_SELECTTED;
+                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
                         echo '<br>';
                         echo '</div>';
                     }
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -228,7 +227,7 @@ $v_view_approval = 0;
             if (!empty($_POST['check_list'])) {
                 // Loop to store and display values of individual checked checkbox.
                 foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-
+                   
                     $attnProcSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS
 								SET    APPROVAL_STATUS  = 1,
 									   APPROVE_BY       = '$emp_session_id',
@@ -238,12 +237,12 @@ $v_view_approval = 0;
                     if (oci_execute($attnProcSQL)) {
                         //$errorMsg = "Your Selected Leave Successfully Approved";
                         echo '<div class="alert alert-primary">';
-                        echo 'Successfully Approved Clearence ID ' . $TT_ID_SELECTTED;
+                        echo 'Successfully Approved Offboarding ID ' . $TT_ID_SELECTTED;
                         echo '<br>';
                         echo '</div>';
                     }
                 }
-                echo "<script>window.location = '$basePath/clearence_module/view/lm_panel/approval.php'</script>";
+                echo "<script>window.location = '$basePath/offboarding_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -251,6 +250,7 @@ $v_view_approval = 0;
                 echo 'Sorry! You have not select any ID Code.';
                 echo '</div>';
             }
+				
         }
 
         // Denied option
@@ -272,7 +272,7 @@ $v_view_approval = 0;
 
                     echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
-                echo "<script>window.location = '$basePath/lm_leave_approval.php'</script>";
+                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 echo '<div class="alert alert-danger">';
                 echo 'Sorry! You have not select any ID Code.';
@@ -287,6 +287,7 @@ $v_view_approval = 0;
 </div>
 
 <!-- / Content -->
+
 
 
 <?php require_once('../../../layouts/footer_info.php'); ?>

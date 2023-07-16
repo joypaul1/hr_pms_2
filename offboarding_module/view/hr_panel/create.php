@@ -17,21 +17,21 @@ if (!checkPermission('hr-offboarding-create')) {
     <div class="card  col-lg-12 ">
 
         <?php
-        $leftSideName  = 'Clearence Create';
+        $leftSideName  = 'Offboarding Create';
         if (checkPermission('hr-offboarding-report')) {
-            $rightSideName = 'Clearence Report';
-            $routePath     = 'clearence_module/view/hr_panel/index.php';
+            $rightSideName = 'Offboarding Report';
+            $routePath     = 'offboarding_module/view/hr_panel/index.php';
         }
 
         include('../../../layouts/_tableHeader.php');
         ?>
         <!-- <div class='card-title'>
             <div href="#" style="font-size: 18px;font-weight:700">
-                <i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;font-size:20px"></i>Clearence Create
+                <i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;font-size:20px"></i>Offboarding Create
             </div>
         </div> -->
         <div class="card-body">
-            <form action="<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>" method="post">
+            <form action="<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>" method="post">
                 <input type='hidden' hidden name='actionType' value='createClearence'>
                 <div class="row ">
                     <div class="col-sm-3">
@@ -104,7 +104,7 @@ if (!checkPermission('hr-offboarding-create')) {
             source: function(request, response) {
                 // Fetch data
                 $.ajax({
-                    url: "<?php echo ($basePath . '/clearence_module/action/hr_panel.php'); ?>",
+                    url: "<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>",
                     type: 'POST',
                     dataType: "json",
                     data: {
