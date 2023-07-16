@@ -65,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         );
 
 
-
-
         if (@oci_execute($strSQL)) {
             $message = [
                 'text'   => 'Offboarding  Created Successfully.',
