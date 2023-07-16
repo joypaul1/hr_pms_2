@@ -281,7 +281,6 @@ if (!checkPermission('hr-offboarding-report')) {
                                                             oci_execute($statusDataSQL);
 
                                                             while ($statusRow = oci_fetch_array($statusDataSQL)) {
-                                                                print_r($statusRow['APPROVE_DATE']);
                                                                 $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
                                                                 echo '<div class="form-check-inline col-5">
                                                                     <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
