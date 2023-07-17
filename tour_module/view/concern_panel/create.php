@@ -55,7 +55,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 			<!-- Basic Layout & Basic with Icons -->
 			<div class="row">
 				<!-- Basic Layout -->
-				<div class="col-xxl">
+				<div class="col-8">
 					<div class="card mb-4">
 						<div class="card-header d-flex align-items-center justify-content-between">
 							<h5 class="mb-0">Tour Application Form</h5>
@@ -160,7 +160,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											'status' => 'true',
 										];
 										$_SESSION['noti_message'] = $message;
-										
 									} else {
 										// echo "Sorry! Contact with IT.";
 										$message = [
@@ -169,7 +168,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										];
 										$_SESSION['noti_message'] = $message;
 									}
-
 								} else {
 									@$lastError = error_get_last();
 									@$error = $lastError ? "" . $lastError["message"] . "" : "";
@@ -189,6 +187,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 					</div>
 				</div>
+				<div class="col-4">
+					<div class="card">
+						<div class="card-header text-danger">
+							[NOTE : This Application  will be automatically  approved by your id. So becareful to create/apply this.]
+						</div>
+					</div>
+				</div>
 
 			</div>
 
@@ -201,9 +206,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
 </div>
-
-
 <!-- / Content -->
+
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>

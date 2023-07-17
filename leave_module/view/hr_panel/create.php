@@ -7,7 +7,7 @@ if (!checkPermission('hr-leave-create')) {
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 ?>
-
+<!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -51,7 +51,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <!-- Basic Layout & Basic with Icons -->
             <div class="row">
                 <!-- Basic Layout -->
-                <div class="col-xxl">
+                <div class="col-8">
                     <div class="card mb-4">
                         <div class="card-header d-flex align-items-center justify-content-between">
                             <h5 class="mb-0"> Leave Application Form <small></small> </h5>
@@ -217,6 +217,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     </div>
                 </div>
+                <div class="col-4">
+                    <div class="card">
+                        <div class="card-header text-danger">
+                            [NOTE : This Application will be automatically approved by your id. So becareful to create/apply this.]
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
@@ -230,6 +237,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 </div>
 
-
+<!-- / Content -->
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
