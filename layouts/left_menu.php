@@ -645,6 +645,31 @@ function isActive($url)
                                 </a>
                             </li>
                         <?php } ?>
+
+                        <?php if (checkPermission('user-create')) { ?>
+
+                            <li class="menu-item <?php echo isActive('admin_setting/view/user_create.php'); ?>">
+                                <a href="<?php echo $basePath ?>/admin_setting/view/user_create.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">User Create</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('user-list')) { ?>
+
+                            <li class="menu-item <?php echo isActive('admin_setting/view/user_list.php'); ?>">
+                                <a href="<?php echo $basePath ?>/admin_setting/view/user_list.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">User List</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('user-transfer')) { ?>
+
+                            <li class="menu-item <?php echo isActive('admin_setting/view/user_transfer.php'); ?>">
+                                <a href="<?php echo $basePath ?>/admin_setting/view/user_transfer.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">User Transfer</div>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
 
                 </li>
