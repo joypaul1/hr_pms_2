@@ -253,7 +253,7 @@ $v_view_approval = 0;
                         $_SESSION['noti_message'] = $message;
                     }
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                echo "<script>window.location = ".$basePath."'/leave_module/view/lm_panel/approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -265,6 +265,8 @@ $v_view_approval = 0;
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = ".$basePath."'/leave_module/view/lm_panel/approval.php'</script>";
+
             }
         }
 
@@ -302,7 +304,9 @@ $v_view_approval = 0;
                         $_SESSION['noti_message'] = $message;
                     }
                 }
-                echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+                echo "<script>window.location = ".$basePath."'/leave_module/view/lm_panel/approval.php'</script>";
+
+                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
             } else {
                 //$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -314,6 +318,8 @@ $v_view_approval = 0;
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
+                echo "<script>window.location = ".$basePath."'/leave_module/view/lm_panel/approval.php'</script>";
+
             }
         }
 
@@ -353,6 +359,8 @@ $v_view_approval = 0;
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
+                echo "<script> window.location.href ='$basePath/leave_module/view/lm_panel/approval.php'; </script>";
+
             }
         }
 
