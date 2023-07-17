@@ -83,6 +83,20 @@ require_once('../inc/connoracle.php');
 									and trunc(a.START_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
 									and a.LINE_MANAGER_APPROVAL_STATUS IS NULL
 									UNION ALL
+									SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID),'$basePath/offboarding_module/view/lm_panel/approval.php' APPROVAL_LINK 
+										FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
+										WHERE A.ID=B.EMP_CLEARENCE_ID
+										AND A.RML_HR_APPS_USER_ID=C.ID
+										AND B.APPROVAL_STATUS IS NULL
+										AND B.CONCERN_NAME IN (
+														SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+														(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
+														 )
+										AND B.DEPARTMENT_ID IN (
+														SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+														(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
+														)
+									UNION ALL
 									SELECT 'PMS [Level-1]' APPROVAL_TYPE,COUNT(EMP_ID)NUMBER_TOTAL,'lm_pms_approval.php' APPROVAL_LINK 
 									FROM HR_PMS_EMP
 									WHERE SELF_SUBMITTED_STATUS=1

@@ -43,8 +43,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <label class="form-label" for="basic-default-fullname">Approval Status</label>
                     <select name="approval_status" class="form-control cust-control">
                         <option selected value="">---</option>
+                        <option value="2">Pending</option>
                         <option value="1">Approved</option>
-                        <option value="0">Pending</option>
+						<option value="0">Denied</option>
 
                     </select>
                 </div>
@@ -91,13 +92,40 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <tbody>
 
                         <?php
-                        if (isset($_POST['emp_id'])) {
+                        if (isset($_POST['start_date'])) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
                             $v_approval_status = $_REQUEST['approval_status'];
                             $v_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
                             $v_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
+                            if($v_approval_status=='2'){
+								$strSQL  = oci_parse(
+                                $objConnect,
+                                "SELECT  
+								B.RML_ID,
+                                B.EMP_NAME,
+                                B.R_CONCERN,
+                                B.DEPT_NAME,B.BRANCH_NAME,B.DESIGNATION,								
+								A.START_DATE, 
+								A.END_DATE, 
+								A.REMARKS, 
+								A.ENTRY_DATE, 
+								A.ENTRY_BY, 
+								A.LINE_MANAGER_ID, 
+								A.LINE_MANAGER_APPROVAL_STATUS, 
+								A.APPROVAL_DATE, 
+								A.APPROVAL_REMARKS
+								FROM RML_HR_EMP_TOUR A,RML_HR_APPS_USER B
+								WHERE A.RML_ID=B.RML_ID
+								AND (A.START_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY') or
+			                         A.END_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
+									 )
+								AND ('$v_emp_id' is null or B.RML_ID='$v_emp_id')
+								AND  A.LINE_MANAGER_APPROVAL_STATUS IS NULL
+								"
+                            );
+							}else{
                             $strSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT  
@@ -123,6 +151,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								AND ('$v_approval_status' is null or A.LINE_MANAGER_APPROVAL_STATUS='$v_approval_status')
 								"
                             );
+							}
+							
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {

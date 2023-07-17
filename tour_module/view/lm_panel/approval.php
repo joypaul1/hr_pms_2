@@ -97,13 +97,13 @@ $v_view_approval = 0;
 								if (isset($_POST['start_date'])) {
 
 									$strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
-														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
+														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_RML_ID='$emp_session_id'
+														and a.LINE_MANAGER_ID='$emp_session_id'
 														 and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
 														 and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
                                                               trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
-														and a.LINE_MNGR_APVL_STS IS NULL
+														and a.LINE_MANAGER_APPROVAL_STATUS IS NULL
 														order by START_DATE desc");
 
 									oci_execute($strSQL);
@@ -160,12 +160,17 @@ $v_view_approval = 0;
 									}
 								} else {
 
-									$allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
-														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
+									$allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
+																	a.REMARKS,
+																	a.ENTRY_BY,
+																	b.DEPT_NAME,
+																	b.BRANCH_NAME,
+																	b.DESIGNATION
+														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_RML_ID='$emp_session_id'
-														and a.LINE_MNGR_APVL_STS IS NULL
-														and trunc(START_DATE)> TO_DATE('01/01/2022','DD/MM/YYYY') 
+														and a.LINE_MANAGER_ID='$emp_session_id'
+														and trunc (a.START_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
+														and a.LINE_MANAGER_APPROVAL_STATUS IS NULL
 														order by START_DATE desc");
 
 									@oci_execute($allDataSQL);
