@@ -46,7 +46,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		$v_emp_id = $_REQUEST['emp_id'];
 		$strSQL  = oci_parse(
 			$objConnect,
-			"SELECT RML_ID,EMP_NAME,DEPT_NAME,DESIGNATION,BRANCH_NAME FROM RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$v_emp_id'"
+			"SELECT RML_ID,
+			        EMP_NAME,
+					DEPT_NAME,
+					DESIGNATION,
+					BRANCH_NAME 
+					FROM RML_HR_APPS_USER 
+				WHERE IS_ACTIVE=1 
+				AND R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
+				AND RML_ID ='$v_emp_id'"
 		);
 		@oci_execute($strSQL);
 		$number = 0;

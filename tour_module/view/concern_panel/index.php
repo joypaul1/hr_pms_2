@@ -117,6 +117,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								A.APPROVAL_REMARKS
 								FROM RML_HR_EMP_TOUR A,RML_HR_APPS_USER B
 								WHERE A.RML_ID=B.RML_ID
+								AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id')
+								AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
 								AND (A.START_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY') or
 			                         A.END_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
 									 )
@@ -143,6 +145,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								A.APPROVAL_REMARKS
 								FROM RML_HR_EMP_TOUR A,RML_HR_APPS_USER B
 								WHERE A.RML_ID=B.RML_ID
+								AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
 								AND (A.START_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY') or
 			                         A.END_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
 									 )
@@ -212,6 +215,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								A.APPROVAL_REMARKS
 								FROM RML_HR_EMP_TOUR A,RML_HR_APPS_USER B
 								WHERE A.RML_ID=B.RML_ID
+								AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id')
 								AND A.START_DATE BETWEEN to_date((SELECT TO_CHAR(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1),'dd/mm/yyyy') FROM dual),'dd/mm/yyyy') AND to_date(( SELECT TO_CHAR(add_months(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1), 1) -1,'dd/mm/yyyy') FROM dual),'dd/mm/yyyy')
 								"
                             );

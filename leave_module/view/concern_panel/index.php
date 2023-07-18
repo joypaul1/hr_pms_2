@@ -96,6 +96,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								A.IS_APPROVED
 							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
 							WHERE  A.RML_ID=B.RML_ID
+							AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
 							AND A.RML_ID='$v_emp_id'
 							ORDER BY START_DATE DESC"
                             );
@@ -149,6 +150,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								A.IS_APPROVED
 							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
 							WHERE  A.RML_ID=B.RML_ID
+							AND b.R_CONCERN='RMWL'
 							AND START_DATE BETWEEN to_date((SELECT TO_CHAR(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1),'dd/mm/yyyy') FROM dual),'dd/mm/yyyy') AND to_date(( SELECT TO_CHAR(add_months(trunc(sysdate) - (to_number(to_char(sysdate,'DD')) - 1), 1) -1,'dd/mm/yyyy') FROM dual),'dd/mm/yyyy')
 							ORDER BY START_DATE DESC"
                             );
