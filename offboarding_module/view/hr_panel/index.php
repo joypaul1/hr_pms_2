@@ -57,6 +57,7 @@ if (!checkPermission('hr-offboarding-report')) {
                             <th scope="col">EMP Info</th>
                             <th scope="col">Approval Status</th>
                             <th scope="col">Exit Interview Status</th>
+                            <th scope="col">Reason Info</th>
                             <th scope="col">Created Info</th>
                         </tr>
                     </thead>
@@ -81,7 +82,8 @@ if (!checkPermission('hr-offboarding-report')) {
 									   EXIT_INTERVIEW_DATE,
 									   EXIT_INTERVIEW_BY,
 									   CREATED_DATE,
-									   CREATED_BY
+									   CREATED_BY,
+									   LAST_WORKING_DATE,RESIGNATION_DATE,REASON
 								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
 								  WHERE A.RML_HR_APPS_USER_ID=B.ID
 								  AND B.RML_ID='$v_emp_id'"
@@ -114,10 +116,10 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
-                                        </br>;
+                                        </br>
                                         <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#statusModal">
                                             See Status <i class="menu-icon tf-icons bx bx-right-arrow"></i>
-                                        </button>;
+                                        </button>
 
                                         <!--statusModal Modal -->
                                         <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
@@ -188,10 +190,18 @@ if (!checkPermission('hr-offboarding-report')) {
                                         }
                                         ?>
                                     </td>
-                                    <td><?php
-                                        echo $row['CREATED_DATE'];
+									 <td><?php 
+                                        echo 'Last Working Day: '.$row['LAST_WORKING_DATE'];
                                         echo '</br>';
-                                        echo $row['CREATED_BY'];
+										 echo 'Resignation Date: '.$row['RESIGNATION_DATE'];
+                                        echo '</br>';
+                                        echo 'Reason: '.$row['REASON'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        echo 'Created:'.$row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo 'Created By'.$row['CREATED_BY'];
                                         ?>
                                     </td>
                                 </tr>
@@ -216,7 +226,8 @@ if (!checkPermission('hr-offboarding-report')) {
 										   A.EXIT_INTERVIEW_DATE,
 										   A.EXIT_INTERVIEW_BY,
 										   A.CREATED_DATE,
-										   A.CREATED_BY
+										   A.CREATED_BY,
+										   LAST_WORKING_DATE,RESIGNATION_DATE,REASON
 									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
 									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
                             );
@@ -278,10 +289,18 @@ if (!checkPermission('hr-offboarding-report')) {
 
 
                                     </td>
-                                    <td><?php
-                                        echo $row['CREATED_DATE'];
+                                     <td><?php
+                                        echo 'Last Working Day: '.$row['LAST_WORKING_DATE'];
                                         echo '</br>';
-                                        echo $row['CREATED_BY'];
+										 echo 'Resignation Date: '.$row['RESIGNATION_DATE'];
+                                        echo '</br>';
+                                        echo 'Reason: '.$row['REASON'];
+                                        ?>
+                                    </td>
+									<td><?php
+                                        echo 'Created: '.$row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo 'Created By: '.$row['CREATED_BY'];
                                         ?>
                                     </td>
                                 </tr>
