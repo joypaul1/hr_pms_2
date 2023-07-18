@@ -37,12 +37,12 @@ if (!checkPermission('hr-offboarding-create')) {
                         <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
                     </div>
-                    <div class="col-sm-4"></div>
-                    <div class="col-sm-4">
-                        <span class="d-block text-center text-info mb-2">
+                    <!-- <div class="col-sm-2"></div> -->
+                    <div class="col-sm-8">
+                        <!-- <span class="d-block text-center text-info mb-2">
                             <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee
                             Information :
-                        </span>
+                        </span> -->
                         <span class="w-100" id="userInfo"></span>
 
                     </div>
@@ -194,9 +194,13 @@ if (!checkPermission('hr-offboarding-create')) {
                     <div class="card p-3">
                         <div class="d-flex  text-center">
                             <div class="w-100">
-                                <h4 class="mb-0 mt-0">${info.EMP_NAME}</h4>
-                                <span>${info.DESIGNATION}</span>
-                                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                              
+                                <div class="p-2  bg-primary d-flex justify-content-between rounded text-white stats">
+                                    <div class="d-flex flex-column">
+                                        <span class="articles">Name </span>
+                                        <span class="number1">${info.EMP_NAME}</span>
+
+                                    </div>
                                     <div class="d-flex flex-column">
                                         <span class="articles">ID</span>
                                         <span class="number1">${info.RML_ID}</span>
@@ -210,10 +214,18 @@ if (!checkPermission('hr-offboarding-create')) {
                                         <span class="rating">Department</span>
                                         <span class="number3">${info.DEPT_NAME}</span>
                                     </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">Designation</span>
+                                        <span class="number3">${info.DESIGNATION}</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">View Profile</span>
+                                        <span class="number3">
+                                        <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="mt-2 d-flex flex-row justify-content-center">
-                                    <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
-                                </div>
+                               
                             </div>
                         </div>
                     </div>
