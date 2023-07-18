@@ -48,12 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $empConcernID               = ($_POST['emp_rml_id']);
     $emp_session_id             = $_SESSION['HR']['emp_id_hr'];
     // new variable
-    $last_working_day           = ($_POST['last_working_day']);
-    $resignation_date           = ($_POST['resignation_date']);
+	$last_working_day = date("d/m/Y", strtotime($_REQUEST['last_working_day']));
+	$resignation_date = date("d/m/Y", strtotime($_REQUEST['resignation_date']));
+    //$last_working_day           = ($_POST['last_working_day']);
+    //$resignation_date           = ($_POST['resignation_date']);
     $reason_of_resignation      = ($_POST['reason_of_resignation']);
     // new variable
 
-    $remarks                    = ($_POST['remarks']); // old variable rename to reason_of_resignation
+    //$remarks                    = ($_POST['remarks']); // old variable rename to reason_of_resignation
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
@@ -66,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$remarks','$allDepartmentID','$emp_session_id','$concern_name','');
+            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$reason_of_resignation','$allDepartmentID','$emp_session_id','$concern_name','$last_working_day','$resignation_date','$reason_of_resignation');
 			END;"
         );
 
