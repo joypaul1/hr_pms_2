@@ -672,6 +672,13 @@ function isActive($url)
                                 </a>
                             </li>
                         <?php } ?>
+                        <?php if (checkPermission('concern-work-station')) { ?>
+                            <li class="menu-item <?php echo isActive('admin_setting/view/workstation.php'); ?>">
+                                <a href="<?php echo $basePath ?>/admin_setting/view/workstation.php" class="menu-link">
+                                    <div data-i18n="Under Maintenance">Work Station Change</div>
+                                </a>
+                            </li>
+                        <?php } ?>
                     </ul>
 
                 </li>

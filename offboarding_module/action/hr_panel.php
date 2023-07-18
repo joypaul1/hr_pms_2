@@ -5,7 +5,7 @@ require_once('../../inc/connoracle.php');
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $baseUrl        = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-$basePath       = $baseUrl . '/rHRT';
+$basePath       = $baseUrl . '/rml_apps';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'searchUser') {
 
