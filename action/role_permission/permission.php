@@ -10,7 +10,6 @@ session_start();
 $response = array();
 
 
-
 // Handle Create request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'create') {
 
