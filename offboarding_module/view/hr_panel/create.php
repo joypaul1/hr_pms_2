@@ -46,7 +46,10 @@ if (!checkPermission('hr-offboarding-create')) {
                         <span class="w-100" id="userInfo"></span>
 
                     </div>
-                    <div class="col-sm-6">
+                   
+                </div>
+                <div class="row mt-3">
+                <div class="col-sm-6">
                         <label for="last_working_day">Last Working Day <span class="text-danger"> *</span></label>
                         <input class="form-control" id="last_working_day" name="last_working_day" required type="date" />
                     </div>
