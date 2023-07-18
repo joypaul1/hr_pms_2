@@ -18,8 +18,8 @@
         }
 
         /* Darker background on mouse-over */
-        .btn:hover {
-            background-color: RoyalBlue;
+        label {
+          font-weight: 600;
         }
 
         #main {
@@ -91,12 +91,63 @@
     date_default_timezone_set("Asia/Dhaka");
     require_once('../inc/config.php');
     require_once('../inc/connoracle.php');
+    $errors = array();
+    if (!isset($_GET['id']) || empty($_GET['id'])) {
+        $errors[] = 'Clearence ID is required.';
+    }
+    if (!isset($_GET['rml_id']) || empty($_GET['rml_id'])) {
+        $errors[] = 'Employee RML ID is required.';
+    }
 
-    // if (!isset($_GET['rml_emp_id']) || empty($_GET['rml_emp_id'])) {
-    //     $errors[] = 'Employee ID is required.';
-    // }
+    if (count($errors) > 0) {
+        echo '<div class="alert alert-danger">';
+        echo '<ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . $error . '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+        die();
+    }
     $emp_id        = ($_GET['id']);
+    $rml_id        = ($_GET['rml_id']);
 
+
+    $clearanceSQL  = oci_parse($objConnect, "SELECT * FROM EMP_CLEARENCE WHERE ID='$emp_id'");
+    oci_execute($clearanceSQL);
+    $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
+
+
+
+    $strSQL  = oci_parse(
+        $objConnect,
+        "SELECT RML_ID,
+            EMP_NAME,
+            MOBILE_NO,
+            DEPT_NAME,
+            IEMI_NO,
+            LINE_MANAGER_RML_ID,
+            LINE_MANAGER_MOBILE,
+            DEPT_HEAD_RML_ID,
+            DEPT_HEAD_MOBILE_NO,
+            BRANCH_NAME,
+            DESIGNATION,
+            BLOOD,
+            MAIL,
+            DOJ,
+            DOC,
+            GENDER,
+            R_CONCERN
+        FROM RML_HR_APPS_USER 
+        WHERE RML_ID='$rml_id'"
+    );
+
+
+
+    oci_execute($strSQL);
+    $emp_info = oci_fetch_assoc($strSQL);
+
+    // die();
     ?>
     <div style="text-align: right;" id="hidden">
         <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
@@ -137,7 +188,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['EMP_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -148,7 +199,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['RML_ID'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -161,7 +212,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['DESIGNATION'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -172,7 +223,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['DEPT_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -185,7 +236,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['BRANCH_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -196,7 +247,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['DOJ'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -209,7 +260,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $emp_info['DOC'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -220,9 +271,10 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $clearanceEmpData['RESIGNATION_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -233,7 +285,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $clearanceEmpData['LAST_WORKING_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -257,7 +309,7 @@
                         </div>
                     </td>
                     <td colspan="3" style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $clearanceEmpData['REASON'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
             </table>
@@ -372,10 +424,8 @@
 
 
             <table class="bordered" style="width: 100%;">
-                <tr style="background-color: #eaeaea;text-align:center">
-                    <td>
-                        Sl No.
-                    </td>
+                <tr style="background-color: #eaeaea;text-align:center; font-weight: 600;">
+                    <td >Sl No. </td>
                     <td>Department/ Section/Unit</td>
                     <td>Any payment Due/Remarks</td>
                     <td>Signature</td>
@@ -394,20 +444,18 @@
                 );
                 $result = oci_execute($statusDataSQL);
                 if ($result) {
-                    $sl=1;
-                    while ($statusRow = oci_fetch_array($statusDataSQL)) {
-                        print_r($statusRow );
-                        die();
+                    $sl = 1;
+                    while ($statusRow = oci_fetch_assoc($statusDataSQL)) {
                         echo '<tr>
-                                <td style="background-color: #ddd;">
-                                    '.($sl++).'
+                                <td style="background-color: #ddd;text-align:center">
+                                    ' . ($sl++) . '
                                 </td>
                                 </td>
                                 <td>
                                 ' . $statusRow['DEPT_NAME'] . '
                                 </td>
                                 <td><input type="text" style="width: 100%; border: none;outline: none;"></td>
-                                <td><input type="text" style="width: 100%; border: none;outline: none;">  ' . $statusRow['APPROVE_BY'] . '</td>
+                                <td><input type="text" value ="' . $statusRow['APPROVE_BY'] . '"  style="width: 100%; border: none;outline: none;">  </td>
                             </tr>';
                     }
                 }
@@ -603,7 +651,7 @@
 
             </table>
         </fieldset>
-        <span style="color: #7b7b7b;">
+        <span style="font-weight:600">
             NB: Detail final settlement calculation is being attached.
         </span>
 
