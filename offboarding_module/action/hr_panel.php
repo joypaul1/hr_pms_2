@@ -5,7 +5,7 @@ require_once('../../inc/connoracle.php');
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $baseUrl        = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-$basePath       = $baseUrl . '/rml_apps';
+$basePath       = $baseUrl . '/rHRT';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'searchUser') {
 
@@ -42,12 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         $errors[] = 'Concern is required.';
     }
 
-    $emp_id         = ($_POST['emp_id']);
-    $concern_name   = ($_POST['concern_name']);
-    $department_id  = ($_POST['department_id']);
-    $empConcernID   = ($_POST['emp_rml_id']);
-    $remarks        = ($_POST['remarks']);
-    $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+    $emp_id                     = ($_POST['emp_id']);
+    $concern_name               = ($_POST['concern_name']);
+    $department_id              = ($_POST['department_id']);
+    $empConcernID               = ($_POST['emp_rml_id']);
+    $emp_session_id             = $_SESSION['HR']['emp_id_hr'];
+    // new variable
+    $last_working_day           = ($_POST['last_working_day']);
+    $resignation_date           = ($_POST['resignation_date']);
+    $reason_of_resignation      = ($_POST['reason_of_resignation']);
+    // new variable
+
+    $remarks                    = ($_POST['remarks']); // old variable rename to reason_of_resignation
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
