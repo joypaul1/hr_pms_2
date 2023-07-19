@@ -89,10 +89,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <tbody>
 
                         <?php
-                        if (isset($_POST['emp_id'])) {
+                        if (isset($_POST['start_date'])) {
 
-                            $v_emp_id = $_REQUEST['emp_id'];
-
+                            $v_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                            $v_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
                             $strSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.RML_ID,
@@ -107,6 +107,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                              FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
                              WHERE  A.RML_ID=B.RML_ID
                              AND A.RML_ID='$emp_session_id'
+							 AND TRUNC (A.START_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
                              ORDER BY START_DATE DESC"
                             );
                             oci_execute($strSQL);
