@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 
@@ -7,7 +6,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 if (!checkPermission('hr-offboarding-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-
 
 ?>
 
@@ -35,7 +33,6 @@ if (!checkPermission('hr-offboarding-report')) {
             </div>
         </form>
     </div>
-
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -93,7 +90,7 @@ if (!checkPermission('hr-offboarding-report')) {
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
                         ?>
-                                <tr>
+                                <tr style="text-align: center;">
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
@@ -117,60 +114,9 @@ if (!checkPermission('hr-offboarding-report')) {
                                         }
                                         ?>
                                         </br>
-                                        <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#statusModal">
+                                        <button type="button" class="btn btn-sm btn-outline-info" onclick="seeStatus(<?php echo $row['ID']  ?>)">
                                             See Status <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                         </button>
-
-                                        <!--statusModal Modal -->
-                                        <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW FOR :
-                                                            <span class="text-info"> <?php echo $row['RML_ID'] ?> </span>
-
-                                                        </h5>
-
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="row text-left">
-                                                            <?php
-                                                            $statusDataSQL = oci_parse($objConnect, "SELECT 
-                                                                d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
-                                                                d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
-                                                                d.APPROVE_DATE, h.DEPT_NAME
-                                                            FROM EMP_CLEARENCE_DTLS d
-                                                            JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID
-                                                            WHERE  d.EMP_CLEARENCE_ID = {$row['ID']}
-                                                            ");
-
-                                                            oci_execute($statusDataSQL);
-
-                                                            while ($statusRow = oci_fetch_array($statusDataSQL)) {
-
-                                                                $checked = $statusRow['APPROVAL_STATUS'] == 1 ? 'checked' : '';
-
-                                                                echo '<div class="form-check-inline col-5">
-                                                                <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
-                                                                <label  style="opacity:1" class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
-                                                            </div><div class=" col-5">
-                                                            <input type="text" id="APPROVE_DATE" class="form-control cust-control" 
-                                                            value="' . $statusRow['APPROVE_DATE'] . '" disabled placeholder="APPROVE DATE">
-                                                            </div>';
-                                                            }
-                                                            ?>
-
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!--statusModal Modal -->
                                     </td>
                                     <td><?php
                                         if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
@@ -189,19 +135,25 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
+                                        <a href="<?php echo $basePath . "/document/finalsatelment.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
+                                            <button type="button" class="btn btn-sm btn-outline-info">
+                                                Print Preview <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                            </button>
+
+                                        </a>
                                     </td>
-									 <td><?php 
-                                        echo 'Last Working Day: '.$row['LAST_WORKING_DATE'];
+                                    <td><?php
+                                        echo 'Last Working Day: ' . $row['LAST_WORKING_DATE'];
                                         echo '</br>';
-										 echo 'Resignation Date: '.$row['RESIGNATION_DATE'];
+                                        echo 'Resignation Date: ' . $row['RESIGNATION_DATE'];
                                         echo '</br>';
-                                        echo 'Reason: '.$row['REASON'];
+                                        echo 'Reason: ' . $row['REASON'];
                                         ?>
                                     </td>
                                     <td><?php
-                                        echo 'Created:'.$row['CREATED_DATE'];
+                                        echo 'Created:' . $row['CREATED_DATE'];
                                         echo '</br>';
-                                        echo 'Created By'.$row['CREATED_BY'];
+                                        echo 'Created By' . $row['CREATED_BY'];
                                         ?>
                                     </td>
                                 </tr>
@@ -236,8 +188,7 @@ if (!checkPermission('hr-offboarding-report')) {
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-								//print_r ($row);
-								//die();
+
                             ?>
                                 <tr class="text-center">
                                     <td>
@@ -251,10 +202,10 @@ if (!checkPermission('hr-offboarding-report')) {
                                         echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
                                         echo '</br>';
                                         echo $row['DESIGNATION'];
-										
+
                                         ?>
                                     </td>
-                                    <td><?php  
+                                    <td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -286,21 +237,28 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
+                                        </br>
 
+                                        <a href="<?php echo $basePath . "/document/finalsatelment.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
+                                            <button type="button" class="btn btn-sm btn-outline-info">
+                                                Print Preview <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                            </button>
+
+                                        </a>
 
                                     </td>
-                                     <td><?php
-                                        echo 'Last Working Day: '.$row['LAST_WORKING_DATE'];
+                                    <td><?php
+                                        echo 'Last Working Day: ' . $row['LAST_WORKING_DATE'];
                                         echo '</br>';
-										 echo 'Resignation Date: '.$row['RESIGNATION_DATE'];
+                                        echo 'Resignation Date: ' . $row['RESIGNATION_DATE'];
                                         echo '</br>';
-                                        echo 'Reason: '.$row['REASON'];
+                                        echo 'Reason: ' . $row['REASON'];
                                         ?>
                                     </td>
-									<td><?php
-                                        echo 'Created: '.$row['CREATED_DATE'];
+                                    <td><?php
+                                        echo 'Created: ' . $row['CREATED_DATE'];
                                         echo '</br>';
-                                        echo 'Created By: '.$row['CREATED_BY'];
+                                        echo 'Created By: ' . $row['CREATED_BY'];
                                         ?>
                                     </td>
                                 </tr>
@@ -321,14 +279,14 @@ if (!checkPermission('hr-offboarding-report')) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW :
-                       
+
 
                     </h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body row text-left ">
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
