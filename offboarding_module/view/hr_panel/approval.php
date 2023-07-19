@@ -42,159 +42,49 @@ $v_view_approval = 0;
             $leftSideName  = 'Offboarding Approval List';
             include('../../../layouts/_tableHeader.php');
             ?>
-            <form id="Form2" action="" method="post " class="card-body">
-                <div class="">
-                    <div class="resume-item d-flex flex-column flex-md-row">
-                        <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
-                            <thead class="table-dark text-center">
-                                <tr class="text-center">
-                                    <th scope="col">Sl</th>
-                                    <th scope="col">Emp Info</th>
-                                </tr>
-                            </thead>
-
-
-
-                            <?php
-
-
-                            if (isset($_POST['emp_concern'])) {
-                                $emp_concern = $_REQUEST['emp_concern'];
-                                $strSQL  = oci_parse($objConnect, "SELECT B.ID,
-																	   C.EMP_NAME,
-																	   C.RML_ID,
-																	   C.R_CONCERN,
-																	   C.DEPT_NAME,
-																	   C.DESIGNATION,
-																	   C.BRANCH_NAME,
-																	   A.CREATED_DATE,
-																	   A.CREATED_BY
-																FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
-																WHERE A.ID=B.EMP_CLEARENCE_ID
-																AND A.RML_HR_APPS_USER_ID=C.ID
-																AND B.APPROVAL_STATUS IS NULL
-																AND A.APPROVAL_STATUS IS NULL
-																AND C.RML_ID='$emp_concern'
-																AND B.CONCERN_NAME IN (
-																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				 )
-																AND B.DEPARTMENT_ID IN (
-																				SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				)");
-
-                                oci_execute($strSQL);
-                                $number = 0;
-
-                                while ($row = oci_fetch_assoc($strSQL)) {
-                                    $number++;
-                                    $v_view_approval = 1;
-                            ?>
-                                    <tbody>
-                                        <tr>
-                                            <td><input form="Form2 type=" checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
-                                                <?php echo $number; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row['EMP_NAME'];
-                                                echo ',<br>';
-                                                echo $row['RML_ID'];
-                                                echo ',<br>';
-                                                echo $row['DEPT_NAME'];
-                                                echo ',<br>';
-                                                echo $row['DESIGNATION'];
-                                                echo ',<br>';
-                                                echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
-                                            </td>
-                                        </tr>
-                                    <?php
-                                }
-                                if ($v_view_approval > 0) {
-                                    ?>
-                                        <tr>
-                                            <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
-                                            </td>
-
-                                            <td><input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" /></td>
-                                        </tr>
-
-                                    <?php
-                                }
-                            } else {
-
-                                $allDataSQL  = oci_parse($objConnect, "SELECT B.ID,
-																	   C.EMP_NAME,
-																	   C.RML_ID,
-																	   C.R_CONCERN,
-																	   C.DEPT_NAME,
-																	   C.DESIGNATION,
-																	   C.BRANCH_NAME,
-																	   A.CREATED_DATE,
-																	   A.CREATED_BY
-																FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
-																WHERE A.ID=B.EMP_CLEARENCE_ID
-																AND A.RML_HR_APPS_USER_ID=C.ID
-																AND B.APPROVAL_STATUS IS NULL
-																AND A.APPROVAL_STATUS IS NULL
-																AND B.CONCERN_NAME IN (
-																				SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				 )
-																AND B.DEPARTMENT_ID IN (
-																				SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-																				(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-																				)");
-
-                                @oci_execute($allDataSQL);
-                                $number = 0;
-
-                                while ($row = oci_fetch_assoc($allDataSQL)) {
-                                    $number++;
-                                    $v_view_approval = 1;
-                                    ?>
-                                        <tr>
-                                            <td><input form="Form2" type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
-                                                <?php echo $number; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo $row['EMP_NAME'];
-                                                echo ',<br>';
-                                                echo $row['RML_ID'];
-                                                echo ',<br>';
-                                                echo $row['DEPT_NAME'];
-                                                echo ',<br>';
-                                                echo $row['DESIGNATION'];
-                                                echo ',<br>';
-                                                echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
-                                            </td>
-                                        </tr>
-                                    <?php
-                                }
-                                if ($v_view_approval > 0) {
-                                    ?>
-                                        <tr>
-                                            <td>
-                                                <input form="Form2" class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
-                                            </td>
-                                            <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" />
-                                            </td>
-                                        </tr>
-                                <?php
-                                }
-                            }
-                                ?>
-                                    </tbody>
-
-                        </table>
+            <div class="card-body">
+                <form>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="basic-default-name" placeholder="John Doe">
+                        </div>
                     </div>
-
-                </div>
-            </form>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-company">Company</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc.">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-email">Email</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                                <input type="text" id="basic-default-email" class="form-control" placeholder="john.doe" aria-label="john.doe" aria-describedby="basic-default-email2">
+                                <span class="input-group-text" id="basic-default-email2">@example.com</span>
+                            </div>
+                            <div class="form-text">You can use letters, numbers &amp; periods</div>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-phone">Phone No</label>
+                        <div class="col-sm-10">
+                            <input type="text" id="basic-default-phone" class="form-control phone-mask" placeholder="658 799 8941" aria-label="658 799 8941" aria-describedby="basic-default-phone">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="basic-default-message">Message</label>
+                        <div class="col-sm-10">
+                            <textarea id="basic-default-message" class="form-control" placeholder="Hi, Do you have a moment to talk Joe?" aria-label="Hi, Do you have a moment to talk Joe?" aria-describedby="basic-icon-default-message2"></textarea>
+                        </div>
+                    </div>
+                    <div class="row justify-content-end">
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
         <?php
 
@@ -215,7 +105,7 @@ $v_view_approval = 0;
                     }
                 }
                 $message = [
-                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'text'   => 'Successfully Approved Offboarding ID.',
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -228,18 +118,14 @@ $v_view_approval = 0;
                 // echo 'Sorry! You have not select any ID Code.';
                 // echo '</div>';
                 $message = [
-                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'text'   => 'Sorry! You have not select any ID Code.',
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
                 echo "<script>window.location = '$basePath/offboarding_module/view/hr_panel/approval.php'</script>";
                 exit();
-
             }
         }
-
-
-
 
 
         if (isset($_POST['submit_approval'])) { //to run PHP script on submit
@@ -263,7 +149,7 @@ $v_view_approval = 0;
                     }
                 }
                 $message = [
-                    'text'   =>'Successfully Approved Offboarding ID.',
+                    'text'   => 'Successfully Approved Offboarding ID.',
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -276,7 +162,7 @@ $v_view_approval = 0;
                 // echo 'Sorry! You have not select any ID Code.';
                 // echo '</div>';
                 $message = [
-                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'text'   => 'Sorry! You have not select any ID Code.',
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -305,7 +191,7 @@ $v_view_approval = 0;
                     echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
                 }
                 $message = [
-                    'text'   =>'Successfully Denied Outdoor Attendance ID',
+                    'text'   => 'Successfully Denied Outdoor Attendance ID',
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -315,7 +201,7 @@ $v_view_approval = 0;
                 // echo 'Sorry! You have not select any ID Code.';
                 // echo '</div>';
                 $message = [
-                    'text'   =>'Sorry! You have not select any ID Code.',
+                    'text'   => 'Sorry! You have not select any ID Code.',
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
