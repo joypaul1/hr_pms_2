@@ -484,6 +484,13 @@ function isActive($url)
                                     <div>LM Panel</div>
                                 </a>
                                 <ul class="menu-sub">
+                                    <?php if (checkPermission('lm-hod-approval')) { ?>
+                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/hod_approval.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/hod_approval.php" class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> HOD Approval</div>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                     <?php if (checkPermission('lm-offboarding-approval')) { ?>
                                         <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/approval.php'); ?>">
                                             <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
