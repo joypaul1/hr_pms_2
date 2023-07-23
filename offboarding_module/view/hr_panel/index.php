@@ -52,9 +52,9 @@ if (!checkPermission('hr-offboarding-report')) {
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">EMP Info</th>
-                            <th scope="col">Approval Status</th>
+                            <th scope="col">HOD Status</th>
+                            <th scope="col">Department Approval Status</th>
                             <th scope="col">Exit Interview Status</th>
-                            <th scope="col">Reason Info</th>
                             <th scope="col">Created Info</th>
                         </tr>
                     </thead>
@@ -74,6 +74,7 @@ if (!checkPermission('hr-offboarding-report')) {
 									   B.DEPT_NAME,
 									   B.DESIGNATION,
 									   RML_HR_APPS_USER_ID,
+									   A.HOD_STATUS,
 									   APPROVAL_STATUS,
 									   EXIT_INTERVIEW_STATUS,
 									   EXIT_INTERVIEW_DATE,
@@ -142,14 +143,7 @@ if (!checkPermission('hr-offboarding-report')) {
 
                                         </a>
                                     </td>
-                                    <td><?php
-                                        echo 'Last Working Day: ' . $row['LAST_WORKING_DATE'];
-                                        echo '</br>';
-                                        echo 'Resignation Date: ' . $row['RESIGNATION_DATE'];
-                                        echo '</br>';
-                                        echo 'Reason: ' . $row['REASON'];
-                                        ?>
-                                    </td>
+                               
                                     <td><?php
                                         echo 'Created:' . $row['CREATED_DATE'];
                                         echo '</br>';
@@ -174,6 +168,7 @@ if (!checkPermission('hr-offboarding-report')) {
 										   B.DEPT_NAME,
 										   B.DESIGNATION,
 									       A.APPROVAL_STATUS,
+										   A.HOD_STATUS,
 										   A.EXIT_INTERVIEW_STATUS,
 										   A.EXIT_INTERVIEW_DATE,
 										   A.EXIT_INTERVIEW_BY,
@@ -206,6 +201,16 @@ if (!checkPermission('hr-offboarding-report')) {
                                         ?>
                                     </td>
                                     <td><?php
+                                        if ($row['HOD_STATUS'] == '1') {
+                                            echo 'Approved';
+                                        } else if ($row['HOD_STATUS'] == '0') {
+                                            echo 'Denied';
+                                        } else if ($row['HOD_STATUS'] == '') {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+                                    </td>
+									<td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -247,14 +252,7 @@ if (!checkPermission('hr-offboarding-report')) {
                                         </a>
 
                                     </td>
-                                    <td><?php
-                                        echo 'Last Working Day: ' . $row['LAST_WORKING_DATE'];
-                                        echo '</br>';
-                                        echo 'Resignation Date: ' . $row['RESIGNATION_DATE'];
-                                        echo '</br>';
-                                        echo 'Reason: ' . $row['REASON'];
-                                        ?>
-                                    </td>
+                                   
                                     <td><?php
                                         echo 'Created: ' . $row['CREATED_DATE'];
                                         echo '</br>';
