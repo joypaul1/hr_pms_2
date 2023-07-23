@@ -37,6 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hod_
         OTHERS_REMARKS              = '$remark_3'
         WHERE  ID                   = $check_list_id");
     $result = oci_execute($strSQL);
+	
+	
+	
+	 $strhodApp = oci_parse(
+        $objConnect,
+        "UPDATE EMP_CLEARENCE SET   
+              HOD_STATUS =1
+              WHERE  ID= (SELECT EMP_CLEARENCE_ID FROM HOD_CLEARENCE_DTLS WHERE ID=$check_list_id)");
+      $result = oci_execute($strhodApp);
+	
+
+	
+	
 
     if (!$result) {
         $e = oci_error($strSQL);
@@ -64,21 +77,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     $check_list_id  = ($_POST['check_list_id']);
     $remarks        = ($_POST['remarks']);
-    $strSQL  = oci_parse(
+     $strSQL  = oci_parse(
         $objConnect,
-        "BEGIN
-    CLEARENCE_APPROVAL(1,'$emp_session_id',$check_list_id,'$remarks');
-    END;"
-    );
-
-    /*$strSQL  = oci_parse($objConnect, 
-	"UPDATE EMP_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 1,
-        APPROVE_BY       = '$emp_session_id',
-        APPROVE_DATE     = SYSDATE,
-        REMARKS           = '$remarks'
-        WHERE  ID       = '$check_list_id'");
-		*/
+        "UPDATE HOD_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 0,
+        APPROVE_BY                  = '$emp_session_id',
+        APPROVE_DATE                = SYSDATE,
+        ALL_DOCUMENTS_REMARKS       = '$remark_1',
+        ANY_PAYMENT_DUE             = '$remark_2',
+        OTHERS_REMARKS              = '$remark_3'
+        WHERE  ID                   = $check_list_id");
     $result = oci_execute($strSQL);
+	
+	
+	
+	 $strhodApp = oci_parse(
+        $objConnect,
+        "UPDATE EMP_CLEARENCE SET   
+              HOD_STATUS =0
+              WHERE  ID= (SELECT EMP_CLEARENCE_ID FROM HOD_CLEARENCE_DTLS WHERE ID=$check_list_id)");
+      $result = oci_execute($strhodApp);
 
     if (!$result) {
         $e = oci_error($strSQL);
