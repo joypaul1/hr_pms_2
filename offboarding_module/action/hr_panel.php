@@ -235,12 +235,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     $check_list_id  = ($_POST['check_list_id']);
     $remarks        = ($_POST['remarks']);
-    $strSQL  = oci_parse($objConnect, 
-	"BEGIN
+    $strSQL  = oci_parse(
+        $objConnect,
+        "BEGIN
     CLEARENCE_APPROVAL(1,'$emp_session_id',$check_list_id,'$remarks');
-    END;");
-		
-		/*$strSQL  = oci_parse($objConnect, 
+    END;"
+    );
+
+    /*$strSQL  = oci_parse($objConnect, 
 	"UPDATE EMP_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 1,
         APPROVE_BY       = '$emp_session_id',
         APPROVE_DATE     = SYSDATE,
