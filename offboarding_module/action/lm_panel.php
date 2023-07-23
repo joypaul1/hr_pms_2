@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hod_
         ALL_DOCUMENTS_REMARKS       = '$remark_1',
         ANY_PAYMENT_DUE             = '$remark_2',
         OTHERS_REMARKS              = '$remark_3'
-        WHERE  ID                   = '$check_list_id'");
+        WHERE  ID                   = $check_list_id");
     $result = oci_execute($strSQL);
 
     if (!$result) {

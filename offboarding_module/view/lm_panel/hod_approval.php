@@ -49,7 +49,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <?php
                     $allDataSQL = oci_parse(
                         $objConnect,
-                        "SELECT A.ID,
+                        "SELECT B.ID,
 							   C.EMP_NAME,
 							   C.RML_ID,
 							   C.R_CONCERN,
