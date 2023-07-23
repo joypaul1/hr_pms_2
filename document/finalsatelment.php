@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Final Statelment</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         /* Style buttons */
@@ -148,7 +148,6 @@
     oci_execute($strSQL);
     $emp_info = oci_fetch_assoc($strSQL);
 
-    // die();
     ?>
     <div style="text-align: right;" id="hidden">
         <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
@@ -189,7 +188,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['EMP_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['EMP_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -200,7 +199,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['RML_ID'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['RML_ID'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -213,7 +212,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['DESIGNATION'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text"  readonly value="<?php echo $emp_info['DESIGNATION'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -224,7 +223,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['DEPT_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['DEPT_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -237,7 +236,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['BRANCH_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['BRANCH_NAME'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -248,7 +247,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['DOJ'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['DOJ'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -261,7 +260,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $emp_info['DOC'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $emp_info['DOC'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -272,7 +271,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $clearanceEmpData['RESIGNATION_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['RESIGNATION_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -286,7 +285,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $clearanceEmpData['LAST_WORKING_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['LAST_WORKING_DATE'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                     <td>
                         <div style="display: flex; justify-content: space-between; background-color: #ddd; padding: 4px;">
@@ -297,7 +296,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -310,7 +309,7 @@
                         </div>
                     </td>
                     <td colspan="3" style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $clearanceEmpData['REASON'] ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['REASON'] ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
             </table>
@@ -341,7 +340,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" value="<?php echo $clearanceEmpData['ALL_DOCUMENTS_REMARKS']  ?>" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['ALL_DOCUMENTS_REMARKS']  ?>" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -355,7 +354,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $clearanceEmpData['ANY_PAYMENT_DUE']  ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text"  readonly value="<?php echo $clearanceEmpData['ANY_PAYMENT_DUE']  ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -368,7 +367,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" value="<?php echo $clearanceEmpData['OTHERS_REMARKS']  ?>" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['OTHERS_REMARKS']  ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -382,13 +381,13 @@
                         <level>
                             Supervisor Name :
                         </level>
-                        <input type="text" style="min-width: 100px; border: none; ">
+                        <input type="text" readonly style="min-width: 100px; border: none; ">
                     </div>
                     <div style="display: flex; gap: 4px; margin: 0;">
                         <level>
                             Designation :
                         </level>
-                        <input type="text" style="min-width: 100px; border: none; ">
+                        <input type="text" readonly style="min-width: 100px; border: none; ">
                     </div>
                 </div>
                 <div>
@@ -397,13 +396,13 @@
                         <level>
                             HOD Name :
                         </level>
-                        <input type="text" value="<?php echo $clearanceEmpData['HOD_ID']  ?>"  style="min-width: 100px; border: none; ">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['HOD_ID']  ?>" style="min-width: 100px; border: none; ">
                     </div>
                     <div style="display: flex; gap: 4px; margin: 0;">
                         <level>
                             Designation :
                         </level>
-                        <input type="text" value="<?php echo $clearanceEmpData['HOD_DESIGNATION']  ?>" style="min-width: 100px; border: none; ">
+                        <input type="text"readonly value="<?php echo $clearanceEmpData['HOD_DESIGNATION']  ?>" style="min-width: 100px; border: none; ">
                     </div>
                 </div>
 
@@ -455,8 +454,8 @@
                                 <td>
                                 ' . $statusRow['DEPT_NAME'] . '
                                 </td>
-                                <td><input type="text" value ="' . $statusRow['REMARKS'] . '" style="width: 100%; border: none;outline: none;"></td>
-                                <td><input type="text" value ="' . $statusRow['APPROVE_BY'] . '"  style="width: 100%; border: none;outline: none;">  </td>
+                                <td><input type="text" readonly value ="' . $statusRow['REMARKS'] . '" style="width: 100%; border: none;outline: none;"></td>
+                                <td><input type="text" readonly value ="' . $statusRow['APPROVE_BY'] . '"  style="width: 100%; border: none;outline: none;">  </td>
                             </tr>';
                     }
                 }
@@ -473,15 +472,15 @@
             <div style="margin-top: 5px; display: flex; width: 100%; justify-content: space-between;">
 
                 <div>
-                    <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                    <input readonly type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                     <p style="text-align: center; margin: 0;">HR & Admin</p>
                 </div>
                 <div>
-                    <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                    <input readonly type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                     <p style="text-align: center; margin: 0;">Group CFO & CS</p>
                 </div>
                 <div>
-                    <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                    <input  readonly type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                     <p style="text-align: center; margin: 0;"></p>
                 </div>
 
@@ -514,7 +513,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input  type="text" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -529,11 +528,11 @@
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
                         <label>
-                            <input type="checkbox" name="handover" value="yes">
+                            <input type="radio" name="handover" value="yes">
                             Yes
                         </label>
                         <label>
-                            <input type="checkbox" name="handover" value="no">
+                            <input type="radio" name="handover" value="no">
                             No
                         </label>
                     </td>
@@ -549,11 +548,11 @@
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
                         <label>
-                            <input type="checkbox" name="handover" value="yes">
+                            <input type="radio" name="handover" value="yes">
                             Yes
                         </label>
                         <label>
-                            <input type="checkbox" name="handover" value="no">
+                            <input type="radio" name="handover" value="no">
                             No
                         </label>
                     </td>
@@ -569,11 +568,11 @@
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
                         <label>
-                            <input type="checkbox" name="handover" value="yes">
+                            <input type="radio" name="handover" value="yes">
                             Yes
                         </label>
                         <label>
-                            <input type="checkbox" name="handover" value="no">
+                            <input type="radio" name="handover" value="no">
                             No
                         </label>
                     </td>
