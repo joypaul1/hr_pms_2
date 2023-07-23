@@ -46,10 +46,10 @@ if (!checkPermission('hr-offboarding-create')) {
                         <span class="w-100" id="userInfo"></span>
 
                     </div>
-                   
+
                 </div>
                 <div class="row mt-3">
-                <div class="col-sm-6">
+                    <div class="col-sm-6">
                         <label for="last_working_day">Last Working Day <span class="text-danger"> *</span></label>
                         <input class="form-control" id="last_working_day" name="last_working_day" required type="date" />
                     </div>
@@ -59,7 +59,7 @@ if (!checkPermission('hr-offboarding-create')) {
                     </div>
                     <div class="col-sm-12">
                         <label for="reason_of_resignation">Reason OF Resignation <span class="text-danger"> *</span> </label>
-                        <input class="form-control" id="reason_of_resignation" name="reason_of_resignation" type="text" required />
+                        <input class="form-control" id="reason_of_resignation" name="reason_of_resignation" autocomplete="off" type="text" required />
                     </div>
                 </div>
                 <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
@@ -241,17 +241,15 @@ if (!checkPermission('hr-offboarding-create')) {
         });
 
         $(document).on('change', '#last_working_day', function() {
-            console.log('reason_of_resignation');
-
+        
             buttonValidation();
         });
         $(document).on('change', '#resignation_date', function() {
-            console.log('reason_of_resignation');
-
+        
             buttonValidation();
         });
-        $(document).on('keyup', '#reason_of_resignation', function() {
-            console.log('reason_of_resignation');
+        $(document).on('input', '#reason_of_resignation', function() {
+        
             buttonValidation();
         });
 
