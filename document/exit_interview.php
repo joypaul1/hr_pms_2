@@ -116,9 +116,9 @@
     require_once('../inc/config.php');
     require_once('../inc/connoracle.php');
     $errors = array();
-    if (!isset($_GET['id']) || empty($_GET['id'])) {
-        $errors[] = 'Clearence ID is required.';
-    }
+    // if (!isset($_GET['id']) || empty($_GET['id'])) {
+    //     $errors[] = 'Clearence ID is required.';
+    // }
     if (!isset($_GET['rml_id']) || empty($_GET['rml_id'])) {
         $errors[] = 'Employee RML ID is required.';
     }
@@ -133,14 +133,14 @@
         echo '</div>';
         die();
     }
-    $emp_id        = ($_GET['id']);
+    // $emp_id        = ($_GET['id']);
     $rml_id        = ($_GET['rml_id']);
 
-    $clearanceSQL  = oci_parse($objConnect, "SELECT A.*, B.*, C.DESIGNATION as HOD_DESIGNATION FROM  EMP_CLEARENCE A, HOD_CLEARENCE_DTLS B , RML_HR_APPS_USER C   WHERE A.ID=B.EMP_CLEARENCE_ID 
-    AND C.RML_ID = B.HOD_ID
-    AND A.ID='$emp_id'");
-    oci_execute($clearanceSQL);
-    $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
+    // $clearanceSQL  = oci_parse($objConnect, "SELECT A.*, B.*, C.DESIGNATION as HOD_DESIGNATION FROM  EMP_CLEARENCE A, HOD_CLEARENCE_DTLS B , RML_HR_APPS_USER C   WHERE A.ID=B.EMP_CLEARENCE_ID 
+    // AND C.RML_ID = B.HOD_ID
+    // AND A.ID='$emp_id'");
+    // oci_execute($clearanceSQL);
+    // $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
     // print_r($clearanceEmpData);
 
 
@@ -283,7 +283,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" readonly value="<?php echo $clearanceEmpData['RESIGNATION_DATE'] ?>"  style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php echo $clearanceEmpData['RESIGNATION_DATE']??' ' ?>"  style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
