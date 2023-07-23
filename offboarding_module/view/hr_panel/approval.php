@@ -90,25 +90,25 @@ $v_view_approval = 0;
                                             <div class="w-100">
                                                 <div class="p-2 d-flex justify-content-between rounded text-white " style="background-color:#3f6f70">
                                                     <div class="d-flex flex-column">
-                                                        <span class="articles">Name </span>
+                                                        <span class="articles">Name </span> <hr style="margin:0">
                                                         <span class="number1"> <?php echo $row["EMP_NAME"] ?> </span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="articles">ID</span>
+                                                        <span class="articles">ID</span><hr style="margin:0">
                                                         <span class="number1"> <?php echo $row["RML_ID"] ?> </span>
 
                                                     </div>
 
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Department</span>
+                                                        <span class="rating">Department</span><hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["DEPT_NAME"] ?></span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Designation</span>
+                                                        <span class="rating">Designation</span><hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["DESIGNATION"] ?></span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Work Station</span>
+                                                        <span class="rating">Work Station</span><hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["BRANCH_NAME"] ?></span>
                                                     </div>
 

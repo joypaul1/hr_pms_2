@@ -83,7 +83,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <form action="<?php echo $basePath ?>/offboarding_module/action/lm_panel.php" method="POST">
 
                             <input type="hidden" name="check_list_id" value="<?php echo $row["ID"]; ?>">
-                            <input type="hidden" name="actionType" value="offboarding_approval">
+                            <input type="hidden" name="actionType" value="hod_approval">
                             <span class="w-100">
                                 <div class="justify-content-center">
                                     <div class="card p-3">
@@ -91,32 +91,46 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             <div class="w-100">
                                                 <div class="p-2 d-flex justify-content-between rounded text-white " style="background-color:#3f6f70">
                                                     <div class="d-flex flex-column">
-                                                        <span class="articles">Name </span>
+                                                        <span class="articles">Name </span> <hr style="margin:0">
                                                         <span class="number1"> <?php echo $row["EMP_NAME"] ?> </span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="articles">ID</span>
+                                                        <span class="articles">ID</span> <hr style="margin:0">
                                                         <span class="number1"> <?php echo $row["RML_ID"] ?> </span>
 
                                                     </div>
 
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Department</span>
+                                                        <span class="rating">Department</span> <hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["DEPT_NAME"] ?></span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Designation</span>
+                                                        <span class="rating">Designation</span> <hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["DESIGNATION"] ?></span>
                                                     </div>
                                                     <div class="d-flex flex-column">
-                                                        <span class="rating">Work Station</span>
+                                                        <span class="rating">Work Station</span> <hr style="margin:0">
                                                         <span class="number3"> <?php echo $row["BRANCH_NAME"] ?></span>
                                                     </div>
 
 
                                                 </div>
-                                                <div class="d-flex ">
-                                                    <input type="text" name="remarks" class="form-control mt-2" placeholder="remarks here..." />
+                                                <div class="d-flex justify-content-between">
+                                                    <div style="width: 30%;">
+                                                        <label class="form-label">All Document Submit </label>
+                                                        <input type="text" name="remark_1" oninput="limitCharter($(this))" class="form-control " placeholder="All Document Submit ..." />
+                                                    </div>
+                                                    <div style="width: 30%;">
+                                                        <label class="form-label">Any Paymnet Due/Clear</label>
+                                                        <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control " placeholder="Any Paymnet Due/Clear ..." />
+                                                    </div style="width: 30%;">
+                                                    <div>
+                                                        <label class="form-label">Any Other(Remarks)</label>
+                                                        <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control " placeholder="Any Other(Remarks) ..." />
+                                                    </div>
+                                                    
+                                                    <!-- <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." />
+                                                    <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." /> -->
                                                 </div>
                                                 <div class="mt-2 d-flex flex-row">
                                                     <div class="col-6"></div>
@@ -149,3 +163,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    function limitCharter(here){
+        if(here.val().length > 50){
+            // alert('Sorry!Text must be less than 50!');
+            toastr.warning('Sorry! Text must be less than 50!');
+            here.val(here.val().substring(0,50));
+
+        }
+    }
+</script>

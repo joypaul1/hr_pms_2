@@ -9,6 +9,57 @@ $basePath       = $baseUrl . '/rHRT';
 
 
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hod_approval') {
+
+    $check_list_id  = ($_POST['check_list_id']);
+    $remark_1        = ($_POST['remark_1']);
+    $remark_2        = ($_POST['remark_2']);
+    $remark_3        = ($_POST['remark_3']);
+    // print_r($check_list_id);
+    // print_r($remark_1);
+    // print_r($remark_2);
+    // print_r($remark_3);
+    // echo "UPDATE HOD_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 1,
+    // APPROVE_BY                  = '$emp_session_id',
+    // APPROVE_DATE                = SYSDATE,
+    // ALL_DOCUMENTS_REMARKS       = '$remark_1',
+    // ANY_PAYMENT_DUE             = '$remark_2',
+    // OTHERS_REMARKS              = '$remark_3',
+    // WHERE  ID                   = '$check_list_id'";
+    // die();
+    $strSQL  = oci_parse(
+        $objConnect,
+        "UPDATE HOD_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 1,
+        APPROVE_BY                  = '$emp_session_id',
+        APPROVE_DATE                = SYSDATE,
+        ALL_DOCUMENTS_REMARKS       = '$remark_1',
+        ANY_PAYMENT_DUE             = '$remark_2',
+        OTHERS_REMARKS              = '$remark_3'
+        WHERE  ID                   = '$check_list_id'");
+    $result = oci_execute($strSQL);
+
+    if (!$result) {
+        $e = oci_error($strSQL);
+        echo htmlentities($e['message'], ENT_QUOTES);
+        die();
+        $message = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+
+        $_SESSION['noti_message'] = $message;
+        header("location:" . $basePath . "/offboarding_module/view/lm_panel/hod_approval.php");
+        exit();
+    }
+
+    $message = [
+        'text'   => 'Successfully Approved Offboarding ID.',
+        'status' => 'true',
+    ];
+    $_SESSION['noti_message'] = $message;
+    header("location:" . $basePath . "/offboarding_module/view/lm_panel/hod_approval.php");
+    exit();
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offboarding_approval') {
 
     $check_list_id  = ($_POST['check_list_id']);
