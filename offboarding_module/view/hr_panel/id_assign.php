@@ -57,7 +57,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                             <hr />
                             <?php
                             $departmentArray = [];
-                            $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER ORDER BY R_CONCERN");
+                            $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER WHERE R_CONCERN NOT IN('RG') ORDER BY R_CONCERN");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 echo ('
@@ -82,7 +82,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                             <hr />
                             <?php
                             $departmentArray = [];
-                            $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1");
+                            $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 echo ('
