@@ -19,7 +19,7 @@
 
         /* Darker background on mouse-over */
         label {
-          font-weight: 600;
+            font-weight: 600;
         }
 
         #main {
@@ -112,11 +112,12 @@
     $emp_id        = ($_GET['id']);
     $rml_id        = ($_GET['rml_id']);
 
-
-    $clearanceSQL  = oci_parse($objConnect, "SELECT * FROM EMP_CLEARENCE WHERE ID='$emp_id'");
+    $clearanceSQL  = oci_parse($objConnect, "SELECT A.*, B.*, C.DESIGNATION as HOD_DESIGNATION FROM  EMP_CLEARENCE A, HOD_CLEARENCE_DTLS B , RML_HR_APPS_USER C   WHERE A.ID=B.EMP_CLEARENCE_ID 
+    AND C.RML_ID = B.HOD_ID
+    AND A.ID='$emp_id'");
     oci_execute($clearanceSQL);
     $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
-
+    // print_r($clearanceEmpData);
 
 
     $strSQL  = oci_parse(
@@ -340,7 +341,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" id="name" value="<?php echo $clearanceEmpData['ALL_DOCUMENTS_REMARKS']  ?>" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -354,7 +355,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $clearanceEmpData['ANY_PAYMENT_DUE']  ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
@@ -367,7 +368,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" id="name" style="border: none; outline: none; width: 100%;">
+                        <input type="text" value="<?php echo $clearanceEmpData['OTHERS_REMARKS']  ?>" id="name" style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
 
@@ -396,13 +397,13 @@
                         <level>
                             HOD Name :
                         </level>
-                        <input type="text" style="min-width: 100px; border: none; ">
+                        <input type="text" value="<?php echo $clearanceEmpData['HOD_ID']  ?>"  style="min-width: 100px; border: none; ">
                     </div>
                     <div style="display: flex; gap: 4px; margin: 0;">
                         <level>
                             Designation :
                         </level>
-                        <input type="text" style="min-width: 100px; border: none; ">
+                        <input type="text" value="<?php echo $clearanceEmpData['HOD_DESIGNATION']  ?>" style="min-width: 100px; border: none; ">
                     </div>
                 </div>
 
@@ -425,7 +426,7 @@
 
             <table class="bordered" style="width: 100%;">
                 <tr style="background-color: #eaeaea;text-align:center; font-weight: 600;">
-                    <td >Sl No. </td>
+                    <td>Sl No. </td>
                     <td>Department/ Section/Unit</td>
                     <td>Any payment Due/Remarks</td>
                     <td>Signature</td>
@@ -437,7 +438,7 @@
                     "SELECT 
                                     d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
                                     d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
-                                    d.APPROVE_DATE, h.DEPT_NAME
+                                    d.REMARKS,d.APPROVE_DATE, h.DEPT_NAME
                                     FROM EMP_CLEARENCE_DTLS d
                                     JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID 
                                     WHERE  d.EMP_CLEARENCE_ID = {$emp_id}"
@@ -454,7 +455,7 @@
                                 <td>
                                 ' . $statusRow['DEPT_NAME'] . '
                                 </td>
-                                <td><input type="text" style="width: 100%; border: none;outline: none;"></td>
+                                <td><input type="text" value ="' . $statusRow['REMARKS'] . '" style="width: 100%; border: none;outline: none;"></td>
                                 <td><input type="text" value ="' . $statusRow['APPROVE_BY'] . '"  style="width: 100%; border: none;outline: none;">  </td>
                             </tr>';
                     }
