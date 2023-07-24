@@ -853,13 +853,14 @@
             </legend>
             <div style="margin-top: 10px; display: flex; width: 100%;">
                 <div style="width: 50%; text-align: center;">
-                    <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                    <input type="text" value="<?php echo $emp_info['RML_ID'] ?>" readonly
+                     style="min-width: 100px; border: none; border-bottom: 1px dashed #333;text-align:center ">
                     <p style="margin: 0;">
                         Employee
                     </p>
                 </div>
                 <div style="width: 50%; text-align: center;">
-                    <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                    <input type="text"  style="min-width: 100px; border: none; border-bottom: 1px dashed #333; text-align:center ">
                     <p style="margin: 0;">
                         HR
                     </p>

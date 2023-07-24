@@ -86,6 +86,12 @@ $v_view_approval = 0;
                                         <tr>
                                             <td><input form="Form2 type=" checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
+                                                <a href="<?php echo $basePath . "/document/exit_interview.php?rml_id=" . $row['RML_ID']  ?>" target="_blank">
+                                                    <button type="button" class="btn btn-sm btn-outline-info">
+                                                        Exit Interview Form <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                                    </button>
+
+                                                </a>
                                             </td>
                                             <td>
                                                 <?php echo $row['EMP_NAME'];
@@ -138,8 +144,15 @@ $v_view_approval = 0;
                                     $v_view_approval = 1;
                                     ?>
                                         <tr>
-                                            <td><input form="Form2" type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                            <td>
+                                                <input form="Form2" type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
+                                                <a href="<?php echo $basePath . "/document/exit_interview.php?rml_id=" . $row['RML_ID']  ?>" target="_blank">
+                                                    <button type="button" class="btn btn-sm btn-outline-info">
+                                                        Exit Interview Form <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                                    </button>
+
+                                                </a>
                                             </td>
                                             <td>
                                                 <?php echo $row['EMP_NAME'];
@@ -151,7 +164,7 @@ $v_view_approval = 0;
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
+
                                             </td>
                                         </tr>
                                     <?php
@@ -180,7 +193,7 @@ $v_view_approval = 0;
         </div>
         <?php
 
-       
+
 
 
 
