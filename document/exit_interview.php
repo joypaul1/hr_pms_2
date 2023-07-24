@@ -141,6 +141,7 @@
     // AND A.ID='$emp_id'");
     // oci_execute($clearanceSQL);
     // $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
+
     // print_r($clearanceEmpData);
 
 
@@ -283,7 +284,7 @@
                         </div>
                     </td>
                     <td style="border: 1px solid #ddd; overflow: hidden;">
-                        <input type="text" readonly value="<?php echo $clearanceEmpData['RESIGNATION_DATE']??' ' ?>"  style="border: none; outline: none; width: 100%;">
+                        <input type="text" readonly value="<?php //echo $clearanceEmpData['RESIGNATION_DATE']??'' ?>"  style="border: none; outline: none; width: 100%;">
                     </td>
                 </tr>
                 <tr>
