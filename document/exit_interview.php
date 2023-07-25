@@ -127,7 +127,7 @@
     $errors = array();
 
     $emp_id        = ($_GET['id']) ? ($_GET['id'])  : ($_POST['emp_id']);
-    $emp_id        = ($_GET['rml_id']) ? ($_GET['rml_id'])  : ($_POST['rml_id']);
+    $rml_id        = ($_GET['rml_id']) ? ($_GET['rml_id'])  : ($_POST['rml_id']);
 
     if (!isset($emp_id) || empty($emp_id)) {
         $errors[] = 'Clearence ID is required.';
