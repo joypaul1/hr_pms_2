@@ -391,11 +391,13 @@
             $exit_interviewData = oci_parse($objConnect, "SELECT * FROM EXIT_CLEARENCE_FORM WHERE EXIT_EMP_ID ='$rml_id' AND EMP_CLEARENCE_ID ='$emp_id'");
             oci_execute($exit_interviewData);
             $exit_interviewData = oci_fetch_assoc($exit_interviewData);
-
+                    // print_r(($exit_interviewData) );
+                    // die();
             ?>
             <?php
-            if (count($exit_interviewData)) {
-                $exit_interviewData['YES_NO_STATUS'] = "no,no,no,no,no,no,no,no,no,no,no,no,no,no,no";
+
+            if (!empty($exit_interviewData) ) {
+                // $exit_interviewData['YES_NO_STATUS'] = "no,no,no,no,no,no,no,no,no,no,no,no,no,no,no";
                 $reason = explode(',', $exit_interviewData['YES_NO_STATUS']);
 
                 echo '<fieldset style="margin-top: 10px; border-radius: 10px;">
@@ -1663,7 +1665,7 @@
                     </div>
                 </div>
             </fieldset>
-            <?php if (!count($exit_interviewData))
+            <?php if (empty($exit_interviewData))
                 echo ' <div style="text-align: right;margin:10px" id="hidden">
                 <button type="submit" class="btn"><i class="fa fa-download"></i> Submit & Print</button>
             </div>';
