@@ -84,7 +84,9 @@
                 /* margin: 0 auto; */
                 padding-top: 10px;
             }
-
+            #hidden{
+                display: none;
+            }
             table.bordered {
                 border-collapse: collapse;
                 width: 100%;
