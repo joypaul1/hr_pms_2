@@ -128,7 +128,7 @@
 
     $emp_id        = ($_GET['id']) ? ($_GET['id'])  : ($_POST['emp_id']);
     $emp_id        = ($_GET['rml_id']) ? ($_GET['rml_id'])  : ($_POST['rml_id']);
-    
+
     if (!isset($emp_id) || empty($emp_id)) {
         $errors[] = 'Clearence ID is required.';
     }
@@ -181,7 +181,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Defining variables
-        $remarks = $_POST['remarks'] ?? null;
+        $remarks = $_POST['remarks'] ?$_POST['remarks'] : null;
         $all_reason = [];
         for ($i = 1; $i <= 15; $i++) {
             array_push($all_reason, $_POST["reason_" . $i]);
