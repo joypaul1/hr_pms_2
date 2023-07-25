@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
         if (@oci_execute($strSQL)) {
             $message = [
-                'text'   => 'Offboarding  Created Successfully.',
+                'text'   => 'Offboarding Created Successfully.',
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
