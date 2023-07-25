@@ -117,7 +117,7 @@
     AND A.ID='$emp_id'");
     oci_execute($clearanceSQL);
     $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
-    // print_r($clearanceEmpData);
+
 
 
     $strSQL  = oci_parse(

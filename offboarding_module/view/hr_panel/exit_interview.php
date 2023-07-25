@@ -84,9 +84,9 @@ $v_view_approval = 0;
                             ?>
                                     <tbody>
                                         <tr>
-                                            <td><input form="Form2 type=" checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                            <td><input form="Form2" type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
-                                                <a href="<?php echo $basePath . "/document/exit_interview.php?rml_id=" . $row['RML_ID']  ?>" target="_blank">
+                                                <a href="<?php echo $basePath . "/document/exit_interview.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID'] ?>" target="_blank">
                                                     <button type="button" class="btn btn-sm btn-outline-info">
                                                         Exit Interview Form <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                                     </button>
@@ -147,7 +147,7 @@ $v_view_approval = 0;
                                             <td>
                                                 <input form="Form2" type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
-                                                <a href="<?php echo $basePath . "/document/exit_interview.php?rml_id=" . $row['RML_ID']  ?>" target="_blank">
+                                                <a href="<?php echo $basePath . "/document/exit_interview.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
                                                     <button type="button" class="btn btn-sm btn-outline-info">
                                                         Exit Interview Form <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                                     </button>
