@@ -4,7 +4,7 @@
 $html = '<div class="card">
     <div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
         <div href="#" style="font-size: 18px;font-weight:700">
-            <i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i>';
+            <i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:30px"></i>';
 
 if (isset($leftSideName)) {
     $html .= $leftSideName;

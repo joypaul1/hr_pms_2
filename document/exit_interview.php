@@ -433,11 +433,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                <input type="radio" name="reason_1" ' . ($reason[0] == 'yes' ? "checked" : null) . ' value="yes">
+                                <input type="radio" readonly name="reason_1" ' . ($reason[0] == 'yes' ? "checked" : null) . ' value="yes">
                                 Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[0] == 'no' ? "checked" : null) . '  name="reason_1" value="no">
+                                    <input type="radio"  readonly ' . ($reason[0] == 'no' ? "checked" : null) . '  name="reason_1" value="no">
                                     No
                                 </label>
                             </td>
@@ -453,11 +453,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[1] == 'yes' ? "checked" : null) . ' name="reason_2" value="yes">
+                                    <input type="radio" readonly ' . ($reason[1] == 'yes' ? "checked" : null) . ' name="reason_2" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[1] == 'no' ? "checked" : null) . ' name="reason_2" value="no">
+                                    <input type="radio" readonly ' . ($reason[1] == 'no' ? "checked" : null) . ' name="reason_2" value="no">
                                     No
                                 </label>
                             </td>
@@ -473,11 +473,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[2] == 'yes' ? "checked" : null) . ' name="reason_3" value="yes">
+                                    <input type="radio" readonly ' . ($reason[2] == 'yes' ? "checked" : null) . ' name="reason_3" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[2] == 'no' ? "checked" : null) . ' name="reason_3" value="no">
+                                    <input type="radio"  readonly ' . ($reason[2] == 'no' ? "checked" : null) . ' name="reason_3" value="no">
                                     No
                                 </label>
                             </td>
@@ -493,11 +493,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[3] == 'yes' ? "checked" : null) . ' name="reason_4" value="yes">
+                                    <input type="radio" readonly ' . ($reason[3] == 'yes' ? "checked" : null) . ' name="reason_4" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[3] == 'no' ? "checked" : null) . ' name="reason_4" value="no">
+                                    <input type="radio" readonly ' . ($reason[3] == 'no' ? "checked" : null) . ' name="reason_4" value="no">
                                     No
                                 </label>
                             </td>
@@ -513,11 +513,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[4] == 'yes' ? "checked" : null) . ' name="reason_5" value="yes">
+                                    <input type="radio" readonly ' . ($reason[4] == 'yes' ? "checked" : null) . ' name="reason_5" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[4] == 'no' ? "checked" : null) . ' name="reason_5" value="no">
+                                    <input type="radio" readonly ' . ($reason[4] == 'no' ? "checked" : null) . ' name="reason_5" value="no">
                                     No
                                 </label>
                             </td>
@@ -533,11 +533,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[5] == 'yes' ? "checked" : null) . ' name="reason_6" value="yes">
+                                    <input type="radio" readonly ' . ($reason[5] == 'yes' ? "checked" : null) . ' name="reason_6" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[5] == 'no' ? "checked" : null) . ' name="reason_6" value="no">
+                                    <input type="radio" readonly ' . ($reason[5] == 'no' ? "checked" : null) . ' name="reason_6" value="no">
                                     No
                                 </label>
                             </td>
@@ -553,11 +553,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[6] == 'yes' ? "checked" : null) . ' name="reason_7" value="yes">
+                                    <input type="radio" readonly ' . ($reason[6] == 'yes' ? "checked" : null) . ' name="reason_7" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[6] == 'no' ? "checked" : null) . ' name="reason_7" value="no">
+                                    <input type="radio" readonly ' . ($reason[6] == 'no' ? "checked" : null) . ' name="reason_7" value="no">
                                     No
                                 </label>
                             </td>
@@ -573,11 +573,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio"  ' . ($reason[7] == 'yes' ? "checked" : null) . ' name="reason_8" value="yes">
+                                    <input type="radio" readonly ' . ($reason[7] == 'yes' ? "checked" : null) . ' name="reason_8" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[7] == 'no' ? "checked" : null) . ' name="reason_8" value="no">
+                                    <input type="radio" readonly ' . ($reason[7] == 'no' ? "checked" : null) . ' name="reason_8" value="no">
                                     No
                                 </label>
                             </td>
@@ -593,11 +593,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[8] == 'yes' ? "checked" : null) . ' name="reason_9" value="yes">
+                                    <input type="radio" readonly ' . ($reason[8] == 'yes' ? "checked" : null) . ' name="reason_9" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[8] == 'no' ? "checked" : null) . ' name="reason_9" value="no">
+                                    <input type="radio" readonly ' . ($reason[8] == 'no' ? "checked" : null) . ' name="reason_9" value="no">
                                     No
                                 </label>
                             </td>
@@ -613,11 +613,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[9] == 'yes' ? "checked" : null) . ' name="reason_10" value="yes">
+                                    <input type="radio" readonly ' . ($reason[9] == 'yes' ? "checked" : null) . ' name="reason_10" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[9] == 'no' ? "checked" : null) . ' name="reason_10" value="no">
+                                    <input type="radio" readonly ' . ($reason[9] == 'no' ? "checked" : null) . ' name="reason_10" value="no">
                                     No
                                 </label>
                             </td>
@@ -633,11 +633,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio"' . ($reason[10] == 'yes' ? "checked" : null) . ' name="reason_11" value="yes">
+                                    <input type="radio" readonly ' . ($reason[10] == 'yes' ? "checked" : null) . ' name="reason_11" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[10] == 'no' ? "checked" : null) . ' name="reason_11" value="no">
+                                    <input type="radio" readonly ' . ($reason[10] == 'no' ? "checked" : null) . ' name="reason_11" value="no">
                                     No
                                 </label>
                             </td>
@@ -653,11 +653,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[11] == 'yes' ? "checked" : null) . ' name="reason_12" value="yes">
+                                    <input type="radio" readonly ' . ($reason[11] == 'yes' ? "checked" : null) . ' name="reason_12" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[11] == 'no' ? "checked" : null) . ' name="reason_12" value="no">
+                                    <input type="radio" readonly ' . ($reason[11] == 'no' ? "checked" : null) . ' name="reason_12" value="no">
                                     No
                                 </label>
                             </td>
@@ -673,11 +673,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[12] == 'yes' ? "checked" : null) . ' name="reason_13" value="yes">
+                                    <input type="radio" readonly ' . ($reason[12] == 'yes' ? "checked" : null) . ' name="reason_13" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[12] == 'no' ? "checked" : null) . ' name="reason_13" value="no">
+                                    <input type="radio" readonly ' . ($reason[12] == 'no' ? "checked" : null) . ' name="reason_13" value="no">
                                     No
                                 </label>
                             </td>
@@ -693,11 +693,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[13] == 'yes' ? "checked" : null) . ' name="reason_14" value="yes">
+                                    <input type="radio" readonly ' . ($reason[13] == 'yes' ? "checked" : null) . ' name="reason_14" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[13] == 'no' ? "checked" : null) . ' name="reason_14" value="no">
+                                    <input type="radio" readonly ' . ($reason[13] == 'no' ? "checked" : null) . ' name="reason_14" value="no">
                                     No
                                 </label>
                             </td>
@@ -713,11 +713,11 @@
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
                                 <label>
-                                    <input type="radio" ' . ($reason[14] == 'yes' ? "checked" : null) . ' name="reason_15" value="yes">
+                                    <input type="radio" readonly ' . ($reason[14] == 'yes' ? "checked" : null) . ' name="reason_15" value="yes">
                                     Yes
                                 </label>
                                 <label>
-                                    <input type="radio" ' . ($reason[14] == 'no' ? "checked" : null) . ' name="reason_15" value="no">
+                                    <input type="radio" readonly ' . ($reason[14] == 'no' ? "checked" : null) . ' name="reason_15" value="no">
                                     No
                                 </label>
                             </td>
@@ -732,7 +732,7 @@
                                 </div>
                             </td>
                             <td style="border: 1px solid #ddd; overflow: hidden;">
-                                <input type="text" value="' . $exit_interviewData['ANY_OTHERS_REMARKS'] . '" id="name" name="remarks" style="border: none; outline: none; width: 100%;">
+                                <input type="text" readonly value="' . $exit_interviewData['ANY_OTHERS_REMARKS'] . '" id="name" name="remarks" style="border: none; outline: none; width: 100%;">
                             </td>
                         </tr>
     
@@ -767,7 +767,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_1" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_1'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_1" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_1'].'</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -781,7 +781,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_2" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_2'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_2" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_2'].'</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -795,7 +795,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_3" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_3'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_3" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_3'].'</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -809,7 +809,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_4" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_4'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_4" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_4'].'</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -823,7 +823,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_5" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_5'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_5" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_5'].'</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -837,7 +837,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea style="width: 100%;border: none;outline: none;" name="feedback_6" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_6'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_6" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_6'].'</textarea>
                         </td>
                     </tr>
 

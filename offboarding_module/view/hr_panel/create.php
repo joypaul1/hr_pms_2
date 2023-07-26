@@ -33,18 +33,13 @@ if (!checkPermission('hr-offboarding-create')) {
                     <div class="col-sm-4">
                         <label for="emp_id">Emp. ID:</label>
                         <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
+                        <div class="text-info" id="message"></div>
                         <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
                         <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
                     </div>
-                    <!-- <div class="col-sm-2"></div> -->
                     <div class="col-sm-8">
-                        <!-- <span class="d-block text-center text-info mb-2">
-                            <i class="menu-icon tf-icons bx bx-user" style="margin:0;font-size:20px"></i> Search Employee
-                            Information :
-                        </span> -->
                         <span class="w-100" id="userInfo"></span>
-
                     </div>
 
                 </div>
@@ -146,7 +141,6 @@ if (!checkPermission('hr-offboarding-create')) {
                 });
             },
             select: function(event, ui) {
-
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
@@ -241,15 +235,15 @@ if (!checkPermission('hr-offboarding-create')) {
         });
 
         $(document).on('change', '#last_working_day', function() {
-        
+
             buttonValidation();
         });
         $(document).on('change', '#resignation_date', function() {
-        
+
             buttonValidation();
         });
         $(document).on('input', '#reason_of_resignation', function() {
-        
+
             buttonValidation();
         });
 

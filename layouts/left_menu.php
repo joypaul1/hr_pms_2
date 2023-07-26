@@ -580,6 +580,50 @@ function isActive($url)
                 </li>
             <?php } ?>
             <!--pms Module -->
+            <!-- Report - module-list -->
+            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
+
+                <li class="menu-item <?php echo isActive('/roster'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                        <div data-i18n="Misc">Report Module</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <?php if (checkPermission('roster-create')) { ?>
+                            <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
+                                <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
+                                    <div data-i18n="Error">Report Generate</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                    </ul>
+                </li>
+
+            <?php } ?>
+            <!-- Report-list -->
+            <!-- From - module-list -->
+            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
+
+                <li class="menu-item <?php echo isActive('/form_module/view'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-edit"></i>
+                        <div data-i18n="Misc">Form Module</div>
+                    </a>
+                    <ul class="menu-sub">
+                        <?php if (checkPermission('roster-create')) { ?>
+                            <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance.php'); ?>">
+                                <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance.php" class="menu-link">
+                                    <div data-i18n="Error">Accounts Clearence Form</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+
+                    </ul>
+                </li>
+
+            <?php } ?>
+            <!-- Report-list -->
             <!-- roster - module-list -->
             <!-- <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
 
