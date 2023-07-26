@@ -168,8 +168,8 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                 return false;
             },
             focus: function(event, ui) {
-                $("#autocomplete").val(ui.item.label);
-                $("#emp_id").val(ui.item.id);
+                // $("#autocomplete").val(ui.item.label);
+                // $("#emp_id").val(ui.item.id);
                 return false;
             },
         });

@@ -151,11 +151,11 @@ if (!checkPermission('hr-offboarding-create')) {
                 return false;
             },
             focus: function(event, ui) {
-                $("#autocomplete").val(ui.item.label);
-                $("#emp_id").val(ui.item.id);
-                $("#concern_name").val(ui.item.concern);
-                buttonValidation();
-                showDepartment();
+                // $("#autocomplete").val(ui.item.label);
+                // $("#emp_id").val(ui.item.id);
+                // $("#concern_name").val(ui.item.concern);
+                // buttonValidation();
+                // showDepartment();
                 return false;
             },
         });

@@ -20,17 +20,17 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     <!-- Basic Layout & Basic with Icons -->
     <div class="row">
         <!-- Basic Layout -->
-        <div class="col-12">
-            <div class="card mb-4">
+        <div class="card ">
 
 
-                <?php
-                $leftSideName  = 'Finance & Accounts Clearence Form';
+            <?php
+            $leftSideName  = 'Finance & Accounts Clearence Form';
 
 
-                include('../../layouts/_tableHeader.php');
+            include('../../layouts/_tableHeader.php');
 
-                ?>
+            ?>
+            <form class="form-horizontal" method="post" action="<?php echo ($basePath . '/form_module/action/finance_accounts_clearance.php') ?>">
                 <div class="card-body row">
                     <div class="card">
                         <div class="card-body row">
@@ -52,6 +52,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                 </div>
                 <div class="card-body  showDepartment" style="display:none;">
+
                     <div class="row">
                         <strong class="text-center">[Please Fill-Up Bellow Form Data]</strong>
                         <hr>
@@ -65,11 +66,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="iou_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="iou_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -130,11 +131,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="salary_loan_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-d</label>efault-company" name="salary_loan_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-d</label>efault-company" name="salary_loan_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -195,11 +196,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="mobile_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="mobile_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -260,11 +261,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="bike_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="bike_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -327,11 +328,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="laptop_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="laptop_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -392,11 +393,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="car_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="car_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -458,11 +459,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="petty_cash_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="petty_cash_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -523,11 +524,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_avail_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="others_avail_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_resign_date" value="" />
+                                        <input type="date" class="form-control" id="basic-default-company" name="others_resign_date" value="" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
@@ -580,15 +581,19 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
 
                     </div>
+                    <div class="mt-2 w-25 mx-auto">
+                        <button class="form-control btn btn-sm btn-primary" type="submit">Submit </button>
+                    </div>
+
+
                 </div>
+            </form>
 
 
 
 
-
-
-            </div>
         </div>
+
 
     </div>
 
@@ -620,7 +625,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     beforeSend: function() {
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
-                        showDepartment();
+                        // showDepartment();
                         showPleaseWaitMessage();
 
                     },
@@ -655,11 +660,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 return false;
             },
             focus: function(event, ui) {
-                $("#autocomplete").val(ui.item.label);
-                $("#emp_id").val(ui.item.id);
+                // $("#autocomplete").val(ui.item.label);
+                // $("#emp_id").val(ui.item.id);
                 // $("#concern_name").val(ui.item.concern);
                 // buttonValidation();
-                showDepartment();
+                // showDepartment();
                 return false;
             },
         });

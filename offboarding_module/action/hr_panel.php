@@ -87,9 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
             @$lastError = error_get_last();
             @$error = $lastError ? "" . $lastError["message"] . "" : "";
-
-            // echo preg_split("/\@@@@/", @$error)[1];
-            // die();
             $e = oci_error($strSQL);
             $message = [
                 'text'   =>  preg_split("/\@@@@/", @$error)[1],
