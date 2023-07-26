@@ -51,534 +51,351 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
                 </div>
-                <div class="card-body  showDepartment" style="display:none;">
+                <strong class="d-block text-center">[Please Fill-Up Bellow Form Data]</strong>
+                <hr>
+                <div class=" showDepartment" style="display:nones;">
 
-                    <div class="row">
-                        <strong class="text-center">[Please Fill-Up Bellow Form Data]</strong>
-                        <hr>
-                        <div class="col-4 mb-2">
+                    <div class="d-flex flex-column ">
+
+                        <div class="" style="overflow-x: auto;overflow-y: auto;">
                             <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center ">
+                                    <div class="col-2  text-center align-items-center">
                                         <b class="text-uppercase"> IOU</b>
                                         <input type="hidden" name="data_type" value="iou">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="iou_avail_date" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="iou_resign_date" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_month_in_service" value="" />
-                                    </div>
-                                    <div class="mb-1">
+                                    
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_min_months_req" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6)< /label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="iou_eligible_for_ownership" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_amount_include" value="" />
-                                    </div>
-                                    <div class="mb-1">
+                                   
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_company_portion" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_employee_portion" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_paid_by_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_paid_by_employee" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_due_from_employee" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="iou_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
+                                    <div class="col-3">
                                         <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2  align-items-center">
                                         <b class="text-uppercase"> Salary Loan</b>
                                         <input type="hidden" name="data_type" value="salary_loan">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="salary_loan_avail_date" value="" />
+                                    
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-d</label>efault-company" name="salary_loan_resign_date" value="" />
+                                  
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6)< /label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="salary_loan_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="salary_loan_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4  align-items-center">
                                         <b class="text-uppercase"> Mobile</b>
                                         <input type="hidden" name="data_type" value="mobile">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="mobile_avail_date" value="" />
+                                    
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="mobile_resign_date" value="" />
+                                    
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6)< /label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="mobile_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="mobile_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4 align-items-center">
                                         <b class="text-uppercase"> Bike</b>
                                         <input type="hidden" name="data_type" value="bike">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="bike_avail_date" value="" />
+                                   
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="bike_resign_date" value="" />
+                                    
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6)< /label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="bike_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="bike_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-
-
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4  align-items-center">
                                         <b class="text-uppercase"> Laptop</b>
                                         <input type="hidden" name="data_type" value="laptop">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="laptop_avail_date" value="" />
+                                   
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="laptop_resign_date" value="" />
+                                   
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6) </label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="laptop_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="laptop_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4 align-items-center">
                                         <b class="text-uppercase"> Car</b>
                                         <input type="hidden" name="data_type" value="car">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="car_avail_date" value="" />
+                                   
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="car_resign_date" value="" />
+                                    
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6) </label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="car_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="car_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4  align-items-center">
                                         <b class="text-uppercase"> petty Cash</b>
                                         <input type="hidden" name="data_type" value="car">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="petty_cash_avail_date" value="" />
+                                    
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="petty_cash_resign_date" value="" />
+                                   
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6) </label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="petty_cash_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="petty_cash_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
-                            </div>
-
-                        </div>
-                        <div class="col-4 mb-2">
-                            <div class="card">
-
-                                <div class="card-body">
-                                    <div class="card card-title d-flex align-items-center justify-content-center p-1">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="col-2 text-center mt-4 align-items-center">
                                         <b class="text-uppercase"> Others</b>
                                         <input type="hidden" name="data_type" value="car">
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Avail date (DV date)</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="others_avail_date" value="" />
+                                    
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_min_months_req" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Resign date</label>
-                                        <input type="date" class="form-control" id="basic-default-company" name="others_resign_date" value="" />
+                                    
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_company_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Month in service (3-4)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_month_in_service" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_employee_portion" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Min. months req. for full for ownership</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_min_months_req" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Eligible for ownership (Y=5>6),(N=5<6) </label>
-                                                <input type="text" class="form-control" id="basic-default-company" name="others_eligible_for_ownership" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Amount (invl int. if any)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_amount_include" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Company Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_company_portion" value="" />
+                                    <div class="col-3">
+                                       
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee_company" value="" />
                                     </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Employee Portion</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_employee_portion" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Company</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_paid_by_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Paid By Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_paid_by_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From Employee</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_due_from_employee" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Due From emp(Company + Employee)</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="others_due_from_employee_company" value="" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="col-form-label" for="basic-default-company">Note/Remarks</label>
-                                        <input type="text" class="form-control" id="basic-default-company" name="remarks" value="" />
+                                    <div class="col-3">
+                                        
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks" value="" />
                                     </div>
 
                                 </div>
+                            
+                            
                             </div>
 
                         </div>
+                        
+                    
+
+                  
 
                     </div>
                     <div class="mt-2 w-25 mx-auto">
@@ -655,7 +472,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 $('#emp_id').val(ui.item.id); // save selected id to input
                 // $('#concern_name').val(ui.item.concern); // save selected id to input
                 userInfo(ui.item.empData.data);
-                showDepartment();
+                // showDepartment();
                 // buttonValidation();
                 return false;
             },
