@@ -250,8 +250,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     if (!$result) {
         $e = oci_error($strSQL);
-        echo htmlentities($e['message'], ENT_QUOTES);
-        die();
+        // echo htmlentities($e['message'], ENT_QUOTES);
+      
         $message = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
