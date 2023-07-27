@@ -120,7 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     $message = [
-        'text' => $ex->getMessage(),
+        'text' =>"Successfully Created Form.",
         'status' => 'true',
     ];
     $_SESSION['noti_message'] = $message;
