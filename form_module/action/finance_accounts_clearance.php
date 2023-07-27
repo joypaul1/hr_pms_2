@@ -31,9 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // print "<pre>";
 
     oci_execute($accountsSQL);
-    // print_r(oci_fetch_assoc($accountsSQL));
-    // print "</pre>";
-    // die();
+
     while ($clearanceEmpData = oci_fetch_assoc($accountsSQL)) {
         if ($EMP_CLEARENCE_ID == $clearanceEmpData['EMP_CLEARENCE_ID']) {
             $checkAccClearnenceForm = true;
@@ -84,29 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         SYSDATE,'$emp_session_id')"
                 );
 
-                // echo ("INSERT INTO ACCOUNTS_CLEARENCE_FORMS ( TITLE_DETAILS, EMP_CLEARENCE_ID, OWNERSHIP_REMARKS, COMPANY_PORTION, EMP_PORTION, PAID_BY_EMP, PAID_BY_COMPANY, DUE_FROM_EMP, REMARKS, CREATED_DATE, CREATED_BY) VALUES ( 'iou', 206, 'NA', 4234, 324234, 0, 234, 0, ' ', SYSDATE,'RML-01260')");
+               
 
-                // echo "</br>";
-
-                // echo ("INSERT INTO ACCOUNTS_CLEARENCE_FORMS (
-                //     TITLE_DETAILS, EMP_CLEARENCE_ID, 
-                //     OWNERSHIP_REMARKS, COMPANY_PORTION, EMP_PORTION, 
-                //     PAID_BY_EMP, PAID_BY_COMPANY, DUE_FROM_EMP, 
-                //     REMARKS, CREATED_DATE, CREATED_BY) 
-                // VALUES ('$TITLE_DETAILS',
-                //     $EMP_CLEARENCE_ID,
-                //     '$OWNERSHIP_REMARKS',
-                //     $COMPANY_PORTION,
-                //     $EMP_PORTION,
-                //     $PAID_BY_EMP,
-                //     $PAID_BY_COMPANY,
-                //     $DUE_FROM_EMP,
-                //     '$REMARKS',
-                //     SYSDATE,'$emp_session_id')");
-
-                // die();
-
-                $result =  oci_execute($clearanceSQL);
+                $result =  oci_execute($accountsClearanceSQL);
 
                 if (!$result) {
                     $lastError = error_get_last();
@@ -141,6 +119,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
         exit();
     }
+    $message = [
+        'text' => $ex->getMessage(),
+        'status' => 'true',
+    ];
+    $_SESSION['noti_message'] = $message;
     header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
     // header("location:" . $basePath . "/document/accounts_form.php?accountclearenceId=" . $EMP_CLEARENCE_ID);
     exit();
