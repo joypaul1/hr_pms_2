@@ -137,7 +137,7 @@
     }
 
     if (count($errors) > 0) {
-        echo '<div class="alert alert-danger">';
+        echo '<div class="alert alert-danger" style="color:red">';
         echo '<ul>';
         foreach ($errors as $error) {
             echo '<li>' . $error . '</li>';
