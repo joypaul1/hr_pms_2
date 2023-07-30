@@ -362,8 +362,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 </div>
                                 <div class="d-flex flex-row align-items-center">
                                     <div class="col-2 text-center mt-4  align-items-center">
-                                        <b class="text-uppercase"> petty Cash</b>
-                                        <input type="hidden" name="data_type[]" value="pettry_cash">
+                                        <b class="text-uppercase"> Petty Cash</b>
+                                        <input type="hidden" name="data_type[]" value="petty_cash">
                                     </div>
 
                                     <div class="col-3">

@@ -232,11 +232,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     $check_list_id  = ($_POST['check_list_id']);
     $remarks        = ($_POST['remarks']);
+   
     $strSQL  = oci_parse(
         $objConnect,
         "BEGIN
-    CLEARENCE_APPROVAL(1,'$emp_session_id',$check_list_id,'$remarks');
-    END;"
+        CLEARENCE_APPROVAL(1,'$emp_session_id',$check_list_id,'$remarks');
+        END;"
     );
 
     /*$strSQL  = oci_parse($objConnect, 
@@ -251,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
     if (!$result) {
         $e = oci_error($strSQL);
         // echo htmlentities($e['message'], ENT_QUOTES);
-      
+
         $message = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',

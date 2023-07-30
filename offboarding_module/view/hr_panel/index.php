@@ -55,6 +55,7 @@ if (!checkPermission('hr-offboarding-report')) {
                             <th scope="col">HOD Status</th>
                             <th scope="col">Department Approval Status</th>
                             <th scope="col">Exit Interview Status</th>
+                            <th scope="col">Accounts Clearnence Form</th>
                             <th scope="col">Created Info</th>
                         </tr>
                     </thead>
@@ -65,30 +66,38 @@ if (!checkPermission('hr-offboarding-report')) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
 
+
                             $strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT A.ID,
-									   B.EMP_NAME,
-									   B.RML_ID,
-									   B.R_CONCERN,
-									   B.DEPT_NAME,
-									   B.DESIGNATION,
-									   RML_HR_APPS_USER_ID,
-									   A.HOD_STATUS,
-									   APPROVAL_STATUS,
-									   EXIT_INTERVIEW_STATUS,
-									   EXIT_INTERVIEW_DATE,
-									   EXIT_INTERVIEW_BY,
-									   CREATED_DATE,
-									   CREATED_BY,
-									   LAST_WORKING_DATE,RESIGNATION_DATE,REASON
-								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-								  WHERE A.RML_HR_APPS_USER_ID=B.ID
-								  AND B.RML_ID='$v_emp_id'"
+                                "SELECT 
+                                    A.ID,
+                                    B.EMP_NAME,
+                                    B.RML_ID,
+                                    B.R_CONCERN,
+                                    B.DEPT_NAME,
+                                    B.DESIGNATION,
+                                    A.APPROVAL_STATUS,
+                                    A.HOD_STATUS,
+                                    A.EXIT_INTERVIEW_STATUS,
+                                    A.EXIT_INTERVIEW_DATE,
+                                    A.EXIT_INTERVIEW_BY,
+                                    A.CREATED_DATE,
+                                    A.CREATED_BY,
+                                    A.LAST_WORKING_DATE,
+                                    A.RESIGNATION_DATE,
+                                    A.REASON,
+                                    C.EMP_CLEARENCE_ID as ACC_EMP_CLEARENCE_ID
+                                FROM 
+                                    EMP_CLEARENCE A
+                                INNER JOIN 
+                                    RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                                LEFT OUTER JOIN 
+                                    ACCOUNTS_CLEARENCE_FORMS C ON A.ID = C.EMP_CLEARENCE_ID WHERE B.RML_ID='$v_emp_id'"
                             );
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
+
                                 $number++;
                         ?>
                                 <tr style="text-align: center;">
@@ -143,7 +152,19 @@ if (!checkPermission('hr-offboarding-report')) {
 
                                         </a>
                                     </td>
-                               
+                                    <td>
+                                        <?php
+                                        if ($row['ACC_EMP_CLEARENCE_ID']) {
+                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ACC_EMP_CLEARENCE_ID'] . '" target="_blank">
+                                            <button type="button" class="btn btn-sm btn-outline-info">
+                                                Account Clearence Form Print  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                            </button>
+                                        </a>';
+                                        } else {
+                                            echo "Pending ";
+                                        }
+                                        ?>
+                                    </td>
                                     <td><?php
                                         echo 'Created:' . $row['CREATED_DATE'];
                                         echo '</br>';
@@ -161,27 +182,37 @@ if (!checkPermission('hr-offboarding-report')) {
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT A.ID,
-										   B.EMP_NAME,
-										   B.RML_ID,
-										   B.R_CONCERN,
-										   B.DEPT_NAME,
-										   B.DESIGNATION,
-									       A.APPROVAL_STATUS,
-										   A.HOD_STATUS,
-										   A.EXIT_INTERVIEW_STATUS,
-										   A.EXIT_INTERVIEW_DATE,
-										   A.EXIT_INTERVIEW_BY,
-										   A.CREATED_DATE,
-										   A.CREATED_BY,
-										   LAST_WORKING_DATE,RESIGNATION_DATE,REASON
-									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
+                                "SELECT 
+                                    A.ID,
+                                    B.EMP_NAME,
+                                    B.RML_ID,
+                                    B.R_CONCERN,
+                                    B.DEPT_NAME,
+                                    B.DESIGNATION,
+                                    A.APPROVAL_STATUS,
+                                    A.HOD_STATUS,
+                                    A.EXIT_INTERVIEW_STATUS,
+                                    A.EXIT_INTERVIEW_DATE,
+                                    A.EXIT_INTERVIEW_BY,
+                                    A.CREATED_DATE,
+                                    A.CREATED_BY,
+                                    A.LAST_WORKING_DATE,
+                                    A.RESIGNATION_DATE,
+                                    A.REASON,
+                                    C.EMP_CLEARENCE_ID as ACC_EMP_CLEARENCE_ID
+                            FROM 
+                                EMP_CLEARENCE A
+                            INNER JOIN 
+                                RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                            LEFT OUTER JOIN 
+                                ACCOUNTS_CLEARENCE_FORMS C ON A.ID = C.EMP_CLEARENCE_ID"
                             );
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
+                                // print_r($row);
+                                // die();
                                 $number++;
 
                             ?>
@@ -210,7 +241,7 @@ if (!checkPermission('hr-offboarding-report')) {
                                         }
                                         ?>
                                     </td>
-									<td><?php
+                                    <td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -252,7 +283,20 @@ if (!checkPermission('hr-offboarding-report')) {
                                         </a>
 
                                     </td>
-                                   
+                                    <td>
+                                        <?php
+                                        if ($row['ACC_EMP_CLEARENCE_ID']) {
+                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ACC_EMP_CLEARENCE_ID'] . '" target="_blank">
+                                            <button type="button" class="btn btn-sm btn-outline-info">
+                                                Account Clearence Form Print  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                            </button>
+                                        </a>';
+                                        } else {
+                                            echo "Pending";
+                                        }
+                                        ?>
+                                    </td>
+
                                     <td><?php
                                         echo 'Created: ' . $row['CREATED_DATE'];
                                         echo '</br>';

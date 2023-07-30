@@ -16,8 +16,6 @@ $v_view_approval = 0;
     <div class="">
         <div class="card card-body">
             <form id="Form1" action="" method="post"></form>
-            <form id="Form2" action="" method="post"></form>
-            <form id="Form3" action="" method="post"></form>
             <div class="row">
                 <div class="col-sm-6"></div>
                 <div class="col-sm-3">

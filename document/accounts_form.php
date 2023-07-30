@@ -109,10 +109,16 @@
         echo '</div>';
         die();
     }
-    $clearanceSQL  = oci_parse($objConnect, "SELECT A.* FROM  EMP_CLEARENCE A WHERE A.ID='$emp_id'");
-    oci_execute($clearanceSQL);
-    $clearanceEmpData = oci_fetch_assoc($clearanceSQL);
 
+    $empinfoData= [];
+    $empinfoData  = ((oci_parse($objConnect, "SELECT B.EMP_NAME, B.RML_ID  FROM  EMP_CLEARENCE A  
+    JOIN RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+    WHERE A.ID='$accountclearenceId'")));
+    oci_execute($empinfoData);
+    $empinfoData = oci_fetch_assoc($empinfoData);
+    $number = 0;
+    // print_r($empinfoData);
+    // die();
     ?>
     <div style="text-align: right;" id="hidden">
         <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
@@ -122,9 +128,8 @@
         <div style="margin: 10px 0;">
             <form style="display: flex; justify-content: center;">
                 <level>
-
                     <u>
-                        FINANCE & ACCOUNTS CLEARANCE: <b>RML-XXXX</b> Name: <b>XXXXXXX</b>
+                        FINANCE & ACCOUNTS CLEARANCE: <b><?php echo $empinfoData['RML_ID'] ?></b> Name: <b><?php echo $empinfoData['EMP_NAME'] ?></b>
                     </u>
                 </level>
 
@@ -157,9 +162,34 @@
                 <th>Due From Emp. (Company+ Employee)</th>
                 <th style="width: 5px">Note/Remarks</th>
             </tr>
+            <?php
+
+            $clearanceSQL  = oci_parse($objConnect, "SELECT A.* FROM  ACCOUNTS_CLEARENCE_FORMS A WHERE A.EMP_CLEARENCE_ID='$accountclearenceId'");
+            oci_execute($clearanceSQL);
+            while ($row = oci_fetch_assoc($clearanceSQL)) {
+                $number++;
+            ?>
+                <tr style="text-align: center;">
+                    <td><?php echo $number; ?></td>
+                    <td><?php echo  ucwords(str_replace("_", " ", $row['TITLE_DETAILS'])); ?></td>
+                    <td><?php echo  $row['OWNERSHIP_REMARKS']; ?></td>
+                    <td><?php echo  $row['COMPANY_PORTION']; ?></td>
+                    <td><?php echo  $row['EMP_PORTION']; ?></td>
+                    <td style="text-align: right;"><?php echo   number_format($row['PAID_BY_COMPANY'] ? $row['PAID_BY_COMPANY'] : 0, 2); ?></td>
+                    <td style="text-align: right;"><?php echo   number_format($row['PAID_BY_EMP'] ? $row['PAID_BY_EMP'] : 0, 2); ?></td>
+                    <td style="text-align: right;"><?php echo   number_format($row['DUE_FROM_EMP'] ? $row['DUE_FROM_EMP'] : 0, 2); ?></td>
+                    <td style="text-align: right;"><?php echo   number_format(($row['PAID_BY_COMPANY'] ? $row['PAID_BY_COMPANY'] : 0) + ($row['DUE_FROM_EMP'] ? $row['DUE_FROM_EMP'] : 0), 2); ?></td>
+                    <td><?php echo  $row['REMARKS']; ?></td>
+
+
+                </tr>
+
+            <?php
+            }
+
+            ?>
             <tr style="text-align: center;">
-                <td>1</td>
-                <td>IOU</td>
+                <td><?php echo $number + 1; ?></td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -168,31 +198,46 @@
                 <td></td>
                 <td></td>
                 <td></td>
+                <td></td>
+
+
+            </tr>
+            <tr style="text-align: center;">
+                <td><?php echo $number + 2; ?></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
 
             </tr>
         </table>
 
-
-
-
-        <!-- <span style="color: #7b7b7b;">
-            NB: Detail final settlement calculation is being attached.
-        </span>
-
-        <div style="margin-top: 10px; display: flex; width: 100%;">
-            <div style="width: 50%; text-align: center;">
+        <div style="margin-top: 10px; display: flex;  justify-content: space-between;width: 100%;">
+            <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
                     Concern HR
                 </p>
             </div>
-            <div style="width: 50%; text-align: center;">
+            <div style=" text-align: center;">
+                <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
+                <p style="margin: 0;">
+                    Concern HR
+                </p>
+            </div>
+            <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
                     HOD HR
                 </p>
             </div>
-        </div> -->
+        </div>
     </div>
 
 </body>
