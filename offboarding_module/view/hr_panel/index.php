@@ -85,14 +85,12 @@ if (!checkPermission('hr-offboarding-report')) {
                                     A.CREATED_BY,
                                     A.LAST_WORKING_DATE,
                                     A.RESIGNATION_DATE,
-                                    A.REASON,
-                                    C.EMP_CLEARENCE_ID as ACC_EMP_CLEARENCE_ID
+                                    A.REASON
                                 FROM 
                                     EMP_CLEARENCE A
                                 INNER JOIN 
                                     RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
-                                LEFT OUTER JOIN 
-                                    ACCOUNTS_CLEARENCE_FORMS C ON A.ID = C.EMP_CLEARENCE_ID WHERE B.RML_ID='$v_emp_id'"
+                                WHERE B.RML_ID='$v_emp_id'"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -154,14 +152,19 @@ if (!checkPermission('hr-offboarding-report')) {
                                     </td>
                                     <td>
                                         <?php
-                                        if ($row['ACC_EMP_CLEARENCE_ID']) {
-                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ACC_EMP_CLEARENCE_ID'] . '" target="_blank">
+                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
+                                        oci_execute($singledataOFAccClear);
+                                        $clearenceFormFata = oci_fetch_assoc($singledataOFAccClear);
+
+
+                                        if ($clearenceFormFata) {
+                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ID'] . '" target="_blank">
                                             <button type="button" class="btn btn-sm btn-outline-info">
                                                 Account Clearence Form Print  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                             </button>
                                         </a>';
                                         } else {
-                                            echo "Pending ";
+                                            echo "Pending";
                                         }
                                         ?>
                                     </td>
@@ -183,36 +186,32 @@ if (!checkPermission('hr-offboarding-report')) {
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT 
-                                    A.ID,
-                                    B.EMP_NAME,
-                                    B.RML_ID,
-                                    B.R_CONCERN,
-                                    B.DEPT_NAME,
-                                    B.DESIGNATION,
-                                    A.APPROVAL_STATUS,
-                                    A.HOD_STATUS,
-                                    A.EXIT_INTERVIEW_STATUS,
-                                    A.EXIT_INTERVIEW_DATE,
-                                    A.EXIT_INTERVIEW_BY,
-                                    A.CREATED_DATE,
-                                    A.CREATED_BY,
-                                    A.LAST_WORKING_DATE,
-                                    A.RESIGNATION_DATE,
-                                    A.REASON,
-                                    C.EMP_CLEARENCE_ID as ACC_EMP_CLEARENCE_ID
+                                A.ID,
+                                B.EMP_NAME,
+                                B.RML_ID,
+                                B.R_CONCERN,
+                                B.DEPT_NAME,
+                                B.DESIGNATION,
+                                A.APPROVAL_STATUS,
+                                A.HOD_STATUS,
+                                A.EXIT_INTERVIEW_STATUS,
+                                A.EXIT_INTERVIEW_DATE,
+                                A.EXIT_INTERVIEW_BY,
+                                A.CREATED_DATE,
+                                A.CREATED_BY,
+                                A.LAST_WORKING_DATE,
+                                A.RESIGNATION_DATE,
+                                A.REASON
+                               
                             FROM 
                                 EMP_CLEARENCE A
-                            INNER JOIN 
-                                RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
-                            LEFT OUTER JOIN 
-                                ACCOUNTS_CLEARENCE_FORMS C ON A.ID = C.EMP_CLEARENCE_ID"
+                             JOIN 
+                                RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID"
                             );
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
-                                // print_r($row);
-                                // die();
                                 $number++;
 
                             ?>
@@ -285,8 +284,13 @@ if (!checkPermission('hr-offboarding-report')) {
                                     </td>
                                     <td>
                                         <?php
-                                        if ($row['ACC_EMP_CLEARENCE_ID']) {
-                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ACC_EMP_CLEARENCE_ID'] . '" target="_blank">
+                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
+                                        oci_execute($singledataOFAccClear);
+                                        $clearenceFormFata = oci_fetch_assoc($singledataOFAccClear);
+
+
+                                        if ($clearenceFormFata) {
+                                            echo '<a href="' . $basePath . '/document/accounts_form.php?accountclearenceId=' . $row['ID'] . '" target="_blank">
                                             <button type="button" class="btn btn-sm btn-outline-info">
                                                 Account Clearence Form Print  <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                             </button>
