@@ -222,19 +222,19 @@
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                    Concern HR
+                    Prepared BY <br />Rangs Motors Limited
                 </p>
             </div>
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                    Concern HR
+                    Manager / AGM / DGM <br />Rangs Motors Limited
                 </p>
             </div>
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                    HOD HR
+                   GM / CEO <br />Rangs Motors Limited
                 </p>
             </div>
         </div>
