@@ -1,13 +1,17 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+$dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+$dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
+require_once('../../helper/2step_com_conn.php');
+require_once('../../inc/connoracle.php');
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
-if (!checkPermission('hr-offboarding-report')) {
-    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+if (!checkPermission('hr-offboarding-create')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
+$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+
 ?>
+
 
 <!-- / Content -->
 
@@ -38,12 +42,12 @@ if (!checkPermission('hr-offboarding-report')) {
     <div class="card mt-2">
 
         <?php
-        $leftSideName  = 'Offboarding List';
-        if (checkPermission('hr-offboarding-create')) {
-            $rightSideName = 'Offboarding Create';
-            $routePath     = 'offboarding_module/view/hr_panel/create.php';
-        }
-        include('../../../layouts/_tableHeader.php');
+        $leftSideName  = 'Pending List';
+        // if (checkPermission('hr-offboarding-create')) {
+        //     $rightSideName = 'Offboarding Create';
+        //     $routePath     = 'offboarding_module/view/hr_panel/create.php';
+        // }
+        include('../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
@@ -53,8 +57,8 @@ if (!checkPermission('hr-offboarding-report')) {
                             <th>SL</th>
                             <th scope="col">EMP Info</th>
                             <th scope="col">HOD Status</th>
-                            <th scope="col">Department Approval Status</th>
-                            <th scope="col">Exit Interview Status</th>
+                            <!-- <th scope="col">Department Approval Status</th> -->
+                            <!-- <th scope="col">Exit Interview Status</th> -->
                             <th scope="col">Accounts Clearnence Form</th>
                             <th scope="col">Created Info</th>
                         </tr>
@@ -85,7 +89,8 @@ if (!checkPermission('hr-offboarding-report')) {
                                     A.CREATED_BY,
                                     A.LAST_WORKING_DATE,
                                     A.RESIGNATION_DATE,
-                                    A.REASON
+                                    A.REASON,
+                                    A.RML_HR_APPS_USER_ID
                                 FROM 
                                     EMP_CLEARENCE A
                                 INNER JOIN 
@@ -112,7 +117,8 @@ if (!checkPermission('hr-offboarding-report')) {
                                         echo $row['DESIGNATION'];
                                         ?>
                                     </td>
-                                    <td><?php
+                                    <td>
+                                        <?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -121,38 +127,39 @@ if (!checkPermission('hr-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
-                                        </br>
+                                        <!-- </br>
                                         <button type="button" class="btn btn-sm btn-outline-info" onclick="seeStatus(<?php echo $row['ID']  ?>)">
                                             See Status <i class="menu-icon tf-icons bx bx-right-arrow"></i>
-                                        </button>
+                                        </button> -->
                                     </td>
-                                    <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                        <a href="<?php echo $basePath . "/document/finalsatelment.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
+                                    <!-- <td> -->
+                                    <?php
+                                    // if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                    //     echo 'Approved';
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_DATE'];
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_BY'];
+                                    // } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                    //     echo 'Denied';
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_DATE'];
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_BY'];
+                                    // } else {
+                                    //     echo 'Pending';
+                                    // }
+                                    ?>
+                                    <!-- <a href="<?php echo $basePath . "/document/finalsatelment.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
                                             <button type="button" class="btn btn-sm btn-outline-info">
                                                 Print Preview <i class="menu-icon tf-icons bx bx-right-arrow"></i>
                                             </button>
 
-                                        </a>
-                                    </td>
+                                        </a> -->
+                                    <!-- </td> -->
                                     <td>
                                         <?php
-                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
+                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM  ACCOUNTS_CLEARENCE_FORMS  WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
                                         oci_execute($singledataOFAccClear);
                                         $clearenceFormFata = oci_fetch_assoc($singledataOFAccClear);
 
@@ -201,8 +208,8 @@ if (!checkPermission('hr-offboarding-report')) {
                                 A.CREATED_BY,
                                 A.LAST_WORKING_DATE,
                                 A.RESIGNATION_DATE,
-                                A.REASON
-                               
+                                A.REASON,
+                                A.RML_HR_APPS_USER_ID
                             FROM 
                                 EMP_CLEARENCE A
                              JOIN 
@@ -240,39 +247,41 @@ if (!checkPermission('hr-offboarding-report')) {
                                         }
                                         ?>
                                     </td>
-                                    <td><?php
-                                        if ($row['APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else if ($row['APPROVAL_STATUS'] == '') {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                        </br>
+                                    <!-- <td> -->
+                                    <?php
+                                    // if ($row['APPROVAL_STATUS'] == '1') {
+                                    //     echo 'Approved';
+                                    // } else if ($row['APPROVAL_STATUS'] == '0') {
+                                    //     echo 'Denied';
+                                    // } else if ($row['APPROVAL_STATUS'] == '') {
+                                    //     echo 'Pending';
+                                    // }
+                                    ?>
+                                    <!-- </br>
                                         <button type="button" class="btn btn-sm btn-outline-info" onclick="seeStatus(<?php echo $row['ID']  ?>)">
                                             See Status <i class="menu-icon tf-icons bx bx-right-arrow"></i>
-                                        </button>
+                                        </button> -->
 
-                                    </td>
-                                    <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
-                                        </br>
+                                    <!-- </td> -->
+                                    <!-- <td> -->
+                                    <?php
+                                    // if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                    //     echo 'Approved';
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_DATE'];
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_BY'];
+                                    // } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                    //     echo 'Denied';
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_DATE'];
+                                    //     echo '</br>';
+                                    //     echo $row['EXIT_INTERVIEW_BY'];
+                                    // } else {
+                                    //     echo 'Pending';
+                                    // }
+                                    ?>
+                                    <!-- </br>
 
                                         <a href="<?php echo $basePath . "/document/finalsatelment.php?id=" . $row['ID'] . '&rml_id=' . $row['RML_ID']  ?>" target="_blank">
                                             <button type="button" class="btn btn-sm btn-outline-info">
@@ -281,7 +290,7 @@ if (!checkPermission('hr-offboarding-report')) {
 
                                         </a>
 
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <?php
                                         $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
@@ -297,6 +306,12 @@ if (!checkPermission('hr-offboarding-report')) {
                                         </a>';
                                         } else {
                                             echo "Pending";
+                                            echo '</br>';
+                                            echo '<a href="' . $basePath . '/form_module/view/finance_accounts_clearance.php?rml_hr_apps_user_id=' . $row['RML_HR_APPS_USER_ID'] . '" target="_blank">
+                                                <button type="button" class="btn btn-sm btn-outline-info">
+                                                    Create Form   <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                                </button>
+                                            </a>';
                                         }
                                         ?>
                                     </td>
@@ -347,8 +362,9 @@ if (!checkPermission('hr-offboarding-report')) {
 
 
 <!-- / Content -->
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+
+<?php require_once('../../layouts/footer_info.php'); ?>
+<?php require_once('../../layouts/footer.php'); ?>
 
 <script>
     function seeStatus(id) {

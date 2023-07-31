@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
+        header("location:" . $basePath . "/form_module/view/finance_accounts_clearance_list.php");
         exit();
     }
 
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         'status' => 'false',
                     ];
                     $_SESSION['noti_message'] = $message;
-                    header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
+                    header("location:" . $basePath . "/form_module/view/finance_accounts_clearance_list.php");
                     exit();
                 }
             } catch (\Exception $ex) {
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
+                header("location:" . $basePath . "/form_module/view/finance_accounts_clearance_list.php");
                 exit();
             }
         }
@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
+        header("location:" . $basePath . "/form_module/view/finance_accounts_clearance_list.php");
         exit();
     }
     $message = [
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'status' => 'true',
     ];
     $_SESSION['noti_message'] = $message;
-    header("location:" . $basePath . "/form_module/view/finance_accounts_clearance.php");
+    header("location:" . $basePath . "/form_module/view/finance_accounts_clearance_list.php");
     // header("location:" . $basePath . "/document/accounts_form.php?accountclearenceId=" . $EMP_CLEARENCE_ID);
     exit();
 }

@@ -612,8 +612,8 @@ function isActive($url)
                     </a>
                     <ul class="menu-sub">
                         <?php if (checkPermission('roster-create')) { ?>
-                            <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance.php'); ?>">
-                                <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance.php" class="menu-link">
+                            <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
+                                <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
                                     <div data-i18n="Error">Accounts Clearence Form</div>
                                 </a>
                             </li>

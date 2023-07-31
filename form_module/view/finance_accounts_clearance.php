@@ -50,16 +50,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
             ?>
             <form class="form-horizontal" method="post" action="<?php echo ($basePath . '/form_module/action/finance_accounts_clearance.php') ?>">
-                <div class="card-body row">
+                <!-- <div class="card-body row">
                     <div class="card">
                         <div class="card-body row">
 
                             <div class="col-sm-4">
                                 <label for="emp_id"> <strong>Select Employee By Search ID <span class="text-danger">*</span></strong> </label>
                                 <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
+                                  <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
                                 <div class="text-info" id="message"></div>
-                                <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
-                                <!-- <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden /> -->
+                              
 
                             </div>
                             <div class="col-sm-8">
@@ -69,7 +69,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
 
 
-                </div>
+                </div> -->
+                <input required  value="<?php echo $_GET['rml_hr_apps_user_id'] ?>"  name="emp_id" type="hidden" hidden />
+
                 <strong class="d-block text-center">[Please Fill-Up Bellow Form Data]</strong>
                 <hr>
                 <div class=" showDepartment" style="display:nones;">
@@ -453,7 +455,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
                     </div>
-                    <div class="mt-2 w-25 mx-auto">
+                    <div class="mt-3 mb-5 w-25 mx-auto">
                         <button class="form-control btn btn-sm btn-primary" type="submit">Submit </button>
                     </div>
 
