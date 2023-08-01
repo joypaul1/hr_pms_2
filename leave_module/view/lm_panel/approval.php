@@ -151,7 +151,7 @@ $v_view_approval = 0;
 														where a.RML_ID=b.RML_ID
 														and b.LINE_MANAGER_RML_ID='$emp_session_id'
 														and a.LINE_MNGR_APVL_STS IS NULL
-														and trunc(START_DATE)> TO_DATE('01/01/2022','DD/MM/YYYY') 
+														and trunc(START_DATE)> TO_DATE('01/01/2023','DD/MM/YYYY') 
 														order by START_DATE desc");
 
                                 @oci_execute($allDataSQL);

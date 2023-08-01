@@ -147,13 +147,23 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 }
                             } else {
 
-                                $allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
-														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
-														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_RML_ID='$emp_session_id'
-														and a.LINE_MNGR_APVL_STS IS NULL
-														and trunc(START_DATE)> TO_DATE('01/01/2022','DD/MM/YYYY') 
-														order by START_DATE desc");
+                                $allDataSQL  = oci_parse($objConnect, "select a.ID,
+								                                              b.EMP_NAME,
+																			  a.RML_ID,
+																			  a.ENTRY_DATE,
+																			  a.ATTN_DATE,
+																			  a.OUTSIDE_REMARKS,
+																			  a.ENTRY_BY,
+																			  b.DEPT_NAME,
+																			  b.BRANCH_NAME,
+																			  b.DESIGNATION
+														FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
+														WHERE A.RML_ID = B.RML_ID
+														AND b.LINE_MANAGER_RML_ID = '$emp_session_id'
+														AND TRUNC(a.ATTN_DATE) > TO_DATE('01/01/2023', 'DD/MM/YYYY')
+														AND a.IS_ALL_APPROVED = 0
+														AND A.LINE_MANAGER_APPROVAL IS NULL
+														AND B.IS_ACTIVE = 1");
 
                                 @oci_execute($allDataSQL);
                                 $number = 0;
