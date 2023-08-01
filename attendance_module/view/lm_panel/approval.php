@@ -189,16 +189,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" />
                                             </td>
                                             <td>
-                                                <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
+                                                <?php echo $row['ATTN_DATE'];
                                                 echo ',<br>';
-                                                $v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
-                                                echo $v_leave_day;
-                                                if ($v_leave_day > 1)
-                                                    echo '-Days';
-                                                else
-                                                    echo '-Day';
-                                                echo ',<br>';
-                                                echo 'Remarks:-' . $row['REMARKS'];
+                                                echo 'Remarks:-' . $row['OUTSIDE_REMARKS'];
                                                 ?>
                                             </td>
 
