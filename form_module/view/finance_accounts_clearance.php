@@ -582,7 +582,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
         function userInfo(info) {
 
-            let basePath = "/rHRT";
+            let basePath = "/rml_apps";
             let html = `<div class="justify-content-center">
             <div class="card p-3">
                 <div class="d-flex  text-center">
