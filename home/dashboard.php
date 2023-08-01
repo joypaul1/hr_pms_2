@@ -3,7 +3,8 @@
 require_once('../helper/com_conn.php');
 require_once('../inc/connoracle.php');
 
-
+// echo $basePath;
+// die();
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
@@ -62,14 +63,15 @@ require_once('../inc/connoracle.php');
 								<?php
 								$allDataSQL  = oci_parse(
 									$objConnect,
-									"select 'OUTDOOR_ATTN' APPROVAL_TYPE,count(A.ID) NUMBER_TOTAL,'$basePath/attendance_module/view/lm_panel/approval.php' APPROVAL_LINK
-									from RML_HR_ATTN_DAILY a ,RML_HR_APPS_USER b
-									where A.RML_ID=B.RML_ID
-									and a.LINE_MANAGER_ID = '$emp_session_id'
-									and trunc (a.ATTN_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
+									"SELECT 'OUTDOOR_ATTN' APPROVAL_TYPE, COUNT(A.ID) NUMBER_TOTAL, 
+									 '" . $basePath . "/attendance_module/view/lm_panel/approval.php' AS APPROVAL_LINK
+									FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
+									WHERE A.RML_ID = B.RML_ID
+									AND a.LINE_MANAGER_ID = '$emp_session_id'
+									AND TRUNC(a.ATTN_DATE) > TO_DATE('31/12/2022', 'DD/MM/YYYY')
 									AND a.IS_ALL_APPROVED = 0
 									AND A.LINE_MANAGER_APPROVAL IS NULL
-									AND B.IS_ACTIVE=1
+									AND B.IS_ACTIVE = 1
 									UNION ALL
 									select 'LEAVE' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/attendance_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
 									where A.RML_ID=b.RML_ID
@@ -121,7 +123,7 @@ require_once('../inc/connoracle.php');
 										</td>
 										<td><?php echo $row['APPROVAL_TYPE']; ?></td>
 										<td align="center">
-											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?> ><?php echo $row['NUMBER_TOTAL']; ?></a>
+											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><?php echo $row['NUMBER_TOTAL']; ?></a>
 										</td>
 									</tr>
 								<?php
