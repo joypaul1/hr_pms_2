@@ -581,7 +581,7 @@ function isActive($url)
             <?php } ?>
             <!--pms Module -->
             <!-- Report - module-list -->
-            <?php ?>
+           
 
                 <li class="menu-item <?php echo isActive('/roster'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -600,10 +600,10 @@ function isActive($url)
                     </ul>
                 </li>
 
-            <?php ?>
+            
             <!-- Report-list -->
             <!-- From - module-list -->
-            <?php ?>
+            
 
                 <li class="menu-item <?php echo isActive('/form_module/view'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -622,7 +622,7 @@ function isActive($url)
                     </ul>
                 </li>
 
-            <?php  ?>
+         
             <!-- Report-list -->
             <!-- roster - module-list -->
             <!-- <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
