@@ -581,7 +581,7 @@ function isActive($url)
             <?php } ?>
             <!--pms Module -->
             <!-- Report - module-list -->
-            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
+            <?php ?>
 
                 <li class="menu-item <?php echo isActive('/roster'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -589,7 +589,7 @@ function isActive($url)
                         <div data-i18n="Misc">Report Module</div>
                     </a>
                     <ul class="menu-sub">
-                        <?php if (checkPermission('roster-create')) { ?>
+                        <?php if (checkPermission('report-generate')) { ?>
                             <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
                                 <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
                                     <div data-i18n="Error">Report Generate</div>
@@ -600,10 +600,10 @@ function isActive($url)
                     </ul>
                 </li>
 
-            <?php } ?>
+            <?php ?>
             <!-- Report-list -->
             <!-- From - module-list -->
-            <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
+            <?php ?>
 
                 <li class="menu-item <?php echo isActive('/form_module/view'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -611,7 +611,7 @@ function isActive($url)
                         <div data-i18n="Misc">Form Module</div>
                     </a>
                     <ul class="menu-sub">
-                        <?php if (checkPermission('roster-create')) { ?>
+                        <?php if (checkPermission('accounts-clearance-form')) { ?>
                             <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
                                 <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
                                     <div data-i18n="Error">Accounts Clearence Form</div>
@@ -622,7 +622,7 @@ function isActive($url)
                     </ul>
                 </li>
 
-            <?php } ?>
+            <?php  ?>
             <!-- Report-list -->
             <!-- roster - module-list -->
             <!-- <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
