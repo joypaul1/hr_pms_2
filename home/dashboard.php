@@ -62,7 +62,7 @@ require_once('../inc/connoracle.php');
 								<?php
 								$allDataSQL  = oci_parse(
 									$objConnect,
-									"select 'OUTDOOR_ATTN' APPROVAL_TYPE,count(A.ID) NUMBER_TOTAL,'$basePath/attendance_module/view/lm_panel/outdoor.php' APPROVAL_LINK
+									"select 'OUTDOOR_ATTN' APPROVAL_TYPE,count(A.ID) NUMBER_TOTAL,'$basePath/attendance_module/view/lm_panel/approval.php' APPROVAL_LINK
 									from RML_HR_ATTN_DAILY a ,RML_HR_APPS_USER b
 									where A.RML_ID=B.RML_ID
 									and a.LINE_MANAGER_ID = '$emp_session_id'
