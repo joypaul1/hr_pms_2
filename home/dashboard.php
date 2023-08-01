@@ -13,7 +13,7 @@ require_once('../inc/connoracle.php');
 				<marquee>সকলকে পবিত্র ঈদুল আজহার শুভেচ্ছা ও ঈদ মোবারাক</marquee>
 			</div>
 		</div>
-		<div class="col-lg-6 mb-4 order-0">
+		<div class="col-lg-6 mb-2 order-0">
 			<div class="card">
 				<div class="d-flex align-items-end row">
 					<div class="col-sm-7">
@@ -45,8 +45,18 @@ require_once('../inc/connoracle.php');
         </div>
 		
 		
-		 <!-- Approval -->
-		<div class="col-6 mb-4 order-0">
+		 <-- Approval -->
+		<div class="col-lg-6 mb-2 order-0">
+			<div class="card">
+				<div class="card-body">
+					<h5 class="card-title text-primary">User Manual List</h5>
+					
+				</div>
+			</div>
+		</div>
+		<!-- End Approval -->
+		<!--  Approval --> 
+		<div class="col-lg-6 mb-2 order-0">
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title text-primary">Approval Pending List</h5>
