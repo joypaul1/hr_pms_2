@@ -9,12 +9,9 @@
 
   <meta name="description" content="" />
   <?php
-  $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-  $basePath =  $baseUrl . '/rHRT';
-  if (!isset($_SESSION['HR'])) {
-    header("location:" . $basePath."/index.php");
-    exit();
-  }
+  // include_once('.././config_file_path.php');
+  $basePath =  $_SESSION['basePath'];
+
   ?>
 
 
@@ -52,7 +49,7 @@
   <script src="<?php echo $basePath ?>/assets/js/config.js"></script>
   <!-- // Echo the value of $dynamic_link_css to verify its content -->
   <?php if (isset($dynamic_link_css)) { ?>
-    <link rel="stylesheet" type="text/css" href="<?php print_r ($dynamic_link_css); ?>">
+    <link rel="stylesheet" type="text/css" href="<?php print_r($dynamic_link_css); ?>">
   <?php } ?>
 
 </head>

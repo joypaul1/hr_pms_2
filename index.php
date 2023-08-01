@@ -2,6 +2,7 @@
 session_start();
 session_regenerate_id(TRUE);
 require_once('inc/config.php');
+include_once('./config_file_path.php');
 
 if (isset($_POST['login_hr'])) {
 
@@ -28,6 +29,8 @@ if (isset($_POST['login_hr'])) {
       unset($getUserRow_hr['hrpassword']);
 
       $_SESSION['HR'] = $getUserRow_hr;
+       $_SESSION['baseURL'] = $baseUrl;
+      $_SESSION['basePath'] = $basePath;
 
       // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
       $USER_ROLE_HR = 'HR';
@@ -55,6 +58,7 @@ if (isset($_POST['login_hr'])) {
 
 if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   // session_unset($_SESSION["HR"]);
+  $basePath = $_SESSION['basePath'];
   session_start();
   session_unset();
   session_destroy();
@@ -62,7 +66,7 @@ if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   setcookie(session_name(), '', 0, '/');
   session_regenerate_id(true);
   // header("location:index.php");
-  header("location:/rHRT/index.php");
+  header("location:".$basePath."/index.php");
   exit;
 }
 

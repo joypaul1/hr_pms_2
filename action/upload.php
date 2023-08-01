@@ -1,9 +1,10 @@
 <?php
 require_once('../inc/config.php');
+$basePath =  $_SESSION['basePath'];
 session_start();
-$emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
-$baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-$basePath =  $baseUrl . '/rHRT';
+// $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
+// $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+
 
 
 $imageStatus = '';
@@ -65,6 +66,6 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
 // Display status message
 session_start();
 $_SESSION['imageStatus'] = $imageStatus;
-header("location:" . $basePath . "/imageChange.php");
+header("location:" .  . "/imageChange.php");
 
 exit;
