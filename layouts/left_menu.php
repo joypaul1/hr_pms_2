@@ -619,8 +619,8 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('car-deed-form')) { ?>
-                            <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
-                                <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
+                            <li class="menu-item <?php echo isActive('/form_module/view/car_deed_form.php'); ?>">
+                                <a href="<?php echo $basePath ?>/form_module/view/car_deed_form.php" class="menu-link">
                                     <div data-i18n="Error">Car Deed Form</div>
                                 </a>
                             </li>
