@@ -19,6 +19,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <div class="card col-lg-12">
         <form action="" method="post">
+            <input type="hidden" name="actionType" value="searchData" >
             <div class="card-body row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-4">
@@ -49,24 +50,32 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         box-shadow: 1px 1px 1px 1px lightgray;
                         margin: 2%;
                     ">
-                    <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number : 0000009789 </h5>
+                    <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number : <?php echo trim($_POST["invoice_id"]) ?> </h5>
                     <p class="text-center"> <i class=" m-0 text-info"></i><u>Car Reference List</u> </p>
-                    <div class="form-check-inline col-5">
-                        <input type="checkbox" class="form-check-input" value="1" name="reference_id[]" id="check_1">
-                        <label class="form-check-label" for="check_1">Ref-0009</label>
-                    </div>
-                    <div class="form-check-inline col-5">
-                        <input type="checkbox" class="form-check-input" value="2" name="reference_id[]" id="check_2">
-                        <label class="form-check-label" for="check_2">Ref-00019</label>
-                    </div>
-                    <div class="form-check-inline col-5">
-                        <input type="checkbox" class="form-check-input" value="2" name="reference_id[]" id="check_2">
-                        <label class="form-check-label" for="check_2">Ref-0109</label>
-                    </div>
-                    <div class="form-check-inline col-5">
-                        <input type="checkbox" class="form-check-input" value="2" name="reference_id[]" id="check_2">
-                        <label class="form-check-label" for="check_2">Ref-1009</label>
-                    </div>
+
+                    <?php 
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') { 
+                        $invoice_id = trim($_POST["invoice_id"]);
+
+                        $deedSQL = oci_parse($objConnect, "SELECT REF_CODE FROM LEASE_ALL_INFO_ERP WHERE DOCNUMBR = :invoice_id");
+                        oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
+                        oci_execute($deedSQL);
+                        
+                        if ($row = oci_fetch_assoc($deedSQL)) {
+                            do {
+                                echo '<div class="form-check-inline col-5">
+                                        <input type="checkbox" class="form-check-input" value="'.$row['REF_CODE'].'" name="reference_id[]" id="'.$row['REF_CODE'].'">
+                                        <label class="form-check-label" for="'.$row['REF_CODE'].'">'.$row['REF_CODE'].'</label>
+                                    </div>';
+                            } while ($row = oci_fetch_assoc($deedSQL));
+                        } else {
+                            echo '<strong class="text-danger">Sorry! No data found. </strong>';
+                        }
+                        
+                    }
+                    ?>
+                 
+                       
 
                 </div>
             </div>
