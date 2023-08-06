@@ -1,7 +1,7 @@
 <?php
+session_start();
 require_once('../inc/config.php');
 $basePath =  $_SESSION['basePath'];
-session_start();
 // $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
 // $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
 

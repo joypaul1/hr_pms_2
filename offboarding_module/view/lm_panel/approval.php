@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $v_view_approval = 0;

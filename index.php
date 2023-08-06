@@ -29,9 +29,9 @@ if (isset($_POST['login_hr'])) {
       unset($getUserRow_hr['hrpassword']);
 
       $_SESSION['HR'] = $getUserRow_hr;
-       $_SESSION['baseURL'] = $baseUrl;
+      $_SESSION['baseURL'] = $baseUrl;
       $_SESSION['basePath'] = $basePath;
-
+      
       // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
       $USER_ROLE_HR = 'HR';
       // echo($USER_ROLE_HR);

@@ -1,13 +1,8 @@
 <?php
 
-
-require_once('../../inc/config.php');
-
-// $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-// $basePath =  $baseUrl . '/rHRT';
-$basePath =  $_SESSION['basePath'];
-
 session_start();
+require_once('../../inc/config.php');
+$basePath =  $_SESSION['basePath'];
 $response = array();
 
 

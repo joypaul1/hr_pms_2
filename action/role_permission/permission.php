@@ -1,13 +1,7 @@
 <?php
-header('Content-type: application/json; charset=UTF-8');
-
-require_once('../../inc/config.php');
-
-// $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-//  =  $baseUrl . '/rHRT';
-$basePath =  $_SESSION['basePath'];
-
 session_start();
+require_once('../../inc/config.php');
+$basePath =  $_SESSION['basePath'];
 $response = array();
 
 
@@ -22,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" .  . "/role_permission/permission/create.php");
+        header("location:".$basePath."/role_permission/permission/create.php");
         exit;
     } else {
         $sql = "INSERT INTO  tbl_permissions ( name, slug, permission_module_id) VALUES (?, ?,?)";
@@ -44,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" .  . "/role_permission/permission/index.php");
+                header("location:".$basePath."/role_permission/permission/index.php");
                 exit();
             } else {
                 $message = [
@@ -52,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'cre
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" .  . "/role_permission/permission/create.php");
+                header("location:".$basePath."/role_permission/permission/create.php");
             }
         }
         mysqli_stmt_close($stmt);  // Close statement
@@ -71,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        header("location:" .  . "/role_permission/permission/edit.php?id=" . $id . "&amp;&amp;actionType=edit");
+        header("location:".$basePath."/role_permission/permission/edit.php?id=" . $id . "&amp;&amp;actionType=edit");
         exit;
     } else {
         $sql = "UPDATE tbl_permissions SET name=?, slug=?,permission_module_id=? WHERE id=?";
@@ -94,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" .  . "/role_permission/permission/index.php");
+                header("location:".$basePath."/role_permission/permission/index.php");
                 exit();
             } else {
                 $message = [
@@ -102,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" .  . "/role_permission/permission/index.php");
+                header("location:".$basePath."/role_permission/permission/index.php");
             }
         }
         mysqli_stmt_close($stmt);  // Close statement
@@ -149,7 +143,7 @@ if (($_GET["deleteID"])) {
         $response['status']  = 'error';
         $response['message'] = "URL doesn't contain id parameter!";
         echo json_encode($response);
-        header("location:" .  . "/role_permission/permission/index.php");
+        header("location:".$basePath."/role_permission/permission/index.php");
         exit();
     }
 }
