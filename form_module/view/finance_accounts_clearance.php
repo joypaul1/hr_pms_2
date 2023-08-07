@@ -1,9 +1,10 @@
 <?php
+
 $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
-
+$basePath =  $_SESSION['basePath'];
 if (!checkPermission('accounts-clearance-form')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
@@ -581,7 +582,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
         function userInfo(info) {
 
-            let basePath = "/rHRT";
+            // let basePath = "/rHRT";
             let html = `<div class="justify-content-center">
             <div class="card p-3">
                 <div class="d-flex  text-center">

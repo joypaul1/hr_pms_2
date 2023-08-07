@@ -3,7 +3,7 @@ $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
+$basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-offboarding-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -183,7 +183,7 @@ if (!checkPermission('hr-offboarding-create')) {
 
         function userInfo(info) {
 
-            let basePath = "/rHRT";
+            let basePath = "<?php echo $basePath =  $_SESSION['basePath'] ?>";
             let html = `<div class="justify-content-center">
                     <div class="card p-3">
                         <div class="d-flex  text-center">

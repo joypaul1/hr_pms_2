@@ -1,11 +1,9 @@
 <?php
-
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+$basePath =  $_SESSION['basePath'];
 if (!checkPermission('concern-tour-create')) {
-	echo "<script>
-		window.location.href = '$basePath/index.php?logout=true';
-	</script>";
+	echo "<script>window.location.href = '$basePath/index.php?logout=true';</script>";
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 

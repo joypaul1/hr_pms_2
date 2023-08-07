@@ -1,6 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
+$basePath =  $_SESSION['basePath'];
 if (!checkPermission('lm-attendance-outdoor')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }

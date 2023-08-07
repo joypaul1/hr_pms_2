@@ -88,9 +88,11 @@
 
 <body>
     <?php
-    $emp_session_id             = $_SESSION['HR']['emp_id_hr'];
-    $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-    $basePath =  $baseUrl . '/rHRT';
+    // $emp_session_id             = $_SESSION['HR']['emp_id_hr'];
+    // $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
+    // $basePath =  $baseUrl . '/rHRT';
+    // $basePath =  $_SESSION['basePath'];
+
     date_default_timezone_set("Asia/Dhaka");
     require_once('../inc/config.php');
     require_once('../inc/connoracle.php');
