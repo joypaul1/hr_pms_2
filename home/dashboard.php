@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once('../helper/com_conn.php');
 require_once('../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
