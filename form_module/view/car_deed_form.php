@@ -50,7 +50,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         box-shadow: 1px 1px 1px 1px lightgray;
                         margin: 2%;
                     ">
-                    <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number : <?php echo trim($_POST["invoice_id"]) ?> </h5>
+                    <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number :
+                     <?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?> </h5>
                     <p class="text-center"> <i class=" m-0 text-info"></i><u>Car Reference List</u> </p>
 
                     <?php 
