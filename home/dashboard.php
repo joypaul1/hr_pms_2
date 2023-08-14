@@ -76,16 +76,16 @@ $basePath =  $_SESSION['basePath'];
 									 '" . $basePath . "/attendance_module/view/lm_panel/approval.php' AS APPROVAL_LINK
 									FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
 									WHERE A.RML_ID = B.RML_ID
-									AND a.LINE_MANAGER_ID = '$emp_session_id'
-									AND TRUNC(a.ATTN_DATE) > TO_DATE('31/12/2022', 'DD/MM/YYYY')
+									AND b.LINE_MANAGER_RML_ID = '$emp_session_id'
+									AND TRUNC(a.ATTN_DATE) > TO_DATE('01/01/2023', 'DD/MM/YYYY')
 									AND a.IS_ALL_APPROVED = 0
 									AND A.LINE_MANAGER_APPROVAL IS NULL
 									AND B.IS_ACTIVE = 1
 									UNION ALL
-									select 'LEAVE' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/attendance_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
+									select 'LEAVE' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/leave_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
 									where A.RML_ID=b.RML_ID
 									and B.LINE_MANAGER_RML_ID='$emp_session_id'
-									and trunc(a.START_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
+									and trunc(a.START_DATE)>TO_DATE('01/01/2023','DD/MM/YYYY')
 									and a.IS_APPROVED IS NULL
 									UNION ALL
 									select 'TOUR' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/tour_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b

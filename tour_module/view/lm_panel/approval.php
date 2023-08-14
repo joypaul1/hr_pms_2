@@ -75,7 +75,7 @@ $v_view_approval = 0;
 		<h5 class="card-header"><b>Concern Tour Approval List</b></h5>
 		<div class="card-body">
 			<div class="col-lg-12">
-				<form id="Form1" action="" method="post">
+				<form id="Form2" action="" method="post">
 					<div class="md-form">
 						<div class="resume-item d-flex flex-column flex-md-row">
 							<table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -90,16 +90,21 @@ $v_view_approval = 0;
 
 
 								<?php
-								@$emp_concern = $_REQUEST['emp_concern'];
-								@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-								@$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+								
 
 								if (isset($_POST['start_date'])) {
+									 $emp_concern = $_REQUEST['emp_concern'];
+								     $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+								     $attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
+                                   echo 'ddfdfjkdf';
+								   die();
+
+              
 									$strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_ID='$emp_session_id'
+														and b.LINE_MANAGER_RML_ID='$emp_session_id'
 														 and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
 														 and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
                                                               trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
@@ -159,7 +164,7 @@ $v_view_approval = 0;
 										<?php
 									}
 								} else {
-
+                                      //echo 'dfdfd';
 									$allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 																	a.REMARKS,
 																	a.ENTRY_BY,
@@ -168,7 +173,7 @@ $v_view_approval = 0;
 																	b.DESIGNATION
 														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_ID='$emp_session_id'
+														and b.LINE_MANAGER_RML_ID='$emp_session_id'
 														and trunc (a.START_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
 														and a.LINE_MANAGER_APPROVAL_STATUS IS NULL
 														order by START_DATE desc");
