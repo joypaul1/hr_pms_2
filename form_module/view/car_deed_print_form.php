@@ -58,8 +58,8 @@
     </style>
 </head>
 <?php
-// require './../vendor/autoload.php'; // Load Composer's autoloader
-require '../../vendor/autoload.php';
+require '../../inc/connoracle.php'; 
+require '../../vendor/autoload.php';// Load Composer's autoloader
 use NumberToWords\NumberToWords;
 
 // Get the current date
@@ -99,10 +99,22 @@ $formattedCurrentDate = str_replace(
 
 echo $formattedCurrentDate;
 
+$invoice_id = trim($_POST["invoice_number"]);
+
+
+$deedSQL = oci_parse($objConnect, "SELECT REF_CODE,CUSTOMER_NAME,CUSTOMER_MOBILE_NO  FROM LEASE_ALL_INFO_ERP WHERE DOCNUMBR = :invoice_id");
+oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
+oci_execute($deedSQL);
+$deedCusData = oci_fetch_assoc($deedSQL);
+print_r($deedCusData);
+
+
+
+
 // && trim($_POST["actionType"])  == 'car_deed'
     if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         // $invoice_id = trim($_POST["invoice_id"]);
-        print_r($_REQUEST);
+        // print_r($_REQUEST);
         die();
                             
     }
@@ -120,11 +132,11 @@ echo $formattedCurrentDate;
             <p></p>
         </section>
         <section class="stamp-body" style="padding: 0 5px 0 5px;">
-           <span>THIS AGREEMENT OF HIRE PURCHASE is made on this day the <u style="font-weight: bold;"> 24 September Two Thousand Eighteen of the Christian era. </u></span>
+           <span>THIS AGREEMENT OF HIRE PURCHASE is made on this day the <u style="font-weight: bold;"> <?php echo $formattedCurrentDate ?> of the Christian era. </u></span>
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px;">BETWEEN</p>
            <span>"RANGS MOTORS LIMITED, a private limited company having its registered office at 117/A (Level-4), Old Airport Road, Bijoy Sharani, Tejgoan, Dhaka, hereinafter referred to as "the OWNERS", (which expression shall where the context so admits mean and include its legal representative, successors and assigns) of the <u style="font-weight: 600;"> FIRST PART</u>".</span>
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
-           <span> <b>Noor Mohammed, S/O: Late Md. Mosir Uddin, Add: House/Holding: 01, Vill/Road: 05, Section: 13, Block: B, P/O: Mirpur-1216, Kafrul, Dhaka North City Corporation, Dist: Dhaka.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</span>
+           <span> <b><?php echo $deedCusData['CUSTOMER_NAME'] ?>, S/O: <?php echo $deedCusData['CUSTOMER_NAME'] ?>, Add: House/Holding: 01, Vill/Road: 05, Section: 13, Block: B, P/O: Mirpur-1216, Kafrul, Dhaka North City Corporation, Dist: Dhaka.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</span>
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
            <span> <b>1) Kazi Md. Shopon, S/O: Lal Mia, & 2) Md. Abdul Wadud, S/O: Late Aman Uddin</b>. Dealer/Guarantor their residential address at <b>1) House/Holding: Tin 3/3, Paik Para Staff Quarter, P/O: Mirpur-1216, Mirpur, Dhaka City Corporation, Dist: Dhaka, & 2) Taiger Sarak Poschim, 38 AD, P/O: Jessore Cantonment-7403, Kotwali, Dist: Jessore.</b> As "the GUARANTOR" (which expression shall where the context so admits mean and include his heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">THIRD PART</u>”.</span>
            <span style="display: block; margin-top: 5px;">WHEREAS the First Part (the owner) is an importer and owners of 01 (One) unit/units   

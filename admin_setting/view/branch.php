@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
