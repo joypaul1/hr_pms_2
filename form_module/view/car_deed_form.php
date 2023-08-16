@@ -42,7 +42,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     <!-- Bordered Table -->
     <div class="card  mt-1">
         <form action="<?php echo $basePath . '/form_module/view/car_deed_print_form.php' ?>" method="POST" >
-        <input type="text" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
+        <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
         <input type="hidden" name="actionType" value="car_deed">
         <div class="card-body row">
                 <div class="col-md-7 ">
@@ -148,8 +148,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <input type="text" class="form-control" name="down_payment" id="down_payment" placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="emi_count"> EMI(instalments) Count</label>
-                            <input type="text" class="form-control" name="emi_count" id="emi_count" placeholder="EX:3/4/5">
+                            <label for="emi_number"> EMI(instalments) Number</label>
+                            <input type="text" class="form-control" name="emi_number" id="emi_number" placeholder="EX:3/4/5">
+                        </div>
+                        <div class="form-group">
+                            <label for="emi_start_date"> EMI Start Date</label>
+                            <input type="date" class="form-control" name="emi_start_date" id="emi_start_date" placeholder="emi_start_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="emi_end_date"> EMI End Date</label>
+                            <input type="date" class="form-control" name="emi_end_date" id="emi_end_date" placeholder="emi_end_date">
                         </div>
 
 
