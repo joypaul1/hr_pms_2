@@ -9,7 +9,7 @@ $basePath =  $_SESSION['basePath'];
 	<div class="row">
 		<div class=" col-lg-12 ">
 			<div class=" card card-title p-2">
-				<marquee>সকলকে পবিত্র ঈদুল আজহার শুভেচ্ছা ও ঈদ মোবারাক</marquee>
+				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP]</marquee>
 			</div>
 		</div>
 		<div class="col-lg-6 mb-2 order-0">
@@ -48,11 +48,53 @@ $basePath =  $_SESSION['basePath'];
 		<div class="col-lg-6 mb-2 order-0">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title text-primary">User Manual List</h5>
-					
+					<h5 class="card-title text-primary">My Last 10 Days Attendance.</h5>
+					<div class="table-responsive text-nowrap">
+						<table class="table table-bordered">
+							<thead class="">
+								<tr>
+									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
+									<th scope="col" align="center"><strong>Date</strong></th>
+									<th scope="col" align="center"><strong>In-Time</strong></th>
+									<th scope="col" align="center"><strong>Out-Time</strong></th>
+									<th scope="col" align="center"><strong>Status</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$allDataSQL  = oci_parse(
+									$objConnect,
+									"select ATTN_DATE,IN_TIME,OUT_TIME,STATUS,DAY_NAME
+                                                                     from RML_HR_ATTN_DAILY_PROC
+                                                                     where trunc(ATTN_DATE) between to_date(sysdate-10,'dd/mm/RRRR') and to_date(sysdate,'dd/mm/RRRR')
+																	and RML_ID='$emp_session_id'
+                                                                    order by ATTN_DATE"
+								);
+								oci_execute($allDataSQL);
+								$number = 0;
+								while ($row = oci_fetch_assoc($allDataSQL)) {
+									$number++;
+								?>
+									<tr>
+										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i>
+											<strong><?php echo $number; ?></strong>
+										</td>
+										<td><?php echo $row['ATTN_DATE']; ?></td>
+										<td><?php echo $row['IN_TIME']; ?></td>
+										<td><?php echo $row['OUT_TIME']; ?></td>
+										<td><?php echo $row['STATUS']; ?></td>
+										
+									</tr>
+								<?php
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+
 		<!-- End Approval -->
 		<!--  Approval --> 
 		<div class="col-lg-6 mb-2 order-0">
