@@ -325,7 +325,7 @@ if ($_POST['product_brand'] == 'EICHER') {
                                     return $number . 'th';
                             }
                         }
-                        for ($i=1; $i <= 10 ; $i++) { 
+                        for ($i=1; $i <= $_POST['emi_number'] ; $i++) { 
                             $incrementDay = 30*$i;
                         ?>
                         <tr>
