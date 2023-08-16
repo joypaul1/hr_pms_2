@@ -189,16 +189,20 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <label for="lease_amount"> Lease Amount</label>
                             <input type="text" class="form-control" name="lease_amount"value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ?number_format( $singleProduct["LEASE_AMOUNT"], 2): ' ' ?>" id="down_payment" placeholder="EX:5,00,000.00">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
                             <input type="text" class="form-control" name="installment_amount"value="<?php echo isset($singleProduct["INSTALLMENT_AMOUNT"]) ?number_format( $singleProduct["INSTALLMENT_AMOUNT"], 2): ' ' ?>" id="installment_amount" placeholder="EX:5,00,000.00">
+                        </div> -->
+                        <div class="form-group">
+                            <label for="installment_amount"> Installment Amount</label>
+                            <input type="text" class="form-control" name="installment_amount" value="" id="installment_amount" placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="emi_number"> EMI Number</label>
+                            <label for="emi_number"> EMI Number(Count of EMI)</label>
                             <input type="text" class="form-control" name="emi_number" id="emi_number" placeholder="EX:3/4/5">
                         </div>
                         <div class="form-group">
-                            <label for="emi_start_date"> EMI Start Date</label>
+                            <label for="emi_start_date"> EMI Start Date </label>
                             <input type="date" class="form-control" name="emi_start_date" id="emi_start_date" placeholder="emi_start_date">
                         </div>
                         <!-- <div class="form-group">
