@@ -61,6 +61,7 @@
 require '../../inc/connoracle.php'; 
 require '../../vendor/autoload.php';// Load Composer's autoloader
 use NumberToWords\NumberToWords;
+// use NumberToWords\TransformerOptions\CurrencyTransformerOptions;
 
 // Get the current date
 $currentDate = new DateTime();
@@ -97,25 +98,29 @@ $formattedCurrentDate = str_replace(
 
 
 
-echo $formattedCurrentDate;
+// echo $formattedCurrentDate;
 
 $invoice_id = trim($_POST["invoice_number"]);
 
 
-$deedSQL = oci_parse($objConnect, "SELECT REF_CODE,CUSTOMER_NAME,CUSTOMER_MOBILE_NO  FROM LEASE_ALL_INFO_ERP WHERE DOCNUMBR = :invoice_id");
+$deedSQL = oci_parse($objConnect, "SELECT *  FROM LEASE_ALL_INFO_ERP WHERE DOCNUMBR = :invoice_id");
 oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
 oci_execute($deedSQL);
 $deedCusData = oci_fetch_assoc($deedSQL);
+print('<br>');
 print_r($deedCusData);
+print('</br>');
 
-
+print('<br>');
+print_r($_REQUEST);
+print('</br>');
 
 
 // && trim($_POST["actionType"])  == 'car_deed'
     if ($_SERVER['REQUEST_METHOD'] === 'POST' ) {
         // $invoice_id = trim($_POST["invoice_id"]);
-        // print_r($_REQUEST);
-        die();
+        // 
+        // die();
                             
     }
                             
@@ -136,16 +141,19 @@ print_r($deedCusData);
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px;">BETWEEN</p>
            <span>"RANGS MOTORS LIMITED, a private limited company having its registered office at 117/A (Level-4), Old Airport Road, Bijoy Sharani, Tejgoan, Dhaka, hereinafter referred to as "the OWNERS", (which expression shall where the context so admits mean and include its legal representative, successors and assigns) of the <u style="font-weight: 600;"> FIRST PART</u>".</span>
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
-           <span> <b><?php echo $deedCusData['CUSTOMER_NAME'] ?>, S/O: <?php echo $deedCusData['CUSTOMER_NAME'] ?>, Add: House/Holding: 01, Vill/Road: 05, Section: 13, Block: B, P/O: Mirpur-1216, Kafrul, Dhaka North City Corporation, Dist: Dhaka.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</span>
+           <span> <b><?php echo $deedCusData['CUSTOMER_NAME'] ?>, S/O: <?php echo $_POST['c_f_name'] ?>, Add: <?php  echo $deedCusData['PARTY_ADDRESS'] ?>.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</span>
            <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
-           <span> <b>1) Kazi Md. Shopon, S/O: Lal Mia, & 2) Md. Abdul Wadud, S/O: Late Aman Uddin</b>. Dealer/Guarantor their residential address at <b>1) House/Holding: Tin 3/3, Paik Para Staff Quarter, P/O: Mirpur-1216, Mirpur, Dhaka City Corporation, Dist: Dhaka, & 2) Taiger Sarak Poschim, 38 AD, P/O: Jessore Cantonment-7403, Kotwali, Dist: Jessore.</b> As "the GUARANTOR" (which expression shall where the context so admits mean and include his heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">THIRD PART</u>”.</span>
-           <span style="display: block; margin-top: 5px;">WHEREAS the First Part (the owner) is an importer and owners of 01 (One) unit/units   
+           <span> <b>1)<?php echo $_POST['g_name_1'] ?> , S/O:<?php echo $_POST['g_f_name_1'] ?>, & 2) <?php echo $_POST['g_name_2'] ?>, S/O: <?php echo $_POST['g_f_name_2'] ?></b>. Dealer/Guarantor their residential address at <b>1) House/Holding: <?php echo $_POST['g_add_1'] ?> , & 2) <?php echo $_POST['g_add_2'] ?>.</b> As "the GUARANTOR" (which expression shall where the context so admits mean and include his heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">THIRD PART</u>”.</span>
+           <span style="display: block; margin-top: 5px;">WHEREAS the First Part (the owner) is an importer and owners of <b>01 (One)</b> unit/units 
+           Completely Built up <b><?php echo $deedCusData['PRODUCT_TYPE'] ?></b> With fitting, tools and accessories as fully described in Schedule "A" attached hereto for marketing and selling the same the same in Bangladesh.</span> 
             <span style="display: block; margin-top: 5px;">AND WHEREAS, the Second Part, assured by the Third Part (the Guarantor) as regards timely and regular payments of Installment due as indicated in Schedule B to the full satisfaction of the First Part and the First Part has therefore agreed to sell the same under the terms and conditions set-forth hereto.</span>
             <span style="display: block; margin-top: 5px;">NOW THEREFORE, in consideration of mutual covenants herein set forth, the parties hereto agree as follows:</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE I</p>
-            <span style="display: block; margin-top: 5px;">NOW THEREFORE, in consideration of mutual covenants herein set forth, the parties hereto agree as follows:</span>
+            <span style="display: block; margin-top: 5px;">That the First Part, on the basis of Hire-Purchase, has sold to The Second Part and the same has also, on the basis of Hire-Purchase, Purchased or bought 01 (One) unit/units Completely Built up 
+            <b><?php echo $deedCusData['PRODUCT_TYPE'] ?></b> with fitting tootls and accessories for a sum of <b><?php echo number_format($deedCusData['SALES_AMOUNT'], 2) ?> (<?php echo ucwords($numberTransformer->toWords($deedCusData['SALES_AMOUNT'])) ?>) </b> only each as fully described in schedule "A" attached hereto plus additional charges due to hire purchase deal given in <b>CLAUSE VII.</b>
+            </span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE II</p>
-            <span style="display: block; margin-top: 5px;">That the Second Part shall pay to the First Part (the Owners) at the time of execution and signing of this Agreement a sum of <b>TK. 300,000.00 (Taka. Three Lac )</b> only <b> Down Payment</b> and thereafter the Second Part will punctually and duly pay to the First Part (Owners) at their address in cash /cheque/pay order/demand draft/telephonic transfer the sums <b>and on the dates</b> mentioned in Schedule "B" <b>annexed</b> hereto, whether previously demanded or not by way of installment payment for the product.</span>
+            <span style="display: block; margin-top: 5px;">That the Second Part shall pay to the First Part (the Owners) at the time of execution and signing of this Agreement a sum of <b>TK. <?php echo number_format($deedCusData['DP'], 2) ?> (<?php echo ucwords($numberTransformer->toWords($deedCusData['DP'])) ?>)</b> only <b> Down Payment</b> and thereafter the Second Part will punctually and duly pay to the First Part (Owners) at their address in cash /cheque/pay order/demand draft/telephonic transfer the sums <b><u>and on the dates</u></b> mentioned in Schedule "B" <b><u>annexed</u></b> hereto, whether previously demanded or not by way of installment payment for the product.</span>
 
         </section>
         <section class="stamp-pagenumber" >
@@ -180,9 +188,9 @@ print_r($deedCusData);
             <span style="display: block; margin-top: 5px;font-size: 13.5px">That it shall be the responsibility and obligations of the Second Part to obtain the necessary route permit for the vehicle or vehicles that has been purchased and as such that the Second Part shall also bear the cost and expenses for obtaining the necessary route permit</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VI</p>
             <span style="display: block; margin-top: 5px;font-size: 13.5px">That the vehicle shall be comprehensively insured in favor of the First Part (the owners) or any financial institution or Agency nominated by the First Part and costs for maintaining such insurance policy shall be borne by the Second Part (the borrower).</span>
-            <span style="display: block; margin-top: 5px;font-size: 13.5px">That the repayment of the borrowed amount with interest shall be due for payment after 30 days of taking delivery of the said Completely Built up VE- 10.75 Deisel Bus and shall be paid by the Second Part (the borrower) in 24 (Twenty Four) equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
+            <span style="display: block; margin-top: 5px;font-size: 13.5px">That the repayment of the borrowed amount with interest shall be due for payment after <b>30 days</b> of taking delivery of the said Completely Built up <b><?php echo $deedCusData['PRODUCT_TYPE'] ?></b> and shall be paid by the Second Part (the borrower) in 24 (Twenty Four) equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VII</p>
-            <span style="display: block; margin-top: 5px;font-size: 13.5px">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign 05 Cheques in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
+            <span style="display: block; margin-top: 5px;font-size: 13.5px">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign<?php echo $_POST['cheque_number'] ?> Cheques in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE IX</p>
             <span style="display: block; margin-top: 5px;font-size: 13.5px">That, if the Second Part fails to make the installment payment/ payments on the schedule date /dates, then the First Part, in order to recover the outstanding debt from the Second Part, will be legally entitled to present the Cheque or Cheques in the bank for encashment and upon presentation if the Cheque or Cheques are being returned by the bank as unpaid due to insufficient fund or for any other legally recognized reasons, then the First Part will be legally entitled to initiate Criminal Proceedings against the Second Part in Court under Section- 138 or 140 of the Negotiable Instrument Act, 1881 and in such an event the Second Part shall be liable for all legal consequences thereof. Besides, the First Part shall also be entitled to initiate Criminal (other than Section- 138) and Civil Cases against the Second Part in order to recover the outstanding debt.</span>
 
