@@ -67,7 +67,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                                     $invoice_id = trim($_POST["invoice_id"]);
 
-                                    $deedSQL = oci_parse($objConnect, "SELECT REF_CODE,CUSTOMER_NAME,CUSTOMER_MOBILE_NO  FROM LEASE_ALL_INFO_ERP WHERE DOCNUMBR = :invoice_id");
+                                    $deedSQL = oci_parse($objConnect, "SELECT REF_CODE,CUSTOMER_NAME,CUSTOMER_MOBILE_NO  FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
                                     oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
                                     oci_execute($deedSQL);
                                     // REF_CODE != '' AND 
