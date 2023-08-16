@@ -71,10 +71,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
                                     oci_execute($deedSQL);
                                     // REF_CODE != '' AND 
+                                    // print_r(oci_fetch_assoc($deedSQL));
+                                    
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
-                                        <td><input type="checkbox" class="form-check-input" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '">
+                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '">
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">' . $row['REF_CODE'] . '</label></td>
                                         <td>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['CUSTOMER_NAME'] . '</label>
@@ -97,8 +99,32 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
                 </div>
 
+                <?php
+                $singleProduct = [];
+                if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
+                    $invoice_id = trim($_POST["invoice_id"]);
+
+                    $deedSQL = oci_parse($objConnect, "SELECT  * FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
+                    oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
+                    oci_execute($deedSQL);
+                    $singleProduct = oci_fetch_assoc($deedSQL);
+                    // print_r($singleProduct);
+                }
+                ?>
                 <div class="col-md-5">
                     <div style="border: 1px solid #eee5e5;padding: 2%; margin: 1%">
+                        <div class="form-group">
+                            <label for="unit_no"> Unit No.</label>
+                            <input type="text" class="form-control" name="unit_no" value="0" id="unit_no" readonly placeholder="0/1/2">
+                        </div>
+                        <div class="form-group">
+                            <label for="customer_name"> Customer Name</label>
+                            <input type="text" class="form-control" name="customer_name"value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"]: ' ' ?>" id="customer_name" placeholder="EX:5,00,000.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="customer_address"> Customer Address</label>
+                            <input type="text" class="form-control" name="customer_address"value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"]: ' ' ?>" id="customer_address" placeholder="EX:5,00,000.00">
+                        </div>
                         <div class="form-group">
                             <label for="cheque_number"> Cheque Number</label>
                             <input type="text" class="form-control" name="cheque_number" id="cheque_number" placeholder="Cheque Number">
@@ -137,28 +163,48 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="product_model"> Product Model</label>
-                            <input type="text" class="form-control" name="product_model" id="product_model" placeholder="product model(EX:AB-000)">
+                            <input type="text" class="form-control" name="product_model"value="<?php echo isset($singleProduct["PRODUCT_CODE_NAME"]) ? $singleProduct["PRODUCT_CODE_NAME"]: ' ' ?>" id="product_model" placeholder="product model(EX:AB-000)">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_brand"> Product Brand</label>
+                            <input type="text" class="form-control" name="product_brand" value="<?php echo isset($singleProduct["BRAND"]) ? $singleProduct["BRAND"]: ' ' ?>" id="product_brand" placeholder="Prouduct Brand">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_chassis_no"> Product Chassis No.</label>
+                            <input type="text" class="form-control" name="product_chassis_no" value="<?php echo isset($singleProduct["CHASSIS_NO"]) ? $singleProduct["CHASSIS_NO"]: ' ' ?>" id="product_chassis_no" placeholder="Prouduct chassis no..">
+                        </div>
+                        <div class="form-group">
+                            <label for="product_engine_no"> Product Engine No.</label>
+                            <input type="text" class="form-control" name="product_engine_no" value="<?php echo isset($singleProduct["ENG_NO"]) ? $singleProduct["ENG_NO"]: ' ' ?>" id="product_engine_no" placeholder="Prouduct Engine no..">
                         </div>
                         <div class="form-group">
                             <label for="sales_amount"> Sales Amount</label>
-                            <input type="text" class="form-control" name="sales_amount" id="sales_amount" placeholder="EX:10,00,000.00">
+                            <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ?number_format( $singleProduct["SALES_AMOUNT"], 2): ' ' ?>" id="sales_amount" placeholder="EX:10,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="down_payment"> Down Payment</label>
-                            <input type="text" class="form-control" name="down_payment" id="down_payment" placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="down_payment"value="<?php echo isset($singleProduct["DP"]) ?number_format( $singleProduct["DP"], 2): ' ' ?>" id="down_payment" placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="emi_number"> EMI(instalments) Number</label>
+                            <label for="lease_amount"> Lease Amount</label>
+                            <input type="text" class="form-control" name="lease_amount"value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ?number_format( $singleProduct["LEASE_AMOUNT"], 2): ' ' ?>" id="down_payment" placeholder="EX:5,00,000.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="installment_amount"> Installment Amount</label>
+                            <input type="text" class="form-control" name="installment_amount"value="<?php echo isset($singleProduct["INSTALLMENT_AMOUNT"]) ?number_format( $singleProduct["INSTALLMENT_AMOUNT"], 2): ' ' ?>" id="installment_amount" placeholder="EX:5,00,000.00">
+                        </div>
+                        <div class="form-group">
+                            <label for="emi_number"> EMI Number</label>
                             <input type="text" class="form-control" name="emi_number" id="emi_number" placeholder="EX:3/4/5">
                         </div>
                         <div class="form-group">
                             <label for="emi_start_date"> EMI Start Date</label>
                             <input type="date" class="form-control" name="emi_start_date" id="emi_start_date" placeholder="emi_start_date">
                         </div>
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="emi_end_date"> EMI End Date</label>
                             <input type="date" class="form-control" name="emi_end_date" id="emi_end_date" placeholder="emi_end_date">
-                        </div>
+                        </div> -->
 
 
 
@@ -186,28 +232,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 <?php require_once('../../layouts/footer.php'); ?>
 
 <script>
-    function seeStatus(id) {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+    $(document).ready(function () { 
+        $(document).on('click','.ref_code',function(){
+            // alert(32);
+            var ref_length =$('.ref_code').filter(':checked').length;
+            // console.log(ref_length);
+            $('#unit_no').val(ref_length);
         });
-        $.ajax({
-            type: "GET",
-            url: "<?php echo $basePath . "/offboarding_module/action/hr_panel.php"; ?>",
-            data: {
-                rml_emp_id: id,
-                'actionType': 'approvalStatus'
-            },
-            success: function(data) {
-                $('#statusModal').modal('show');
-                $('.modal-body').empty('');
-                $('.modal-body').append(data);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('Error get data from ajax');
-            }
-        });
-    }
+    });
 </script>
