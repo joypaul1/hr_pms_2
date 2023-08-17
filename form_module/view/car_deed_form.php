@@ -58,8 +58,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <thead>
                                 <tr class="text-center">
                                     <th>REF. CODE</th>
-                                    <th>Cus. Name</th>
-                                    <th>Cus. Mobile</th>
+                                    <th>INFORMATION</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,7 +66,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                                     $invoice_id = trim($_POST["invoice_id"]);
 
-                                    $deedSQL = oci_parse($objConnect, "SELECT REF_CODE,CUSTOMER_NAME,CUSTOMER_MOBILE_NO  FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
+                                    $deedSQL = oci_parse($objConnect, "SELECT *  FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
                                     oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
                                     oci_execute($deedSQL);
                                     // REF_CODE != '' AND 
@@ -76,14 +75,22 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
-                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '">
-                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">' . $row['REF_CODE'] . '</label></td>
+                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="'. $row['PRODUCT_CODE_NAME'] .'" " data-chassis-no="'. $row['CHASSIS_NO'] .'" data-eng-no="'. $row['ENG_NO'] .'">
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['ENG_NO'] . '</label></td>
                                         <td>
-                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['CUSTOMER_NAME'] . '</label>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">NAME : ' . $row['CUSTOMER_NAME'] . '</label>
+                                        </br>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">MOBILE : ' . $row['CUSTOMER_MOBILE_NO'] . '</label>
+                                        </br>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">BRAND : ' . $row['BRAND'] . '</label>
+                                        </br>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">PRODUCT CODE : ' . $row['PRODUCT_CODE_NAME'] . '</label>
+                                        </br>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">CHASSIS NO. : ' . $row['CHASSIS_NO'] . '</label>
+                                        </br>
+                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '">ENGINE NO. : ' . $row['ENG_NO'] . '</label>
                                         </td>
-                                        <td>
-                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['CUSTOMER_MOBILE_NO'] . '</label>
-                                        </td>
+                                        
                                     </tr>';
                                         } while ($row = oci_fetch_assoc($deedSQL));
                                     } else {
@@ -161,7 +168,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <label for="g_add_2"> Guarantor/Dealer Address (2)</label>
                             <input type="text" class="form-control" name="g_add_2" id="g_add_2" placeholder="Guarantor/Dealer Address">
                         </div>
-                        <div class="form-group">
+                        <div id='dynamicOption' style="width:100%;"></div>
+                        <!-- <div class="form-group">
                             <label for="product_model"> Product Model</label>
                             <input type="text" class="form-control" name="product_model"value="<?php echo isset($singleProduct["PRODUCT_CODE_NAME"]) ? $singleProduct["PRODUCT_CODE_NAME"]: ' ' ?>" id="product_model" placeholder="product model(EX:AB-000)">
                         </div>
@@ -176,7 +184,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="form-group">
                             <label for="product_engine_no"> Product Engine No.</label>
                             <input type="text" class="form-control" name="product_engine_no" value="<?php echo isset($singleProduct["ENG_NO"]) ? $singleProduct["ENG_NO"]: ' ' ?>" id="product_engine_no" placeholder="Prouduct Engine no..">
-                        </div>
+                        </div> -->
                         <div class="form-group">
                             <label for="sales_amount"> Sales Amount</label>
                             <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ?number_format( $singleProduct["SALES_AMOUNT"], 2): ' ' ?>" id="sales_amount" placeholder="EX:10,00,000.00">
@@ -238,9 +246,28 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 <script>
     $(document).ready(function () { 
         $(document).on('click','.ref_code',function(){
-            // alert(32);
-            var ref_length =$('.ref_code').filter(':checked').length;
-            // console.log(ref_length);
+            var ref_code =$(this).val();
+            if($(this).is(':checked')){
+                let codeno =  $(this).attr('data-code-no');
+                let engno =  $(this).attr('data-eng-no');
+                let chassisno =  $(this).attr('data-chassis-no');
+                var ref_length =$('.ref_code').filter(':checked').length;
+                let html = `<span id="${ref_code}" style="width:100%"><div class="form-group">
+                                <label for="product_model"> Product Model</label>
+                                <input type="text" class="form-control" name="product_model[]"value="${codeno}" id="product_model" placeholder="product model(EX:AB-000)">
+                            </div><div class="form-group">
+                                <label for="product_chassis_no"> Product Chassis No.</label>
+                                <input type="text" class="form-control" name="product_chassis_no[]" value="${chassisno}" id="product_chassis_no" placeholder="Prouduct chassis no..">
+                            </div><div class="form-group">
+                                <label for="product_engine_no"> Product Engine No.</label>
+                                <input type="text" class="form-control" name="product_engine_no" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
+                            </div></span>`;
+                $('#dynamicOption').after(html);
+            }else{
+                var escaped_ref_code = $.escapeSelector(ref_code);
+                $('span#' + escaped_ref_code).remove();
+            }
+            
             $('#unit_no').val(ref_length);
         });
     });
