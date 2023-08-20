@@ -283,9 +283,14 @@ if ($_POST['product_brand'] == 'EICHER') {
 
                 </tr>
                 <tr>
-                    <td>1</td>
-                    <td> <?php echo $_POST['product_chassis_no'] ?></td>
-                    <td> <?php echo $_POST['product_engine_no'] ?></td>
+                    <?php
+                    print_r($_POST['product_chassis_no']);
+                        for ($i=0; $i < count($_POST['product_chassis_no']) ; $i++) { 
+                            echo "<td>".$i."</td>";
+                            echo "<td>".$_POST['product_engine_no'][$i]."</td>";
+                            echo "<td>".$_POST['product_chassis_no'][$i]."</td>";
+                        }
+                    ?>
                 </tr>
             </table>
             <br>

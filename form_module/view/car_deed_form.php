@@ -254,21 +254,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 let chassisno =  $(this).attr('data-chassis-no');
                 var ref_length =$('.ref_code').filter(':checked').length;
                 let html = `<span id="${ref_code}" style="width:100%">
-                            <div class="form-group">
-                                <label for="product_model"> Product Model</label>
-                                <input type="text" class="form-control" name="product_model[]"value="${codeno}" id="product_model" placeholder="product model(EX:AB-000)">
-                            </div>
-                            <div class="form-group">
-                                <label for="product_brand"> Product Brand</label>
-                                <input type="text" class="form-control" name="product_brand[]"value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
-                            </div>
+                            
+                            <input type="hidden"  class="form-control" name="product_brand" value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
+                            <input type="hidden"  class="form-control" name="product_model" value="${codeno}" id="product_model" placeholder="product brand(EX:AB-000)">
                             <div class="form-group">
                                 <label for="product_chassis_no"> Product Chassis No.</label>
                                 <input type="text" class="form-control" name="product_chassis_no[]" value="${chassisno}" id="product_chassis_no" placeholder="Prouduct chassis no..">
                             </div>
                             <div class="form-group">
                                 <label for="product_engine_no"> Product Engine No.</label>
-                                <input type="text" class="form-control" name="product_engine_no" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
+                                <input type="text" class="form-control" name="product_engine_no[]" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
                             </div></span>`;
                 $('#dynamicOption').after(html);
             }else{
