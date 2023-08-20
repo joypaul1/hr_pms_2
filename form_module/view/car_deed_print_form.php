@@ -4,6 +4,15 @@
 <head>
     <title>Legal Stamp Paper</title>
     <style>
+        .btn {
+            background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
+            border: none;
+            color: #fff !important;
+            padding: 10px 10px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
         .stamp-paper {
             margin: 0 auto;
             font-family: Arial, sans-serif;
@@ -42,7 +51,8 @@
             /* text-align: center; */
         }
 
-        td,th {
+        td,
+        th {
             text-align: center !important;
             border: 1px solid #dddddd;
             text-align: left;
@@ -52,6 +62,10 @@
         @media print {
             @page {
                 size: legal;
+            }
+
+            #hidden {
+                display: none !important;
             }
 
             body * {
@@ -131,6 +145,9 @@ if ($_POST['product_brand'] == 'EICHER') {
 ?>
 
 <body>
+    <div style="text-align: right;" id="hidden">
+        <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
+    </div>
     <div class="stamp-paper">
         <section class="stamp-space-header">
         </section>
@@ -284,20 +301,20 @@ if ($_POST['product_brand'] == 'EICHER') {
                 </tr>
                 <tr>
                     <?php
-                        for ($i=0; $i < count($_POST['product_chassis_no']) ; $i++) { 
-                            echo "<td>".$i."</td>";
-                            echo "<td>".$_POST['product_engine_no'][$i]."</td>";
-                            echo "<td>".$_POST['product_chassis_no'][$i]."</td>";
-                        }
+                    for ($i = 0; $i < count($_POST['product_chassis_no']); $i++) {
+                        echo "<td>" . $i . "</td>";
+                        echo "<td>" . $_POST['product_engine_no'][$i] . "</td>";
+                        echo "<td>" . $_POST['product_chassis_no'][$i] . "</td>";
+                    }
                     ?>
                 </tr>
             </table>
             <br>
             <b><u>SCHEDULE-B</u></b>
-            <p><b>BORROWED :  <b>TK <?php echo number_format(str_replace(',', '', $_POST['down_payment']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['down_payment'], true)) ?>)</b> </b></p>
+            <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $_POST['down_payment']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['down_payment'], true)) ?>)</b> </b></p>
             <table style="width: 100%;text-align:center">
                 <tr>
-                   <th style="text-align: center;" colspan="3"> <u>PAYMENT SCHEDULE</u> </th> 
+                    <th style="text-align: center;" colspan="3"> <u>PAYMENT SCHEDULE</u> </th>
                 </tr>
                 <tr>
                     <th>
@@ -307,51 +324,55 @@ if ($_POST['product_brand'] == 'EICHER') {
                         INSTALLMENT
                     </th>
                     <th>
-                       AMOUNT TO <small>(BE PAID)</small>
+                        AMOUNT TO <small>(BE PAID)</small>
                     </th>
 
                 </tr>
-             
-                    <?php
 
-                        function getOrdinalSuffix($number) {
-                            if ($number % 100 >= 11 && $number % 100 <= 13) {
-                                return $number . 'th';
-                            }
-                            switch ($number % 10) {
-                                case 1:
-                                    return $number . 'st';
-                                case 2:
-                                    return $number . 'nd';
-                                case 3:
-                                    return $number . 'rd';
-                                default:
-                                    return $number . 'th';
-                            }
-                        }
-                        for ($i=1; $i <= $_POST['emi_number'] ; $i++) { 
-                            $incrementDay = 30*$i;
-                        ?>
-                        <tr>
-                            <td><?php echo  date('d-m-Y', strtotime(' +'.$incrementDay.' day', strtotime($_POST['date'])) ) ?></td>
-                            <td> <?php echo getOrdinalSuffix($i) ?></td>
-                            <td> <?php echo number_format(str_replace(',', '', $_POST['installment_amount']), 2) ?>TK.</td>
-                        </tr>
-                    <?php 
-                       
-                        }
-                    ?>
+                <?php
 
-               
+                function getOrdinalSuffix($number)
+                {
+                    if ($number % 100 >= 11 && $number % 100 <= 13) {
+                        return $number . 'th';
+                    }
+                    switch ($number % 10) {
+                        case 1:
+                            return $number . 'st';
+                        case 2:
+                            return $number . 'nd';
+                        case 3:
+                            return $number . 'rd';
+                        default:
+                            return $number . 'th';
+                    }
+                }
+                for ($i = 1; $i <= $_POST['emi_number']; $i++) {
+                    $incrementDay = 30 * $i;
+                ?>
+                    <tr>
+                        <td><?php echo  date('d-m-Y', strtotime(' +' . $incrementDay . ' day', strtotime($_POST['date']))) ?></td>
+                        <td> <?php echo getOrdinalSuffix($i) ?></td>
+                        <td> <?php echo number_format(str_replace(',', '', $_POST['installment_amount']), 2) ?>TK.</td>
+                    </tr>
+                <?php
+
+                }
+                ?>
+
+
             </table>
         </section>
 
 
     </div>
 
-    <!-- <button onclick="printPage()">Print Preview</button> -->
 
-    <script>
+    <script type="text/javascript">
+        window.onload = function() {
+            window.print();
+        }
+
         function printPage() {
             window.print();
         }
