@@ -284,7 +284,6 @@ if ($_POST['product_brand'] == 'EICHER') {
                 </tr>
                 <tr>
                     <?php
-                    print_r($_POST['product_chassis_no']);
                         for ($i=0; $i < count($_POST['product_chassis_no']) ; $i++) { 
                             echo "<td>".$i."</td>";
                             echo "<td>".$_POST['product_engine_no'][$i]."</td>";
