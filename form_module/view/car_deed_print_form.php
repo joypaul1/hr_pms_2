@@ -74,7 +74,7 @@
 </head>
 <?php
 require '../../helper/currencyToWord.php';
-require '../../vendor/autoload.php'; // Load Composer's autoloader
+// require '../../vendor/autoload.php'; // Load Composer's autoloader
 // use NumberToWords\NumberToWords;
 // use NumberToWords\TransformerOptions\CurrencyTransformerOptions;
 
@@ -119,9 +119,9 @@ $invoice_id = trim($_POST["invoice_number"]);
 
 
 
-print('<br>');
-print_r($_REQUEST);
-print('</br>');
+// print('<br>');
+// print_r($_REQUEST);
+// print('</br>');
 
 $countInstallment = 3;
 if ($_POST['product_brand'] == 'EICHER') {
