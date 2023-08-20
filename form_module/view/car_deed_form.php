@@ -75,7 +75,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
-                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="'. $row['PRODUCT_CODE_NAME'] .'" " data-chassis-no="'. $row['CHASSIS_NO'] .'" data-eng-no="'. $row['ENG_NO'] .'">
+                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="'. $row['PRODUCT_CODE_NAME'] .'" " data-chassis-no="'. $row['CHASSIS_NO'] .'" data-eng-no="'. $row['ENG_NO'] .'" data-brand-name="'. $row['BRAND'] .'">
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['ENG_NO'] . '</label></td>
                                         <td>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">NAME : ' . $row['CUSTOMER_NAME'] . '</label>
@@ -250,15 +250,23 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             if($(this).is(':checked')){
                 let codeno =  $(this).attr('data-code-no');
                 let engno =  $(this).attr('data-eng-no');
+                let brandName =  $(this).attr('data-brand-name');
                 let chassisno =  $(this).attr('data-chassis-no');
                 var ref_length =$('.ref_code').filter(':checked').length;
-                let html = `<span id="${ref_code}" style="width:100%"><div class="form-group">
+                let html = `<span id="${ref_code}" style="width:100%">
+                            <div class="form-group">
                                 <label for="product_model"> Product Model</label>
                                 <input type="text" class="form-control" name="product_model[]"value="${codeno}" id="product_model" placeholder="product model(EX:AB-000)">
-                            </div><div class="form-group">
+                            </div>
+                            <div class="form-group">
+                                <label for="product_brand"> Product Brand</label>
+                                <input type="text" class="form-control" name="product_brand[]"value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
+                            </div>
+                            <div class="form-group">
                                 <label for="product_chassis_no"> Product Chassis No.</label>
                                 <input type="text" class="form-control" name="product_chassis_no[]" value="${chassisno}" id="product_chassis_no" placeholder="Prouduct chassis no..">
-                            </div><div class="form-group">
+                            </div>
+                            <div class="form-group">
                                 <label for="product_engine_no"> Product Engine No.</label>
                                 <input type="text" class="form-control" name="product_engine_no" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
                             </div></span>`;

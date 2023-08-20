@@ -6,6 +6,5 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'NumberToWords\\' => array($vendorDir . '/kwn/number-to-words/src'),
     'Dvries\\NumberToWords\\' => array($baseDir . '/src'),
 );

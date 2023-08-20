@@ -75,7 +75,7 @@
 <?php
 require '../../helper/currencyToWord.php';
 require '../../vendor/autoload.php'; // Load Composer's autoloader
-use NumberToWords\NumberToWords;
+// use NumberToWords\NumberToWords;
 // use NumberToWords\TransformerOptions\CurrencyTransformerOptions;
 
 // Get the current date
@@ -85,8 +85,8 @@ $currentDate = new DateTime();
 $formattedCurrentDate = $currentDate->format('j F Y');
 
 // Convert the year to words
-$numberToWords = new NumberToWords();
-$numberTransformer = $numberToWords->getNumberTransformer('en');
+// $numberToWords = new NumberToWords();
+// $numberTransformer = $numberToWords->getNumberTransformer('en');
 $yearWords = ucwords(currencyToWord::getBDTCurrency($currentDate->format('Y')));
 // echo $yearWords ;
 
@@ -119,9 +119,9 @@ $invoice_id = trim($_POST["invoice_number"]);
 
 
 
-// print('<br>');
-// print_r($_REQUEST);
-// print('</br>');
+print('<br>');
+print_r($_REQUEST);
+print('</br>');
 
 $countInstallment = 3;
 if ($_POST['product_brand'] == 'EICHER') {
