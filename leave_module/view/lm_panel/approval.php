@@ -162,7 +162,7 @@ $v_view_approval = 0;
                                     $v_view_approval = 1;
                                     ?>
                                         <tr>
-                                            <td><input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                            <td><input type="checkbox" form="Form2" name="check_list[]" value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
                                             </td>
                                             <td>
@@ -175,7 +175,7 @@ $v_view_approval = 0;
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right"  form="Form2"  type="submit" name="submit_approval_single" value="Approve" />
                                             </td>
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -200,10 +200,10 @@ $v_view_approval = 0;
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" />
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" />
                                             </td>
 
                                         </tr>
