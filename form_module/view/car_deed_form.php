@@ -169,22 +169,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <input type="text" class="form-control" name="g_add_2" id="g_add_2" placeholder="Guarantor/Dealer Address">
                         </div>
                         <div id='dynamicOption' style="width:100%;"></div>
-                        <!-- <div class="form-group">
-                            <label for="product_model"> Product Model</label>
-                            <input type="text" class="form-control" name="product_model"value="<?php echo isset($singleProduct["PRODUCT_CODE_NAME"]) ? $singleProduct["PRODUCT_CODE_NAME"]: ' ' ?>" id="product_model" placeholder="product model(EX:AB-000)">
-                        </div>
-                        <div class="form-group">
-                            <label for="product_brand"> Product Brand</label>
-                            <input type="text" class="form-control" name="product_brand" value="<?php echo isset($singleProduct["BRAND"]) ? $singleProduct["BRAND"]: ' ' ?>" id="product_brand" placeholder="Prouduct Brand">
-                        </div>
-                        <div class="form-group">
-                            <label for="product_chassis_no"> Product Chassis No.</label>
-                            <input type="text" class="form-control" name="product_chassis_no" value="<?php echo isset($singleProduct["CHASSIS_NO"]) ? $singleProduct["CHASSIS_NO"]: ' ' ?>" id="product_chassis_no" placeholder="Prouduct chassis no..">
-                        </div>
-                        <div class="form-group">
-                            <label for="product_engine_no"> Product Engine No.</label>
-                            <input type="text" class="form-control" name="product_engine_no" value="<?php echo isset($singleProduct["ENG_NO"]) ? $singleProduct["ENG_NO"]: ' ' ?>" id="product_engine_no" placeholder="Prouduct Engine no..">
-                        </div> -->
+                        
                         <div class="form-group">
                             <label for="sales_amount"> Sales Amount</label>
                             <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ?number_format( $singleProduct["SALES_AMOUNT"], 2): ' ' ?>" id="sales_amount" placeholder="EX:10,00,000.00">
@@ -197,10 +182,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <label for="lease_amount"> Lease Amount</label>
                             <input type="text" class="form-control" name="lease_amount"value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ?number_format( $singleProduct["LEASE_AMOUNT"], 2): ' ' ?>" id="down_payment" placeholder="EX:5,00,000.00">
                         </div>
-                        <!-- <div class="form-group">
-                            <label for="installment_amount"> Installment Amount</label>
-                            <input type="text" class="form-control" name="installment_amount"value="<?php echo isset($singleProduct["INSTALLMENT_AMOUNT"]) ?number_format( $singleProduct["INSTALLMENT_AMOUNT"], 2): ' ' ?>" id="installment_amount" placeholder="EX:5,00,000.00">
-                        </div> -->
+                        <div class="form-group">
+                            <label for="grace_period"> Grace Period</label>
+                            <input type="text" class="form-control" name="grace_period" value="" id="grace_period" placeholder="EX:1/2/3">
+                        </div>
                         <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
                             <input type="text" class="form-control" name="installment_amount" value="" id="installment_amount" placeholder="EX:5,00,000.00">
