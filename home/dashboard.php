@@ -1,32 +1,10 @@
 <?php
-require_once('../helper/com_conn.php');
-require_once('../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
-$allDataSQL  = oci_parse(
-	$objConnect,
-	"SELECT 'OUTDOOR_ATTN' APPROVAL_TYPE, COUNT(A.ID) NUMBER_TOTAL, 
-	 '" . $basePath . "/attendance_module/view/lm_panel/approval.php' AS APPROVAL_LINK
-	FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
-	WHERE A.RML_ID = B.RML_ID
-	AND b.LINE_MANAGER_RML_ID = '$emp_session_id'
-	AND TRUNC(a.ATTN_DATE) > TO_DATE('01/01/2023', 'DD/MM/YYYY')
-	AND a.IS_ALL_APPROVED = 0
-	AND A.LINE_MANAGER_APPROVAL IS NULL
-	AND B.IS_ACTIVE = 1
-	UNION ALL
-	select 'LEAVE' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/leave_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
-	where A.RML_ID=b.RML_ID
-	and B.LINE_MANAGER_RML_ID='$emp_session_id'
-	and trunc(a.START_DATE)>TO_DATE('01/01/2023','DD/MM/YYYY')
-	and a.IS_APPROVED IS NULL
-	UNION ALL
-	select 'TOUR' APPROVAL_TYPE,count(a.RML_ID)NUMBER_TOTAL,'$basePath/tour_module/view/lm_panel/approval.php' APPROVAL_LINK from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
-	where A.RML_ID=b.RML_ID
-	and B.LINE_MANAGER_RML_ID='$emp_session_id'
-	and trunc(a.START_DATE)>TO_DATE('31/12/2022','DD/MM/YYYY')
-	and a.LINE_MANAGER_APPROVAL_STATUS IS NULL
-	UNION ALL
-	SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID),'$basePath/offboarding_module/view/lm_panel/approval.php' APPROVAL_LINK 
+   require_once('../helper/com_conn.php');
+   require_once('../inc/connoracle.php');
+   $basePath =  $_SESSION['basePath'];
+   
+   $sqlQuary ="
+	SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' APPROVAL_LINK 
 		FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 		WHERE A.ID=B.EMP_CLEARENCE_ID
 		AND A.RML_HR_APPS_USER_ID=C.ID
@@ -51,9 +29,11 @@ $allDataSQL  = oci_parse(
 	WHERE LINE_MANAGER_1_STATUS=1
 	AND SELF_SUBMITTED_STATUS=1
 	AND LINE_MANAGER_2_STATUS IS NULL
-	AND LINE_MANAGER_2_ID='$emp_session_id'"
-);
-oci_execute($allDataSQL);
+	AND LINE_MANAGER_2_ID='$emp_session_id'";
+	
+	
+   $allDataSQL  = oci_parse($objConnect,$sqlQuary);
+   oci_execute($allDataSQL);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
@@ -179,6 +159,7 @@ oci_execute($allDataSQL);
 					</div>
 				</div>
 			</div>
+			
 		</div>
 
 		<!-- End Approval -->

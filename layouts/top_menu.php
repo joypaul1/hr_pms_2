@@ -1,3 +1,23 @@
+<?php
+
+  
+  $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+  
+  $objConnect=oci_connect("DEVELOPERS","Test1234","10.99.99.20:1525/ORCLPDB",'AL32UTF8');
+  $notification_number=0;
+  $sqlQuary ="Select sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+  $allDataSQL  = oci_parse($objConnect,$sqlQuary);
+  oci_execute($allDataSQL);
+  while ($row = oci_fetch_assoc($allDataSQL)) {
+	 $notification_number=$row['TOTAL_NOTI']; 
+  }
+?>
+
+
+
+
+
+
 <!-- Layout container -->
 <div class="layout-page">
 
@@ -50,34 +70,47 @@
         <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
             <i class="bx bx-bell bx-sm"></i>
-            <span class="badge bg-danger rounded-pill badge-notifications">5</span>
+            <span class="badge bg-danger rounded-pill badge-notifications"><?php echo $notification_number; ?></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end py-0">
             <li class="dropdown-menu-header border-bottom">
               <div class="dropdown-header d-flex align-items-center py-3">
-                <h5 class="text-body mb-0 me-auto">Notification</h5>
+                <h5 class="text-body mb-0 me-auto">Approval Notification</h5>
                 <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark all as read" data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
               </div>
             </li>
             <li class="dropdown-notifications-list scrollable-container ps">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                  <div class="d-flex">
-                    <div class="flex-shrink-0 me-3">
-                      <div class="avatar">
-                        <img src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/1.png" alt="" class="w-px-40 h-auto rounded-circle">
-                      </div>
-                    </div>
+                  
+				<?php
+				  $sqlQuary ="Select APPROVAL_TYPE,NUMBER_TOTAL,APPROVAL_LINK from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+				  $allDataSQL  = oci_parse($objConnect,$sqlQuary);
+				  oci_execute($allDataSQL);
+				  while ($row = oci_fetch_assoc($allDataSQL)) {
+                  ?>
+                
+				  
+				  <div class="d-flex">
                     <div class="flex-grow-1">
-                      <h6 class="mb-1">Congratulation Lettie 🎉</h6>
-                      <p class="mb-0">Won the monthly best seller gold badge</p>
-                      <small class="text-muted">1h ago</small>
-                    </div>
-                    <div class="flex-shrink-0 dropdown-notifications-actions">
-                      <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                      <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
+                      <table class="table table-bordered">
+						  <tr>
+						     <td><?php echo $row['APPROVAL_TYPE']; ?></td>
+							 <td align="center">
+											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><?php echo $row['NUMBER_TOTAL']; ?></a>
+										</td>
+						  </tr>
+					  </table>
                     </div>
                   </div>
+				  
+				 <?php 
+				   }
+				  ?>
+				  
+				  
+				  
+				  
                 </li>
                
               </ul>
@@ -88,11 +121,8 @@
                 <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
               </div>
             </li>
-            <li class="dropdown-menu-footer border-top">
-              <a href="javascript:void(0);" class="dropdown-item d-flex justify-content-center text-primary p-2 h-px-40">
-                View all notifications
-              </a>
-            </li>
+            
+			
           </ul>
         </li>
         <!-- notification  -->
