@@ -39,7 +39,7 @@
 	<div class="row">
 		<div class=" col-lg-12 ">
 			<div class=" card card-title p-2">
-				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dep.]</marquee>
+				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee>
 			</div>
 		</div>
 		<div class="col-lg-6 mb-2 order-0">
@@ -114,7 +114,7 @@
 		<div class="col-lg-6 mb-2 order-0">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title text-primary">My Last 10 Days Attendance.</h5>
+					<h5 class="card-title text-primary">My Last 7 Days Attendance.</h5>
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
 							<thead class="">
@@ -132,7 +132,7 @@
 									$objConnect,
 									"select ATTN_DATE,IN_TIME,OUT_TIME,STATUS,DAY_NAME
                                                                      from RML_HR_ATTN_DAILY_PROC
-                                                                     where trunc(ATTN_DATE) between to_date(sysdate-10,'dd/mm/RRRR') and to_date(sysdate,'dd/mm/RRRR')
+                                                                     where trunc(ATTN_DATE) between to_date(sysdate-6,'dd/mm/RRRR') and to_date(sysdate,'dd/mm/RRRR')
 																	and RML_ID='$emp_session_id'
                                                                     order by ATTN_DATE"
 								);
