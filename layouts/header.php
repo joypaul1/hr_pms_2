@@ -9,9 +9,7 @@
 
   <meta name="description" content="" />
   <?php
-  // include_once('.././config_file_path.php');
   $basePath =  $_SESSION['basePath'];
-
   ?>
 
 

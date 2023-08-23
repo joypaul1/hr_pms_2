@@ -103,7 +103,7 @@ if (!checkPermission('user-list')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><b>Apps User List</b></h5>
+        <h5 class="card-header"><b>ERP User List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -111,6 +111,7 @@ if (!checkPermission('user-list')) {
                         <tr>
                             <th>SL</th>
                             <th>User ID</th>
+                            <th>Web App. User </th>
                             <th>User Name</th>
                             <th>Designation</th>
                             <th>Department</th>
@@ -124,25 +125,37 @@ if (!checkPermission('user-list')) {
                     <tbody>
 
                         <?php
+                        $mysql_users = [];
+                        $queryMysql = "SELECT emp_id FROM tbl_users";
+                        $resultMysql = mysqli_query($conn_hr, $queryMysql);
+
+                        while ($row = mysqli_fetch_assoc($resultMysql)) {
+                            $mysql_users[] = $row['emp_id'];
+                        }
+                        $oracle_rml_ids =  "'" . implode("','", $mysql_users) . "'";
+
                         if (isset($_POST['r_concern'])) {
                             $v_emp_id = $_REQUEST['emp_rml_id'];
                             $emp_group = $_REQUEST['emp_group'];
                             $r_concern = $_REQUEST['r_concern'];
                             $emp_dept = $_REQUEST['emp_dept'];
-                            $strSQL  = oci_parse($objConnect, "select  RML_ID,EMP_GROUP,
-																 EMP_NAME,
-																 MOBILE_NO,
-																 COLL_HR_EMP_NAME(LINE_MANAGER_RML_ID) LINE_MANAGER_RML_ID,
-																 COLL_HR_EMP_NAME(DEPT_HEAD_RML_ID) DEPT_HEAD_RML_ID,
-																 DEPT_NAME,
-																 BRANCH_NAME,
-																 DESIGNATION
-														from RML_HR_APPS_USER
-														where ('$emp_group' is null OR EMP_GROUP='$emp_group')
-														 and ('$v_emp_id' is null OR RML_ID='$v_emp_id')
-														 and ('$r_concern' is null OR R_CONCERN='$r_concern')
-														 and ('$emp_dept' is null OR DEPT_NAME='$emp_dept')
-														 ");
+                            $strSQL  = oci_parse($objConnect, "SELECT  RML_ID,EMP_GROUP,
+																EMP_NAME,
+																MOBILE_NO,
+																COLL_HR_EMP_NAME(LINE_MANAGER_RML_ID) LINE_MANAGER_RML_ID,
+																COLL_HR_EMP_NAME(DEPT_HEAD_RML_ID) DEPT_HEAD_RML_ID,
+																DEPT_NAME,
+																BRANCH_NAME,
+																DESIGNATION,
+                                                                CASE
+                                                                    WHEN RML_ID IN ($oracle_rml_ids) THEN 'yes'
+                                                                    ELSE 'no'
+                                                                END AS APPS_USER_STATUS
+														FROM RML_HR_APPS_USER
+														WHERE ('$emp_group' is null OR EMP_GROUP='$emp_group')
+														AND ('$v_emp_id' is null OR RML_ID='$v_emp_id')
+														AND ('$r_concern' is null OR R_CONCERN='$r_concern')
+														AND ('$emp_dept' is null OR DEPT_NAME='$emp_dept')");
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -155,6 +168,20 @@ if (!checkPermission('user-list')) {
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['RML_ID']; ?></td>
+                                    <td class="text-center">
+                                        <?php if ($row['APPS_USER_STATUS'] == 'yes') {
+                                            echo '<span  class="badge  rounded-pill bg-success">
+                                            <span class="tf-icons bx bx-check"></span>
+                                          </span>';
+                                        } else {
+                                            echo '<a href="' . $basePath . '/admin_setting/view/user_list.php?rml_id=' . $row['RML_ID'] . '"> 
+                                                <span data-toggle="tooltip" data-placement="top" title="defalt user Create?" class="badge rounded-pill bg-info">
+                                                    <span class="tf-icons bx bx-edit-alt"></span>
+                                                </span>
+                                            </a>';
+                                        } ?>
+
+                                    </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DESIGNATION']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
@@ -185,35 +212,50 @@ if (!checkPermission('user-list')) {
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT  
-							RML_ID,
-							EMP_NAME,
-							MOBILE_NO,
-							COLL_HR_EMP_NAME(LINE_MANAGER_RML_ID) LINE_MANAGER_RML_ID,
-							COLL_HR_EMP_NAME(DEPT_HEAD_RML_ID) DEPT_HEAD_RML_ID,
-							DEPT_NAME,
-							BRANCH_NAME,
-							DESIGNATION
-							from RML_HR_APPS_USER
-						where DEPT_NAME =(select a.DEPT_NAME from RML_HR_APPS_USER a where a.RML_ID='$emp_session_id')
-								AND IS_ACTIVE=1"
+                                    RML_ID,
+                                    EMP_NAME,
+                                    MOBILE_NO,
+                                    COLL_HR_EMP_NAME(LINE_MANAGER_RML_ID) LINE_MANAGER_RML_ID,
+                                    COLL_HR_EMP_NAME(DEPT_HEAD_RML_ID) DEPT_HEAD_RML_ID,
+                                    DEPT_NAME,
+                                    BRANCH_NAME,
+                                    DESIGNATION,
+                                    CASE
+                                        WHEN RML_ID IN ($oracle_rml_ids) THEN 'yes'
+                                        ELSE 'no'
+                                    END AS APPS_USER_STATUS
+
+                                from RML_HR_APPS_USER
+                                where DEPT_NAME =(select a.DEPT_NAME from RML_HR_APPS_USER a where a.RML_ID='$emp_session_id')
+                                AND IS_ACTIVE=1"
                             );
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-
                                 $password = "";
                                 $encrypted_rml_id = openssl_encrypt($row['RML_ID'], "AES-128-ECB", $password);
-
                             ?>
-
-
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['RML_ID']; ?></td>
+                                    <td class="text-center">
+                                        <?php if ($row['APPS_USER_STATUS'] == 'yes') {
+                                            echo '<span  class="badge  rounded-pill bg-success">
+                                            <span class="tf-icons bx bx-check"></span>
+                                          </span>';
+                                        } else {
+                                            echo '<a href="' . $basePath . '/admin_setting/view/user_list.php?rml_id=' . $row['RML_ID'] . '"> 
+                                                <span data-toggle="tooltip" data-placement="top" title="defalt user Create?" class="badge rounded-pill bg-info">
+                                                    <span class="tf-icons bx bx-edit-alt"></span>
+                                                </span>
+                                            </a>';
+                                        } ?>
+
+                                    </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DESIGNATION']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
@@ -248,7 +290,141 @@ if (!checkPermission('user-list')) {
     <!--/ Bordered Table -->
 
 
+    <?php
+    // ob_start(); // Start output buffering
+    if (isset($_GET['rml_id'])) {
+        // echo(23123);
+        $getID = trim($_GET['rml_id']);
+        $strSQL  = oci_parse(
+            $objConnect,
+            "SELECT EMP_NAME,RML_ID,R_CONCERN,MAIL,MOBILE_NO,DEPT_NAME,BRANCH_NAME,DESIGNATION  FROM RML_HR_APPS_USER  WHERE RML_ID='$getID'"
+        );
+        oci_execute($strSQL);
+        $erpUserData = oci_fetch_assoc($strSQL);
 
+        $EMP_NAME = $erpUserData['EMP_NAME'];
+        $RML_ID = $erpUserData['RML_ID'];
+        $MOBILE_NO = $erpUserData['MOBILE_NO'];
+        $R_CONCERN = $erpUserData['R_CONCERN'];
+        $MAIL = $erpUserData['MAIL'];
+        $defaulPass = md5(123);
+
+        try {
+            $conn_hr->begin_transaction();
+            //WEB USER CREATE 
+            $checkData = mysqli_query($conn_hr,  "SELECT `id`FROM `tbl_users` WHERE emp_id ='$RML_ID'");
+            if (mysqli_num_rows($checkData) > 0) {
+                $message = [
+                    'text' =>   'Already Web User exited!',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                // header("location:" . $basePath . "/admin_setting/view/user_list.php");
+                // echo '<script>location.reload();</script>';
+                $_SESSION['should_reload'] = true;
+                // exit();
+            } else {
+                $auditsql = "INSERT INTO tbl_users(
+                first_name, 
+                emp_id, 
+                concern, 
+                email, 
+                password, 
+                real_pass) 
+            VALUES ('$EMP_NAME','$RML_ID','$R_CONCERN','$MAIL','$defaulPass','123')";
+                mysqli_query($conn_hr, $auditsql);
+            }
+
+            $selectQuery    = "SELECT id FROM tbl_users WHERE emp_id = '$RML_ID'";
+            $dataResult     = mysqli_query($conn_hr, $selectQuery);
+            $insertedData   = mysqli_fetch_assoc($dataResult);
+            $user_id        = $insertedData['id'];
+
+            // NORMAL_USER/PUBLIC_USER ROLE 
+            $publicRoleID = 7;
+
+            $sql    = "INSERT INTO tbl_users_roles (user_id , role_id)  VALUES  ($user_id , $publicRoleID)";
+            $result = $conn_hr->query($sql);
+
+            if ($result) {
+
+                $getRoleWisePermission = getRoleWisePermission($conn_hr, $publicRoleID);
+                foreach ($getRoleWisePermission as $key => $permission_id) {
+
+                    $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //get user wise permission
+                    $result     = mysqli_query($conn_hr, $sql);
+
+                    if (mysqli_num_rows($result) == 0) {
+                        $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)"; //user wise permission insert 
+                        mysqli_query($conn_hr, $sql);
+                    }
+                }
+            }
+            $conn_hr->commit();
+        } catch (\Exception $e) {
+            $conn_hr->rollback();
+            // Handle the exception
+            $message = [
+                'text' =>   $e->getMessage(),
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            $_SESSION['should_reload'] = true;
+            // echo '<script>location.reload();</script>';
+
+            // header("location:" . $basePath . "/admin_setting/view/user_list.php");
+            // exit();
+        }
+        mysqli_close($conn_hr); // Close connection
+        $message = [
+            'text' => 'Web User Created Successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        $_SESSION['should_reload'] = true;
+        
+        // Check if the flag is set to reload, then reload and unset the flag
+        if (isset($_SESSION['should_reload']) && $_SESSION['should_reload']) {
+            unset($_SESSION['should_reload']);
+            // echo '<script>location.reload();</script>';
+        }
+    }
+
+
+
+
+
+
+    function getRoleWisePermission($conn_hr, $role_id)
+    {
+        $permissionArray = [];
+        $sql        = "SELECT * FROM tbl_roles_permissions Where role_id =" . $role_id; //  select query execution
+        $perResult     = mysqli_query($conn_hr, $sql);
+        // Loop through the fetched rows
+        if ($perResult) {
+            while ($row = mysqli_fetch_array($perResult)) {
+                $permissionArray[] = array(
+                    'permission_id' => $row['permission_id']
+                );
+            }
+        }
+        return   $permissionArray = array_column($permissionArray, 'permission_id');
+    }
+    function getUserWiseInsertPermission($conn_hr, $user_id, $permission_id)
+    {
+
+        $sql = "SELECT * FROM tbl_users_permissions WHERE user_id = $user_id AND permission_id = $permission_id"; //get user wise permission
+        $result     = mysqli_query($conn_hr, $sql);
+
+        if (mysqli_num_rows($result) == 0) {
+
+            $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)"; //user wise permission insert 
+            mysqli_query($conn_hr, $sql);
+        }
+        return true;
+    }
+
+    ?>
 </div>
 
 <!-- / Content -->
