@@ -194,12 +194,12 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 											<div class="form-group">
 												<label for="title">Gendar:</label>
 												<input type="text" class="form-control cust-control" id="title" value="<?php
-																											if ($row['GENDER'] === 'M') {
-																												echo 'Male';
-																											} else if ($row['GENDER'] === 'F') {
-																												echo 'Female';
-																											}
-																											?>" readonly>
+																														if ($row['GENDER'] === 'M') {
+																															echo 'Male';
+																														} else if ($row['GENDER'] === 'F') {
+																															echo 'Female';
+																														}
+																														?>" readonly>
 											</div>
 										</div>
 										<div class="col-sm-3">
