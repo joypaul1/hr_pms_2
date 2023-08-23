@@ -109,7 +109,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 $user_id = $row['id'];
                             }
                         } else {
-                            echo "<p class='text-danger'> User User not found! Please create a user.</p>";
+                            echo "<p class='text-danger'> User not found! Please create a user.</p>";
                         }
                         mysqli_free_result($userResult);
                     } else {
