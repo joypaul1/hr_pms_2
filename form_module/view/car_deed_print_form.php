@@ -3,6 +3,7 @@
 
 <head>
     <title>Car Deed Paper</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .btn {
             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
@@ -128,8 +129,8 @@ $basePath =  $_SESSION['basePath'];
 
 <body>
     <div style="text-align: right;" id="hidden">
+        <a href="<?php echo $basePath . '/form_module/view/car_deed_form.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
         <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
-        <a href="action="<?php echo $basePath . '/form_module/view/car_deed_form.php' ?>"" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
     </div>
     <div class="stamp-paper">
         <section class="stamp-space-header">
