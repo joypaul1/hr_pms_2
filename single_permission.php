@@ -130,7 +130,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)";
                                     mysqli_query($conn_hr, $sql);
                                 }
-                               
                             }
 
                         }
