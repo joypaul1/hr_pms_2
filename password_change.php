@@ -34,7 +34,7 @@ $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
 		<form action="" method="post">
 			<div class="row">
 				<div class="col-sm-4">
-					<input required="" type="text" class="form-control" id="title" placeholder="Enter New Password" name="new_password" minlength="6" maxlength="10" size="10">
+					<input required="" type="text" class="form-control" id="title" placeholder="Enter New Password" name="new_password" minlength="3" maxlength="10" size="10">
 				</div>
 				<div class="col-sm-4">
 					<input required="" type="text" class="form-control" id="title" placeholder="Enter New Password Again" name="new_password_again" minlength="6" maxlength="10" size="10">
