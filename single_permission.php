@@ -110,6 +110,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             }
                         } else {
                             echo "<p class='text-danger'> User not found! Please create a user.</p>";
+                            $message = [
+                                'text' => "User not found! Please create a user.",
+                                'status' => 'false',
+                            ];
+                            $_SESSION['noti_message'] = $message;
                         }
                         mysqli_free_result($userResult);
                     } else {
@@ -125,12 +130,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     $sql = "INSERT INTO tbl_users_permissions (user_id , permission_id)  VALUES  ($user_id , $permission_id)";
                                     mysqli_query($conn_hr, $sql);
                                 }
-                                // else{
-                                //     echo "<p class='text-info'>Already Permission Given this ID :".$permission_id."</p>";
-
-                                // }
+                               
                             }
+
                         }
+                        $message = [
+                            'text' => "User Permission successfully.",
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
                     }
                 }
                 ?>

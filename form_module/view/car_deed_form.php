@@ -1,7 +1,7 @@
 <?php
 
-$dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-$dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
+// $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+// $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
