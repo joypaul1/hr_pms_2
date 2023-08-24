@@ -123,81 +123,81 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div style="border: 1px solid #eee5e5;padding: 2%; margin: 1%">
                         <div class="form-group">
                             <label for="unit_no"> Unit No.</label>
-                            <input type="text" class="form-control" name="unit_no" id="unit_no" required onkeypress="return false;" placeholder="0/1/2" style="background-color: #d9dee3;">
+                            <input type="text" class="form-control" name="unit_no" id="unit_no" required onkeypress="return false;" placeholder="0/1/2" style="background-color: #d9dee3;" autocomplete="off">
                         </div>
                         <div class="form-group">
                             <label for="customer_name"> Customer Name</label>
-                            <input type="text" class="form-control" name="customer_name" value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"] : ' ' ?>" id="customer_name" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_name" value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"] : ' ' ?>" id="customer_name" autocomplete="off" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="customer_address"> Customer Address</label>
-                            <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : ' ' ?>" id="customer_address" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : ' ' ?>" autocomplete="off" id="customer_address" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Cheque Number</label>
-                            <input type="text" class="form-control" name="cheque_number" id="cheque_number" required placeholder="Cheque Number">
+                            <input type="text" class="form-control" name="cheque_number" autocomplete="off" id="cheque_number" required placeholder="Cheque Number">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Invoice Date</label>
-                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" name="date" id="date">
+                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" autocomplete="off" name="date" id="date">
                         </div>
                         <div class="form-group">
                             <label for="c_f_name">Customer Father's Name</label>
-                            <input type="text" class="form-control" name="c_f_name" id="c_f_name" required placeholder="Customer father's Name">
+                            <input type="text" class="form-control" name="c_f_name" id="c_f_name"autocomplete="off" required placeholder="Customer father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_name_1"> Guarantor/Dealer Name (1)</label>
-                            <input type="text" class="form-control" name="g_name_1" id="g_name_1" required placeholder="Guarantor/Dealer Name">
+                            <input type="text" class="form-control" name="g_name_1" id="g_name_1" autocomplete="off"required placeholder="Guarantor/Dealer Name">
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_1"> Guarantor Father's Name (1)</label>
-                            <input type="text" class="form-control" name="g_f_name_1" id="g_f_name_1" required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" name="g_f_name_1" id="g_f_name_1"autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_1"> Guarantor Address (1)</label>
-                            <input type="text" class="form-control" name="g_add_1" id="g_add_1" required placeholder="Guarantor/Dealer Address">
+                            <input type="text" class="form-control" name="g_add_1" id="g_add_1" autocomplete="off"required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div class="form-group">
                             <label for="g_name_2"> Guarantor/Dealer Name (2)</label>
-                            <input type="text" class="form-control" name="g_name_2" id="g_name_2" placeholder="Guarantor/Dealer Name">
+                            <input type="text" class="form-control" name="g_name_2" id="g_name_2"autocomplete="off" placeholder="Guarantor/Dealer Name">
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_2"> Guarantor/Dealer Father's Name (2)</label>
-                            <input type="text" class="form-control" name="g_f_name_2" id="g_f_name_2" required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" name="g_f_name_2" id="g_f_name_2" autocomplete="off"required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_2"> Guarantor/Dealer Address (2)</label>
-                            <input type="text" class="form-control" name="g_add_2" id="g_add_2" required placeholder="Guarantor/Dealer Address">
+                            <input type="text" class="form-control" name="g_add_2" id="g_add_2"autocomplete="off" required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div id='dynamicOption' style="width:100%;"></div>
 
                         <div class="form-group">
                             <label for="sales_amount"> Sales Amount</label>
-                            <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ? number_format($singleProduct["SALES_AMOUNT"], 2) : ' ' ?>" id="sales_amount" required placeholder="EX:10,00,000.00">
+                            <input type="text" autocomplete="off" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ? number_format($singleProduct["SALES_AMOUNT"], 2) : ' ' ?>" id="sales_amount" required placeholder="EX:10,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="down_payment"> Down Payment</label>
-                            <input type="text" class="form-control" name="down_payment" value="<?php echo isset($singleProduct["DP"]) ? number_format($singleProduct["DP"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
+                            <input type="text" autocomplete="off" class="form-control" name="down_payment" value="<?php echo isset($singleProduct["DP"]) ? number_format($singleProduct["DP"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="lease_amount"> Lease Amount</label>
-                            <input type="text" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
+                            <input type="text"autocomplete="off" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="grace_period"> Grace Period</label>
-                            <input type="text" class="form-control" name="grace_period" value="" id="grace_period" required placeholder="EX:1/2/3">
+                            <input type="text" autocomplete="off" class="form-control" name="grace_period" value="" id="grace_period" required placeholder="EX:1/2/3">
                         </div>
                         <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
-                            <input type="text" class="form-control" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
+                            <input type="text" autocomplete="off" class="form-control" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="emi_number"> EMI Number(Count of EMI)</label>
-                            <input type="text" class="form-control" name="emi_number" required id="emi_number" placeholder="EX:3/4/5">
+                            <input type="text" autocomplete="off" class="form-control" name="emi_number" required id="emi_number" placeholder="EX:3/4/5">
                         </div>
                         <div class="form-group">
                             <label for="emi_start_date"> EMI Start Date </label>
-                            <input type="text" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date">
+                            <input type="text" autocomplete="off" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date">
                         </div>
                         <!-- <div class="form-group">
                             <label for="emi_end_date"> EMI End Date</label>
