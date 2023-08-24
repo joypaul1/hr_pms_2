@@ -5,7 +5,7 @@ $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('accounts-clearance-form')) {
+if (!checkPermission('car-deed-form')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
