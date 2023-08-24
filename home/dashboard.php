@@ -134,7 +134,7 @@
                                                                      from RML_HR_ATTN_DAILY_PROC
                                                                      where trunc(ATTN_DATE) between to_date(sysdate-6,'dd/mm/RRRR') and to_date(sysdate,'dd/mm/RRRR')
 																	and RML_ID='$emp_session_id'
-                                                                    order by ATTN_DATE"
+                                                                    order by ATTN_DATE DESC"
 								);
 								oci_execute($allDataSQL);
 								$number = 0;
