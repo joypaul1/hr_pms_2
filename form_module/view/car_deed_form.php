@@ -27,7 +27,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <label class="form-label" for="basic-default-fullname">Sell invoice ID</label>
                         <input required="" placeholder="Sell invoice  ID" name="invoice_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['invoice_id']) ? $_POST['invoice_id'] : ''; ?>' />
                     </div>
-                    <small class="text-danger">Invoice Number Case Sensitive</small>
+                    <small class="text-danger">*** Invoice Number Case Sensitive</small>
                 </div>
 
                 <div class="col-sm-2">
@@ -42,10 +42,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card  mt-1">
-        <form action="<?php echo $basePath . '/form_module/view/car_deed_print_form.php' ?>" method="POST" >
-        <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
-        <input type="hidden" name="actionType" value="car_deed">
-        <div class="card-body row">
+        <form action="<?php echo $basePath . '/form_module/view/car_deed_print_form.php' ?>" id="card_deed_form" method="POST" >
+            <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
+            <input type="hidden" name="actionType" value="car_deed">
+            <div class="card-body row">
                 <div class="col-md-7 ">
                     <div style="
                     border: 1px solid #eee5e5;
@@ -72,11 +72,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     oci_execute($deedSQL);
                                     // REF_CODE != '' AND 
                                     // print_r(oci_fetch_assoc($deedSQL));
-                                    
+
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
-                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="'. $row['PRODUCT_CODE_NAME'] .'" " data-chassis-no="'. $row['CHASSIS_NO'] .'" data-eng-no="'. $row['ENG_NO'] .'" data-brand-name="'. $row['BRAND'] .'">
+                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="' . $row['PRODUCT_CODE_NAME'] . '" " data-chassis-no="' . $row['CHASSIS_NO'] . '" data-eng-no="' . $row['ENG_NO'] . '" data-brand-name="' . $row['BRAND'] . '">
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label></td>
                                         <td>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">NAME : ' . $row['CUSTOMER_NAME'] . '</label>
@@ -123,19 +123,19 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div style="border: 1px solid #eee5e5;padding: 2%; margin: 1%">
                         <div class="form-group">
                             <label for="unit_no"> Unit No.</label>
-                            <input type="text" class="form-control" name="unit_no"  id="unit_no" required onkeypress="return false;" placeholder="0/1/2" style="background-color: #d9dee3;">
+                            <input type="text" class="form-control" name="unit_no" id="unit_no" required onkeypress="return false;" placeholder="0/1/2" style="background-color: #d9dee3;">
                         </div>
                         <div class="form-group">
                             <label for="customer_name"> Customer Name</label>
-                            <input type="text" class="form-control" name="customer_name"value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"]: ' ' ?>" id="customer_name" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_name" value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"] : ' ' ?>" id="customer_name" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="customer_address"> Customer Address</label>
-                            <input type="text" class="form-control" name="customer_address"value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"]: ' ' ?>" id="customer_address"required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : ' ' ?>" id="customer_address" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Cheque Number</label>
-                            <input type="text" class="form-control" name="cheque_number" id="cheque_number"required placeholder="Cheque Number">
+                            <input type="text" class="form-control" name="cheque_number" id="cheque_number" required placeholder="Cheque Number">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Invoice Date</label>
@@ -147,7 +147,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="g_name_1"> Guarantor/Dealer Name (1)</label>
-                            <input type="text" class="form-control" name="g_name_1" id="g_name_1"required placeholder="Guarantor/Dealer Name">
+                            <input type="text" class="form-control" name="g_name_1" id="g_name_1" required placeholder="Guarantor/Dealer Name">
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_1"> Guarantor Father's Name (1)</label>
@@ -163,25 +163,25 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_2"> Guarantor/Dealer Father's Name (2)</label>
-                            <input type="text" class="form-control" name="g_f_name_2" id="g_f_name_2"required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" name="g_f_name_2" id="g_f_name_2" required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_2"> Guarantor/Dealer Address (2)</label>
                             <input type="text" class="form-control" name="g_add_2" id="g_add_2" required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div id='dynamicOption' style="width:100%;"></div>
-                        
+
                         <div class="form-group">
                             <label for="sales_amount"> Sales Amount</label>
-                            <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ?number_format( $singleProduct["SALES_AMOUNT"], 2): ' ' ?>" id="sales_amount"required  placeholder="EX:10,00,000.00">
+                            <input type="text" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ? number_format($singleProduct["SALES_AMOUNT"], 2) : ' ' ?>" id="sales_amount" required placeholder="EX:10,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="down_payment"> Down Payment</label>
-                            <input type="text" class="form-control" name="down_payment"value="<?php echo isset($singleProduct["DP"]) ?number_format( $singleProduct["DP"], 2): ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="down_payment" value="<?php echo isset($singleProduct["DP"]) ? number_format($singleProduct["DP"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="lease_amount"> Lease Amount</label>
-                            <input type="text" class="form-control" name="lease_amount"value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ?number_format( $singleProduct["LEASE_AMOUNT"], 2): ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="grace_period"> Grace Period</label>
@@ -189,7 +189,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
-                            <input type="text" class="form-control" name="installment_amount" value="" id="installment_amount" required  placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="emi_number"> EMI Number(Count of EMI)</label>
@@ -197,7 +197,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="emi_start_date"> EMI Start Date </label>
-                            <input type="text" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date" >
+                            <input type="text" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date">
                         </div>
                         <!-- <div class="form-group">
                             <label for="emi_end_date"> EMI End Date</label>
@@ -230,18 +230,25 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 <?php require_once('../../layouts/footer.php'); ?>
 
 <script>
-    $(document).ready(function () { 
-        $('#date').datepicker({ dateFormat: 'dd-mm-yy' }).val();
-        $('#emi_start_date').datepicker({ dateFormat: 'dd-mm-yy' }).val();
+    $(document).ready(function() {
 
-        $(document).on('click','.ref_code',function(){
-            var ref_code =$(this).val();
-            if($(this).is(':checked')){
-                let codeno =  $(this).attr('data-code-no');
-                let engno =  $(this).attr('data-eng-no');
-                let brandName =  $(this).attr('data-brand-name');
-                let chassisno =  $(this).attr('data-chassis-no');
-                var ref_length =$('.ref_code').filter(':checked').length;
+
+
+        $('#date').datepicker({
+            dateFormat: 'dd-mm-yy'
+        }).val();
+        $('#emi_start_date').datepicker({
+            dateFormat: 'dd-mm-yy'
+        }).val();
+
+        $(document).on('click', '.ref_code', function() {
+            var ref_code = $(this).val();
+            if ($(this).is(':checked')) {
+                let codeno = $(this).attr('data-code-no');
+                let engno = $(this).attr('data-eng-no');
+                let brandName = $(this).attr('data-brand-name');
+                let chassisno = $(this).attr('data-chassis-no');
+                var ref_length = $('.ref_code').filter(':checked').length;
                 let html = `<span id="${ref_code}" style="width:100%">
                             
                             <input type="hidden"  class="form-control" name="product_brand" value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
@@ -255,11 +262,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 <input type="text" class="form-control" name="product_engine_no[]" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
                             </div></span>`;
                 $('#dynamicOption').after(html);
-            }else{
+            } else {
                 var escaped_ref_code = $.escapeSelector(ref_code);
                 $('span#' + escaped_ref_code).remove();
             }
-            
+
             $('#unit_no').val(ref_length);
         });
     });

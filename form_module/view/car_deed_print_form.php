@@ -90,6 +90,7 @@
     </style>
 </head>
 <?php
+session_start();
 require '../../helper/currencyToWord.php';
 
 // Get the current date
@@ -122,12 +123,13 @@ $countInstallment = 2;
 if ($_POST['product_brand'] == 'EICHER') {
     $countInstallment = 3;
 }
-
+$basePath =  $_SESSION['basePath'];
 ?>
 
 <body>
     <div style="text-align: right;" id="hidden">
         <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
+        <a href="action="<?php echo $basePath . '/form_module/view/car_deed_form.php' ?>"" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
     </div>
     <div class="stamp-paper">
         <section class="stamp-space-header">
@@ -196,7 +198,7 @@ if ($_POST['product_brand'] == 'EICHER') {
             <span style="display: block; margin-top: 5px;">That the vehicle shall be comprehensively insured in favor of the First Part (the owners) or any financial institution or Agency nominated by the First Part and costs for maintaining such insurance policy shall be borne by the Second Part (the borrower).</span>
             <span style="display: block; margin-top: 5px;">That the repayment of the borrowed amount with interest shall be due for payment after <b> <?php echo $_POST['grace_period'] ?> days</b> of taking delivery of the said Completely Built up <b><?php echo $_POST['product_model'] ?></b> and shall be paid by the Second Part (the borrower) in <b><?php echo str_pad($_POST['emi_number'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['emi_number']))?>)</b> equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VII</p>
-            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $_POST['cheque_number'] ?></b> Cheques in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
+            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $_POST['cheque_number'] ?> Cheques </b> in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE IX</p>
             <span style="display: block; margin-top: 5px;">That, if the Second Part fails to make the installment payment/ payments on the schedule date /dates, then the First Part, in order to recover the outstanding debt from the Second Part, will be legally entitled to present the Cheque or Cheques in the bank for encashment and upon presentation if the Cheque or Cheques are being returned by the bank as unpaid due to insufficient fund or for any other legally recognized reasons, then the First Part will be legally entitled to initiate Criminal Proceedings against the Second Part in Court under Section- 138 or 140 of the Negotiable Instrument Act, 1881 and in such an event the Second Part shall be liable for all legal consequences thereof. Besides, the First Part shall also be entitled to initiate Criminal (other than Section- 138) and Civil Cases against the Second Part in order to recover the outstanding debt.</span>
 
