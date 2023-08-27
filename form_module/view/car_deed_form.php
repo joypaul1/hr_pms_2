@@ -42,7 +42,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card  mt-1">
-        <form action="<?php echo $basePath . '/form_module/view/car_deed_print_form.php' ?>" id="card_deed_form" method="POST" >
+        <form action="<?php echo $basePath . '/form_module/view/car_deed_print_form.php' ?>" id="card_deed_form" method="POST">
             <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
             <input type="hidden" name="actionType" value="car_deed">
             <div class="card-body row">
@@ -111,12 +111,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 $singleProduct = [];
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                     $invoice_id = trim($_POST["invoice_id"]);
-
                     $deedSQL = oci_parse($objConnect, "SELECT  * FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
                     oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
                     oci_execute($deedSQL);
                     $singleProduct = oci_fetch_assoc($deedSQL);
-                    // print_r($singleProduct);
+                    $buyerSQL = oci_parse($objConnect, "SELECT  * FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
+                    oci_execute($buyerSQL);
+                    $buyerSQL = oci_fetch_assoc($buyerSQL);
                 }
                 ?>
                 <div class="col-md-5">
@@ -127,11 +128,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="customer_name"> Customer Name</label>
-                            <input type="text" class="form-control" name="customer_name" value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"] : ' ' ?>" id="customer_name" autocomplete="off" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_name" value="<?php echo isset($singleProduct["CUSTOMER_NAME"]) ? $singleProduct["CUSTOMER_NAME"] : '' ?>" id="customer_name" autocomplete="off" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="customer_address"> Customer Address</label>
-                            <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : ' ' ?>" autocomplete="off" id="customer_address" required placeholder="EX:5,00,000.00">
+                            <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : '' ?>" autocomplete="off" id="customer_address" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Cheque Number</label>
@@ -139,35 +140,35 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Invoice Date</label>
-                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" autocomplete="off" name="date" id="date">
+                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" value="<?php echo isset($buyerSQL["INVOICE_DATE"]) ? date('d-m-Y', strtotime($buyerSQL["INVOICE_DATE"])) : '' ?>" autocomplete="off" name="date" id="date">
                         </div>
                         <div class="form-group">
                             <label for="c_f_name">Customer Father's Name</label>
-                            <input type="text" class="form-control" name="c_f_name" id="c_f_name"autocomplete="off" required placeholder="Customer father's Name">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FATHERS_NAME"]) ? $buyerSQL["FATHERS_NAME"] : '' ?>" name="c_f_name" id="c_f_name" autocomplete="off" required placeholder="Customer father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_name_1"> Guarantor/Dealer Name (1)</label>
-                            <input type="text" class="form-control" name="g_name_1" id="g_name_1" autocomplete="off"required placeholder="Guarantor/Dealer Name">
+                            <input type="text" class="form-control" name="g_name_1" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR"]) ? $buyerSQL["FIRST_GUARANTOR"] : '' ?>" id="g_name_1" autocomplete="off" required placeholder="Guarantor/Dealer Name">
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_1"> Guarantor Father's Name (1)</label>
-                            <input type="text" class="form-control" name="g_f_name_1" id="g_f_name_1"autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_FATHER"]) ? $buyerSQL["FIRST_GUARANTOR_FATHER"] : '' ?> name=" g_f_name_1" id="g_f_name_1" autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_1"> Guarantor Address (1)</label>
-                            <input type="text" class="form-control" name="g_add_1" id="g_add_1" autocomplete="off"required placeholder="Guarantor/Dealer Address">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_ADDRESS"]) ? $buyerSQL["FIRST_GUARANTOR_ADDRESS"] : '' ?> name=" g_add_1" id="g_add_1" autocomplete="off" required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div class="form-group">
                             <label for="g_name_2"> Guarantor/Dealer Name (2)</label>
-                            <input type="text" class="form-control" name="g_name_2" id="g_name_2"autocomplete="off" placeholder="Guarantor/Dealer Name">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["SECOND_GUARANTOR"]) ? $buyerSQL["SECOND_GUARANTOR"] : '' ?>" name="g_name_2" id="g_name_2" autocomplete="off" placeholder="Guarantor/Dealer Name">
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_2"> Guarantor/Dealer Father's Name (2)</label>
-                            <input type="text" class="form-control" name="g_f_name_2" id="g_f_name_2" autocomplete="off"required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["SECOND_GUARANTOR_SO_DO"]) ? $buyerSQL["SECOND_GUARANTOR_SO_DO"] : '' ?>" name="g_f_name_2" id="g_f_name_2" autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_2"> Guarantor/Dealer Address (2)</label>
-                            <input type="text" class="form-control" name="g_add_2" id="g_add_2"autocomplete="off" required placeholder="Guarantor/Dealer Address">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["SECOND_GUARANTOR_ADDRESS"]) ? $buyerSQL["SECOND_GUARANTOR_ADDRESS"] : '' ?>" name="g_add_2" id="g_add_2" autocomplete="off" required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div id='dynamicOption' style="width:100%;"></div>
 
@@ -181,7 +182,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="lease_amount"> Lease Amount</label>
-                            <input type="text"autocomplete="off" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
+                            <input type="text" autocomplete="off" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="grace_period"> Grace Period</label>
@@ -193,11 +194,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="emi_number"> EMI Number(Count of EMI)</label>
-                            <input type="text" autocomplete="off" class="form-control" name="emi_number" required id="emi_number" placeholder="EX:3/4/5">
+                            <input type="text" autocomplete="off" value="<?php echo isset($buyerSQL["NO_OF_INSTALLMENT"]) ? $buyerSQL["NO_OF_INSTALLMENT"] : '' ?>" class="form-control" name="emi_number" required id="emi_number" placeholder="EX:3/4/5">
                         </div>
                         <div class="form-group">
                             <label for="emi_start_date"> EMI Start Date </label>
-                            <input type="text" autocomplete="off" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date">
+                            <input type="text" autocomplete="off" value="<?php echo isset($buyerSQL["POSIBLE_INST_START_DATE"]) ? date('d-m-Y', strtotime($buyerSQL["POSIBLE_INST_START_DATE"]))  : '' ?>" placeholder="dd-mm-yyyy" class="form-control" required name="emi_start_date" id="emi_start_date">
                         </div>
                         <!-- <div class="form-group">
                             <label for="emi_end_date"> EMI End Date</label>
