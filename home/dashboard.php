@@ -1,9 +1,9 @@
 <?php
-   require_once('../helper/com_conn.php');
-   require_once('../inc/connoracle.php');
-   $basePath =  $_SESSION['basePath'];
-   
-   $sqlQuary ="
+require_once('../helper/com_conn.php');
+require_once('../inc/connoracle.php');
+$basePath =  $_SESSION['basePath'];
+
+$sqlQuary = "
 	SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' APPROVAL_LINK 
 		FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 		WHERE A.ID=B.EMP_CLEARENCE_ID
@@ -30,10 +30,10 @@
 	AND SELF_SUBMITTED_STATUS=1
 	AND LINE_MANAGER_2_STATUS IS NULL
 	AND LINE_MANAGER_2_ID='$emp_session_id'";
-	
-	
-   $allDataSQL  = oci_parse($objConnect,$sqlQuary);
-   oci_execute($allDataSQL);
+
+
+$allDataSQL  = oci_parse($objConnect, $sqlQuary);
+oci_execute($allDataSQL);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
@@ -76,7 +76,7 @@
 							</thead>
 							<tbody>
 								<?php
-								
+
 								$number = 0;
 								while ($row = oci_fetch_assoc($allDataSQL)) {
 									$number++;
@@ -87,7 +87,9 @@
 										</td>
 										<td><?php echo $row['APPROVAL_TYPE']; ?></td>
 										<td align="center">
-											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><?php echo $row['NUMBER_TOTAL']; ?></a>
+											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>>
+											<span class="badge badge-center rounded-pill bg-info"><?php echo $row['NUMBER_TOTAL']; ?></span>
+											</a>
 										</td>
 									</tr>
 								<?php
@@ -149,7 +151,7 @@
 										<td><?php echo $row['IN_TIME']; ?></td>
 										<td><?php echo $row['OUT_TIME']; ?></td>
 										<td><?php echo $row['STATUS']; ?></td>
-										
+
 									</tr>
 								<?php
 								}
@@ -159,13 +161,13 @@
 					</div>
 				</div>
 			</div>
-			
+
 		</div>
 
 		<!-- End Approval -->
-		<!--  Approval --> 
+		<!--  Approval -->
 		<div class="col-lg-6 mb-2 order-0">
-			
+
 		</div>
 		<!-- End Approval -->
 

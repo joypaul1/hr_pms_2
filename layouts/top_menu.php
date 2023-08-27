@@ -1,21 +1,14 @@
 <?php
-
-  
-  $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-  
-  $objConnect=oci_connect("DEVELOPERS","Test1234","10.99.99.20:1525/ORCLPDB",'AL32UTF8');
-  $notification_number=0;
-  $sqlQuary ="Select sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
-  $allDataSQL  = oci_parse($objConnect,$sqlQuary);
-  oci_execute($allDataSQL);
-  while ($row = oci_fetch_assoc($allDataSQL)) {
-	 $notification_number=$row['TOTAL_NOTI']; 
-  }
+$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$objConnect = oci_connect("DEVELOPERS", "Test1234", "10.99.99.20:1525/ORCLPDB", 'AL32UTF8');
+$notification_number = 0;
+$sqlQuary = "Select sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+$allDataSQL  = oci_parse($objConnect, $sqlQuary);
+oci_execute($allDataSQL);
+while ($row = oci_fetch_assoc($allDataSQL)) {
+  $notification_number = $row['TOTAL_NOTI'];
+}
 ?>
-
-
-
-
 
 
 <!-- Layout container -->
@@ -82,37 +75,34 @@
             <li class="dropdown-notifications-list scrollable-container ps">
               <ul class="list-group list-group-flush">
                 <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                  
-				<?php
-				  $sqlQuary ="Select APPROVAL_TYPE,NUMBER_TOTAL,APPROVAL_LINK from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
-				  $allDataSQL  = oci_parse($objConnect,$sqlQuary);
-				  oci_execute($allDataSQL);
-				  while ($row = oci_fetch_assoc($allDataSQL)) {
-                  ?>
-                
-				  
-				  <div class="d-flex">
+
+
+                  <div class="d-flex">
                     <div class="flex-grow-1">
                       <table class="table table-bordered">
-						  <tr>
-						     <td><?php echo $row['APPROVAL_TYPE']; ?></td>
-							 <td align="center">
-											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><?php echo $row['NUMBER_TOTAL']; ?></a>
-										</td>
-						  </tr>
-					  </table>
+                        <?php
+                        $sqlQuary = "Select APPROVAL_TYPE,NUMBER_TOTAL,APPROVAL_LINK from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+                        $allDataSQL  = oci_parse($objConnect, $sqlQuary);
+                        oci_execute($allDataSQL);
+                        while ($row = oci_fetch_assoc($allDataSQL)) {
+                        ?>
+
+                          <tr>
+                            <td style="width: 70%;"><?php echo $row['APPROVAL_TYPE']; ?></td>
+                            <td style="width: 30%;" align="center">
+                              <a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><span class="badge badge-center rounded-pill bg-warning"><?php echo $row['NUMBER_TOTAL']; ?></span> </a>
+                            </td>
+                          </tr>
+                        <?php
+                        }
+                        ?>
+
+                      </table>
                     </div>
                   </div>
-				  
-				 <?php 
-				   }
-				  ?>
-				  
-				  
-				  
-				  
+
                 </li>
-               
+
               </ul>
               <div class="ps__rail-x" style="left: 0px; bottom: 0px;">
                 <div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
@@ -121,8 +111,8 @@
                 <div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 0px;"></div>
               </div>
             </li>
-            
-			
+
+
           </ul>
         </li>
         <!-- notification  -->
