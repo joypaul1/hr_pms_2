@@ -191,7 +191,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
-                            <input type="text" autocomplete="off" class="form-control" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
+                            <input type="text" autocomplete="off" class="form-control" value="<?php echo isset($singleProduct["INSTALLMENT_AMOUNT"]) ? $singleProduct["INSTALLMENT_AMOUNT"] : '' ?>" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
                             <label for="emi_number"> EMI Number(Count of EMI)</label>
