@@ -8,13 +8,7 @@ if (!checkPermission('concern-offboarding-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$strSQL = oci_parse(
-    $objConnect,
-    "SELECT *  FROM RML_HR_APPS_USER"
-);
-// @oci_execute($strSQL); 
-// $row = @oci_fetch_assoc($strSQL);
-// print_r($row);
+
 ?>
 
 <!-- / Content -->
