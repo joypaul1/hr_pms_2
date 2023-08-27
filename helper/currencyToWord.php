@@ -31,7 +31,8 @@ class currencyToWord{
             $no = floor($no / $divider);
             $i += $divider == 10 ? 1 : 2;
             if ($number) {
-                $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
+                $plural = (($counter = count($str)) && $number > 9) ? null : null;
+                // $plural = (($counter = count($str)) && $number > 9) ? 's' : null;
                 $hundred = ($counter == 1 && $str[0]) ? ' and ' : null;
                 $str [] = ($number < 21) ? $words[$number].' '. $digits[$counter]. $plural.' '.$hundred:$words[floor($number / 10) * 10].' '.$words[$number % 10]. ' '.$digits[$counter].$plural.' '.$hundred;
             } else $str[] = null;
@@ -45,6 +46,7 @@ class currencyToWord{
             $d += $divider == 10 ? 1 : 2;
             if ($decimal_number) {
                 $plurals = (($counter = count($str2)) && $decimal_number > 9) ? 's' : null;
+                // $plural = (($counter = count($str)) && $number > 9) ? null : null;
                 $hundreds = ($counter == 1 && $str2[0]) ? ' and ' : null;
                 @$str2 [] = ($decimal_number < 21) ? $words[$decimal_number].' '. $digits[$decimal_number]. $plural.' '.$hundred:$words[floor($decimal_number / 10) * 10].' '.$words[$decimal_number % 10]. ' '.$digits[$counter].$plural.' '.$hundred;
             } else $str2[] = null;
@@ -62,4 +64,3 @@ class currencyToWord{
        
     }
 }
-?>
