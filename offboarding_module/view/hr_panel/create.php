@@ -92,10 +92,6 @@ if (!checkPermission('hr-offboarding-create')) {
 
 </div>
 
-
-
-</div>
-
 <!-- / Content -->
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>

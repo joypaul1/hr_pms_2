@@ -50,7 +50,7 @@ if (!checkPermission('concern-attendance-report')) {
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn  btn-sm  btn-primary"  placeholder=" Search Employee" type="submit" value="Search Data">
+                            <input class="form-control  btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit" value="Search Data">
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ if (!checkPermission('concern-attendance-report')) {
     </div>
 
     <div class="card mt-2">
-    <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Attendance List</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Attendance List</b></h5>
         <div class="card-body ">
             <div class="resume-item d-flex flex-column flex-md-row">
                 <table class="table table-bordered piechart-key" id="" style="width:100%">
@@ -87,12 +87,9 @@ if (!checkPermission('concern-attendance-report')) {
                         @$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                         if (isset($_POST['attn_status'])) {
-                            $strSQL  = oci_parse($objConnect, "select RML_ID,ATTN_DATE,RML_NAME,IN_TIME,OUT_TIME,STATUS,DEPT_NAME,IN_LAT,IN_LANG,DAY_NAME,BRANCH_NAME
-                                                                     from RML_HR_ATTN_DAILY_PROC
-                                                                     where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
-                                                                     and ('$attn_status' is null OR STATUS='$attn_status')
-																	and RML_ID='$emp_session_id'
-                                                                    order by ATTN_DATE");
+                            $strSQL  = oci_parse($objConnect, "SELECT A.RML_ID,A.ATTN_DATE,A.RML_NAME,A.IN_TIME,A.OUT_TIME,A.STATUS,A.DEPT_NAME,A.IN_LAT,A.IN_LANG,A.DAY_NAME,A.BRANCH_NAME from RML_HR_ATTN_DAILY_PROC A ,RML_HR_APPS_USER B 
+                                where trunc(A.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy') and ('$attn_status' is null OR A.STATUS='$attn_status') and A.RML_ID=B.RML_ID and B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
+                                order by A.ATTN_DATE");
                             oci_execute($strSQL);
                             $number = 0;
                             $lateCount = 0;

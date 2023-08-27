@@ -1,228 +1,277 @@
 <?php
+$dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+$dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('concern-offboarding-create')) {
-
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
-$EMP_NAME = '';
-$EMP_MOBILE = '';
-$LINE_MANAGER_NAME = '';
-$strSQL  = oci_parse(
+$strSQL = oci_parse(
     $objConnect,
-    "SELECT A.RML_ID,A.EMP_NAME,A.DEPT_NAME,A.DESIGNATION,A.BRANCH_NAME,MOBILE_NO
-                       FROM RML_HR_APPS_USER A WHERE A.IS_ACTIVE=1 AND A.RML_ID ='$emp_session_id'"
+    "SELECT *  FROM RML_HR_APPS_USER"
 );
-@oci_execute($strSQL);
-$number = 0;
-while ($row = @oci_fetch_assoc($strSQL)) {
-    $EMP_NAME = $row['EMP_NAME'];
-    $EMP_MOBILE = $row['MOBILE_NO'];
-
+// @oci_execute($strSQL); 
+// $row = @oci_fetch_assoc($strSQL);
+// print_r($row);
 ?>
 
-    <!-- / Content -->
+<!-- / Content -->
+<div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="card  col-lg-12 ">
 
+        <?php
+        $leftSideName  = 'Offboarding Create';
+        if (checkPermission('concern-offboarding-report')) {
+            $rightSideName = 'Offboarding Report';
+            $routePath     = 'offboarding_module/view/concern_panel/index.php';
+        }
 
-        <!-- Basic Layout & Basic with Icons -->
-        <div class="row">
-            <!-- Basic Layout -->
-            <div class="col-xxl">
-                <div class="card mb-4">
-                   
+        include('../../../layouts/_tableHeader.php');
+        ?>
 
-                    <?php
-                    $leftSideName  = 'Leave Create';
-                    if (checkPermission('self-leave-list')) {
-                        $rightSideName = 'Leave Report';
-                        $routePath     = 'leave_module/view/self_panel/index.php';
-                    }
-
-                    include('../../../layouts/_tableHeader.php');
-
-                    ?>
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control " id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">RML-ID</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="basic-default-company" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DEPT_NAME']; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DESIGNATION']; ?>" readonly />
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Location</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['BRANCH_NAME']; ?>" readonly />
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Select Start Date</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar">
-                                        </i>
-                                    </div>
-                                    <input required="" form="Form2" class="form-control" type='date' name='leave_start_date' value='<?php echo isset($_POST['leave_start_date']) ? $_POST['leave_start_date'] : ''; ?>' />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Select End Date</label>
-                            <div class="col-sm-10">
-                                <div class="input-group">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar">
-                                        </i>
-                                    </div>
-                                    <input required="" form="Form2" class="form-control" type='date' name='leave_end_date' value='<?php echo isset($_POST['leave_end_date']) ? $_POST['leave_end_date'] : ''; ?>' />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-company">Select Leave</label>
-                            <div class="col-sm-10">
-                                <select required="" form="Form2" name="leave_type" class="form-control">
-                                    <option selected value="">--</option>
-                                    <?php
-
-                                    $strSQL  = oci_parse($objConnect, "select LEAVE_TITLE,SHORT_NAME from RML_HR_EMP_LEAVE_NAME ORDER BY LEAVE_TITLE");
-                                    oci_execute($strSQL);
-                                    while ($row = oci_fetch_assoc($strSQL)) {
-                                    ?>
-
-                                        <option value="<?php echo $row['SHORT_NAME']; ?>"><?php echo $row['LEAVE_TITLE']; ?></option>
-                                    <?php
-                                    }
-                                    ?>
-                                </select>
-
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="basic-default-message">Remarks</label>
-                            <div class="col-sm-10">
-                                <textarea id="basic-default-message" class="form-control" form="Form2" name="remarks" placeholder="Hi, Do you have any Remarks?" required="" aria-describedby="basic-icon-default-message2"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="text-right">
-                            <button form="Form2" type="submit" name="submit_leave" class="btn btn-primary">Create Leave</button>
-                        </div>
-
-
+        <div class="card-body">
+            <form action="<?php echo ($basePath . '/offboarding_module/action/concern_panel.php'); ?>" method="post">
+                <input type='hidden' hidden name='actionType' value='createClearence'>
+                <div class="row ">
+                    <div class="col-sm-4">
+                        <label for="emp_id">Emp. ID:</label>
+                        <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
+                        <div class="text-info" id="message"></div>
+                        <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
+                        <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
 
                     </div>
-
-                    <?php
-
-
-                    if (isset($_POST['submit_leave'])) {
-                        if (isset($_POST['leave_end_date'])) {
-                            $v_emp_id = $_REQUEST['emp_id'];
-                            $leave_remarks = $_REQUEST['remarks'];
-                            $leave_type = $_REQUEST['leave_type'];
-                            $v_leave_start_date = date("d/m/Y", strtotime($_REQUEST['leave_start_date']));
-                            $v_leave_end_date = date("d/m/Y", strtotime($_REQUEST['leave_end_date']));
-
-                            $strSQL  = oci_parse(
-                                $objConnect,
-                                "begin RML_HR_LEAVE_CREATE('$v_emp_id','$v_leave_start_date','$v_leave_end_date','$leave_remarks','$leave_type','$emp_session_id');end;"
-                            );
-
-                            if (@oci_execute(@$strSQL)) {
-
-                                if ($v_emp_id == 'RML-00955') {
-                                    if (strlen($EMP_MOBILE) == 11) {
-                                        $MESSAGE_HEADER = "Dear Concern,";
-                                        $MESSAGE_BODY = "This is to inform you that " . $EMP_NAME . " " . $v_emp_id . " has applied for leave from " . $v_leave_start_date . " to " . $v_leave_end_date . " for " . substr($leave_remarks, 0, 25);
-                                        $MESSAGE_FOOTER = "Please review and approve the leave request accordingly.";
-                                        $FULL_MESSAGE = $MESSAGE_HEADER . "\n\n" . $MESSAGE_BODY . "\n\n" . $MESSAGE_FOOTER . "\n\n" . "Thank you,\nHR Team";
-                                        $EMP_MOBILE = "+88" . $EMP_MOBILE;
-
-                                        $message = rawurlencode($FULL_MESSAGE);
-                                        $url = file_get_contents("https://api.smsq.global/api/v2/SendSMS?ApiKey=MjVOYgi/vMC3nAucChiFRCT7qAZQlXOG+O0tpeS3DQ4=&ClientId=a0218de4-7d34-495b-a752-6303b3522f7e&SenderId=8809617601212&Message=$message&MobileNumbers=$EMP_MOBILE&Is_Unicode=8&Is_Flash=longsms");
-                                        $ch = curl_init();
-                                        // set URL and other appropriate options
-                                        curl_setopt($ch, CURLOPT_URL, $url);
-                                        curl_setopt($ch, CURLOPT_HEADER, 0);
-
-                                        // grab URL and pass it to the browser
-                                        curl_exec($ch);
-
-                                        // close cURL resource, and free up system resources
-                                        curl_close($ch);
-                                    }
-                                }
-
-
-                                $leaveSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
-                                if (@oci_execute($leaveSQL)) {
-                                    echo '<div class="alert alert-primary">';
-                                    echo 'Leave Create Successfully Done and this are need to approve by your HOD.';
-                                    echo '</div>';
-                                } else {
-                                    echo '<div class="alert alert-danger">';
-                                    echo 'Sorry! Contact with IT.';
-                                    echo '</div>';
-                                }
-
-                                //echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
-                            } else {
-                                @$lastError = error_get_last();
-                                @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                echo '<div class="alert alert-danger">';
-                                echo preg_split("/\@@@@/", @$error)[1];
-                                echo '</div>';
-                            }
-                        }
-                    }
-                    ?>
-
-
-
+                    <div class="col-sm-8">
+                        <span class="w-100" id="userInfo"></span>
+                    </div>
 
                 </div>
-            </div>
+                <div class="row mt-3">
+                    <div class="col-sm-6">
+                        <label for="last_working_day">Last Working Day <span class="text-danger"> *</span></label>
+                        <input class="form-control" id="last_working_day" name="last_working_day" required type="date" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="resignation_date">Resignation Date <span class="text-danger"> *</span></label>
+                        <input class="form-control" id="resignation_date" name="resignation_date" required type="date" />
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="reason_of_resignation">Reason OF Resignation <span class="text-danger"> *</span> </label>
+                        <input class="form-control" id="reason_of_resignation" name="reason_of_resignation" autocomplete="off" type="text" required />
+                    </div>
+                </div>
+                <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
+                    <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
 
+                    <hr />
+
+                    <?php
+                    $departmentArray = [];
+                    $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
+                    oci_execute($strSQL);
+                    while ($row = oci_fetch_assoc($strSQL)) {
+                        echo ('
+                            <div class="form-check-inline col-4">
+                                <input type="checkbox" class="form-check-input department_id"  value="' . $row['ID'] . '" name="department_id[]"' . (isset($_POST['department_id']) && $_POST['department_id'] == $row['ID'] ? "checked" : "") . '
+                                id="check_' . $row['ID'] . '">
+                                <label class="form-check-label" for="check_' . $row['ID'] . '">' . $row['DEPT_NAME'] . '</label>
+                            </div>
+                            ');
+                    }
+
+                    ?>
+
+                </div>
+                <div class="mt-2 w-25 mx-auto">
+                    <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create</button>
+                </div>
+
+            </form>
         </div>
-
-
-
-    <?php
-}
-
-    ?>
-
 
     </div>
 
-    <!-- / Content -->
 
-    <?php require_once('../../../layouts/footer_info.php'); ?>
-    <?php require_once('../../../layouts/footer.php'); ?>
+
+</div>
+
+<!-- / Content -->
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    $(function() {
+
+        $("#autocomplete").autocomplete({
+
+            source: function(request, response) {
+                // Fetch data
+                $.ajax({
+                    url: "<?php echo ($basePath . '/offboarding_module/action/concern_panel.php'); ?>",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        actionType: 'searchUser',
+                        search: request.term
+                    },
+                    beforeSend: function() {
+                        $("#userInfo").empty();
+                        $("#emp_id").val(null);
+                        showDepartment();
+                        showPleaseWaitMessage();
+
+                    },
+                    success: function(data) {
+                        hidePleaseWaitMessage();
+                        // Process the response data here
+                        response($.map(data, function(item) {
+                            return {
+                                label: item.label,
+                                value: item.value,
+                                id: item.id,
+                                concern: item.concern,
+                                empData: item
+                            };
+                        }));
+                    },
+                    error: function(data) {
+                        // console.log(data)
+                        hidePleaseWaitMessage();
+                    }
+                });
+            },
+            select: function(event, ui) {
+                // Set selection
+                $('#autocomplete').val(ui.item.label); // display the selected text
+                $('#emp_id').val(ui.item.id); // save selected id to input
+                $('#concern_name').val(ui.item.concern); // save selected id to input
+                userInfo(ui.item.empData.data);
+                showDepartment();
+                buttonValidation();
+                return false;
+            },
+            focus: function(event, ui) {
+                // $("#autocomplete").val(ui.item.label);
+                // $("#emp_id").val(ui.item.id);
+                // $("#concern_name").val(ui.item.concern);
+                // buttonValidation();
+                // showDepartment();
+                return false;
+            },
+        });
+
+        // Function to display the "Please wait" message
+        function showDepartment() {
+            if ($('#emp_id').val()) {
+                $('.showDepartment').css('display', 'block');
+            } else {
+                $('.showDepartment').css('display', 'none')
+
+            }
+
+        }
+
+        // Function to display the "Please wait" message
+        function showPleaseWaitMessage() {
+            $('#message').text('Please wait for searching...');
+        }
+
+        // Function to hide the "Please wait" message
+        function hidePleaseWaitMessage() {
+            $('#message').empty();
+        }
+
+        function userInfo(info) {
+
+            let basePath = "<?php echo $basePath =  $_SESSION['basePath'] ?>";
+            let html = `<div class="justify-content-center">
+                    <div class="card p-3">
+                        <div class="d-flex  text-center">
+                            <div class="w-100">
+                              
+                                <div class="p-2  bg-primary d-flex justify-content-between rounded text-white stats">
+                                    <div class="d-flex flex-column">
+                                        <span class="articles">Name </span>
+                                        <span class="number1">${info.EMP_NAME}</span>
+
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="articles">ID</span>
+                                        <span class="number1">${info.RML_ID}</span>
+
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="followers">Concern</span>
+                                        <span class="number2">${info.R_CONCERN}</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">Department</span>
+                                        <span class="number3">${info.DEPT_NAME}</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">Designation</span>
+                                        <span class="number3">${info.DESIGNATION}</span>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="rating">View Profile</span>
+                                        <span class="number3">
+                                        <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+
+            $("#userInfo").append(html);
+        }
+
+
+        $(document).on('change', '#autocomplete', function() {
+            showDepartment();
+            buttonValidation();
+        });
+
+        $(document).on('change', '#last_working_day', function() {
+
+            buttonValidation();
+        });
+        $(document).on('change', '#resignation_date', function() {
+
+            buttonValidation();
+        });
+        $(document).on('input', '#reason_of_resignation', function() {
+
+            buttonValidation();
+        });
+
+        function buttonValidation() {
+
+            if ($("#emp_id").val() && $("#last_working_day").val() && $("#resignation_date").val() && $("#reason_of_resignation").val()) {
+                $("button[type='submit']").prop('disabled', false);
+
+            } else {
+                $("button[type='submit']").prop('disabled', true);
+            }
+        }
+
+
+
+
+        function derpartmentCheck() {
+            let flag = false;
+            $('.department_id').each(function() {
+                var isChecked = $(this).prop('checked');
+                if (isChecked) {
+                    flag = true;
+
+                }
+            });
+            return flag;
+        }
+    });
+</script>

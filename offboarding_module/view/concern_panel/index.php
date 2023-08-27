@@ -9,66 +9,59 @@ if (!checkPermission('concern-offboarding-report')) {
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
-
+echo $emp_session_id ;
 
 ?>
 
+
 <!-- / Content -->
+
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="col-lg-12 card">
-        <div class="card-body text-center">
-            <form action="" method="post">
-                <div class="row">
-                    <div class="col-sm-2"></div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                            <input required readonly name="emp_id" class="form-control cust-control" type='text' value='<?php echo $emp_session_id; ?>' />
-                        </div>
-                    </div>
-
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn  btn-sm  btn-primary" type="submit" value="Search Data">
-                        </div>
+    <div class="card col-lg-12">
+        <form action="" method="post">
+            <div class="card-body row">
+                <div class="col-sm-2"></div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
                     </div>
                 </div>
-            </form>
-        </div>
+
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
-
-
-
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
-        <!-- table header -->
+
         <?php
-        $leftSideName  = 'Leave List';
-        if (checkPermission('self-leave-create')) {
-            $rightSideName = 'Leave Create';
-            $routePath     = 'leave_module/view/self_panel/create.php';
+        $leftSideName  = 'Offboarding List';
+        if (checkPermission('hr-offboarding-create')) {
+            $rightSideName = 'Offboarding Create';
+            $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-
         include('../../../layouts/_tableHeader.php');
-
         ?>
-        <!-- End table  header -->
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
-                    <thead style="background: beige;">
+                    <thead class="table-dark">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Leave Type</th>
-                            <th scope="col">To Date</th>
-                            <th scope="col">From Date</th>
-                            <th scope="col">Remarks</th>
-                            <th scope="col">Branch</th>
-                            <th scope="col">Approval Status</th>
+                            <th scope="col">EMP Info</th>
+                            <th scope="col">HOD Status</th>
+                            <th scope="col">Department Approval Status</th>
+                            <th scope="col">Exit Interview Status</th>
+                            <th scope="col">Accounts Clearnence Form</th>
+                            <th scope="col">Created Info</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -78,47 +71,103 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                             $v_emp_id = $_REQUEST['emp_id'];
 
+
                             $strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT B.RML_ID,
-                                 B.EMP_NAME,
-                                 B.DEPT_NAME,
-                                 B.BRANCH_NAME,
-                                 A.LEAVE_TYPE,
-                                 A.START_DATE,
-                                 A.END_DATE,
-                                 A.ENTRY_FROM,
-                                 A.IS_APPROVED
-                             FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
-                             WHERE  A.RML_ID=B.RML_ID
-                             AND A.RML_ID='$emp_session_id'
-                             ORDER BY START_DATE DESC"
+                                "SELECT 
+                                    A.ID,
+                                    B.EMP_NAME,
+                                    B.RML_ID,
+                                    B.R_CONCERN,
+                                    B.DEPT_NAME,
+                                    B.DESIGNATION,
+                                    A.APPROVAL_STATUS,
+                                    A.HOD_STATUS,
+                                    A.EXIT_INTERVIEW_STATUS,
+                                    A.EXIT_INTERVIEW_DATE,
+                                    A.EXIT_INTERVIEW_BY,
+                                    A.CREATED_DATE,
+                                    A.CREATED_BY,
+                                    A.LAST_WORKING_DATE,
+                                    A.RESIGNATION_DATE,
+                                    A.REASON
+                                FROM 
+                                    EMP_CLEARENCE A
+                                INNER JOIN 
+                                    RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                                WHERE A.CREATED_BY='$emp_session_id' AND B.RML_ID='$v_emp_id' "
                             );
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
+
                                 $number++;
                         ?>
-                                <tr>
+                                <tr style="text-align: center;">
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
-                                    <td><?php echo $row['START_DATE']; ?></td>
-                                    <td><?php echo $row['END_DATE']; ?></td>
-                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php
-                                        if ($row['IS_APPROVED'] == '1') {
+                                        echo $row['RML_ID'];
+                                        echo '</br>';
+                                        echo $row['EMP_NAME'];
+                                        echo '</br>';
+                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo '</br>';
+                                        echo $row['DESIGNATION'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
-                                        } else if ($row['IS_APPROVED'] == '0') {
+                                        } else if ($row['APPROVAL_STATUS'] == '0') {
                                             echo 'Denied';
                                         } else {
                                             echo 'Pending';
                                         }
+                                        ?>
 
-                                        ?></td>
 
+                                    </td>
+                                    <td><?php
+                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                            echo 'Approved';
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
+                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                            echo 'Denied';
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
+                                        } else {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
+                                        oci_execute($singledataOFAccClear);
+                                        $clearenceFormFata = oci_fetch_assoc($singledataOFAccClear);
+
+
+                                        if ($clearenceFormFata) {
+                                            echo "Done";
+                                        } else {
+                                            echo "Pending";
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        echo 'Created:' . $row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo 'Created By' . $row['CREATED_BY'];
+                                        ?>
+                                    </td>
                                 </tr>
 
 
@@ -126,57 +175,121 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             }
                         } else {
 
-
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT B.RML_ID,
-                                 B.EMP_NAME,
-                                 B.DEPT_NAME,
-                                 B.BRANCH_NAME,
-                                 A.LEAVE_TYPE,
-                                 A.START_DATE,
-                                 A.END_DATE,
-                                 A.ENTRY_FROM,
-                                 A.IS_APPROVED
-                             FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
-                             WHERE  A.RML_ID=B.RML_ID
-                             AND A.RML_ID='$emp_session_id'
-                             ORDER BY START_DATE DESC"
+                                "SELECT 
+                                A.ID,
+                                B.EMP_NAME,
+                                B.RML_ID,
+                                B.R_CONCERN,
+                                B.DEPT_NAME,
+                                B.DESIGNATION,
+                                A.APPROVAL_STATUS,
+                                A.HOD_STATUS,
+                                A.EXIT_INTERVIEW_STATUS,
+                                A.EXIT_INTERVIEW_DATE,
+                                A.EXIT_INTERVIEW_BY,
+                                A.CREATED_DATE,
+                                A.CREATED_BY,
+                                A.LAST_WORKING_DATE,
+                                A.RESIGNATION_DATE,
+                                A.REASON
+                            FROM 
+                                EMP_CLEARENCE A
+                            
+                             JOIN 
+                                RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID Where A.CREATED_BY='$emp_session_id'"
                             );
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
+
                             ?>
-                                <tr>
+                                <tr class="text-center">
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php echo $row['LEAVE_TYPE']; ?></td>
-                                    <td><?php echo $row['START_DATE']; ?></td>
-                                    <td><?php echo $row['END_DATE']; ?></td>
-                                    <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php
-                                        if ($row['IS_APPROVED'] == '1') {
+                                        echo $row['RML_ID'];
+                                        echo '</br>';
+                                        echo $row['EMP_NAME'];
+                                        echo '</br>';
+                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                        echo '</br>';
+                                        echo $row['DESIGNATION'];
+
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        if ($row['HOD_STATUS'] == '1') {
                                             echo 'Approved';
-                                        } else if ($row['IS_APPROVED'] == '0') {
+                                        } else if ($row['HOD_STATUS'] == '0') {
                                             echo 'Denied';
+                                        } else if ($row['HOD_STATUS'] == '') {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        if ($row['APPROVAL_STATUS'] == '1') {
+                                            echo 'Approved';
+                                        } else if ($row['APPROVAL_STATUS'] == '0') {
+                                            echo 'Denied';
+                                        } else if ($row['APPROVAL_STATUS'] == '') {
+                                            echo 'Pending';
+                                        }
+                                        ?>
+
+
+                                    </td>
+                                    <td><?php
+                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                            echo 'Approved';
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
+                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                            echo 'Denied';
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_DATE'];
+                                            echo '</br>';
+                                            echo $row['EXIT_INTERVIEW_BY'];
                                         } else {
                                             echo 'Pending';
                                         }
+                                        ?>
+                                        </br>
 
-                                        ?></td>
+
+                                    </td>
+                                    <td>
+                                        <?php
+                                        $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
+                                        oci_execute($singledataOFAccClear);
+                                        $clearenceFormFata = oci_fetch_assoc($singledataOFAccClear);
+
+                                        if ($clearenceFormFata) {
+                                            echo "Done";
+                                        } else {
+                                            echo "Pending";
+                                        }
+                                        ?>
+                                    </td>
+
+                                    <td><?php
+                                        echo 'Created: ' . $row['CREATED_DATE'];
+                                        echo '</br>';
+                                        echo 'Created By: ' . $row['CREATED_BY'];
+                                        ?>
+                                    </td>
                                 </tr>
                         <?php
                             }
                         }
                         ?>
-
-
-
                     </tbody>
                 </table>
             </div>
@@ -184,7 +297,29 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
     </div>
     <!--/ Bordered Table -->
 
+    <!--statusModal Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW :
 
+
+                    </h5>
+
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body row text-left ">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--statusModal Modal -->
 
 </div>
 
