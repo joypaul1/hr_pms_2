@@ -118,6 +118,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     $buyerSQL = oci_parse($objConnect, "SELECT  * FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
                     oci_execute($buyerSQL);
                     $buyerSQL = oci_fetch_assoc($buyerSQL);
+                    // print_r($buyerSQL);
                 }
                 ?>
                 <div class="col-md-5">
@@ -186,7 +187,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="grace_period"> Grace Period</label>
-                            <input type="text" autocomplete="off" class="form-control" name="grace_period" value="" id="grace_period" required placeholder="EX:1/2/3">
+                            <input type="text" autocomplete="off" class="form-control" name="grace_period" value="<?php echo isset($buyerSQL["GRACE_PERIOD"]) ? $buyerSQL["GRACE_PERIOD"]  : '' ?>" id="grace_period" required placeholder="EX:1/2/3">
                         </div>
                         <div class="form-group">
                             <label for="installment_amount"> Installment Amount</label>
