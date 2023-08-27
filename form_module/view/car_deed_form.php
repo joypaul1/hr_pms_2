@@ -152,11 +152,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="g_f_name_1"> Guarantor Father's Name (1)</label>
-                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_FATHER"]) ? $buyerSQL["FIRST_GUARANTOR_FATHER"] : '' ?> name=" g_f_name_1" id="g_f_name_1" autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_FATHER"]) ? $buyerSQL["FIRST_GUARANTOR_FATHER"] : '' ?>" name=" g_f_name_1" id="g_f_name_1" autocomplete="off" required placeholder="Guarantor/Dealer Father's Name">
                         </div>
                         <div class="form-group">
                             <label for="g_add_1"> Guarantor Address (1)</label>
-                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_ADDRESS"]) ? $buyerSQL["FIRST_GUARANTOR_ADDRESS"] : '' ?> name=" g_add_1" id="g_add_1" autocomplete="off" required placeholder="Guarantor/Dealer Address">
+                            <input type="text" class="form-control" value="<?php echo isset($buyerSQL["FIRST_GUARANTOR_ADDRESS"]) ? $buyerSQL["FIRST_GUARANTOR_ADDRESS"] : '' ?>" name=" g_add_1" id="g_add_1" autocomplete="off" required placeholder="Guarantor/Dealer Address">
                         </div>
                         <div class="form-group">
                             <label for="g_name_2"> Guarantor/Dealer Name (2)</label>
