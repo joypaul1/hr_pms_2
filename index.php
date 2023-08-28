@@ -31,7 +31,7 @@ if (isset($_POST['login_hr'])) {
       $_SESSION['HR'] = $getUserRow_hr;
       $_SESSION['baseURL'] = $baseUrl;
       $_SESSION['basePath'] = $basePath;
-      
+
       // $USER_ROLE_HR = getUserAccessRoleByID($_SESSION['HR']['id_hr']);
       $USER_ROLE_HR = 'HR';
       // echo($USER_ROLE_HR);
@@ -44,7 +44,6 @@ if (isset($_POST['login_hr'])) {
 }
 
 if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
-  // session_unset($_SESSION["HR"]);
   $basePath = $_SESSION['basePath'];
   session_start();
   session_unset();
@@ -52,8 +51,7 @@ if (isset($_GET['logout_hr']) && $_GET['logout_hr'] == true) {
   session_write_close();
   setcookie(session_name(), '', 0, '/');
   session_regenerate_id(true);
-  // header("location:index.php");
-  header("location:".$basePath."/index.php");
+  header("location:" . $basePath . "/index.php");
   exit;
 }
 
