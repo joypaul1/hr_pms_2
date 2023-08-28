@@ -627,6 +627,11 @@ function isActive($url)
                             <div data-i18n="Error">Deed Document </div>
                         </a>
                     </li>
+                    <li class="menu-item">
+                        <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
+                            <div data-i18n="Error">User Manual </div>
+                        </a>
+                    </li>
 
 
                 </ul>
