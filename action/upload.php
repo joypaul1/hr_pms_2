@@ -2,19 +2,18 @@
 session_start();
 require_once('../inc/config.php');
 $basePath =  $_SESSION['basePath'];
-// $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
-// $baseUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-
-
+$emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
+$folderPath = "../uploads/";
 
 $imageStatus = '';
 $session_id = '1'; // User session id
-$path = "../uploads/";
+
 
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
 if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
 
     include_once '../action/getExtension.php';
+    pathExitOrCreate();
     $imagename = $_FILES['file']['name'];
     $size = $_FILES['file']['size'];
     if (strlen($imagename)) {
@@ -28,7 +27,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
                 //Re-sizing image. 
                 include '../action/compressImage.php';
                 $width = 50; //You can change dimension here.
-                $filename = compressImage($ext, $uploadedfile, $path, $actual_image_name, $width);
+                $filename = compressImage($ext, $uploadedfile, $folderPath, $actual_image_name, $width);
                 $insert = false; //
                 if ($filename) {
                     // delet previous image
@@ -37,7 +36,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
                     $data = mysqli_fetch_assoc($query);
 
                     if ($data['image_url']) {
-                        $file = "../uploads/" . $data['image_url'];
+                        $file = $folderPath. $data['image_url'];
                         if (file_exists($file)) {
                             unlink($file); // delete image if exist
                         }
@@ -48,24 +47,63 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
                     if ($insert) {
                         $_SESSION['HR']['emp_image_hr'] = $filename;
                         $imageStatus = "The file has been uploaded successfully.";
+                        session_start();
+                        $_SESSION['imageStatus'] = $imageStatus;
+                        header("location:" . $basePath . "/imageChange.php");
+                        exit();
                     } else {
                         $imageStatus = "Data Not Updated!";
+                        session_start();
+                        $_SESSION['imageStatus'] = $imageStatus;
+                        header("location:" . $basePath . "/imageChange.php");
+                        exit();
                     }
                 } else {
                     $imageStatus = "Something went wrong uploading!";
+                    session_start();
+                    $_SESSION['imageStatus'] = $imageStatus;
+                    header("location:" . $basePath . "/imageChange.php");
+                    exit();
                 }
-            } else $imageStatus = "Image file size max 2 MB";
-        } else  $imageStatus = 'Sorry, only JPG, JPEG, PNG, BMP,GIF, & PDF files are allowed to upload!';;
-    } else $imageStatus = "Please select image..!";
-    // exit;
+            } else {
+                $imageStatus = "Image file size max 2 MB";
+                session_start();
+                $_SESSION['imageStatus'] = $imageStatus;
+                header("location:" . $basePath . "/imageChange.php");
+                exit();
+            }
+        } else {
+            $imageStatus = 'Sorry, only JPG, JPEG, PNG, BMP,GIF, & PDF files are allowed to upload!';
+            session_start();
+            $_SESSION['imageStatus'] = $imageStatus;
+            header("location:" . $basePath . "/imageChange.php");
+            exit();
+        }
+    } else {
+        $imageStatus = "Please select image..!";
+        session_start();
+        $_SESSION['imageStatus'] = $imageStatus;
+        header("location:" . $basePath . "/imageChange.php");
+        exit();
+    }
 } else {
     $imageStatus = 'Please select a file to upload!';
-}
-// echo $imageStatus;
-// die();
-// Display status message
-session_start();
-$_SESSION['imageStatus'] = $imageStatus;
-header("location:" .  . "/imageChange.php");
+    // Display status message
+    session_start();
+    $_SESSION['imageStatus'] = $imageStatus;
+    header("location:" . $basePath . "/imageChange.php");
 
-exit;
+    exit();
+}
+
+
+function pathExitOrCreate()
+{
+    // $basePath =  $_SESSION['basePath'];
+    $folderPath = "../uploads/";
+    // $folderPath = $basePath.'/uploads';
+
+    if (!file_exists($folderPath)) {
+        mkdir($folderPath, 0777, true);
+    }
+}

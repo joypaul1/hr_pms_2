@@ -156,7 +156,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										</strong>
 									</td>
 									<td><?php echo $row['EMP_NAME']; ?></td>
-
 									<td><?php echo $row['APPS_NAME']; ?></td>
 									<td><?php echo $row['NAME_TITLE']; ?></td>
 									<td><?php echo $row['USE_ID']; ?></td>

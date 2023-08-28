@@ -9,6 +9,11 @@
 
   <meta name="description" content="" />
   <?php
+  if (!$_SESSION['HR']) {
+    include('config_file_path.php');
+    header("Location:" . $basePath);
+    exit;
+  }
   $basePath =  $_SESSION['basePath'];
   ?>
 

@@ -36,19 +36,6 @@ if (isset($_POST['login_hr'])) {
       $USER_ROLE_HR = 'HR';
       // echo($USER_ROLE_HR);
       header('location:home/dashboard.php');
-      // die();
-
-      // if ($USER_ROLE_HR == "HR") {
-      //   header('location:dashboard_hr.php');
-      // } else if ($USER_ROLE_HR == "NU") {
-      //   header('location:dashboard_nu.php');
-      // } else if ($USER_ROLE_HR == "LM") {
-      //   header('location:dashboard_lm.php');
-      // } else if ($USER_ROLE_HR == "ADMIN") {
-      //   header('location:dashboard_it.php');
-      // } else if ($USER_ROLE_HR == "RMWL") {
-      //   header('location:dashboard_rmwl.php');
-      // }
       exit;
     } else {
       $errorMsg = "Wrong EMP-ID or password";
