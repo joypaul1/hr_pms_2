@@ -137,7 +137,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         </div>
                         <div class="form-group">
                             <label for="cheque_number">Number of Cheque </label>
-                            <input type="text" class="form-control" name="cheque_number" autocomplete="off" id="cheque_number" required placeholder="Cheque Number">
+                            <input type="text" class="form-control" name="number_of_cheque" autocomplete="off" id="cheque_number" required placeholder="Cheque Number">
                         </div>
                         <div class="form-group">
                             <label for="cheque_number"> Invoice Date</label>
