@@ -136,7 +136,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <input type="text" class="form-control" name="customer_address" value="<?php echo isset($singleProduct["PARTY_ADDRESS"]) ? $singleProduct["PARTY_ADDRESS"] : '' ?>" autocomplete="off" id="customer_address" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="cheque_number"> Cheque Number</label>
+                            <label for="cheque_number">Number of Cheque </label>
                             <input type="text" class="form-control" name="cheque_number" autocomplete="off" id="cheque_number" required placeholder="Cheque Number">
                         </div>
                         <div class="form-group">
