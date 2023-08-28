@@ -581,56 +581,78 @@ function isActive($url)
             <?php } ?>
             <!--pms Module -->
             <!-- Report - module-list -->
-           
 
-                <li class="menu-item <?php echo isActive('/roster'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-                        <div data-i18n="Misc">Report Module</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <?php if (checkPermission('report-generate')) { ?>
-                            <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
-                                <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
-                                    <div data-i18n="Error">Report Generate</div>
-                                </a>
-                            </li>
-                        <?php } ?>
 
-                    </ul>
-                </li>
+            <li class="menu-item <?php echo isActive('/roster'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <div data-i18n="Misc">Report Module</div>
+                </a>
+                <ul class="menu-sub">
+                    <?php if (checkPermission('report-generate')) { ?>
+                        <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
+                            <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
+                                <div data-i18n="Error">Report Generate</div>
+                            </a>
+                        </li>
+                    <?php } ?>
 
-            
+                </ul>
+            </li>
+
+
             <!-- Report-list -->
-            <!-- From - module-list -->
-            
+            <!-- car Deed -->
 
-                <li class="menu-item <?php echo isActive('/form_module/view'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-edit"></i>
-                        <div data-i18n="Misc">Form Module</div>
-                    </a>
-                    <ul class="menu-sub">
-                        <?php if (checkPermission('accounts-clearance-form')) { ?>
-                            <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
-                                <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
-                                    <div data-i18n="Error">Accounts Clearence Form</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('car-deed-form')) { ?>
-                            <li class="menu-item <?php echo isActive('/form_module/view/car_deed_form.php'); ?>">
-                                <a href="<?php echo $basePath ?>/form_module/view/car_deed_form.php" class="menu-link">
-                                    <div data-i18n="Error">Car Deed Form</div>
-                                </a>
-                            </li>
-                        <?php } ?>
+            <li class="menu-item <?php echo isActive('/car_module/view'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-edit"></i>
+                    <div data-i18n="Misc">Deed Module</div>
+                </a>
+                <ul class="menu-sub">
+                    <?php if (checkPermission('car-deed-form')) { ?>
+                        <li class="menu-item <?php echo isActive('/car_module/view/create.php'); ?>">
+                            <a href="<?php echo $basePath ?>/car_module/view/create.php" class="menu-link">
+                                <div data-i18n="Error">Deed Create </div>
+                            </a>
+                        </li>
+                    <?php } ?>
+                    <li class="menu-item">
+                        <a href="<?php echo $basePath ?>/car_module/view/report.php" class="menu-link">
+                            <div data-i18n="Error">Deed Report </div>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
+                            <div data-i18n="Error">Deed Document </div>
+                        </a>
+                    </li>
 
-                    </ul>
-                </li>
 
-         
-            <!-- Report-list -->
+                </ul>
+            </li>
+
+            <!-- car Deed -->
+            <!-- From module -->
+            <li class="menu-item <?php echo isActive('/form_module/view'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-edit"></i>
+                    <div data-i18n="Misc">Form Module</div>
+                </a>
+                <ul class="menu-sub">
+                    <?php if (checkPermission('accounts-clearance-form')) { ?>
+                        <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
+                            <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
+                                <div data-i18n="Error">Accounts Clearence Form</div>
+                            </a>
+                        </li>
+                    <?php } ?>
+
+
+                </ul>
+            </li>
+            <!-- From module -->
+
             <!-- roster - module-list -->
             <!-- <?php if (checkPermission('roster-create') || (checkPermission('roster-list'))) { ?>
 
@@ -747,7 +769,6 @@ function isActive($url)
 
             <?php if (checkPermission('role-list') || (checkPermission('permission-list') ||  (checkPermission('role-permission-list'))
                 || (checkPermission('user-role-list')))) { ?>
-
 
                 <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">
 
