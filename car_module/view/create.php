@@ -234,8 +234,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 <script>
     $(document).ready(function() {
 
-
-
         $('#date').datepicker({
             dateFormat: 'dd-mm-yy'
         }).val();
