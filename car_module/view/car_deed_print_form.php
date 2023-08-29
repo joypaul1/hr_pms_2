@@ -4,12 +4,13 @@
 <head>
     <title>Car Deed Paper</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.css" integrity="sha512-y4S4cBeErz9ykN3iwUC4kmP/Ca+zd8n8FDzlVbq5Nr73gn1VBXZhpriQ7avR+8fQLpyq4izWm0b8s6q4Vedb9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .btn {
             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
             border: none;
             color: #fff !important;
-            padding: 10px 10px;
+            padding: 5px 5px;
             cursor: pointer;
             font-size: 20px;
         }
@@ -19,6 +20,10 @@
             font-family: Arial, sans-serif;
             /* width: 14in; */
             height: 13.2in;
+            padding-bottom: 10px;
+            /* Adjust this value based on your footer's height */
+            box-sizing: border-box;
+            /* Ensures padding is included in the content's height */
             /* background-color: red; */
         }
 
@@ -58,6 +63,15 @@
             border: 1px solid #dddddd;
             text-align: left;
             padding: 8px;
+        }
+
+        footer {
+            background-color: #f2f2f2;
+            padding: 1px;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
         }
 
         @media print {
@@ -128,10 +142,7 @@ $basePath =  $_SESSION['basePath'];
 ?>
 
 <body>
-    <div style="text-align: right;" id="hidden">
-        <a href="<?php echo $basePath . '/car_module/view/car_deed_form.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
-        <button onclick="window.print()" class="btn"><i class="fa fa-download"></i> Download</button>
-    </div>
+
     <div class="stamp-paper">
         <section class="stamp-space-header">
         </section>
@@ -198,9 +209,9 @@ $basePath =  $_SESSION['basePath'];
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE V</p>
             <span style="display: block; margin-top: 5px;">That the vehicle shall be comprehensively insured in favor of the First Part (the owners) or any financial institution or Agency nominated by the First Part and costs for maintaining such insurance policy shall be borne by the Second Part (the borrower).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VI</p>
-            <span style="display: block; margin-top: 5px;">That the repayment of the borrowed amount with interest shall be due for payment after <b> <?php echo $_POST['grace_period'] ?> days</b> of taking delivery of the said Completely Built up <b><?php echo $_POST['product_model'] ?></b> and shall be paid by the Second Part (the borrower) in <b><?php echo str_pad($_POST['emi_number'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['emi_number']))?>)</b> equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
+            <span style="display: block; margin-top: 5px;">That the repayment of the borrowed amount with interest shall be due for payment after <b> <?php echo $_POST['grace_period'] ?> days</b> of taking delivery of the said Completely Built up <b><?php echo $_POST['product_model'] ?></b> and shall be paid by the Second Part (the borrower) in <b><?php echo str_pad($_POST['emi_number'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['emi_number'])) ?>)</b> equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VII</p>
-            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $_POST['cheque_number'] ?> Cheques </b> in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
+            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $_POST['number_of_cheque'] ?> Cheques </b> in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE IX</p>
             <span style="display: block; margin-top: 5px;">That, if the Second Part fails to make the installment payment/ payments on the schedule date /dates, then the First Part, in order to recover the outstanding debt from the Second Part, will be legally entitled to present the Cheque or Cheques in the bank for encashment and upon presentation if the Cheque or Cheques are being returned by the bank as unpaid due to insufficient fund or for any other legally recognized reasons, then the First Part will be legally entitled to initiate Criminal Proceedings against the Second Part in Court under Section- 138 or 140 of the Negotiable Instrument Act, 1881 and in such an event the Second Part shall be liable for all legal consequences thereof. Besides, the First Part shall also be entitled to initiate Criminal (other than Section- 138) and Civil Cases against the Second Part in order to recover the outstanding debt.</span>
 
@@ -358,14 +369,14 @@ $basePath =  $_SESSION['basePath'];
                 </tr>
                 <tr>
                     <?php
-                        $engineNumbers = $_POST['product_engine_no'];
-                        $chassisNumbers = $_POST['product_chassis_no'];
-                        foreach ($engineNumbers as $index => $engineNumber) {
-                            $chassisNumber = $chassisNumbers[$index];
-                            echo "<td>" . ($index + 1) . "</td>";
-                            echo "<td>" . $engineNumber . "</td>";
-                            echo "<td>" . $chassisNumber . "</td>";
-                        }
+                    $engineNumbers = $_POST['product_engine_no'];
+                    $chassisNumbers = $_POST['product_chassis_no'];
+                    foreach ($engineNumbers as $index => $engineNumber) {
+                        $chassisNumber = $chassisNumbers[$index];
+                        echo "<td>" . ($index + 1) . "</td>";
+                        echo "<td>" . $engineNumber . "</td>";
+                        echo "<td>" . $chassisNumber . "</td>";
+                    }
                     ?>
                 </tr>
             </table>
@@ -428,16 +439,64 @@ $basePath =  $_SESSION['basePath'];
 
     </div>
 
+    <footer id="hidden">
+        <!-- <button class="fixed-button">Click Me</button> -->
+        <a href="<?php echo $basePath . '/car_module/view/create.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
+        <!-- <button class="btn"><i class="fa fa-print"></i> Confirm and Print </button> -->
+        <button  data-href="<?php echo $basePath . '/car_module/action/form/car_deed_form.php' ?>" type="button" class="btn delete_check"><i class="fa fa-print"></i> Confirm and Print </button>
+    </footer>
 
-    <script type="text/javascript">
-        window.onload = function() {
-            window.print();
-        }
 
-        function printPage() {
-            window.print();
-        }
-    </script>
+    <script src="http://localhost/rHRT/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </body>
+<script type="text/javascript">
+    $(document).on('click', '.delete_check', function() {
+        
+        let url = $(this).data('href');
+        var allData = <?php echo json_encode($_POST); ?>;
+        // console.log(allData);
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to rewrite this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm?',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            deedPrintData: allData
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
+                        console.log(response);
+                        // swal.fire('Deleted!', response.message, response.status);
+                        // location.reload(); // Reload the page
+                    })
+                    .fail(function() {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
+    });
+</script>
 
 </html>

@@ -144,7 +144,7 @@ if (($_GET["deleteID"])) {
         $response['status']  = 'error';
         $response['message'] = "URL doesn't contain id parameter!";
         echo json_encode($response);
-        header("location:" . $basePath . "/role_permission/role/index.php");
+        // header("location:" . $basePath . "/role_permission/role/index.php");
         exit();
     }
 }

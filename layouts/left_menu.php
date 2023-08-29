@@ -555,7 +555,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('pms/view/pms_list_self.php'); ?>">
                                 <a href="<?php echo $basePath ?>/pms/view/pms_list_self.php" class="menu-link">
-                                    <div data-i18n="Error">PMS List</div>
+                                    <div>PMS List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -563,7 +563,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('pms/view/pms_kra_create.php'); ?>">
                                 <a href="<?php echo $basePath ?>/pms/view/pms_kra_create.php" class="menu-link">
-                                    <div data-i18n="Error">KRA List</div>
+                                    <div>KRA List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -592,50 +592,63 @@ function isActive($url)
                     <?php if (checkPermission('report-generate')) { ?>
                         <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
                             <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
-                                <div data-i18n="Error">Report Generate</div>
+                                <div>Report Generate</div>
                             </a>
                         </li>
                     <?php } ?>
 
+
                 </ul>
             </li>
-
-
             <!-- Report-list -->
             <!-- car Deed -->
 
-            <li class="menu-item <?php echo isActive('/car_module/view'); ?>">
+            <li class="menu-item  <?php echo isActive('/offboarding_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-edit"></i>
-                    <div data-i18n="Misc">Deed Module</div>
+                    <i class="menu-icon tf-icons bx bx-file "></i>
+                    <div>Deed Module</div>
                 </a>
+
                 <ul class="menu-sub">
-                    <?php if (checkPermission('car-deed-form')) { ?>
-                        <li class="menu-item <?php echo isActive('/car_module/view/create.php'); ?>">
-                            <a href="<?php echo $basePath ?>/car_module/view/create.php" class="menu-link">
-                                <div data-i18n="Error">Deed Create </div>
+                    <?php if (checkPermission('hr-offboarding-create') || checkPermission('hr-offboarding-report')) { ?>
+                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel'); ?>">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>Form Panel</div>
                             </a>
+                            <ul class="menu-sub">
+                                <?php if (checkPermission('car-deed-form')) { ?>
+                                    <li class="menu-item <?php echo isActive('/car_module/view/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/car_module/view/create.php" class="menu-link">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create </div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+                                <li class="menu-item">
+                                    <a href="<?php echo $basePath ?>/car_module/view/report.php" class="menu-link">
+                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
+                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Document </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item">
+                                    <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
+                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Manual </div>
+                                    </a>
+                                </li>
+
+
+                            </ul>
                         </li>
                     <?php } ?>
-                    <li class="menu-item">
-                        <a href="<?php echo $basePath ?>/car_module/view/report.php" class="menu-link">
-                            <div data-i18n="Error">Deed Report </div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
-                            <div data-i18n="Error">Deed Document </div>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
-                            <div data-i18n="Error">User Manual </div>
-                        </a>
-                    </li>
 
 
                 </ul>
+
             </li>
+
 
             <!-- car Deed -->
             <!-- From module -->
@@ -648,7 +661,7 @@ function isActive($url)
                     <?php if (checkPermission('accounts-clearance-form')) { ?>
                         <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
                             <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
-                                <div data-i18n="Error">Accounts Clearence Form</div>
+                                <div>Accounts Clearence Form</div>
                             </a>
                         </li>
                     <?php } ?>
@@ -670,7 +683,7 @@ function isActive($url)
                         <?php if (checkPermission('roster-create')) { ?>
                             <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
                                 <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
-                                    <div data-i18n="Error">Roster Create</div>
+                                    <div >Roster Create</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -703,7 +716,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/department.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/department.php" class="menu-link">
-                                    <div data-i18n="Error">Department List</div>
+                                    <div>Department List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -711,7 +724,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/designation.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/designation.php" class="menu-link">
-                                    <div data-i18n="Error">Designation List</div>
+                                    <div>Designation List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -719,7 +732,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/branch.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/branch.php" class="menu-link">
-                                    <div data-i18n="Error">Branch List</div>
+                                    <div>Branch List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -787,7 +800,7 @@ function isActive($url)
 
                             <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
-                                    <div data-i18n="Error">Role List</div>
+                                    <div>Role List</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -796,7 +809,7 @@ function isActive($url)
 
                             <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
-                                    <div data-i18n="Error">Permssion List</div>
+                                    <div>Permssion List</div>
                                 </a>
                             </li>
                         <?php }  ?>
@@ -805,7 +818,7 @@ function isActive($url)
 
                             <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
-                                    <div data-i18n="Error">Role & Permission </div>
+                                    <div>Role & Permission </div>
                                 </a>
                             </li>
                         <?php  } ?>
@@ -814,7 +827,7 @@ function isActive($url)
 
                             <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
-                                    <div data-i18n="Error">User Role</div>
+                                    <div>User Role</div>
                                 </a>
                             </li>
                         <?php } ?>
