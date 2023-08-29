@@ -25,9 +25,10 @@ if (($_GET["deedPrintData"])) {
     $NUMBER_OF_CHECK = trim($_GET['deedPrintData']['number_of_cheque']);
     $BRAND = trim($_GET['deedPrintData']['product_brand']);
     $PRODUCT_CODE_NAME = trim($_GET['deedPrintData']['product_model']);
-
+    // lease_amount
     $SALES_AMOUNT = str_replace(',', '', trim($_GET['deedPrintData']['sales_amount']));
     $DP = str_replace(',', '', trim($_GET['deedPrintData']['down_payment']));
+    $LEASE_AMOUNT = str_replace(',', '', trim($_GET['deedPrintData']['lease_amount']));
     $INSTALLMENT_AMOUNT = str_replace(',', '', trim($_GET['deedPrintData']['installment_amount']));
     $NO_OF_INSTALLMENT = str_replace(',', '', trim($_GET['deedPrintData']['emi_number']));
 
@@ -55,13 +56,16 @@ if (($_GET["deedPrintData"])) {
     $CHASSIS_NO = ($_GET['deedPrintData']['product_chassis_no']);
     //
     // echo json_encode($INVOICE_DATE);
-
+    // $deleteSQL = oci_parse($objConnect, "DELETE FROM DEED_INFO");
+    // oci_execute($deleteSQL);
+    // oci_commit($objConnect);
+    $inserted_Id = [];
     try {
         foreach ($REF_NUMBER as $key => $refValue) {
             $deedSQL  = oci_parse($objConnect, "INSERT INTO DEED_INFO (
                 INVOICE_NO, INVOICE_DATE, 
                 REF_NUMBER, CHASSIS_NO, ENG_NO, 
-                SALES_AMOUNT, DP, NUMBER_OF_CHECK, 
+                SALES_AMOUNT, DP,LEASE_AMOUNT, NUMBER_OF_CHECK, 
                 BRAND, PRODUCT_CODE_NAME, INSTALLMENT_AMOUNT, 
                 NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE, 
                 CUSTOMER_NAME, CUST_FATHERS_NAME, CUST_ADDRESS, 
@@ -75,6 +79,7 @@ if (($_GET["deedPrintData"])) {
                     '$ENG_NO[$key]',
                     '$SALES_AMOUNT',
                     '$DP',
+                    '$LEASE_AMOUNT',
                     '$NUMBER_OF_CHECK',
                     '$BRAND',
                     '$PRODUCT_CODE_NAME',
@@ -92,11 +97,16 @@ if (($_GET["deedPrintData"])) {
                     '$SECOND_GUARANTOR_SO_DO',
                     '$SECOND_GUARANTOR_ADDRESS',
                     SYSDATE,
-                    '$emp_session_id')");
+                    '$emp_session_id')RETURNING ID INTO :inserted_id");
+            // Bind the parameter for the inserted ID
+            oci_bind_by_name($deedSQL, ':inserted_id', $insertedId, 10); // Assuming the ID column is of type NUMBER(10)
 
+                
             if (oci_execute($deedSQL)) {
                 // Insertion was successful for this iteration
                 oci_commit($objConnect); // Commit the transaction
+                array_push($inserted_Id,$insertedId);
+                // echo json_encode($inserted_Id); 
             } else {
                 $response['status'] = false;
                 $response['message'] = 'Error inserting data.';
@@ -104,9 +114,13 @@ if (($_GET["deedPrintData"])) {
                 exit();
             }
         }
-        $response['status']  = true; //
+        // ?inserted_id=
+        $inserted_Id = implode(',', $inserted_Id);
+        $response['status']  = true;
+        $response['link']  = $basePath.'/car_module/view/car_deed_print_form.php?inserted_id='.$inserted_Id;
         $response['message'] = 'Data Inserted Successfully ...';
         echo json_encode($response);
+        exit();
     } catch (\Exception $ex) {
         $response['status']  = false; //
         $response['message'] = $ex->getMessage();

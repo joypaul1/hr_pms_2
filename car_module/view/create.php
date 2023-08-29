@@ -42,7 +42,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card  mt-1">
-        <form action="<?php echo $basePath . '/car_module/view/car_deed_print_form.php' ?>" id="card_deed_form" method="POST">
+        <form action="<?php echo $basePath . '/car_module/view/car_deed_print_preview.php' ?>" id="card_deed_form" method="POST">
             <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
             <input type="hidden" name="actionType" value="car_deed">
             <div class="card-body row">
@@ -67,7 +67,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                                     $invoice_id = trim($_POST["invoice_id"]);
 
-                                    $deedSQL = oci_parse($objConnect, "SELECT *  FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
+                                    $deedSQL = oci_parse($objConnect, "SELECT * A  FROM LEASE_ALL_INFO_ERP A WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
                                     oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
                                     oci_execute($deedSQL);
                                     // REF_CODE != '' AND 
