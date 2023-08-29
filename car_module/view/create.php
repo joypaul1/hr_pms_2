@@ -67,11 +67,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                                     $invoice_id = trim($_POST["invoice_id"]);
 
-                                    $deedSQL = oci_parse($objConnect, "SELECT * A  FROM LEASE_ALL_INFO_ERP A WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
-                                    oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
+                                    $deedSQL = oci_parse($objConnect, "SELECT A.CUSTOMER_NAME,A.CUSTOMER_MOBILE_NO,A.REF_CODE, A.PRODUCT_CODE_NAME,A.CHASSIS_NO,A.ENG_NO, A.BRAND FROM LEASE_ALL_INFO_ERP A WHERE PAMTMODE ='CRT' and DOCNUMBR ='$invoice_id'");
                                     oci_execute($deedSQL);
-                                    // REF_CODE != '' AND 
-                                    // print_r(oci_fetch_assoc($deedSQL));
 
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
@@ -111,14 +108,14 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 $singleProduct = [];
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                     $invoice_id = trim($_POST["invoice_id"]);
-                    $deedSQL = oci_parse($objConnect, "SELECT  * FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = :invoice_id");
-                    oci_bind_by_name($deedSQL, ":invoice_id", $invoice_id);
+                    $deedSQL = oci_parse($objConnect, "SELECT CUSTOMER_NAME,PARTY_ADDRESS,SALES_AMOUNT,DP,LEASE_AMOUNT,INSTALLMENT_AMOUNT FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = '$invoice_id'");
                     oci_execute($deedSQL);
                     $singleProduct = oci_fetch_assoc($deedSQL);
-                    $buyerSQL = oci_parse($objConnect, "SELECT  * FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
+
+                    $buyerSQL = oci_parse($objConnect, "SELECT  INVOICE_DATE,FATHERS_NAME, FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,GRACE_PERIOD ,NO_OF_INSTALLMENT,POSIBLE_INST_START_DATE FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
                     oci_execute($buyerSQL);
                     $buyerSQL = oci_fetch_assoc($buyerSQL);
-                    // print_r($buyerSQL);
+
                 }
                 ?>
                 <div class="col-md-5">
