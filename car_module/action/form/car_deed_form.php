@@ -7,15 +7,14 @@ $basePath =  $_SESSION['basePath'];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
-    // echo 'Searching';
-    // die();
+
     $deedSQL  = oci_parse($objConnect, "select * from LEASE_ALL_INFO_ERP
     where DOCNUMBR='XTA00030'");
     oci_execute($deedSQL);
     $deedSQLData = oci_fetch_assoc($deedSQL);
-    print('<pre>');
-    print_r($deedSQLData);
-    print('</pre>');
+    // print('<pre>');
+    // print_r($deedSQLData);
+    // print('</pre>');
 }
 
 if (($_GET["deedPrintData"])) {
@@ -55,10 +54,7 @@ if (($_GET["deedPrintData"])) {
     $ENG_NO = ($_GET['deedPrintData']['product_engine_no']);
     $CHASSIS_NO = ($_GET['deedPrintData']['product_chassis_no']);
     //
-    // echo json_encode($INVOICE_DATE);
-    // $deleteSQL = oci_parse($objConnect, "DELETE FROM DEED_INFO");
-    // oci_execute($deleteSQL);
-    // oci_commit($objConnect);
+
     $inserted_Id = [];
     try {
         foreach ($REF_NUMBER as $key => $refValue) {
