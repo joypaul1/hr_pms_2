@@ -67,14 +67,35 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                                     $invoice_id = trim($_POST["invoice_id"]);
 
-                                    $deedSQL = oci_parse($objConnect, "SELECT A.CUSTOMER_NAME,A.CUSTOMER_MOBILE_NO,A.REF_CODE, A.PRODUCT_CODE_NAME,A.CHASSIS_NO,A.ENG_NO, A.BRAND FROM LEASE_ALL_INFO_ERP A WHERE PAMTMODE ='CRT' and DOCNUMBR ='$invoice_id'");
+                                    $deedSQL = oci_parse($objConnect, "SELECT
+                                    A.CUSTOMER_NAME,
+                                    A.CUSTOMER_MOBILE_NO,
+                                    A.REF_CODE,
+                                    A.PRODUCT_CODE_NAME,
+                                    A.CHASSIS_NO,
+                                    A.ENG_NO,
+                                    A.BRAND,
+                                    CASE
+                                        WHEN EXISTS (SELECT 1 FROM DEED_INFO D WHERE D.REF_NUMBER = A.REF_CODE) THEN 'true'
+                                        ELSE 'false'
+                                    END AS deed_status
+                                FROM
+                                    LEASE_ALL_INFO_ERP A
+                                WHERE
+                                    A.PAMTMODE = 'CRT' AND
+                                    A.DOCNUMBR = '$invoice_id'");
                                     oci_execute($deedSQL);
-
+                                    // print_r(oci_fetch_assoc($deedSQL));
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
-                                        <td><input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="' . $row['PRODUCT_CODE_NAME'] . '" " data-chassis-no="' . $row['CHASSIS_NO'] . '" data-eng-no="' . $row['ENG_NO'] . '" data-brand-name="' . $row['BRAND'] . '">
-                                        <label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label></td>
+                                                    <td>';
+                                            echo ($row['DEED_STATUS'] == 'true') ?
+                                                '<p class="text-danger">All Ready Done </p>' :
+                                                '<input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="' . $row['PRODUCT_CODE_NAME'] . '" data-chassis-no="' . $row['CHASSIS_NO'] . '" data-eng-no="' . $row['ENG_NO'] . '" data-brand-name="' . $row['BRAND'] . '">' .
+                                                '<label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label>';
+
+                                            echo '<label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label></td>
                                         <td>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">NAME : ' . $row['CUSTOMER_NAME'] . '</label>
                                         </br>
@@ -115,7 +136,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     $buyerSQL = oci_parse($objConnect, "SELECT  INVOICE_DATE,FATHERS_NAME, FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,GRACE_PERIOD ,NO_OF_INSTALLMENT,POSIBLE_INST_START_DATE FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
                     oci_execute($buyerSQL);
                     $buyerSQL = oci_fetch_assoc($buyerSQL);
-
                 }
                 ?>
                 <div class="col-md-5">
