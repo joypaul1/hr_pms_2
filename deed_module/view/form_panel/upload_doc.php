@@ -85,7 +85,7 @@ $basePath =  $_SESSION['basePath'];
                     $v_start_date = date('d/m/Y');
                 }
                 if (isset($_REQUEST['end_date'])) {
-                    $v_end_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                    $v_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
                 } else {
                     $v_end_date = date('d/m/Y');
                 }
