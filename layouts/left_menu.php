@@ -623,14 +623,14 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <li class="menu-item">
+                                <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_doc.php'); ?>">
                                     <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php" class="menu-link">
                                         <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Upload Doc.
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
+                                <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_check.php'); ?>">
                                     <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_check.php" class="menu-link">
                                         <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Upload Check
