@@ -58,16 +58,7 @@ if (($_GET["deedPrintData"])) {
     $inserted_Id = [];
     try {
         foreach ($REF_NUMBER as $key => $refValue) {
-            $deedSQL  = oci_parse($objConnect, "INSERT INTO DEED_INFO (
-                INVOICE_NO, INVOICE_DATE, 
-                REF_NUMBER, CHASSIS_NO, ENG_NO, 
-                SALES_AMOUNT, DP,LEASE_AMOUNT, NUMBER_OF_CHECK, 
-                BRAND, PRODUCT_CODE_NAME, INSTALLMENT_AMOUNT, 
-                NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE, 
-                CUSTOMER_NAME, CUST_FATHERS_NAME, CUST_ADDRESS, 
-                FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS, 
-                SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS, 
-                ENTRY_DATE, ENTRY_BY ) 
+            $sql ="INSERT INTO DEED_INFO (INVOICE_NO,INVOICE_DATE,REF_NUMBER,CHASSIS_NO,ENG_NO,SALES_AMOUNT,DP,LEASE_AMOUNT,NUMBER_OF_CHECK,BRAND, PRODUCT_CODE_NAME,            INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME,CUST_ADDRESS,FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,ENTRY_DATE,ENTRY_BY) 
                 VALUES ('$INVOICE_NO',
                     TO_DATE('$INVOICE_DATE', 'DD/MM/YYYY'),
                     '$REF_NUMBER[$key]',
@@ -92,8 +83,9 @@ if (($_GET["deedPrintData"])) {
                     '$SECOND_GUARANTOR',
                     '$SECOND_GUARANTOR_SO_DO',
                     '$SECOND_GUARANTOR_ADDRESS',
-                    SYSDATE,
-                    '$emp_session_id')RETURNING ID INTO :inserted_id");
+                    SYSDATE,'$emp_session_id') RETURNING ID INTO :inserted_id";
+            // echo json_encode ($sql); 
+            $deedSQL  = oci_parse($objConnect, $sql);
             // Bind the parameter for the inserted ID
             oci_bind_by_name($deedSQL, ':inserted_id', $insertedId, 10); // Assuming the ID column is of type NUMBER(10)
 

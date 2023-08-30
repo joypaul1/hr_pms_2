@@ -64,7 +64,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                     <?php
                     $departmentArray = [];
-                    $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM DEVELOPERS.RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
+                    $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
                     oci_execute($strSQL);
                     while ($row = oci_fetch_assoc($strSQL)) {
                         echo ('
