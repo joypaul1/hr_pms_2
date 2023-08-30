@@ -603,7 +603,7 @@ function isActive($url)
             <!-- Report-list -->
             <!-- car Deed -->
 
-            <li class="menu-item  <?php echo isActive('/offboarding_module/view'); ?>">
+            <li class="menu-item  <?php echo isActive('/deed_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-file "></i>
                     <div>Deed Module</div>
@@ -611,35 +611,32 @@ function isActive($url)
 
                 <ul class="menu-sub">
                     <?php if (checkPermission('hr-offboarding-create') || checkPermission('hr-offboarding-report')) { ?>
-                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel'); ?>">
+                        <li class="menu-item <?php echo isActive('/deed_module/view/form_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Form Panel</div>
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('car-deed-form')) { ?>
-                                    <li class="menu-item <?php echo isActive('/car_module/view/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/car_module/view/create.php" class="menu-link">
+                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/create.php" class="menu-link">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <li class="menu-item">
-                                    <a href="<?php echo $basePath ?>/car_module/view/report.php" class="menu-link">
-                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report </div>
+                                    <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php" class="menu-link">
+                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Upload Doc.
+                                        </div>
                                     </a>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
-                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Document </div>
+                                    <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_check.php" class="menu-link">
+                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Upload Check
+                                        </div>
                                     </a>
                                 </li>
-                                <li class="menu-item">
-                                    <a href="<?php echo $basePath ?>/car_module/view/document.php" class="menu-link">
-                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Manual </div>
-                                    </a>
-                                </li>
-
-
                             </ul>
                         </li>
                     <?php } ?>

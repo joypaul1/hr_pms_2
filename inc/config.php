@@ -10,6 +10,7 @@ if (!$conn_hr) {
 	die(mysqli_error());
 }
 
+
 function getUserAccessRoleByID($id)
 {
 	global $conn_hr;

@@ -2,8 +2,8 @@
 
 $dynamic_link_css = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
 $dynamic_link_js = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
-require_once('../../helper/2step_com_conn.php');
-require_once('../../inc/connoracle.php');
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('car-deed-form')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
@@ -42,7 +42,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card  mt-1">
-        <form action="<?php echo $basePath . '/car_module/view/car_deed_print_preview.php' ?>" id="card_deed_form" method="POST">
+        <form action="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_preview.php' ?>" id="card_deed_form" method="POST">
             <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
             <input type="hidden" name="actionType" value="car_deed">
             <div class="card-body row">
@@ -245,8 +245,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <!-- / Content -->
 
-<?php require_once('../../layouts/footer_info.php'); ?>
-<?php require_once('../../layouts/footer.php'); ?>
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>
 
 <script>
     $(document).ready(function() {

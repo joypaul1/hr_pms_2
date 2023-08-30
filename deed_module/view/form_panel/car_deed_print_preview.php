@@ -4,7 +4,7 @@
 <head>
     <title>Car Deed Paper</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.css" integrity="sha512-y4S4cBeErz9ykN3iwUC4kmP/Ca+zd8n8FDzlVbq5Nr73gn1VBXZhpriQ7avR+8fQLpyq4izWm0b8s6q4Vedb9w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .btn {
             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
@@ -106,24 +106,10 @@
 </head>
 <?php
 session_start();
-require '../../helper/currencyToWord.php';
-require '../../inc/connoracle.php';
+require '../../../helper/currencyToWord.php';
 
-if (isset($_GET['inserted_id'])) {
-    $insertedIds = $_GET['inserted_id']; // The value will be a string like "34,33"
-
-    // Split the comma-separated values into an array
-    $insertedIdArray = explode(',', $insertedIds);
-    $deedSQL  = oci_parse($objConnect, "SELECT INVOICE_NO, INVOICE_DATE, REF_NUMBER, CHASSIS_NO, ENG_NO, SALES_AMOUNT, DP, NUMBER_OF_CHECK, BRAND, PRODUCT_CODE_NAME,INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT,GRACE_PERIOD,POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME, CUST_ADDRESS,FIRST_GUARANTOR,FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO,SECOND_GUARANTOR_ADDRESS, ENTRY_DATE FROM DEED_INFO WHERE ID = '$insertedIdArray[0]'");
-    oci_execute($deedSQL);
-
-    $comData = oci_fetch_assoc($deedSQL);
-    $comData['unit_no'] = count($insertedIdArray);
-
-    // print_r($comData);
-}
 // Get the current date
-$currentDate = new DateTime($comData['INVOICE_DATE']);
+$currentDate = new DateTime($_POST['date']);
 // Format the current date as desired
 $formattedCurrentDate = $currentDate->format('j F Y');
 $yearWords = ucwords(currencyToWord::getBDTCurrency($currentDate->format('Y')));
@@ -149,7 +135,7 @@ $formattedCurrentDate = str_replace(
 // echo $formattedCurrentDate;
 
 $countInstallment = 2;
-if ($comData['BRAND'] == 'EICHER') {
+if ($_POST['product_brand'] == 'EICHER') {
     $countInstallment = 3;
 }
 $basePath =  $_SESSION['basePath'];
@@ -172,22 +158,22 @@ $basePath =  $_SESSION['basePath'];
             <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px;">BETWEEN</p>
             <p style="display: block; margin-top: 5px; ;">"RANGS MOTORS LIMITED, a private limited company having its registered office at 117/A (Level-4), Old Airport Road, Bijoy Sharani, Tejgoan, Dhaka, hereinafter referred to as "the OWNERS", (which expression shall where the context so admits mean and include its legal representative, successors and assigns) of the <u style="font-weight: 600;"> FIRST PART</u>".</p>
             <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
-            <p style="display: block; margin-top: 5px;"> <b><?php echo $comData['CUSTOMER_NAME'] ?>, S/O or D/O or H/O: <?php echo $comData['CUST_FATHERS_NAME'] ?>, Add: <?php echo $comData['CUST_ADDRESS'] ?>.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</p>
+            <p style="display: block; margin-top: 5px;"> <b><?php echo $_POST['customer_name'] ?>, S/O or D/O or H/O: <?php echo $_POST['c_f_name'] ?>, Add: <?php echo $_POST['customer_address'] ?>.</b> Hereinafter referred to as "the BORROWER", (which expression shall where the context so admits mean and include heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">SECOND PART</u>".</p>
             <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px">AND</p>
-            <p style="display: block; margin-top: 5px; ;"><b>1)<?php echo $comData['FIRST_GUARANTOR'] ?> , S/O or D/O or H/O: <?php echo $comData['FIRST_GUARANTOR_FATHER'] ?>, & 2)<?php echo $comData['SECOND_GUARANTOR'] ?>, S/O or D/O or H/O: <?php echo $comData['SECOND_GUARANTOR_SO_DO'] ?></b>. Dealer/Guarantor their residential address at <b>1) House/Holding: <?php echo $comData['FIRST_GUARANTOR_ADDRESS'] ?> , & 2) <?php echo $comData['SECOND_GUARANTOR_ADDRESS'] ?>.</b> As "the GUARANTOR" (which expression shall where the context so admits mean and include his heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">THIRD PART</u>".</p>
-            <p style="display: block; margin-top: 5px; ;">WHEREAS the First Part (the owner) is an importer and owners of <b><?php echo str_pad($comData['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['unit_no'])) ?>)</b> unit/units
-                Completely Built up <b><?php echo $comData['PRODUCT_CODE_NAME'] ?></b> With fitting, tools and accessories as fully described in Schedule "A" attached hereto for marketing and selling the same the same in Bangladesh.</p>
+            <p style="display: block; margin-top: 5px; ;"><b>1)<?php echo $_POST['g_name_1'] ?> , S/O or D/O or H/O: <?php echo $_POST['g_f_name_1'] ?>, & 2)<?php echo $_POST['g_name_2'] ?>, S/O or D/O or H/O: <?php echo $_POST['g_f_name_2'] ?></b>. Dealer/Guarantor their residential address at <b>1) House/Holding: <?php echo $_POST['g_add_1'] ?> , & 2) <?php echo $_POST['g_add_2'] ?>.</b> As "the GUARANTOR" (which expression shall where the context so admits mean and include his heirs, legal representatives, executors, successors and assigns) of the <u style="font-weight: 600;">THIRD PART</u>".</p>
+            <p style="display: block; margin-top: 5px; ;">WHEREAS the First Part (the owner) is an importer and owners of <b><?php echo str_pad($_POST['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['unit_no'])) ?>)</b> unit/units
+                Completely Built up <b><?php echo $_POST['product_model'] ?></b> With fitting, tools and accessories as fully described in Schedule "A" attached hereto for marketing and selling the same the same in Bangladesh.</p>
 
-            <p style="display: block; margin-top: 5px; ;">AND WHEREAS, the Second Part wishes to procure on Hire-Purchase form the First part(the Owners) <b><?php echo str_pad($comData['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['unit_no'])) ?>)</b> Unit/Units Completely Built up and has applied to the first part and the First Part (the Owners) is willing to sell on hire-purchase to the Second Part (The Borrower) the aforesaid chasis as described in the "A" Schedule set forth hereto.</p>
+            <p style="display: block; margin-top: 5px; ;">AND WHEREAS, the Second Part wishes to procure on Hire-Purchase form the First part(the Owners) <b><?php echo str_pad($_POST['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['unit_no'])) ?>)</b> Unit/Units Completely Built up and has applied to the first part and the First Part (the Owners) is willing to sell on hire-purchase to the Second Part (The Borrower) the aforesaid chasis as described in the "A" Schedule set forth hereto.</p>
 
             <p style="display: block; margin-top: 5px; ;">AND WHEREAS, the Second Part, assured by the Third Part (the Guarantor) as regards timely and regular payments of Installment due as indicated in Schedule B to the full satisfaction of the First Part and the First Part has therefore agreed to sell the same under the terms and conditions set-forth hereto.</p>
             <span style="display: block; margin-top: 5px;">NOW THEREFORE, in consideration of mutual covenants herein set forth, the parties hereto agree as follows:</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE I</p>
-            <p style="display: block; margin-top: 5px; ;">That the First Part, on the basis of Hire-Purchase, has sold to The Second Part and the same has also, on the basis of Hire-Purchase, Purchased or bought <b><?php echo str_pad($comData['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['unit_no'])) ?>)</b> unit/units Completely Built up
-                <b><?php echo $comData['PRODUCT_CODE_NAME'] ?></b> with fitting tootls and accessories for a sum of <b><?php echo number_format(str_replace(',', '', $comData['SALES_AMOUNT']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['SALES_AMOUNT'], true)) ?>) </b> only each as fully described in schedule "A" attached hereto plus additional charges due to hire purchase deal given in <b>CLAUSE VII.</b>
+            <p style="display: block; margin-top: 5px; ;">That the First Part, on the basis of Hire-Purchase, has sold to The Second Part and the same has also, on the basis of Hire-Purchase, Purchased or bought <b><?php echo str_pad($_POST['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['unit_no'])) ?>)</b> unit/units Completely Built up
+                <b><?php echo $_POST['product_model'] ?></b> with fitting tootls and accessories for a sum of <b><?php echo number_format(str_replace(',', '', $_POST['sales_amount']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['sales_amount'], true)) ?>) </b> only each as fully described in schedule "A" attached hereto plus additional charges due to hire purchase deal given in <b>CLAUSE VII.</b>
             </p>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE II</p>
-            <p style="display: block; margin-top: 5px; ;">That the Second Part shall pay to the First Part (the Owners) at the time of execution and signing of this Agreement a sum of <b>TK. <?php echo number_format(str_replace(',', '', $comData['DP']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['DP'], true)) ?>)</b> only <b> Down Payment</b> and thereafter the Second Part will punctually and duly pay to the First Part (Owners) at their address in cash /cheque/pay order/demand draft/telephonic transfer the sums <b><u>and on the dates</u></b> mentioned in Schedule "B" <b><u>annexed</u></b> hereto, whether previously demanded or not by way of installment payment for the product.</p>
+            <p style="display: block; margin-top: 5px; ;">That the Second Part shall pay to the First Part (the Owners) at the time of execution and signing of this Agreement a sum of <b>TK. <?php echo number_format(str_replace(',', '', $_POST['down_payment']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['down_payment'], true)) ?>)</b> only <b> Down Payment</b> and thereafter the Second Part will punctually and duly pay to the First Part (Owners) at their address in cash /cheque/pay order/demand draft/telephonic transfer the sums <b><u>and on the dates</u></b> mentioned in Schedule "B" <b><u>annexed</u></b> hereto, whether previously demanded or not by way of installment payment for the product.</p>
 
         </section>
         <section class="stamp-pagenumber">
@@ -223,9 +209,9 @@ $basePath =  $_SESSION['basePath'];
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE V</p>
             <span style="display: block; margin-top: 5px;">That the vehicle shall be comprehensively insured in favor of the First Part (the owners) or any financial institution or Agency nominated by the First Part and costs for maintaining such insurance policy shall be borne by the Second Part (the borrower).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VI</p>
-            <span style="display: block; margin-top: 5px;">That the repayment of the borrowed amount with interest shall be due for payment after <b> <?php echo $comData['GRACE_PERIOD'] ?> days</b> of taking delivery of the said Completely Built up <b><?php echo $comData['PRODUCT_CODE_NAME'] ?></b> and shall be paid by the Second Part (the borrower) in <b><?php echo str_pad($comData['NO_OF_INSTALLMENT'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['NO_OF_INSTALLMENT'])) ?>)</b> equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
+            <span style="display: block; margin-top: 5px;">That the repayment of the borrowed amount with interest shall be due for payment after <b> <?php echo $_POST['grace_period'] ?> days</b> of taking delivery of the said Completely Built up <b><?php echo $_POST['product_model'] ?></b> and shall be paid by the Second Part (the borrower) in <b><?php echo str_pad($_POST['emi_number'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['emi_number'])) ?>)</b> equal monthly installments as per repayment schedule as detailed in schedule "B" attached here to which forms part of this agreement. In case of any default in making payment of installment due on the schedule date as per schedule "B" a penal interest @ 20% shall have to be paid on the default amount by the Second Part (the borrower) to the First Part (the owners).</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE VII</p>
-            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $comData['NUMBER_OF_CHECK'] ?> Cheques </b> in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
+            <span style="display: block; margin-top: 5px;">That, in order to securitize the installment payments as specified in Schedule- B, the Second Part, on the date of signing this Hire-Purchase Agreement, shall issue, draw and sign <b><?php echo $_POST['number_of_cheque'] ?> Cheques </b> in favor of the First Part and shall also handed over all the signed Cheques to the First Part in accordance with Section- 6, 16, 20 and 49 of the Negotiable Instrument Act, 1881.</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE IX</p>
             <span style="display: block; margin-top: 5px;">That, if the Second Part fails to make the installment payment/ payments on the schedule date /dates, then the First Part, in order to recover the outstanding debt from the Second Part, will be legally entitled to present the Cheque or Cheques in the bank for encashment and upon presentation if the Cheque or Cheques are being returned by the bank as unpaid due to insufficient fund or for any other legally recognized reasons, then the First Part will be legally entitled to initiate Criminal Proceedings against the Second Part in Court under Section- 138 or 140 of the Negotiable Instrument Act, 1881 and in such an event the Second Part shall be liable for all legal consequences thereof. Besides, the First Part shall also be entitled to initiate Criminal (other than Section- 138) and Civil Cases against the Second Part in order to recover the outstanding debt.</span>
 
@@ -289,7 +275,76 @@ $basePath =  $_SESSION['basePath'];
                 "--"
             </b>
         </section>
+        <!-- <div class="page-break"></div>
+        <section class="stamp-space-header">
+        </section>
+        <section class="stamp-image-header">
+        </section>
+        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;padding: 5px;text-align:center">
+            <p style="margin: 0;">___________</p>
+            <p></p>
+            <p></p>
+        </section>
+        <section class="stamp-body" style="padding: 0 5px 0 5px;">
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XVIII</p>
+            <span style="display: block; margin-top: 5px; ;">That the Second Part (the Borrower) shall renew the comprehensive insurance policy at his/her own the cost of the Second Part within the specified time and to the full satisfaction of the First Part, and shall always keep the said vehicles under comprehensive insurance coverage until all money owed to the First Part (the owners) is fully repaid.</span>
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XIX</p>
+            <span style="display: block; margin-top: 5px; ;">That the Second Part (the Borrower) shall permit the First Part (the owners) and all persons authorized by the First Part (the owners) at any time to inspect the condition of the said vehicle/vehicles and to enter the premises where the vehicles may be and to disclose, whenever called upon to do so, where the vehicle is kept or its then whereabouts.</span>
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XX</p>
+            <span style="display: block; margin-top: 5px; ;">That the Second Part (the Borrower) shall not transfer or otherwise deal with or part with possession of the said vehicles or create or allow to be created any lien or charges upon the said vehicles under any circumstances.</span>
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XXI</p>
+            <span style="display: block; margin-top: 5px; ;">That the Second Part (the borrower) shall not cause, permit or allow the said vehicle/vehicles to suffer or any part thereof to become liable to distress, or any other processes levied or issued against the Second Part (the Borrower), whether alone or jointly with any other person or persons.</span>
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XXII</p>
+            <span style="display: block; margin-top: 5px; ;">That in case of any damage or theft or removal of any part or parts of the vehicle/vehicles while in custody, control, possession and care of the Second Part (the Borrower), the Third Part (the Guarantor) shall be liable to compensate and indemnify the First Part (the owner), for the loss or losses due to such damage, theft or removal on the Second Part (the Borrower) failing to do so.</span>
+            <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XXIII</p>
+            <span style="display: block; margin-top: 5px; ;">Either Parts of this agreement shall be settled the rising dispute by the process of arbitration at initial level.<br><br>
+                In witness where of the parties above named have hereunto set and subscribed their respective hands and seals the day, month and year first above written.</span>
+            <p style="text-align: left;font-weight: 600;margin: 5px 0 3px 5px">WITNESS : </p>
 
+            <table style="width: 100%;text-align:center">
+                <tr>
+                    <th width="10">
+                        1.
+                    </th>
+                    <th width="10">
+                        PART
+                    </th>
+                    <th width="10">
+                        SIGNATURE OF THE FIRST (OWNER)
+                    </th>
+                    <th width="40%"></th>
+
+                </tr>
+                <tr>
+                    <th width="10">
+                        2.
+                    </th>
+                    <th width="10">
+                        PART
+                    </th>
+                    <th width="10">
+                        SIGNATURE OF THE SECOND (BORROWER)
+                    </th>
+                    <th width="40%"></th>
+
+                </tr>
+                <tr>
+                    <th width="10">
+                        3.
+                    </th>
+                    <th width="10">
+                        PART
+                    </th>
+                    <th width="10">
+                        SIGNATURE OF THE THIRD (GUARANTOR)
+                    </th>
+                    <th width="40%"></th>
+
+                </tr>
+
+
+            </table>
+        </section> -->
 
 
 
@@ -297,7 +352,7 @@ $basePath =  $_SESSION['basePath'];
         <section class="stamp-body" style="padding: 0 5px 0 5px;">
             <b><u>SCHEDULE-A</u></b>
             <P>
-                <?php echo str_pad($comData['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['unit_no'])) ?>) unit/units <?php echo $comData['PRODUCT_CODE_NAME'] ?> ENGINE & CHASSIS WITH STANDARD TOOLS ADN ACCESSORIES
+                <?php echo str_pad($_POST['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['unit_no'])) ?>) unit/units <?php echo $_POST['product_model'] ?> ENGINE & CHASSIS WITH STANDARD TOOLS ADN ACCESSORIES
             </P>
             <table style="width: 100%;text-align:center">
                 <tr>
@@ -314,24 +369,20 @@ $basePath =  $_SESSION['basePath'];
                 </tr>
                 <tr>
                     <?php
-
-                    $insertedIdArray = explode(',', $insertedIds);
-                    foreach ($insertedIdArray as $index => $valueID) {
-                        $multSQL  = oci_parse($objConnect, "SELECT REF_NUMBER, CHASSIS_NO, ENG_NO FROM DEED_INFO WHERE ID = '$valueID'");
-                        oci_execute($multSQL);
-                        $multData = oci_fetch_assoc($multSQL);
-                        echo '<tr>';
+                    $engineNumbers = $_POST['product_engine_no'];
+                    $chassisNumbers = $_POST['product_chassis_no'];
+                    foreach ($engineNumbers as $index => $engineNumber) {
+                        $chassisNumber = $chassisNumbers[$index];
                         echo "<td>" . ($index + 1) . "</td>";
-                        echo "<td>" .  $multData['ENG_NO'] . "</td>";
-                        echo "<td>" . $multData['CHASSIS_NO'] . "</td>";
-                        echo '</tr>';
+                        echo "<td>" . $engineNumber . "</td>";
+                        echo "<td>" . $chassisNumber . "</td>";
                     }
                     ?>
                 </tr>
             </table>
             <br>
             <b><u>SCHEDULE-B</u></b>
-            <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $comData['INSTALLMENT_AMOUNT']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['INSTALLMENT_AMOUNT'], true)) ?>)</b> </b></p>
+            <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $_POST['lease_amount']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($_POST['lease_amount'], true)) ?>)</b> </b></p>
             <table style="width: 100%;text-align:center">
                 <tr>
                     <th style="text-align: center;" colspan="3"> <u>PAYMENT SCHEDULE</u> </th>
@@ -366,15 +417,15 @@ $basePath =  $_SESSION['basePath'];
                             return $number . 'th';
                     }
                 }
-                for ($i = 0; $i < $comData['NO_OF_INSTALLMENT']; $i++) {
-                    $startDate = new DateTime($comData['POSIBLE_INST_START_DATE']);
+                for ($i = 0; $i < $_POST['emi_number']; $i++) {
+                    $startDate = new DateTime($_POST['emi_start_date']);
                     $dueDate = clone $startDate;
                     $dueDate->add(new DateInterval('P' . ($i) . 'M'));
                 ?>
                     <tr>
                         <td><?php echo  $dueDate->format('d-M-Y'); ?></td>
                         <td> <?php echo getOrdinalSuffix($i + 1) ?></td>
-                        <td> <?php echo number_format(str_replace(',', '', $comData['INSTALLMENT_AMOUNT']), 2) ?>TK.</td>
+                        <td> <?php echo number_format(str_replace(',', '', $_POST['installment_amount']), 2) ?>TK.</td>
                     </tr>
                 <?php
 
@@ -389,16 +440,73 @@ $basePath =  $_SESSION['basePath'];
     </div>
 
     <footer id="hidden">
-
-        <a href="<?php echo $basePath . '/car_module/view/create.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
-        <button type="button" onclick="window.print()" class="btn"><i class="fa fa-print"></i>Print </button>
+        <!-- <button class="fixed-button">Click Me</button> -->
+        <a href="<?php echo $basePath . '/deed_module/view/form_panel/create.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
+        <button data-href="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" type="button" class="btn delete_check"><i class="fa fa-print"></i> Confirm and Print </button>
     </footer>
+
+
+    <script src="http://localhost/rHRT/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
 <script type="text/javascript">
-    window.onload = function() {
-        window.print();
-    }
+    $(document).on('click', '.delete_check', function() {
+
+        let url = $(this).data('href');
+        var allData = <?php echo json_encode($_POST); ?>;
+        // console.log(allData);
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to rewrite this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm?',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            deedPrintData: allData
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
+                        console.log(response);
+                        swal.fire({
+                            icon: "success",
+                            title: "Success!",
+                            text: response.message,
+                            timer: 2000,
+                            showConfirmButton: false
+                        }).then(function(result) {
+                            window.location = response.link;
+
+                        });
+                        // swal.fire('Deleted!', response.message, response.status);
+
+                        // location.reload(); // Reload the page
+                    })
+                    .fail(function() {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
+    });
 </script>
 
 </html>

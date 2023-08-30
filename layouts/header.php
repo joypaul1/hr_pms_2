@@ -1,3 +1,23 @@
+<?php
+if (!isset($_SESSION['HR'])) {
+  $currentScriptPath = __FILE__;
+  $directoryPath = dirname($currentScriptPath);
+  $includeFilePath = $directoryPath . '/../config_file_path.php';
+  //  $includeFilePath;
+  // Get the real path of the included or required file
+  $realIncludePath = realpath($includeFilePath);
+  require($includeFilePath);
+  // if ($realIncludePath !== false) {
+  //   // echo "Full path to the included/required file: " . $realIncludePath;
+  //  // Include the file
+  // } else {
+  //   echo "Included/required file not found.";
+  // }
+  header("Location:" . $basePath);
+  exit;
+}
+$basePath =  $_SESSION['basePath'];
+?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
 
@@ -8,14 +28,7 @@
   <title>Rangs Mobile Apps Admin Panel</title>
 
   <meta name="description" content="" />
-  <?php
-  if (!$_SESSION['HR']) {
-    include('config_file_path.php');
-    header("Location:" . $basePath);
-    exit;
-  }
-  $basePath =  $_SESSION['basePath'];
-  ?>
+
 
 
   <!-- Favicon -->

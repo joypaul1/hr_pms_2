@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('../../../inc/config.php');
-require_once('../../../inc/connoracle.php');
+// require_once('../../inc/config.php');
+require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 
@@ -113,7 +113,7 @@ if (($_GET["deedPrintData"])) {
         // ?inserted_id=
         $inserted_Id = implode(',', $inserted_Id);
         $response['status']  = true;
-        $response['link']  = $basePath.'/car_module/view/car_deed_print_form.php?inserted_id='.$inserted_Id;
+        $response['link']  = $basePath.'/deed_module/view/form_panel/car_deed_print_form.php?inserted_id='.$inserted_Id;
         $response['message'] = 'Data Inserted Successfully ...';
         echo json_encode($response);
         exit();
