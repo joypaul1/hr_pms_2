@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
+        body * {
+            text-align: justify;
+            text-justify: inter-word;
+        }
+
         .btn {
             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
             border: none;
@@ -33,7 +38,14 @@
         }
 
         .stamp-image-header {
-            height: 3.9in;
+            height: 3.2in;
+        }
+
+        .stamp-body {
+            padding: 0 5px 0 5px;
+            height: 700px;
+            max-height: 700px;
+            min-height: 700px;
         }
 
         .stamp-pagenumber {
@@ -82,6 +94,8 @@
             body * {
                 visibility: hidden;
                 font-size: 13px;
+                text-align: justify;
+                text-justify: inter-word;
             }
 
             #hidden {
@@ -162,12 +176,12 @@ $basePath =  $_SESSION['basePath'];
         </section>
         <section class="stamp-image-header">
         </section>
-        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;padding: 5px;text-align:center">
-            <p>________</p>
-            <h4>AGREEMENT <br>OF HIRE PURCHASE </h4>
-            <p></p>
+        <section class="stamp-header" style="display: block; justify-content: space-between; align-items: center;text-align:center">
+            <!-- <p>________</p> -->
+            <h4 style="text-align:center">AGREEMENT <br>OF HIRE PURCHASE </h4>
+            <!-- <p></p> -->
         </section>
-        <section class="stamp-body" style="padding: 0 5px 0 5px;">
+        <section class="stamp-body" style="">
             <span>THIS AGREEMENT OF HIRE PURCHASE is made on this day the <u style="font-weight: bold;"> <?php echo $formattedCurrentDate ?> of the Christian era. </u></span>
             <p style="text-align: center;font-weight: 600;margin: 3px 0 3px 0px;">BETWEEN</p>
             <p style="display: block; margin-top: 5px; ;">"RANGS MOTORS LIMITED, a private limited company having its registered office at 117/A (Level-4), Old Airport Road, Bijoy Sharani, Tejgoan, Dhaka, hereinafter referred to as "the OWNERS", (which expression shall where the context so admits mean and include its legal representative, successors and assigns) of the <u style="font-weight: 600;"> FIRST PART</u>".</p>
@@ -194,9 +208,7 @@ $basePath =  $_SESSION['basePath'];
             <b> Page-1 </b>
         </section>
         <section class="stamp-footer">
-            <b>
-                "--"
-            </b>
+
         </section>
         <div class="page-break"></div>
 
@@ -205,13 +217,13 @@ $basePath =  $_SESSION['basePath'];
         </section>
         <section class="stamp-image-header">
         </section>
-        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;padding: 5px;text-align:center">
-            <p style="margin: 0;">________</p>
+        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;text-align:center">
+            <!-- <p style="margin: 0;">________</p> -->
             <p></p>
-            <p></p>
+            <!-- <p></p> -->
         </section>
 
-        <section class="stamp-body" style="padding: 0 5px 0 5px;">
+        <section class="stamp-body" style="">
 
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE III</p>
             <span style="display: block; margin-top: 5px; ;">That it shall be the responsibility and obligations of the Second Part to construct or build the body of the vehicle or vehicles and illy Facilities of the same at his own costs and expenses and shall make the vehicle or vehicles road worthy in accordance with the specifications, requirements and guide line of the Bangladesh Road Transport Authority (BRTA).</span>
@@ -234,9 +246,7 @@ $basePath =  $_SESSION['basePath'];
             <b> Page-2 </b>
         </section>
         <section class="stamp-footer">
-            <b>
-                "--"
-            </b>
+
         </section>
 
         <div class="page-break"></div>
@@ -244,13 +254,13 @@ $basePath =  $_SESSION['basePath'];
         </section>
         <section class="stamp-image-header">
         </section>
-        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;padding: 5px;text-align:center">
-            <p style="margin: 0;">___________</p>
-            <p></p>
+        <section class="stamp-header" style="display: flex; justify-content: space-between; align-items: center;text-align:center">
+            <!-- <p style="margin: 0;">___________</p> -->
+            <!-- <p></p> -->
             <p></p>
         </section>
 
-        <section class="stamp-body" style="padding: 0 5px 0 5px;">
+        <section class="stamp-body" style="">
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XI</p>
             <span style="display: block; margin-top: 5px; ;">That Second Part (the Borrower) shall duly perform and observe all terms and conditions contained in this agreement and the covenants on his/her part to be performed and observed and shall in the manner aforesaid pay to the First Part (the owners) installment payments as detailed in schedule "B", which constitutes part of this agreement and shall also pay to the First Part (the owners) all others sums of money which may become payable by the Second Part (the Borrower) under this agreement.</span>
             <p style="text-align: left;font-weight: 600;margin: 3px 0 3px 0px">CLAUSE XII</p>
@@ -285,16 +295,14 @@ $basePath =  $_SESSION['basePath'];
             <b> Page-3 </b>
         </section>
         <section class="stamp-footer">
-            <b>
-                "--"
-            </b>
+
         </section>
 
 
 
 
         <div class="page-break"></div>
-        <section class="stamp-body" style="padding: 0 5px 0 5px;">
+        <section class="stamp-body" style="">
             <b><u>SCHEDULE-A</u></b>
             <P>
                 <?php echo str_pad($comData['unit_no'], 2, '0', STR_PAD_LEFT) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['unit_no'])) ?>) unit/units <?php echo $comData['PRODUCT_CODE_NAME'] ?> ENGINE & CHASSIS WITH STANDARD TOOLS ADN ACCESSORIES
@@ -391,15 +399,15 @@ $basePath =  $_SESSION['basePath'];
     <footer id="hidden">
 
         <a href="<?php echo $basePath . '/deed_module/view/form_panel/create.php' ?>" class="btn">
-        <i class="fa fa-arrow-circle-left"></i> Back</a>
+            <i class="fa fa-arrow-circle-left"></i> Back</a>
         <button type="button" onclick="window.print()" class="btn"><i class="fa fa-print"></i>Print </button>
     </footer>
 
 </body>
 <script type="text/javascript">
-    window.onload = function() {
-        window.print();
-    }
+    // window.onload = function() {
+    //     window.print();
+    // }
 </script>
 
 </html>
