@@ -28,7 +28,18 @@ if (!checkPermission('upload-check')) {
                 <div class="card-body">
                     <form action="#" method="post" enctype="multipart/form-data" id="form">
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="fileToUpload">Select Image</label>
+                            <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Document </label>
+                            <div class="col-sm-10">
+                                <input type="file" class="form-control" id="fileToUpload" name="file" />
+                                <?php if (!empty($_SESSION['imageStatus'])) {
+                                    echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
+                                    unset($_SESSION['imageStatus']);
+                                }
+                                ?>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Check </label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control" id="fileToUpload" name="file" />
                                 <?php if (!empty($_SESSION['imageStatus'])) {
