@@ -95,7 +95,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 '<input type="checkbox" class="form-check-input ref_code" value="' . $row['REF_CODE'] . '" name="reference_id[]" id="' . $row['REF_CODE'] . '" data-code-no="' . $row['PRODUCT_CODE_NAME'] . '" data-chassis-no="' . $row['CHASSIS_NO'] . '" data-eng-no="' . $row['ENG_NO'] . '" data-brand-name="' . $row['BRAND'] . '">' .
                                                 '<label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label>';
 
-                                            echo '<label class="form-check-label" for="' . $row['REF_CODE'] . '"> ' . $row['REF_CODE'] . '</label></td>
+                                            echo '</td>
                                         <td>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">NAME : ' . $row['CUSTOMER_NAME'] . '</label>
                                         </br>
