@@ -390,7 +390,8 @@ $basePath =  $_SESSION['basePath'];
 
     <footer id="hidden">
 
-        <a href="<?php echo $basePath . '/deed_module/view/create.php' ?>" class="btn"><i class="fa fa-arrow-circle-left"></i> Back</a>
+        <a href="<?php echo $basePath . '/deed_module/view/form_panel/create.php' ?>" class="btn">
+        <i class="fa fa-arrow-circle-left"></i> Back</a>
         <button type="button" onclick="window.print()" class="btn"><i class="fa fa-print"></i>Print </button>
     </footer>
 
