@@ -139,6 +139,13 @@ if ($_POST['product_brand'] == 'EICHER') {
     $countInstallment = 3;
 }
 $basePath =  $_SESSION['basePath'];
+
+$unint = $_POST['unit_no'];
+$_POST['sales_amount'] = str_replace(',', '', $_POST['sales_amount']) * $unint;
+$_POST['down_payment'] = str_replace(',', '', $_POST['down_payment']) * $unint;
+$_POST['lease_amount'] = str_replace(',', '', $_POST['lease_amount']) * $unint;
+$_POST['installment_amount'] = str_replace(',', '', $_POST['installment_amount']) * $unint;
+// print_r($_POST);
 ?>
 
 <body>
@@ -445,8 +452,8 @@ $basePath =  $_SESSION['basePath'];
         <button data-href="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" type="button" class="btn delete_check"><i class="fa fa-print"></i> Confirm and Print </button>
     </footer>
 
-    
-    <script src="<?php echo $basePath.'/assets/vendor/libs/jquery/jquery.js' ?>"></script>
+
+    <script src="<?php echo $basePath . '/assets/vendor/libs/jquery/jquery.js' ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>

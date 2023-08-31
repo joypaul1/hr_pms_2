@@ -191,15 +191,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div id='dynamicOption' style="width:100%;"></div>
 
                         <div class="form-group">
-                            <label for="sales_amount"> Sales Amount</label>
+                            <label for="sales_amount"> Sales Amount /PU</label>
                             <input type="text" autocomplete="off" class="form-control" name="sales_amount" value="<?php echo isset($singleProduct["SALES_AMOUNT"]) ? number_format($singleProduct["SALES_AMOUNT"], 2) : ' ' ?>" id="sales_amount" required placeholder="EX:10,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="down_payment"> Down Payment</label>
+                            <label for="down_payment"> Down Payment /PU</label>
                             <input type="text" autocomplete="off" class="form-control" name="down_payment" value="<?php echo isset($singleProduct["DP"]) ? number_format($singleProduct["DP"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
-                            <label for="lease_amount"> Lease Amount</label>
+                            <label for="lease_amount"> Lease Amount /PU</label>
                             <input type="text" autocomplete="off" class="form-control" name="lease_amount" value="<?php echo isset($singleProduct["LEASE_AMOUNT"]) ? number_format($singleProduct["LEASE_AMOUNT"], 2) : ' ' ?>" id="down_payment" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
@@ -207,7 +207,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <input type="text" autocomplete="off" class="form-control" name="grace_period" value="<?php echo isset($buyerSQL["GRACE_PERIOD"]) ? $buyerSQL["GRACE_PERIOD"]  : '' ?>" id="grace_period" required placeholder="EX:1/2/3">
                         </div>
                         <div class="form-group">
-                            <label for="installment_amount"> Installment Amount</label>
+                            <label for="installment_amount"> Installment Amount /PU</label>
                             <input type="text" autocomplete="off" class="form-control" value="<?php echo isset($singleProduct["INSTALLMENT_AMOUNT"]) ? $singleProduct["INSTALLMENT_AMOUNT"] : '' ?>" name="installment_amount" value="" id="installment_amount" required placeholder="EX:5,00,000.00">
                         </div>
                         <div class="form-group">
