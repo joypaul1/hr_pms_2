@@ -445,8 +445,8 @@ $basePath =  $_SESSION['basePath'];
         <button data-href="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" type="button" class="btn delete_check"><i class="fa fa-print"></i> Confirm and Print </button>
     </footer>
 
-
-    <script src="http://localhost/rHRT/assets/vendor/libs/jquery/jquery.js"></script>
+    
+    <script src="<?php echo $basePath.'/assets/vendor/libs/jquery/jquery.js' ?>"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </body>
@@ -494,9 +494,6 @@ $basePath =  $_SESSION['basePath'];
                             window.location = response.link;
 
                         });
-                        // swal.fire('Deleted!', response.message, response.status);
-
-                        // location.reload(); // Reload the page
                     })
                     .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
