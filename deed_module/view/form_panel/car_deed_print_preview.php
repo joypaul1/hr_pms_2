@@ -145,7 +145,6 @@ $_POST['sales_amount'] = str_replace(',', '', $_POST['sales_amount']) * $unint;
 $_POST['down_payment'] = str_replace(',', '', $_POST['down_payment']) * $unint;
 $_POST['lease_amount'] = str_replace(',', '', $_POST['lease_amount']) * $unint;
 $_POST['installment_amount'] = str_replace(',', '', $_POST['installment_amount']) * $unint;
-// print_r($_POST);
 ?>
 
 <body>
