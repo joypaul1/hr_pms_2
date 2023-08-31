@@ -608,15 +608,15 @@ function isActive($url)
                     <i class="menu-icon tf-icons bx bx-file "></i>
                     <div>Deed Module</div>
                 </a>
-
+ <!-- if (checkPermission('car-deed-form')) -->
                 <ul class="menu-sub">
-                    <?php if (checkPermission('hr-offboarding-create') || checkPermission('hr-offboarding-report')) { ?>
+                    <?php  ?>
                         <li class="menu-item <?php echo isActive('/deed_module/view/form_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Form Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php if (checkPermission('car-deed-form')) { ?>
+                                <?php { ?>
                                     <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/deed_module/view/form_panel/create.php" class="menu-link">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create </div>
@@ -639,7 +639,7 @@ function isActive($url)
                                 </li>
                             </ul>
                         </li>
-                    <?php } ?>
+                    <?php  ?>
 
 
                 </ul>
