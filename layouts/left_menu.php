@@ -603,48 +603,99 @@ function isActive($url)
             <!-- Report-list -->
             <!-- car Deed -->
 
-            <li class="menu-item  <?php echo isActive('/deed_module/view'); ?>">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-file "></i>
-                    <div>Deed Module</div>
-                </a>
- <!-- if (checkPermission('car-deed-form')) -->
-                <ul class="menu-sub">
-                    <?php  ?>
+            <?php if (checkPermission('deed-create')) { ?>
+
+                <li class="menu-item  <?php echo isActive('/deed_module/view'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-file "></i>
+                        <div>Deed Module</div>
+                    </a>
+                    <ul class="menu-sub">
+
                         <li class="menu-item <?php echo isActive('/deed_module/view/form_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Form Panel</div>
                             </a>
                             <ul class="menu-sub">
-                                <?php { ?>
+                                <?php if (checkPermission('deed-create')) {  ?>
                                     <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/deed_module/view/form_panel/create.php" class="menu-link">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create </div>
                                         </a>
                                     </li>
                                 <?php } ?>
-                                <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_doc.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php" class="menu-link">
-                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Upload Doc.
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_check.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_check.php" class="menu-link">
-                                        <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Upload Check
-                                        </div>
-                                    </a>
-                                </li>
+                                <?php if (checkPermission('upload-document')) {  ?>
+
+                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_doc.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php" class="menu-link">
+                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Upload Doc.
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+
+                                <?php if (checkPermission('upload-check')) {  ?>
+
+                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_check.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_check.php" class="menu-link">
+                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Upload Check
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+
                             </ul>
                         </li>
-                    <?php  ?>
+                        <?php  ?>
+
+                        <?php if (checkPermission('report-one')) {  ?>
+                            <li class="menu-item <?php echo isActive('/deed_module/view/report_panel'); ?>">
+                                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                    <div>Report Panel</div>
+                                </a>
+                                <ul class="menu-sub">
+                                    <?php if (checkPermission('report-one')) {  ?>
+
+                                        <li class="menu-item <?php echo isActive('/deed_module/view/report_panel/create.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/deed_module/view/report_panel/create.php" class="menu-link">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report 1 </div>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
+
+                                </ul>
+                            </li>
+                        <?php  } ?>
 
 
-                </ul>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>User Manual</div>
+                            </a>
+                            <ul class="menu-sub">
 
-            </li>
+                                <li class="menu-item ">
+                                    <a href="#" class="menu-link">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Module </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item ">
+                                    <a href="#" class="menu-link">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Root Path </div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+
+                    </ul>
+
+                </li>
+            <?php } ?>
 
 
             <!-- car Deed -->
