@@ -4,15 +4,10 @@ require_once('../inc/config.php');
 $basePath =  $_SESSION['basePath'];
 $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
 $folderPath = "../uploads/";
-
 $imageStatus = '';
-$session_id = '1'; // User session id
-
 
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
 if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
-
-    include_once '../action/getExtension.php';
     pathExitOrCreate();
     $imagename = $_FILES['file']['name'];
     $size = $_FILES['file']['size'];
@@ -92,18 +87,24 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
     session_start();
     $_SESSION['imageStatus'] = $imageStatus;
     header("location:" . $basePath . "/imageChange.php");
-
     exit();
 }
 
 
 function pathExitOrCreate()
-{
-    // $basePath =  $_SESSION['basePath'];
+{ 
     $folderPath = "../uploads/";
-    // $folderPath = $basePath.'/uploads';
-
     if (!file_exists($folderPath)) {
         mkdir($folderPath, 0777, true);
     }
+}
+function getExtension($str)
+{
+    $i = strrpos($str, ".");
+    if (!$i) {
+        return "";
+    }
+    $l = strlen($str) - $i;
+    $ext = substr($str, $i + 1, $l);
+    return $ext;
 }

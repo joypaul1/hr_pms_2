@@ -47,8 +47,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             <input type="hidden" name="actionType" value="car_deed">
             <div class="card-body row">
                 <div class="col-md-7 ">
-                    <div style="
-                    border: 1px solid #eee5e5;
+                    <div style="border: 1px solid #eee5e5;
                     padding: 1%;
                     margin: 1%;
                 ">

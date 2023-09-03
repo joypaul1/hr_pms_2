@@ -1,23 +1,12 @@
 <?php
 session_start();
-// require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
+require_once('../../helper/imageTrait.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
-
-    $deedSQL  = oci_parse($objConnect, "select * from LEASE_ALL_INFO_ERP
-    where DOCNUMBR='XTA00030'");
-    oci_execute($deedSQL);
-    $deedSQLData = oci_fetch_assoc($deedSQL);
-    // print('<pre>');
-    // print_r($deedSQLData);
-    // print('</pre>');
-}
-
-if (($_GET["deedPrintData"])) {
+if (isset($_GET["deedPrintData"])) {
 
     $INVOICE_NO = trim($_GET['deedPrintData']['invoice_number']);
     $INVOICE_DATE = date('d/m/Y', strtotime(trim($_GET['deedPrintData']['date'])));
@@ -58,7 +47,7 @@ if (($_GET["deedPrintData"])) {
     $inserted_Id = [];
     try {
         foreach ($REF_NUMBER as $key => $refValue) {
-            $sql ="INSERT INTO DEED_INFO (INVOICE_NO,INVOICE_DATE,REF_NUMBER,CHASSIS_NO,ENG_NO,SALES_AMOUNT,DP,LEASE_AMOUNT,NUMBER_OF_CHECK,BRAND, PRODUCT_CODE_NAME,            INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME,CUST_ADDRESS,FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,ENTRY_DATE,ENTRY_BY) 
+            $sql = "INSERT INTO DEED_INFO (INVOICE_NO,INVOICE_DATE,REF_NUMBER,CHASSIS_NO,ENG_NO,SALES_AMOUNT,DP,LEASE_AMOUNT,NUMBER_OF_CHECK,BRAND, PRODUCT_CODE_NAME,            INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME,CUST_ADDRESS,FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,ENTRY_DATE,ENTRY_BY) 
                 VALUES ('$INVOICE_NO',
                     TO_DATE('$INVOICE_DATE', 'DD/MM/YYYY'),
                     '$REF_NUMBER[$key]',
@@ -89,11 +78,11 @@ if (($_GET["deedPrintData"])) {
             // Bind the parameter for the inserted ID
             oci_bind_by_name($deedSQL, ':inserted_id', $insertedId, 10); // Assuming the ID column is of type NUMBER(10)
 
-                
+
             if (oci_execute($deedSQL)) {
                 // Insertion was successful for this iteration
                 oci_commit($objConnect); // Commit the transaction
-                array_push($inserted_Id,$insertedId);
+                array_push($inserted_Id, $insertedId);
                 // echo json_encode($inserted_Id); 
             } else {
                 $response['status'] = false;
@@ -105,7 +94,7 @@ if (($_GET["deedPrintData"])) {
         // ?inserted_id=
         $inserted_Id = implode(',', $inserted_Id);
         $response['status']  = true;
-        $response['link']  = $basePath.'/deed_module/view/form_panel/car_deed_print_form.php?inserted_id='.$inserted_Id;
+        $response['link']  = $basePath . '/deed_module/view/form_panel/car_deed_print_form.php?inserted_id=' . $inserted_Id;
         $response['message'] = 'Data Inserted Successfully ...';
         echo json_encode($response);
         exit();
@@ -115,4 +104,29 @@ if (($_GET["deedPrintData"])) {
         echo json_encode($response);
         exit();
     }
+}
+
+
+$imageStatus = '';
+
+$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
+
+if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
+ 
+    $filename = $_FILES["uploadfile"]["name"];
+    $tempname = $_FILES["uploadfile"]["tmp_name"];
+    $folder = "./images/" . $filename;
+    // Now let's move the uploaded image into the folder: image
+    if (move_uploaded_file($tempname, $folder)) {
+        echo "<h3>  Image uploaded successfully!</h3>";
+    } else {
+        echo "<h3>  Failed to upload image!</h3>";
+    }
+    
+} 
+
+
+function  imageSet($image) {
+    
+    echo 111; 
 }
