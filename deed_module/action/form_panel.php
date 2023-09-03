@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once('../../inc/connoracle.php');
-require_once('../../helper/imageTrait.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 
@@ -112,21 +111,25 @@ $imageStatus = '';
 $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
 
 if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
- 
-    $filename = $_FILES["uploadfile"]["name"];
-    $tempname = $_FILES["uploadfile"]["tmp_name"];
-    $folder = "./images/" . $filename;
-    // Now let's move the uploaded image into the folder: image
-    if (move_uploaded_file($tempname, $folder)) {
-        echo "<h3>  Image uploaded successfully!</h3>";
+
+    $filename = $_FILES["file"]["name"];
+    $newFileName = time() . '.' . pathinfo($filename, PATHINFO_EXTENSION);;
+    $tempname = $_FILES["file"]["tmp_name"];
+    $folder = "../../images/";
+
+    // Append the uploaded filename to the destination folder path
+    $destination = $folder . $newFileName;
+
+    if (move_uploaded_file($tempname, $destination)) {
+        echo "<h3>Image uploaded successfully!</h3>";
     } else {
-        echo "<h3>  Failed to upload image!</h3>";
+        echo "<h3>Failed to upload image!</h3>";
     }
-    
-} 
+}
 
 
-function  imageSet($image) {
-    
-    echo 111; 
+function  imageSet($image)
+{
+
+    echo 111;
 }
