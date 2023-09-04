@@ -139,12 +139,11 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
                 '$minID',
                 '$deedIDS',
                 '$invoice_id',
-                'IMAGE_URL',
+                '$basePath',
                 '$sqlInname',
                 '$emp_session_id',
                 SYSDATE)");
-            // echo( $deedSQL);
-            // die();
+
             $result = oci_execute($deedSQL);
             if ($result) {
                 $message = [

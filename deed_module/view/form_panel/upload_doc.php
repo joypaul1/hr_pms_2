@@ -56,7 +56,6 @@ if (!checkPermission('upload-document')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
         $leftSideName  = 'Deed List';
@@ -117,10 +116,6 @@ if (!checkPermission('upload-document')) {
                                     GROUP BY
                                         D.INVOICE_NO, DPF.INVOICE_NO";
 
-
-                        // echo $SQLQUERY;
-                        // echo $v_start_date;
-                        // echo $v_end_date;
                         // Prepare the SQL statement
                         $stmt = oci_parse($objConnect, $SQLQUERY);
 
@@ -131,10 +126,8 @@ if (!checkPermission('upload-document')) {
                         // Execute the query    
                         if (oci_execute($stmt)) {
                             $number = 0;
-                            // Fetch and process the results
                             while ($row = oci_fetch_assoc($stmt)) {
                                 $number++;
-                                // print_r($row);
                         ?>
                                 <tr class="text-center">
                                     <td> <?php echo  str_pad($number, 2, '0', STR_PAD_LEFT) ?></td>
@@ -147,7 +140,7 @@ if (!checkPermission('upload-document')) {
                                     </td>
                                     <td>
                                         <?php if ($row['PDF_STATUS'] == 'true') {
-                                            echo "<a target='_blank' href='$basePath".'/'.$row['PDF_LINK']."'> <span class='badge bg-label-info'>view file <i class='bx bxs-file'></i> </span></a>";
+                                            echo "<a target='_blank' href='$basePath" . '/' . $row['PDF_LINK'] . "'> <span class='badge bg-label-info'>view file <i class='bx bxs-file'></i> </span></a>";
                                         } else {  ?>
                                             <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
                                         <?php } ?>
