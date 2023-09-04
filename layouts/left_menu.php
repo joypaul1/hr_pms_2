@@ -658,9 +658,9 @@ function isActive($url)
                                 <ul class="menu-sub">
                                     <?php if (checkPermission('report-one')) {  ?>
 
-                                        <li class="menu-item <?php echo isActive('/deed_module/view/report_panel/create.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/deed_module/view/report_panel/create.php" class="menu-link">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report 1 </div>
+                                        <li class="menu-item <?php echo isActive('/deed_module/view/report_panel/complete_deed.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/deed_module/view/report_panel/complete_deed.php" class="menu-link">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Complete Deed </div>
                                             </a>
                                         </li>
                                     <?php } ?>
