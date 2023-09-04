@@ -76,6 +76,7 @@ if (!checkPermission('upload-document')) {
                     <thead style="background: beige;">
                         <tr class="text-center">
                             <th>Sl</th>
+                            <th>ID</th>
                             <th>Invoice Number</th>
                             <th>Total Unit</th>
                             <th colspan="2"> Action</th>
@@ -95,7 +96,9 @@ if (!checkPermission('upload-document')) {
                         } else {
                             $v_end_date = date('d/m/Y');
                         }
-                        $SQLQUERY = "SELECT D.INVOICE_NO,
+                        $SQLQUERY = "SELECT 
+						                MIN(d.ID) ID,
+						                D.INVOICE_NO,
                                         COUNT(D.INVOICE_NO) AS INVOICE_NO_COUNT,
                                         LISTAGG(D.ID, ', ') WITHIN GROUP (ORDER BY D.ID) AS ID_LIST
                                         FROM DEED_INFO D
@@ -120,6 +123,7 @@ if (!checkPermission('upload-document')) {
                         ?>
                                 <tr class="text-center">
                                     <td> <?php echo  str_pad($number, 2, '0', STR_PAD_LEFT) ?></td>
+                                    <td> <?php echo $row['ID'] ?></td>
                                     <td> <?php echo $row['INVOICE_NO'] ?></td>
                                     <td><span class="badge badge-center rounded-pill bg-warning">0<?php echo $row['INVOICE_NO_COUNT'] ?> </span> </td>
                                     <td>
