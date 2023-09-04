@@ -112,24 +112,57 @@ $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG",
 
 if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
 
-    $filename = $_FILES["file"]["name"];
-    $newFileName = time() . '.' . pathinfo($filename, PATHINFO_EXTENSION);;
-    $tempname = $_FILES["file"]["tmp_name"];
-    $folder = "../../images/";
+    date_default_timezone_set("Asia/Dhaka");
+    $invoice_id     = $_POST["invoice_no"];
+    $filename       = $_FILES["file"]["name"];
+    if ($filename) {
+        $newFileName    = $invoice_id . '_' . date('d_m_Y_h_i_s_a') . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+        $tempname       = $_FILES["file"]["tmp_name"];
+        $folderPath     = "../../uploads/deed/";
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0777, true);
+        }
 
-    // Append the uploaded filename to the destination folder path
-    $destination = $folder . $newFileName;
+        // Append the uploaded filename to the destination folder path
+        $destination = $folderPath . $newFileName;
+        $sqlInname = str_replace('../','',$destination);
 
-    if (move_uploaded_file($tempname, $destination)) {
-        echo "<h3>Image uploaded successfully!</h3>";
+        if (move_uploaded_file($tempname, $destination)) {
+          
+            $deedSQL = oci_parse($objConnect, "INSERT INTO DEED_INFO_DOC_PDF (
+                 DEED_INFO_ID, IMAGE_URL,PDF_NAME, ENTRY_BY, ENTRY_DATE) 
+                VALUES (
+                '$invoice_id',
+                'IMAGE_URL',
+                '$sqlInname',
+                '$emp_session_id',
+                SYSDATE)");
+            // echo( $deedSQL);
+            // die();
+            $result = oci_execute($deedSQL);
+            if ($result) {
+                $imageStatus = "The file has been uploaded successfully.";
+                $_SESSION['imageStatus'] = $imageStatus;
+                header("location:" . $basePath . "/deed_module/view/form_panel/upload.php?invoice_no=$invoice_id");
+                exit();
+            } else {
+                // oci_error($deedSQL)
+                $imageStatus = "Something went wrong file uploading! " . oci_error($deedSQL)['message'];
+                $_SESSION['imageStatus'] = $imageStatus;
+                header("location:" . $basePath . "/deed_module/view/form_panel/upload.php?invoice_no=$invoice_id");
+                exit();
+            }
+        } else {
+            $imageStatus = "Failed! Something went wrong file uploading!";
+            $_SESSION['imageStatus'] = $imageStatus;
+            header("location:" . $basePath . "/deed_module/view/form_panel/upload.php?invoice_no=$invoice_id");
+            exit();
+            // echo "<h3>Failed to upload image!</h3>";
+        }
     } else {
-        echo "<h3>Failed to upload image!</h3>";
+        $imageStatus = 'Please select a file to upload!';
+        $_SESSION['imageStatus'] = $imageStatus;
+        header("location:" . $basePath . "/deed_module/view/form_panel/upload.php?invoice_no=$invoice_id");
+        exit();
     }
-}
-
-
-function  imageSet($image)
-{
-
-    echo 111;
 }

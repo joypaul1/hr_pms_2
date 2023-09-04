@@ -14,8 +14,8 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
     if (strlen($imagename)) {
         $ext = strtolower(getExtension($imagename));
         if (in_array($ext, $valid_formats)) {
-            if ($size < (2048 * 2048)) // Image size max 2 MB
-            {
+            // if ($size < (2048 * 2048)) // Image size max 2 MB
+            // {
                 $actual_image_name = time() . "." . $ext;
                 $uploadedfile = $_FILES['file']['tmp_name'];
 
@@ -54,19 +54,20 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
                         exit();
                     }
                 } else {
-                    $imageStatus = "Something went wrong uploading!";
+                   
+                    $imageStatus = "Something went wrong file uploading!";
                     session_start();
                     $_SESSION['imageStatus'] = $imageStatus;
                     header("location:" . $basePath . "/imageChange.php");
                     exit();
                 }
-            } else {
-                $imageStatus = "Image file size max 2 MB";
-                session_start();
-                $_SESSION['imageStatus'] = $imageStatus;
-                header("location:" . $basePath . "/imageChange.php");
-                exit();
-            }
+            // } else {
+            //     $imageStatus = "Image file size max 2 MB";
+            //     session_start();
+            //     $_SESSION['imageStatus'] = $imageStatus;
+            //     header("location:" . $basePath . "/imageChange.php");
+            //     exit();
+            // }
         } else {
             $imageStatus = 'Sorry, only JPG, JPEG, PNG, BMP,GIF, & PDF files are allowed to upload!';
             session_start();

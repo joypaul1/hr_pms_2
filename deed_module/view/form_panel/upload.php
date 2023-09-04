@@ -19,19 +19,19 @@ if (!checkPermission('upload-check')) {
         <div class="col-xxl">
             <div class="card mb-4">
                 <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="mb-0">Update Document For Invoice Number : <?php echo $_GET['invoice_no']?> </h5>
+                    <h5 class="mb-0">Update Document For Invoice Number : <?php echo $_GET['invoice_no'] ?> </h5>
 
                 </div>
                 <div class="card-body">
-                <!-- deed_module\action\form_panel.php -->
                     <form action="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" method="post" enctype="multipart/form-data" id="form">
+                    <input type="hidden" name="invoice_no" value="<?php echo $_GET['invoice_no'] ?>">
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Document </label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control" id="fileToUpload" name="file" />
+                                <input type="file" class="form-control" id="fileToUpload" name="file" required />
                                 <?php if (!empty($_SESSION['imageStatus'])) {
                                     echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
-                                unset($_SESSION['imageStatus']);
+                                    unset($_SESSION['imageStatus']);
                                 }
                                 ?>
                             </div>
