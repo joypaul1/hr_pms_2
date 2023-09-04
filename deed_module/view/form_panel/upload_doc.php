@@ -95,7 +95,7 @@ if (!checkPermission('upload-document')) {
                         } else {
                             $v_end_date = date('d/m/Y');
                         }
-                        
+
                         $SQLQUERY = "SELECT
                                         MIN(D.ID) AS MIN_ID,
                                         D.INVOICE_NO,
@@ -104,8 +104,9 @@ if (!checkPermission('upload-document')) {
                                         LISTAGG(D.REF_NUMBER, ', ') WITHIN GROUP (ORDER BY D.ID) AS REF_NUMBER_LIST,
                                         CASE 
                                             WHEN D.INVOICE_NO = DPF.INVOICE_NO THEN 'true'
-                                            ELSE 'false' END 
-                                        AS PDF_STATUS
+                                            ELSE 'false'
+                                        END AS PDF_STATUS,
+                                        (SELECT PDF_NAME FROM DEED_INFO_DOC_PDF WHERE INVOICE_NO = D.INVOICE_NO) AS PDF_LINK
                                     FROM
                                         DEED_INFO D
                                     LEFT JOIN
@@ -115,6 +116,7 @@ if (!checkPermission('upload-document')) {
                                         AND TRUNC(D.ENTRY_DATE) <= TO_DATE(:v_end_date, 'DD/MM/YYYY')
                                     GROUP BY
                                         D.INVOICE_NO, DPF.INVOICE_NO";
+
 
                         // echo $SQLQUERY;
                         // echo $v_start_date;
@@ -144,10 +146,10 @@ if (!checkPermission('upload-document')) {
                                         <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_form.php?inserted_id=' . $row['ID_LIST'] ?>" class="btn btn-sm btn-outline-primary">View Deed <i class='bx bx-right-arrow'></i></a>
                                     </td>
                                     <td>
-                                        <?php if($row['PDF_STATUS'] =='true'){ 
-                                            echo "<span class='badge bg-label-info'>All ready Uploaded.</span>";
-                                        }else{  ?>
-                                        <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
+                                        <?php if ($row['PDF_STATUS'] == 'true') {
+                                            echo "<a target='_blank' href='$basePath".'/'.$row['PDF_LINK']."'> <span class='badge bg-label-info'>view file <i class='bx bxs-file'></i> </span></a>";
+                                        } else {  ?>
+                                            <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
