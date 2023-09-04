@@ -130,7 +130,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
         if (move_uploaded_file($tempname, $destination)) {
           
             $deedSQL = oci_parse($objConnect, "INSERT INTO DEED_INFO_DOC_PDF (
-                 DEED_INFO_ID, IMAGE_URL,PDF_NAME, ENTRY_BY, ENTRY_DATE) 
+                 DEED_INFO_ID, DEED_INFO_IDS, INVOICE_NO,IMAGE_URL,PDF_NAME, ENTRY_BY, ENTRY_DATE) 
                 VALUES (
                 '$invoice_id',
                 'IMAGE_URL',
