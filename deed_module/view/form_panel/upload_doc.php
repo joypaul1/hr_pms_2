@@ -24,30 +24,29 @@ if (!checkPermission('upload-document')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" type="date" value="<?php echo date('Y-m-d') ?>" name="start_date" 
-                        class="form-control cust-control" id="title" >
+                        <input required="" type="date" value="<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : date('Y-m-d') ?>" name="start_date" class="form-control cust-control" id="title">
                     </div>
                 </div>
                 <div class="col-sm-3">
-                        <label class="form-label" for="basic-default-fullname">Select End Date*</label>
-                        <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value="<?php echo date('Y-m-d') ?>">
+                    <label class="form-label" for="basic-default-fullname">Select End Date*</label>
+                    <div class="input-group">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar">
+                            </i>
                         </div>
+                        <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value="<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : date('Y-m-d') ?>">
                     </div>
-
-                    <div class="col-sm-2">
-                        <div class="form-group">
-                            <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
-                        </div>
-                    </div>
-
-
                 </div>
+
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                        <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
+                    </div>
+                </div>
+
+
+            </div>
 
         </form>
     </div>
@@ -61,10 +60,10 @@ if (!checkPermission('upload-document')) {
         <!-- table header -->
         <?php
         $leftSideName  = 'Deed List';
-        // if (checkPermission('self-leave-create')) {
-        $rightSideName = 'Deed Create';
-        $routePath     = 'deed_module/view/form_panel/create.php';
-        // }
+        if (checkPermission('deed-create')) {
+            $rightSideName = 'Deed Create';
+            $routePath     = 'deed_module/view/form_panel/create.php';
+        }
 
         include('../../../layouts/_tableHeader.php');
 
@@ -76,8 +75,8 @@ if (!checkPermission('upload-document')) {
                     <thead style="background: beige;">
                         <tr class="text-center">
                             <th>Sl</th>
-                            <th>ID</th>
                             <th>Invoice Number</th>
+                            <th>REF. Number </th>
                             <th>Total Unit</th>
                             <th colspan="2"> Action</th>
                         </tr>
@@ -96,16 +95,30 @@ if (!checkPermission('upload-document')) {
                         } else {
                             $v_end_date = date('d/m/Y');
                         }
-                        $SQLQUERY = "SELECT 
-						                MIN(d.ID) ID,
-						                D.INVOICE_NO,
+                        
+                        $SQLQUERY = "SELECT
+                                        MIN(D.ID) AS MIN_ID,
+                                        D.INVOICE_NO,
                                         COUNT(D.INVOICE_NO) AS INVOICE_NO_COUNT,
-                                        LISTAGG(D.ID, ', ') WITHIN GROUP (ORDER BY D.ID) AS ID_LIST
-                                        FROM DEED_INFO D
-                                        WHERE TRUNC(D.ENTRY_DATE) >= TO_DATE(:v_start_date, 'DD/MM/YYYY')
+                                        LISTAGG(D.ID, ', ') WITHIN GROUP (ORDER BY D.ID) AS ID_LIST,
+                                        LISTAGG(D.REF_NUMBER, ', ') WITHIN GROUP (ORDER BY D.ID) AS REF_NUMBER_LIST,
+                                        CASE 
+                                            WHEN D.INVOICE_NO = DPF.INVOICE_NO THEN 'true'
+                                            ELSE 'false' END 
+                                        AS PDF_STATUS
+                                    FROM
+                                        DEED_INFO D
+                                    LEFT JOIN
+                                        DEED_INFO_DOC_PDF DPF ON D.INVOICE_NO = DPF.INVOICE_NO
+                                    WHERE
+                                        TRUNC(D.ENTRY_DATE) >= TO_DATE(:v_start_date, 'DD/MM/YYYY')
                                         AND TRUNC(D.ENTRY_DATE) <= TO_DATE(:v_end_date, 'DD/MM/YYYY')
-                                        GROUP BY D.INVOICE_NO";
+                                    GROUP BY
+                                        D.INVOICE_NO, DPF.INVOICE_NO";
 
+                        // echo $SQLQUERY;
+                        // echo $v_start_date;
+                        // echo $v_end_date;
                         // Prepare the SQL statement
                         $stmt = oci_parse($objConnect, $SQLQUERY);
 
@@ -119,18 +132,23 @@ if (!checkPermission('upload-document')) {
                             // Fetch and process the results
                             while ($row = oci_fetch_assoc($stmt)) {
                                 $number++;
-
+                                // print_r($row);
                         ?>
                                 <tr class="text-center">
                                     <td> <?php echo  str_pad($number, 2, '0', STR_PAD_LEFT) ?></td>
-                                    <td> <?php echo $row['ID'] ?></td>
                                     <td> <?php echo $row['INVOICE_NO'] ?></td>
+                                    <td> <?php echo $row['REF_NUMBER_LIST'] ?></td>
+
                                     <td><span class="badge badge-center rounded-pill bg-warning">0<?php echo $row['INVOICE_NO_COUNT'] ?> </span> </td>
                                     <td>
                                         <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_form.php?inserted_id=' . $row['ID_LIST'] ?>" class="btn btn-sm btn-outline-primary">View Deed <i class='bx bx-right-arrow'></i></a>
                                     </td>
                                     <td>
-                                        <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
+                                        <?php if($row['PDF_STATUS'] =='true'){ 
+                                            echo "<span class='badge bg-label-info'>All ready Uploaded.</span>";
+                                        }else{  ?>
+                                        <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
+                                        <?php } ?>
                                     </td>
                                 </tr>
 

@@ -25,6 +25,8 @@ if (!checkPermission('upload-check')) {
                 <div class="card-body">
                     <form action="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" method="post" enctype="multipart/form-data" id="form">
                     <input type="hidden" name="invoice_no" value="<?php echo $_GET['invoice_no'] ?>">
+                    <input type="hidden" name="min_id" value="<?php echo $_GET['min_id'] ?>">
+                    <input type="hidden" name="ids" value="<?php echo $_GET['ids'] ?>">
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Document </label>
                             <div class="col-sm-10">
