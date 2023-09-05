@@ -637,10 +637,10 @@ function isActive($url)
 
                                 <?php if (checkPermission('upload-check')) {  ?>
 
-                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_check.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_check.php" class="menu-link">
+                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_cheque.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_cheque.php" class="menu-link">
                                             <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                                Upload Check
+                                                Upload Cheque
                                             </div>
                                         </a>
                                     </li>

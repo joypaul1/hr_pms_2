@@ -2,11 +2,13 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('upload-check')) {
+if (!checkPermission('upload-document')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
 ?>
+
+
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -14,32 +16,24 @@ if (!checkPermission('upload-check')) {
     <div class="card card-body">
         <form action="" method="post">
             <div class="row justify-content-center">
-                <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>' />
+
                 <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" value="<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : date('Y-m-d') ?>" name="start_date" class="form-control cust-control" id="title">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Select End Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value="<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : date('Y-m-d') ?>">
-                    </div>
+                    <label class="form-label" for="basic-default-fullname">Search By Invoice No. *</label>
+                    <input required="" type="text" name="serach_inv_id" class="form-control cust-control" value="<?php echo isset($_POST['serach_inv_id']) ? $_POST['serach_inv_id'] : null ?>">
                 </div>
 
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_cheque.php">
+                            <button class="form-control  btn btn-sm btn-warning" type="button">Reset Data</button>
+                        </a>
                     </div>
                 </div>
 
@@ -82,44 +76,36 @@ if (!checkPermission('upload-check')) {
                         <tr class="text-center">
                         </tr>
                         <?php
-                        if (isset($_REQUEST['start_date'])) {
-                            $v_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-                        } else {
-                            $v_start_date = date('d/m/Y');
+                        $serach_inv_id = null;
+                        if (isset($_REQUEST['serach_inv_id'])) {
+                            $serach_inv_id = $_REQUEST['serach_inv_id'];
                         }
-                        if (isset($_REQUEST['end_date'])) {
-                            $v_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
-                        } else {
-                            $v_end_date = date('d/m/Y');
-                        }
-
                         $SQLQUERY = "SELECT
                                         MIN(D.ID) AS MIN_ID,
                                         D.INVOICE_NO,
                                         COUNT(D.INVOICE_NO) AS INVOICE_NO_COUNT,
                                         LISTAGG(D.ID, ', ') WITHIN GROUP (ORDER BY D.ID) AS ID_LIST,
                                         LISTAGG(D.REF_NUMBER, ', ') WITHIN GROUP (ORDER BY D.ID) AS REF_NUMBER_LIST,
-                                        CASE 
-                                            WHEN D.INVOICE_NO = DPF.INVOICE_NO THEN 'true'
-                                            ELSE 'false'
-                                        END AS PDF_STATUS,
-                                        (SELECT PDF_NAME FROM DEED_INFO_DOC_PDF WHERE INVOICE_NO = D.INVOICE_NO) AS PDF_LINK
-                                    FROM
+                                    CASE 
+                                        WHEN D.INVOICE_NO = DCF.INVOICE_NO THEN 'true'
+                                        ELSE 'false'
+                                    END AS CHEQUE_STATUS,
+                                    (SELECT PDF_NAME FROM DEED_INFO_CHEQUE_PDF WHERE INVOICE_NO = D.INVOICE_NO) AS PDF_LINK
+                                    FROM 
                                         DEED_INFO D
-                                    LEFT JOIN
-                                        DEED_INFO_DOC_PDF DPF ON D.INVOICE_NO = DPF.INVOICE_NO
-                                    WHERE
-                                        TRUNC(D.ENTRY_DATE) >= TO_DATE(:v_start_date, 'DD/MM/YYYY')
-                                        AND TRUNC(D.ENTRY_DATE) <= TO_DATE(:v_end_date, 'DD/MM/YYYY')
-                                    GROUP BY
-                                        D.INVOICE_NO, DPF.INVOICE_NO";
+                                    LEFT JOIN 
+                                    DEED_INFO_CHEQUE_PDF DCF ON D.INVOICE_NO = DCF.INVOICE_NO
+                                    WHERE 
+                                        (:serach_inv_id IS NULL OR D.INVOICE_NO = :serach_inv_id)
+                                    GROUP BY 
+                                        D.INVOICE_NO, DCF.INVOICE_NO";
+
 
                         // Prepare the SQL statement
                         $stmt = oci_parse($objConnect, $SQLQUERY);
 
                         // Bind the variables
-                        oci_bind_by_name($stmt, ':v_start_date', $v_start_date);
-                        oci_bind_by_name($stmt, ':v_end_date', $v_end_date);
+                        oci_bind_by_name($stmt, ':serach_inv_id', $serach_inv_id);
 
                         // Execute the query    
                         if (oci_execute($stmt)) {
@@ -137,10 +123,10 @@ if (!checkPermission('upload-check')) {
                                         <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_form.php?inserted_id=' . $row['ID_LIST'] ?>" class="btn btn-sm btn-outline-primary">View Deed <i class='bx bx-right-arrow'></i></a>
                                     </td>
                                     <td>
-                                        <?php if ($row['PDF_STATUS'] == 'true') {
+                                        <?php if ($row['CHEQUE_STATUS'] == 'true') {
                                             echo "<a target='_blank' href='$basePath" . '/' . $row['PDF_LINK'] . "'> <span class='badge bg-label-info'>view file <i class='bx bxs-file'></i> </span></a>";
                                         } else {  ?>
-                                            <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/upload.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Document <i class='bx bx-right-arrow'></i></a>
+                                            <a target="_blank" href="<?php echo $basePath . '/deed_module/view/form_panel/uploadCheque.php?invoice_no=' . $row['INVOICE_NO'] . '&min_id=' . $row['MIN_ID'] . '&ids=' . trim($row['ID_LIST'])  ?>" class="btn btn-sm btn-outline-info">Upload Cheque <i class='bx bx-right-arrow'></i></a>
                                         <?php } ?>
                                     </td>
                                 </tr>
@@ -173,6 +159,8 @@ if (!checkPermission('upload-check')) {
 
 </div>
 
+
 <!-- / Content -->
+
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>

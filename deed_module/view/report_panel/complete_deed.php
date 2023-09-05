@@ -130,7 +130,7 @@ if (!checkPermission('upload-document')) {
                                     LEFT JOIN 
                                         DEED_INFO_DOC_PDF DPF ON D.INVOICE_NO = DPF.INVOICE_NO 
                                     LEFT JOIN  
-                                        DEED_INFO_CHECK_PDF DCF ON D.INVOICE_NO = DCF.INVOICE_NO
+                                        DEED_INFO_CHEQUE_PDF DCF ON D.INVOICE_NO = DCF.INVOICE_NO
                                     WHERE 
                                         (:serach_inv_id IS NULL OR D.INVOICE_NO = :serach_inv_id)
                                     GROUP BY 

@@ -106,11 +106,11 @@ if (isset($_GET["deedPrintData"])) {
 }
 
 
-$imageStatus = '';
+// $imageStatus = '';
 
-$valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
+// $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
 
-if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
+if (isset($_POST["submit"]) && ($_POST["actionType"] == 'doc_upload') && !empty($_FILES["file"]["name"])) {
 
     date_default_timezone_set("Asia/Dhaka");
     $deedIDS = $_POST['ids'];
@@ -122,7 +122,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
     if ($filename) {
         $newFileName    = $invoice_id . '_' . date('d_m_Y_h_i_s_a') . '.' . pathinfo($filename, PATHINFO_EXTENSION);
         $tempname       = $_FILES["file"]["tmp_name"];
-        $folderPath     = "../../uploads/deed/";
+        $folderPath     = "../../uploads/deed/document/";
         if (!file_exists($folderPath)) {
             mkdir($folderPath, 0777, true);
         }
@@ -169,6 +169,68 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
         $imageStatus = 'Please select a file to upload!';
         $_SESSION['imageStatus'] = $imageStatus;
         header("location:" . $basePath . "/deed_module/view/form_panel/upload.php?invoice_no=$invoice_id&min_id=$minID&ids=$deedIDS");
+        exit();
+    }
+}
+if (isset($_POST["submit"]) && ($_POST["actionType"] == 'cheque_upload') && !empty($_FILES["file"]["name"])) {
+
+    date_default_timezone_set("Asia/Dhaka");
+    $deedIDS = $_POST['ids'];
+    $minID = $_POST['min_id'];
+    // print_r($_POST);
+    // die();
+    $invoice_id     = $_POST["invoice_no"];
+    $filename       = $_FILES["file"]["name"];
+    if ($filename) {
+        $newFileName    = $invoice_id . '_' . date('d_m_Y_h_i_s_a') . '.' . pathinfo($filename, PATHINFO_EXTENSION);
+        $tempname       = $_FILES["file"]["tmp_name"];
+        $folderPath     = "../../uploads/deed/cheque/";
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0777, true);
+        }
+
+        // Append the uploaded filename to the destination folder path
+        $destination = $folderPath . $newFileName;
+        $sqlInname = str_replace('../', '', $destination);
+
+        if (move_uploaded_file($tempname, $destination)) {
+
+            $deedSQL = oci_parse($objConnect, "INSERT INTO DEED_INFO_CHEQUE_PDF (
+                DEED_INFO_ID, DEED_INFO_IDS, INVOICE_NO,IMAGE_URL,PDF_NAME, ENTRY_BY, ENTRY_DATE) 
+                VALUES (
+                '$minID',
+                '$deedIDS',
+                '$invoice_id',
+                '$basePath',
+                '$sqlInname',
+                '$emp_session_id',
+                SYSDATE)");
+
+            $result = oci_execute($deedSQL);
+            if ($result) {
+                $message = [
+                    'text' => 'The file has been uploaded successfully.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
+                header("location:" . $basePath . "/deed_module/view/form_panel/upload_cheque.php");
+                exit();
+            } else {
+                $imageStatus = "Something went wrong file uploading! " . oci_error($deedSQL)['message'];
+                $_SESSION['imageStatus'] = $imageStatus;
+                header("location:" . $basePath . "/deed_module/view/form_panel/uploadCheque.php?invoice_no=$invoice_id&min_id=$minID&ids=$deedIDS");
+                exit();
+            }
+        } else {
+            $imageStatus = "Failed! Something went wrong file uploading!";
+            $_SESSION['imageStatus'] = $imageStatus;
+            header("location:" . $basePath . "/deed_module/view/form_panel/uploadCheque.php?invoice_no=$invoice_id&min_id=$minID&ids=$deedIDS");
+            exit();
+        }
+    } else {
+        $imageStatus = 'Please select a file to upload!';
+        $_SESSION['imageStatus'] = $imageStatus;
+        header("location:" . $basePath . "/deed_module/view/form_panel/uploadCheque.php?invoice_no=$invoice_id&min_id=$minID&ids=$deedIDS");
         exit();
     }
 }

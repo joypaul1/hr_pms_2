@@ -24,12 +24,12 @@ if (!checkPermission('upload-check')) {
                 </div>
                 <div class="card-body">
                     <form action="<?php echo $basePath . '/deed_module/action/form_panel.php' ?>" method="post" enctype="multipart/form-data" id="form">
-                    <input type="hidden" name="actionType" value="doc_upload">
+                    <input type="hidden" name="actionType" value="cheque_upload">
                     <input type="hidden" name="invoice_no" value="<?php echo $_GET['invoice_no'] ?>">
                     <input type="hidden" name="min_id" value="<?php echo $_GET['min_id'] ?>">
                     <input type="hidden" name="ids" value="<?php echo $_GET['ids'] ?>">
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Document </label>
+                            <label class="col-sm-2 col-form-label" for="fileToUpload">Deed Cheque Upload</label>
                             <div class="col-sm-10">
                                 <input type="file" class="form-control" id="fileToUpload" name="file" required />
                                 <?php if (!empty($_SESSION['imageStatus'])) {
