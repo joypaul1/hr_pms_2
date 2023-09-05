@@ -16,7 +16,6 @@ if (!checkPermission('upload-document')) {
     <div class="card card-body">
         <form action="" method="post">
             <div class="row justify-content-center">
-                <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>' />
 
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Search By Invoice No. *</label>
