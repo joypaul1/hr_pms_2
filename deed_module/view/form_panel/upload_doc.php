@@ -1,16 +1,16 @@
 <?php
+
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
+$dynamic_link_js = $basePath.'/assets/js/ui-modals.js';
 if (!checkPermission('upload-document')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
 ?>
 
-
 <!-- / Content -->
-
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body">
