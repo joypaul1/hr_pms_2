@@ -66,9 +66,9 @@ if (!checkPermission('upload-document')) {
                 <button class="btn btn-info" onclick="exportExcel()">
                     <span class="tf-icons bx bxs-file-export"></span>&nbsp; Excel
                 </button>
-                <!-- <button class="btn btn-info " onclick="printPage()">
-                    <span class="tf-icons bx bxs-file-pdf"></span>&nbsp; PDF
-                </button> -->
+                    <!-- <button class="btn btn-info " onclick="printPage()">
+                        <span class="tf-icons bx bxs-file-pdf"></span>&nbsp; PDF
+                    </button> -->
             </div>
             <div class="table-responsive text-nowrap" id='printableArea'>
                 <table class="table table-bordered" id="downloadSection" border="1" cellspacing="0" cellpadding="0">
