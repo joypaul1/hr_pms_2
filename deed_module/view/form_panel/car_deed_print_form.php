@@ -128,7 +128,7 @@ if (isset($_GET['inserted_id'])) {
 
     // Split the comma-separated values into an array
     $insertedIdArray = explode(',', $insertedIds);
-    $deedSQL  = oci_parse($objConnect, "SELECT INVOICE_NO, INVOICE_DATE, REF_NUMBER, CHASSIS_NO, ENG_NO, SALES_AMOUNT, DP, NUMBER_OF_CHECK, BRAND, PRODUCT_CODE_NAME,INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT,GRACE_PERIOD,POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME, CUST_ADDRESS,FIRST_GUARANTOR,FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO,SECOND_GUARANTOR_ADDRESS, ENTRY_DATE FROM DEED_INFO WHERE ID = '$insertedIdArray[0]'");
+    $deedSQL  = oci_parse($objConnect, "SELECT INVOICE_NO, INVOICE_DATE, REF_NUMBER, CHASSIS_NO, ENG_NO, SALES_AMOUNT, DP,LEASE_AMOUNT, NUMBER_OF_CHECK, BRAND, PRODUCT_CODE_NAME,INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT,GRACE_PERIOD,POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME, CUST_ADDRESS,FIRST_GUARANTOR,FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO,SECOND_GUARANTOR_ADDRESS, ENTRY_DATE FROM DEED_INFO WHERE ID = '$insertedIdArray[0]'");
     oci_execute($deedSQL);
 
     $comData = oci_fetch_assoc($deedSQL);
@@ -339,7 +339,7 @@ $basePath =  $_SESSION['basePath'];
             </table>
             <br>
             <b><u>SCHEDULE-B</u></b>
-            <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $comData['INSTALLMENT_AMOUNT']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['INSTALLMENT_AMOUNT'], true)) ?>)</b> </b></p>
+            <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $comData['LEASE_AMOUNT']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['LEASE_AMOUNT'], true)) ?>)</b> </b></p>
             <table style="width: 100%;text-align:center">
                 <tr>
                     <th style="text-align: center;" colspan="3"> <u>PAYMENT SCHEDULE</u> </th>

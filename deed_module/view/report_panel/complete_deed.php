@@ -47,36 +47,26 @@ if (!checkPermission('upload-document')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- table header -->
-        <?php
-        // $leftSideName  = 'Deed List';
-        // if (checkPermission('deed-create')) {
-        //     $rightSideName = 'Deed Create';
-        //     $routePath     = 'deed_module/view/form_panel/create.php';
-        // }
 
-        // include('../../../layouts/_tableHeader.php');
-
-        ?>
         <!-- End table  header -->
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered">
+                <table class="table  table-bordered" id="downloadSection"  border="1" cellspacing="0" cellpadding="10" >
                     <thead style="background: beige;">
                         <tr class="text-center">
                             <th> Sl</th>
                             <th> Invoice Number</th>
+                            <th> Document Upload </th>
+                            <th> check Upload </th>
                             <th> REF. Number </th>
                             <th> Total Unit</th>
                             <th> Eng. No. </th>
                             <th> Chassis NO. </th>
-                            <th> Document Upload </th>
-                            <th> check Upload </th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="text-center">
-                        </tr>
+                        
                         <?php
                         // if (isset($_REQUEST['start_date'])) {
                         //     $v_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
@@ -154,6 +144,22 @@ if (!checkPermission('upload-document')) {
                                     <td> <?php echo  str_pad($number, 2, '0', STR_PAD_LEFT) ?></td>
                                     <td> <?php echo $row['INVOICE_NO'] ?></td>
                                     <td>
+                                        <?php if ($row['PDF_STATUS'] == 'true') {
+                                            echo '<span class="badge rounded-pill bg-success">YES</span>';
+                                        } else {
+                                            echo '<span class="badge rounded-pill bg-danger">NO</span>';
+                                        }  ?>
+
+                                    </td>
+                                    <td>
+                                        <?php if ($row['CHECK_STATUS'] == 'true') {
+                                            echo '<span class="badge rounded-pill bg-success">YES</span>';
+                                        } else {
+                                            echo '<span class="badge rounded-pill bg-danger">NO</span>';
+                                        }  ?>
+
+                                    </td>
+                                    <td>
                                         <?php
                                         echo  '<li class="list-group-item list-group-item-primary">' . $row['REF_NUMBER_LIST'] . '</li>';
                                         ?>
@@ -173,22 +179,7 @@ if (!checkPermission('upload-document')) {
                                         ?>
 
                                     </td>
-                                    <td>
-                                        <?php if ($row['PDF_STATUS'] == 'true') {
-                                            echo '<span class="badge rounded-pill bg-success">YES</span>';
-                                        } else {
-                                            echo '<span class="badge rounded-pill bg-danger">NO</span>';
-                                        }  ?>
 
-                                    </td>
-                                    <td>
-                                        <?php if ($row['CHECK_STATUS'] == 'true') {
-                                            echo '<span class="badge rounded-pill bg-success">YES</span>';
-                                        } else {
-                                            echo '<span class="badge rounded-pill bg-danger">NO</span>';
-                                        }  ?>
-
-                                    </td>
                                 </tr>
 
 
@@ -211,6 +202,12 @@ if (!checkPermission('upload-document')) {
                 </table>
 
             </div>
+            <div class="text-center mt-3">
+                <a  class="btn btn-primary " onclick="exportF(this)">
+                    <span class="tf-icons bx bx-download"></span>&nbsp; Excel
+                </a>
+            </div>
+
         </div>
     </div>
     <!--/ Bordered Table -->
@@ -219,7 +216,78 @@ if (!checkPermission('upload-document')) {
 
 </div>
 
-
+<script>
+    // function exportF(elem) {
+        // var table = document.getElementById("downloadSection");
+        // var html = table.outerHTML;
+        // var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        // // elem.setAttribute("href", url);
+        // elem.setAttribute("download", "Visit Assign Report.xls"); // Choose the file name
+        // return false;
+        
+    // }
+</script>
+<script type="text/javascript">
+        function exportF() {
+ 
+            // Variable to store the final csv data
+            var csv_data = [];
+ 
+            // Get each row data
+            var rows = document.getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+ 
+                // Get each column data
+                var cols = rows[i].querySelectorAll('td,th');
+ 
+                // Stores each csv row data
+                var csvrow = [];
+                for (var j = 0; j < cols.length; j++) {
+ 
+                    // Get the text data of each cell
+                    // of a row and push it to csvrow
+                    csvrow.push(cols[j].innerHTML);
+                }
+ 
+                // Combine each column value with comma
+                csv_data.push(csvrow.join(","));
+            }
+ 
+            // Combine each row data with new line character
+            csv_data = csv_data.join('\n');
+ 
+            // Call this function to download csv file 
+            downloadCSVFile(csv_data);
+ 
+        }
+ 
+        function downloadCSVFile(csv_data) {
+ 
+            // Create CSV file object and feed
+            // our csv_data into it
+            CSVFile = new Blob([csv_data], {
+                type: "text/csv"
+            });
+ 
+            // Create to temporary link to initiate
+            // download process
+            var temp_link = document.createElement('a');
+ 
+            // Download csv file
+            temp_link.download = "GfG.csv";
+            var url = window.URL.createObjectURL(CSVFile);
+            temp_link.href = url;
+ 
+            // This link should not be displayed
+            temp_link.style.display = "none";
+            document.body.appendChild(temp_link);
+ 
+            // Automatically click the link to
+            // trigger download
+            temp_link.click();
+            document.body.removeChild(temp_link);
+        }
+    </script>
 <!-- / Content -->
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
