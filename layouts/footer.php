@@ -27,9 +27,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.8/sweetalert2.min.js" integrity="sha512-7x7HoEikRZhV0FAORWP+hrUzl75JW/uLHBbg2kHnPdFmScpIeHY0ieUVSacjusrKrlA/RsA2tDOBvisFmKc3xw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- // Echo the value of $dynamic_link_css to verify its content -->
-<?php if (isset($dynamic_link_js)) { ?>
-    <script src="<?php print_r($dynamic_link_js); ?>"></script>
-<?php } ?>
+<?php if (isset($dynamic_link_js) && count($dynamic_link_js) > 0) {
+    foreach ($dynamic_link_js as $key => $linkJs) {
+        echo "<script src='$linkJs'></script>";
+    }
+} ?>
 <!-- Place this tag in your head or just before your close body tag. -->
 <!-- <script async defer src="https://buttons.github.io/buttons.js"></script> -->
 

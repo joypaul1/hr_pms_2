@@ -1,4 +1,6 @@
 <?php
+$dynamic_link_js[] = 'https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js';
+
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
@@ -7,8 +9,18 @@ if (!checkPermission('upload-document')) {
 }
 
 ?>
+<style>
+    /* Define a CSS style for printing */
+    @media print {
+        body * {
+            visibility: hidden;
+        }
 
-
+        #printableArea {
+            visibility: visible;
+        }
+    }
+</style>
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -50,8 +62,16 @@ if (!checkPermission('upload-document')) {
 
         <!-- End table  header -->
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered" id="downloadSection"  border="1" cellspacing="0" cellpadding="10" >
+            <div class="d-flex justify-content-end gap-1 mb-1">
+                <button class="btn btn-info" onclick="exportExcel()">
+                    <span class="tf-icons bx bxs-file-export"></span>&nbsp; Excel
+                </button>
+                <!-- <button class="btn btn-info " onclick="printPage()">
+                    <span class="tf-icons bx bxs-file-pdf"></span>&nbsp; PDF
+                </button> -->
+            </div>
+            <div class="table-responsive text-nowrap" id='printableArea'>
+                <table class="table table-bordered" id="downloadSection" border="1" cellspacing="0" cellpadding="0">
                     <thead style="background: beige;">
                         <tr class="text-center">
                             <th> Sl</th>
@@ -66,34 +86,15 @@ if (!checkPermission('upload-document')) {
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                         <?php
                         // if (isset($_REQUEST['start_date'])) {
                         //     $v_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
                         // } else {
                         //     $v_start_date = date('d/m/Y');
                         // }
-                        // if (isset($_REQUEST['end_date'])) {
-                        //     $v_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
-                        // } else {
-                        //     $v_end_date = date('d/m/Y');
-                        // }
+                        // TRUNC(D.ENTRY_DATE) >= TO_DATE(:v_start_date, 'DD/MM/YYYY')
 
-                        // $SQLQUERY = "SELECT
-                        //                 MIN(D.ID) AS MIN_ID,
-                        //                 D.INVOICE_NO,
-                        //                 COUNT(D.INVOICE_NO) AS INVOICE_NO_COUNT,
-                        //                 LISTAGG(D.CHASSIS_NO, ', ') WITHIN GROUP (ORDER BY D.ID) AS CHASSIS_NO_LIST,
-                        //                 LISTAGG(D.ENG_NO, ', ') WITHIN GROUP (ORDER BY D.ID) AS ENG_NO_LIST,
-                        //                 LISTAGG(D.REF_NUMBER, ', ') WITHIN GROUP (ORDER BY D.ID) AS REF_NUMBER_LIST
-
-                        //             FROM
-                        //                 DEED_INFO D
-                        //             WHERE
-                        //                 TRUNC(D.ENTRY_DATE) >= TO_DATE(:v_start_date, 'DD/MM/YYYY')
-                        //                 AND TRUNC(D.ENTRY_DATE) <= TO_DATE(:v_end_date, 'DD/MM/YYYY')
-                        //             GROUP BY
-                        //                 D.INVOICE_NO";
 
                         $serach_inv_id = null;
                         if (isset($_REQUEST['serach_inv_id'])) {
@@ -128,10 +129,6 @@ if (!checkPermission('upload-document')) {
 
                         // Prepare the SQL statement
                         $stmt = oci_parse($objConnect, $SQLQUERY);
-
-                        // Bind the variables
-                        // oci_bind_by_name($stmt, ':v_start_date', $v_start_date);
-                        // oci_bind_by_name($stmt, ':v_end_date', $v_end_date);
                         oci_bind_by_name($stmt, ':serach_inv_id', $serach_inv_id);
 
                         // Execute the query    
@@ -166,7 +163,7 @@ if (!checkPermission('upload-document')) {
                                     </td>
 
                                     <td>
-                                        <span class="badge badge-center rounded-pill bg-warning">0 <?php echo $row['INVOICE_NO_COUNT'] ?></span>
+                                        <span class="badge badge-center rounded-pill bg-warning"> <?php echo str_pad($row['INVOICE_NO_COUNT'], 2, '0', STR_PAD_LEFT) ?></span>
                                     </td>
                                     <td>
                                         <?php
@@ -181,7 +178,6 @@ if (!checkPermission('upload-document')) {
                                     </td>
 
                                 </tr>
-
 
                         <?php
                             }
@@ -202,11 +198,7 @@ if (!checkPermission('upload-document')) {
                 </table>
 
             </div>
-            <div class="text-center mt-3">
-                <a  class="btn btn-primary " onclick="exportF(this)">
-                    <span class="tf-icons bx bx-download"></span>&nbsp; Excel
-                </a>
-            </div>
+
 
         </div>
     </div>
@@ -216,78 +208,54 @@ if (!checkPermission('upload-document')) {
 
 </div>
 
-<script>
-    // function exportF(elem) {
-        // var table = document.getElementById("downloadSection");
-        // var html = table.outerHTML;
-        // var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
-        // // elem.setAttribute("href", url);
-        // elem.setAttribute("download", "Visit Assign Report.xls"); // Choose the file name
-        // return false;
-        
-    // }
-</script>
 <script type="text/javascript">
-        function exportF() {
- 
-            // Variable to store the final csv data
-            var csv_data = [];
- 
-            // Get each row data
-            var rows = document.getElementsByTagName('tr');
-            for (var i = 0; i < rows.length; i++) {
- 
-                // Get each column data
-                var cols = rows[i].querySelectorAll('td,th');
- 
-                // Stores each csv row data
-                var csvrow = [];
-                for (var j = 0; j < cols.length; j++) {
- 
-                    // Get the text data of each cell
-                    // of a row and push it to csvrow
-                    csvrow.push(cols[j].innerHTML);
-                }
- 
-                // Combine each column value with comma
-                csv_data.push(csvrow.join(","));
-            }
- 
-            // Combine each row data with new line character
-            csv_data = csv_data.join('\n');
- 
-            // Call this function to download csv file 
-            downloadCSVFile(csv_data);
- 
-        }
- 
-        function downloadCSVFile(csv_data) {
- 
-            // Create CSV file object and feed
-            // our csv_data into it
-            CSVFile = new Blob([csv_data], {
-                type: "text/csv"
-            });
- 
-            // Create to temporary link to initiate
-            // download process
-            var temp_link = document.createElement('a');
- 
-            // Download csv file
-            temp_link.download = "GfG.csv";
-            var url = window.URL.createObjectURL(CSVFile);
-            temp_link.href = url;
- 
-            // This link should not be displayed
-            temp_link.style.display = "none";
-            document.body.appendChild(temp_link);
- 
-            // Automatically click the link to
-            // trigger download
-            temp_link.click();
-            document.body.removeChild(temp_link);
-        }
-    </script>
+    function printPage() {
+        var sTable = document.getElementById('downloadSection').innerHTML;
+
+        // var style = "<style>";
+        // style = style + "table {width: 100%;font: 17px Calibri;}";
+        // style = style + "table, th, td {border: solid 1px #DDD; border-collapse: collapse;";
+        // style = style + "padding: 2px 3px;text-align: center;}";
+        // style = style + "</style>";
+
+        // CREATE A WINDOW OBJECT.
+        var win = window.open('', '', 'height=700,width=700');
+
+        win.document.write('<html><head>');
+        win.document.write('<title>Profile</title>'); // <title> FOR PDF HEADER.
+        // win.document.write(style); // ADD STYLE INSIDE THE HEAD TAG.
+        win.document.write('</head>');
+        win.document.write('<body>');
+        win.document.write(sTable); // THE TABLE CONTENTS INSIDE THE BODY TAG.
+        win.document.write('</body></html>');
+
+        win.document.close(); // CLOSE THE CURRENT WINDOW.
+
+        win.print(); // PRINT THE CONTENTS.
+    }
+
+    function exportExcel() {
+        let type = 'xlsx';
+        const nowDate = new Date();
+        const year = nowDate.getFullYear(); // Get the current year (e.g., 2023)
+        const month = String(nowDate.getMonth() + 1).padStart(2, '0'); // Get the current month (e.g., 09 for September)
+        const day = String(nowDate.getDate()).padStart(2, '0'); // Get the current day of the month (e.g., 07)
+        const formattedDate = `${day}_${month}_${year}`;
+
+        let fname = 'completeDeed_' + formattedDate + '.xlsx';
+        var data = document.getElementById('downloadSection');
+        var excelFile = XLSX.utils.table_to_book(data, {
+            sheet: "sheet1"
+        });
+        XLSX.write(excelFile, {
+            bookType: type,
+            bookSST: true,
+            type: 'base64'
+        });
+        XLSX.writeFile(excelFile, fname);
+
+    }
+</script>
 <!-- / Content -->
 
 <?php require_once('../../../layouts/footer_info.php'); ?>

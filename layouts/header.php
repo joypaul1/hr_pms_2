@@ -64,9 +64,15 @@ $basePath =  $_SESSION['basePath'];
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="<?php echo $basePath ?>/assets/js/config.js"></script>
   <!-- // Echo the value of $dynamic_link_css to verify its content -->
-  <?php if (isset($dynamic_link_css)) { ?>
-    <link rel="stylesheet" type="text/css" href="<?php print_r($dynamic_link_css); ?>">
-  <?php } ?>
+
+  <?php
+  if (isset($dynamic_link_css) && count($dynamic_link_css) > 0) {
+    foreach ($dynamic_link_css as $key => $linkCss) {
+      echo "<link rel='stylesheet' type='text/css' href='$linkCss'/>";
+    }
+  }
+  ?>
+
 
 </head>
 
