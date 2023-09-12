@@ -8,7 +8,7 @@ $basePath =  $_SESSION['basePath'];
 if (isset($_GET["deedPrintData"])) {
 
     $INVOICE_NO = trim($_GET['deedPrintData']['invoice_number']);
-    $INVOICE_DATE = date('d/m/Y', strtotime(trim($_GET['deedPrintData']['date'])));
+    $DELIVERY_DATE = date('d/m/Y', strtotime(trim($_GET['deedPrintData']['date'])));
     $NUMBER_OF_CHECK = trim($_GET['deedPrintData']['number_of_cheque']);
     $BRAND = trim($_GET['deedPrintData']['product_brand']);
     $PRODUCT_CODE_NAME = trim($_GET['deedPrintData']['product_model']);
@@ -46,9 +46,9 @@ if (isset($_GET["deedPrintData"])) {
     $inserted_Id = [];
     try {
         foreach ($REF_NUMBER as $key => $refValue) {
-            $sql = "INSERT INTO DEED_INFO (INVOICE_NO,INVOICE_DATE,REF_NUMBER,CHASSIS_NO,ENG_NO,SALES_AMOUNT,DP,LEASE_AMOUNT,NUMBER_OF_CHECK,BRAND, PRODUCT_CODE_NAME,            INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME,CUST_ADDRESS,FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,ENTRY_DATE,ENTRY_BY) 
+            $sql = "INSERT INTO DEED_INFO (INVOICE_NO,DELIVERY_DATE,REF_NUMBER,CHASSIS_NO,ENG_NO,SALES_AMOUNT,DP,LEASE_AMOUNT,NUMBER_OF_CHECK,BRAND, PRODUCT_CODE_NAME,            INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT, GRACE_PERIOD, POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME,CUST_ADDRESS,FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER, FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR, SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,ENTRY_DATE,ENTRY_BY) 
                 VALUES ('$INVOICE_NO',
-                    TO_DATE('$INVOICE_DATE', 'DD/MM/YYYY'),
+                    TO_DATE('$DELIVERY_DATE', 'DD/MM/YYYY'),
                     '$REF_NUMBER[$key]',
                     '$CHASSIS_NO[$key]',
                     '$ENG_NO[$key]',

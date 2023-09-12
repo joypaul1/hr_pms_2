@@ -128,10 +128,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 $singleProduct = [];
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"])  == 'searchData') {
                     $invoice_id = trim($_POST["invoice_id"]);
-                    $deedSQL = oci_parse($objConnect, "SELECT CUSTOMER_NAME,PARTY_ADDRESS,SALES_AMOUNT,DP,LEASE_AMOUNT,INSTALLMENT_AMOUNT FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = '$invoice_id'");
+                    $deedSQL = oci_parse($objConnect, "SELECT CUSTOMER_NAME,DELIVERY_DATE,PARTY_ADDRESS,SALES_AMOUNT,DP,LEASE_AMOUNT,INSTALLMENT_AMOUNT FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = '$invoice_id'");
                     oci_execute($deedSQL);
                     $singleProduct = oci_fetch_assoc($deedSQL);
-
+                    // print_r($singleProduct);
                     $buyerSQL = oci_parse($objConnect, "SELECT  INVOICE_DATE,FATHERS_NAME, FIRST_GUARANTOR, FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO, SECOND_GUARANTOR_ADDRESS,GETGRASEPERIOD('$invoice_id',POSIBLE_INST_START_DATE) GRACE_PERIOD ,NO_OF_INSTALLMENT,POSIBLE_INST_START_DATE FROM buyers_all_info_data WHERE INVOICE_NO = '$invoice_id'");
                     oci_execute($buyerSQL);
                     $buyerSQL = oci_fetch_assoc($buyerSQL);
@@ -156,8 +156,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <input type="text" class="form-control" name="number_of_cheque" autocomplete="off" id="cheque_number" required placeholder="Cheque Number">
                         </div>
                         <div class="form-group">
-                            <label for="cheque_number"> Invoice Date</label>
-                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" value="<?php echo isset($buyerSQL["INVOICE_DATE"]) ? date('d-m-Y', strtotime($buyerSQL["INVOICE_DATE"])) : '' ?>" autocomplete="off" name="date" id="date">
+                            <label for="cheque_number"> Delivery Date <span  data-bs-toggle="tooltip" title="Invoice Delivery Date"><i class='bx bxs-info-circle' style="color: #03c3ec;"></i></span></label>
+                            <input type="text" required placeholder="dd-mm-yyyy" class="form-control" value="<?php echo isset($buyerSQL["INVOICE_DATE"]) ? date('d-m-Y', strtotime($singleProduct["DELIVERY_DATE"])) : '' ?>" autocomplete="off" name="date" id="date">    
                         </div>
                         <div class="form-group">
                             <label for="c_f_name">Customer Father's Name</label>

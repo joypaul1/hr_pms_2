@@ -128,7 +128,7 @@ if (isset($_GET['inserted_id'])) {
 
     // Split the comma-separated values into an array
     $insertedIdArray = explode(',', $insertedIds);
-    $deedSQL  = oci_parse($objConnect, "SELECT INVOICE_NO, INVOICE_DATE, REF_NUMBER, CHASSIS_NO, ENG_NO, SALES_AMOUNT, DP,LEASE_AMOUNT, NUMBER_OF_CHECK, BRAND, PRODUCT_CODE_NAME,INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT,GRACE_PERIOD,POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME, CUST_ADDRESS,FIRST_GUARANTOR,FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO,SECOND_GUARANTOR_ADDRESS, ENTRY_DATE FROM DEED_INFO WHERE ID = '$insertedIdArray[0]'");
+    $deedSQL  = oci_parse($objConnect, "SELECT INVOICE_NO, DELIVERY_DATE, REF_NUMBER, CHASSIS_NO, ENG_NO, SALES_AMOUNT, DP,LEASE_AMOUNT, NUMBER_OF_CHECK, BRAND, PRODUCT_CODE_NAME,INSTALLMENT_AMOUNT,NO_OF_INSTALLMENT,GRACE_PERIOD,POSIBLE_INST_START_DATE,CUSTOMER_NAME,CUST_FATHERS_NAME, CUST_ADDRESS,FIRST_GUARANTOR,FIRST_GUARANTOR_FATHER,FIRST_GUARANTOR_ADDRESS,SECOND_GUARANTOR,SECOND_GUARANTOR_SO_DO,SECOND_GUARANTOR_ADDRESS, ENTRY_DATE FROM DEED_INFO WHERE ID = '$insertedIdArray[0]'");
     oci_execute($deedSQL);
 
     $comData = oci_fetch_assoc($deedSQL);
@@ -137,7 +137,7 @@ if (isset($_GET['inserted_id'])) {
     // print_r($comData);
 }
 // Get the current date
-$currentDate = new DateTime($comData['INVOICE_DATE']);
+$currentDate = new DateTime($comData['DELIVERY_DATE']);
 // Format the current date as desired
 $formattedCurrentDate = $currentDate->format('j F Y');
 $yearWords = ucwords(currencyToWord::getBDTCurrency($currentDate->format('Y')));
