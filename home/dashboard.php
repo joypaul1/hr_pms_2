@@ -3,8 +3,7 @@ require_once('../helper/com_conn.php');
 require_once('../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 
-$sqlQuary = "
-	SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' APPROVAL_LINK 
+$sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' 	APPROVAL_LINK 
 		FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 		WHERE A.ID=B.EMP_CLEARENCE_ID
 		AND A.RML_HR_APPS_USER_ID=C.ID
@@ -34,10 +33,64 @@ $sqlQuary = "
 
 $allDataSQL  = oci_parse($objConnect, $sqlQuary);
 oci_execute($allDataSQL);
+
+$sqlAtt = "SELECT RML_ID,(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'P'
+)) PRESENT_TOTAL,
+(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'L'
+)) LATE_TOTAL,
+(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'A'
+)) ABSENT_TOTAL,
+(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'H'
+)) HOLIDAY_TOTAL,
+(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'W'
+)) WEEKEND_TOTAL,
+(RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'T'
+)) TOUR_TOTAL,
+ (RML_HR_ATTN_STATUS_COUNT(
+	RML_ID,
+	TO_DATE ((SELECT TO_CHAR (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	TO_DATE ((SELECT TO_CHAR (ADD_MONTHS (TRUNC (SYSDATE)- (TO_NUMBER (TO_CHAR (SYSDATE, 'DD')) - 1),1)- 1,'dd/mm/yyyy')FROM DUAL),'dd/mm/yyyy'),
+	'LV'
+)) LEAVE_TOTAL FROM RML_HR_APPS_USER
+  WHERE RML_ID='$emp_session_id'
+  AND IS_ACTIVE=1";
+
+$attDataSQL  = oci_parse($objConnect, $sqlAtt);
+oci_execute($attDataSQL);
+$attData = oci_fetch_assoc($attDataSQL);
+// print_r($attData['PRESENT_TOTAL']);
+
+$attBarChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
+$attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL']];
+// print_r($attBarChartData);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
-		<div class=" col-lg-12 ">
+		<div class="col-lg-12 ">
 			<div class=" card card-title p-2">
 				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee>
 			</div>
@@ -88,7 +141,7 @@ oci_execute($allDataSQL);
 										<td><?php echo $row['APPROVAL_TYPE']; ?></td>
 										<td align="center">
 											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>>
-											<span class="badge badge-center rounded-pill bg-info"><?php echo $row['NUMBER_TOTAL']; ?></span>
+												<span class="badge badge-center rounded-pill bg-info"><?php echo $row['NUMBER_TOTAL']; ?></span>
 											</a>
 										</td>
 									</tr>
@@ -102,17 +155,45 @@ oci_execute($allDataSQL);
 			</div>
 		</div>
 
-		<!--  
-        <div class="col-lg-6 mb-4 order-0">
-            <div class="card">
-			   <div class="">
-                <img src="<?php echo $basePath ?>/images/dashing_images.png" class="img-fluid" style="height:242px;width: 100%;border-radius: 2%;">
-               </div>
-            </div>
-        </div>
-		
-		
-		 <-- Approval -->
+		<!--  attendance -->
+		<div class="col-sm-12 col-md-12  col-lg-6 order-0">
+			<div class="card">
+				<h5 class="card-header m-0 me-2 ">
+					<span class="badge bg-label-success rounded-pill"><?php echo date('F') ?></span> Month Attendance
+				</h5>
+				<div class="">
+
+					<div class="nav-align-top ">
+
+						<div class="tab-content">
+							<div class="tab-pane active show" id="navs-justified-Barchart" role="tabpanel">
+								<div id="attendanceBarChat" class="px-2"></div>
+
+							</div>
+							<div class="tab-pane fade " id="navs-justified-Piechart" role="tabpanel">
+								<div id="attPieChart"></div>
+							</div>
+
+						</div>
+						<ul class="nav nav-tabs nav-fill" role="tablist">
+							<li class="nav-item">
+								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
+									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
+								</button>
+							</li>
+							<li class="nav-item">
+								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart" aria-controls="navs-justified-Piechart" aria-selected="true">
+									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
+								</button>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End attendance -->
+		<!-- <-- Approval -->
 		<div class="col-lg-6 mb-2 order-0">
 			<div class="card">
 				<div class="card-body">
@@ -165,24 +246,301 @@ oci_execute($allDataSQL);
 		</div>
 
 		<!-- End Approval -->
-		<!--  Approval -->
-		<div class="col-lg-6 mb-2 order-0">
-
-		</div>
-		<!-- End Approval -->
-
-
-
 
 	</div>
-
-
-
-
 </div>
 <!-- / Content -->
 
 
 
 <?php require_once('../layouts/footer_info.php'); ?>
+
 <?php require_once('../layouts/footer.php'); ?>
+<script>
+	let cardColor, headingColor, axisColor, shadeColor, borderColor;
+	const attendanceBarChatEl = document.querySelector("#attendanceBarChat"),
+		attendanceBarChatOptions = {
+			series: [{
+				name: new Date().getFullYear(),
+				data: <?php echo json_encode($attBarChartData); ?>,
+			}, ],
+			chart: {
+				height: 300,
+				stacked: false,
+				type: "bar",
+
+			},
+			plotOptions: {
+				bar: {
+					distributed: true,
+					horizontal: false,
+					columnWidth: "33%",
+					// borderRadius: 12,
+					// startingShape: "rounded",
+					// endingShape: "rounded",
+				},
+			},
+			colors: [config.colors.success, config.colors.warning, config.colors.danger, '#14d0c5', '#8829ca', '#b84467'],
+			dataLabels: {
+				enabled: true,
+			},
+			stroke: {
+				curve: "smooth",
+				width: 6,
+				lineCap: "round",
+				// colors: [cardColor],
+			},
+			legend: {
+				show: false,
+				// horizontalAlign: "left",
+				// position: "top",
+				// markers: {
+				// 	height: 8,
+				// 	width: 8,
+				// 	radius: 12,
+				// 	offsetX: -3,
+				// },
+				// labels: {
+				// 	colors: axisColor,
+				// },
+				// itemMargin: {
+				// 	horizontal: 10,
+				// },
+			},
+			grid: {
+				borderColor: borderColor,
+				padding: {
+					top: 0,
+					bottom: -8,
+					left: 20,
+					right: 20,
+				},
+			},
+			xaxis: {
+				categories: ["P", "L", "A", "H", "T", "LV"],
+				labels: {
+					style: {
+						fontSize: "13px",
+						colors: axisColor,
+					},
+				},
+				axisTicks: {
+					show: false,
+				},
+				axisBorder: {
+					show: false,
+				},
+			},
+			yaxis: {
+				labels: {
+					style: {
+						fontSize: "13px",
+						colors: axisColor,
+					},
+				},
+			},
+			responsive: [{
+					breakpoint: 1700,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "32%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 1580,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "35%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 1440,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "42%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 1300,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "48%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 1200,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "40%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 1040,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 11,
+								columnWidth: "48%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 991,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "30%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 840,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "35%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 768,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "28%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 640,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "32%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 576,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "37%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 480,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "45%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 420,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "52%",
+							},
+						},
+					},
+				},
+				{
+					breakpoint: 380,
+					options: {
+						plotOptions: {
+							bar: {
+								borderRadius: 10,
+								columnWidth: "60%",
+							},
+						},
+					},
+				},
+			],
+			states: {
+				hover: {
+					filter: {
+						type: "none",
+					},
+				},
+				active: {
+					filter: {
+						type: "none",
+					},
+				},
+			},
+		};
+	if (typeof attendanceBarChatEl !== undefined &&
+		attendanceBarChatEl !== null
+	) {
+		const attendanceBarChat = new ApexCharts(
+			attendanceBarChatEl,
+			attendanceBarChatOptions
+		);
+		attendanceBarChat.render();
+	}
+
+
+
+
+	var attpieChartOptions = {
+		series: <?php echo json_encode($attPieChartData); ?>,
+		chart: {
+			width: 350,
+			type: 'pie',
+		},
+		labels: ['Preset', 'Late', 'Absent'],
+		colors: [config.colors.success, config.colors.warning, config.colors.danger],
+		responsive: [{
+			breakpoint: 480,
+			options: {
+				chart: {
+					width: 200
+				},
+				legend: {
+					position: 'bottom'
+				}
+			}
+		}]
+	};
+
+	var attPieChart = new ApexCharts(document.querySelector("#attPieChart"), attpieChartOptions);
+	attPieChart.render();
+</script>
