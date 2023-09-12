@@ -74,8 +74,11 @@
             text-align: center !important;
             border: 1px solid #dddddd;
             text-align: left;
-            padding: 8px;
+            padding: 2px;
         }
+
+
+
 
         footer {
             background-color: #f2f2f2;
@@ -119,6 +122,8 @@
     </style>
 </head>
 <?php
+
+
 session_start();
 require '../../../helper/currencyToWord.php';
 require '../../../inc/connoracle.php';
@@ -340,7 +345,17 @@ $basePath =  $_SESSION['basePath'];
             <br>
             <b><u>SCHEDULE-B</u></b>
             <p><b>BORROWED : <b>TK <?php echo number_format(str_replace(',', '', $comData['LEASE_AMOUNT']), 2) ?> (<?php echo ucwords(currencyToWord::getBDTCurrency($comData['LEASE_AMOUNT'], true)) ?>)</b> </b></p>
-            <table style="width: 100%;text-align:center">
+            <?php if ($comData['NO_OF_INSTALLMENT'] > 52) {
+                echo "<style>
+                .scheduleTable td,
+                .scheduleTable th {
+                    text-align: center;
+                    padding: 0 !important;
+                    font-size: 11.7px !important;
+                }
+                </style>";
+            } ?>
+            <table class="scheduleTable" style="width: 100%;text-align:center">
                 <tr>
                     <th style="text-align: center;" colspan="3"> <u>PAYMENT SCHEDULE</u> </th>
                 </tr>
