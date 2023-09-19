@@ -18,7 +18,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
                 <div href="#" style="font-size: 20px;font-weight:700">
-                    <i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i>Waiting For Approval
+                    <i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> Approval Report
                 </div>
                 <div>
                 </div>
@@ -28,7 +28,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                 <div class="col-lg-12">
                     <div class="md-form mt-2">
-                        <div class="resume-item d-flex flex-column flex-md-row">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                                 <thead style="background: beige;">
@@ -47,7 +46,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 </thead>
 
                                 <tbody>
-                                    
+
                                 </tbody>
 
                             </table>
