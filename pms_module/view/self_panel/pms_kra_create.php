@@ -128,12 +128,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		</div>
 
 		<div class="card mt-2">
+
 			<div class="row card-body ">
 
 
 				<div class="col-lg-12">
-					<div class="md-form mt-2">
-						<div class="resume-item d-flex flex-column flex-md-row">
+					<div class="">
+						<div class="">
 							<div class="table-responsive text-nowrap">
 								<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
 									<thead style="background: beige;">
