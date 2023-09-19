@@ -1,23 +1,26 @@
 <?php
 
 
-require_once('../../helper/2step_com_conn.php');
-require_once('../../inc/connoracle.php');
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
+$basePath =  $_SESSION['basePath'];
+if (!checkPermission('concern-offboarding-create')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $strSQL         = oci_parse(
-	$objConnect,
-	"select RML_ID,
-                                   EMPLOYEE_NAME EMP_NAME,
-                                   COMPANY_NAME R_CONCERN,
-                                   DEPARTMENT DEPT_NAME,
-                                   WORKSTATION BRANCH_NAME,
-                                   DESIGNATION,
-                                   BRAND EMP_GROUP,
-                                   COLL_HR_EMP_NAME((SELECT aa.LINE_MANAGER_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_1_NAME,
-                                   COLL_HR_EMP_NAME((SELECT aa.DEPT_HEAD_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_2_NAME
-                            from empinfo_view_api@ERP_PAYROLL bb where RML_ID='$emp_session_id'"
+	$objConnect,"select RML_ID,
+		EMPLOYEE_NAME EMP_NAME,
+		COMPANY_NAME R_CONCERN,
+		DEPARTMENT DEPT_NAME,
+		WORKSTATION BRANCH_NAME,
+		DESIGNATION,
+		BRAND EMP_GROUP,
+		COLL_HR_EMP_NAME((SELECT aa.LINE_MANAGER_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_1_NAME,
+		COLL_HR_EMP_NAME((SELECT aa.DEPT_HEAD_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_2_NAME
+		from empinfo_view_api@ERP_PAYROLL bb where RML_ID='$emp_session_id'"
 );
 
 oci_execute($strSQL);
@@ -355,5 +358,5 @@ oci_execute($strSQL);
 </div>
 
 
-<?php require_once('../../layouts/footer_info.php'); ?>
-<?php require_once('../../layouts/footer.php'); ?>
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>
