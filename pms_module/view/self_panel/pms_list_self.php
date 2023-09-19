@@ -11,7 +11,8 @@ $basePath =  $_SESSION['basePath'];
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $strSQL         = oci_parse(
-	$objConnect,"select RML_ID,
+	$objConnect,
+	"select RML_ID,
 		EMPLOYEE_NAME EMP_NAME,
 		COMPANY_NAME R_CONCERN,
 		DEPARTMENT DEPT_NAME,
@@ -162,8 +163,8 @@ oci_execute($strSQL);
 
 
 				<div class="col-lg-12">
-					<div class="table-responsive">
-						<table id="dtBasicExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+					<div class="table-responsive text-nowrap">
+						<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
 							<thead style="background: beige;">
 								<tr class="text-center">
 									<th class="text-center">Sl</th>

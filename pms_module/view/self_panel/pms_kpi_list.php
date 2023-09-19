@@ -28,8 +28,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                 <div class="col-lg-12">
                     <div class="md-form mt-2">
-                        <div class="resume-item d-flex flex-column flex-md-row">
-                            <table class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                                 <thead style="background: beige;">
                                     <tr class="text-center">
                                         <th class="text-center">Sl</th>
@@ -73,7 +73,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     while ($row = oci_fetch_assoc($strSQL)) {
                                         $number++;
-                                        ?>
+                                    ?>
                                         <tr>
                                             <td class="text-center">
                                                 <?php echo $number; ?>
@@ -108,24 +108,21 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 ?>
                                             </td>
                                             <td>
-                                                <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                    style="display:none" />
+                                                <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
                                                 <a class="btn btn-warning btn-sm" href="pms_kpi_list_update.php?key=<?php echo $row['ID']; ?>">Update</a>
 
                                                 <?php
                                                 if ($row['ACHIEVEMENT_LOCK_STATUS'] == '1') {
-                                                    ?>
-                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none" />
-                                                    <a class="btn btn-warning btn-sm"
-                                                        href="pms_kpi_list_update.php?key=<?php echo $row['ID']; ?>">Achivement</a>
-                                                    <?php
+                                                ?>
+                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
+                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_update.php?key=<?php echo $row['ID']; ?>">Achivement</a>
+                                                <?php
                                                 }
                                                 ?>
                                             </td>
 
                                         </tr>
-                                        <?php
+                                    <?php
 
                                     }
                                     ?>

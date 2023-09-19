@@ -147,7 +147,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>KPI Details </b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
+                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                     <thead class="table-dark">
                         <tr class="text-center">
 
