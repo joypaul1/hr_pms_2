@@ -31,8 +31,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div href="#" style="font-size: 20px;font-weight:700">
                     <i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> Approval Report
                 </div>
-                <div>
-                </div>
+              
             </div>
             <div class="row card-body mt-2">
 

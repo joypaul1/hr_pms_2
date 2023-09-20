@@ -602,10 +602,17 @@ function isActive($url)
                                             </a>
                                         </li>
                                     <?php //} ?>
-                                    <?php// if (checkPermission('hr-offboarding-approval')) { ?>
+                                    <?php // if (checkPermission('hr-offboarding-approval')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/report.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/report.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
+                                            </a>
+                                        </li>
+                                    <?php //} ?>
+                                    <?php // if (checkPermission('hr-offboarding-approval')) { ?>
+                                        <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/year.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year.php" class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Year Create</div>
                                             </a>
                                         </li>
                                     <?php //} ?>
