@@ -74,6 +74,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 <tr class="text-center">
                                     <th class="text-center">Sl</th>
                                     <th scope="col">Title</th>
+                                    <th scope="col">Start Date</th>
+                                    <th scope="col">End Date</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
