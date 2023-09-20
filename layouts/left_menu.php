@@ -566,7 +566,7 @@ function isActive($url)
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>PMS List</div>
                                         </a>
                                     </li>
-                                <?php// } ?>
+                                <?php // } ?>
                                 <?php //if (checkPermission('pms-kra-list')) { ?>
 
                                     <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kra_create.php'); ?>">
@@ -647,45 +647,7 @@ function isActive($url)
             <?php // } ?>
             <!--pms Module -->
 
-            <?php if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
-
-                <li class="menu-item  <?php echo isActive('/pms'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
-                        <i class="menu-icon tf-icons bx bx-crown"></i>
-                        <div data-i18n="Misc">PMS Module</div>
-                    </a>
-                    <ul class="menu-sub">
-
-                        <?php if (checkPermission('pms-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_list_self.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_list_self.php" class="menu-link">
-                                    <div>PMS List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('pms-kra-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_kra_create.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_kra_create.php" class="menu-link">
-                                    <div>KRA List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                        <?php if (checkPermission('pms-kpi-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('pms/view/pms_kpi_list.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms/view/pms_kpi_list.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">KPI List</div>
-                                </a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-
-                </li>
-
-            <?php } ?>
-            <!--pms Module -->
+          
             <!-- Report - module-list -->
 
 

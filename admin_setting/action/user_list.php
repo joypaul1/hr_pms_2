@@ -95,13 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' &&  isset($_GET["rml_id"])) {
     $_SESSION['noti_message'] = $message;
     header("location:" . $basePath . "/admin_setting/view/user_list.php");
     exit();
-
-    // $_SESSION['should_reload'] = true;
-
-    // Check if the flag is set to reload, then reload and unset the flag
-    // if (isset($_SESSION['should_reload']) && $_SESSION['should_reload']) {
-    //     unset($_SESSION['should_reload']);
-    // }
 }
 
 
