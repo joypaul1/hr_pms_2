@@ -32,26 +32,29 @@ $row  = oci_fetch_assoc($allDataSQL);
                 ?>
                 <!-- End table  header -->
 
-                <div class="card-body">
-                    <div class="col-6 ">
+                <form method="post" action="<?php echo $basePath ?>/pms_module/action/hr_panel.php">
+                    <div class="card-body row">
+                        <div class="col-md-6">
 
-                        <form method="post" action="<?php echo $basePath ?>/pms_module/action/hr_panel.php">
                             <input type="hidden" name="actionType" value="year_edit">
                             <input type="hidden" name="editId" value="<?php echo $_GET['id'] ?>">
 
                             <div class="form-group">
                                 <label class="form-label" for="pms_name">PMS Name <span class="text-danger">*</span></label>
-                                <input required="" placeholder="Name here.." value="<?php echo $row['PMS_NAME'] ?>" id="pms_name" name="pms_name" class="form-control cust-control" type='text' />
+                                <input required placeholder="Name here.." value="<?php echo $row['PMS_NAME'] ?>" id="pms_name" name="pms_name" class="form-control cust-control" type='text' />
                             </div>
                             <div class="form-group mt-2">
                                 <label class="form-label" for="start_date">Select Start Date <span class="text-danger">*</span></label>
-                                <input required="" type="date" name="start_date" class="form-control  cust-control" id="start_date" value="<?php echo date('Y-m-d', strtotime($row['START_DATE'])) ?>">
+                                <input readonly type="date" name="start_date" class="form-control  cust-control" id="start_date" value="<?php echo date('Y-m-d', strtotime($row['START_DATE'])) ?>">
                             </div>
                             <div class="form-group mt-2">
                                 <label class="form-label" for="end_date">Select End Date <span class="text-danger">*</span></label>
-                                <input required="" type="date" name="end_date" class="form-control  cust-control" id="end_date" value="<?php echo date('Y-m-d', strtotime($row['END_DATE'])) ?>">
+                                <input readonly type="date" name="end_date" class="form-control  cust-control" id="end_date" value="<?php echo date('Y-m-d', strtotime($row['END_DATE'])) ?>">
                             </div>
-                            <div class="form-group mt-2">
+
+
+
+                            <!-- <div class="form-group mt-2">
                                 <label class="form-label" for="step_status">Select Step <span class="text-danger">*</span> </label>
                                 <select name="step_status" class="form-control  cust-control" required id="step_status">
                                     <option value="0"><- Select Active Step -></option>
@@ -59,25 +62,52 @@ $row  = oci_fetch_assoc($allDataSQL);
                                     <option value="2" <?php echo $row['STEP_2_STATUS'] == 1 ? 'selected' : '' ?>> Step 2</option>
                                     <option value="3" <?php echo $row['STEP_3_STATUS'] == 1 ? 'selected' : '' ?>> Step 3</option>
                                 </select>
-                            </div>
-                            <div class="form-group mt-2">
+                            </div> -->
+                            <!-- <div class="form-group mt-2">
                                 <label class="form-label" for="status">Select Active Status <span class="text-danger">*</span> </label>
                                 <select name="status" class="form-control  cust-control" id="status" required>
                                     <option value="1" <?php echo $row['IS_ACTIVE'] == 1 ? 'selected' : '' ?>>Active</option>
                                     <option value="0" <?php echo $row['IS_ACTIVE'] == 0 ? 'selected' : '' ?>> In-active </option>
                                 </select>
                                 <small id="status" class="form-text text-danger">If you Active This one ? Others PMS will be automatically Deactivated!!</small>
+                            </div> -->
+
+
+
+                        </div>
+                        <div class="col-md-6 mx-auto my-auto">
+
+                            <div class="">
+                                <div class="form-group">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+                                    <label class="form-check-label" for="gridRadios1">
+                                        Step 1 Active
+                                    </label>
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
+                                    <label class="form-check-label" for="gridRadios2">
+                                        Step 2 Active
+                                    </label>
+                                </div>
+                                <br>
+                                
+                                <div class="form-check disabled">
+                                    <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
+                                    <label class="form-check-label" for="gridRadios3">
+                                        Step 3 Active
+                                    </label>
+                                </div>
                             </div>
+                        </div>
+                        <div class="b-block text-center mt-2">
 
-                            <div class="b-block text-right">
+                            <input type="submit" value="Save Data" name="submit" class="btn btn-sm btn-primary">
 
-                                <input type="submit" value="Save Data" name="submit" class="btn btn-sm btn-primary">
-
-                            </div>
-                        </form>
-
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
