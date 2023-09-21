@@ -1,39 +1,23 @@
 <?php
-session_start();
-session_regenerate_id(TRUE);
-
-if ($_SESSION['HR']['hr_role'] != 4 && $_SESSION['HR']['hr_role'] != 3) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
-
-if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
-require_once('inc/config.php');
-require_once('layouts/header.php');
-
-$v_page = 'pms_kra_create';
-$v_active_open = 'active open';
-$v_active = 'active';
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
 
 
-require_once('layouts/left_menu.php');
-require_once('layouts/top_menu.php');
-require_once('inc/connoracle.php');
-
-
+$basePath =  $_SESSION['basePath'];
+// if (!checkPermission('concern-offboarding-create')) {
+//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+// }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$v_key = $_REQUEST['key'];
+$id = $_REQUEST['key'];
 
-$strSQL  = oci_parse($objConnect, "select KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=$v_key");
+$strSQL  = oci_parse($objConnect, "select KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=$id");
 oci_execute($strSQL);
 
 ?>
 
-<!-- / Content -->
 
+
+<!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="container-fluid">
 
@@ -91,6 +75,5 @@ oci_execute($strSQL);
 </div>
 
 <!-- / Content -->
-
-<?php require_once('layouts/footer_info.php'); ?>
-<?php require_once('layouts/footer.php'); ?>
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>

@@ -192,7 +192,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													if ($row['SUBMITTED_STATUS'] != '1') {
 													?>
 														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
-														<a class="btn btn-warning btn-sm" href="pms_kra_list_update.php?key=<?php echo $row['ID']; ?>">Update</a>
+														<a class="btn btn-warning btn-sm" href="pms_kra_list_update.php?id=<?php echo $row['ID']; ?>">Edit</a>
 													<?php
 													}
 													?>
