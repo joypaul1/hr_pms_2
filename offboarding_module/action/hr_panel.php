@@ -53,12 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     // new variable
     $last_working_day = date("d/m/Y", strtotime($_REQUEST['last_working_day']));
     $resignation_date = date("d/m/Y", strtotime($_REQUEST['resignation_date']));
-    //$last_working_day           = ($_POST['last_working_day']);
-    //$resignation_date           = ($_POST['resignation_date']);
-    $reason_of_resignation      = ($_POST['reason_of_resignation']);
-    // new variable
 
-    //$remarks                    = ($_POST['remarks']); // old variable rename to reason_of_resignation
+    $reason_of_resignation      = ($_POST['reason_of_resignation']);
+
 
     // If there are no errors, proceed with further processing
     if (empty($errors)) {
