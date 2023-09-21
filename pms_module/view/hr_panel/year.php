@@ -131,17 +131,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                 echo "<td>" . $row['START_DATE'] . "</td>";
                                 echo "<td>" . $row['END_DATE'] . "</td>";
-
-
-                                // if (checkPermission('role-edit')) {
-
-                                // }
-                                // if (checkPermission('role-delete')) {
-                                // echo ' <button data-id="' . $row['ID'] . '" data-href="' . $basePath . '/pms_module/action/hr_panel.php&amp;&amp;actionType=deleteYear" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
-                                // }
-                                echo "</td>";
-
-                                echo "</td>";
                             }
 
                             ?>
