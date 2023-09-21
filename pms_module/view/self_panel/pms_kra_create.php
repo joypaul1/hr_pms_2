@@ -1,8 +1,6 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-
-
 $basePath =  $_SESSION['basePath'];
 // if (!checkPermission('concern-offboarding-create')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -19,6 +17,14 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 	<div class="">
 
 		<div class="card">
+			<div class="card">
+				<div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
+					<div href="#" style="font-size: 20px;font-weight:700">
+						<i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;font-size:30px"></i> KRA Add
+					</div>
+
+				</div>
+			</div>
 			<div class="card-body">
 				<div class="">
 					<form id="Form1" action="" method="post"></form>
@@ -128,10 +134,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		</div>
 
 		<div class="card mt-2">
+			<div class="card">
+				<div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
+					<div href="#" style="font-size: 20px;font-weight:700">
+						<i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> KRA List
+					</div>
 
+				</div>
+			</div>
 			<div class="row card-body ">
-
-
 				<div class="col-lg-12">
 					<div class="">
 						<div class="">
@@ -192,7 +203,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													if ($row['SUBMITTED_STATUS'] != '1') {
 													?>
 														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
-														<a class="btn btn-warning btn-sm" href="pms_kra_list_update.php?id=<?php echo $row['ID']; ?>">Edit</a>
+														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>">Edit</a>
 													<?php
 													}
 													?>
@@ -236,7 +247,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		</div>
 
 	</div>
+</div>
 
-	<!-- / Content -->
-	<?php require_once('../../../layouts/footer_info.php'); ?>
-	<?php require_once('../../../layouts/footer.php'); ?>
+<!-- / Content -->
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>

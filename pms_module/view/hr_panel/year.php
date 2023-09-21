@@ -16,37 +16,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <!-- <div class="card col-lg-12">
-        
-        <form action="<?php echo $basePath ?>/pms_module/action/hr_panel.php" method="POST">
-            <div class="card-body row justify-content-center">
-                <input type="hidden" name='actionType' value='year_create'>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <label class="form-label" for="pms_name">PMS Name</label>
-                        <input required="" placeholder="Name here.." id="pms_name" name="pms_name" class="form-control cust-control" type='text' />
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="start_date">Select Start Date*</label>
-                    <input required="" type="date" name="start_date" class="form-control  cust-control" id="start_date" value="">
 
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="end_date">Select End Date*</label>
-                    <input required="" type="date" name="end_date" class="form-control  cust-control" id="end_date" value="">
-
-                </div>
-
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="form-label" for="">&nbsp;</label>
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Create Data">
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> -->
 
     <div class="card mt-2">
         <!-- End table  header -->
