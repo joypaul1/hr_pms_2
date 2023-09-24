@@ -86,8 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year_edit') {
 
-    print_r($_REQUEST);
-    die();
+
     // Validation
     if (!isset($_POST['editId']) || empty($_POST['editId'])) {
         $errors[] = 'Data Edit ID  is required.';
