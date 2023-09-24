@@ -42,7 +42,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 <label class="form-label" for="end_date">Select End Date <span class="text-danger">*</span></label>
                                 <input required="" type="date" name="end_date" class="form-control  cust-control" id="end_date" value="">
                             </div>
-                            <div class="form-group mt-2">
+                            <!-- <div class="form-group mt-2">
                                 <label class="form-label" for="step_status">Select Step <span class="text-danger">*</span> </label>
                                 <select name="step_status" class="form-control  cust-control" required id="step_status">
                                     <option value="0" selected><- Select Active Step -></option>
@@ -50,12 +50,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     <option value="2">Step 2</option>
                                     <option value="3">Step 3</option>
                                 </select>
-                            </div>
+                            </div> -->
                             <div class="form-group mt-2">
                                 <label class="form-label" for="status">Select Active Status <span class="text-danger">*</span> </label>
                                 <select name="status" class="form-control  cust-control" id="status" required>
                                     <option value="1">Active</option>
-                                    <option value="0" selected> In-active </option>
+                                    <option value="0" selected> Deactive </option>
                                 </select>
                                 <small id="status" class="form-text text-danger">If you Active This one ? Others PMS will be automatically Deactivated!!</small>
                             </div>

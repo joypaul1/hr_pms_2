@@ -39,26 +39,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
         $END_DATE       = date('d-M-y', strtotime($_POST['end_date']));
         $v_pms_name     = $_POST['pms_name'];
         $status         = $_POST['status'];
-        $step_1_status  = ($_POST['step_status'] == 1) ? $_POST['step_status'] : 0;
-        $step_2_status  = ($_POST['step_status'] == 2) ? $_POST['step_status'] : 0;
-        $step_3_status  = ($_POST['step_status'] == 3) ? $_POST['step_status'] : 0;
+        // $step_1_status  = ($_POST['step_status'] == 1) ? $_POST['step_status'] : 0;
+        // $step_2_status  = ($_POST['step_status'] == 2) ? $_POST['step_status'] : 0;
+        // $step_3_status  = ($_POST['step_status'] == 3) ? $_POST['step_status'] : 0;
         if ($status) {
             $query = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
             $strSQL = @oci_parse($objConnect, $query);
             $result = @oci_execute($strSQL);
         }
 
-        $query = "INSERT INTO HR_PMS_LIST (PMS_NAME, CREATED_BY, CREATED_DATE, IS_ACTIVE, START_DATE, END_DATE, STEP_1_STATUS, STEP_2_STATUS, STEP_3_STATUS) 
+        $query = "INSERT INTO HR_PMS_LIST (PMS_NAME, CREATED_BY, CREATED_DATE, IS_ACTIVE, START_DATE, END_DATE) 
                 VALUES ( 
                     '$v_pms_name',
                     '$emp_session_id',
                     SYSDATE,
                     $status, 
                     '$START_DATE',
-                    '$END_DATE', 
-                    '$step_1_status', 
-                    '$step_2_status', 
-                    '$step_3_status' 
+                    '$END_DATE'
                     )";
         $strSQL = @oci_parse($objConnect, $query);
         $result = @oci_execute($strSQL);
@@ -89,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year_edit') {
 
-
+    // print_r($_REQUEST);
+    // die();
     // Validation
     if (!isset($_POST['editId']) || empty($_POST['editId'])) {
         $errors[] = 'Data Edit ID  is required.';
@@ -120,9 +118,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
         $END_DATE       = date('d-M-y', strtotime($_POST['end_date']));
         $v_pms_name     = $_POST['pms_name'];
         $status         = $_POST['status'];
-        $step_1_status  = ($_POST['step_status'] == 1) ? $_POST['step_status'] : 0;
-        $step_2_status  = ($_POST['step_status'] == 2) ? $_POST['step_status'] : 0;
-        $step_3_status  = ($_POST['step_status'] == 3) ? $_POST['step_status'] : 0;
+        $step_status_1  = isset($_POST['step_status_1']) ? $_POST['step_status_1'] : "";
+        $step_status_2  = isset($_POST['step_status_2']) ? $_POST['step_status_2'] :"";
+        $step_status_3  = isset($_POST['step_status_3']) ? $_POST['step_status_3'] : "";
+
         if ($status) {
             $query = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
             $strSQL = @oci_parse($objConnect, $query);
@@ -135,11 +134,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
                 IS_ACTIVE = $status,
                 START_DATE = '$START_DATE',
                 END_DATE = '$END_DATE',
-                STEP_1_STATUS = '$step_1_status',
-                STEP_2_STATUS = '$step_2_status',
-                STEP_3_STATUS = '$step_3_status'
+                STEP_1_STATUS = '$step_status_1',
+                STEP_2_STATUS = '$step_status_2',
+                STEP_3_STATUS = '$step_status_3'
             WHERE ID = $editId";
-
+        // print_r($query);
+        // die();
         $strSQL = @oci_parse($objConnect, $query);
         $result = @oci_execute($strSQL);
 
