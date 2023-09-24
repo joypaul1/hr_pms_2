@@ -76,11 +76,11 @@ echo $row['STEP_2_STATUS'];
                             <div class="">
                                 <div class="form-group">
                                     <label for="step_status_1">1. Step 1 Status</label>
-                                    <select class="form-control" name="step_status_1" id="step_status_1">
+                                    <select class="form-control" name="step_status_1" id="step_status_1" <?php echo $row['STEP_1_STATUS'] == '0' ? 'disabled' : ''  ?>>
                                         <option><- Select Option -></option>
-                                        <option <?php echo $row['STEP_1_STATUS'] == '0' ? 'Selected' : ''  ?> value="0">Deactive </option>
+                                        <option <?php echo $row['STEP_1_STATUS'] == '' ? 'Selected' : ''  ?> value="">Deactive </option>
                                         <option <?php echo $row['STEP_1_STATUS'] == '1' ? 'Selected' : ''  ?> value="1"> Active </option>
-                                        <option <?php echo $row['STEP_1_STATUS'] == '' ? 'Selected' : '' ?> value=""> Step Done </option>
+                                        <option <?php echo $row['STEP_1_STATUS'] == '0' ? 'Selected' : '' ?> value="0"> Step Done </option>
 
                                     </select>
                                 </div>
@@ -88,11 +88,11 @@ echo $row['STEP_2_STATUS'];
                                 <div class="form-group">
                                     <label for="step_status_2">2. Step 2 Status</label><br>
                                     <?php if ($row['STEP_1_STATUS'] == '0') { ?>
-                                        <select class="form-control" name="step_status_2" id="step_status_2">
+                                        <select class="form-control" name="step_status_2" id="step_status_2"<?php echo $row['STEP_2_STATUS'] == '0' ? 'disabled' : ''  ?>>
                                             <option><- Select Option -></option>
-                                            <option <?php echo $row['STEP_2_STATUS'] == '0' ? 'Selected' : ''  ?> value="0">Deactive </option>
+                                            <option <?php echo $row['STEP_2_STATUS'] == '' ? 'Selected' : ''  ?> value="">Deactive </option>
                                             <option <?php echo $row['STEP_2_STATUS'] == '1' ? 'Selected' : ''  ?> value="1"> Active </option>
-                                            <option <?php echo $row['STEP_2_STATUS'] == ''  ? 'Selected' : '' ?> value=""> Step Done </option>
+                                            <option <?php echo $row['STEP_2_STATUS'] == '0'  ? 'Selected' : '' ?> value="0"> Step Done </option>
 
                                         </select>
                                     <?php } else {
@@ -102,12 +102,12 @@ echo $row['STEP_2_STATUS'];
                                 <br>
                                 <div class="form-group">
                                     <label for="step_status_3">3. Step 3 Status</label>
-                                    <?php if ($row['STEP_1_STATUS'] == '0') { ?>
-                                        <select class="form-control" name="step_status_3" id="step_status_3">
+                                    <?php if ($row['STEP_2_STATUS'] == '0' &&  $row['STEP_1_STATUS'] == '0') { ?>
+                                        <select class="form-control" name="step_status_3" id="step_status_3"<?php echo $row['STEP_3_STATUS'] == '0' ? 'disabled' : ''  ?> >
                                             <option><- Select Option -></option>
-                                            <option <?php echo $row['STEP_3_STATUS'] == '0' ? 'Selected' : ''  ?> value="0">Deactive </option>
+                                            <option <?php echo $row['STEP_3_STATUS'] == '' ? 'Selected' : ''  ?> value="">Deactive </option>
                                             <option <?php echo $row['STEP_3_STATUS'] == '1' ? 'Selected' : ''  ?> value="1"> Active </option>
-                                            <option <?php echo $row['STEP_3_STATUS'] == ''  ? 'Selected' : '' ?> value=""> Step Done </option>
+                                            <option <?php echo $row['STEP_3_STATUS'] == '0'  ? 'Selected' : '' ?> value="0"> Step Done </option>
 
                                         </select>
                                     <?php } else {
