@@ -8,7 +8,7 @@ $basePath =  $_SESSION['basePath'];
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $editId = $_REQUEST['id'];
 
-$strSQL  = oci_parse($objConnect, "select KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=$editId");
+$strSQL  = oci_parse($objConnect, "SELECT KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=$editId");
 oci_execute($strSQL);
 $row = oci_fetch_assoc($strSQL)
 ?>
@@ -26,33 +26,31 @@ $row = oci_fetch_assoc($strSQL)
 					<div href="#" style="font-size: 20px;font-weight:700">
 						<i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:30px"></i> KRA Edit
 					</div>
-					<a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year_create.php" class="btn btn-sm btn-info">
+					<a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kra_create.php" class="btn btn-sm btn-info">
 						<i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;"></i>KRA List</a>
 				</div>
 			</div>
 			<div class="card-body">
 				<div class="">
-					<form id="Form1" action="" method="post"></form>
-					<form id="Form2" action="" method="post"></form>
-					<!--<form action="" method="post">  -->
-					<div class="row">
-						<div class="col-sm-8">
-							<label for="exampleInputEmail1">KRA Name:</label>
-							<input required="" value="<?php echo $row['KRA_NAME']; ?>" style="padding:5px !important" form="Form1" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type='text' />
+					<form id="Form1" action="" method="post">
+						<div class="row">
+							<div class="col-sm-8">
+								<label for="exampleInputEmail1">KRA Name:</label>
+								<input required="" value="<?php echo $row['KRA_NAME']; ?>" style="padding:5px !important" form="Form1" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type='text' />
+							</div>
+
+
+
 						</div>
 
-
-
-					</div>
-
-					<div class="row">
-						<div class="col-sm-8"></div>
-						<div class="col-sm-4">
-							<div class="md-form mt-3">
-								<input class="form-control  btn  btn-sm  btn-primary" form="Form1" type="submit" value="Submit to Create">
+						<div class="row">
+							<div class="col-sm-8"></div>
+							<div class="col-sm-4">
+								<div class="md-form mt-3">
+									<input class="form-control  btn  btn-sm  btn-primary" form="Form1" type="submit" value="Submit to Create">
+								</div>
 							</div>
 						</div>
-					</div>
 					</form>
 
 				</div>
@@ -67,56 +65,38 @@ $row = oci_fetch_assoc($strSQL)
 					$self_submitted_status = 0;
 
 					$v_kra_name = $_REQUEST['kra_name'];
-					$v_pms_title_id = $_REQUEST['pms_title_id'];
-					$strStatus  = oci_parse(
-						$objConnect,
-						"SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP 
-								       WHERE EMP_ID='$emp_session_id'
-								       AND HR_PMS_LIST_ID='$v_pms_title_id'"
-					);
+					$id = $_REQUEST['id'];
+					$query = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name' WHERE ID='$id'";
+					$strSQL  = oci_parse($objConnect, $query);
 
-					if (oci_execute($strStatus)) {
-						while ($row = oci_fetch_assoc($strStatus)) {
-							$self_submitted_status = $row['SELF_SUBMITTED_STATUS'];
-						}
-					}
+					if (@oci_execute($strSQL)) {
+						$message = [
+							'text'   => 'KRA is Edited successfully.',
+							'status' => 'true',
+						];
 
-					if ($self_submitted_status == 0) {
-						$strSQL  = oci_parse(
-							$objConnect,
-							"INSERT INTO HR_PMS_KRA_LIST (
-                                             KRA_NAME,
-											 HR_PMS_LIST_ID,											 
-											 CREATED_BY, 
-                                             CREATED_DATE, 
-											 IS_ACTIVE) 
-                                        VALUES ( 
-                                             '$v_kra_name',
-											 '$v_pms_title_id',
-											 '$emp_session_id',
-											 sysdate,
-											 1)"
-						);
-						if (@oci_execute($strSQL)) {
+						$_SESSION['noti_message'] = $message;
+						// echo "<meta http-equiv='refresh' content='0'>";
+						// header("location:" . $basePath . "/pms_module/view/self_panel/pms_kra_create.php");
 
-							echo '<div class="alert alert-primary">';
-							echo "KRA is created successfully.";
-							echo '</div>';
-						} else {
-							$lastError = error_get_last();
-							$error = $lastError ? "" . $lastError["message"] . "" : "";
-							if (strpos($error, 'HR_KRA_LIST_UNIQUE') !== false) {
-								echo '<div class="alert alert-danger">';
-								echo $error;
-								echo '</div>';
-							}
-						}
+						// echo "<script>window.location = '$basePath/pms_module/view/self_panel/pms_kra_create.php'</script>";
 					} else {
-						echo '<div class="alert alert-danger">';
-						echo "You can not create new KRA  cause of this PMS data are already submitted.";
-						echo '</div>';
+
+						$e = @oci_error($strSQL);
+						$message = [
+							'text'   => htmlentities($e['message'], ENT_QUOTES),
+							'status' => 'false',
+						];
+
+						$_SESSION['noti_message'] = $message;
+						// echo "<script>window.location = '$basePath/pms_module/view/self_panel/pms_kra_create.php'</script>";
+						// header("location:" . $basePath . "/pms_module/view/self_panel/pms_kra_create.php");
 					}
 				}
+
+
+
+
 				?>
 
 			</div>
