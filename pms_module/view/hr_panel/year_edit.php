@@ -114,40 +114,7 @@ echo $row['STEP_2_STATUS'];
                                         echo "<br> <span class='text-info'>Waiting For Step 2 Done. </span></span>";
                                     } ?>
                                 </div>
-                                <!-- <div class="form-group">
-                                    <input class="form-check-input" <?php
-                                                                    if ($row['STEP_1_STATUS'] == '0' && $row['STEP_2_STATUS'] == '0') {
-                                                                        echo 'disabled ';
-                                                                        echo "style='background-color:green'";
-                                                                    } else if ($row['STEP_1_STATUS'] == '0' &&  $row['STEP_2_STATUS'] == '1') {
-                                                                        echo 'checked ';
-                                                                    } else if ($row['STEP_1_STATUS'] == '1') {
-                                                                        echo 'disabled ';
-                                                                    }
-
-
-                                                                    ?> type="checkbox" value="<?php echo $row['STEP_2_STATUS'] ?>" name="step_status_2" id="gridRadios2" <label class="form-check-label" for="gridRadios2">
-                                    Step 2 Active
-                                    </label>
-                                </div>
-                                <br>
-
-                                <div class="form-check ">
-                                    <input class="form-check-input" <?php
-                                                                    if ($row['STEP_1_STATUS'] === 0 && $row['STEP_2_STATUS'] === 0  && $row['STEP_3_STATUS'] == 0) {
-                                                                        echo 'disabled ';
-                                                                        echo "style='background-color:green'";
-                                                                    } else if ($row['STEP_2_STATUS'] === 0 &&  $row['STEP_3_STATUS'] === 1) {
-                                                                        echo 'checked ';
-                                                                    } else if (!$row['STEP_2_STATUS']) {
-                                                                        echo 'disabled ';
-                                                                    }
-
-                                                                    ?> type="checkbox" value="<?php echo $row['STEP_3_STATUS'] ?>" name="step_status_3" id="gridRadios3">
-                                    <label class="form-check-label" for="gridRadios3">
-                                        Step 3 Active
-                                    </label>
-                                </div> -->
+                              
                             </div>
                         </div>
                         <div class="b-block text-center mt-2">
