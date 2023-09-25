@@ -83,7 +83,6 @@ $v_ACHIEVEMENT_LOCK_STATUS = 0;
                                     </select>
                                 </div>
 
-
                                 <div class="col-sm-3">
                                     <label for="exampleInputEmail1">Select Weightage(%):</label>
                                     <select required="" name="weightage" class="form-control cust-control">
@@ -96,8 +95,6 @@ $v_ACHIEVEMENT_LOCK_STATUS = 0;
                                         <option value="30">30</option>
                                     </select>
                                 </div>
-
-
                                 <div class="col-sm-3">
                                     <label for="exampleInputEmail1">Select Target(%):</label>
                                     <input required="" class="form-control cust-control" type='text' name="target" value="<?php echo $row['TARGET']; ?>" />
