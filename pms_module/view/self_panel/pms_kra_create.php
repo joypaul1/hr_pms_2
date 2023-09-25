@@ -38,7 +38,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						<div class="col-sm-4">
 							<label for="exampleInputEmail1">Select PMS Title:</label>
 							<select required="" name="pms_title_id" class="form-control cust-control" form="Form1">
-								<option selected value="">--</option>
+								<option value="" selected><-Select PMS -></option>
+
 								<?php
 
 								$strSQL  = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
