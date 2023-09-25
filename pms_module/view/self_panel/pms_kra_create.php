@@ -9,8 +9,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 ?>
 
-
-
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
