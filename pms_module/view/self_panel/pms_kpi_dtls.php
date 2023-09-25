@@ -42,7 +42,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
     ?>
         <div class="card col-lg-12">
             <form action="" method="post">
-                <div class="card-body row justify-content-center">
+                <div class="card-body row justify-content-end">
                     <div class="col-sm-3">
                         <label for="exampleInputEmail1">Select KRA:</label>
                         <select required="" name="kra_id" class="form-control cust-control">
@@ -80,8 +80,8 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="exampleInputEmail1">Select Weightage(%):</label>
-                        <select required="" name="weightage" class="form-control cust-control">
+                        <label class="form-label" for="weightage">Select Weightage(%):</label>
+                        <select required="" name="weightage" class="form-control cust-control" id='weightage'>
                             <option selected value="">--</option>
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -93,12 +93,12 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%)</label>
-                        <input required="" class="form-control cust-control" type='text' name="target" />
+                        <input required="" class="form-control cust-control" type='number' name="target" />
 
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor </label>
-                        <input required="" class="form-control cust-control" type='text' name="eligi_factor" />
+                        <input required="" class="form-control cust-control" type='number' name="eligi_factor" />
 
                     </div>
                     <div class="col-sm-3">
