@@ -237,7 +237,8 @@ if (isset($_POST['submit_denied'])) {
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
                                                 echo ',<br>';
-                                                $v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
+                                                $v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
+
                                                 echo $v_leave_day;
                                                 if ($v_leave_day > 1)
                                                     echo '-Days';
@@ -299,7 +300,7 @@ if (isset($_POST['submit_denied'])) {
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
                                                 echo ',<br>';
-                                                $v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
+                                                $v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
                                                 echo $v_leave_day;
                                                 if ($v_leave_day > 1)
                                                     echo '-Days';

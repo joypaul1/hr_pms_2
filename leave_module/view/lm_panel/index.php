@@ -20,7 +20,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-sm-3">
                     <label>Select a Concern:</label>
                     <select name="emp_concern" class="form-control cust-control text-center">
-                        <option hidden value=""><--  Concern --></option>
+                        <option hidden value=""><-- Concern --></option>
                         <?php
                         $strSQL  = oci_parse(
                             $objConnect,
@@ -73,10 +73,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
                 </div>
             </div>
-            
+
         </form>
     </div>
- 
+
 
 
 
@@ -139,7 +139,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $v_leave_day = ($row['END_DATE'] - $row['START_DATE']) + 1;
+                                        $v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
                                         echo $row['LEAVE_TYPE'] . '-' . $v_leave_day . '-';
                                         if ($v_leave_day == 1)
                                             echo 'Day';
@@ -197,7 +197,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $v_leave_day = ($row['END_DATE'] - $row['START_DATE']) + 1;
+                                        $v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
                                         echo $row['LEAVE_TYPE'] . '-' . $v_leave_day . '-';
                                         if ($v_leave_day == 1)
                                             echo 'Day';

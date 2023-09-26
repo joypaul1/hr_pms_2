@@ -21,7 +21,6 @@ if (isset($_POST['submit_approval_single'])) {
 			$strSQL = oci_parse(
 				$objConnect,
 				$query
-
 			);
 
 			if (oci_execute($strSQL)) {
@@ -82,8 +81,7 @@ if (isset($_POST['submit_approval'])) {
 
 // Denied option
 if (isset($_POST['submit_denied'])) {
-	// print_r($_POST);
-	// die();
+
 	if (!empty($_POST['check_list'])) {
 		// Loop to store and display values of individual checked checkbox.
 		foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
