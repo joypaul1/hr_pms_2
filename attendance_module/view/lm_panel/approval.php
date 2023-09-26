@@ -9,6 +9,119 @@ $v_view_approval = 0;
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
+
+
+
+
+
+
+        // Single ID Approval
+        if (isset($_POST['submit_approval_single'])) {
+			
+            if (!empty($_POST['check_list'])) {
+                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+					$sql="update RML_HR_ATTN_DAILY set 
+														LINE_MANAGER_APPROVAL=1,
+														IS_ALL_APPROVED=1,
+														LINE_MANAGER_APPROVAL_REMARKS='web approval',
+														LINE_MANAGER_APPROVAL_DATE=SYSDATE
+                                                       where ID='$TT_ID_SELECTTED'";
+                    $strSQL = oci_parse($objConnect,$sql );
+                    oci_execute($strSQL);
+                    $attnProcSQL  = oci_parse($objConnect, "declare V_ATTN_DATE VARCHAR2(100); V_RML_ID VARCHAR2(100); BEGIN SELECT TO_CHAR(ATTN_DATE,'dd/mm/yyyy'),RML_ID INTO V_ATTN_DATE,V_RML_ID FROM RML_HR_ATTN_DAILY  WHERE ID='$TT_ID_SELECTTED';RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_ATTN_DATE,'dd/mm/yyyy'),TO_DATE(V_ATTN_DATE,'dd/mm/yyyy'));END;");
+
+                    if (oci_execute($attnProcSQL)) {
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
+                    }
+                }
+				echo "<script>window.location = ".$basePath."'/attendance_module/view/lm_panel/approval.php'</script>";
+            } else {
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+            }
+        }
+		
+		
+		
+		
+		
+		
+		
+		 if (isset($_POST['submit_approval'])) { //to run PHP script on submit
+            if (!empty($_POST['check_list'])) {
+                // Loop to store and display values of individual checked checkbox.
+                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+                    $strSQL = oci_parse(
+                        $objConnect,
+                        "update RML_HR_ATTN_DAILY set 
+														LINE_MANAGER_APPROVAL=1,
+														IS_ALL_APPROVED=1,
+														LINE_MANAGER_APPROVAL_REMARKS='web approval',
+														LINE_MANAGER_APPROVAL_DATE=SYSDATE
+                                                       where ID='$TT_ID_SELECTTED'"
+                    );
+
+                    oci_execute($strSQL);
+					 $attnProcSQL  = oci_parse($objConnect, "declare V_ATTN_DATE VARCHAR2(100); V_RML_ID VARCHAR2(100); BEGIN SELECT TO_CHAR(ATTN_DATE,'dd/mm/yyyy'),RML_ID INTO V_ATTN_DATE,V_RML_ID FROM RML_HR_ATTN_DAILY  WHERE ID='$TT_ID_SELECTTED';RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_ATTN_DATE,'dd/mm/yyyy'),TO_DATE(V_ATTN_DATE,'dd/mm/yyyy'));END;");
+                    //$attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100); V_END_DATE VARCHAR2(100); V_RML_ID VARCHAR2(100);begin  SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
+
+                    if (oci_execute($attnProcSQL)) {
+                        $message = [
+                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                            'status' => 'true',
+                        ];
+                        $_SESSION['noti_message'] = $message;
+                    }
+                }
+               echo "<script>window.location = ".$basePath."'/attendance_module/view/lm_panel/approval.php'</script>";
+            } else {
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+            }
+        }
+		
+		
+		// Denied option
+        if (isset($_POST['submit_denied'])) { //to run PHP script on submit
+            if (!empty($_POST['check_list'])) {
+                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+                    $strSQL = oci_parse(
+                        $objConnect,
+                        "update RML_HR_ATTN_DAILY set 
+														LINE_MANAGER_APPROVAL=0,
+														IS_ALL_APPROVED=0,
+														LINE_MANAGER_APPROVAL_REMARKS='web approval',
+														LINE_MANAGER_APPROVAL_DATE=SYSDATE
+                                                       where ID='$TT_ID_SELECTTED'"
+                    );
+
+                    oci_execute($strSQL);
+                    $message = [
+                        'text' => 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED,
+                        'status' => 'true',
+                    ];
+                    $_SESSION['noti_message'] = $message;
+                }
+                 echo "<script>window.location = ".$basePath."'/attendance_module/view/lm_panel/approval.php'</script>";
+            } else {
+                $message = [
+                    'text' => 'Sorry! You have not select any ID Code.',
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+            }
+        }
+
 ?>
 
 
@@ -19,7 +132,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
         <div class="card card-body">
             <form id="Form1" action="" method="post"></form>
             <form id="Form2" action="" method="post"></form>
-            <form id="Form3" action="" method="post"></form>
             <div class="row">
                 <div class="col-sm-3">
                     <label>Select Your Concern:</label>
@@ -44,12 +156,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 </div>
                 <div class="col-sm-3">
                     <label>From Date:</label>
-                    <input required="" class="form-control  cust-control" form="Form1" name="start_date" type="date" />
+                    <input required="" class="form-control  cust-control" form="Form1" name="start_date" form="Form1" type="date" />
 
                 </div>
                 <div class="col-sm-3">
                     <label>To Date:</label>
-                    <input required="" class="form-control  cust-control" form="Form1" id="date" name="end_date" type="date" />
+                    <input required="" class="form-control  cust-control" form="Form1" id="date" name="end_date" form="Form1" type="date" />
 
                 </div>
                 <div class="col-sm-3">
@@ -62,7 +174,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
         <div class="card  col-lg-12 mt-2">
             <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Attendance Approval List</b></h5>
-            <form id="Form1" action="" method="post " class="card-body">
+          
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -82,16 +194,29 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             @$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                             if (isset($_POST['start_date'])) {
-
-                                $strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
-														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
-														where a.RML_ID=b.RML_ID
-														and b.LINE_MANAGER_RML_ID='$emp_session_id'
-														 and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
-														 and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
-                                                              trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
-														and a.LINE_MNGR_APVL_STS IS NULL
-														order by START_DATE desc");
+								$sql="select  a.ID,
+											  b.EMP_NAME,
+											  a.RML_ID,
+											  a.ENTRY_DATE,
+											  a.ATTN_DATE,
+											  a.OUTSIDE_REMARKS,
+											  a.ENTRY_BY,
+											  b.DEPT_NAME,
+											  b.BRANCH_NAME,
+											  b.DESIGNATION
+										FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
+										WHERE A.RML_ID = B.RML_ID
+										AND b.LINE_MANAGER_RML_ID = '$emp_session_id'
+										AND trunc(a.ATTN_DATE) BETWEEN  trunc(SYSDATE)-( select KEY_VALUE from HR_GLOBAL_CONFIGARATION
+											   where KEY_TYPE='ATTN_OUTDOOR_APPROVAL') AND  trunc(SYSDATE)
+										AND a.IS_ALL_APPROVED = 0
+										and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
+										AND A.LINE_MANAGER_APPROVAL IS NULL
+										AND B.IS_ACTIVE = 1";
+														
+			
+                            
+                        $strSQL  = oci_parse($objConnect, $sql);
 
                                 oci_execute($strSQL);
                                 $number = 0;
@@ -101,8 +226,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     $v_view_approval = 1;
                             ?>
                                     <tbody>
-                                        <tr>
-                                            <td><input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                       <tr>
+                                            <td><input type="checkbox" name="check_list[]"  form="Form2" value="<?php echo $row['ID'];  ?>">
                                                 <?php echo $number; ?>
                                             </td>
                                             <td>
@@ -115,20 +240,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" />
                                             </td>
                                             <td>
-                                                <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
+                                                <?php echo $row['ATTN_DATE'];
                                                 echo ',<br>';
-                                                $v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
-                                                echo $v_leave_day;
-                                                if ($v_leave_day > 1)
-                                                    echo '-Days';
-                                                else
-                                                    echo '-Day';
-                                                echo ',<br>';
-                                                echo 'Remarks:-' . $row['REMARKS'];
+                                                echo 'Remarks:-' . $row['OUTSIDE_REMARKS'];
                                                 ?>
                                             </td>
+
+
                                         </tr>
                                     <?php
                                 }
@@ -137,10 +258,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" />
                                             </td>
 
-                                            <td><input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" /></td>
+                                            <td><input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" /></td>
                                         </tr>
 
                                     <?php
@@ -160,7 +281,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 														FROM RML_HR_ATTN_DAILY a, RML_HR_APPS_USER b
 														WHERE A.RML_ID = B.RML_ID
 														AND b.LINE_MANAGER_RML_ID = '$emp_session_id'
-														AND TRUNC(a.ATTN_DATE) > TO_DATE('01/01/2023', 'DD/MM/YYYY')
+														AND trunc(a.ATTN_DATE) BETWEEN  trunc(SYSDATE)-( select KEY_VALUE from HR_GLOBAL_CONFIGARATION
+                                                               where KEY_TYPE='ATTN_OUTDOOR_APPROVAL') AND  trunc(SYSDATE)
 														AND a.IS_ALL_APPROVED = 0
 														AND A.LINE_MANAGER_APPROVAL IS NULL
 														AND B.IS_ACTIVE = 1");
@@ -173,7 +295,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     $v_view_approval = 1;
                                     ?>
                                         <tr>
-                                            <td><input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+                                            <td><input type="checkbox" name="check_list[]" form="Form2"  value="<?php echo $row['ID']; ?>">
                                                 <?php echo $number; ?>
                                             </td>
                                             <td>
@@ -186,7 +308,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" />
                                             </td>
                                             <td>
                                                 <?php echo $row['ATTN_DATE'];
@@ -204,10 +326,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" />
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" />
                                             </td>
 
                                         </tr>
@@ -221,151 +343,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
 
                 </div>
-            </form>
+ 
         </div>
-        <?php
-
-        if (isset($_POST['submit_approval_single'])) {
-            if (!empty($_POST['check_list'])) {
-                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-                    $strSQL = oci_parse(
-                        $objConnect,
-                        "update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=1,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=1
-                                         where ID='$TT_ID_SELECTTED'"
-                    );
-
-                    oci_execute($strSQL);
-                    $attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100);
-						                                                 V_END_DATE VARCHAR2(100);
-																		 V_RML_ID VARCHAR2(100);
-									  begin SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID  INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
-
-                    if (oci_execute($attnProcSQL)) {
-                        // //$errorMsg = "Your Selected Leave Successfully Approved";
-                        // echo '<div class="alert alert-primary">';
-                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        // echo '<br>';
-                        // echo '</div>';
-                        $message = [
-                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
-                            'status' => 'true',
-                        ];
-                        $_SESSION['noti_message'] = $message;
-                    }
-                }
-                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
-
-                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
-            } else {
-                //$errorMsg = "Sorry! You have not select any ID Code.";
-
-                // echo '<div class="alert alert-danger">';
-                // echo 'Sorry! You have not select any ID Code.';
-                // echo '</div>';
-                $message = [
-                    'text' => 'Sorry! You have not select any ID Code.',
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-            }
-        }
-
-
-
-
-
-        if (isset($_POST['submit_approval'])) { //to run PHP script on submit
-            if (!empty($_POST['check_list'])) {
-                // Loop to store and display values of individual checked checkbox.
-                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-                    $strSQL = oci_parse(
-                        $objConnect,
-                        "update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=1,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=1
-                                         where ID='$TT_ID_SELECTTED'"
-                    );
-
-                    oci_execute($strSQL);
-                    $attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100); V_END_DATE VARCHAR2(100); V_RML_ID VARCHAR2(100);begin  SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
-
-                    if (oci_execute($attnProcSQL)) {
-                        //$errorMsg = "Your Selected Leave Successfully Approved";
-                        // echo '<div class="alert alert-primary">';
-                        // echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-                        // echo '<br>';
-                        // echo '</div>';
-                        $message = [
-                            'text' => 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED,
-                            'status' => 'true',
-                        ];
-                        $_SESSION['noti_message'] = $message;
-                    }
-                }
-                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
-
-                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
-            } else {
-                //$errorMsg = "Sorry! You have not select any ID Code.";
-
-                // echo '<div class="alert alert-danger">';
-                // echo 'Sorry! You have not select any ID Code.';
-                // echo '</div>';
-                $message = [
-                    'text' => 'Sorry! You have not select any ID Code.',
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-            }
-        }
-
-        // Denied option
-        if (isset($_POST['submit_denied'])) { //to run PHP script on submit
-            if (!empty($_POST['check_list'])) {
-                // Loop to store and display values of individual checked checkbox.
-                foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-                    $strSQL = oci_parse(
-                        $objConnect,
-                        "update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=0,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=0
-                                         where ID='$TT_ID_SELECTTED'"
-                    );
-
-                    oci_execute($strSQL);
-
-                    // echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
-                    $message = [
-                        'text' => 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED,
-                        'status' => 'true',
-                    ];
-                    $_SESSION['noti_message'] = $message;
-                }
-                echo "<script>window.location = '$basePath/attendance_module/view/lm_panel/approval.php'</script>";
-
-                // echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
-            } else {
-                // echo '<div class="alert alert-danger">';
-                // echo 'Sorry! You have not select any ID Code.';
-                // echo '</div>';
-                $message = [
-                    'text' => 'Sorry! You have not select any ID Code.',
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-            }
-        }
-
-
-        ?>
     </div>
 
 </div>
