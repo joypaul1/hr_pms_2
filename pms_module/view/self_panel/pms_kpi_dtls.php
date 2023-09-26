@@ -42,18 +42,46 @@ while ($row = oci_fetch_assoc($WATESQL)) {
     ?>
         <div class="card col-lg-12">
             <form action="" method="post">
-                <div class="card-body row justify-content-center">
-                    <!-- <div class="col-sm-2"></div> -->
+                <div class="card-body row justify-content-end">
+                    <div class="col-sm-3">
+                        <label for="exampleInputEmail1">Select KRA:</label>
+                        <select required="" name="kra_id" class="form-control cust-control">
+                            <option value=""><-Select KRA -></option>
+                            <?php
+                            $query = "select BB.ID,
+                                    BB.KRA_NAME,
+                                    (select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
+                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
+                                            WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
+                                            AND A.EMP_ID='$emp_session_id'
+                                    )SUBMITTED_STATUS,
+                                    CREATED_BY,
+                                    CREATED_DATE,UPDATED_DATE,
+                                    IS_ACTIVE 
+                                FROM HR_PMS_KRA_LIST BB
+                                WHERE BB.CREATED_BY='$emp_session_id'";
+
+
+                            $strSQL  = oci_parse($objConnect, $query);
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+
+                            ?>
+                                <option value="<?php echo $row['ID']; ?>"><?php echo $row['KRA_NAME']; ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">KPI Name</label>
-
                             <textarea required="" class="form-control" rows="1" id="comment" name="kpi_name"></textarea>
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="exampleInputEmail1">Select Weightage(%):</label>
-                        <select required="" name="weightage" class="form-control cust-control">
+                        <label class="form-label" for="weightage">Select Weightage(%):</label>
+                        <select required="" name="weightage" class="form-control cust-control" id='weightage'>
                             <option selected value="">--</option>
                             <option value="5">5</option>
                             <option value="10">10</option>
@@ -65,12 +93,12 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%)</label>
-                        <input required="" class="form-control cust-control" type='text' name="target" />
+                        <input required="" class="form-control cust-control" type='number' name="target" />
 
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor </label>
-                        <input required="" class="form-control cust-control" type='text' name="eligi_factor" />
+                        <input required="" class="form-control cust-control" type='number' name="eligi_factor" />
 
                     </div>
                     <div class="col-sm-3">
