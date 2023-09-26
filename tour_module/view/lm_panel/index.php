@@ -3,7 +3,7 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('lm-tour-report')) {
-	echo "<script>
+    echo "<script>
 		window.location.href = '$basePath/index.php?logout=true';
 	</script>";
 }
@@ -131,7 +131,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $tour_day = ($row['END_DATE'] - $row['START_DATE']) + 1;
+                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;;
                                         echo $row['START_DATE'] . "-To-" . $row['END_DATE'];
                                         echo '<br>';
                                         echo $tour_day;
@@ -184,7 +184,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $tour_day = ($row['END_DATE'] - $row['START_DATE']) + 1;
+                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;;
+
                                         echo $row['START_DATE'] . "-To-" . $row['END_DATE'];
                                         echo '<br>';
                                         echo $tour_day;

@@ -9,6 +9,110 @@ if (!checkPermission('lm-tour-approval')) {
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_view_approval = 0;
+if (isset($_POST['submit_approval_single'])) {
+
+	if (!empty($_POST['check_list'])) {
+		foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+			$query = "UPDATE RML_HR_EMP_TOUR 
+			SET LINE_MANAGER_APPROVAL_STATUS=1,
+			APPROVAL_DATE=SYSDATE
+			where ID='$TT_ID_SELECTTED'";
+
+			$strSQL = oci_parse(
+				$objConnect,
+				$query
+
+			);
+
+			if (oci_execute($strSQL)) {
+				$message = [
+					'text' => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
+					'status' => 'true',
+				];
+				$_SESSION['noti_message'] = $message;
+			}
+		}
+		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
+	} else {
+		$message = [
+			'text' => "Sorry! You have not select any ID Code.",
+			'status' => 'false',
+		];
+		$_SESSION['noti_message'] = $message;
+	}
+}
+
+
+
+
+
+if (isset($_POST['submit_approval'])) {
+
+	if (!empty($_POST['check_list'])) {
+		// Loop to store and display values of individual checked checkbox.
+		foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+			$strSQL = oci_parse(
+				$objConnect,
+				"UPDATE RML_HR_EMP_TOUR 
+							set LINE_MANAGER_APPROVAL_STATUS=1,
+							APPROVAL_DATE=SYSDATE
+							 where ID='$TT_ID_SELECTTED'"
+			);
+
+			oci_execute($strSQL);
+
+
+			if (oci_execute($strSQL)) {
+				$message = [
+					'text' => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
+					'status' => 'true',
+				];
+				$_SESSION['noti_message'] = $message;
+			}
+		}
+		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
+	} else {
+		$message = [
+			'text' => "Sorry! You have not select any ID Code.",
+			'status' => 'false',
+		];
+		$_SESSION['noti_message'] = $message;
+	}
+}
+
+// Denied option
+if (isset($_POST['submit_denied'])) {
+	// print_r($_POST);
+	// die();
+	if (!empty($_POST['check_list'])) {
+		// Loop to store and display values of individual checked checkbox.
+		foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
+			$strSQL = oci_parse(
+				$objConnect,
+				"UPDATE RML_HR_EMP_TOUR 
+				set LINE_MANAGER_APPROVAL_STATUS=0,
+				APPROVAL_DATE=sysdate
+				 where ID='$TT_ID_SELECTTED'"
+			);
+
+			if (oci_execute($strSQL)) {
+				$message = [
+					'text' => 'Successfully Denied Tour. ' . $TT_ID_SELECTTED,
+					'status' => 'true',
+				];
+				$_SESSION['noti_message'] = $message;
+			}
+		}
+		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
+	} else {
+		$message = [
+			'text' => "Sorry! You have not select any ID Code.",
+			'status' => 'false',
+		];
+		$_SESSION['noti_message'] = $message;
+	}
+}
+
 ?>
 
 <!-- / Content -->
@@ -244,117 +348,6 @@ $v_view_approval = 0;
 			</form>
 			<?php
 
-			if (isset($_POST['submit_approval_single'])) {
-				// print_r($_POST);
-				// die();
-				if (!empty($_POST['check_list'])) {
-					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-						$strSQL = oci_parse(
-							$objConnect,
-							"update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=1,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=1
-                                        where ID='$TT_ID_SELECTTED'"
-						);
-
-						oci_execute($strSQL);
-						$attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100);
-						                                                 V_END_DATE VARCHAR2(100);
-																		 V_RML_ID VARCHAR2(100);
-									  begin SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID  INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
-
-						if (oci_execute($attnProcSQL)) {
-							//$errorMsg = "Your Selected Leave Successfully Approved";
-							echo '<div class="alert alert-primary">';
-							echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-							echo '<br>';
-							echo '</div>';
-						}
-					}
-					echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
-				} else {
-					//$errorMsg = "Sorry! You have not select any ID Code.";
-
-					echo '<div class="alert alert-danger">';
-					echo 'Sorry! You have not select any ID Code.';
-					echo '</div>';
-				}
-			}
-
-
-
-
-
-			if (isset($_POST['submit_approval'])) {
-
-				if (!empty($_POST['check_list'])) {
-					// Loop to store and display values of individual checked checkbox.
-					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-						$strSQL = oci_parse(
-							$objConnect,
-							"update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=1,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=1
-                                         where ID='$TT_ID_SELECTTED'"
-						);
-
-						oci_execute($strSQL);
-						$attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100); V_END_DATE VARCHAR2(100); V_RML_ID VARCHAR2(100);begin  SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID INTO V_START_DATE,V_END_DATE,V_RML_ID  FROM RML_HR_EMP_LEAVE WHERE ID=$TT_ID_SELECTTED; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
-
-						if (oci_execute($attnProcSQL)) {
-							//$errorMsg = "Your Selected Leave Successfully Approved";
-							echo '<div class="alert alert-primary">';
-							echo 'Successfully Approved Outdoor Attendance ID ' . $TT_ID_SELECTTED;
-							echo '<br>';
-							echo '</div>';
-						}
-					}
-					echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
-
-					// echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
-				} else {
-					//$errorMsg = "Sorry! You have not select any ID Code.";
-
-					echo '<div class="alert alert-danger">';
-					echo 'Sorry! You have not select any ID Code.';
-					echo '</div>';
-				}
-			}
-
-			// Denied option
-			if (isset($_POST['submit_denied'])) { 
-				// print_r($_POST);
-				// die();
-				if (!empty($_POST['check_list'])) {
-					// Loop to store and display values of individual checked checkbox.
-					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-						$strSQL = oci_parse(
-							$objConnect,
-							"UPDATE RML_HR_EMP_LEAVE 
-								set LINE_MNGR_APVL_STS=0,
-								LINE_MNGR_APVL_DATE=sysdate,
-								LINE_MNGR_APVL_BY='$emp_session_id',
-								IS_APPROVED=0
-								where ID='$TT_ID_SELECTTED'"
-						);
-
-						oci_execute($strSQL);
-
-						echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
-					}
-					// echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
-
-					// echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
-				} else {
-					echo '<div class="alert alert-danger">';
-					echo 'Sorry! You have not select any ID Code.';
-					echo '</div>';
-				}
-			}
 
 
 			?>
