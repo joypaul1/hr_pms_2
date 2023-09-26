@@ -150,28 +150,28 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
                             if (@oci_execute(@$strSQL)) {
 
-                                if ($v_emp_id == 'RML-00955') {
-                                    if (strlen($EMP_MOBILE) == 11) {
-                                        $MESSAGE_HEADER = "Dear Concern,";
-                                        $MESSAGE_BODY = "This is to inform you that " . $EMP_NAME . " " . $v_emp_id . " has applied for leave from " . $v_leave_start_date . " to " . $v_leave_end_date . " for " . substr($leave_remarks, 0, 25);
-                                        $MESSAGE_FOOTER = "Please review and approve the leave request accordingly.";
-                                        $FULL_MESSAGE = $MESSAGE_HEADER . "\n\n" . $MESSAGE_BODY . "\n\n" . $MESSAGE_FOOTER . "\n\n" . "Thank you,\nHR Team";
-                                        $EMP_MOBILE = "+88" . $EMP_MOBILE;
+                                // if ($v_emp_id == 'RML-00955') {
+                                //     if (strlen($EMP_MOBILE) == 11) {
+                                //         $MESSAGE_HEADER = "Dear Concern,";
+                                //         $MESSAGE_BODY = "This is to inform you that " . $EMP_NAME . " " . $v_emp_id . " has applied for leave from " . $v_leave_start_date . " to " . $v_leave_end_date . " for " . substr($leave_remarks, 0, 25);
+                                //         $MESSAGE_FOOTER = "Please review and approve the leave request accordingly.";
+                                //         $FULL_MESSAGE = $MESSAGE_HEADER . "\n\n" . $MESSAGE_BODY . "\n\n" . $MESSAGE_FOOTER . "\n\n" . "Thank you,\nHR Team";
+                                //         $EMP_MOBILE = "+88" . $EMP_MOBILE;
 
-                                        $message = rawurlencode($FULL_MESSAGE);
-                                        $url = file_get_contents("https://api.smsq.global/api/v2/SendSMS?ApiKey=MjVOYgi/vMC3nAucChiFRCT7qAZQlXOG+O0tpeS3DQ4=&ClientId=a0218de4-7d34-495b-a752-6303b3522f7e&SenderId=8809617601212&Message=$message&MobileNumbers=$EMP_MOBILE&Is_Unicode=8&Is_Flash=longsms");
-                                        $ch = curl_init();
-                                        // set URL and other appropriate options
-                                        curl_setopt($ch, CURLOPT_URL, $url);
-                                        curl_setopt($ch, CURLOPT_HEADER, 0);
+                                //         $message = rawurlencode($FULL_MESSAGE);
+                                //         $url = file_get_contents("https://api.smsq.global/api/v2/SendSMS?ApiKey=MjVOYgi/vMC3nAucChiFRCT7qAZQlXOG+O0tpeS3DQ4=&ClientId=a0218de4-7d34-495b-a752-6303b3522f7e&SenderId=8809617601212&Message=$message&MobileNumbers=$EMP_MOBILE&Is_Unicode=8&Is_Flash=longsms");
+                                //         $ch = curl_init();
+                                //         // set URL and other appropriate options
+                                //         curl_setopt($ch, CURLOPT_URL, $url);
+                                //         curl_setopt($ch, CURLOPT_HEADER, 0);
 
-                                        // grab URL and pass it to the browser
-                                        curl_exec($ch);
+                                //         // grab URL and pass it to the browser
+                                //         curl_exec($ch);
 
-                                        // close cURL resource, and free up system resources
-                                        curl_close($ch);
-                                    }
-                                }
+                                //         // close cURL resource, and free up system resources
+                                //         curl_close($ch);
+                                //     }
+                                // }
 
 
                                 $leaveSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");

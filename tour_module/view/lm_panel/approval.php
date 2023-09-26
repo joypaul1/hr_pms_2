@@ -72,7 +72,7 @@ $v_view_approval = 0;
 		</div>
 	</div>
 	<div class="rows card">
-		<h5 class="card-header"><b>Concern Tour Approval List</b></h5>
+		<h5 class="card-header"><b>Line Manager Tour Approval List</b></h5>
 		<div class="card-body">
 			<div class="col-lg-12">
 				<form id="Form2" action="" method="post">
@@ -90,17 +90,17 @@ $v_view_approval = 0;
 
 
 								<?php
-								
+
 
 								if (isset($_POST['start_date'])) {
-									 $emp_concern = $_REQUEST['emp_concern'];
-								     $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-								     $attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+									$emp_concern = $_REQUEST['emp_concern'];
+									$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+									$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
-                                   echo 'ddfdfjkdf';
-								   die();
 
-              
+
+
+
 									$strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
@@ -120,7 +120,7 @@ $v_view_approval = 0;
 								?>
 										<tbody>
 											<tr>
-												<td><input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+												<td><input type="checkbox" name="check_list[]" form="Form2" value="<?php echo $row['ID']; ?>">
 													<?php echo $number; ?>
 												</td>
 												<td>
@@ -137,7 +137,7 @@ $v_view_approval = 0;
 												<td>
 													<?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
 													echo ',<br>';
-													$v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
+													$v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
 													echo $v_leave_day;
 													if ($v_leave_day > 1)
 														echo '-Days';
@@ -155,16 +155,15 @@ $v_view_approval = 0;
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+													<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" />
 												</td>
 
-												<td><input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" /></td>
+												<td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" /></td>
 											</tr>
 
 										<?php
 									}
 								} else {
-                                      //echo 'dfdfd';
 									$allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 																	a.REMARKS,
 																	a.ENTRY_BY,
@@ -186,7 +185,7 @@ $v_view_approval = 0;
 										$v_view_approval = 1;
 										?>
 											<tr>
-												<td><input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>">
+												<td><input type="checkbox" name="check_list[]" form="Form2" value="<?php echo $row['ID']; ?>">
 													<?php echo $number; ?>
 												</td>
 												<td>
@@ -199,12 +198,12 @@ $v_view_approval = 0;
 													echo $row['DESIGNATION'];
 													echo ',<br>';
 													echo $row['BRANCH_NAME']; ?>
-													<input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval_single" value="Approve" />
 												</td>
 												<td>
 													<?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
 													echo ',<br>';
-													$v_leave_day = abs($row['END_DATE'] - $row['START_DATE']) + 1;
+													$v_leave_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
 													echo $v_leave_day;
 													if ($v_leave_day > 1)
 														echo '-Days';
@@ -224,10 +223,10 @@ $v_view_approval = 0;
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" />
 												</td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" />
 												</td>
 
 											</tr>
@@ -246,6 +245,8 @@ $v_view_approval = 0;
 			<?php
 
 			if (isset($_POST['submit_approval_single'])) {
+				// print_r($_POST);
+				// die();
 				if (!empty($_POST['check_list'])) {
 					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
 						$strSQL = oci_parse(
@@ -255,7 +256,7 @@ $v_view_approval = 0;
 										LINE_MNGR_APVL_DATE=sysdate,
 										LINE_MNGR_APVL_BY='$emp_session_id',
 										IS_APPROVED=1
-                                         where ID='$TT_ID_SELECTTED'"
+                                        where ID='$TT_ID_SELECTTED'"
 						);
 
 						oci_execute($strSQL);
@@ -272,7 +273,7 @@ $v_view_approval = 0;
 							echo '</div>';
 						}
 					}
-					echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+					echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
 				} else {
 					//$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -286,7 +287,8 @@ $v_view_approval = 0;
 
 
 
-			if (isset($_POST['submit_approval'])) { //to run PHP script on submit
+			if (isset($_POST['submit_approval'])) {
+
 				if (!empty($_POST['check_list'])) {
 					// Loop to store and display values of individual checked checkbox.
 					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
@@ -311,7 +313,9 @@ $v_view_approval = 0;
 							echo '</div>';
 						}
 					}
-					echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+					echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
+
+					// echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
 				} else {
 					//$errorMsg = "Sorry! You have not select any ID Code.";
 
@@ -322,25 +326,29 @@ $v_view_approval = 0;
 			}
 
 			// Denied option
-			if (isset($_POST['submit_denied'])) { //to run PHP script on submit
+			if (isset($_POST['submit_denied'])) { 
+				// print_r($_POST);
+				// die();
 				if (!empty($_POST['check_list'])) {
 					// Loop to store and display values of individual checked checkbox.
 					foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
 						$strSQL = oci_parse(
 							$objConnect,
-							"update RML_HR_EMP_LEAVE 
-										set LINE_MNGR_APVL_STS=0,
-										LINE_MNGR_APVL_DATE=sysdate,
-										LINE_MNGR_APVL_BY='$emp_session_id',
-										IS_APPROVED=0
-                                         where ID='$TT_ID_SELECTTED'"
+							"UPDATE RML_HR_EMP_LEAVE 
+								set LINE_MNGR_APVL_STS=0,
+								LINE_MNGR_APVL_DATE=sysdate,
+								LINE_MNGR_APVL_BY='$emp_session_id',
+								IS_APPROVED=0
+								where ID='$TT_ID_SELECTTED'"
 						);
 
 						oci_execute($strSQL);
 
 						echo 'Successfully Denied Outdoor Attendance ID ' . $TT_ID_SELECTTED . "</br>";
 					}
-					echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
+					// echo "<script>window.location = '$basePath/tour_module/view/lm_panel/approval.php'</script>";
+
+					// echo "<script>window.location = 'http://202.40.181.98:9090/rHR/lm_leave_approval.php'</script>";
 				} else {
 					echo '<div class="alert alert-danger">';
 					echo 'Sorry! You have not select any ID Code.';
