@@ -9,24 +9,24 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_key          = $_REQUEST['key'];
 $v_emp_id       = $_REQUEST['emp_id'];
 $v_emp_table_id = $_REQUEST['tab_id'];
+
 $strSQL         = oci_parse(
     $objConnect,
     "select RML_ID,
-								EMPLOYEE_NAME EMP_NAME,
-								COMPANY_NAME R_CONCERN,
-								DEPARTMENT DEPT_NAME,
-								WORKSTATION BRANCH_NAME,
-								DESIGNATION,
-								BRAND EMP_GROUP,
-								COLL_HR_EMP_NAME((SELECT aa.LINE_MANAGER_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)LINE_MANAGER_1_NAME,
-								COLL_HR_EMP_NAME((SELECT aa.DEPT_HEAD_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)LINE_MANAGER_2_NAME
-	from empinfo_view_api@ERP_PAYROLL bb where RML_ID='$v_emp_id'"
+EMPLOYEE_NAME EMP_NAME,
+COMPANY_NAME R_CONCERN,
+DEPARTMENT DEPT_NAME,
+WORKSTATION BRANCH_NAME,
+DESIGNATION,
+BRAND EMP_GROUP,
+COLL_HR_EMP_NAME((SELECT aa.LINE_MANAGER_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_1_NAME,
+COLL_HR_EMP_NAME((SELECT aa.DEPT_HEAD_RML_ID from RML_HR_APPS_USER aa where aa.RML_ID=bb.RML_ID)) LINE_MANAGER_2_NAME
+from empinfo_view_api@ERP_PAYROLL bb where BB.RML_ID='$v_emp_id'"
 );
-
 oci_execute($strSQL);
-$row = oci_fetch_assoc($strSQL);
-print_r($row);
-die();
+// $row = oci_fetch_assoc($strSQL);
+// print_r($row);
+// die();
 // approval status
 $LINE_MANAGER_1_STATUS = '';
 $strSQLsss             = oci_parse(
@@ -109,37 +109,36 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
                         </div>
                     </div>
 
+                    <?php
+                    if ($v_line_manager_status == "") {
+                    ?>
                     <div class="row mt-3">
-                        <div class="col-sm-3">
-                            <label for="exampleInputEmail1">Select PMS Title:</label>
-                            <select required="" name="pms_title_id" form="Form1" class="form-control cust-control">
-                                <option selected value="">--</option>
-                                <?php
-
-                                $strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
-                                oci_execute($strSQL);
-                                while ($row = oci_fetch_assoc($strSQL)) {
-                                    ?>
-
-                                    <option value="<?php echo $row['ID']; ?>">
-                                        <?php echo $row['PMS_NAME']; ?>
-                                    </option>
-                                    <?php
-                                }
-                                ?>
-                            </select>
+                        <div class="col-sm-6">
+                            <label class="form-label" for="basic-default-fullname">Remarks</label>
+                            <input required="" name="remarks" form="Form1" placeholder="Approval Or Denied Remarks" 
+                            class="form-control cust-control" type="text">
                         </div>
-                        <div class="col-sm-6"></div>
                         <div class="col-sm-3">
-                            <div class="md-form mt-3">
-                                <input class="form-control  btn  btn-sm  btn-primary" type="submit" form="Form1" value="Create PMS Profile">
+
+                            <label class="form-label" for="basic-default-fullname">Select Type</label>
+                            <select name="app_status" class="form-control cust-control" form="Form1" required="">
+                                <option selected="" value="">---</option>
+                                    <option value="1">Approve</option>
+                                    <option value="0">Denied</option>   
+                            </select> 
+                        </div>
+                        
+                        <div class="col-sm-3">
+                            <div class="md-form">
+                            <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                            <input class="form-control btn btn-primary cust-control" type="submit" form="Form1" value="Submit">
                             </div>
                         </div>
-
+                        
                     </div>
 
-                    <?php
-                }
+                <?php
+                }}
                 ?>
 
 
@@ -152,22 +151,128 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Waiting For Approval</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b><?php echo $_GET['emp_id'] ?> For PMS DEtails</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
-                    <thead class="table-dark">
+                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
+                    <thead style="background: beige;">
                         <tr class="text-center">
-                            <th>SL</th>
-                            <th scope="col">PMS Title Info.</th>
-                            <th scope="col">Employe Info.</th>
-                            <th scope="col">Submitted Date</th>
-                            <th scope="col">Action</th>
+                            <th class="">Sl <br>No</th>
+                            <th scope="col">KRA(Key Result Areas)<br>KRA</th>
+                            <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
+                            <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
+                            <th scope="col">Target</th>
+                            <th scope="col">Remarks</th>
                         </tr>
                     </thead>
                    
 
-                    </tbody>
+                    <tbody>
+								<tr>
+									<?php
+									$strSQL = oci_parse(
+										$objConnect,
+										"select KRA_NAME,ID
+							        FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$v_emp_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
+									);
+									oci_execute($strSQL);
+									$number = 0;
+									while ($row = oci_fetch_assoc($strSQL)) {
+										$table_ID = $row['ID'];
+										$number++;
+										?>
+
+										<td class="align-middle">
+											<?php echo $number; ?>
+										</td>
+										<td class="align-middle">
+											<?php echo $row['KRA_NAME']; ?>
+										</td>
+										<td class="align-middle">
+											<table width="100%">
+												<?php
+
+												$slNumber    = 0;
+												$strSQLInner = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+												oci_execute($strSQLInner);
+												while ($rowIN = oci_fetch_assoc($strSQLInner)) {
+													$slNumber++;
+													?>
+													<tr>
+														<td >
+															<?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
+														</td>
+													</tr>
+												<?php
+												}
+												?>
+											</table>
+										</td>
+
+										<td class="align-middle">
+											<table width="100%">
+												<?php
+
+												$strSQLInner = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+												oci_execute($strSQLInner);
+												while ($rowIN = oci_fetch_assoc($strSQLInner)) {
+													?>
+													<tr>
+														<td  class="align-middle">
+															<?php echo $rowIN['WEIGHTAGE']; ?>
+														</td>
+													</tr>
+												<?php
+												}
+												?>
+											</table>
+										</td>
+
+										<td class="align-middle">
+											<table width="100%">
+												<?php
+												$strSQLInner = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+												oci_execute($strSQLInner);
+												while ($rowIN = oci_fetch_assoc($strSQLInner)) {
+													?>
+													<tr>
+
+														<td  class="align-middle">
+															<?php echo $rowIN['TARGET']; ?>
+														</td>
+													</tr>
+												<?php
+												}
+												?>
+											</table>
+										</td>
+
+										<td class="align-middle">
+											<table width="100%">
+												<?php
+												$slNumberR   = 0;
+												$strSQLInner = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
+												oci_execute($strSQLInner);
+												while ($rowIN = oci_fetch_assoc($strSQLInner)) {
+													$slNumberR++;
+													?>
+													<tr>
+														<td >
+															<?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?>
+														</td>
+
+													</tr>
+												<?php
+												}
+												?>
+											</table>
+										</td>
+									</tr>
+									<?php
+
+									}
+									?>
+							</tbody>
                 </table>
             </div>
         </div>
