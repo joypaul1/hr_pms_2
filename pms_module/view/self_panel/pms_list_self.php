@@ -32,7 +32,7 @@ oci_execute($strSQL);
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="">
 
-		<div class=" card">
+		<div class="card">
 			<div class="row card-body">
 				<div class="col-lg-12">
 					<form id="Form1" action="" method="post"></form>
