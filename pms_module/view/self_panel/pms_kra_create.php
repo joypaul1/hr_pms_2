@@ -1,7 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 // if (!checkPermission('concern-offboarding-create')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
@@ -31,7 +31,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 					<div class="row">
 						<div class="col-sm-8">
 							<label for="exampleInputEmail1">KRA Name:</label>
-							<input required="" style="padding:5px !important" form="Form1" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type='text' />
+							<input required="" style="padding:5px !important" form="Form1" name="kra_name" placeholder="Enter KRA Name"
+								class="form-control cust-control" type='text' />
 						</div>
 						<div class="col-sm-4">
 							<label for="exampleInputEmail1">Select PMS Title:</label>
@@ -40,13 +41,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 								<?php
 
-								$strSQL  = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
+								$strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
 								oci_execute($strSQL);
 								while ($row = oci_fetch_assoc($strSQL)) {
-								?>
+									?>
 
-									<option value="<?php echo $row['ID']; ?>"><?php echo $row['PMS_NAME']; ?></option>
-								<?php
+									<option value="<?php echo $row['ID']; ?>">
+										<?php echo $row['PMS_NAME']; ?>
+									</option>
+									<?php
 								}
 								?>
 							</select>
@@ -76,9 +79,9 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 					$self_submitted_status = 0;
 
-					$v_kra_name = $_REQUEST['kra_name'];
+					$v_kra_name     = $_REQUEST['kra_name'];
 					$v_pms_title_id = $_REQUEST['pms_title_id'];
-					$strStatus  = oci_parse(
+					$strStatus      = oci_parse(
 						$objConnect,
 						"SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP 
 								       WHERE EMP_ID='$emp_session_id'
@@ -92,7 +95,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 					}
 
 					if ($self_submitted_status == 0) {
-						$strSQL  = oci_parse(
+						$strSQL = oci_parse(
 							$objConnect,
 							"INSERT INTO HR_PMS_KRA_LIST (
                                              KRA_NAME,
@@ -108,23 +111,29 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											 1)"
 						);
 						if (@oci_execute($strSQL)) {
-
-							echo '<div class="alert alert-primary">';
-							echo "KRA is created successfully.";
-							echo '</div>';
-						} else {
-							$lastError = error_get_last();
-							$error = $lastError ? "" . $lastError["message"] . "" : "";
-							if (strpos($error, 'HR_KRA_LIST_UNIQUE') !== false) {
-								echo '<div class="alert alert-danger">';
-								echo $error;
-								echo '</div>';
-							}
+							$message                  = [
+								'text'   => 'KRA is created successfully.',
+								'status' => 'true',
+							];
+							$_SESSION['noti_message'] = $message;
 						}
-					} else {
-						echo '<div class="alert alert-danger">';
-						echo "You can not create new KRA  cause of this PMS data are already submitted.";
-						echo '</div>';
+						else {
+							$e                        = oci_error($strSQL);
+							$message                  = [
+								'text'   => htmlentities($e['message'], ENT_QUOTES),
+								'status' => 'false',
+							];
+							$_SESSION['noti_message'] = $message;
+
+						}
+					}
+					else {
+
+						$message                  = [
+							'text'   => "You can not create new KRA  cause of this MS data are already submitted.",
+							'status' => 'false',
+						];
+						$_SESSION['noti_message'] = $message;
 					}
 				}
 				?>
@@ -161,7 +170,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 									<tbody>
 
 										<?php
-										$strSQL  = oci_parse(
+										$strSQL = oci_parse(
 											$objConnect,
 											"select BB.ID,
 											BB.KRA_NAME,
@@ -183,12 +192,20 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 										while ($row = oci_fetch_assoc($strSQL)) {
 											$number++;
-										?>
+											?>
 											<tr>
-												<td class="text-center"><?php echo $number; ?></td>
-												<td><?php echo $row['KRA_NAME']; ?></td>
-												<td><?php echo $row['PMS_NAME']; ?></td>
-												<td><?php echo $row['UPDATED_DATE']; ?></td>
+												<td class="text-center">
+													<?php echo $number; ?>
+												</td>
+												<td>
+													<?php echo $row['KRA_NAME']; ?>
+												</td>
+												<td>
+													<?php echo $row['PMS_NAME']; ?>
+												</td>
+												<td>
+													<?php echo $row['UPDATED_DATE']; ?>
+												</td>
 												<td>
 													<?php
 													if ($row['IS_ACTIVE'] == '1')
@@ -200,16 +217,17 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 												<td>
 													<?php
 													if ($row['SUBMITTED_STATUS'] != '1') {
-													?>
-														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
+														?>
+														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+															style="display:none" />
 														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>">Edit</a>
-													<?php
+														<?php
 													}
 													?>
 												</td>
 
 											</tr>
-										<?php
+											<?php
 
 										}
 										?>
@@ -224,7 +242,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 							$table_id = $_REQUEST['table_id'];
 							$kra_name = $_REQUEST['kra_name'];
 
-							$updateSQL  = oci_parse(
+							$updateSQL = oci_parse(
 								$objConnect,
 								"UPDATE HR_PMS_KRA_LIST SET KRA_NAME='$kra_name',UPDATED_DATE=SYSDATE WHERE ID='$table_id'"
 							);

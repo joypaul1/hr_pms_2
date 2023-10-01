@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
     $v_kra_name = $_POST['kra_name'];
     $HR_PMS_LIST_ID = $_POST['pms_title_id'];
     // print_r($HR_PMS_LIST_ID);
-    $query = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' WHERE ID='$editId'";
+    $query = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
     $strSQL  = oci_parse($objConnect, $query);
 
     if (oci_execute($strSQL)) {
