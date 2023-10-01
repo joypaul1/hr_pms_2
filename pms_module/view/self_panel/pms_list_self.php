@@ -3,7 +3,7 @@
 
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 // if (!checkPermission('concern-offboarding-create')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
@@ -40,43 +40,51 @@ oci_execute($strSQL);
 
 					<?php
 					while ($row = oci_fetch_assoc($strSQL)) {
-					?>
+						?>
 
 						<div class="row">
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee ID:</label>
-								<input name="emp_id" readonly form="Form1" placeholder="EMP-ID" class="form-control cust-control" type='text' value='<?php echo $row['RML_ID']; ?>' />
+								<input name="emp_id" readonly form="Form1" placeholder="EMP-ID" class="form-control cust-control" type='text'
+									value='<?php echo $row['RML_ID']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Name:</label>
-								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text' value='<?php echo $row['EMP_NAME']; ?>' />
+								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
+									value='<?php echo $row['EMP_NAME']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Designation:</label>
-								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text' value='<?php echo $row['DESIGNATION']; ?>' />
+								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
+									value='<?php echo $row['DESIGNATION']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Department:</label>
-								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text' value='<?php echo $row['DEPT_NAME']; ?>' />
+								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
+									value='<?php echo $row['DEPT_NAME']; ?>' />
 							</div>
 						</div>
 
 						<div class="row mt-3">
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">PMS Line Manager-1:</label>
-								<input class="form-control cust-control" required="" readonly type='text' value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' />
+								<input class="form-control cust-control" required="" readonly type='text'
+									value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">PMS Line Manager-2:</label>
-								<input required="" required="" class="form-control cust-control" readonly type='text' value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' />
+								<input required="" required="" class="form-control cust-control" readonly type='text'
+									value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Group:</label>
-								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text' value='<?php echo $row['EMP_GROUP']; ?>' />
+								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
+									value='<?php echo $row['EMP_GROUP']; ?>' />
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Branch:</label>
-								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text' value='<?php echo $row['BRANCH_NAME']; ?>' />
+								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
+									value='<?php echo $row['BRANCH_NAME']; ?>' />
 							</div>
 						</div>
 
@@ -90,10 +98,12 @@ oci_execute($strSQL);
 									$strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
 									oci_execute($strSQL);
 									while ($row = oci_fetch_assoc($strSQL)) {
-									?>
+										?>
 
-										<option value="<?php echo $row['ID']; ?>"><?php echo $row['PMS_NAME']; ?></option>
-									<?php
+										<option value="<?php echo $row['ID']; ?>">
+											<?php echo $row['PMS_NAME']; ?>
+										</option>
+										<?php
 									}
 									?>
 								</select>
@@ -107,7 +117,7 @@ oci_execute($strSQL);
 
 						</div>
 
-					<?php
+						<?php
 					}
 					?>
 
@@ -136,11 +146,12 @@ oci_execute($strSQL);
 						echo '<div class="alert alert-primary">';
 						echo "PMS Profile is created successfully.";
 						echo '</div>';
-					} else {
-						$lastError                       = error_get_last();
-						$error                           = @$lastError ? "" . @$lastError["message"] . "" : "";
-						list($oci, $message, $mainerror) = explode(":", $error);
-						list($databaseEror)              = explode("ORA", $mainerror);
+					}
+					else {
+						$lastError                         = error_get_last();
+						$error                             = @$lastError ? "" . @$lastError["message"] . "" : "";
+						list( $oci, $message, $mainerror ) = explode(":", $error);
+						list( $databaseEror )              = explode("ORA", $mainerror);
 
 
 						if (strpos($error, 'HR_PMS_EMP_CONSTRAIN_DUPLICATE') !== false) {
@@ -222,14 +233,15 @@ oci_execute($strSQL);
 
 								while ($row = oci_fetch_assoc($strSQL)) {
 									$number++;
-								?>
+									?>
 									<tr>
 										<td class="text-center">
 											<?php echo $number; ?>
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
+											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+												style="display:none" />
 											<br>
 
 
@@ -310,15 +322,17 @@ oci_execute($strSQL);
 										</td>
 										<td align="center">
 											<?php
-											if (($row['SELF_SUBMITTED_STATUS'] == 0 && $row['PMS_WEIGHTAGE_STATUS'] >= 100) || $row['LINE_MANAGER_1_STATUS'] == 0) {
-											?>
+											if ($row['SELF_SUBMITTED_STATUS'] == 0) {
+												?>
 												<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit" />
-											<?php
-											}
-											?>
+												<?php
+											}else{
+												echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" />';
+											}?>
+											
 										</td>
 									</tr>
-								<?php
+									<?php
 
 								}
 								?>

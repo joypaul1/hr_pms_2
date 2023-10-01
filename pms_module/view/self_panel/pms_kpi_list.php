@@ -56,9 +56,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         "SELECT 
 											    B.ID, 
 												B.KPI_NAME, 
-												(SELECT KRA_NAME FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)KRA_NAME, 
+												(SELECT C.KRA_NAME FROM HR_PMS_KRA_LIST C WHERE C.ID=HR_KRA_LIST_ID)KRA_NAME, 
+												(SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = 
+                                                (SELECT E.HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST E WHERE E.ID=HR_KRA_LIST_ID)HR_PMS_LIST_ID)
+                                                AS SUBMITTED_STATUS, 
 												WEIGHTAGE, 
-												TARGET,ELIGIBILITY_FACTOR, 
+												TARGET,
+                                                ELIGIBILITY_FACTOR, 
 												REMARKS, 
 												CREATED_BY, 
 												CREATED_DATE, 

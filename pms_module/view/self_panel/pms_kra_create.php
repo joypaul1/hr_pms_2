@@ -222,6 +222,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 															style="display:none" />
 														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>">Edit</a>
 														<?php
+													}else{
+														echo '<button type="button" class="btn btn-success btn-sm">PMS Submitted</button>';
 													}
 													?>
 												</td>

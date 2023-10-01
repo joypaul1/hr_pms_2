@@ -93,17 +93,17 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%)</label>
-                        <input required="" class="form-control cust-control" type='number' name="target" />
+                        <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="target" />
 
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor </label>
-                        <input required="" class="form-control cust-control" type='number' name="eligi_factor" />
+                        <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="eligi_factor" />
 
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Remarks </label>
-                        <input required="" class="form-control cust-control" type='text' name="ramarks" />
+                        <input required=""  class="form-control cust-control" type='text' name="ramarks" />
 
                     </div>
 
