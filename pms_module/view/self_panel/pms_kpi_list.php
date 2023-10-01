@@ -53,23 +53,22 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     $strSQL = oci_parse(
                                         $objConnect,
-                                        "SELECT 
-											    B.ID, 
-												B.KPI_NAME, 
-												(SELECT C.KRA_NAME FROM HR_PMS_KRA_LIST C WHERE C.ID=HR_KRA_LIST_ID)KRA_NAME, 
-												(SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = 
-                                                (SELECT E.HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST E WHERE E.ID=HR_KRA_LIST_ID)HR_PMS_LIST_ID)
-                                                AS SUBMITTED_STATUS, 
-												WEIGHTAGE, 
-												TARGET,
-                                                ELIGIBILITY_FACTOR, 
-												REMARKS, 
-												CREATED_BY, 
-												CREATED_DATE, 
-												IS_ACTIVE,ACHIVEMENT, 
-												ACHIEVEMENT_LOCK_STATUS
-											FROM HR_PMS_KPI_LIST B
-											WHERE CREATED_BY='$emp_session_id'"
+                                        "SELECT B.ID,
+											   B.KPI_NAME,
+											   A.KRA_NAME,
+											   (SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = A.HR_PMS_LIST_ID AND D.EMP_ID=B.CREATED_BY) AS SUBMITTED_STATUS,
+											   B.WEIGHTAGE,
+											   B.TARGET,
+											   B.ELIGIBILITY_FACTOR,
+											   B.REMARKS,
+											   B.CREATED_BY,
+											   B.CREATED_DATE,
+											   B.IS_ACTIVE,
+											   B.ACHIVEMENT,
+											   B.ACHIEVEMENT_LOCK_STATUS
+										  FROM HR_PMS_KPI_LIST B, HR_PMS_KRA_LIST A
+										 WHERE A.id = B.HR_KRA_LIST_ID 
+										 AND B.CREATED_BY = '$emp_session_id'"
                                     );
                                     oci_execute($strSQL);
                                     $number = 0;
