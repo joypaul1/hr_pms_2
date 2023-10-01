@@ -1,7 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 // if (!checkPermission('concern-offboarding-create')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
@@ -76,7 +76,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     while ($row = oci_fetch_assoc($strSQL)) {
                                         $number++;
-                                    ?>
+                                        ?>
                                         <tr>
                                             <td class="text-center">
                                                 <?php echo $number; ?>
@@ -111,21 +111,30 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 ?>
                                             </td>
                                             <td>
-                                                <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
-                                                <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Update</a>
-
+                                                <?php
+                                                if ($row['SUBMITTED_STATUS'] == '0') {
+                                                    ?>
+                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+                                                        style="display:none" />
+                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Update</a>
+                                                    <?php
+                                                }else{
+                                                    echo '<button type="button" class="btn btn-success btn-sm">PMS Submitted</button>';
+                                                }
+                                                ?>
                                                 <?php
                                                 if ($row['ACHIEVEMENT_LOCK_STATUS'] == '1') {
-                                                ?>
-                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
+                                                    ?>
+                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+                                                        style="display:none" />
                                                     <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Achivement</a>
-                                                <?php
+                                                    <?php
                                                 }
                                                 ?>
                                             </td>
 
                                         </tr>
-                                    <?php
+                                        <?php
 
                                     }
                                     ?>
