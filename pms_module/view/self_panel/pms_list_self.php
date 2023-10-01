@@ -240,13 +240,11 @@ oci_execute($strSQL);
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-												style="display:none" />
+											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
 											<br>
-
-
-											<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add / View
-												KPI</a>
+											<?php  if ($row['SELF_SUBMITTED_STATUS'] == 0) {?>
+												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add / View KPI</a>
+											<?php } ?>
 
 										</td>
 										<td>
