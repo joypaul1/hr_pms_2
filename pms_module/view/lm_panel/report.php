@@ -159,8 +159,7 @@ $v_view_approval = 0;
 									   A.GROUP_NAME,
 									   A.GROUP_CONCERN,
 									   A.CREATED_DATE,
-									   A.CREATED_BY,
-									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+									   A.CREATED_BY,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
@@ -181,14 +180,20 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
-
-
+                                    </td>
+                                    <td>
+                                        <?php if ($row['LINE_MANAGER_1_STATUS']) {
+                                            echo '<button class="btn btn-sm btn-success">Approved</button>';
+                                        }
+                                        else {
+                                            echo '<button class="btn btn-sm btn-danger">Denied</button>';
+                                        } ?>
                                     </td>
                                     <td>
                                         <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGER_1_STATUS'] ?>
+                                        <?php echo $row['LINE_MANAGE_1_REMARKS'] ?>
                                     </td>
                                     <td>
                                         <?php
@@ -203,7 +208,7 @@ $v_view_approval = 0;
                                         echo $row['EMP_WORK_STATION'];
                                         ?>
                                     </td>
-                                    
+
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
