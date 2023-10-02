@@ -39,9 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
         $END_DATE       = date('d-M-y', strtotime($_POST['end_date']));
         $v_pms_name     = $_POST['pms_name'];
         $status         = $_POST['status'];
-        // $step_1_status  = ($_POST['step_status'] == 1) ? $_POST['step_status'] : 0;
-        // $step_2_status  = ($_POST['step_status'] == 2) ? $_POST['step_status'] : 0;
-        // $step_3_status  = ($_POST['step_status'] == 3) ? $_POST['step_status'] : 0;
         if ($status) {
             $query = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
             $strSQL = @oci_parse($objConnect, $query);
