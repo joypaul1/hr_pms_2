@@ -73,8 +73,10 @@ $v_view_approval = 0;
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">PMS Title Info.</th>
+                            <th scope="col">Approve/Denine</th>
+                            <th scope="col">Approval Date</th>
+                            <th scope="col">Remarks</th>
                             <th scope="col">Employe Info.</th>
-                            <th scope="col">Submitted Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -84,14 +86,16 @@ $v_view_approval = 0;
                         $strSQL      = oci_parse($objConnect, "SELECT A.ID,
 													   A.EMP_ID,
 													   A.EMP_NAME,
+													   A.LINE_MANAGER_1_STATUS,
+													   A.LINE_MANAGER_1_UPDATED,
+													   A.LINE_MANAGE_1_REMARKS,
 													   A.EMP_DEPT,
 													   A.EMP_WORK_STATION,
 													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
 													   A.GROUP_NAME,
 													   A.GROUP_CONCERN,
 													   A.CREATED_DATE,
-													   A.CREATED_BY,
-													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+													   A.CREATED_BY,HR_PMS_LIST_ID,
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
@@ -128,12 +132,12 @@ $v_view_approval = 0;
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['SELF_SUBMITTED_DATE'] ?>
+                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
                                     </td>
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>">
-                                            <button type="button" class="btn btn-sm btn-primary">View for Approval</button>
+                                            <button type="button" class="btn btn-sm btn-primary">View</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -146,6 +150,9 @@ $v_view_approval = 0;
                             "SELECT A.ID,
 							           A.EMP_ID,
 							           A.EMP_NAME,
+                                       A.LINE_MANAGER_1_STATUS,
+                                       A.LINE_MANAGER_1_UPDATED,
+                                       A.LINE_MANAGE_1_REMARKS,
 									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
 									   A.EMP_WORK_STATION,
 									   A.EMP_DESIGNATION,
@@ -178,6 +185,12 @@ $v_view_approval = 0;
 
                                     </td>
                                     <td>
+                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['LINE_MANAGER_1_STATUS'] ?>
+                                    </td>
+                                    <td>
                                         <?php
                                         echo $row['EMP_NAME'];
                                         echo ' [ ';
@@ -190,13 +203,11 @@ $v_view_approval = 0;
                                         echo $row['EMP_WORK_STATION'];
                                         ?>
                                     </td>
-                                    <td>
-                                        <?php echo $row['SELF_SUBMITTED_DATE'] ?>
-                                    </td>
+                                    
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary">View for Approval</button>
+                                                type="button" class="btn btn-sm btn-primary">View </button>
                                         </a>
                                     </td>
 
