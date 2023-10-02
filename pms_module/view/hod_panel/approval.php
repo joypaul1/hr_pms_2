@@ -65,7 +65,7 @@ $v_view_approval = 0;
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>PSM Approval/Denie Report</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Waiting For Approval</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -73,10 +73,8 @@ $v_view_approval = 0;
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">PMS Title Info.</th>
-                            <th scope="col">Approve/Denine</th>
-                            <th scope="col">Approval Date</th>
-                            <th scope="col">Remarks</th>
                             <th scope="col">Employe Info.</th>
+                            <th scope="col">Submitted Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -86,22 +84,20 @@ $v_view_approval = 0;
                         $strSQL      = oci_parse($objConnect, "SELECT A.ID,
 													   A.EMP_ID,
 													   A.EMP_NAME,
-													   A.LINE_MANAGER_1_STATUS,
-													   A.LINE_MANAGER_1_UPDATED,
-													   A.LINE_MANAGE_1_REMARKS,
 													   A.EMP_DEPT,
 													   A.EMP_WORK_STATION,
 													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
 													   A.GROUP_NAME,
 													   A.GROUP_CONCERN,
 													   A.CREATED_DATE,
-													   A.CREATED_BY,HR_PMS_LIST_ID,
+													   A.CREATED_BY,
+													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS =1
-								                    OR LINE_MANAGER_1_STATUS =0
-													AND LINE_MANAGER_1_ID='$emp_session_id'
+                                                    AND LINE_MANAGER_1_STATUS = 1
+                                                    AND LINE_MANAGER_2_STATUS IS NULL
+													AND LINE_MANAGER_2_ID='$emp_session_id'
 													AND A.EMP_ID='$emp_concern'");
 
                         oci_execute($strSQL);
@@ -133,12 +129,12 @@ $v_view_approval = 0;
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
+                                        <?php echo $row['SELF_SUBMITTED_DATE'] ?>
                                     </td>
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>">
-                                            <button type="button" class="btn btn-sm btn-primary">View</button>
+                                            <button type="button" class="btn btn-sm btn-primary">View for Approval</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -151,22 +147,22 @@ $v_view_approval = 0;
                             "SELECT A.ID,
 							           A.EMP_ID,
 							           A.EMP_NAME,
-                                       A.LINE_MANAGER_1_STATUS,
-                                       A.LINE_MANAGER_1_UPDATED,
-                                       A.LINE_MANAGE_1_REMARKS,
 									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
 									   A.EMP_WORK_STATION,
 									   A.EMP_DESIGNATION,
 									   A.GROUP_NAME,
 									   A.GROUP_CONCERN,
 									   A.CREATED_DATE,
-									   A.CREATED_BY,HR_PMS_LIST_ID,
+									   A.CREATED_BY,
+									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
-								    AND LINE_MANAGER_1_STATUS =1
-								    OR LINE_MANAGER_1_STATUS =0
-									AND LINE_MANAGER_1_ID='$emp_session_id'"
+								    AND LINE_MANAGER_1_STATUS=1
+								    AND LINE_MANAGER_2_STATUS=1
+								    OR LINE_MANAGER_2_STATUS=0
+                                    
+									AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);
@@ -182,20 +178,8 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
-                                    </td>
-                                    <td>
-                                        <?php if ($row['LINE_MANAGER_1_STATUS']) {
-                                            echo '<button class="btn btn-sm btn-success">Approved</button>';
-                                        }
-                                        else {
-                                            echo '<button class="btn btn-sm btn-danger">Denied</button>';
-                                        } ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row['LINE_MANAGE_1_REMARKS'] ?>
+
+
                                     </td>
                                     <td>
                                         <?php
@@ -210,11 +194,13 @@ $v_view_approval = 0;
                                         echo $row['EMP_WORK_STATION'];
                                         ?>
                                     </td>
-
+                                    <td>
+                                        <?php echo $row['SELF_SUBMITTED_DATE'] ?>
+                                    </td>
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary">View </button>
+                                                type="button" class="btn btn-sm btn-primary">View for Approval</button>
                                         </a>
                                     </td>
 

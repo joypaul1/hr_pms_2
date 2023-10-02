@@ -623,7 +623,7 @@ function isActive($url)
                         <?php //} ?>
 
                         <?php //if (checkPermission('lm-offboarding-approval') || checkPermission('lm-offboarding-report')) { ?>
-                            <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?>">
+                            <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?> <?php echo isActive('/pms_module/view/hod_panel'); ?>">
                                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                                     <div>LM Panel</div>
                                 </a>
@@ -640,6 +640,20 @@ function isActive($url)
                                         <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/report.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/report.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
+                                            </a>
+                                        </li>
+                                    <?php //} ?>
+                                    <?php //if (checkPermission('lm-offboarding-approval')) { ?>
+                                        <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/approval.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/approval.php" class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Approval</div>
+                                            </a>
+                                        </li>
+                                    <?php// } ?>
+                                    <?php //if (checkPermission('lm-offboarding-report')) { ?>
+                                        <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/report.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/report.php" class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Report</div>
                                             </a>
                                         </li>
                                     <?php //} ?>

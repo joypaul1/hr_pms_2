@@ -86,9 +86,9 @@ $v_view_approval = 0;
                         $strSQL      = oci_parse($objConnect, "SELECT A.ID,
 													   A.EMP_ID,
 													   A.EMP_NAME,
-													   A.LINE_MANAGER_1_STATUS,
-													   A.LINE_MANAGER_1_UPDATED,
-													   A.LINE_MANAGE_1_REMARKS,
+													   A.LINE_MANAGER_2_STATUS,
+													   A.LINE_MANAGER_2_UPDATED,
+													   A.LINE_MANAGE_2_REMARKS,
 													   A.EMP_DEPT,
 													   A.EMP_WORK_STATION,
 													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
@@ -99,9 +99,9 @@ $v_view_approval = 0;
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS =1
-								                    OR LINE_MANAGER_1_STATUS =0
-													AND LINE_MANAGER_1_ID='$emp_session_id'
+                                                    AND LINE_MANAGER_2_STATUS =1
+                                                    OR LINE_MANAGER_2_STATUS =0
+													AND LINE_MANAGER_2_ID='$emp_session_id'
 													AND A.EMP_ID='$emp_concern'");
 
                         oci_execute($strSQL);
@@ -133,7 +133,7 @@ $v_view_approval = 0;
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
+                                        <?php echo $row['LINE_MANAGER_2_UPDATED'] ?>
                                     </td>
                                     <td>
                                         <a
@@ -151,9 +151,9 @@ $v_view_approval = 0;
                             "SELECT A.ID,
 							           A.EMP_ID,
 							           A.EMP_NAME,
-                                       A.LINE_MANAGER_1_STATUS,
-                                       A.LINE_MANAGER_1_UPDATED,
-                                       A.LINE_MANAGE_1_REMARKS,
+                                       A.LINE_MANAGER_2_STATUS,
+                                       A.LINE_MANAGER_2_UPDATED,
+                                       A.LINE_MANAGE_2_REMARKS,
 									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
 									   A.EMP_WORK_STATION,
 									   A.EMP_DESIGNATION,
@@ -164,9 +164,9 @@ $v_view_approval = 0;
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
-								    AND LINE_MANAGER_1_STATUS =1
-								    OR LINE_MANAGER_1_STATUS =0
-									AND LINE_MANAGER_1_ID='$emp_session_id'"
+                                    AND LINE_MANAGER_2_STATUS =1
+                                    OR LINE_MANAGER_2_STATUS =0
+                                    AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);
@@ -184,7 +184,7 @@ $v_view_approval = 0;
                                         <?php echo $row['PMS_TITLE']; ?>
                                     </td>
                                     <td>
-                                        <?php if ($row['LINE_MANAGER_1_STATUS']) {
+                                        <?php if ($row['LINE_MANAGER_2_STATUS']) {
                                             echo '<button class="btn btn-sm btn-success">Approved</button>';
                                         }
                                         else {
@@ -192,10 +192,10 @@ $v_view_approval = 0;
                                         } ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
+                                        <?php echo $row['LINE_MANAGER_2_UPDATED'] ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGE_1_REMARKS'] ?>
+                                        <?php echo $row['LINE_MANAGE_2_REMARKS'] ?>
                                     </td>
                                     <td>
                                         <?php
