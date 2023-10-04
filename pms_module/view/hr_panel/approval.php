@@ -144,7 +144,7 @@ $v_view_approval = 0;
                     else {
                         $allDataSQL = oci_parse(
                             $objConnect,
-                            "Select ID,
+                            "SELECT ID,
                             EMP_ID,
                             HR_APPROVER,
                             EMP_NAME,
@@ -158,7 +158,7 @@ $v_view_approval = 0;
                             LINE_MANAGE_1_REMARKS,
                             HR_PMS_LIST_ID,
                            PMS_TITLE 
-                           from 
+                           FROM 
                             (SELECT A.ID,
 							           A.EMP_ID,
                                        PMS_HR_APPROVER (A.EMP_ID) AS HR_APPROVER,
@@ -173,9 +173,7 @@ $v_view_approval = 0;
 									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A )
-                                  where HR_APPROVER = 'RML-01260'  
-                                    
-                                    "
+                                  where HR_APPROVER = '$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);
