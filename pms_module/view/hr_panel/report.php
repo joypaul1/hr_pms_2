@@ -35,10 +35,12 @@ $v_view_approval = 0;
                 <table class="table table-bordered">
                     <thead class="table-dark">
                         <tr class="text-center">
-                            <th>SL</th>
+                            <th scope="col">SL.</th>
                             <th scope="col">PMS Title Info.</th>
+                            <th scope="col">Approve/Denine</th>
+                            <th scope="col">Approval Date</th>
+                            <th scope="col">Remarks</th>
                             <th scope="col">Employe Info.</th>
-                            <th scope="col">Submitted Date</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
@@ -55,11 +57,11 @@ $v_view_approval = 0;
 													   A.GROUP_CONCERN,
 													   A.CREATED_DATE,
 													   A.CREATED_BY,
-													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+													   A.HR_STATUS_REMARKS,HR_PMS_LIST_ID,
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS = 1
+                                                    AND HR_STATUS = 1
                                                     AND LINE_MANAGER_2_STATUS IS NULL
 													AND LINE_MANAGER_2_ID='$emp_session_id'
 													AND A.EMP_ID='$emp_concern'");
@@ -117,9 +119,11 @@ $v_view_approval = 0;
                             EMP_DESIGNATION,
                             GROUP_NAME,
                             GROUP_CONCERN,
+                            HR_STATUS,
+                            HR_STATUS_DATE,
                             CREATED_DATE,
                             CREATED_BY,
-                            LINE_MANAGE_1_REMARKS,
+                            HR_STATUS_REMARKS,
                             HR_PMS_LIST_ID,
                            PMS_TITLE 
                            FROM 
@@ -132,9 +136,11 @@ $v_view_approval = 0;
 									   A.EMP_DESIGNATION,
 									   A.GROUP_NAME,
 									   A.GROUP_CONCERN,
+									   A.HR_STATUS_DATE,
+									   A.HR_STATUS,
 									   A.CREATED_DATE,
 									   A.CREATED_BY,
-									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+									   A.HR_STATUS_REMARKS,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A 
                                     WHERE SELF_SUBMITTED_STATUS=1
@@ -156,8 +162,20 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
-
-
+                                    </td>
+                                    <td>
+                                        <?php if ($row['HR_STATUS']) {
+                                            echo '<button class="btn btn-sm btn-success">Approved</button>';
+                                        }
+                                        else {
+                                            echo '<button class="btn btn-sm btn-danger">Denied</button>';
+                                        } ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['HR_STATUS_DATE'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['HR_STATUS_REMARKS'] ?>
                                     </td>
                                     <td>
                                         <?php
@@ -172,12 +190,11 @@ $v_view_approval = 0;
                                         echo $row['EMP_WORK_STATION'];
                                         ?>
                                     </td>
-                                    <td>
-                                        <?php echo $row['SELF_SUBMITTED_DATE'] ?>
-                                    </td>
+
                                     <td>
                                         <a
-                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button  type="button" class="btn btn-sm btn-primary">View for Approval</button>
+                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
+                                                type="button" class="btn btn-sm btn-primary">View </button>
                                         </a>
                                     </td>
 
