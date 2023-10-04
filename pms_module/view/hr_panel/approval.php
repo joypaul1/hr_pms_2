@@ -23,43 +23,7 @@ $v_view_approval = 0;
 
 
     <div class="card col-lg-12">
-        <form action="" method="post">
-            <div class="card-body row justify-content-center">
-                <!-- <div class="col-sm-2"></div> -->
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <!-- <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text'
-                            value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' /> -->
-                        <select name="emp_concern" class="form-control cust-control" form="Form1">
-                            <option selected value=""><- Select Concern -></option>
-                            <?php
-                            $strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
-																		where LINE_MANAGER_RML_ID ='$emp_session_id'
-																		and is_active=1 
-																		order by EMP_NAME");
-                            oci_execute($strSQL);
-                            while ($row = oci_fetch_assoc($strSQL)) {
-                                ?>
-                                <option value="<?php echo $row['RML_ID']; ?>">
-                                    <?php echo $row['EMP_NAME']; ?>
-                                </option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
 
-
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-sm btn-primary" type="submit" form="Form1" value="Search Data">
-                    </div>
-                </div>
-            </div>
-        </form>
     </div>
 
 
@@ -172,7 +136,10 @@ $v_view_approval = 0;
 									   A.CREATED_BY,
 									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-									FROM HR_PMS_EMP A )
+									FROM HR_PMS_EMP A 
+                                    WHERE SELF_SUBMITTED_STATUS=1
+                                    AND HR_STATUS IS NULL
+								    AND LINE_MANAGER_2_STATUS  =1)
                                   where HR_APPROVER = '$emp_session_id'"
                         );
 
@@ -189,7 +156,6 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
-                                        <?php echo $row['HR_APPROVER']; ?>
 
 
                                     </td>
@@ -211,8 +177,7 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <a
-                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary">View for Approval</button>
+                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button  type="button" class="btn btn-sm btn-primary">View for Approval</button>
                                         </a>
                                     </td>
 

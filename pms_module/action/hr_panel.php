@@ -3,7 +3,73 @@ session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$basePath =  $_SESSION['basePath'];
+$basePath       = $_SESSION['basePath'];
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
+
+    $v_remarks               = $_POST['remarks'];
+    $v_app_status            = $_POST['app_status'];
+    $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
+
+    if ($v_app_status == 1) {
+        $strSQL = oci_parse(
+            $objConnect,
+            "update HR_PMS_EMP SET 
+            HR_STATUS_REMARKS='$v_remarks',HR_STATUS=$v_app_status,HR_STATUS_DATE=SYSDATE
+                      WHERE ID=$hr_pms_pms_emp_table_id"
+        );
+    }
+    else if ($v_app_status == 0) {
+        $strSQL = oci_parse(
+            $objConnect,
+            "update HR_PMS_EMP SET 
+                      HR_STATUS_REMARKS='$v_remarks',
+                      HR_STATUS=$v_app_status,
+                      HR_STATUS_DATE=SYSDATE,
+                      LINE_MANAGER_1_REMARKS='',
+                      LINE_MANAGER_1_STATUS='',
+                      LINE_MANAGER_1_UPDATED='',
+                      LINE_MANAGER_2_REMARKS='',
+                      LINE_MANAGER_2_STATUS='',
+                      LINE_MANAGER_2_UPDATED='',
+                      SELF_SUBMITTED_STATUS=''
+                      WHERE ID=$hr_pms_pms_emp_table_id"
+        );
+    }
+
+    if (oci_execute($strSQL)) {
+
+        if ($v_app_status == 1) {
+            $message                  = [
+                'text'   => 'PMS Approved successfully.',
+                'status' => 'true',
+            ];
+            $_SESSION['noti_message'] = $message;
+            echo "<script> window.location.href ='$basePath/pms_module/view/hr_panel/approval.php'</script>";
+        }
+        else {
+            $message                  = [
+                'text'   => 'PMS Denied successfully.',
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            echo "<script> window.location.href ='$basePath/pms_module/view/hr_panel/approval.php'</script>";
+        }
+
+    }
+    else {
+
+        $e                        = oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '$basePath/pms_module/view/hr_panel/approval.php'</script>";
+    }
+
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year_create') {
@@ -35,17 +101,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
     // If there are no errors, proceed with further processing
     if (!empty($errors)) {
 
-        $START_DATE     = date('d-M-y', strtotime($_POST['start_date']));
-        $END_DATE       = date('d-M-y', strtotime($_POST['end_date']));
-        $v_pms_name     = $_POST['pms_name'];
-        $status         = $_POST['status'];
+        $START_DATE = date('d-M-y', strtotime($_POST['start_date']));
+        $END_DATE   = date('d-M-y', strtotime($_POST['end_date']));
+        $v_pms_name = $_POST['pms_name'];
+        $status     = $_POST['status'];
         if ($status) {
-            $query = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
+            $query  = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
             $strSQL = @oci_parse($objConnect, $query);
             $result = @oci_execute($strSQL);
         }
 
-        $query = "INSERT INTO HR_PMS_LIST (PMS_NAME, CREATED_BY, CREATED_DATE, IS_ACTIVE, START_DATE, END_DATE) 
+        $query  = "INSERT INTO HR_PMS_LIST (PMS_NAME, CREATED_BY, CREATED_DATE, IS_ACTIVE, START_DATE, END_DATE) 
                 VALUES ( 
                     '$v_pms_name',
                     '$emp_session_id',
@@ -58,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
         $result = @oci_execute($strSQL);
 
         if (!$result) {
-            $e = @oci_error($strSQL);
+            $e       = @oci_error($strSQL);
             $message = [
                 'text'   => htmlentities($e['message'], ENT_QUOTES),
                 'status' => 'false',
@@ -68,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
             header("location:" . $basePath . "/pms_module/view/hr_panel/year.php");
             exit();
         }
-        $message  = [
+        $message                  = [
             'text'   => 'Year Created Successfully.',
             'status' => 'true',
         ];
@@ -83,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year_edit') {
 
- 
+
     // Validation
     if (!isset($_POST['editId']) || empty($_POST['editId'])) {
         $errors[] = 'Data Edit ID  is required.';
@@ -109,17 +175,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 
     // If there are no errors, proceed with further processing
     if (!empty($errors)) {
-        $editId         = $_POST['editId'];
-        $START_DATE     = date('d-M-y', strtotime($_POST['start_date']));
-        $END_DATE       = date('d-M-y', strtotime($_POST['end_date']));
-        $v_pms_name     = $_POST['pms_name'];
-        $status         = $_POST['status'];
-        $step_status_1  = isset($_POST['step_status_1']) ? $_POST['step_status_1'] : "";
-        $step_status_2  = isset($_POST['step_status_2']) ? $_POST['step_status_2'] :"";
-        $step_status_3  = isset($_POST['step_status_3']) ? $_POST['step_status_3'] : "";
+        $editId        = $_POST['editId'];
+        $START_DATE    = date('d-M-y', strtotime($_POST['start_date']));
+        $END_DATE      = date('d-M-y', strtotime($_POST['end_date']));
+        $v_pms_name    = $_POST['pms_name'];
+        $status        = $_POST['status'];
+        $step_status_1 = isset($_POST['step_status_1']) ? $_POST['step_status_1'] : "";
+        $step_status_2 = isset($_POST['step_status_2']) ? $_POST['step_status_2'] : "";
+        $step_status_3 = isset($_POST['step_status_3']) ? $_POST['step_status_3'] : "";
 
         if ($status) {
-            $query = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
+            $query  = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
             $strSQL = @oci_parse($objConnect, $query);
             $result = @oci_execute($strSQL);
         }
@@ -141,7 +207,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 
 
         if (!$result) {
-            $e = @oci_error($strSQL);
+            $e       = @oci_error($strSQL);
             $message = [
                 'text'   => htmlentities($e['message'], ENT_QUOTES),
                 'status' => 'false',
@@ -151,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
             header("location:" . $basePath . "/pms_module/view/hr_panel/year.php");
             exit();
         }
-        $message  = [
+        $message                  = [
             'text'   => 'Year Edited Successfully.',
             'status' => 'true',
         ];
