@@ -144,8 +144,24 @@ $v_view_approval = 0;
                     else {
                         $allDataSQL = oci_parse(
                             $objConnect,
-                            "SELECT A.ID,
+                            "Select ID,
+                            EMP_ID,
+                            HR_APPROVER,
+                            EMP_NAME,
+                            EMP_DEPT,SELF_SUBMITTED_DATE,
+                            EMP_WORK_STATION,
+                            EMP_DESIGNATION,
+                            GROUP_NAME,
+                            GROUP_CONCERN,
+                            CREATED_DATE,
+                            CREATED_BY,
+                            LINE_MANAGE_1_REMARKS,
+                            HR_PMS_LIST_ID,
+                           PMS_TITLE 
+                           from 
+                            (SELECT A.ID,
 							           A.EMP_ID,
+                                       PMS_HR_APPROVER (A.EMP_ID) AS HR_APPROVER,
 							           A.EMP_NAME,
 									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
 									   A.EMP_WORK_STATION,
@@ -156,13 +172,10 @@ $v_view_approval = 0;
 									   A.CREATED_BY,
 									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-									FROM HR_PMS_EMP A
-									WHERE SELF_SUBMITTED_STATUS=1
-								    AND LINE_MANAGER_1_STATUS=1
-								    AND LINE_MANAGER_2_STATUS=1
-								    OR LINE_MANAGER_2_STATUS=0
+									FROM HR_PMS_EMP A )
+                                  where HR_APPROVER = 'RML-01260'  
                                     
-									AND LINE_MANAGER_2_ID='$emp_session_id'"
+                                    "
                         );
 
                         oci_execute($allDataSQL);
@@ -178,6 +191,7 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
+                                        <?php echo $row['HR_APPROVER']; ?>
 
 
                                     </td>
