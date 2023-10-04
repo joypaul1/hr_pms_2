@@ -99,8 +99,7 @@ $v_view_approval = 0;
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_2_STATUS =1
-                                                    OR LINE_MANAGER_2_STATUS =0
+                                                    AND LINE_MANAGER_2_STATUS  IS NOT NULL.
 													AND LINE_MANAGER_2_ID='$emp_session_id'
 													AND A.EMP_ID='$emp_concern'");
 
@@ -164,8 +163,7 @@ $v_view_approval = 0;
                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
-                                    AND LINE_MANAGER_2_STATUS =1
-                                    OR LINE_MANAGER_2_STATUS =0
+                                    AND LINE_MANAGER_2_STATUS  IS NOT NULL 
                                     AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
