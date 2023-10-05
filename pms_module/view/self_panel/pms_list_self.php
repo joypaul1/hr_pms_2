@@ -17,7 +17,7 @@ if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS P
 
 	$emp_id         = $_REQUEST['emp_id'];
 	$v_pms_title_id = $_REQUEST['pms_title_id'];
-	$remarks        = $_REQUEST['remarks'] ?$_REQUEST['remarks'] : '';
+	$remarks        = $_REQUEST['remarks'] ? $_REQUEST['remarks'] : '';
 
 	$profileSQL = oci_parse(
 		$objConnect,
@@ -38,7 +38,7 @@ if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS P
 		$error                             = @$lastError ? "" . @$lastError["message"] . "" : "";
 		list( $oci, $message, $mainerror ) = explode(":", $error);
 		list( $databaseEror )              = explode("ORA", $mainerror);
-		
+
 		if (!empty($databaseEror)) {
 			$message                  = [
 				'text'   => "Sorry ! Duplicate Data Entry.",

@@ -1,17 +1,17 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 // if (!checkPermission('concern-offboarding-create')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$v_key = $_REQUEST['key'];
+$v_key          = $_REQUEST['key'];
 
 
 
 
-$strSQL  = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS
+$strSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS
 											FROM HR_PMS_EMP
 											WHERE EMP_ID='$emp_session_id'
 											AND HR_PMS_LIST_ID='$v_key'");
@@ -25,7 +25,7 @@ while ($row = oci_fetch_assoc($strSQL)) {
 
 // Weaightage value
 $v_previous_weightage = 0;
-$WATESQL  = oci_parse(
+$WATESQL              = oci_parse(
     $objConnect,
     "SELECT PMS_WEIGHTAGE('$emp_session_id',$v_key) AS WEIGHTAGE  FROM DUAL"
 );
@@ -39,13 +39,13 @@ while ($row = oci_fetch_assoc($WATESQL)) {
 <div class="container-xxl flex-grow-1 container-p-y">
     <?php
     if ($SUBMITTED_STATUS != 1) {
-    ?>
+        ?>
         <div class="card col-lg-12">
             <form action="" method="post">
-                <div class="card-body row justify-content-end">
-                    <div class="col-sm-3">
+                <div class="card-body row justify-content-center">
+                    <!-- <div class="col-sm-3">
                         <label for="exampleInputEmail1">Select KRA:</label>
-                        <select required="" name="kra_id" class="form-control cust-control">
+                        <select required="" name="kra_id" class="form-control text-center cust-control">
                             <option value=""><-Select KRA -></option>
                             <?php
                             $query = "select BB.ID,
@@ -62,27 +62,58 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                 WHERE BB.CREATED_BY='$emp_session_id'";
 
 
-                            $strSQL  = oci_parse($objConnect, $query);
+                            $strSQL = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
 
+                                ?>
+                                <option value="<?php echo $row['ID']; ?>">
+                                    <?php echo $row['KRA_NAME']; ?>
+                                </option>
+                                <?php
+                            }
                             ?>
-                                <option value="<?php echo $row['ID']; ?>"><?php echo $row['KRA_NAME']; ?></option>
+                        </select>
+                    </div> -->
+
+                    <div class="col-sm-3">
+                        <label class="form-label" for="weightage">Select KRA Option <span class="text-danger">*</span></label>
+                        <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
+                            <option selected value=""><- Selecte KRA -></option>
+
                             <?php
+                            $query = "select BB.ID,
+                                    BB.KRA_NAME,
+                                    (select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
+                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
+                                            WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
+                                            AND A.EMP_ID='$emp_session_id'
+                                    )SUBMITTED_STATUS,
+                                    CREATED_BY,
+                                    CREATED_DATE,UPDATED_DATE,
+                                    IS_ACTIVE 
+                                FROM HR_PMS_KRA_LIST BB
+                                WHERE BB.CREATED_BY='$emp_session_id'";
+
+
+                            $strSQL = oci_parse($objConnect, $query);
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
+
+                                ?>
+                                <option value="<?php echo $row['ID']; ?>">
+                                    <?php echo $row['KRA_NAME']; ?>
+                                </option>
+                                <?php
                             }
                             ?>
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label class="form-label" for="basic-default-fullname">KPI Name</label>
-                            <textarea required="" class="form-control" rows="1" id="comment" name="kpi_name"></textarea>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <label class="form-label" for="weightage">Select Weightage(%):</label>
-                        <select required="" name="weightage" class="form-control cust-control" id='weightage'>
-                            <option selected value="">--</option>
+                        <label class="form-label" for="weightage">Select Weightage(%) <span class="text-danger">*</span> </label>
+                        <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
+                            <option selected value=""><- Selecte Weightage -></option>
+
                             <option value="5">5</option>
                             <option value="10">10</option>
                             <option value="15">15</option>
@@ -92,21 +123,34 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="basic-default-fullname">Target(%)</label>
-                        <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="target" />
+                        <label class="form-label" for="basic-default-fullname">Target(%) <span class="text-danger">*</span></label>
+                        <input required="" value="100" style="background-color: #d9dee3;" onkeypress="return false;" class="form-control cust-control"
+                            type='number' name="target" />
 
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="basic-default-fullname">Eligibility Factor </label>
-                        <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="eligi_factor" />
+                        <label class="form-label" for="basic-default-fullname">Eligibility Factor <span class="text-danger">*</span> </label>
+                        <!-- <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="eligi_factor" /> -->
+                        <select required="" name="eligi_factor" class="form-control text-center cust-control" id='weightage'>
+                            <option selected value=""><- Selecte Eligibility Factor -></option>
+                            <option value="60">60</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                            <option value="90">90</option>
+                            <option value="100">100</option>
+                        </select>
 
                     </div>
-                    <div class="col-sm-3">
-                        <label class="form-label" for="basic-default-fullname">Remarks </label>
-                        <input required=""  class="form-control cust-control" type='text' name="ramarks" />
+                    <!-- <div class="col-md-12"></div> -->
+                    <div class="col-sm-6 mt-2">
+                        <label class="form-label" for="basic-default-fullname">KPI Name <span class="text-danger">*</span></label>
+                        <input required="" class="form-control cust-control" type='text' name="kpi_name" />
 
                     </div>
-
+                    <div class="col-sm-6 mt-2">
+                        <label class="form-label" for="basic-default-fullname">Any Comment ?</label>
+                        <input required="" class="form-control cust-control" type='text' name="ramarks" />
+                    </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
@@ -116,14 +160,14 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                 </div>
             </form>
         </div>
-    <?php
+        <?php
     }
     if (isset($_POST['kpi_name'])) {
-        $v_kpi_name = $_REQUEST['kpi_name'];
-        $v_kra_id = $_REQUEST['kra_id'];
-        $v_weightage = $_REQUEST['weightage'];
-        $v_target = $_REQUEST['target'];
-        $v_ramarks = $_REQUEST['ramarks'];
+        $v_kpi_name     = $_REQUEST['kpi_name'];
+        $v_kra_id       = $_REQUEST['kra_id'];
+        $v_weightage    = $_REQUEST['weightage'];
+        $v_target       = $_REQUEST['target'];
+        $v_ramarks      = $_REQUEST['ramarks'];
         $v_eligi_factor = $_REQUEST['eligi_factor'];
 
         if (($v_previous_weightage + $v_weightage) > 100) {
@@ -131,9 +175,10 @@ while ($row = oci_fetch_assoc($WATESQL)) {
             echo '<div class="alert alert-danger">';
             echo $error;
             echo '</div>';
-        } else {
+        }
+        else {
 
-            $strSQL  = oci_parse(
+            $strSQL = oci_parse(
                 $objConnect,
                 "INSERT INTO HR_PMS_KPI_LIST (
                            KPI_NAME, 
@@ -160,9 +205,10 @@ while ($row = oci_fetch_assoc($WATESQL)) {
 
             if (@oci_execute($strSQL)) {
                 echo 'KPI is created successfully.';
-            } else {
+            }
+            else {
                 $lastError = error_get_last();
-                $error = $lastError ? "" . $lastError["message"] . "" : "";
+                $error     = $lastError ? "" . $lastError["message"] . "" : "";
                 if (strpos($error, 'ATTN_DATE_PK') !== false) {
                     echo 'Contact With IT.';
                 }
@@ -191,33 +237,39 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     <tbody>
                         <tr>
                             <?php
-                            $strSQL  = oci_parse(
+                            $strSQL = oci_parse(
                                 $objConnect,
                                 "select KRA_NAME,ID FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$emp_session_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
-                                $table_ID   = $row['ID'];
+                                $table_ID = $row['ID'];
                                 $number++;
-                            ?>
+                                ?>
 
-                                <td class="align-middle"><?php echo $number; ?></td>
-                                <td class="align-middle"><?php echo $row['KRA_NAME']; ?></td>
+                                <td class="align-middle">
+                                    <?php echo $number; ?>
+                                </td>
+                                <td class="align-middle">
+                                    <?php echo $row['KRA_NAME']; ?>
+                                </td>
                                 <td class="align-middle">
                                     <table width="100%">
                                         <?php
 
-                                        $slNumber   = 0;
-                                        $strSQLInner  = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $slNumber    = 0;
+                                        $strSQLInner = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
-                                        ?>
+                                            ?>
                                             <tr>
-                                                <td height="60px"><?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?></td>
+                                                <td height="60px">
+                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
+                                                </td>
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </table>
@@ -227,14 +279,16 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                     <table width="100%">
                                         <?php
 
-                                        $strSQLInner  = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                        ?>
+                                            ?>
                                             <tr>
-                                                <td height="60px" class="align-middle"><?php echo $rowIN['WEIGHTAGE']; ?></td>
+                                                <td height="60px" class="align-middle">
+                                                    <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                </td>
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </table>
@@ -243,15 +297,17 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                 <td class="align-middle">
                                     <table width="100%">
                                         <?php
-                                        $strSQLInner  = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                        ?>
+                                            ?>
                                             <tr>
 
-                                                <td height="60px" class="align-middle"><?php echo $rowIN['TARGET']; ?></td>
+                                                <td height="60px" class="align-middle">
+                                                    <?php echo $rowIN['TARGET']; ?>
+                                                </td>
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </table>
@@ -259,15 +315,17 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                 <td class="align-middle">
                                     <table width="100%">
                                         <?php
-                                        $strSQLInner  = oci_parse($objConnect, "select ELIGIBILITY_FACTOR from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "select ELIGIBILITY_FACTOR from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                        ?>
+                                            ?>
                                             <tr>
 
-                                                <td height="60px" class="align-middle"><?php echo $rowIN['ELIGIBILITY_FACTOR']; ?></td>
+                                                <td height="60px" class="align-middle">
+                                                    <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
+                                                </td>
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </table>
@@ -277,27 +335,29 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                     <table width="100%">
                                         <?php
                                         $slNumberR   = 0;
-                                        $strSQLInner  = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
+                                        $strSQLInner = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumberR++;
-                                        ?>
+                                            ?>
                                             <tr>
-                                                <td height="60px"><?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?></td>
+                                                <td height="60px">
+                                                    <?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?>
+                                                </td>
 
                                             </tr>
-                                        <?php
+                                            <?php
                                         }
                                         ?>
                                     </table>
                                 </td>
 
 
-                        </tr>
-                    <?php
+                            </tr>
+                            <?php
 
                             }
-                    ?>
+                            ?>
                     </tbody>
                 </table>
             </div>
