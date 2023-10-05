@@ -8,9 +8,94 @@ $basePath = $_SESSION['basePath'];
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
 
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-$strSQL         = oci_parse(
+
+
+//pms profile create
+// print_r($_POST);
+if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS Profile") {
+
+	$emp_id         = $_REQUEST['emp_id'];
+	$v_pms_title_id = $_REQUEST['pms_title_id'];
+	$remarks        = $_REQUEST['remarks'] ?? '';
+	// , '$remaks'
+	// echo 111;
+	// die();
+	// print_r([$emp_id, $v_pms_title_id, $remarks]);
+	$profileSQL = oci_parse(
+		$objConnect,
+		"BEGIN RML_PMS_PROFILE_CREATE('$emp_id',$v_pms_title_id,'$emp_session_id', '$remarks','');END;"
+	);
+
+	if (@oci_execute($profileSQL)) {
+		$message                  = [
+			'text'   => 'PMS Profile is created successfully.',
+			'status' => 'true',
+		];
+		$_SESSION['noti_message'] = $message;
+		echo "<script>window.location = " . $basePath . "'/pms_module/view/self_panel/pms_list_self.php'</script>";
+
+	}
+	else {
+		@$lastError = error_get_last();
+		$error                             = @$lastError ? "" . @$lastError["message"] . "" : "";
+		list( $oci, $message, $mainerror ) = explode(":", $error);
+		list( $databaseEror )              = explode("ORA", $mainerror);
+		
+		if (!empty($databaseEror)) {
+			$message                  = [
+				'text'   => "Sorry ! Duplicate Data Entry.",
+				'status' => 'false',
+			];
+			$_SESSION['noti_message'] = $message;
+		}
+		else {
+			$message                  = [
+				'text'   => (preg_split("/\@@@@/", @$error)),
+				'status' => 'false',
+			];
+			$_SESSION['noti_message'] = $message;
+		}
+
+	}
+
+}
+//pms profile create
+
+//Submit pms profile
+if (isset($_POST['submit_approval'])) {
+	$table_id = $_REQUEST['table_id'];
+
+	$updateSQL = oci_parse(
+		$objConnect,
+		"UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS =1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE ID='$table_id'"
+	);
+
+	if (oci_execute($updateSQL)) {
+
+		$message                  = [
+			'text'   => 'PMS Submitted successfully.',
+			'status' => 'true',
+		];
+		$_SESSION['noti_message'] = $message;
+		echo "<script>window.location = " . $basePath . "'/pms_module/view/self_panel/pms_list_self.php'</script>";
+	}
+	else {
+		$lastError                = error_get_last();
+		$error                    = @$lastError ? "" . @$lastError["message"] . "" : "";
+		$message                  = [
+			'text'   => $error,
+			'status' => 'false',
+		];
+		$_SESSION['noti_message'] = $message;
+	}
+}
+//end submit request
+
+
+
+/// user information
+$strSQL = oci_parse(
 	$objConnect,
 	"select RML_ID,
 		EMPLOYEE_NAME EMP_NAME,
@@ -25,6 +110,7 @@ $strSQL         = oci_parse(
 );
 
 oci_execute($strSQL);
+
 
 ?>
 
@@ -90,7 +176,7 @@ oci_execute($strSQL);
 
 						<div class="row mt-3">
 							<div class="col-sm-3">
-								<label for="exampleInputEmail1">Select PMS Title:</label>
+								<label for="exampleInputEmail1">Select PMS Title: <span class="text-danger">*</span></label>
 								<select required="" name="pms_title_id" form="Form1" class="form-control cust-control">
 									<option selected value="">--</option>
 									<?php
@@ -108,10 +194,15 @@ oci_execute($strSQL);
 									?>
 								</select>
 							</div>
-							<div class="col-sm-6"></div>
+							<div class="col-sm-6">
+								<label for="remaks">Any Comment ?</label>
+								<input class="form-control cust-control" name="remarks" form="Form1" type='text' />
+
+							</div>
 							<div class="col-sm-3">
-								<div class="md-form mt-3">
-									<input class="form-control  btn  btn-sm  btn-primary" type="submit" form="Form1" value="Create PMS Profile">
+								<div class="md-form mt-4">
+									<input class="form-control  btn  btn-sm  btn-primary" name="submit_profile" type="submit" form="Form1"
+										value="Create PMS Profile">
 								</div>
 							</div>
 
@@ -123,48 +214,6 @@ oci_execute($strSQL);
 
 
 				</div>
-
-
-
-				<?php
-
-
-				if (isset($_POST['emp_id'])) {
-
-					$emp_id         = $_REQUEST['emp_id'];
-					$v_pms_title_id = $_REQUEST['pms_title_id'];
-
-					$strSQL = oci_parse(
-						$objConnect,
-						"BEGIN 
-						RML_PMS_PROFILE_CREATE('$emp_id',$v_pms_title_id,'$emp_session_id'); 
-						END;"
-					);
-
-					if (@oci_execute($strSQL)) {
-
-						echo '<div class="alert alert-primary">';
-						echo "PMS Profile is created successfully.";
-						echo '</div>';
-					}
-					else {
-						$lastError                         = error_get_last();
-						$error                             = @$lastError ? "" . @$lastError["message"] . "" : "";
-						list( $oci, $message, $mainerror ) = explode(":", $error);
-						list( $databaseEror )              = explode("ORA", $mainerror);
-
-
-						if (strpos($error, 'HR_PMS_EMP_CONSTRAIN_DUPLICATE') !== false) {
-							echo '<div class="alert alert-danger">';
-							echo $databaseEror;
-							echo '</div>';
-						}
-					}
-				}
-
-
-
-				?>
 
 			</div>
 		</div>
@@ -180,7 +229,7 @@ oci_execute($strSQL);
 								<tr class="text-center">
 									<th class="text-center">Sl</th>
 									<th scope="col">PM Title</th>
-									<th scope="col">Self Information</th>
+									<th scope="col">Self Comment</th>
 									<th scope="col">Self Status</th>
 									<th scope="col">Line Manager-1 Status</th>
 									<th scope="col">Line Manager-2 Status</th>
@@ -204,6 +253,7 @@ oci_execute($strSQL);
                                         GROUP_NAME, 
 										GROUP_CONCERN, 
 										SELF_SUBMITTED_STATUS, 
+										SELF_REMARKS, 
                                         SELF_SUBMITTED_DATE, 
 										LINE_MANAGER_1_ID,
                                         (SELECT BB.EMP_NAME FROM RML_HR_APPS_USER BB WHERE BB.RML_ID=PMS.LINE_MANAGER_1_ID)AS  LINE_MANAGER_1_NAME,										
@@ -240,26 +290,29 @@ oci_execute($strSQL);
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" />
+											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+												style="display:none" />
 											<br>
-											<?php  if ($row['SELF_SUBMITTED_STATUS'] == 0) {?>
-												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI</a>
-											<?php }else{
-												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key='.$row['HR_PMS_LIST_ID'].'">View KPI</a>';
+											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
+												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add
+													KPI</a>
+											<?php }
+											else {
+												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '">View KPI</a>';
 											} ?>
 
 										</td>
 										<td>
 											<?php
-											echo '<i style="color:red;"><b>' . $row['EMP_NAME'] . '</b></i> ';
-											echo ',<br>';
-											echo $row['EMP_DEPT'];
-											echo ',<br>';
-											echo $row['EMP_DESIGNATION'];
-											echo ',<br>';
-											echo $row['EMP_WORK_STATION'];
-											echo ',<br>';
-											echo $row['GROUP_CONCERN'];
+											echo '<i style="color:red;"><b>' . $row['SELF_REMARKS'] . '</b></i> ';
+											// echo ',<br>';
+											// echo $row['EMP_DEPT'];
+											// echo ',<br>';
+											// echo $row['EMP_DESIGNATION'];
+											// echo ',<br>';
+											// echo $row['EMP_WORK_STATION'];
+											// echo ',<br>';
+											// echo $row['GROUP_CONCERN'];
 											?>
 										</td>
 										<td>
@@ -326,10 +379,11 @@ oci_execute($strSQL);
 												?>
 												<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit" />
 												<?php
-											}else{
+											}
+											else {
 												echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" />';
-											}?>
-											
+											} ?>
+
 										</td>
 									</tr>
 									<?php
@@ -342,27 +396,7 @@ oci_execute($strSQL);
 					</div>
 
 				</div>
-				<?php
-				if (isset($_POST['submit_approval'])) {
-					$table_id = $_REQUEST['table_id'];
 
-					$updateSQL = oci_parse(
-						$objConnect,
-						"UPDATE HR_PMS_EMP SET 
-									SELF_SUBMITTED_STATUS=1,
-									SELF_SUBMITTED_DATE=SYSDATE ,
-									LINE_MANAGER_1_STATUS=null
-									WHERE ID='$table_id'"
-					);
-
-					if (oci_execute($updateSQL)) {
-						echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_list_self.php'</script>";
-
-						//echo "Request is submitted successfully.";
-					}
-				}
-
-				?>
 
 
 			</div>

@@ -176,18 +176,12 @@ while ($row = @oci_fetch_assoc($strSQL)) {
 
                                 $leaveSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
                                 if (@oci_execute($leaveSQL)) {
-                                    // echo '<div class="alert alert-primary">';
-                                    // echo 'Leave Create Successfully Done and this are need to approve by your HOD.';
-                                    // echo '</div>';
                                     $message = [
                                         'text' =>  "Leave Create Successfully Done and this are need to approve by your HOD.",
                                         'status' => 'true',
                                     ];
                                     $_SESSION['noti_message'] = $message;
                                 } else {
-                                    // echo '<div class="alert alert-danger">';
-                                    // echo 'Sorry! Contact with IT.';
-                                    // echo '</div>';
                                     $message = [
                                         'text' =>  "Sorry! Contact with IT.",
                                         'status' => 'false',
@@ -199,9 +193,6 @@ while ($row = @oci_fetch_assoc($strSQL)) {
                             } else {
                                 @$lastError = error_get_last();
                                 @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                // echo '<div class="alert alert-danger">';
-                                // echo preg_split("/\@@@@/", @$error)[1];
-                                // echo '</div>';
                                 $message = [
                                     'text' => (preg_split("/\@@@@/", @$error)[1]),
                                     'status' => 'false',
