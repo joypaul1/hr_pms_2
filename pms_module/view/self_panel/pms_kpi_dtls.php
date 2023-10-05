@@ -79,7 +79,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     <div class="col-sm-3">
                         <label class="form-label" for="weightage">Select KRA Option <span class="text-danger">*</span></label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
-                            <option selected value=""><- Selecte KRA -></option>
+                            <option selected value=""><- selecte KRA -></option>
 
                             <?php
                             $query = "select BB.ID,
@@ -112,14 +112,14 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     <div class="col-sm-3">
                         <label class="form-label" for="weightage">Select Weightage(%) <span class="text-danger">*</span> </label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
-                            <option selected value=""><- Selecte Weightage -></option>
+                            <option selected hidden value=""><- selecte Weightage -></option>
 
-                            <option value="5">5</option>
-                            <option value="10">10</option>
-                            <option value="15">15</option>
-                            <option value="20">20</option>
-                            <option value="25">25</option>
-                            <option value="30">30</option>
+                            <option value="5">5 (%)</option>
+                            <option value="10">10 (%)</option>
+                            <option value="15">15 (%)</option>
+                            <option value="20">20 (%)</option>
+                            <option value="25">25 (%)</option>
+                            <option value="30">30 (%)</option>
                         </select>
                     </div>
                     <div class="col-sm-3">
@@ -132,12 +132,12 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor <span class="text-danger">*</span> </label>
                         <!-- <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="eligi_factor" /> -->
                         <select required="" name="eligi_factor" class="form-control text-center cust-control" id='weightage'>
-                            <option selected value=""><- Selecte Eligibility Factor -></option>
-                            <option value="60">60</option>
-                            <option value="70">70</option>
-                            <option value="80">80</option>
-                            <option value="90">90</option>
-                            <option value="100">100</option>
+                            <option selected hidden value=""><- selecte Eligibility Factor -></option>
+                            <option value="60">60 (%)</option>
+                            <option value="70">70 (%)</option>
+                            <option value="80">80 (%)</option>
+                            <option value="90">90 (%)</option>
+                            <option value="100">100 (%)</option>
                         </select>
 
                     </div>
