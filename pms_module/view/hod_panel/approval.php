@@ -159,8 +159,7 @@ $v_view_approval = 0;
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
 								    AND LINE_MANAGER_1_STATUS=1
-								    AND LINE_MANAGER_2_STATUS=1
-								    OR LINE_MANAGER_2_STATUS=0
+                                    AND LINE_MANAGER_2_STATUS IS NULL
                                     
 									AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
