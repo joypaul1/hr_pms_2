@@ -28,8 +28,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                 <div class="col-lg-12">
                     <div class="md-form mt-2">
-                        <div class="table-responsive text-nowrap">
-                            <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
+                        <div class="table-responsive text-break ">
+                            <table class="table table-bordered " border="1" cellspacing="0" cellpadding="0">
                                 <thead style="background: beige;">
                                     <tr class="text-center">
                                         <th class="text-center">Sl</th>
@@ -77,7 +77,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     while ($row = oci_fetch_assoc($strSQL)) {
                                         $number++;
                                         ?>
-                                        <tr>
+                                        <tr class="text-center">
                                             <td class="text-center">
                                                 <?php echo $number; ?>
                                             </td>
@@ -104,10 +104,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             </td>
                                             <td>
                                                 <?php
+
                                                 if ($row['IS_ACTIVE'] == '1')
-                                                    echo 'Active';
+                                                    echo '<span class="badge badge-sm badge-pill bg-success"><i class="menu-icon tf-icons bx bxs-message-alt-check " style="margin:0;font-size:20px"></i></span>';
                                                 else
-                                                    echo 'In-Active';
+                                                    echo '<span class="badge badge-sm badge-pill bg-info"><i class="menu-icon tf-icons bx bxs-message-alt-x" style="margin:0;font-size:20px"></i></span>';
                                                 ?>
                                             </td>
                                             <td>
@@ -116,9 +117,11 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                     ?>
                                                     <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
                                                         style="display:none" />
-                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Update</a>
+                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>"><i
+                                                            class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
                                                     <?php
-                                                }else{
+                                                }
+                                                else {
                                                     echo '<button type="button" class="btn btn-success btn-sm">PMS Submitted</button>';
                                                 }
                                                 ?>

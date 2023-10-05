@@ -77,8 +77,8 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div> -->
 
                     <div class="col-sm-3">
-                        <label class="form-label" for="weightage">Select KRA Option <span class="text-danger">*</span></label>
-                        <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
+                        <label class="form-label" for="kra_id">Select KRA Option <span class="text-danger">*</span></label>
+                        <select required="" name="kra_id" class="form-control text-center cust-control" id='kra_id'>
                             <option selected value=""><- selecte KRA -></option>
 
                             <?php
@@ -124,9 +124,8 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%) <span class="text-danger">*</span></label>
-                        <input required="" value="100" style="background-color: #d9dee3;" onkeypress="return false;" class="form-control cust-control"
-                            type='number' name="target" />
-
+                        <input required="" value="100 (%)" style="background-color: #d9dee3;" onkeypress="return false;" class="form-control cust-control" type='text'  />
+                        <input type="hidden" name="target" value="100" >
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor <span class="text-danger">*</span> </label>
@@ -220,8 +219,8 @@ while ($row = oci_fetch_assoc($WATESQL)) {
     <div class="card mt-2">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>KPI Details </b></h5>
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
+            <div class="table-responsive text-break">
+                <table class="table  table-bordered " border="1" cellspacing="0" cellpadding="0">
                     <thead class="table-dark">
                         <tr class="text-center">
 

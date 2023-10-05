@@ -220,7 +220,7 @@ oci_execute($strSQL);
 
 
 				<div class="col-lg-12">
-					<div class="table-responsive text-nowrap">
+					<div class="table-responsive text-break">
 						<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
 							<thead style="background: beige;">
 								<tr class="text-center">
@@ -277,12 +277,12 @@ oci_execute($strSQL);
 								oci_execute($strSQL);
 								$number = 0;
 
-
+								// <i class='bx bxs-message-square-add' ></i>
 								while ($row = oci_fetch_assoc($strSQL)) {
 									$number++;
 									?>
-									<tr>
-										<td class="text-center">
+									<tr class="text-center">
+										<td >
 											<?php echo $number; ?>
 										</td>
 										<td>
@@ -291,8 +291,7 @@ oci_execute($strSQL);
 												style="display:none" />
 											<br>
 											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
-												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add
-													KPI</a>
+												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i class='bx bxs-message-square-add' ></i> </a>
 											<?php }
 											else {
 												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '">View KPI</a>';
@@ -374,7 +373,7 @@ oci_execute($strSQL);
 											<?php
 											if ($row['SELF_SUBMITTED_STATUS'] == 0) {
 												?>
-												<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit" />
+												<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit " />
 												<?php
 											}
 											else {
