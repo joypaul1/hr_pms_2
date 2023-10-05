@@ -17,11 +17,8 @@ if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS P
 
 	$emp_id         = $_REQUEST['emp_id'];
 	$v_pms_title_id = $_REQUEST['pms_title_id'];
-	$remarks        = $_REQUEST['remarks'] ?? '';
-	// , '$remaks'
-	// echo 111;
-	// die();
-	// print_r([$emp_id, $v_pms_title_id, $remarks]);
+	$remarks        = $_REQUEST['remarks'] ?$_REQUEST['remarks'] : '';
+
 	$profileSQL = oci_parse(
 		$objConnect,
 		"BEGIN RML_PMS_PROFILE_CREATE('$emp_id',$v_pms_title_id,'$emp_session_id', '$remarks','');END;"
