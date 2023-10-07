@@ -8,16 +8,21 @@ $basePath = $_SESSION['basePath'];
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_key          = $_REQUEST['key'];
 
+$LINE_MANAGE_1_REMARKS = null;
+$LINE_MANAGE_2_REMARKS = null;
+$HR_STATUS_REMARKS     = null;
+$SELF_REMARKS          = null;
 
 
-
-$strSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS
-											FROM HR_PMS_EMP
-											WHERE EMP_ID='$emp_session_id'
-											AND HR_PMS_LIST_ID='$v_key'");
+$strSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS, LINE_MANAGE_1_REMARKS,LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
+                                    FROM HR_PMS_EMP WHERE EMP_ID='$emp_session_id' AND HR_PMS_LIST_ID='$v_key'");
 oci_execute($strSQL);
 while ($row = oci_fetch_assoc($strSQL)) {
-    $SUBMITTED_STATUS = $row['SELF_SUBMITTED_STATUS'];
+    $SUBMITTED_STATUS      = $row['SELF_SUBMITTED_STATUS'];
+    $SELF_REMARKS          = $row['SELF_REMARKS'];
+    $LINE_MANAGE_1_REMARKS = $row['LINE_MANAGE_1_REMARKS'];
+    $LINE_MANAGE_2_REMARKS = $row['LINE_MANAGE_2_REMARKS'];
+    $HR_STATUS_REMARKS     = $row['HR_STATUS_REMARKS'];
 }
 
 
@@ -475,6 +480,10 @@ while ($row = oci_fetch_assoc($WATESQL)) {
             text-decoration: none;
         }
 
+        .card-just-text {
+            min-height: 240px !important;
+        }
+
         /*======== COLORS ===========*/
         .card[data-color="blue"] {
             background: #b8d8d8;
@@ -557,8 +566,10 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                             <div class="content">
                                 <!-- <h6 class="category">Best cards</h6> -->
-                                <h4 class="title shadow-none bg-light rounded">Self  </h4>
-                                <p class="description">What all of these have in common is that they're pulling information out of the app or the service and making it relevant to the moment.</p>
+                                <h4 class="title shadow-none bg-light rounded">Self </h4>
+                                <p class="description">
+                                    <?php echo $SELF_REMARKS ?>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -568,10 +579,9 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                             <div class="content">
                                 <h4 class="title shadow-none bg-light rounded">L.M. One </h4>
-                                <p class="description">What all of these have in common is that they're pulling information out of the app or the
-                                    service
-                                    and
-                                    making it relevant to the moment.</p>
+                                <p class="description">
+                                    <?php echo $LINE_MANAGE_1_REMARKS ?>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -582,10 +592,9 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                             <div class="content">
 
                                 <h4 class="title shadow-none bg-light rounded">L.M. Two </h4>
-                                <p class="description">What all of these have in common is that they're pulling information out of the app or the
-                                    service
-                                    and
-                                    making it relevant to the moment.</p>
+                                <p class="description">
+                                    <?php echo $LINE_MANAGE_2_REMARKS ?>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -595,10 +604,9 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">
                                 <h4 class="title shadow-none bg-light rounded">H.O.D. </h4>
-                                <p class="description">What all of these have in common is that they're pulling information out of the app or the
-                                    service
-                                    and
-                                    making it relevant to the moment.</p>
+                                <p class="description">
+                                    <?php echo $HR_STATUS_REMARKS ?>
+                                </p>
                             </div>
                         </div>
                     </div>
