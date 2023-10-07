@@ -39,7 +39,7 @@ $v_view_approval = 0;
                             <th scope="col">PMS Title Info.</th>
                             <th scope="col">Approve/Denine</th>
                             <th scope="col">Approval Date</th>
-                            <th scope="col">Remarks</th>
+                            <th scope="col">Comment</th>
                             <th scope="col">Employe Info.</th>
                             <th scope="col">Action</th>
                         </tr>

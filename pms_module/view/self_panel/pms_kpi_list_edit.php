@@ -121,7 +121,7 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="md-form mt-3">
-                                    <label for="comment">Remarks:</label>
+                                    <label for="comment">Comment:</label>
                                     <textarea class="form-control cust-control" rows="2" id="comment" name="ramarks"><?php echo $row['REMARKS']; ?></textarea>
                                 </div>
                             </div>

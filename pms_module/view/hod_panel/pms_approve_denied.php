@@ -105,7 +105,7 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
                             ?>
                             <div class="row mt-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="basic-default-fullname">Remarks</label>
+                                    <label class="form-label" for="basic-default-fullname">Comment</label>
                                     <input required="" name="remarks"  placeholder="Approval Or Denied Remarks" class="form-control cust-control"
                                         type="text">
                                 </div>

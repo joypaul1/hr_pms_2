@@ -156,7 +156,7 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
                             <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
                             <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
                             <th scope="col">Target</th>
-                            <th scope="col">Remarks</th>
+                            <th scope="col">Comment</th>
                         </tr>
                     </thead>
 

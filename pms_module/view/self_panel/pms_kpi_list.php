@@ -39,7 +39,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <th scope="col">TARGET</th>
                                         <th scope="col">Achievement (%)</th>
                                         <th scope="col">Eligibility Factor</th>
-                                        <th scope="col">Remarks</th>
+                                        <th scope="col">Comment</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>

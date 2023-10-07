@@ -105,7 +105,7 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
                             ?>
                             <div class="row mt-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="basic-default-fullname">Remarks</label>
+                                    <label class="form-label" for="basic-default-fullname">Comment</label>
                                     <input required="" name="remarks"  placeholder="Approval Or Denied Remarks" class="form-control cust-control"
                                         type="text">
                                 </div>
@@ -156,7 +156,7 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
                             <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
                             <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
                             <th scope="col">Target</th>
-                            <th scope="col">Remarks</th>
+                            <th scope="col">Comment</th>
                         </tr>
                     </thead>
 
