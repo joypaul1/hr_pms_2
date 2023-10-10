@@ -121,12 +121,26 @@ $v_view_approval = 0;
                                     <td>
                                         <a
                                             href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary"><i class=' tf-icons bx bxs-edit-alt'></i></button>
+                                                type="button" class="btn btn-sm btn-warning"><i class=' tf-icons bx bxs-edit-alt'></i></button>
                                         </a>
                                     </td>
 
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
+                                    </td>
+                                    <td>
+                                        <?php if ($row['LINE_MANAGER_1_STATUS']) {
+                                            echo "<button class='btn btn-sm btn-success'><i class='bx bxs-badge-check'></i></button>";
+                                        }
+                                        else {
+                                            echo '<button class="btn btn-sm btn-danger"><i class="bx bxs-message-alt-x"></i></button>';
+                                        } ?>
+                                    </td>
+                                    <td>
+                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
+                                    </td>
+                                    <td>
+                                        <?php echo  mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...")  ?>
                                     </td>
                                     <td>
                                         <?php
@@ -142,12 +156,9 @@ $v_view_approval = 0;
                                         ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
-                                    </td>
-                                    <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>">
-                                            <button type="button" class="btn btn-sm btn-primary"><i class=" tf-icons bx bx bx-book-open"></i><i class=" tf-icons bx bx bx-book-open"></i></button>
+                                            <button type="button" class="btn btn-sm btn-info"><i class=" tf-icons bx bx bx-book-open"></i><i class=" tf-icons bx bx bx-book-open"></i></button>
                                         </a>
                                     </td>
                                 </tr>
@@ -191,7 +202,7 @@ $v_view_approval = 0;
                                     <td>
                                         <a
                                             href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary"><i class='bx bxs-edit-alt'></i></button>
+                                                type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
                                         </a>
                                     </td>
 
@@ -200,17 +211,17 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php if ($row['LINE_MANAGER_1_STATUS']) {
-                                            echo '<button class="btn btn-sm btn-success">Approved</button>';
+                                            echo "<button class='btn btn-sm btn-success'><i class='bx bxs-badge-check'></i></button>";
                                         }
                                         else {
-                                            echo '<button class="btn btn-sm btn-danger">Denied</button>';
+                                            echo '<button class="btn btn-sm btn-danger"><i class="bx bxs-message-alt-x"></i></button>';
                                         } ?>
                                     </td>
                                     <td>
                                         <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
                                     </td>
                                     <td>
-                                        <?php echo $row['LINE_MANAGE_1_REMARKS'] ?>
+                                    <?php echo  mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...")  ?>
                                     </td>
                                     <td>
                                         <?php
@@ -229,7 +240,7 @@ $v_view_approval = 0;
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-primary"> <i class=" tf-icons bx bx-book-open"></i> </button>
+                                                type="button" class="btn btn-sm btn-info"> <i class=" tf-icons bx bx-book-open"></i> </button>
                                         </a>
                                     </td>
 
