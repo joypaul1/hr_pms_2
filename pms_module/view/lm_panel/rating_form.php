@@ -135,8 +135,8 @@ $readonlyMood = false;
                                 <?php 
                                     if($readonlyMood != true){
                                         echo '<div class="text-center">
-                                        <button  type="submit" name="submit_draft" class="btn btn-sm btn-primary">Draft </button>
-                                        <button  type="submit" name="submit_confirm" class="btn btn-sm btn-primary">Confirm </button>
+                                        <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
+                                        <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
                                         </div>';
                                     }
                                 ?>

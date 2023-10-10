@@ -145,7 +145,7 @@ if (oci_execute($exitSql_2)) {
                             </div>
                             <div class="col-md-6 card card-body">
                             <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">HEAD OF DEPARTMENT RATING   <i class='bx bxs-hand-down text-info'></i> </div>
-                                <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post">
+                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post">
                                     <input type='hidden' name='actionType' value='rating_form'>
                                     <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
                                     <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
@@ -224,12 +224,15 @@ if (oci_execute($exitSql_2)) {
                                     </div>
                                     <?php 
                                         if($readonlyMood != true){
-                                            echo '<div class="text-center">
-                                            <button  type="submit" name="submit_draft" class="btn btn-sm btn-primary">Draft </button>
-                                            <button  type="submit" name="submit_confirm" class="btn btn-sm btn-primary">Confirm </button>
+                                            echo '<div class="text-right">
+                                            <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
+                                            <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
                                             </div>';
+                                        }else{
+                                            echo "<span class='d-block text-center font-weight-bold'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
                                         }
                                     ?>
+                                    
                             
                                 </form>
                             </div>

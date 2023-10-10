@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
             OWNERSHIP_CAN_DO, COMMUNICATION_SKILL, TEAM_WORK, 
             CREATIVITY_MAKER, LEADERSHIP, CUSTOMER_RESPONSIBILITY, 
             PROBLEM_SOLVING, WORK_ETHICS, HR_PMS_EMP_ID, 
-            HR_PMS_LIST_ID, SUBMITTED_DATE) 
+            HR_PMS_LIST_ID, HOD_SUBMITTED) 
          VALUES (
             '$JOB_KNOWLEDGE','$TRANSPERANCY','$OWNERSHIP_CAN_DO','$COMMUNICATION_SKILL','$TEAM_WORK','$CREATIVITY_MAKER','$LEADERSHIP','$CUSTOMER_RESPONSIBILITY','$PROBLEM_SOLVING','$WORK_ETHICS','$HR_PMS_EMP_ID','$HR_PMS_LIST_ID',
             SYSDATE)"
@@ -122,7 +122,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
             exit();
 
         }
@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
             exit();
         }
     }
@@ -170,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
                 exit();
             }
             else {
@@ -181,7 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
                 exit();
             }
 
@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 $objConnect,
                 "UPDATE PMS_RATTING_CRITERIA_HOD 
         SET JOB_KNOWLEDGE = '$JOB_KNOWLEDGE',TRANSPERANCY = '$TRANSPERANCY', OWNERSHIP_CAN_DO = '$OWNERSHIP_CAN_DO', COMMUNICATION_SKILL = '$COMMUNICATION_SKILL',TEAM_WORK = '$TEAM_WORK', CREATIVITY_MAKER = '$CREATIVITY_MAKER', LEADERSHIP = '$LEADERSHIP',CUSTOMER_RESPONSIBILITY = '$CUSTOMER_RESPONSIBILITY',PROBLEM_SOLVING = '$PROBLEM_SOLVING', WORK_ETHICS = '$WORK_ETHICS',
-        LM_STATUS = 1 WHERE  HR_PMS_EMP_ID =" . $_POST['tab_id'] . " AND HR_PMS_LIST_ID = " . $_POST['key']
+        HOD_STATUS = 1 WHERE  HR_PMS_EMP_ID =" . $_POST['tab_id'] . " AND HR_PMS_LIST_ID = " . $_POST['key']
             );
             if (oci_execute($strSQL)) {
                 $message                  = [
@@ -200,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
                 exit();
             }
             else {
@@ -211,7 +211,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/lm_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
                 exit();
             }
         }
