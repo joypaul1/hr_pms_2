@@ -138,6 +138,8 @@ $readonlyMood = false;
                                         <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
                                         <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
                                         </div>';
+                                    }else{
+                                        echo "<span class='d-block text-center font-weight-bold'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
                                     }
                                 ?>
                         
