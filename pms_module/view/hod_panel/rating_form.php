@@ -68,8 +68,8 @@ if (oci_execute($exitSql_2)) {
                     <span class="d-block text-center  mb-3"> </span>
 
                         <div class="row ">
-                            <div class="col-md-6 card card-body">
-                            <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">LINE MANAGER RATING  <i class='bx bx-star text-success' ></i></div>
+                            <div class="col-md-6 card card-body" style="background: #f3f3f3;">
+                                <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">LINE MANAGER RATING  <i class='bx bx-star text-success' ></i></div>
                                 <div class="row mb-3">
                                     <label class="col-sm-6 col-form-label" for="basic-default-company">JOB KNOWLEDGE</label>
                                     <div class="col-sm-6">
