@@ -274,8 +274,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'offboarding_denine') {
     $check_list_id  = ($_GET['id']);
     $remarks        = ($_GET['remarks']);
-    print_r(213123);
-    die();
+    // print_r(213123);
+    // die();
 
 
     $strSQL  = oci_parse($objConnect, "UPDATE EMP_CLEARENCE_DTLS SET  APPROVAL_STATUS  = 1,
