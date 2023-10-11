@@ -578,7 +578,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                             <div class="content">
-                                <h4 class="title shadow-none bg-light rounded">L.M. One </h4>
+                                <h4 class="title shadow-none bg-light rounded">LM. </h4>
                                 <p class="description">
                                     <?php echo $LINE_MANAGE_1_REMARKS ?>
                                 </p>
@@ -591,7 +591,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                             <div class="content">
 
-                                <h4 class="title shadow-none bg-light rounded">L.M. Two </h4>
+                                <h4 class="title shadow-none bg-light rounded">H.O.D. </h4>
                                 <p class="description">
                                     <?php echo $LINE_MANAGE_2_REMARKS ?>
                                 </p>
@@ -603,7 +603,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">
-                                <h4 class="title shadow-none bg-light rounded">H.O.D. </h4>
+                                <h4 class="title shadow-none bg-light rounded">HR </h4>
                                 <p class="description">
                                     <?php echo $HR_STATUS_REMARKS ?>
                                 </p>
