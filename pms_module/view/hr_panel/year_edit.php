@@ -8,8 +8,6 @@ $allDataSQL  = oci_parse($objConnect, $query);
 // print_r($query);
 oci_execute($allDataSQL);
 $row  = oci_fetch_assoc($allDataSQL);
-// print_r($row['STEP_1_STATUS']);
-// print_r($row['STEP_2_STATUS'])
 echo $row['STEP_3_STATUS'];
 echo gettype($row['STEP_1_STATUS']);
 echo $row['STEP_2_STATUS'];
@@ -98,7 +96,7 @@ echo $row['STEP_2_STATUS'];
                                     <?php } else {
                                         echo "<span class='text-info'>Waiting For Step 1 Done. </span></span>";
                                     } ?>
-                                </div>
+                                </div>  
                                 <br>
                                 <div class="form-group">
                                     <label for="step_status_3">3. Step 3 Status</label>
