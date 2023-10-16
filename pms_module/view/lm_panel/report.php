@@ -202,7 +202,7 @@ $v_view_approval = 0;
                         $number = 0;
 
                         while ($row = oci_fetch_assoc($allDataSQL)) {
-                            print_r($row);
+                           
                             $number++;
                             $v_view_approval = 1;
                             ?>

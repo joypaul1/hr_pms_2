@@ -97,7 +97,9 @@ $v_view_approval = 0;
 													   A.GROUP_CONCERN,
 													   A.CREATED_DATE,
 													   A.CREATED_BY,HR_PMS_LIST_ID,
-													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                                                    (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+                                                    (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
+                                                    (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
                                                     AND LINE_MANAGER_2_STATUS  IS NOT NULL.
@@ -117,10 +119,15 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <a
-                                            href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-warning"><i class=' tf-icons bx bxs-edit-alt'></i></button>
-                                        </a>
+                                        <?php if ($row['STEP_1_STATUS'] === '0' && $row['STEP_2_STATUS'] === '0') { ?>
+                                            <a
+                                                href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
+                                                    type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
+                                            </a>
+                                        <?php }
+                                        else { ?>
+                                            <span class="badge bg-info"> Wait For Step 1 & Step 2 Done </span>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
@@ -182,7 +189,9 @@ $v_view_approval = 0;
 									   A.GROUP_CONCERN,
 									   A.CREATED_DATE,
 									   A.CREATED_BY,HR_PMS_LIST_ID,
-                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                                    (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+                                    (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
+                                    (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
                                     AND LINE_MANAGER_2_STATUS  IS NOT NULL 
@@ -201,10 +210,15 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <a
-                                            href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-warning"><i class=' tf-icons bx bxs-edit-alt'></i></button>
-                                        </a>
+                                        <?php if ($row['STEP_1_STATUS'] === '0' && $row['STEP_2_STATUS'] === '0') { ?>
+                                            <a
+                                                href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
+                                                    type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
+                                            </a>
+                                        <?php }
+                                        else { ?>
+                                            <span class="badge bg-info"> Wait For Step 1 & Step 2 Done </span>
+                                        <?php } ?>
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
