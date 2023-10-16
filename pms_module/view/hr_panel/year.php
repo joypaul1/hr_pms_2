@@ -82,22 +82,23 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 echo '<span>Step 1 : ';
                                 if ($row['STEP_1_STATUS'] === NULL) {
                                     echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                  
                                 }
                                 else if ($row['STEP_1_STATUS'] === '0' || $row['STEP_1_STATUS'] ==='1') {
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
                                 }
-                                if ($row['STEP_1_STATUS'] === '') {
-                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
-                                }
-                                else if ( $row['STEP_1_STATUS'] === '1' ||  $row['STEP_1_STATUS'] === '0') {
+                                if ( $row['STEP_1_STATUS'] === '1' ||  $row['STEP_1_STATUS'] === '0') {
+                                  
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
                                 }
-                                if ($row['STEP_1_STATUS'] !== '0') {
-                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                else {
+                                    echo '<i class="text-danger bx bxs-comment-x"></i>'; 
                                 }
-                                else if ( $row['STEP_1_STATUS'] ==='0') {
+                                if ( $row['STEP_1_STATUS'] === '0') {
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
-                                }
+                                } else{
+                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                } 
                                 echo '</span>';
                                 echo '</br>';
 
@@ -105,44 +106,46 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 echo '<span>Step 2 : ';
                                 if ($row['STEP_2_STATUS'] === NULL) {
                                     echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                  
                                 }
                                 else if ($row['STEP_2_STATUS'] === '0' || $row['STEP_2_STATUS'] ==='1') {
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
                                 }
-                                if ($row['STEP_2_STATUS'] === '') {
-                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
-                                }
-                                else if ( $row['STEP_2_STATUS'] === '1' ||  $row['STEP_2_STATUS'] === '0') {
+                                if ( $row['STEP_2_STATUS'] === '1' ||  $row['STEP_2_STATUS'] === '0') {
+                                  
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
                                 }
-                                if ($row['STEP_2_STATUS'] !== '0') {
-                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                else {
+                                    echo '<i class="text-danger bx bxs-comment-x"></i>'; 
                                 }
-                                else if ( $row['STEP_2_STATUS'] ==='0') {
+                                if ( $row['STEP_2_STATUS'] === '0') {
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
-                                }
+                                } else{
+                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                } 
                                 echo '</span>';
                                 echo '</br>';
                                 //step 2 
                                 echo '<span>Step 3 : ';
                                 if ($row['STEP_3_STATUS'] === NULL) {
                                     echo '<i class="text-danger bx bxs-comment-x"></i>';
+                                  
                                 }
-                                else if ($row['STEP_3_STATUS'] === '0' || $row['STEP_2_STATUS'] ==='1') {
+                                else if ($row['STEP_3_STATUS'] === '0' || $row['STEP_3_STATUS'] ==='1') {
                                     echo '<i class="text-success bx bxs-badge-check"></i>';
                                 }
-                                if ($row['STEP_3_STATUS'] === '') {
+                                if ( $row['STEP_3_STATUS'] === '1' ||  $row['STEP_3_STATUS'] === '0') {
+                                  
+                                    echo '<i class="text-success bx bxs-badge-check"></i>';
+                                }
+                                else {
+                                    echo '<i class="text-danger bx bxs-comment-x"></i>'; 
+                                }
+                                if ( $row['STEP_3_STATUS'] === '0') {
+                                    echo '<i class="text-success bx bxs-badge-check"></i>';
+                                } else{
                                     echo '<i class="text-danger bx bxs-comment-x"></i>';
-                                }
-                                else if ( $row['STEP_3_STATUS'] === '1' ||  $row['STEP_3_STATUS'] === '0') {
-                                    echo '<i class="text-success bx bxs-badge-check"></i>';
-                                }
-                                if ($row['STEP_3_STATUS'] !== '0') {
-                                    echo '<i class="text-danger bx bxs-comment-x"></i>';
-                                }
-                                else if ( $row['STEP_3_STATUS'] ==='0') {
-                                    echo '<i class="text-success bx bxs-badge-check"></i>';
-                                }
+                                } 
                                 echo '</span>';
                                
 

@@ -5,12 +5,10 @@ $basePath =  $_SESSION['basePath'];
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $query = "SELECT  ID, PMS_NAME, CREATED_BY, START_DATE, IS_ACTIVE,  END_DATE, TABLE_REMARKS, ACHIVEMENT_OPEN_STATUS,STEP_1_STATUS, STEP_2_STATUS, STEP_3_STATUS FROM HR_PMS_LIST WHERE ID =" . $_GET['id'];
 $allDataSQL  = oci_parse($objConnect, $query);
-// print_r($query);
+
 oci_execute($allDataSQL);
 $row  = oci_fetch_assoc($allDataSQL);
-echo $row['STEP_3_STATUS'];
-echo gettype($row['STEP_1_STATUS']);
-echo $row['STEP_2_STATUS'];
+
 ?>
 
 <!-- / Content -->
