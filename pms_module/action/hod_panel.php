@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
         $exitData = oci_fetch_assoc($exitSql);
     }
 
-
     $JOB_KNOWLEDGE           = $_REQUEST['JOB_KNOWLEDGE'];
     $TRANSPERANCY            = $_REQUEST['TRANSPERANCY'];
     $OWNERSHIP_CAN_DO        = $_REQUEST['OWNERSHIP_CAN_DO'];
