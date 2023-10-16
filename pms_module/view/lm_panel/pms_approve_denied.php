@@ -43,7 +43,8 @@ $HR_STATUS_REMARKS     = null;
 $SELF_REMARKS          = null;
 
 
-$commentSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS, LINE_MANAGE_1_REMARKS,LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
+$commentSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS, LINE_MANAGE_1_REMARKS,
+LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
                                     FROM HR_PMS_EMP WHERE ID='$v_emp_table_id'");
 oci_execute($commentSQL);
 while ($row = oci_fetch_assoc($commentSQL)) {
@@ -163,7 +164,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
     <!-- Bordered Table -->
     <div class="card mt-2">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>
-                <?php echo $_GET['emp_id'] ?> For PMS DEtails
+                <?php echo $_GET['emp_id'] ?> For PMS Details
             </b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
