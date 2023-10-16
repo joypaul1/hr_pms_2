@@ -336,8 +336,7 @@ oci_execute($strSQL);
 											else if ($row['LINE_MANAGER_1_STATUS'] == 0)
 												echo '<i style="color:red;"><b>Status: Decline</b></i> ';
 											echo '<br>';
-											echo 'Remarks: ' . $row['LINE_MANAGE_1_REMARKS'];
-											echo '<br>';
+											
 											echo $row['LINE_MANAGER_1_UPDATED'];
 											?>
 										</td>

@@ -157,7 +157,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">Any Comment ?</label>
-                        <input class="form-control cust-control" type='text' name="ramarks" />
+                        <input class="form-control" type='text' name="ramarks" />
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">

@@ -96,7 +96,7 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Select Target(%):</label>
-                                <input required="" class="form-control cust-control" type='number' name="target" value="<?php echo $row['TARGET']; ?>" />
+                                <input required="" class="form-control cust-control" type='number' readonly name="target" value="<?php echo $row['TARGET']; ?>" />
                             </div>
 
                             <div class="col-sm-3">
@@ -122,7 +122,7 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                             <div class="col-sm-12">
                                 <div class="md-form mt-3">
                                     <label for="comment">Comment:</label>
-                                    <textarea class="form-control cust-control" rows="2" id="comment" name="ramarks"><?php echo $row['REMARKS']; ?></textarea>
+                                    <textarea class="form-control" rows="2" id="comment" name="ramarks"><?php echo $row['REMARKS']; ?></textarea>
                                 </div>
                             </div>
                         </div>
