@@ -144,7 +144,7 @@ while ($rowrr = oci_fetch_assoc($strSQLsss)) {
     <!-- Bordered Table -->
     <div class="card mt-2">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>
-                <?php echo $_GET['emp_id'] ?> For PMS Details
+                <?php echo $_GET['emp_id'] ?> For PMS DEtails
             </b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">

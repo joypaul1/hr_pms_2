@@ -7,7 +7,7 @@ $basePath = $_SESSION['basePath'];
 // }
 $emp_session_id  = $_SESSION['HR']['emp_id_hr'];
 $v_view_approval = 0;
- 
+
 
 ?>
 
@@ -16,7 +16,7 @@ $v_view_approval = 0;
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    
+
     <!-- form store request  -->
     <form id="Form1" action="" method="post"></form>
     <form id="Form2" action="" method="post"></form>
@@ -87,19 +87,21 @@ $v_view_approval = 0;
                     if (isset($_POST['emp_concern'])) {
                         $emp_concern = $_REQUEST['emp_concern'];
                         $strSQL      = oci_parse($objConnect, "SELECT A.ID,
-													   A.EMP_ID,
-													   A.EMP_NAME,
-													   A.LINE_MANAGER_1_STATUS,
-													   A.LINE_MANAGER_1_UPDATED,
-													   A.LINE_MANAGE_1_REMARKS,
-													   A.EMP_DEPT,
-													   A.EMP_WORK_STATION,
-													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
-													   A.GROUP_NAME,
-													   A.GROUP_CONCERN,
-													   A.CREATED_DATE,
-													   A.CREATED_BY,HR_PMS_LIST_ID,
-													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                                                    A.EMP_ID,
+                                                    A.EMP_NAME,
+                                                    A.LINE_MANAGER_1_STATUS,
+                                                    A.LINE_MANAGER_1_UPDATED,
+                                                    A.LINE_MANAGE_1_REMARKS,
+                                                    A.EMP_DEPT,
+                                                    A.EMP_WORK_STATION,
+                                                    A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
+                                                    A.GROUP_NAME,
+                                                    A.GROUP_CONCERN,
+                                                    A.CREATED_DATE,
+                                                    A.CREATED_BY,HR_PMS_LIST_ID,
+                                                    (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+                                                    (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
+                                                    (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS
 													FROM HR_PMS_EMP A
 													WHERE SELF_SUBMITTED_STATUS=1
                                                     AND LINE_MANAGER_1_STATUS  IS NOT NULL 
@@ -119,10 +121,15 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <a
-                                            href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-warning"><i class=' tf-icons bx bxs-edit-alt'></i></button>
-                                        </a>
+                                        <?php if ($row['STEP_1_STATUS'] === '0' && $row['STEP_2_STATUS'] === '0') { ?>
+                                            <a
+                                                href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
+                                                    type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
+                                            </a>
+                                        <?php }
+                                        else { ?>
+                                            <span class="badge bg-info"> Wait For Step 1 & Step 2 Done </span>
+                                        <?php } ?>
                                     </td>
 
                                     <td>
@@ -140,7 +147,7 @@ $v_view_approval = 0;
                                         <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
                                     </td>
                                     <td>
-                                        <?php echo  mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...")  ?>
+                                        <?php echo mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...") ?>
                                     </td>
                                     <td>
                                         <?php
@@ -158,7 +165,8 @@ $v_view_approval = 0;
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>">
-                                            <button type="button" class="btn btn-sm btn-info"><i class=" tf-icons bx bx bx-book-open"></i><i class=" tf-icons bx bx bx-book-open"></i></button>
+                                            <button type="button" class="btn btn-sm btn-info"><i class=" tf-icons bx bx bx-book-open"></i><i
+                                                    class=" tf-icons bx bx bx-book-open"></i></button>
                                         </a>
                                     </td>
                                 </tr>
@@ -181,17 +189,20 @@ $v_view_approval = 0;
 									   A.GROUP_CONCERN,
 									   A.CREATED_DATE,
 									   A.CREATED_BY,HR_PMS_LIST_ID,
-                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+                                      (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
+                                      (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS
 									FROM HR_PMS_EMP A
 									WHERE SELF_SUBMITTED_STATUS=1
 								    AND LINE_MANAGER_1_STATUS  IS NOT NULL 
 									AND LINE_MANAGER_1_ID='$emp_session_id'"
                         );
-                        
+
                         oci_execute($allDataSQL);
                         $number = 0;
 
                         while ($row = oci_fetch_assoc($allDataSQL)) {
+                            print_r($row);
                             $number++;
                             $v_view_approval = 1;
                             ?>
@@ -200,10 +211,15 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <a
-                                            href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
-                                                type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
-                                        </a>
+                                        <?php if ($row['STEP_1_STATUS'] === '0' && $row['STEP_2_STATUS'] === '0') { ?>
+                                            <a
+                                                href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
+                                                    type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
+                                            </a>
+                                        <?php }
+                                        else { ?>
+                                            <span class="badge bg-info"> Wait For Step 1 & Step 2 Done </span>
+                                        <?php } ?>
                                     </td>
 
                                     <td>
@@ -221,7 +237,7 @@ $v_view_approval = 0;
                                         <?php echo $row['LINE_MANAGER_1_UPDATED'] ?>
                                     </td>
                                     <td>
-                                    <?php echo  mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...")  ?>
+                                        <?php echo mb_strimwidth($row['LINE_MANAGE_1_REMARKS'], 0, 20, "...") ?>
                                     </td>
                                     <td>
                                         <?php
