@@ -42,10 +42,11 @@ $HR_STATUS_REMARKS     = null;
 $SELF_REMARKS          = null;
 
 
-$strSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS, LINE_MANAGE_1_REMARKS,LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
-                                    FROM HR_PMS_EMP WHERE EMP_ID='$emp_session_id' AND HR_PMS_LIST_ID='$v_key'");
-oci_execute($strSQL);
-while ($row = oci_fetch_assoc($strSQL)) {
+$commentSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS, LINE_MANAGE_1_REMARKS,LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
+                                    FROM HR_PMS_EMP WHERE ID='$v_emp_table_id'");
+oci_execute($commentSQL);
+while ($row = oci_fetch_assoc($commentSQL)) {
+    print_r($row);
     $SUBMITTED_STATUS      = $row['SELF_SUBMITTED_STATUS'];
     $SELF_REMARKS          = $row['SELF_REMARKS'];
     $LINE_MANAGE_1_REMARKS = $row['LINE_MANAGE_1_REMARKS'];
@@ -483,7 +484,7 @@ while ($row = oci_fetch_assoc($strSQL)) {
                                 <!-- <h6 class="category">Best cards</h6> -->
                                 <h4 class="title shadow-none bg-light rounded">Self </h4>
                                 <p class="description">
-                                    <?php //echo $SELF_REMARKS ?>
+                                    <?php echo $SELF_REMARKS ?>
                                 </p>
                             </div>
                         </div>
