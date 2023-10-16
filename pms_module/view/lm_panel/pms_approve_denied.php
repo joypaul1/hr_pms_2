@@ -47,7 +47,7 @@ $commentSQL = oci_parse($objConnect, "SELECT SELF_SUBMITTED_STATUS ,SELF_REMARKS
                                     FROM HR_PMS_EMP WHERE ID='$v_emp_table_id'");
 oci_execute($commentSQL);
 while ($row = oci_fetch_assoc($commentSQL)) {
-    print_r($row);
+  
     $SUBMITTED_STATUS      = $row['SELF_SUBMITTED_STATUS'];
     $SELF_REMARKS          = $row['SELF_REMARKS'];
     $LINE_MANAGE_1_REMARKS = $row['LINE_MANAGE_1_REMARKS'];
