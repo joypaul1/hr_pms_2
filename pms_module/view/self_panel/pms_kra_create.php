@@ -243,19 +243,19 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						</div>
 
 						<?php
-						if (isset($_POST['submit_approval'])) {
-							$table_id = $_REQUEST['table_id'];
-							$kra_name = $_REQUEST['kra_name'];
+						// if (isset($_POST['submit_approval'])) {
+						// 	$table_id = $_REQUEST['table_id'];
+						// 	$kra_name = $_REQUEST['kra_name'];
 
-							$updateSQL = oci_parse(
-								$objConnect,
-								"UPDATE HR_PMS_KRA_LIST SET KRA_NAME='$kra_name',UPDATED_DATE=SYSDATE WHERE ID='$table_id'"
-							);
+						// 	$updateSQL = oci_parse(
+						// 		$objConnect,
+						// 		"UPDATE HR_PMS_KRA_LIST SET KRA_NAME='$kra_name',UPDATED_DATE=SYSDATE WHERE ID='$table_id'"
+						// 	);
 
-							if (oci_execute($updateSQL)) {
-								echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_kra_create.php'</script>";
-							}
-						}
+						// 	if (oci_execute($updateSQL)) {
+						// 		echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_kra_create.php'</script>";
+						// 	}
+						// }
 
 						?>
 

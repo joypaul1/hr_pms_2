@@ -57,6 +57,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											   B.KPI_NAME,
 											   A.KRA_NAME,
 											   (SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = A.HR_PMS_LIST_ID AND D.EMP_ID=B.CREATED_BY) AS SUBMITTED_STATUS,
+                                               (SELECT E.STEP_3_STATUS FROM HR_PMS_LIST E WHERE E.ID=A.HR_PMS_LIST_ID) AS STEP_3_STATUS,
 											   B.WEIGHTAGE,
 											   B.TARGET,
 											   B.ELIGIBILITY_FACTOR,
@@ -94,7 +95,33 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 <?php echo $row['TARGET']; ?>
                                             </td>
                                             <td>
-                                                <?php echo $row['ACHIVEMENT']; ?>
+                                                <?php
+                                                $existAchievement = false;
+                                                if ($row['ACHIVEMENT']) {
+                                                    $existAchievement = true;
+                                                }
+                                                if ($row['STEP_3_STATUS'] === '1' || $row['STEP_3_STATUS'] === '0') {
+                                                    ?>
+
+                                                    <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="post">
+                                                        <input type="hidden" name="actionType" value='kpi_achivement'>
+                                                        <input type="hidden" name="editId" value='<?php echo $row['ID'] ?>'>
+                                                        <div class="d-flex gap-2">
+                                                            <input required="" value="<?php echo $row['ACHIVEMENT'] ?>" style="padding:5px !important"
+                                                                name="achivement" placeholder="achivement" class="form-control text-center cust-control"
+                                                                type='number' <?php if ($existAchievement) {
+                                                                    echo 'readonly';
+                                                                } ?> />
+                                                            <?php if ($row['STEP_3_STATUS'] === '1') {
+                                                                 if (!$existAchievement) {
+                                                                echo '<button class="btn btn-sm btn-info"> <i class="bx bxs-comment-check"
+                                                            style="margin:0;font-size:18px"></i></button>';
+                                                            }} ?>
+
+
+                                                        </div>
+                                                    </form>
+                                                    <?php } ?>
                                             </td>
                                             <td>
                                                 <?php echo $row['ELIGIBILITY_FACTOR']; ?>
@@ -148,20 +175,20 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
 
                     <?php
-                    if (isset($_POST['submit_approval'])) {
-                        $table_id = $_REQUEST['table_id'];
-                        $kra_name = $_REQUEST['kra_name'];
-
-                        $updateSQL = oci_parse(
-                            $objConnect,
-                            "UPDATE HR_PMS_KRA_LIST SET KRA_NAME='$kra_name',UPDATED_DATE=SYSDATE WHERE ID='$table_id'"
-                        );
-
-                        if (oci_execute($updateSQL)) {
-                            echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_kra_create.php'</script>";
-                        }
-                    }
-
+                    // if (isset($_POST['submit_approval'])) {
+                    //     $table_id = $_REQUEST['table_id'];
+                    //     $kra_name = $_REQUEST['kra_name'];
+                    
+                    //     $updateSQL = oci_parse(
+                    //         $objConnect,
+                    //         "UPDATE HR_PMS_KRA_LIST SET KRA_NAME='$kra_name',UPDATED_DATE=SYSDATE WHERE ID='$table_id'"
+                    //     );
+                    
+                    //     if (oci_execute($updateSQL)) {
+                    //         echo "<script>window.location = 'http://202.40.181.98:9090/rHR/pms_kra_create.php'</script>";
+                    //     }
+                    // }
+                    
                     ?>
 
 
