@@ -138,7 +138,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor <span class="text-danger">*</span> </label>
-                        <!-- <input required="" onkeypress='return event.charCode >= 48 && event.charCode <= 57' class="form-control cust-control" type='number' name="eligi_factor" /> -->
+                       
                         <select required="" name="eligi_factor" class="form-control text-center cust-control" id='weightage'>
                             <option selected hidden value=""><- selecte Eligibility Factor -></option>
                             <option value="60">60 (%)</option>
