@@ -46,7 +46,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 								while ($row = oci_fetch_assoc($strSQL)) {
 									?>
 
-									<option value="<?php echo $row['ID']; ?>">
+									<option value="<?php echo $row['ID']; ?>" selected>
 										<?php echo $row['PMS_NAME']; ?>
 									</option>
 									<?php
