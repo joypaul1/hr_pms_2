@@ -5,6 +5,49 @@ require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
 
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
+
+    $ACHIVEMENT = $_POST['achivement'];
+    $key        = $_POST['key'];
+    $emp_id     = $_POST['emp_id'];
+    $tab_id     = $_POST['tab_id'];
+    // print_r($_REQUEST);
+    // die();
+    if (count($ACHIVEMENT) > 0) {
+
+        foreach ($ACHIVEMENT as $Idkey => $achValue) {
+            $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue' WHERE ID='$Idkey'");
+            if (oci_execute($strSQL)) {
+
+            }
+            else {
+
+                $e                        = oci_error($strSQL);
+                $message                  = [
+                    'text'   => htmlentities($e['message'], ENT_QUOTES),
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script> window.location.href = '$basePath/pms_module/view/lm_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+            }
+        }
+
+    }
+
+    $message                  = [
+        'text'   => 'KPI Achivement Saved successfully.',
+        'status' => 'true',
+    ];
+    $_SESSION['noti_message'] = $message;
+    echo "<script> window.location.href = '$basePath/pms_module/view/lm_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+}
+
+
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
 
     $v_remarks               = $_POST['remarks'];
@@ -95,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
     $HR_PMS_LIST_ID          = $_POST['key'];
 
 
- 
+
     if (isset($_POST['submit_draft']) && empty($exitData)) {
 
         $strSQL = oci_parse(
