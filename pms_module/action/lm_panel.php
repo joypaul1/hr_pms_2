@@ -13,8 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     $key        = $_POST['key'];
     $emp_id     = $_POST['emp_id'];
     $tab_id     = $_POST['tab_id'];
-    // print_r($_REQUEST);
-    // die();
+
     if (count($ACHIVEMENT) > 0) {
 
         foreach ($ACHIVEMENT as $Idkey => $achValue) {
