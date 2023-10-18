@@ -167,11 +167,11 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                 <?php echo $_GET['emp_id'] ?> For PMS Details
             </b></h5>
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
+            <div class="table-responsive text-break">
                 <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                     <thead style="background: beige;">
                         <tr class="text-center">
-                            <th class="">Sl <br>No</th>
+                            <th class="">Sl.</th>
                             <th scope="col">KRA(Key Result Areas)<br>KRA</th>
                             <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
                             <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
