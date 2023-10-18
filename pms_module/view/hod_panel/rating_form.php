@@ -258,7 +258,7 @@ if (oci_execute($exitSql_2)) {
                                                 <u><strong>Achivement</strong></u>
                                             </div>
                                         </div>
-                                        <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post"     class="justify-content-center">
+                                        <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post"     class="justify-content-center">
                                         <input type="hidden" name="actionType" value="kpi_achivement">
                                         <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
                                         <input type="hidden" name="key" value="<?php echo  $_GET['key'] ?>"> 
