@@ -56,8 +56,7 @@ $EMP_ID         = $_GET['emp_id'];
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="shadow-sm p-2 mb-1 text-center text-danger rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Note
-                                : Here You Can Set Min Value 0 and Max Value 10] <i class='bx bxs-shield-alt-2'></i></div>
+                            <div class="shadow-sm p-2 mb-1 text-center text-danger rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Note : Here You Can Set Min Value 0 and Max Value 10] <i class='bx bxs-shield-alt-2'></i></div>
                             <div class='card card-body '>
 
                                 <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post" id="ratingForm">
@@ -249,8 +248,93 @@ $EMP_ID         = $_GET['emp_id'];
                         </div>
 
                     </div>
+                    <div class="row justify-content-center">
+                            <div class="col-12">
+                                <div class="shadow-sm p-2 mb-1 text-center text-success rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i></div>
+                            </div>
+                            <div class="col-12">
+                                <form action="#" method="post" class="justify-content-center" id="scoreForm">
+                                    <div class="card card-body ">    
+                                        <div class="row mb-2 text-center">
+                                            <div class="col-3">
+                                                <label for="" class="font-weight-bold">Rating Point ( 20 %) </label>
+                                                <input type="text" value="" readonly  class="form-control text-center gradeRating">
+                                            </div>
+                                            <div class="col-3">
+                                                <label for="" class="font-weight-bold">Score  ( 80 %) </label>
+                                                <input type="text" value="" readonly class="form-control text-center gradeScore">
+                                            </div>
+                                            <div class="col-3">
+                                                <label for="" class="font-weight-bold">Total Point </label>
+                                                <input type="text" readonly="" class="form-control text-center totalMark" value="100" placeholder="target">
+                                            </div>
+                                            <div class="col-3">
+                                                <label for="" class="font-weight-bold"> Mark </label>
+                                                <input type="text" readonly="" class="form-control text-center totalMark" value="A" placeholder="target">
+                                            </div>
+                                        
+
+
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" name="submit_confirm" class="btn btn-sm btn-info">Confirm <i class="bx bx-save"></i> </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="card card-body "> 
+                                    <strong class="text-center">Grading  System</strong>  
+                                    <table class="table table-bordered tex-center text-break">
+                                        <thead style="background: beige;">
+                                            <tr class="text-center">
+                                                <th>Achivement</th>
+                                                <th>Grade</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class='text-center'>
+                                            <tr>
+                                                <td> 100% - Up</td>
+                                                <td>O</td>
+                                                <td>OUTSTADING</td>
+                                            </tr>
+                                            <tr>
+                                                <td>90% - 99%</td>
+                                                <td>E</td>
+                                                <td>EXCELLNT</td>
+                                            </tr>
+                                            <tr>
+                                                <td>80% - 89%</td>
+                                                <td>G</td>
+                                                <td>GOOD</td>
+                                            </tr>
+                                            <tr>
+                                                <td>70%  79%</td>
+                                                <td>A</td>
+                                                <td>AVERAGE</td>
+                                            </tr>
+                                            <tr>
+                                                <td>60% - 59%</td>
+                                                <td>U</td>
+                                                <td>UNSATISFATORY</td>
+                                            </tr>
+                                            <tr>
+                                                <td>50% - Down</td>
+                                                <td>I</td>
+                                                <td>INCOMPETENT</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        
+                    </div>
 
                 </div>
+                              
+                
             </div>
         </div>
 
@@ -262,7 +346,6 @@ $EMP_ID         = $_GET['emp_id'];
 <!-- / Content -->
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
-
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
      
