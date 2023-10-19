@@ -169,7 +169,7 @@ $EMP_ID         = $_GET['emp_id'];
 
                                 </div>
                                 <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post"
-                                    class="justify-content-center">
+                                    class="justify-content-center" id="scoreForm">
                                     <input type="hidden" name="actionType" value="kpi_achivement">
                                     <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
                                     <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
@@ -208,10 +208,10 @@ $EMP_ID         = $_GET['emp_id'];
                                                         value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="achivement[<?php echo $rowIN['ID']; ?>]"
+                                                    <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
                                                         value="<?php echo $rowIN['ACHIVEMENT']; ?>"
                                                         onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                        class="form-control text-center achivement" placeholder="target achivement">
+                                                        class="form-control text-center achivement" max="100" min='0'  placeholder="target achivement">
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
@@ -227,19 +227,22 @@ $EMP_ID         = $_GET['emp_id'];
 
                                             </div>
                                             
-                                        <?php
+                                    <?php
                                         }
                                     }
 
-                                    // ddd
-
-
-                                    echo '<div class="text-center">
-                                            <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
-                                            </div>';
-
-
                                     ?>
+                                    <div class="col-sm-12 d-flex justify-content-end mt-0">
+                                            <strong class="d-flex justify-content-end gap-2  align-items-center">
+                                                <span style="color:chocolate">Total Score :</span>
+                                                <input type="number" disabled
+                                                    style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
+                                                    value="<?php echo 0 ?>" class="form-control" id="totalScore" />
+                                            </strong>
+                                        </div>
+                                        <div class="text-center">
+                                            <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
+                                        </div>
 
                                 </form>
                             </div>
@@ -262,13 +265,15 @@ $EMP_ID         = $_GET['emp_id'];
 
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-     let totalRating = 0;
+     
     $(function () {
+        let totalRating = 0;
         ratingCalculation();
-       
-    });
-    $(document).on('input', "form#ratingForm input[type='number']", function (event) {
+        scoreCalculation();
+        
 
+    });
+    $(document).on('change input', "form#ratingForm input[type='number']", function (event) {
         var value = parseInt(this.value, 10);
         var max = parseInt(10);
         var min = parseInt(0);
@@ -279,12 +284,51 @@ $EMP_ID         = $_GET['emp_id'];
         }
         ratingCalculation();
     });
+    $(document).on('change input', "form#scoreForm input[type='number']", function (event) {
 
-    function ratingCalculation(){
-        $("form#ratingForm input[type='number']").each(function(){
-            var rating = Number($(this).val()); 
+        var value = parseInt(this.value, 10);
+        var max = parseInt(100);
+        var min = parseInt(0);
+        if (value > max) {
+            this.value = max;
+        } else if (value < min) {
+            this.value = min;
+        }
+        scoreCalculation();
+    });
+    $(document).on('change input', '.achivement', function () {
+            $achivement = $(this).val() || 0;
+            $target = $(this).parent().parent('.row').find('.target').val();
+            $targetWeightage = $(this).parent().parent('.row').find('.targetWeightage').val();
+            $achivementWeightage = ($achivement / $target) * 100;
+            $(this).parent().parent('.row').find('.achivementWeightage').val($achivementWeightage);
+            $(this).parent().parent('.row').find('.score').val(($achivementWeightage * $targetWeightage) / 100);
+            scoreCalculation();
+        });
+     
+    function scoreCalculation() {
+        console.log('Score calculation');
+        let totalScore = 0;
+        let oldScore =$('#totalScore').val();
+        // totalScore-=oldScore;
+        $("form#scoreForm .score").each(function () {
+            console.log($(this));
+            var rating = Number($(this).val());
+            totalScore += rating;
+        });
+        $('#totalScore').val(totalScore);
+    }
+
+    function ratingCalculation() {
+        let totalRating = 0;
+        let oldRating =$('#totalRating').val();
+        totalRating-=oldRating;
+        $("form#ratingForm input[type='number']").each(function () {
+            var rating = Number($(this).val());
             totalRating += rating;
         });
         $('#totalRating').val(totalRating);
     }
+    
+
 </script>
