@@ -15,9 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
     if ($v_app_status == 1) {
         $strSQL = oci_parse(
             $objConnect,
-            "update HR_PMS_EMP SET 
-            HR_STATUS_REMARKS='$v_remarks',HR_STATUS=$v_app_status,HR_STATUS_DATE=SYSDATE
-                      WHERE ID=$hr_pms_pms_emp_table_id"
+            "UPDATE HR_PMS_EMP SET 
+            HR_STATUS_REMARKS='$v_remarks',HR_STATUS=$v_app_status,HR_STATUS_DATE=SYSDATE WHERE ID=$hr_pms_pms_emp_table_id"
         );
     }
     else if ($v_app_status == 0) {
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             "UPDATE HR_PMS_EMP SET 
             HR_STATUS_REMARKS='$v_remarks',
             HR_STATUS=$v_app_status,
-            HR_STATUS_DATE=SYSDATE,
             HR_STATUS_DATE=SYSDATE,
             LINE_MANAGE_1_REMARKS=' ',
             LINE_MANAGER_1_STATUS=' ',
@@ -38,7 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             WHERE ID=$hr_pms_pms_emp_table_id"
         );
     }
-
+    
+   
     if (oci_execute($strSQL)) {
 
         if ($v_app_status == 1) {
@@ -50,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             echo "<script> window.location.href ='$basePath/pms_module/view/hr_panel/approval.php'</script>";
         }
         else {
+            die();
             $message                  = [
                 'text'   => 'PMS Denied successfully.',
                 'status' => 'false',
@@ -60,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
 
     }
     else {
-
+        $e       = @oci_error($strSQL);
+        ECHO htmlentities($e['message'], ENT_QUOTES);
+        DIE();
         $e                        = oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
