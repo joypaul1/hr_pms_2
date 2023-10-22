@@ -26,13 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             HR_STATUS_REMARKS='$v_remarks',
             HR_STATUS=$v_app_status,
             HR_STATUS_DATE=SYSDATE,
-            LINE_MANAGE_1_REMARKS=' ',
-            LINE_MANAGER_1_STATUS=' ',
-            LINE_MANAGER_1_UPDATED=' ',
-            LINE_MANAGE_2_REMARKS=' ',
-            LINE_MANAGER_2_STATUS=' ',
-            LINE_MANAGER_2_UPDATED=' ',
-            SELF_SUBMITTED_STATUS=' '
+            LINE_MANAGE_1_REMARKS='',
+            LINE_MANAGER_1_STATUS='',
+            LINE_MANAGER_1_UPDATED='',
+            LINE_MANAGE_2_REMARKS='',
+            LINE_MANAGER_2_STATUS='',
+            LINE_MANAGER_2_UPDATED='',
+            SELF_SUBMITTED_STATUS=''
             WHERE ID=$hr_pms_pms_emp_table_id"
         );
     }
@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             echo "<script> window.location.href ='$basePath/pms_module/view/hr_panel/approval.php'</script>";
         }
         else {
-            die();
             $message                  = [
                 'text'   => 'PMS Denied successfully.',
                 'status' => 'false',
@@ -61,8 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
     }
     else {
         $e       = @oci_error($strSQL);
-        ECHO htmlentities($e['message'], ENT_QUOTES);
-        DIE();
         $e                        = oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
