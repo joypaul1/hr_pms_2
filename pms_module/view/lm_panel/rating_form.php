@@ -208,7 +208,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
-                                                        value="<?php echo $rowIN['ACHIVEMENT']; ?>"
+                                                        value="<?php echo $rowIN['ACHIVEMENT']?$rowIN['ACHIVEMENT']:0; ?>"
                                                         onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                         class="form-control text-center achivement" max="100" min='0'  placeholder="target achivement">
                                                 </div>
@@ -266,7 +266,7 @@ $EMP_ID         = $_GET['emp_id'];
                                             </div>
                                             <div class="col-3">
                                                 <label for="" class="font-weight-bold">Total Point </label>
-                                                <input type="text" readonly="" class="form-control text-center totalMark" value="100" placeholder="target">
+                                                <input type="text" readonly="" class="form-control text-center totalPoint" value="100" placeholder="target">
                                             </div>
                                             <div class="col-3">
                                                 <label for="" class="font-weight-bold"> Mark </label>
@@ -353,13 +353,13 @@ $EMP_ID         = $_GET['emp_id'];
         let totalRating = 0;
         ratingCalculation();
         scoreCalculation();
-        
-
+        pointCalculaiton();
     });
+
     $(document).on('change input', "form#ratingForm input[type='number']", function (event) {
-        var value = parseInt(this.value, 10);
-        var max = parseInt(10);
-        var min = parseInt(0);
+        var value   = parseInt(this.value, 10);
+        var max     = parseInt(10);
+        var min     = parseInt(0);
         if (value > max) {
             this.value = max;
         } else if (value < min) {
@@ -369,49 +369,84 @@ $EMP_ID         = $_GET['emp_id'];
     });
     $(document).on('change input', "form#scoreForm input[type='number']", function (event) {
 
-        var value = parseInt(this.value, 10);
-        var max = parseInt(100);
-        var min = parseInt(0);
+        var value   = parseInt(this.value, 10);
+        var max     = parseInt(100);
+        var min     = parseInt(0);
         if (value > max) {
             this.value = max;
         } else if (value < min) {
             this.value = min;
         }
         scoreCalculation();
+       
+
     });
     $(document).on('change input', '.achivement', function () {
-            $achivement = $(this).val() || 0;
-            $target = $(this).parent().parent('.row').find('.target').val();
-            $targetWeightage = $(this).parent().parent('.row').find('.targetWeightage').val();
-            $achivementWeightage = ($achivement / $target) * 100;
+            $achivement             = $(this).val() || 0;
+            $target                 = $(this).parent().parent('.row').find('.target').val();
+            $targetWeightage        = $(this).parent().parent('.row').find('.targetWeightage').val();
+            $achivementWeightage    = ($achivement / $target) * 100;
             $(this).parent().parent('.row').find('.achivementWeightage').val($achivementWeightage);
             $(this).parent().parent('.row').find('.score').val(($achivementWeightage * $targetWeightage) / 100);
             scoreCalculation();
+           
         });
      
     function scoreCalculation() {
-        console.log('Score calculation');
-        let totalScore = 0;
-        let oldScore =$('#totalScore').val();
-        // totalScore-=oldScore;
+        let totalScore      = 0;
+        let oldScore        = $('#totalScore').val();
         $("form#scoreForm .score").each(function () {
-            console.log($(this));
-            var rating = Number($(this).val());
-            totalScore += rating;
+            var rating      = Number($(this).val());
+            totalScore      += rating;
         });
         $('#totalScore').val(totalScore);
+        pointCalculaiton();
     }
 
     function ratingCalculation() {
-        let totalRating = 0;
-        let oldRating =$('#totalRating').val();
-        totalRating-=oldRating;
+        let totalRating     = 0;
+        let oldRating       = $('#totalRating').val();
+        totalRating         -=oldRating;
         $("form#ratingForm input[type='number']").each(function () {
-            var rating = Number($(this).val());
-            totalRating += rating;
+            var rating      = Number($(this).val());
+            totalRating     += rating;
         });
         $('#totalRating').val(totalRating);
+        pointCalculaiton();
     }
-    
+    function pointCalculaiton(){
+        let totalRating     = $("#totalRating").val() || 0;
+        let totalScore      = $("#totalScore").val() || 0;
+        let actualRating    = parseFloat(parseFloat(totalRating / 100) * 20);
+        let actualScore     = parseFloat(parseFloat(totalScore / 100) * 80);
+        let totalPoints     = parseFloat(actualRating + actualScore);
+        gradeMarking(totalPoints);
+        $('.gradeRating').val((actualRating).toFixed(2));
+        $('.gradeScore').val((actualScore).toFixed(2));
+        $('.totalPoint').val(Math.round(totalPoints).toFixed(2));
+
+    }
+
+    function gradeMarking(totalPoints) {
+        totalPoints = Math.round(totalPoints);
+        let finalGrade = 'N/A';
+        
+        if (totalPoints >= 100) {
+            finalGrade = 'O';
+        } else if (totalPoints >= 90) {
+            finalGrade = 'E';
+        } else if (totalPoints >= 80) {
+            finalGrade = 'G';
+        } else if (totalPoints >= 70) {
+            finalGrade = 'A';
+        } else if (totalPoints >= 60) {
+            finalGrade = 'U';
+        } else if (totalPoints <= 50) {
+            finalGrade = 'I';
+        }
+        
+        $('.totalMark').val(finalGrade);
+    }
+
 
 </script>
