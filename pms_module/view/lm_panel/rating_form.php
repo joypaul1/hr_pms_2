@@ -44,14 +44,6 @@ $EMP_ID         = $_GET['emp_id'];
             <div class="card mb-4">
 
 
-                <?php
-                // $leftSideName = 'PMS Rating Create';
-                // if (checkPermission('self-leave-report')) {
-                //     $routePath = 'leave_module/view/self_panel/index.php';
-                // }
-                // include('../../../layouts/_tableHeader.php');
-                ?>
-
                 <div class="card-body">
 
                     <div class="row">
@@ -65,50 +57,50 @@ $EMP_ID         = $_GET['emp_id'];
                                     <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
                                     <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['JOB_KNOWLEDGE'] : 0 ?>" class="form-control cust-control"
                                                 id="KNOWLEDGE" name="JOB_KNOWLEDGE" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="TRANSPERANCY">TRANSPERANCY </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['TRANSPERANCY'] : 0 ?>" class="form-control cust-control"
                                                 id="TRANSPERANCY" name="TRANSPERANCY" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['OWNERSHIP_CAN_DO'] : 0 ?>" class="form-control cust-control"
                                                 id="OWNERSHIP_CAN_DO" name="OWNERSHIP_CAN_DO" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="TEAM_WORK">TEAM WORK </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['TEAM_WORK'] : 0 ?>" class="form-control cust-control"
                                                 id="TEAM_WORK" name="TEAM_WORK" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="LEADERSHIP">LEADERSHIP </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['LEADERSHIP'] : 0 ?>" class="form-control cust-control"
                                                 id="LEADERSHIP" name="LEADERSHIP" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="CUSTOMER_RESPONSIBILITY">CUSTOMER RESPONSIBILITY </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['CUSTOMER_RESPONSIBILITY'] : 0 ?>"
                                                 class="form-control cust-control" id="CUSTOMER_RESPONSIBILITY" name="CUSTOMER_RESPONSIBILITY"
                                                 required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="PROBLEM_SOLVING">PROBLEM SOLVING </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['PROBLEM_SOLVING'] : 0 ?>" class="form-control cust-control"
                                                 id="PROBLEM_SOLVING" name="PROBLEM_SOLVING" required />
                                         </div>
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="WORK_ETHICS">PROBLEM SOLVING </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['WORK_ETHICS'] : 0 ?>" class="form-control cust-control"
@@ -233,16 +225,16 @@ $EMP_ID         = $_GET['emp_id'];
 
                                     ?>
                                     <div class="col-sm-12 d-flex justify-content-end mt-0">
-                                            <strong class="d-flex justify-content-end gap-2  align-items-center">
-                                                <span style="color:chocolate">Total Score :</span>
-                                                <input type="number" disabled
-                                                    style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
-                                                    value="<?php echo 0 ?>" class="form-control" id="totalScore" />
-                                            </strong>
-                                        </div>
-                                        <div class="text-center">
-                                            <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
-                                        </div>
+                                        <strong class="d-flex justify-content-end gap-2  align-items-center">
+                                            <span style="color:chocolate">Total Score :</span>
+                                            <input type="number" disabled
+                                                style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
+                                                value="<?php echo 0 ?>" class="form-control" id="totalScore" />
+                                        </strong>
+                                    </div>
+                                    <div class="text-center">
+                                        <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
+                                    </div>
 
                                 </form>
                             </div>
@@ -285,7 +277,7 @@ $EMP_ID         = $_GET['emp_id'];
                             </div>
 
                             <div class="col-6">
-                                <div class="card card-body "> 
+                                <div class="card card-body mt-3"> 
                                     <strong class="text-center">Grading  System</strong>  
                                     <table class="table table-bordered tex-center text-break">
                                         <thead style="background: beige;">
