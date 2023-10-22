@@ -63,6 +63,7 @@ $EMP_ID         = $_GET['emp_id'];
                                     <input type='hidden' name='actionType' value='rating_form'>
                                     <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
                                     <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
+                                    <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
                                     <div class="row">
                                         <div class="col-sm-3">
                                             <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
