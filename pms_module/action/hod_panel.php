@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
                       LINE_MANAGE_2_REMARKS='$v_remarks',
                       LINE_MANAGER_2_STATUS=$v_app_status,
                       LINE_MANAGER_2_UPDATED=SYSDATE,
-                      LINE_MANAGER_1_REMARKS='',
+                      LINE_MANAGE_1_REMARKS='',
                       LINE_MANAGER_1_STATUS='',
                       LINE_MANAGER_1_UPDATED='',
                       SELF_SUBMITTED_STATUS=''
