@@ -277,8 +277,8 @@ $EMP_ID         = $_GET['emp_id'];
                             </div>
 
                             <div class="col-6">
-                                <div class="card card-body mt-3"> 
-                                    <strong class="text-center">Grading  System</strong>  
+                                <div class="card card-body mt-3">
+                                    <strong class="text-center">Grading System</strong>
                                     <table class="table table-bordered tex-center text-break">
                                         <thead style="background: beige;">
                                             <tr class="text-center">
@@ -304,17 +304,17 @@ $EMP_ID         = $_GET['emp_id'];
                                                 <td>GOOD</td>
                                             </tr>
                                             <tr>
-                                                <td>70%  79%</td>
+                                                <td>70% - 79%</td>
                                                 <td>A</td>
                                                 <td>AVERAGE</td>
                                             </tr>
                                             <tr>
-                                                <td>60% - 59%</td>
+                                                <td>61% - 69%</td>
                                                 <td>U</td>
                                                 <td>UNSATISFATORY</td>
                                             </tr>
                                             <tr>
-                                                <td>50% - Down</td>
+                                                <td>Up - 60 %</td>
                                                 <td>I</td>
                                                 <td>INCOMPETENT</td>
                                             </tr>
@@ -423,7 +423,7 @@ $EMP_ID         = $_GET['emp_id'];
     function gradeMarking(totalPoints) {
         totalPoints = Math.round(totalPoints);
         let finalGrade = 'N/A';
-        
+
         if (totalPoints >= 100) {
             finalGrade = 'O';
         } else if (totalPoints >= 90) {
@@ -432,12 +432,12 @@ $EMP_ID         = $_GET['emp_id'];
             finalGrade = 'G';
         } else if (totalPoints >= 70) {
             finalGrade = 'A';
-        } else if (totalPoints >= 60) {
+        } else if (totalPoints >= 61) {
             finalGrade = 'U';
-        } else if (totalPoints <= 50) {
+        } else if (totalPoints <= 60) {
             finalGrade = 'I';
         }
-        
+
         $('.totalMark').val(finalGrade);
     }
 

@@ -225,7 +225,7 @@ $EMP_ID         = $_GET['emp_id'];
 
                                             </div>
                                             <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post"
-                                                class="justify-content-center">
+                                                class="justify-content-center" id="scoreForm">
                                                 <input type="hidden" name="actionType" value="kpi_achivement">
                                                 <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
                                                 <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
@@ -275,7 +275,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                                     placeholder="achivement weight">
                                                             </div>
                                                             <div class="col-2">
-                                                                <input type="number" value="<?php echo $score ?>" readonly
+                                                                <input type="text" value="<?php echo $score ?>" readonly
                                                                     onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                                     class="form-control text-center score" placeholder="score">
                                                             </div>
@@ -288,14 +288,6 @@ $EMP_ID         = $_GET['emp_id'];
                                                     <?php
                                                     }
                                                 }
-
-                                                // echo '
-                                                // <div class="text-right">
-                                                // <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
-                                                // </div>';
-                                                
-
-
                                                 ?>
                                                 <div class="col-sm-12 d-flex justify-content-end mt-0">
                                                     <strong class="d-flex justify-content-end gap-2  align-items-center">
@@ -321,7 +313,7 @@ $EMP_ID         = $_GET['emp_id'];
                                         </div>
                                     </div>
                                     <div class="col-12">
-                                        <form action="#" method="post" class="justify-content-center" id="scoreForm">
+                                        <form action="#" method="post" class="justify-content-center">
                                             <div class="card card-body ">
                                                 <div class="row mb-2 text-center">
                                                     <div class="col-3">
@@ -382,17 +374,17 @@ $EMP_ID         = $_GET['emp_id'];
                                                         <td>GOOD</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>70% 79%</td>
+                                                        <td>70% - 79%</td>
                                                         <td>A</td>
                                                         <td>AVERAGE</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>60% - 59%</td>
+                                                        <td>61% - 69%</td>
                                                         <td>U</td>
                                                         <td>UNSATISFATORY</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>50% - Down</td>
+                                                        <td>Up - 60 %</td>
                                                         <td>I</td>
                                                         <td>INCOMPETENT</td>
                                                     </tr>
@@ -465,10 +457,12 @@ $EMP_ID         = $_GET['emp_id'];
     });
 
     function scoreCalculation() {
+        console.log(213123);
         let totalScore = 0;
         let oldScore = $('#totalScore').val();
         $("form#scoreForm .score").each(function () {
             var rating = Number($(this).val());
+            console.log(rating);
             totalScore += rating;
         });
         $('#totalScore').val(totalScore);
@@ -511,9 +505,9 @@ $EMP_ID         = $_GET['emp_id'];
             finalGrade = 'G';
         } else if (totalPoints >= 70) {
             finalGrade = 'A';
-        } else if (totalPoints >= 60) {
+        } else if (totalPoints >= 61) {
             finalGrade = 'U';
-        } else if (totalPoints <= 50) {
+        } else if (totalPoints <= 60) {
             finalGrade = 'I';
         }
 
