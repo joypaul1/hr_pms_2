@@ -333,7 +333,6 @@ $EMP_ID         = $_GET['emp_id'];
 
     </div>
 
-
 </div>
 
 <!-- / Content -->
