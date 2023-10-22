@@ -95,6 +95,7 @@ if (isset($_POST['submit_approval'])) {
 $strSQL = oci_parse(
 	$objConnect,
 	"select RML_ID,
+	
 		EMPLOYEE_NAME EMP_NAME,
 		COMPANY_NAME R_CONCERN,
 		DEPARTMENT DEPT_NAME,
@@ -261,7 +262,7 @@ oci_execute($strSQL);
 										LINE_MANAGER_2_STATUS, 
                                         LINE_MANAGER_2_UPDATED, 
 										HR_PMS_LIST_ID,
-										PMS_WEIGHTAGE(EMP_ID,HR_PMS_LIST_ID) AS  PMS_WEIGHTAGE_STATUS,
+										PMS_WEIGHTAGE(EMP_ID,HR_PMS_LIST_ID) AS  PMS_WEIGHTAGE,
                                        (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,									
 										HR_ID, 
                                         HR_STATUS, 
@@ -282,7 +283,7 @@ oci_execute($strSQL);
 									$number++;
 									?>
 									<tr class="text-center">
-										<td >
+										<td>
 											<?php echo $number; ?>
 										</td>
 										<td>
@@ -291,7 +292,8 @@ oci_execute($strSQL);
 												style="display:none" />
 											<br>
 											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
-												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i class='bx bxs-message-square-add' ></i> </a>
+												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i
+														class='bx bxs-message-square-add'></i> </a>
 											<?php }
 											else {
 												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '">View KPI</a>';
@@ -301,14 +303,6 @@ oci_execute($strSQL);
 										<td>
 											<?php
 											echo '<i style="color:red;"><b>' . $row['SELF_REMARKS'] . '</b></i> ';
-											// echo ',<br>';
-											// echo $row['EMP_DEPT'];
-											// echo ',<br>';
-											// echo $row['EMP_DESIGNATION'];
-											// echo ',<br>';
-											// echo $row['EMP_WORK_STATION'];
-											// echo ',<br>';
-											// echo $row['GROUP_CONCERN'];
 											?>
 										</td>
 										<td>
@@ -336,7 +330,7 @@ oci_execute($strSQL);
 											else if ($row['LINE_MANAGER_1_STATUS'] == 0)
 												echo '<i style="color:red;"><b>Status: Decline</b></i> ';
 											echo '<br>';
-											
+
 											echo $row['LINE_MANAGER_1_UPDATED'];
 											?>
 										</td>
@@ -370,14 +364,17 @@ oci_execute($strSQL);
 										</td>
 										<td align="center">
 											<?php
-											if ($row['SELF_SUBMITTED_STATUS'] == 0) {
-												?>
-												<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit " />
-												<?php
-											}
-											else {
-												echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" />';
-											} ?>
+											if( $row['PMS_WEIGHTAGE'] == 100){
+												if ($row['SELF_SUBMITTED_STATUS'] == 0) {
+													?>
+													<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit " />
+													<?php
+												}
+												else {
+													echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" />';
+												} }else{
+													echo '<strong class="text-info">Weightage value Must be 100.</strong>';
+												}?>
 
 										</td>
 									</tr>

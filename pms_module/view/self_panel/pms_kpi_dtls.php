@@ -118,7 +118,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="weightage">Select Weightage(%) <span class="text-danger">*</span> </label>
+                        <label class="form-label" for="weightage">Remain Weightage <span class="text-danger">*</span> <strong class="text-info">(<?php echo 100 - $v_previous_weightage ?>%)</strong> </label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
                             <option selected hidden value=""><- selecte Weightage -></option>
 
