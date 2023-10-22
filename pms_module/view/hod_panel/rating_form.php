@@ -275,7 +275,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                                     placeholder="achivement weight">
                                                             </div>
                                                             <div class="col-2">
-                                                                <input type="text" value="<?php echo $score ?>" readonly
+                                                                <input type="number" value="<?php echo $score ?>" readonly
                                                                     onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                                     class="form-control text-center score" placeholder="score">
                                                             </div>
@@ -453,6 +453,7 @@ $EMP_ID         = $_GET['emp_id'];
 
     });
     $(document).on('change input', '.achivement', function () {
+        console.log(213123);
         $achivement = $(this).val() || 0;
         $target = $(this).parent().parent('.row').find('.target').val();
         $targetWeightage = $(this).parent().parent('.row').find('.targetWeightage').val();
