@@ -263,6 +263,7 @@ if (oci_execute($exitSql_2)) {
                                         <input type='hidden' name='actionType' value='rating_form'>
                                         <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
                                         <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
+                                        <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
                                         <div class="rows mb-3">
                                             <label class="col-sm-6s col-form-label" for="basic-default-company">JOB KNOWLEDGE</label>
                                             <div class="col-sm-6s">

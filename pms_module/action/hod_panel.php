@@ -134,6 +134,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
     $WORK_ETHICS             = $_REQUEST['WORK_ETHICS'];
     $HR_PMS_EMP_ID           = $_POST['tab_id'];
     $HR_PMS_LIST_ID          = $_POST['key'];
+    $EMP_ID                  = $_POST['emp_id'];
+
 
     if (isset($_POST['submit_draft']) && empty($exitData)) {
 
@@ -159,7 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
             exit();
 
         }
@@ -171,7 +174,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
             exit();
         }
     }
@@ -199,7 +203,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
             exit();
 
         }
@@ -211,7 +216,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+            header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
             exit();
         }
     }
@@ -232,7 +238,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
                 exit();
             }
             else {
@@ -243,7 +250,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
                 exit();
             }
 
@@ -261,7 +269,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
                 exit();
             }
             else {
@@ -272,7 +281,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
-                header("location:" . $basePath . "/pms_module/view/hod_panel/report.php");
+                header("location:" . $basePath . "/pms_module/view/hod_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
+
                 exit();
             }
         }
