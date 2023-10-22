@@ -21,23 +21,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
         );
     }
     else if ($v_app_status == 0) {
-        $strSQL = oci_parse(
-            $objConnect,
-            "update HR_PMS_EMP SET 
-                      HR_STATUS_REMARKS='$v_remarks',
-                      HR_STATUS=$v_app_status,
-                      HR_STATUS_DATE=SYSDATE,
-                      LINE_MANAGER_1_REMARKS='',
-                      LINE_MANAGER_1_STATUS='',
-                      LINE_MANAGER_1_UPDATED='',
-                      LINE_MANAGER_2_REMARKS='',
-                      LINE_MANAGER_2_STATUS='',
-                      LINE_MANAGER_2_UPDATED='',
-                      SELF_SUBMITTED_STATUS=''
-                      WHERE ID=$hr_pms_pms_emp_table_id"
-        );
-    }
+        // Prepare the SQL statement with placeholders
+        $sql = "UPDATE HR_PMS_EMP SET 
+            HR_STATUS_REMARKS = :v_remarks,
+            HR_STATUS = :v_app_status,
+            HR_STATUS_DATE = SYSDATE,
+            LINE_MANAGER_1_REMARKS = '',
+            LINE_MANAGER_1_STATUS = '',
+            LINE_MANAGER_1_UPDATED = '',
+            LINE_MANAGER_2_REMARKS = '',
+            LINE_MANAGER_2_STATUS = '',
+            LINE_MANAGER_2_UPDATED = '',
+            SELF_SUBMITTED_STATUS = ''
+            WHERE ID = :hr_pms_pms_emp_table_id";
 
+        // Prepare the statement
+        $stmt = oci_parse($objConnect, $sql);
+
+        // Bind the variables to the placeholders
+        oci_bind_by_name($stmt, ':v_remarks', $v_remarks);
+        oci_bind_by_name($stmt, ':v_app_status', $v_app_status);
+        oci_bind_by_name($stmt, ':hr_pms_pms_emp_table_id', $hr_pms_pms_emp_table_id);
+
+        // Execute the statement
+        oci_execute($stmt);
+
+    }
+    echo "UPDATE HR_PMS_EMP SET 
+    HR_STATUS_REMARKS='$v_remarks',
+    HR_STATUS=$v_app_status,
+    HR_STATUS_DATE=SYSDATE,
+    LINE_MANAGER_1_REMARKS=' ',
+    LINE_MANAGER_1_STATUS=' ',
+    LINE_MANAGER_1_UPDATED=' ',
+    LINE_MANAGER_2_REMARKS=' ',
+    LINE_MANAGER_2_STATUS=' ',
+    LINE_MANAGER_2_UPDATED=' ',
+    SELF_SUBMITTED_STATUS=' '
+    WHERE ID=$hr_pms_pms_emp_table_id";
+    die();
     if (oci_execute($strSQL)) {
 
         if ($v_app_status == 1) {
