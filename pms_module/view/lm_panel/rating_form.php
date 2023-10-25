@@ -24,7 +24,7 @@ if (oci_execute($exitSql)) {
         }
     }
 }
-
+// echo  $exitData;
 $HR_PMS_EMP_ID  = $_GET['tab_id'];
 $HR_PMS_LIST_ID = $_GET['key'];
 $EMP_ID         = $_GET['emp_id'];
@@ -76,13 +76,25 @@ $EMP_ID         = $_GET['emp_id'];
                                                 id="OWNERSHIP_CAN_DO" name="OWNERSHIP_CAN_DO" required />
                                         </div>
                                         <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                            <label for="COMMUNICATION_SKILL"> COMMUNICATION SKILL </label>
+                                            <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                value="<?php echo $exitData ? $exitData['COMMUNICATION_SKILL'] : 0 ?>" class="form-control cust-control"
+                                                id="COMMUNICATION_SKILL" name="COMMUNICATION_SKILL" required />
+                                        </div>
+                                        
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="TEAM_WORK">TEAM WORK </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['TEAM_WORK'] : 0 ?>" class="form-control cust-control"
                                                 id="TEAM_WORK" name="TEAM_WORK" required />
                                         </div>
                                         <div class="col-sm-6 col-md-3  col-lg-3 ">
-                                            <label for="LEADERSHIP">LEADERSHIP </label>
+                                            <label for="CREATIVITY_MAKER"> CREATIVITY MAKER </label>
+                                            <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                value="<?php echo $exitData ? $exitData['CREATIVITY_MAKER'] : 0 ?>" class="form-control cust-control" id="CREATIVITY_MAKER" name="CREATIVITY_MAKER" required />
+                                        </div>
+                                        <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                            <label for="LEADERSHIP"> LEADERSHIP </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['LEADERSHIP'] : 0 ?>" class="form-control cust-control"
                                                 id="LEADERSHIP" name="LEADERSHIP" required />
@@ -101,7 +113,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                 id="PROBLEM_SOLVING" name="PROBLEM_SOLVING" required />
                                         </div>
                                         <div class="col-sm-6 col-md-3  col-lg-3 ">
-                                            <label for="WORK_ETHICS">PROBLEM SOLVING </label>
+                                            <label for="WORK_ETHICS">WORK ETHICS </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                 value="<?php echo $exitData ? $exitData['WORK_ETHICS'] : 0 ?>" class="form-control cust-control"
                                                 id="WORK_ETHICS" name="WORK_ETHICS" required />
