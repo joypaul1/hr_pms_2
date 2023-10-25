@@ -146,7 +146,7 @@ $EMP_ID         = $_GET['emp_id'];
                             </div>
                         </div>
                         <div class="col-12">
-                            <div class="shadow-sm p-2 mb-1 text-center text-info rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Note :
+                            <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i class='bx bxs-shield-alt-2'></i>[Note :
                                 Here You Can Set Achivement Rating (Min Value 0 and Max Value 100) ] <i class='bx bxs-shield-alt-2'></i></div>
                             <div class='card card-body '>
 
@@ -255,7 +255,7 @@ $EMP_ID         = $_GET['emp_id'];
                     </div>
                     <div class="row justify-content-center">
                             <div class="col-12">
-                                <div class="shadow-sm p-2 mb-1 text-center text-success rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i></div>
+                                <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i></div>
                             </div>
                             <div class="col-12">
                                 <form action="#" method="post" class="justify-content-center" id="scoreForm">

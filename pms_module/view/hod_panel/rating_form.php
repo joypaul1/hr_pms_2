@@ -60,7 +60,7 @@ $EMP_ID         = $_GET['emp_id'];
                             <div class="shadow-sm p-2 mb-1 text-center text-danger rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Note
                                 : Here You Can Set Min Value 0 and Max Value 10] <i class='bx bxs-shield-alt-2'></i></div>
                             <div class='card card-body '>
-                                <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold" style="background: #f3f3f3;">L.M. RATING <i
+                                <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">L.M. RATING <i
                                         class="bx bx-star text-success"></i></div>
                                 <div class="row">
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
@@ -115,11 +115,11 @@ $EMP_ID         = $_GET['emp_id'];
                                     </div>
 
                                 </div>
-                                <div class="shadow-sm p-2 mt-3 mb-3 text-center rounded font-weight-bold" style="background: #90ee9096;">
+                                <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">
                                     H.O.D RATING <i class="bx bxs-hand-down text-info"></i></div>
 
                                 <div class="mt-3">
-                                    <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post" id="ratingForm">
+                                    <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post" id="ratingForm">
                                         <input type='hidden' name='actionType' value='rating_form'>
                                         <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
                                         <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
@@ -330,7 +330,7 @@ $EMP_ID         = $_GET['emp_id'];
                                 </div>
                                 <div class="row justify-content-center">
                                     <div class="col-12">
-                                        <div class="shadow-sm p-2 mb-1 text-center text-success rounded font-weight-bold"><i
+                                        <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i
                                                 class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i>
                                         </div>
                                     </div>
