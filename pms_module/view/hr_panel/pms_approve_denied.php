@@ -493,7 +493,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                             <div class="content">
-                                <h4 class="title shadow-none bg-light rounded">LM. </h4>
+                                <h4 class="title shadow-none bg-light rounded">Line Manager</h4>
                                 <p class="description">
                                     <?php echo $LINE_MANAGE_1_REMARKS ?>
                                 </p>
@@ -506,7 +506,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                         <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                             <div class="content">
 
-                                <h4 class="title shadow-none bg-light rounded">H.O.D. </h4>
+                                <h4 class="title shadow-none bg-light rounded"> Head Of Department </h4>
                                 <p class="description">
                                     <?php echo $LINE_MANAGE_2_REMARKS ?>
                                 </p>
