@@ -221,12 +221,15 @@ $EMP_ID         = $_GET['emp_id'];
                                         </div>
                                     </div>
 
-                                    <div class="col-12">
+                                            <div class="col-12">
 
-                                        <div class='card card-body '>
+                                                    <div class='card card-body '>
 
-                                            <div class=" d-flex text-center">
-                                                <div class="col-4">
+                                                    <div class=" d-flex text-center">
+                                                <div class="col-2">
+                                                    <u> <strong>KRA Name</strong></u>
+                                                </div>
+                                                <div class="col-2">
                                                     <u> <strong>KPI Name</strong></u>
                                                 </div>
                                                 <div class="col-1">
@@ -236,12 +239,15 @@ $EMP_ID         = $_GET['emp_id'];
                                                     <u> <strong>TW</strong></u>
                                                 </div>
                                                 <div class="col-2">
-                                                    <u><strong>A</strong></u>
+                                                    <u><strong>Ach. Comment</strong></u>
                                                 </div>
                                                 <div class="col-2">
+                                                    <u><strong>Achivement</strong></u>
+                                                </div>
+                                                <div class="col-1">
                                                     <u><strong>AW</strong></u>
                                                 </div>
-                                                <div class="col-2">
+                                                <div class="col-1">
                                                     <u><strong>Score</strong></u>
                                                 </div>
 
@@ -253,6 +259,8 @@ $EMP_ID         = $_GET['emp_id'];
                                                 <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
                                                 <input type="hidden" name="emp_id" value="<?php echo $_GET['emp_id'] ?>">
                                                 <?php
+                                                $locakSataus = false;
+
                                                 $KRASQL = oci_parse(
                                                     $objConnect,
                                                     "SELECT  * FROM HR_PMS_KRA_LIST  WHERE CREATED_BY = '$EMP_ID' AND HR_PMS_LIST_ID = '$HR_PMS_LIST_ID'"
@@ -262,7 +270,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                 while ($kraRow = oci_fetch_assoc($KRASQL)) {
                                                     $table_ID = $kraRow['ID'];
 
-                                                    $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, WEIGHTAGE FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                                    $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, ACHIVEMENT_COMMENTS,WEIGHTAGE,ACHIEVEMENT_LOCK_STATUS FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                                     oci_execute($strSQLInner);
                                                     while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                                         $achivement      = $rowIN['ACHIVEMENT'] ? $rowIN['ACHIVEMENT'] : 0;
@@ -270,40 +278,60 @@ $EMP_ID         = $_GET['emp_id'];
                                                         $target          = 100;
                                                         $awValue         = ($achivement / $target) * 100;
                                                         $score           = ($targetWeightage * $awValue) / 100;
+                                                        if($rowIN['ACHIEVEMENT_LOCK_STATUS'] == 1){
+                                                            $locakSataus = true;
+                                                        }
                                                         ?>
 
-                                                        <div class="row mb-2">
-                                                            <div class="col-4">
-                                                                <input type="text" value="<?php echo $rowIN['KPI_NAME']; ?>" disabled
-                                                                    class="form-control text-center " placeholder="kpi name">
-                                                            </div>
-                                                            <div class="col-1">
-                                                                <input type="text" disabled class="form-control text-center target"
-                                                                    value="<?php echo $rowIN['TARGET']; ?>" placeholder="target">
-                                                            </div>
-                                                            <div class="col-1">
-                                                                <input type="text" disabled class="form-control text-center targetWeightage"
-                                                                    value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
-                                                                    value="<?php echo $rowIN['ACHIVEMENT']; ?>"
-                                                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                                    class="form-control text-center achivement" placeholder="target achivement">
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                                    class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
-                                                                    placeholder="achivement weight">
-                                                            </div>
-                                                            <div class="col-2">
-                                                                <input type="text" value="<?php echo $score ?>" readonly
-                                                                    onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                                    class="form-control text-center score" placeholder="score">
-                                                            </div>
+                                            <div class="row mb-2">
+                                                <div class="col-2">
+                                                    <textarea type="text"  disabled class="form-control text-center "
+                                                        placeholder="kpi name"> <?php echo $kraRow['KRA_NAME']; ?> </textarea>
+                                                </div>
+                                                <div class="col-2">
+                                                    <textarea type="text" disabled class="form-control text-center "
+                                                        placeholder="kpi name"><?php echo $rowIN['KPI_NAME']; ?> </textarea>
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="text" disabled class="form-control text-center target"
+                                                        value="<?php echo $rowIN['TARGET']; ?>" placeholder="target">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="text" disabled class="form-control text-center targetWeightage"
+                                                        value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
+                                                </div>
+                                                <div class="col-2">
+                                                    <textarea type="text" name="ACHIVEMENT_COMMENTS[<?php echo $rowIN['ID']; ?>]"
+                                                        <?php if( $locakSataus){ 
+                                                            echo 'readonly';
+                                                        }?>
+                                                      
+                                                        class="form-control text-center" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?> </textarea>
+                                                </div>
+                                                <div class="col-2">
+                                                    <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
+                                                        <?php if( $locakSataus){ 
+                                                            echo 'readonly';
+                                                        }?>
+                                                        value="<?php echo $rowIN['ACHIVEMENT']?$rowIN['ACHIVEMENT']:0; ?>"
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                        class="form-control text-center achivement" max="100" min='0' required  placeholder="target achivement">
+                                                </div>
+                                              
+                                                
+                                                <div class="col-1">
+                                                    <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                        class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
+                                                        placeholder="achivement weight">
+                                                </div>
+                                                <div class="col-1">
+                                                    <input type="text" value="<?php echo $score ?>" readonly
+                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                        class="form-control text-center score" placeholder="score">
+                                                </div>
 
 
-                                                        </div>
+                                            </div>
 
 
 
@@ -319,10 +347,19 @@ $EMP_ID         = $_GET['emp_id'];
                                                             value="<?php echo 0 ?>" class="form-control" id="totalScore" />
                                                     </strong>
                                                 </div>
-                                                <div class="text-center">
-                                                    <button type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i
-                                                            class="bx bx-save"></i> </button>
-                                                </div>
+                                               
+                                                <?php
+
+                                                    if ($locakSataus != true) {
+                                                        echo '<div class="text-center mt-2">
+                                                                <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
+                                                                <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
+                                                                </div>';
+                                                    }
+                                                    else {
+                                                        echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
+                                                    }
+                                                ?>
 
                                             </form>
                                         </div>

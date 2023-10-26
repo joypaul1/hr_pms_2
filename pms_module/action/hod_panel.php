@@ -9,31 +9,57 @@ $basePath       = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
 
-    $ACHIVEMENT = $_POST['achivement'];
-    $key        = $_POST['key'];
-    $emp_id     = $_POST['emp_id'];
-    $tab_id     = $_POST['tab_id'];
+    $ACHIVEMENT          = $_POST['achivement'];
+    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    $key                 = $_POST['key'];
+    $emp_id              = $_POST['emp_id'];
+    $tab_id              = $_POST['tab_id'];
 
-    if (count($ACHIVEMENT) > 0) {
-
-        foreach ($ACHIVEMENT as $Idkey => $achValue) {
-            $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue' WHERE ID='$Idkey'");
-            if (oci_execute($strSQL)) {
-
+    if (isset($_POST['submit_draft']) ){
+        if (count($ACHIVEMENT) > 0) {
+           
+            foreach ($ACHIVEMENT as $Idkey => $achValue) {
+                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]' WHERE ID='$Idkey'");
+                if (oci_execute($strSQL)) {
+    
+                }
+                else {
+    
+                    $e                        = oci_error($strSQL);
+                    $message                  = [
+                        'text'   => htmlentities($e['message'], ENT_QUOTES),
+                        'status' => 'false',
+                    ];
+                    $_SESSION['noti_message'] = $message;
+                    echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+                }
             }
-            else {
-
-                $e                        = oci_error($strSQL);
-                $message                  = [
-                    'text'   => htmlentities($e['message'], ENT_QUOTES),
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-                echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
-            }
+    
         }
-
+    }else if(isset($_POST['submit_confirm'])){
+        if (count($ACHIVEMENT) > 0) {
+//  print_r($_POST);
+//             die();
+            foreach ($ACHIVEMENT as $Idkey => $achValue) {
+                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]',ACHIEVEMENT_LOCK_STATUS=1 WHERE ID='$Idkey'");
+                if (oci_execute($strSQL)) {
+    
+                }
+                else {
+    
+                    $e                        = oci_error($strSQL);
+                    $message                  = [
+                        'text'   => htmlentities($e['message'], ENT_QUOTES),
+                        'status' => 'false',
+                    ];
+                    $_SESSION['noti_message'] = $message;
+                    echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+                }
+            }
+    
+        }
     }
+    
 
     $message                  = [
         'text'   => 'KPI Achivement Saved successfully.',
@@ -57,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             LINE_MANAGE_2_REMARKS='$v_remarks',LINE_MANAGER_2_STATUS=$v_app_status,LINE_MANAGER_2_UPDATED=SYSDATE
                       WHERE ID=$hr_pms_pms_emp_table_id"
         );
-    } 
+    }
     else if ($v_app_status == 0) {
         $strSQL = oci_parse(
             $objConnect,
@@ -194,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
             '$JOB_KNOWLEDGE','$TRANSPERANCY','$OWNERSHIP_CAN_DO','$COMMUNICATION_SKILL','$TEAM_WORK','$CREATIVITY_MAKER','$LEADERSHIP','$CUSTOMER_RESPONSIBILITY','$PROBLEM_SOLVING','$WORK_ETHICS','$HR_PMS_EMP_ID', 1 ,'$HR_PMS_LIST_ID',
             SYSDATE)"
         );
-        
+
 
         if (oci_execute($strSQL)) {
 

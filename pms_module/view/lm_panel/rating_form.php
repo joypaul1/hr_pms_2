@@ -227,13 +227,12 @@ $EMP_ID         = $_GET['emp_id'];
                                                         value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
                                                 </div>
                                                 <div class="col-2">
-                                                    <input type="text" name="ACHIVEMENT_COMMENTS[<?php echo $rowIN['ID']; ?>]"
+                                                    <textarea type="text" name="ACHIVEMENT_COMMENTS[<?php echo $rowIN['ID']; ?>]"
                                                         <?php if( $locakSataus){ 
                                                             echo 'readonly';
                                                         }?>
-                                                        value="<?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?>"
-                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                        class="form-control text-center" required  placeholder="ACH. COMMENTS">
+                                                      
+                                                        class="form-control text-center" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
