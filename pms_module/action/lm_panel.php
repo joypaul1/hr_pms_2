@@ -10,6 +10,7 @@ $basePath       = $_SESSION['basePath'];
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
 
     $ACHIVEMENT = $_POST['achivement'];
+    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
     $key        = $_POST['key'];
     $emp_id     = $_POST['emp_id'];
     $tab_id     = $_POST['tab_id'];
@@ -17,9 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     if (count($ACHIVEMENT) > 0) {
 
         foreach ($ACHIVEMENT as $Idkey => $achValue) {
-            $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue' WHERE ID='$Idkey'");
+            $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]' WHERE ID='$Idkey'");
             if (oci_execute($strSQL)) {
-
             }
             else {
 
