@@ -212,11 +212,11 @@ $EMP_ID         = $_GET['emp_id'];
                                             <div class="row mb-2">
                                                 <div class="col-2">
                                                     <textarea type="text"  disabled class="form-control "
-                                                        placeholder="kpi name"> <?php echo $kraRow['KRA_NAME']; ?> </textarea>
+                                                        placeholder="kpi name"> <?php echo trim($kraRow['KRA_NAME']); ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
                                                     <textarea type="text" disabled class="form-control "
-                                                        placeholder="kpi name"><?php echo $rowIN['KPI_NAME']; ?> </textarea>
+                                                        placeholder="kpi name"><?php echo trim($rowIN['KPI_NAME']); ?> </textarea>
                                                 </div>
                                                 <div class="col-1">
                                                     <input type="text" disabled class="form-control text-center target"
@@ -232,7 +232,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                             echo 'readonly';
                                                         }?>
                                                       
-                                                        class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?> </textarea>
+                                                        class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?trim($rowIN['ACHIVEMENT_COMMENTS']):''; ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
