@@ -357,7 +357,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                                 </div>';
                                                     }
                                                     else {
-                                                        echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
+                                                        echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed <i class='bx bxs-home-smile text-success'></i></span>";
                                                     }
                                                 ?>
 
