@@ -48,7 +48,7 @@ $EMP_ID         = $_GET['emp_id'];
 
                     <div class="row">
                         <div class="col-12">
-                            <div class="shadow-sm p-2 mb-1 text-center text-danger rounded font-weight-bold"><i class='bx bxs-shield-alt-2'></i>[Note : Here You Can Set Min Value 0 and Max Value 10] <i class='bx bxs-shield-alt-2'></i></div>
+                            <div  class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i class='bx bxs-shield-alt-2'></i>[Note : Here You Can Set Min Value 0 and Max Value 10] <i class='bx bxs-shield-alt-2'></i></div>
                             <div class='card card-body '>
 
                                 <form action="<?php echo ($basePath . '/pms_module/action/lm_panel.php'); ?>" method="post" id="ratingForm">
@@ -211,11 +211,11 @@ $EMP_ID         = $_GET['emp_id'];
 
                                             <div class="row mb-2">
                                                 <div class="col-2">
-                                                    <textarea type="text"  disabled class="form-control text-center "
+                                                    <textarea type="text"  disabled class="form-control "
                                                         placeholder="kpi name"> <?php echo $kraRow['KRA_NAME']; ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
-                                                    <textarea type="text" disabled class="form-control text-center "
+                                                    <textarea type="text" disabled class="form-control "
                                                         placeholder="kpi name"><?php echo $rowIN['KPI_NAME']; ?> </textarea>
                                                 </div>
                                                 <div class="col-1">
@@ -232,7 +232,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                             echo 'readonly';
                                                         }?>
                                                       
-                                                        class="form-control text-center" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?> </textarea>
+                                                        class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?$rowIN['ACHIVEMENT_COMMENTS']:''; ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
                                                     <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
@@ -319,9 +319,9 @@ $EMP_ID         = $_GET['emp_id'];
 
 
                                         </div>
-                                        <div class="text-center">
+                                        <!-- <div class="text-center">
                                             <button type="submit" name="submit_confirm" class="btn btn-sm btn-info">Confirm <i class="bx bx-save"></i> </button>
-                                        </div>
+                                        </div> -->
                                     </div>
                                 </form>
                             </div>
