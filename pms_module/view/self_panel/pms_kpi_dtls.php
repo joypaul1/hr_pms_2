@@ -39,7 +39,76 @@ while ($row = oci_fetch_assoc($WATESQL)) {
     $v_previous_weightage = $row['WEIGHTAGE'];
 }
 
+if (isset($_POST['kpi_name'])) {
+    $v_kpi_name     = $_REQUEST['kpi_name'];
+    $v_kra_id       = $_REQUEST['kra_id'];
+    $v_weightage    = $_REQUEST['weightage'];
+    $v_target       = $_REQUEST['target'];
+    $v_ramarks      = $_REQUEST['ramarks'];
+    $v_eligi_factor = $_REQUEST['eligi_factor'];
 
+    if (($v_previous_weightage + $v_weightage) > 100) {
+        $error = 'Overflow. Your total weightage value must equal to 100.Please check your weaightage sum';
+        // echo '<div class="alert alert-danger">';
+        // echo $error;
+        // echo '</div>';
+        $message                  = [
+            'text'   => $error,
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+    }
+    else {
+
+        $strSQL = oci_parse(
+            $objConnect,
+            "INSERT INTO HR_PMS_KPI_LIST (
+                       KPI_NAME, 
+                       HR_KRA_LIST_ID, 
+                       CREATED_BY, 
+                       CREATED_DATE, 
+                       IS_ACTIVE,
+                       WEIGHTAGE,
+                       REMARKS,
+                       TARGET,
+                       ELIGIBILITY_FACTOR) 
+               VALUES ( 
+                       '$v_kpi_name',
+                        $v_kra_id,
+                        '$emp_session_id',
+                        sysdate,
+                        1,
+                        $v_weightage,
+                        '$v_ramarks',
+                        $v_target,
+                        $v_eligi_factor
+                        )"
+        );
+
+        if (@oci_execute($strSQL)) {
+            // echo 'KPI is created successfully.';
+            $message                  = [
+                'text'   => 'KPI is created successfully.',
+                'status' => 'true',
+            ];
+            $_SESSION['noti_message'] = $message;
+
+        }
+        else {
+            $lastError = error_get_last();
+            $error     = $lastError ? "" . $lastError["message"] . "" : "";
+            // if (strpos($error, 'ATTN_DATE_PK') !== false) {
+            //     echo 'Contact With IT.';
+
+            // }
+            $message                  = [
+                'text'   => $error,
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+        }
+    }
+}
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -118,7 +187,9 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="weightage">Remain Weightage <span class="text-danger">*</span> <strong class="text-info">(<?php echo 100 - $v_previous_weightage ?>%)</strong> </label>
+                        <label class="form-label" for="weightage">Remain Weightage <span class="text-danger">*</span> <strong class="text-info">(
+                                <?php echo 100 - $v_previous_weightage ?>%)
+                            </strong> </label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
                             <option selected hidden value=""><- selecte Weightage -></option>
 
@@ -138,7 +209,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                     </div>
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Eligibility Factor <span class="text-danger">*</span> </label>
-                       
+
                         <select required="" name="eligi_factor" class="form-control text-center cust-control" id='weightage'>
                             <option selected hidden value=""><- selecte Eligibility Factor -></option>
                             <option value="60">60 (%)</option>
@@ -170,59 +241,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
         </div>
         <?php
     }
-    if (isset($_POST['kpi_name'])) {
-        $v_kpi_name     = $_REQUEST['kpi_name'];
-        $v_kra_id       = $_REQUEST['kra_id'];
-        $v_weightage    = $_REQUEST['weightage'];
-        $v_target       = $_REQUEST['target'];
-        $v_ramarks      = $_REQUEST['ramarks'];
-        $v_eligi_factor = $_REQUEST['eligi_factor'];
 
-        if (($v_previous_weightage + $v_weightage) > 100) {
-            $error = 'Overflow. Your total weightage value must equal to 100.Please check your weaightage sum';
-            echo '<div class="alert alert-danger">';
-            echo $error;
-            echo '</div>';
-        }
-        else {
-
-            $strSQL = oci_parse(
-                $objConnect,
-                "INSERT INTO HR_PMS_KPI_LIST (
-                           KPI_NAME, 
-                           HR_KRA_LIST_ID, 
-                           CREATED_BY, 
-                           CREATED_DATE, 
-                           IS_ACTIVE,
-                           WEIGHTAGE,
-                           REMARKS,
-                           TARGET,
-                           ELIGIBILITY_FACTOR) 
-                   VALUES ( 
-                           '$v_kpi_name',
-                            $v_kra_id,
-                            '$emp_session_id',
-                            sysdate,
-                            1,
-                            $v_weightage,
-                            '$v_ramarks',
-                            $v_target,
-                            $v_eligi_factor
-                            )"
-            );
-
-            if (@oci_execute($strSQL)) {
-                echo 'KPI is created successfully.';
-            }
-            else {
-                $lastError = error_get_last();
-                $error     = $lastError ? "" . $lastError["message"] . "" : "";
-                if (strpos($error, 'ATTN_DATE_PK') !== false) {
-                    echo 'Contact With IT.';
-                }
-            }
-        }
-    }
     ?>
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -343,7 +362,7 @@ while ($row = oci_fetch_assoc($WATESQL)) {
                                     <table width="100%">
                                         <?php
                                         $slNumberR   = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumberR++;
