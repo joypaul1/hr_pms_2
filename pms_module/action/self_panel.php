@@ -9,8 +9,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
     $editId     = $_POST['editId'];
     $ACHIVEMENT = $_POST['achivement'];
+    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
 
-    $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$ACHIVEMENT' WHERE ID='$editId'");
+    $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$ACHIVEMENT', ACHIVEMENT_COMMENTS ='$ACHIVEMENT_COMMENTS' WHERE ID='$editId'");
+    // echo "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$ACHIVEMENT', ACHIVEMENT_COMMENTS ='$ACHIVEMENT_COMMENTS' WHERE ID='$editId'";
+    //  die();
     if (oci_execute($strSQL)) {
         $message                  = [
             'text'   => 'KPI Achivement Saved successfully.',
@@ -20,7 +23,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_list.php'</script>";
     }
     else {
-
         $e                        = oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),

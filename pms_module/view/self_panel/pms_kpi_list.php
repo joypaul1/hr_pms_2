@@ -66,6 +66,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											   B.CREATED_DATE,
 											   B.IS_ACTIVE,
 											   B.ACHIVEMENT,
+											   B.ACHIVEMENT_COMMENTS,
 											   B.ACHIEVEMENT_LOCK_STATUS
 										  FROM HR_PMS_KPI_LIST B, HR_PMS_KRA_LIST A
 										 WHERE A.id = B.HR_KRA_LIST_ID 
@@ -77,6 +78,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     while ($row = oci_fetch_assoc($strSQL)) {
                                         $number++;
+                                      
+                                        
                                         ?>
                                         <tr class="text-center">
                                             <td class="text-center">
@@ -106,16 +109,21 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                     <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="post">
                                                         <input type="hidden" name="actionType" value='kpi_achivement'>
                                                         <input type="hidden" name="editId" value='<?php echo $row['ID'] ?>'>
-                                                        <div class="d-flex gap-2">
+                                                        <div class="d-flex  flex-column gap-2">
                                                             <input required="" value="<?php echo $row['ACHIVEMENT'] ?>" style="padding:5px !important"
                                                                 name="achivement" placeholder="achivement" class="form-control text-center cust-control"
                                                                 type='number' <?php if ($existAchievement) {
                                                                     echo 'readonly';
                                                                 } ?> />
+                                                            <input required="" value="<?php echo $row['ACHIVEMENT_COMMENTS'] ?>" style="padding:5px !important"
+                                                                name="ACHIVEMENT_COMMENTS" placeholder="describe achivement" class="form-control text-center cust-control"
+                                                                type='text' <?php if ($existAchievement) {
+                                                                    echo 'readonly';
+                                                                } ?> />
                                                             <?php if ($row['STEP_3_STATUS'] === '1') {
                                                                  if (!$existAchievement) {
                                                                 echo '<button class="btn btn-sm btn-info"> <i class="bx bxs-comment-check"
-                                                            style="margin:0;font-size:18px"></i></button>';
+                                                            style="margin:0;font-size:18px"></i> Save</button>';
                                                             }} ?>
 
 
