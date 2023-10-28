@@ -46,10 +46,7 @@ if (isset($_POST['kpi_name'])) {
     $v_eligi_factor = $_REQUEST['eligi_factor'];
 
     if (($v_previous_weightage + $v_weightage) > 100) {
-        $error = 'Overflow. Your total weightage value must equal to 100.Please check your weaightage sum';
-        // echo '<div class="alert alert-danger">';
-        // echo $error;
-        // echo '</div>';
+        $error                    = 'Overflow. Your total weightage value must equal to 100.Please check your weaightage sum';
         $message                  = [
             'text'   => $error,
             'status' => 'false',
@@ -84,7 +81,7 @@ if (isset($_POST['kpi_name'])) {
         );
 
         if (@oci_execute($strSQL)) {
-            // echo 'KPI is created successfully.';
+            $v_previous_weightage     = $v_previous_weightage + $v_weightage;
             $message                  = [
                 'text'   => 'KPI is created successfully.',
                 'status' => 'true',
@@ -93,12 +90,8 @@ if (isset($_POST['kpi_name'])) {
 
         }
         else {
-            $lastError = error_get_last();
-            $error     = $lastError ? "" . $lastError["message"] . "" : "";
-            // if (strpos($error, 'ATTN_DATE_PK') !== false) {
-            //     echo 'Contact With IT.';
-
-            // }
+            $lastError                = error_get_last();
+            $error                    = $lastError ? "" . $lastError["message"] . "" : "";
             $message                  = [
                 'text'   => $error,
                 'status' => 'false',
@@ -202,7 +195,7 @@ if (isset($_POST['kpi_name'])) {
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%) <span class="text-danger">*</span></label>
                         <input required="" value="100 (%)" style="background-color: #d9dee3;" onkeypress="return false;" class="form-control cust-control"
-                            type='text' >
+                            type='text'>
                         <input type="hidden" name="target" value="100">
                     </div>
                     <div class="col-sm-3">
@@ -221,12 +214,12 @@ if (isset($_POST['kpi_name'])) {
                     <!-- <div class="col-md-12"></div> -->
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">KPI Name <span class="text-danger">*</span></label>
-                        <input required="" class="form-control cust-control" type='text' name="kpi_name" >
+                        <input required="" class="form-control cust-control" type='text' name="kpi_name">
 
                     </div>
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">Any Comment ?</label>
-                        <input class="form-control" type='text' name="ramarks" >
+                        <input class="form-control" type='text' name="ramarks">
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -301,7 +294,7 @@ if (isset($_POST['kpi_name'])) {
                                     </table>
                                 </td>
 
-                                <td class="align-middle">
+                                <td class="align-middle text-center">
                                     <table width="100%">
                                         <?php
 
@@ -311,7 +304,9 @@ if (isset($_POST['kpi_name'])) {
                                             ?>
                                             <tr>
                                                 <td class="align-middle">
-                                                    <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    <span class="WEIGHTAGE">
+                                                        <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    </span>
                                                     <hr>
                                                 </td>
                                             </tr>
@@ -361,7 +356,7 @@ if (isset($_POST['kpi_name'])) {
                                 </td>
 
                                 <td class="align-middle">
-                                    
+
                                     <table width="100%">
                                         <?php
                                         $strSQLInner = oci_parse($objConnect, "SELECT REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
@@ -388,6 +383,19 @@ if (isset($_POST['kpi_name'])) {
                             }
                             ?>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-right">
+                                <strong>
+                                    Total Weightage :
+                                </strong>
+
+                            </td>
+                            <td class="text-center">
+                                <strong id="sum">0</strong>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -643,3 +651,14 @@ if (isset($_POST['kpi_name'])) {
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    calc_total() ;
+    function calc_total() {
+        var sum = 0;
+        $(".WEIGHTAGE").each(function () {
+            sum += parseFloat($(this).text());
+        });
+        // console.log(sum)
+        $('#sum').text(sum);
+    }
+</script>
