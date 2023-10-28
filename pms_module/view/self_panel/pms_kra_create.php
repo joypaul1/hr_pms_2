@@ -224,7 +224,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 														<?php
 													}
 													else {
-														echo '<button type="button" class="btn btn-success btn-sm">PMS Submitted</button>';
+														echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
 													}
 													?>
 												</td>

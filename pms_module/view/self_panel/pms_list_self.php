@@ -69,7 +69,7 @@ if (isset($_POST['submit_approval'])) {
 	if (oci_execute($updateSQL)) {
 
 		$message                  = [
-			'text'   => 'PMS Submitted successfully.',
+			'text'   => 'Submitted successfully.',
 			'status' => 'true',
 		];
 		$_SESSION['noti_message'] = $message;

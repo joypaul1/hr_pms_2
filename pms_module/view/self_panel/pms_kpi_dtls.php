@@ -246,7 +246,7 @@ if (isset($_POST['kpi_name'])) {
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>KPI Details </b></h5>
         <div class="card-body">
             <div class="table-responsive text-break">
-                <table class="table  table-bordered " border="1" cellspacing="0" cellpadding="0">
+                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                     <thead class="table-dark">
                         <tr class="text-center">
 
@@ -290,7 +290,7 @@ if (isset($_POST['kpi_name'])) {
                                             $slNumber++;
                                             ?>
                                             <tr>
-                                                <td >
+                                                <td>
                                                     <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
                                                     <hr>
                                                 </td>
@@ -310,7 +310,7 @@ if (isset($_POST['kpi_name'])) {
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             ?>
                                             <tr>
-                                                <td  class="align-middle">
+                                                <td class="align-middle">
                                                     <?php echo $rowIN['WEIGHTAGE']; ?>
                                                     <hr>
                                                 </td>
@@ -330,7 +330,7 @@ if (isset($_POST['kpi_name'])) {
                                             ?>
                                             <tr>
 
-                                                <td  class="align-middle">
+                                                <td class="align-middle">
                                                     <?php echo $rowIN['TARGET']; ?>
                                                     <hr>
                                                 </td>
@@ -349,7 +349,7 @@ if (isset($_POST['kpi_name'])) {
                                             ?>
                                             <tr>
 
-                                                <td  class="align-middle">
+                                                <td class="align-middle">
                                                     <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
                                                     <hr>
                                                 </td>
@@ -361,20 +361,19 @@ if (isset($_POST['kpi_name'])) {
                                 </td>
 
                                 <td class="align-middle">
+                                    
                                     <table width="100%">
                                         <?php
-                                        $slNumberR   = 0;
-                                        $strSQLInner = oci_parse($objConnect, "SELECT REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            $slNumberR++;
                                             ?>
                                             <tr>
-                                                <td >
+
+                                                <td class="align-middle">
                                                     <?php echo $rowIN['REMARKS']; ?>
                                                     <hr>
                                                 </td>
-
                                             </tr>
                                             <?php
                                         }

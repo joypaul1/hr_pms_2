@@ -83,10 +83,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             <td class="text-center">
                                                 <?php echo $number; ?>
                                             </td>
-                                            <td>
+                                            <td  class="text-left">
                                                 <?php echo $row['KRA_NAME']; ?>
                                             </td>
-                                            <td>
+                                            <td class="text-left">
                                                 <?php echo $row['KPI_NAME']; ?>
                                             </td>
                                            
@@ -156,7 +156,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                     <?php
                                                 }
                                                 else {
-                                                    echo '<button type="button" class="btn btn-success btn-sm">PMS Submitted</button>';
+                                                    echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
                                                 }
                                                 ?>
                                                 <?php
