@@ -2,7 +2,7 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
-if (!checkPermission('rating_form')) {
+if (!checkPermission('pms-hr-rating')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
@@ -30,11 +30,7 @@ $exitData_2   = array();
 $readonlyMood = false;
 if (oci_execute($exitSql_2)) {
     $exitData_2 = oci_fetch_assoc($exitSql_2);
-    // if($exitData_2){
-    //     if ($exitData_2['HOD_STATUS'] == 1) {
-    //         $readonlyMood = true;
-    //     }
-    // }
+
 }
 
 $HR_PMS_EMP_ID  = $_GET['tab_id'];
@@ -57,17 +53,16 @@ $HR_PMS_LIST_ID = $_GET['key'];
 
                 <?php
                 $leftSideName = 'PMS Rating Create';
-                if (checkPermission('self-leave-report')) {
-                    $routePath = 'leave_module/view/self_panel/index.php';
-                }
+                $routePath = 'leave_module/view/self_panel/index.php';
                 include('../../../layouts/_tableHeader.php');
                 ?>
 
                 <div class="card-body">
                     <div class="row gap-2">
-                        <div class="col-md-4 card card-body"  style="background: #f3f3f3;">
-                            <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">LINE MANAGER RATING 
-                                <i class='bx bx-star text-success'></i></div>
+                        <div class="col-md-4 card card-body" style="background: #f3f3f3;">
+                            <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">LINE MANAGER RATING
+                                <i class='bx bx-star text-success'></i>
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-sm-6 col-form-label" for="basic-default-company">JOB KNOWLEDGE</label>
                                 <div class="col-sm-6">
@@ -139,9 +134,9 @@ $HR_PMS_LIST_ID = $_GET['key'];
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 card card-body"  style="background: #b9e9a6;">
+                        <div class="col-md-4 card card-body" style="background: #b9e9a6;">
                             <div class="shadow-sm p-2 mb-3 text-center rounded font-weight-bold">HEAD OF DEPARTMENT RATING
-                            <i class='bx bx-star text-success'></i>
+                                <i class='bx bx-star text-success'></i>
                             </div>
                             <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post">
                                 <input type='hidden' name='actionType' value='rating_form'>
@@ -222,7 +217,7 @@ $HR_PMS_LIST_ID = $_GET['key'];
                             </form>
                         </div>
                     </div>
-                   
+
                 </div>
             </div>
         </div>

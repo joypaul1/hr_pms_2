@@ -613,44 +613,44 @@ function isActive($url)
                             </li>
                         <?php } ?>
 
-                        <?php //if (checkPermission('lm-offboarding-approval') || checkPermission('lm-offboarding-report')) { ?>
+                        <?php if (checkPermission('pms-lm-approval') || checkPermission('pms-lm-report') ||  checkPermission('pms-hod-approval') ||  checkPermission('pms-hod-report') ) { ?>
                             <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?> <?php echo isActive('/pms_module/view/hod_panel'); ?>">
                                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                                     <div>LM Panel</div>
                                 </a>
                                 <ul class="menu-sub">
 
-                                    <?php //if (checkPermission('lm-offboarding-approval')) { ?>
+                                    <?php if (checkPermission('pms-lm-approval')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/approval.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
                                             </a>
                                         </li>
-                                    <?php// } ?>
-                                    <?php //if (checkPermission('lm-offboarding-report')) { ?>
+                                    <?php } ?>
+                                    <?php if (checkPermission('pms-lm-report')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/report.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/report.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
                                             </a>
                                         </li>
-                                    <?php //} ?>
-                                    <?php //if (checkPermission('lm-offboarding-approval')) { ?>
+                                    <?php } ?>
+                                    <?php if (checkPermission('pms-hod-approval')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/approval.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/approval.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Approval</div>
                                             </a>
                                         </li>
-                                    <?php// } ?>
-                                    <?php //if (checkPermission('lm-offboarding-report')) { ?>
+                                    <?php } ?>
+                                    <?php if (checkPermission('pms-hod-report')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/report.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/report.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Report</div>
                                             </a>
                                         </li>
-                                    <?php //} ?>
+                                    <?php } ?>
                                 </ul>
                             </li>
-                        <?php //} ?>
+                        <?php } ?>
 
 
                     </ul>
