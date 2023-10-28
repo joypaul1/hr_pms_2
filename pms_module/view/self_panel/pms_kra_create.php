@@ -160,7 +160,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											<th class="text-center">Key Result Areas</th>
 											<th class="text-center">PMS Title</th>
 											<th class="text-center">Updated Date</th>
-											<th class="text-center">Status</th>
+											<!-- <th class="text-center">Status</th> -->
 											<th class="text-center">Action</th>
 										</tr>
 									</thead>
@@ -204,7 +204,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 												<td>
 													<?php echo $row['UPDATED_DATE']; ?>
 												</td>
-												<td>
+												<!-- <td>
 													<?php
 
 													if ($row['IS_ACTIVE'] == '1')
@@ -212,7 +212,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													else
 														echo '<span class="badge badge-sm badge-pill bg-info"><i class="menu-icon tf-icons bx bxs-message-alt-x" style="margin:0;font-size:20px"></i></span>';
 													?>
-												</td>
+												</td> -->
 												<td>
 													<?php
 													if ($row['SUBMITTED_STATUS'] != '1') {
