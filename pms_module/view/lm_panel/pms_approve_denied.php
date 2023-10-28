@@ -275,7 +275,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php   $rowIN['REMARKS']; ?> <hr>
+                                                    <?php echo  $rowIN['REMARKS']; ?> <hr>
                                                 </td>
 
                                             </tr>
