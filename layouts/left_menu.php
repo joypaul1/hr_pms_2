@@ -540,7 +540,7 @@ function isActive($url)
             <?php  } ?>
             <!-- offboarding Module  -->
             <!-- pms Module  -->
-            <?php //if (checkPermission('pms-list') || (checkPermission('pms-kra-list')) || (checkPermission('pms-kpi-list'))) { ?>
+         
 
                 <li class="menu-item  <?php echo isActive('/pms_module/view'); ?>">
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -556,26 +556,20 @@ function isActive($url)
                                 <div>Self Panel</div>
                             </a>
                             <ul class="menu-sub">
-
-                                <?php //if (checkPermission('self-tour-report')) { 
-                                ?>
-                                <?php //if (checkPermission('pms-list')) { ?>
-
                                     <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_list_self.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_list_self.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>PMS List</div>
                                         </a>
                                     </li>
-                                <?php // } ?>
-                                <?php //if (checkPermission('pms-kra-list')) { ?>
+                             
 
                                     <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kra_create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kra_create.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>KRA List</div>
                                         </a>
                                     </li>
-                                <?php //} ?>
-                                <?php //if (checkPermission('pms-kpi-list')) { ?>
+                               
+                              
 
                                     <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kpi_list.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kpi_list.php" class="menu-link withoutIcon">
@@ -583,11 +577,10 @@ function isActive($url)
                                         </a>
                                     </li>
 
-                                <?php// } ?>
-
+                            
                             </ul>
                         </li>
-                        <?php //if (checkPermission('hr-offboarding-create') || checkPermission('hr-offboarding-report')) { ?>
+                        <?php if (checkPermission('pms-hr-approval') || checkPermission('pms-hr-report')) { ?>
                             <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel'); ?>">
                                 <a href="javascript:void(0)" class="menu-link menu-toggle">
                                     <div>HR Panel</div>
@@ -595,32 +588,30 @@ function isActive($url)
                                 <ul class="menu-sub">
 
 
-                                    <?php //if (checkPermission('hr-offboarding-approval')) { ?>
+                                    <?php if (checkPermission('pms-hr-approval')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/approval.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
                                             </a>
                                         </li>
-                                    <?php //} ?>
-                                    <?php // if (checkPermission('hr-offboarding-approval')) { ?>
+                                    <?php } ?>
+                                    <?php  if (checkPermission('pms-hr-report')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/report.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/report.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
                                             </a>
                                         </li>
-                                    <?php //} ?>
-                                    <?php // if (checkPermission('hr-offboarding-approval')) { ?>
+                                    <?php } ?>
+                                    <?php  if (checkPermission('pms-hr-year-create')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/year.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Year Create</div>
                                             </a>
                                         </li>
-                                    <?php //} ?>
-
-
+                                    <?php } ?>
                                 </ul>
                             </li>
-                        <?php //} ?>
+                        <?php } ?>
 
                         <?php //if (checkPermission('lm-offboarding-approval') || checkPermission('lm-offboarding-report')) { ?>
                             <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?> <?php echo isActive('/pms_module/view/hod_panel'); ?>">
@@ -665,7 +656,7 @@ function isActive($url)
                     </ul>
 
                 </li>
-            <?php // } ?>
+         
             <!--pms Module -->
 
           

@@ -2,9 +2,9 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
-// if (!checkPermission('concern-offboarding-create')) {
-//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-// }
+if (!checkPermission('pms-hr-approval')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_key          = $_REQUEST['key'];
 $v_emp_id       = $_REQUEST['emp_id'];
@@ -12,7 +12,7 @@ $v_emp_table_id = $_REQUEST['tab_id'];
 
 $strSQL = oci_parse(
     $objConnect,
-    "select RML_ID,
+    "SELECT RML_ID,
 EMPLOYEE_NAME EMP_NAME,
 COMPANY_NAME R_CONCERN,
 DEPARTMENT DEPT_NAME,

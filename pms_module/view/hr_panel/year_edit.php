@@ -3,6 +3,9 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+if (!checkPermission('pms-hr-year-edit')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $query = "SELECT  ID, PMS_NAME, CREATED_BY, START_DATE, IS_ACTIVE,  END_DATE, TABLE_REMARKS, ACHIVEMENT_OPEN_STATUS,STEP_1_STATUS, STEP_2_STATUS, STEP_3_STATUS FROM HR_PMS_LIST WHERE ID =" . $_GET['id'];
 $allDataSQL  = oci_parse($objConnect, $query);
 
