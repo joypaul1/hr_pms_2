@@ -202,7 +202,7 @@ if (isset($_POST['kpi_name'])) {
                     <div class="col-sm-3">
                         <label class="form-label" for="basic-default-fullname">Target(%) <span class="text-danger">*</span></label>
                         <input required="" value="100 (%)" style="background-color: #d9dee3;" onkeypress="return false;" class="form-control cust-control"
-                            type='text' />
+                            type='text' >
                         <input type="hidden" name="target" value="100">
                     </div>
                     <div class="col-sm-3">
@@ -221,12 +221,12 @@ if (isset($_POST['kpi_name'])) {
                     <!-- <div class="col-md-12"></div> -->
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">KPI Name <span class="text-danger">*</span></label>
-                        <input required="" class="form-control cust-control" type='text' name="kpi_name" />
+                        <input required="" class="form-control cust-control" type='text' name="kpi_name" >
 
                     </div>
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">Any Comment ?</label>
-                        <input class="form-control" type='text' name="ramarks" />
+                        <input class="form-control" type='text' name="ramarks" >
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">

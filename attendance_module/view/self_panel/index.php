@@ -25,7 +25,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                            <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
 
                         </div>
                     </div>
@@ -36,7 +36,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control  cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                            <input required="" class="form-control  cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
                         </div>
                     </div>
                     <div class="col-sm-3">

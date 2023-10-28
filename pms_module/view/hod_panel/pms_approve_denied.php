@@ -71,22 +71,22 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee ID:</label>
                                 <input name="emp_id" readonly placeholder="EMP-ID" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['RML_ID']; ?>' />
+                                    value='<?php echo $row['RML_ID']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Name:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_NAME']; ?>' />
+                                    value='<?php echo $row['EMP_NAME']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Designation:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DESIGNATION']; ?>' />
+                                    value='<?php echo $row['DESIGNATION']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Department:</label>
                                 <input required="" name="emp_dep" readonly placeholder="EMP dep" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DEPT_NAME']; ?>' />
+                                    value='<?php echo $row['DEPT_NAME']; ?>' >
                             </div>
                         </div>
 
@@ -94,22 +94,22 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-1:</label>
                                 <input class="form-control cust-control" required="" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' />
+                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-2:</label>
                                 <input required="" required="" class="form-control cust-control" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' />
+                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Group:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_GROUP']; ?>' />
+                                    value='<?php echo $row['EMP_GROUP']; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Branch:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['BRANCH_NAME']; ?>' />
+                                    value='<?php echo $row['BRANCH_NAME']; ?>' >
                             </div>
                         </div>
 

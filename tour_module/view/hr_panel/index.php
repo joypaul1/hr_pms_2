@@ -20,21 +20,21 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
+                        <input placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
                     <div class="input-group">
 
-                        <input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                        <input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-2">
                     <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
                     <div class="input-group">
 
-                        <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                        <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-3">

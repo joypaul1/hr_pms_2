@@ -31,9 +31,9 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="emp_id">Emp. ID:</label>
-                        <input required class="form-control cust-control" id="autocomplete" name="" type="text" />
+                        <input required class="form-control cust-control" id="autocomplete" name="" type="text" >
                         <div class="text-info" id="message"></div>
-                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden />
+                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden >
 
                     </div>
                     <div class="col-sm-6">
@@ -45,7 +45,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                     </div>
                     <!-- <div class="col-sm-12">
                     <label for="exampleInputEmail1">Remarks? </label>
-                    <input required class="form-control" id="" name="emp_id" type="text" />
+                    <input required class="form-control" id="" name="emp_id" type="text" >
                 </div> -->
                 </div>
                 <div class="row mt-2">
@@ -55,7 +55,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 
 
                             <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
-                            <hr />
+                            <hr >
                             <?php
                             $departmentArray = [];
                             $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER WHERE R_CONCERN NOT IN('RG') ORDER BY R_CONCERN");
@@ -80,7 +80,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                         padding: 2%;">
 
                             <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
-                            <hr />
+                            <hr >
                             <?php
                             $departmentArray = [];
                             $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");

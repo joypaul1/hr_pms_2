@@ -30,7 +30,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						<div class="col-sm-8">
 							<label for="exampleInputEmail1">KRA Name:</label>
 							<input required="" style="padding:5px !important" form="Form1" name="kra_name" placeholder="Enter KRA Name"
-								class="form-control cust-control" type='text' />
+								class="form-control cust-control" type='text' >
 						</div>
 						<div class="col-sm-4">
 							<label for="exampleInputEmail1">Select PMS Title:</label>
@@ -218,7 +218,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													if ($row['SUBMITTED_STATUS'] != '1') {
 														?>
 														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-															style="display:none" />
+															style="display:none" >
 														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>"><i
 																class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
 														<?php

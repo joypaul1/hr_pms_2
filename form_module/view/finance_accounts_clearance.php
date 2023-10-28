@@ -56,8 +56,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                             <div class="col-sm-4">
                                 <label for="emp_id"> <strong>Select Employee By Search ID <span class="text-danger">*</span></strong> </label>
-                                <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
-                                  <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
+                                <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" >
+                                  <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden >
                                 <div class="text-info" id="message"></div>
                               
 
@@ -70,7 +70,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
                 </div> -->
-                <input required  value="<?php echo $_GET['rml_hr_apps_user_id'] ?>"  name="emp_id" type="hidden" hidden />
+                <input required  value="<?php echo $_GET['rml_hr_apps_user_id'] ?>"  name="emp_id" type="hidden" hidden >
 
                 <strong class="d-block text-center">[Please Fill-Up Bellow Form Data]</strong>
                 <hr>
@@ -129,34 +129,34 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_min_months_req" value="NA" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_min_months_req" value="NA" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee_company"  value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="iou_due_from_employee_company"  value="" >
                                     </div> -->
                                     <div class="col-3">
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -168,33 +168,33 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_min_months_req" value="NA" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_min_months_req" value="NA" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="salary_loan_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -206,36 +206,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_min_months_req" value="06 months" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_min_months_req" value="06 months" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee_company"  onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="mobile_due_from_employee_company"  onkeypress="return isNumberKey(this, event);" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -247,36 +247,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_min_months_req" value="36 months" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_min_months_req" value="36 months" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="bike_due_from_employee_company" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -288,36 +288,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_min_months_req" value="24 months" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_min_months_req" value="24 months" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="laptop_due_from_employee_company" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -329,36 +329,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_min_months_req" value="60 months" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_min_months_req" value="60 months" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="car_due_from_employee_company" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -370,36 +370,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_min_months_req" value="NA" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_min_months_req" value="NA" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="petty_cash_due_from_employee_company" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>
@@ -411,36 +411,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_min_months_req" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_min_months_req" value="" >
                                     </div>
 
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_company_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_company_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_employee_portion" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_employee_portion" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_company" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_paid_by_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee" onkeypress="return isNumberKey(this, event);" value="" >
                                     </div>
                                     <!-- <div class="col-3">
                                        
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee_company" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="others_due_from_employee_company" value="" >
                                     </div> -->
                                     <div class="col-3">
 
-                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" />
+                                        <input type="text" class="form-control cust-control" id="basic-default-company" name="remarks[]" value="" >
                                     </div>
 
                                 </div>

@@ -25,7 +25,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Sell invoice ID</label>
-                        <input required="" placeholder="Sell invoice  ID" name="invoice_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['invoice_id']) ? $_POST['invoice_id'] : ''; ?>' />
+                        <input required="" placeholder="Sell invoice  ID" name="invoice_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['invoice_id']) ? $_POST['invoice_id'] : ''; ?>' >
                     </div>
                     <small class="text-danger">*** Invoice Number Case Sensitive</small>
                 </div>

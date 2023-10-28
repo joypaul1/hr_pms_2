@@ -21,7 +21,7 @@ $is_exel_download_eanble = 0;
                     <form action="" method="post">
                         <div class="row">
                             <div class="col-sm-3">
-                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' />
+                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -29,7 +29,7 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -38,7 +38,7 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
                                 </div>
                             </div>
                             <div class="col-sm-3">

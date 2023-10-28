@@ -32,7 +32,7 @@ oci_execute($strSQL);
 					</div>
 					<div class="col-sm-5 text-center text-sm-left">
 						<div class="card-body pb-0 px-0 px-md-4">
-							<img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" />
+							<img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" >
 						</div>
 					</div>
 				</div>
@@ -59,7 +59,7 @@ oci_execute($strSQL);
 							<div class="card-body">
 								<div class="card-title d-flex align-items-start justify-content-between">
 									<div class="avatar flex-shrink-0">
-										<img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
+										<img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" >
 									</div>
 
 								</div>
@@ -74,7 +74,7 @@ oci_execute($strSQL);
 							<div class="card-body">
 								<div class="card-title d-flex align-items-start justify-content-between">
 									<div class="avatar flex-shrink-0">
-										<img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" />
+										<img src="<?php echo $basePath ?>/assets/img/icons/unicons/chart-success.png" alt="chart success" class="rounded" >
 									</div>
 
 								</div>

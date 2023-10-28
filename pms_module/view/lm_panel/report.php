@@ -32,7 +32,7 @@ $v_view_approval = 0;
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
                         <!-- <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text'
-                            value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' /> -->
+                            value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' > -->
                         <select name="emp_concern" class="form-control cust-control" form="Form1">
                             <option selected value=""><- Select Concern -></option>
                             <?php

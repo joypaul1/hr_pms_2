@@ -171,7 +171,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 									<div class="col-sm-3">
 										<div class="form-group">
 											<label for="title">Joining Date:</label>
-											<input required="" class="form-control" id="date" name="doj" type="date" />
+											<input required="" class="form-control" id="date" name="doj" type="date" >
 										</div>
 									</div>
 

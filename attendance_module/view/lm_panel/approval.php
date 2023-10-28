@@ -156,12 +156,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 </div>
                 <div class="col-sm-3">
                     <label>From Date:</label>
-                    <input required="" class="form-control  cust-control" form="Form1" name="start_date" form="Form1" type="date" />
+                    <input required="" class="form-control  cust-control" form="Form1" name="start_date" form="Form1" type="date" >
 
                 </div>
                 <div class="col-sm-3">
                     <label>To Date:</label>
-                    <input required="" class="form-control  cust-control" form="Form1" id="date" name="end_date" form="Form1" type="date" />
+                    <input required="" class="form-control  cust-control" form="Form1" id="date" name="end_date" form="Form1" type="date" >
 
                 </div>
                 <div class="col-sm-3">
@@ -240,7 +240,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" >
                                             </td>
                                             <td>
                                                 <?php echo $row['ATTN_DATE'];
@@ -258,10 +258,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" >
                                             </td>
 
-                                            <td><input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" /></td>
+                                            <td><input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" ></td>
                                         </tr>
 
                                     <?php
@@ -308,7 +308,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval_single" value="Approve" >
                                             </td>
                                             <td>
                                                 <?php echo $row['ATTN_DATE'];
@@ -326,10 +326,10 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_approval" value="Approve" >
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2"  type="submit" name="submit_denied" value="Denied" >
                                             </td>
 
                                         </tr>

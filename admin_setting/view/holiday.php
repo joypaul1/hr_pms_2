@@ -20,7 +20,7 @@ if (!checkPermission('holiday-list')) {
             <div class="row">
                 <div class="col-sm-4">
                     <label for="exampleInputEmail1">Select Date:</label>
-                    <input required="" class="form-control cust-control" id="date" name="holiday_date" type="date" />
+                    <input required="" class="form-control cust-control" id="date" name="holiday_date" type="date" >
                 </div>
                 <div class="col-sm-4">
                     <label for="exampleInputEmail1">Select Type:</label>

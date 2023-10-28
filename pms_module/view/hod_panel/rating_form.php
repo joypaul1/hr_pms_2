@@ -66,52 +66,52 @@ $EMP_ID         = $_GET['emp_id'];
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['JOB_KNOWLEDGE'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="TRANSPERANCY">TRANSPERANCY </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['TRANSPERANCY'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['OWNERSHIP_CAN_DO'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="COMMUNICATION_SKILL"> COMMUNICATION SKILL </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['COMMUNICATION_SKILL'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="TEAM_WORK">TEAM WORK </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['TEAM_WORK'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="CREATIVITY_MAKER">CREATIVITY MAKER </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['CREATIVITY_MAKER'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="LEADERSHIP">LEADERSHIP </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['LEADERSHIP'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="CUSTOMER_RESPONSIBILITY">CUSTOMER RESPONSIBILITY </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['CUSTOMER_RESPONSIBILITY'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="PROBLEM_SOLVING">PROBLEM SOLVING </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['PROBLEM_SOLVING'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
                                     <div class="col-sm-6 col-md-3  col-lg-3 ">
                                         <label for="WORK_ETHICS">WORK ETHICS </label>
                                         <input type="number" readonly value="<?php echo $exitData ? $exitData['WORK_ETHICS'] : 0 ?>"
-                                            class="form-control cust-control" />
+                                            class="form-control cust-control" >
                                     </div>
 
                                 </div>
@@ -129,69 +129,69 @@ $EMP_ID         = $_GET['emp_id'];
                                                 <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['JOB_KNOWLEDGE'] : $exitData['JOB_KNOWLEDGE'] ?>"
-                                                    class="form-control cust-control" id="KNOWLEDGE" name="JOB_KNOWLEDGE" required />
+                                                    class="form-control cust-control" id="KNOWLEDGE" name="JOB_KNOWLEDGE" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="TRANSPERANCY">TRANSPERANCY </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['TRANSPERANCY'] : $exitData['TRANSPERANCY'] ?>"
-                                                    class="form-control cust-control" id="TRANSPERANCY" name="TRANSPERANCY" required />
+                                                    class="form-control cust-control" id="TRANSPERANCY" name="TRANSPERANCY" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['OWNERSHIP_CAN_DO'] : $exitData['OWNERSHIP_CAN_DO'] ?>"
-                                                    class="form-control cust-control" id="OWNERSHIP_CAN_DO" name="OWNERSHIP_CAN_DO" required />
+                                                    class="form-control cust-control" id="OWNERSHIP_CAN_DO" name="OWNERSHIP_CAN_DO" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="COMMUNICATION_SKILL"> COMMUNICATION SKILL </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['COMMUNICATION_SKILL'] : 0 ?>"
-                                                    class="form-control cust-control" id="COMMUNICATION_SKILL" name="COMMUNICATION_SKILL" required />
+                                                    class="form-control cust-control" id="COMMUNICATION_SKILL" name="COMMUNICATION_SKILL" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="TEAM_WORK">TEAM WORK </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['TEAM_WORK'] : $exitData['TEAM_WORK'] ?>"
-                                                    class="form-control cust-control" id="TEAM_WORK" name="TEAM_WORK" required />
+                                                    class="form-control cust-control" id="TEAM_WORK" name="TEAM_WORK" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="CREATIVITY_MAKER"> CREATIVITY MAKER </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData ? $exitData['CREATIVITY_MAKER'] : 0 ?>"
-                                                    class="form-control cust-control" id="CREATIVITY_MAKER" name="CREATIVITY_MAKER" required />
+                                                    class="form-control cust-control" id="CREATIVITY_MAKER" name="CREATIVITY_MAKER" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="LEADERSHIP"> LEADERSHIP </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['LEADERSHIP'] : $exitData['LEADERSHIP'] ?>"
-                                                    class="form-control cust-control" id="LEADERSHIP" name="LEADERSHIP" required />
+                                                    class="form-control cust-control" id="LEADERSHIP" name="LEADERSHIP" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="CUSTOMER_RESPONSIBILITY">CUSTOMER RESPONSIBILITY </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['CUSTOMER_RESPONSIBILITY'] : $exitData['CUSTOMER_RESPONSIBILITY'] ?>"
                                                     class="form-control cust-control" id="CUSTOMER_RESPONSIBILITY" name="CUSTOMER_RESPONSIBILITY"
-                                                    required />
+                                                    required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="PROBLEM_SOLVING">PROBLEM SOLVING </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['PROBLEM_SOLVING'] : $exitData['PROBLEM_SOLVING'] ?>"
-                                                    class="form-control cust-control" id="PROBLEM_SOLVING" name="PROBLEM_SOLVING" required />
+                                                    class="form-control cust-control" id="PROBLEM_SOLVING" name="PROBLEM_SOLVING" required >
                                             </div>
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="WORK_ETHICS">WORK ETHICS </label>
                                                 <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
                                                     value="<?php echo $exitData_2 ? $exitData_2['WORK_ETHICS'] : $exitData['WORK_ETHICS'] ?>"
-                                                    class="form-control cust-control" id="WORK_ETHICS" name="WORK_ETHICS" required />
+                                                    class="form-control cust-control" id="WORK_ETHICS" name="WORK_ETHICS" required >
                                             </div>
                                             <div class="col-sm-12 d-flex justify-content-end mt-2">
                                                 <strong class="d-flex justify-content-end gap-2  align-items-center">
                                                     <span style="color:chocolate">Total Rating Point :</span>
                                                     <input type="number" disabled
                                                         style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
-                                                        value="<?php echo 0 ?>" class="form-control" id="totalRating" />
+                                                        value="<?php echo 0 ?>" class="form-control" id="totalRating" >
                                                 </strong>
                                             </div>
                                         </div>
@@ -344,7 +344,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                         <span style="color:chocolate">Total Score :</span>
                                                         <input type="number" disabled
                                                             style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
-                                                            value="<?php echo 0 ?>" class="form-control" id="totalScore" />
+                                                            value="<?php echo 0 ?>" class="form-control" id="totalScore" >
                                                     </strong>
                                                 </div>
                                                

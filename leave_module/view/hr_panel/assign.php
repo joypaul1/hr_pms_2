@@ -20,7 +20,7 @@ $v_excel_download = 0;
                 <div class="col-sm-2">
                     <label class="form-label" for="title">RML ID</label>
                     <div class="input-group">
-                        <input class="form-control cust-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' />
+                        <input class="form-control cust-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-2">

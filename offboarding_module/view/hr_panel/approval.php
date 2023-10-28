@@ -21,7 +21,7 @@ $v_view_approval = 0;
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' />
+                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -113,7 +113,7 @@ $v_view_approval = 0;
 
                                                 </div>
                                                 <div class="d-flex ">
-                                                    <input type="text" name="remarks" class="form-control mt-2" placeholder="remarks here..." />
+                                                    <input type="text" name="remarks" class="form-control mt-2" placeholder="remarks here..." >
                                                 </div>
                                                 <div class="mt-2 d-flex flex-row">
                                                     <div class="col-6"></div>

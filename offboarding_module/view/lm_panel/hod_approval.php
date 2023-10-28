@@ -24,7 +24,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' />
+                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -112,19 +112,19 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 <div class="d-flex justify-content-between">
                                                     <div style="width: 30%;">
                                                         <label class="form-label">All Document Submit </label>
-                                                        <input type="text" name="remark_1" oninput="limitCharter($(this))" class="form-control " placeholder="All Document Submit ..." />
+                                                        <input type="text" name="remark_1" oninput="limitCharter($(this))" class="form-control " placeholder="All Document Submit ..." >
                                                     </div>
                                                     <div style="width: 30%;">
                                                         <label class="form-label">Any Paymnet Due/Clear</label>
-                                                        <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control " placeholder="Any Paymnet Due/Clear ..." />
+                                                        <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control " placeholder="Any Paymnet Due/Clear ..." >
                                                     </div style="width: 30%;">
                                                     <div>
                                                         <label class="form-label">Any Other(Remarks)</label>
-                                                        <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control " placeholder="Any Other(Remarks) ..." />
+                                                        <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control " placeholder="Any Other(Remarks) ..." >
                                                     </div>
                                                     
-                                                    <!-- <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." />
-                                                    <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." /> -->
+                                                    <!-- <input type="text" name="remark_2" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." >
+                                                    <input type="text" name="remark_3" oninput="limitCharter($(this))" class="form-control mt-2" placeholder="remarks here..." > -->
                                                 </div>
                                                 <div class="mt-2 d-flex flex-row">
                                                     <div class="col-6"></div>

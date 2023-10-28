@@ -161,12 +161,12 @@ if (isset($_POST['submit_denied'])) {
                 </div>
                 <div class="col-sm-3">
                     <label>From Date:</label>
-                    <input required="" class="form-control  cust-control" name="start_date" type="date" form="Form1" />
+                    <input required="" class="form-control  cust-control" name="start_date" type="date" form="Form1" >
 
                 </div>
                 <div class="col-sm-3">
                     <label>To Date:</label>
-                    <input required="" class="form-control  cust-control" id="date" name="end_date" type="date" form="Form1" />
+                    <input required="" class="form-control  cust-control" id="date" name="end_date" type="date" form="Form1" >
 
                 </div>
                 <div class="col-sm-3">
@@ -232,7 +232,7 @@ if (isset($_POST['submit_denied'])) {
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" >
                                             </td>
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -256,10 +256,10 @@ if (isset($_POST['submit_denied'])) {
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" >
                                             </td>
 
-                                            <td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" /></td>
+                                            <td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" ></td>
                                         </tr>
 
                                     <?php
@@ -295,7 +295,7 @@ if (isset($_POST['submit_denied'])) {
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" >
                                             </td>
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -320,10 +320,10 @@ if (isset($_POST['submit_denied'])) {
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" >
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_denied" value="Denied" />
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_denied" value="Denied" >
                                             </td>
 
                                         </tr>

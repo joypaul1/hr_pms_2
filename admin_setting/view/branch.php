@@ -18,7 +18,7 @@ if (!checkPermission('branch-list')) {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Branch Name</label>
-                        <input required="" placeholder="Branch Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' />
+                        <input required="" placeholder="Branch Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' >
                     </div>
                 </div>
 

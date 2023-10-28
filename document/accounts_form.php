@@ -224,19 +224,19 @@
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                    Prepared BY <br />Rangs Motors Limited
+                    Prepared BY <br >Rangs Motors Limited
                 </p>
             </div>
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                    Manager / AGM / DGM <br />Rangs Motors Limited
+                    Manager / AGM / DGM <br >Rangs Motors Limited
                 </p>
             </div>
             <div style=" text-align: center;">
                 <input type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
                 <p style="margin: 0;">
-                   GM / CEO <br />Rangs Motors Limited
+                   GM / CEO <br >Rangs Motors Limited
                 </p>
             </div>
         </div>

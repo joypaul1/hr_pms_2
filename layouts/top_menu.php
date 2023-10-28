@@ -30,7 +30,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
             <i class="bx bx-search fs-4 lh-0"></i>
             <?php if (checkPermission('user-list')) { ?>
 
-              <input type="text" name="search_input" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search..." />
+              <input type="text" name="search_input" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search..." >
             <?php
             }
             ?>
@@ -120,7 +120,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle" />
+              <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle" >
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -129,7 +129,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle" >
                     </div>
                   </div>
                   <div class="flex-grow-1">

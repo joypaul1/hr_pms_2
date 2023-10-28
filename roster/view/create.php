@@ -40,7 +40,7 @@ require_once('../../inc/connoracle.php');
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label for="title">RML ID:</label>
-                            <input name="rml_id" form="Form1" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>' />
+                            <input name="rml_id" form="Form1" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>' >
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -121,12 +121,12 @@ require_once('../../inc/connoracle.php');
                         </div>
                         <div class="col-sm-3">
                             <label>From Date:</label>
-                            <input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                            <input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
 
                         </div>
                         <div class="col-sm-3">
                             <label>To Date:</label>
-                            <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                            <input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
                         </div>
                     </div>
                     <br>
@@ -137,7 +137,7 @@ require_once('../../inc/connoracle.php');
                                     <tr class="text-center">
                                         <th scope="col">Sl</th>
                                         <th scope="col">
-                                            <center><input type="button" id="toggle" value="Select All" onClick="do_this()" /></center>
+                                            <center><input type="button" id="toggle" value="Select All" onClick="do_this()" ></center>
                                         </th>
                                         <th scope="col">
                                             <center>User ID</center>
@@ -218,7 +218,7 @@ require_once('../../inc/connoracle.php');
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Create Roster" />
+                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Create Roster" >
                                             </td>
                                             <td></td>
                                             <td></td>
@@ -277,7 +277,7 @@ require_once('../../inc/connoracle.php');
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Create Roster" />
+                                                    <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Create Roster" >
                                                 </td>
                                                 <td></td>
                                                 <td></td>

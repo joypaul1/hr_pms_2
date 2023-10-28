@@ -113,12 +113,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                                 name="achivement" placeholder="achivement" class="form-control text-center cust-control"
                                                                 type='number' <?php if ($existAchievement) {
                                                                     echo 'readonly';
-                                                                } ?> />
+                                                                } ?> >
                                                             <input required="" value="<?php echo $row['ACHIVEMENT_COMMENTS'] ?>" style="padding:5px !important"
                                                                 name="ACHIVEMENT_COMMENTS" placeholder="describe achivement" class="form-control text-center cust-control"
                                                                 type='text' <?php if ($existAchievement) {
                                                                     echo 'readonly';
-                                                                } ?> />
+                                                                } ?> >
                                                             <?php if ($row['STEP_3_STATUS'] === '1') {
                                                                  if (!$existAchievement) {
                                                                 echo '<button class="btn btn-sm btn-info"> <i class="bx bxs-comment-check"
@@ -150,7 +150,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 if ($row['SUBMITTED_STATUS'] == '0') {
                                                     ?>
                                                     <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none" />
+                                                        style="display:none" >
                                                     <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>"><i
                                                             class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
                                                     <?php
@@ -163,7 +163,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 if ($row['ACHIEVEMENT_LOCK_STATUS'] == '1') {
                                                     ?>
                                                     <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none" />
+                                                        style="display:none" >
                                                     <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Achivement</a>
                                                     <?php
                                                 }

@@ -44,7 +44,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input required="" class="form-control cust-control" name="start_date" type="date" />
+                        <input required="" class="form-control cust-control" name="start_date" type="date" >
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -54,7 +54,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" />
+                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
                     </div>
                 </div>
                 <div class="col-sm-3">

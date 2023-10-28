@@ -41,7 +41,7 @@ $row  = oci_fetch_assoc($allDataSQL);
 
                             <div class="form-group">
                                 <label class="form-label" for="pms_name">PMS Name <span class="text-danger">*</span></label>
-                                <input required placeholder="Name here.." value="<?php echo $row['PMS_NAME'] ?>" id="pms_name" name="pms_name" class="form-control cust-control" type='text' />
+                                <input required placeholder="Name here.." value="<?php echo $row['PMS_NAME'] ?>" id="pms_name" name="pms_name" class="form-control cust-control" type='text' >
                             </div>
                             <div class="form-group mt-2">
                                 <label class="form-label" for="start_date">Select Start Date <span class="text-danger">*</span></label>

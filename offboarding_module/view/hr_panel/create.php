@@ -32,10 +32,10 @@ if (!checkPermission('hr-offboarding-create')) {
                 <div class="row ">
                     <div class="col-sm-4">
                         <label for="emp_id">Emp. ID:</label>
-                        <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" />
+                        <input required class="form-control cust-control" id="autocomplete" name="emp_rml_id" type="text" >
                         <div class="text-info" id="message"></div>
-                        <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden />
-                        <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden />
+                        <input required class="form-control " id="emp_id" name="emp_id" type="hidden" hidden >
+                        <input required class="form-control " id="concern_name" name="concern_name" type="hidden" hidden >
 
                     </div>
                     <div class="col-sm-8">
@@ -46,21 +46,21 @@ if (!checkPermission('hr-offboarding-create')) {
                 <div class="row mt-3">
                     <div class="col-sm-6">
                         <label for="last_working_day">Last Working Day <span class="text-danger"> *</span></label>
-                        <input class="form-control" id="last_working_day" name="last_working_day" required type="date" />
+                        <input class="form-control" id="last_working_day" name="last_working_day" required type="date" >
                     </div>
                     <div class="col-sm-6">
                         <label for="resignation_date">Resignation Date <span class="text-danger"> *</span></label>
-                        <input class="form-control" id="resignation_date" name="resignation_date" required type="date" />
+                        <input class="form-control" id="resignation_date" name="resignation_date" required type="date" >
                     </div>
                     <div class="col-sm-12">
                         <label for="reason_of_resignation">Reason OF Resignation <span class="text-danger"> *</span> </label>
-                        <input class="form-control" id="reason_of_resignation" name="reason_of_resignation" autocomplete="off" type="text" required />
+                        <input class="form-control" id="reason_of_resignation" name="reason_of_resignation" autocomplete="off" type="text" required >
                     </div>
                 </div>
                 <div class="row  showDepartment" style="display:none;border: 1px solid #eee5e5; margin-top: 2%;">
                     <h5 class="text-center mt-2"> Select Department <span style="font-size: 12px;"> </h5>
 
-                    <hr />
+                    <hr >
 
                     <?php
                     $departmentArray = [];

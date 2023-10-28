@@ -47,7 +47,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="title">EMP ID:</label>
-                                    <input type="text" form="Form1" name="form_rml_id" class="form-control cust-control" id="form_rml_id" value='<?php echo isset($_POST['form_rml_id']) ? $_POST['form_rml_id'] : ''; ?>' />
+                                    <input type="text" form="Form1" name="form_rml_id" class="form-control cust-control" id="form_rml_id" value='<?php echo isset($_POST['form_rml_id']) ? $_POST['form_rml_id'] : ''; ?>' >
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -84,7 +84,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" type="date" form="Form1" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+                                    <input required="" type="date" form="Form1" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -94,7 +94,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" form="Form1" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                                    <input required="" form="Form1" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
                                 </div>
                             </div>
 
@@ -233,7 +233,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_approval" value="Save & Approve" />
+                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_approval" value="Save & Approve" >
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -242,7 +242,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_denied" value="Save & Denied" />
+                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_denied" value="Save & Denied" >
                                                 </td>
                                             </tr>
                                     <?php

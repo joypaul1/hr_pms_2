@@ -18,17 +18,17 @@ require_once('../../inc/connoracle.php');
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label for="title">RML-ID:</label>
-                                <input name="rml_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' />
+                                <input name="rml_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' >
                             </div>
                         </div>
                         <div class="col-sm-3">
                             <label>From Date:</label>
-                            <input required="" class="form-control cust-control" name="start_date" type="date" />
+                            <input required="" class="form-control cust-control" name="start_date" type="date" >
                            
                         </div>
                         <div class="col-sm-3">
                             <label>To Date:</label>
-                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date" />
+                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
 
                         </div>
 

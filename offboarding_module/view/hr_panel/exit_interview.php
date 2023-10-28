@@ -23,7 +23,7 @@ $v_view_approval = 0;
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' />
+                        <input required="" form="Form1" placeholder="Employee ID" name="emp_concern" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_concern']) ? $_POST['emp_concern'] : ''; ?>' >
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -103,7 +103,7 @@ $v_view_approval = 0;
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" /> -->
+                                                <!-- <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval_single" value="Approve" > -->
                                             </td>
                                         </tr>
                                     <?php
@@ -112,10 +112,10 @@ $v_view_approval = 0;
                                     ?>
                                         <tr>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" >
                                             </td>
 
-                                            <td><input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" /></td>
+                                            <td><input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" ></td>
                                         </tr>
 
                                     <?php
@@ -173,10 +173,10 @@ $v_view_approval = 0;
                                     ?>
                                         <tr>
                                             <td>
-                                                <input form="Form2" class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" />
+                                                <input form="Form2" class="btn btn-primary btn pull-right" type="submit" name="submit_approval" value="Approve" >
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" />
+                                                <input class="btn btn-primary btn pull-right" type="submit" name="submit_denied" value="Denied" >
                                             </td>
                                         </tr>
                                 <?php

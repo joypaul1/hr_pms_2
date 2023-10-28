@@ -19,19 +19,19 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		<div class="card-body">
 			<form action="" method="post">
 				<div class="row justify-content-center">
-					<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>' />
+					<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>' >
 					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
-							<input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
+							<input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
-							<input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+							<input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
 						</div>
 					</div>
 					<div class="col-sm-2">

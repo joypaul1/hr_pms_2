@@ -19,7 +19,7 @@ if (!checkPermission('designation-list')) {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Designation Name</label>
-                        <input required="" placeholder="Designation Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' />
+                        <input required="" placeholder="Designation Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' >
                     </div>
                 </div>
 

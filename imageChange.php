@@ -30,7 +30,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="fileToUpload">Select Image</label>
                             <div class="col-sm-10">
-                                <input type="file" class="form-control" id="fileToUpload" name="file" />
+                                <input type="file" class="form-control" id="fileToUpload" name="file" >
                                 <?php if (!empty($_SESSION['imageStatus'])) {
                                     echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
                                     unset($_SESSION['imageStatus']);

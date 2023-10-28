@@ -94,12 +94,12 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Select Target(%):</label>
-                                <input required="" class="form-control cust-control" type='number' readonly name="target" value="<?php echo $row['TARGET']; ?>" />
+                                <input required="" class="form-control cust-control" type='number' readonly name="target" value="<?php echo $row['TARGET']; ?>" >
                             </div>
 
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Eligibility Factor:</label>
-                                <input required="" class="form-control cust-control" type='number' name="eli_factor" value="<?php echo $row['ELIGIBILITY_FACTOR']; ?>" />
+                                <input required="" class="form-control cust-control" type='number' name="eli_factor" value="<?php echo $row['ELIGIBILITY_FACTOR']; ?>" >
                             </div>
                         </div>
 
@@ -109,7 +109,7 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                             <div class="row mt-2">
                                 <div class="col-sm-12">
                                     <label for="exampleInputEmail1">Achievement(%):</label>
-                                    <input required="" class="form-control cust-control" type='number' name="achivement" value="<?php echo $row['ACHIVEMENT']; ?>" />
+                                    <input required="" class="form-control cust-control" type='number' name="achivement" value="<?php echo $row['ACHIVEMENT']; ?>" >
                                 </div>
                             </div>
                         <?php

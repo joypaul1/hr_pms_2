@@ -150,7 +150,7 @@ if (isset($_POST['submit_denied'])) {
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" class="form-control cust-control" form="Form1" name="start_date" type="date" />
+						<input required="" class="form-control cust-control" form="Form1" name="start_date" type="date" >
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -160,7 +160,7 @@ if (isset($_POST['submit_denied'])) {
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" class="form-control cust-control" form="Form1" id="date" name="end_date" type="date" />
+						<input required="" class="form-control cust-control" form="Form1" id="date" name="end_date" type="date" >
 					</div>
 				</div>
 				<div class="col-sm-2">
@@ -257,10 +257,10 @@ if (isset($_POST['submit_denied'])) {
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" />
+													<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" >
 												</td>
 
-												<td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" /></td>
+												<td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" ></td>
 											</tr>
 
 										<?php
@@ -300,7 +300,7 @@ if (isset($_POST['submit_denied'])) {
 													echo $row['DESIGNATION'];
 													echo ',<br>';
 													echo $row['BRANCH_NAME']; ?>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval_single" value="Approve" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval_single" value="Approve" >
 												</td>
 												<td>
 													<?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -325,10 +325,10 @@ if (isset($_POST['submit_denied'])) {
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" >
 												</td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" />
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" >
 												</td>
 
 											</tr>

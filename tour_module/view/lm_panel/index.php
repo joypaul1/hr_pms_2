@@ -41,12 +41,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     </div>
                     <div class="col-sm-2">
                         <label>From Date:</label>
-                        <input required="" class="form-control cust-control" name="start_date" type="date" />
+                        <input required="" class="form-control cust-control" name="start_date" type="date" >
 
                     </div>
                     <div class="col-sm-2">
                         <label>To Date:</label>
-                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" />
+                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
 
                     </div>
                     <div class="col-sm-3">

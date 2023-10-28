@@ -39,7 +39,7 @@ $data = oci_fetch_assoc($strSQL);
 						<div class="row">
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">KRA Name:</label>
-								<input required="" value="<?php echo $data['KRA_NAME']; ?>" style="padding:5px !important" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type='text' />
+								<input required="" value="<?php echo $data['KRA_NAME']; ?>" style="padding:5px !important" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type='text' >
 							</div>
 							<div class="col-sm-4">
 								<label for="exampleInputEmail1">Select PMS Title:</label>
