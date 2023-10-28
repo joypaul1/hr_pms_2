@@ -405,7 +405,7 @@ $EMP_ID         = $_GET['emp_id'];
                                         </form>
                                     </div>
 
-                                    <div class="col-6">
+                                    <div class="mx-auto">
                                         <div class="card card-body mt-3">
                                             <strong class="text-center">Grading System</strong>
                                             <table class="table table-bordered tex-center text-break">

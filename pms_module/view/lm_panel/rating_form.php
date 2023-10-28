@@ -194,7 +194,7 @@ $EMP_ID         = $_GET['emp_id'];
                                     $number = 0;
                                     while ($kraRow = oci_fetch_assoc($KRASQL)) {
                                         $table_ID = $kraRow['ID'];
-                                        $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, ACHIVEMENT_COMMENTS,WEIGHTAGE FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, ACHIVEMENT_COMMENTS,WEIGHTAGE,ACHIEVEMENT_LOCK_STATUS FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $achivement      = $rowIN['ACHIVEMENT'] ? $rowIN['ACHIVEMENT'] : 0;
@@ -202,10 +202,13 @@ $EMP_ID         = $_GET['emp_id'];
                                             $target          = 100;
                                             $awValue         = ($achivement / $target) * 100;
                                             $score           = ($targetWeightage * $awValue) / 100;
-                                            if (!empty($rowIN['ACHIVEMENT_COMMENTS']) && !empty($rowIN['ACHIVEMENT'])) {
+                                            // if (!empty($rowIN['ACHIVEMENT_COMMENTS']) && !empty($rowIN['ACHIVEMENT'])) {
+                                            //     $locakSataus = true;
+                                            // } else {
+                                            //     $locakSataus = false;
+                                            // }
+                                            if($rowIN['ACHIEVEMENT_LOCK_STATUS'] == 1){
                                                 $locakSataus = true;
-                                            } else {
-                                                $locakSataus = false;
                                             }
                                             ?>
 
@@ -278,7 +281,7 @@ $EMP_ID         = $_GET['emp_id'];
                                            All Ready Comfirmed ! <i class="bx bxs-home-smile text-success"></i>
                                            </span>';
                                         }else{
-                                            echo ' <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
+                                            echo ' <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Save <i class="bx bx-save" ></i> </button>
                                             </div>';
                                         }
                                             ?>
