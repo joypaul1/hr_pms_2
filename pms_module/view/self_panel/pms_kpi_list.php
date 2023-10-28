@@ -38,7 +38,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <th scope="col">Achievement (%)</th>
                                         <th scope="col">Eligibility Factor</th>
                                         <th scope="col">Comment</th>
-                                        <th scope="col">Status</th>
+                                        <!-- <th scope="col">Status</th> -->
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -136,7 +136,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             <td>
                                                 <?php echo $row['REMARKS']; ?>
                                             </td>
-                                            <td>
+                                            <!-- <td>
                                                 <?php
 
                                                 if ($row['IS_ACTIVE'] == '1')
@@ -144,7 +144,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 else
                                                     echo '<span class="badge badge-sm badge-pill bg-info"><i class="menu-icon tf-icons bx bxs-message-alt-x" style="margin:0;font-size:20px"></i></span>';
                                                 ?>
-                                            </td>
+                                            </td> -->
                                             <td>
                                                 <?php
                                                 if ($row['SUBMITTED_STATUS'] == '0') {
