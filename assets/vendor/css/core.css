@@ -6202,7 +6202,7 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
 }
 
 .table-dark {
-  --bs-table-bg: beige;
+  --bs-table-bg: #0e024efa;
   --bs-table-striped-bg: #2a3a4c;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #394859;
@@ -6235,7 +6235,7 @@ a.invert-bg-dark:hover, a.invert-bg-dark:focus {
   letter-spacing: 1px;
 }
 .table:not(.table-dark) th {
-  color: #566a7f;
+  color: #fff;
 }
 
 .table-border-bottom-0 tr:last-child td,

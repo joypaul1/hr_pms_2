@@ -28,7 +28,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="md-form mt-2">
                         <div class="table-responsive text-break ">
                             <table class="table table-bordered " border="1" cellspacing="0" cellpadding="0">
-                                <thead style="background: beige;">
+                                <thead style="background-color: #0e024efa;">
                                     <tr class="text-center">
                                         <th class="text-center">Sl</th>
                                         <th scope="col">KRA Name</th>
