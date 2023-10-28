@@ -159,15 +159,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                     echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
                                                 }
                                                 ?>
-                                                <?php
-                                                if ($row['ACHIEVEMENT_LOCK_STATUS'] == '1') {
-                                                    ?>
-                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none" >
-                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>">Achivement</a>
-                                                    <?php
-                                                }
-                                                ?>
+                                              
                                             </td>
 
                                         </tr>
