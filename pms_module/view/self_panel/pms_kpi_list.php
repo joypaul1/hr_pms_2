@@ -39,7 +39,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         <th scope="col">Eligibility Factor</th>
                                         <th scope="col">Comment</th>
                                         <!-- <th scope="col">Status</th> -->
-                                        <th scope="col">Action</th>
+                                        <!-- <th scope="col">Action</th> -->
                                     </tr>
                                 </thead>
 
@@ -76,20 +76,20 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                                     while ($row = oci_fetch_assoc($strSQL)) {
                                         $number++;
-                                      
-                                        
+
+
                                         ?>
                                         <tr class="text-center">
                                             <td class="text-center">
                                                 <?php echo $number; ?>
                                             </td>
-                                            <td  class="text-left">
+                                            <td class="text-left">
                                                 <?php echo $row['KRA_NAME']; ?>
                                             </td>
                                             <td class="text-left">
                                                 <?php echo $row['KPI_NAME']; ?>
                                             </td>
-                                           
+
                                             <td>
                                                 <?php echo $row['WEIGHTAGE']; ?>
                                             </td>
@@ -99,7 +99,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             <td>
                                                 <?php
                                                 $existAchievement = false;
-                                                if ($row['ACHIVEMENT'] || $row['STEP_3_STATUS'] === NULL ||$row['STEP_3_STATUS'] === '0') {
+                                                if ($row['ACHIVEMENT'] || $row['STEP_3_STATUS'] === NULL || $row['STEP_3_STATUS'] === '0') {
                                                     $existAchievement = true;
                                                 }
                                                 if ($row['STEP_3_STATUS'] === '1' || $row['STEP_3_STATUS'] === '0') {
@@ -109,26 +109,27 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                         <input type="hidden" name="actionType" value='kpi_achivement'>
                                                         <input type="hidden" name="editId" value='<?php echo $row['ID'] ?>'>
                                                         <div class="d-flex  flex-column gap-2">
-                                                            <input required="" value="<?php echo $row['ACHIVEMENT'] ?>" style="padding:5px !important"
+                                                            <input required="" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" value="<?php echo $row['ACHIVEMENT'] ?>" style="padding:5px !important"
                                                                 name="achivement" placeholder="achivement" class="form-control text-center cust-control"
                                                                 type='number' <?php if ($existAchievement) {
                                                                     echo 'readonly';
-                                                                } ?> >
-                                                            <input required="" value="<?php echo $row['ACHIVEMENT_COMMENTS'] ?>" style="padding:5px !important"
-                                                                name="ACHIVEMENT_COMMENTS" placeholder="describe achivement" class="form-control text-center cust-control"
-                                                                type='text' <?php if ($existAchievement) {
+                                                                } ?>>
+                                                            <input required=""  value="<?php echo $row['ACHIVEMENT_COMMENTS'] ?>"
+                                                                style="padding:5px !important" name="ACHIVEMENT_COMMENTS" placeholder="describe achivement"
+                                                                class="form-control text-center cust-control" type='text' <?php if ($existAchievement) {
                                                                     echo 'readonly';
-                                                                } ?> >
+                                                                } ?>>
                                                             <?php if ($row['STEP_3_STATUS'] === '1') {
-                                                                 if (!$existAchievement) {
-                                                                echo '<button class="btn btn-sm btn-info"> <i class="bx bxs-comment-check"
+                                                                if (!$existAchievement) {
+                                                                    echo '<button class="btn btn-sm btn-info"> <i class="bx bxs-comment-check"
                                                             style="margin:0;font-size:18px"></i> Save</button>';
-                                                            }} ?>
+                                                                }
+                                                            } ?>
 
 
                                                         </div>
                                                     </form>
-                                                    <?php } ?>
+                                                <?php } ?>
                                             </td>
                                             <td>
                                                 <?php echo $row['ELIGIBILITY_FACTOR']; ?>
@@ -150,16 +151,16 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 if ($row['SUBMITTED_STATUS'] == '0') {
                                                     ?>
                                                     <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none" >
+                                                        style="display:none">
                                                     <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>"><i
                                                             class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
                                                     <?php
                                                 }
                                                 else {
-                                                    echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
+                                                    // echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
                                                 }
                                                 ?>
-                                              
+
                                             </td>
 
                                         </tr>
