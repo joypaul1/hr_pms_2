@@ -84,11 +84,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 <?php echo $number; ?>
                                             </td>
                                             <td>
-                                                <?php echo $row['KPI_NAME']; ?>
-                                            </td>
-                                            <td>
                                                 <?php echo $row['KRA_NAME']; ?>
                                             </td>
+                                            <td>
+                                                <?php echo $row['KPI_NAME']; ?>
+                                            </td>
+                                           
                                             <td>
                                                 <?php echo $row['WEIGHTAGE']; ?>
                                             </td>

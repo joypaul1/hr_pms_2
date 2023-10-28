@@ -290,8 +290,9 @@ if (isset($_POST['kpi_name'])) {
                                             $slNumber++;
                                             ?>
                                             <tr>
-                                                <td height="60px">
+                                                <td >
                                                     <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -309,8 +310,9 @@ if (isset($_POST['kpi_name'])) {
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             ?>
                                             <tr>
-                                                <td height="60px" class="align-middle">
+                                                <td  class="align-middle">
                                                     <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -328,8 +330,9 @@ if (isset($_POST['kpi_name'])) {
                                             ?>
                                             <tr>
 
-                                                <td height="60px" class="align-middle">
+                                                <td  class="align-middle">
                                                     <?php echo $rowIN['TARGET']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -346,8 +349,9 @@ if (isset($_POST['kpi_name'])) {
                                             ?>
                                             <tr>
 
-                                                <td height="60px" class="align-middle">
+                                                <td  class="align-middle">
                                                     <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -366,8 +370,9 @@ if (isset($_POST['kpi_name'])) {
                                             $slNumberR++;
                                             ?>
                                             <tr>
-                                                <td height="60px">
-                                                    <?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?>
+                                                <td >
+                                                    <?php echo $rowIN['REMARKS']; ?>
+                                                    <hr>
                                                 </td>
 
                                             </tr>

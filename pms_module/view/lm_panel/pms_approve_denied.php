@@ -215,6 +215,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             <tr>
                                                 <td>
                                                     <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -234,6 +235,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             <tr>
                                                 <td class="align-middle">
                                                     <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -253,6 +255,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
 
                                                 <td class="align-middle">
                                                     <?php echo $rowIN['TARGET']; ?>
+                                                    <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -272,7 +275,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?>
+                                                    <?php   $rowIN['REMARKS']; ?> <hr>
                                                 </td>
 
                                             </tr>

@@ -206,7 +206,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
+                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?> <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -225,7 +225,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td class="align-middle">
-                                                    <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    <?php echo $rowIN['WEIGHTAGE']; ?> <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -244,7 +244,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             <tr>
 
                                                 <td class="align-middle">
-                                                    <?php echo $rowIN['TARGET']; ?>
+                                                    <?php echo $rowIN['TARGET']; ?> <hr>
                                                 </td>
                                             </tr>
                                             <?php
@@ -264,7 +264,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php echo $slNumberR . '. ' . $rowIN['REMARKS']; ?>
+                                                    <?php echo $rowIN['REMARKS']; ?> <hr>
                                                 </td>
 
                                             </tr>
