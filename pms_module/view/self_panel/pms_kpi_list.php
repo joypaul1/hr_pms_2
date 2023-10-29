@@ -148,17 +148,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             </td> -->
                                             <td>
                                                 <?php
-                                                if ($row['SUBMITTED_STATUS'] == '0') {
+                                                if ($row['SUBMITTED_STATUS'] != '1') {
                                                     ?>
-                                                    <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-                                                        style="display:none">
-                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>"><i
-                                                            class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
+                                                    <a class="btn btn-warning btn-sm" href="pms_kpi_list_edit.php?id=<?php echo $row['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
                                                     <?php
                                                 }
-                                                else {
-                                                    // echo '<button type="button" class="btn btn-success btn-sm">Submitted</button>';
-                                                }
+                                                
                                                 ?>
 
                                             </td>

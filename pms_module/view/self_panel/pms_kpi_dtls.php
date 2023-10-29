@@ -110,53 +110,22 @@ if (isset($_POST['kpi_name'])) {
         ?>
         <div class="card col-lg-12">
             <form action="" method="post">
-                <div class="card-body row justify-content-center">
-                    <!-- <div class="col-sm-3">
-                        <label for="exampleInputEmail1">Select KRA:</label>
-                        <select required="" name="kra_id" class="form-control text-center cust-control">
-                            <option value=""><-Select KRA -></option>
-                            <?php
-                            $query = "select BB.ID,
-                                    BB.KRA_NAME,
-                                    (select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
-                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
-                                            WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
-                                            AND A.EMP_ID='$emp_session_id'
-                                    )SUBMITTED_STATUS,
-                                    CREATED_BY,
-                                    CREATED_DATE,UPDATED_DATE,
-                                    IS_ACTIVE 
-                                FROM HR_PMS_KRA_LIST BB
-                                WHERE BB.CREATED_BY='$emp_session_id'";
-
-
-                            $strSQL = oci_parse($objConnect, $query);
-                            oci_execute($strSQL);
-                            while ($row = oci_fetch_assoc($strSQL)) {
-
-                                ?>
-                                <option value="<?php echo $row['ID']; ?>">
-                                    <?php echo $row['KRA_NAME']; ?>
-                                </option>
-                                <?php
-                            }
-                            ?>
-                        </select>
-                    </div> -->
+                <div class="card-body row text-center justify-content-end">
+                    <!-- <button class="btn btn-sm btn-warning">Add KRA</button> -->
 
                     <div class="col-sm-3">
-                        <label class="form-label" for="kra_id">Select KRA Option <span class="text-danger">*</span></label>
+                        <a href="pms_kra_create.php" class="form-label  btn btn-sm text-white btn-warning"><i class='bx bxs-location-plus'></i> Add KRA
+                            ?</a>
+                        <!-- <label class="form-label" for="kra_id">Select KRA Option <span class="text-danger">*</span></label> -->
                         <select required="" name="kra_id" class="form-control text-center cust-control" id='kra_id'>
-                            <option selected value=""><- selecte KRA -></option>
+                            <option hidden value=""><- selecte KRA -></option>
 
                             <?php
-                            $query = "select BB.ID,
+                            $query = "SELECT BB.ID,
                                     BB.KRA_NAME,
-                                    (select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
-                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
-                                            WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
-                                            AND A.EMP_ID='$emp_session_id'
-                                    )SUBMITTED_STATUS,
+                                    (select  PMS_NAME  FROM HR_PMS_LIST WHERE id=BB.HR_PMS_LIST_ID) PMS_NAME,
+                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
+                                    AND A.EMP_ID='$emp_session_id')SUBMITTED_STATUS,
                                     CREATED_BY,
                                     CREATED_DATE,UPDATED_DATE,
                                     IS_ACTIVE 
@@ -178,11 +147,13 @@ if (isset($_POST['kpi_name'])) {
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <label class="form-label" for="weightage">Remain Weightage <span class="text-danger">*</span> <strong class="text-info">(
+                        <label class="form-label" for="weightage">Remain Weightage <span class="text-danger">*</span>
+                            <strong class="text-info">(
                                 <?php echo 100 - $v_previous_weightage ?>%)
-                            </strong> </label>
+                            </strong>
+                        </label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
-                            <option selected hidden value=""><- selecte Weightage -></option>
+                            <option hidden value=""><- selecte Weightage -></option>
 
                             <option value="5">5 (%)</option>
                             <option value="10">10 (%)</option>
@@ -211,7 +182,6 @@ if (isset($_POST['kpi_name'])) {
                         </select>
 
                     </div>
-                    <!-- <div class="col-md-12"></div> -->
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">KPI Name <span class="text-danger">*</span></label>
                         <input required="" class="form-control cust-control" type='text' name="kpi_name">
@@ -269,21 +239,31 @@ if (isset($_POST['kpi_name'])) {
                                 <td class="align-middle">
                                     <?php echo $number; ?>
                                 </td>
-                                <td class="align-middle">
+                                <td class="align-middle gap-2">
+                                    <?php if ($SUBMITTED_STATUS != 1) {?>
+                                    <a class="btn btn-sm btn-warning" style="padding: 1%;" href="pms_kra_edit.php?id=<?php echo $table_ID; ?>"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></a>
+                                    <?php }?>
                                     <?php echo $row['KRA_NAME']; ?>
+
+
                                 </td>
                                 <td class="align-middle">
                                     <table width="100%">
                                         <?php
 
                                         $slNumber    = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
                                             ?>
                                             <tr>
                                                 <td>
+                                                <?php if ($SUBMITTED_STATUS != 1) {?>
+                                                    <a class="btn btn-info btn-sm" style="padding: 1%;"
+                                                        href="pms_kpi_list_edit.php?id=<?php echo $rowIN['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit"  style="margin:0;font-size:16px"></i></a>
+                                                <?php }?>
+
                                                     <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
                                                     <hr>
                                                 </td>
@@ -652,7 +632,7 @@ if (isset($_POST['kpi_name'])) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    calc_total() ;
+    calc_total();
     function calc_total() {
         var sum = 0;
         $(".WEIGHTAGE").each(function () {

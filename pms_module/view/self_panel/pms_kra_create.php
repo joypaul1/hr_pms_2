@@ -170,7 +170,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<?php
 										$strSQL = oci_parse(
 											$objConnect,
-											"select BB.ID,
+											"SELECT BB.ID,
 											BB.KRA_NAME,
 											(select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
 											(SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
@@ -217,10 +217,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													<?php
 													if ($row['SUBMITTED_STATUS'] != '1') {
 														?>
-														<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-															style="display:none" >
-														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>"><i
-																class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
+														<!-- <input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" > -->
+														<a class="btn btn-warning btn-sm" href="pms_kra_edit.php?id=<?php echo $row['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:20px"></i></a>
 														<?php
 													}
 													else {

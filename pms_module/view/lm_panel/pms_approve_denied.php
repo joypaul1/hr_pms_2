@@ -48,7 +48,7 @@ LINE_MANAGE_2_REMARKS,HR_STATUS_REMARKS
                                     FROM HR_PMS_EMP WHERE ID='$v_emp_table_id'");
 oci_execute($commentSQL);
 while ($row = oci_fetch_assoc($commentSQL)) {
-  
+
     $SUBMITTED_STATUS      = $row['SELF_SUBMITTED_STATUS'];
     $SELF_REMARKS          = $row['SELF_REMARKS'];
     $LINE_MANAGE_1_REMARKS = $row['LINE_MANAGE_1_REMARKS'];
@@ -63,12 +63,12 @@ while ($row = oci_fetch_assoc($commentSQL)) {
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    
+
     <div class="card">
         <div class="row card-body">
-            <form action="<?php echo $basePath.'/pms_module/action/lm_panel.php'?>" method="post">
-            <input type="hidden" name="actionType" value="pms_approved_denied">
-            <input type="hidden" name="hr_pms_pms_emp_table_id" value="<?php echo $v_emp_table_id?>">
+            <form action="<?php echo $basePath . '/pms_module/action/lm_panel.php' ?>" method="post">
+                <input type="hidden" name="actionType" value="pms_approved_denied">
+                <input type="hidden" name="hr_pms_pms_emp_table_id" value="<?php echo $v_emp_table_id ?>">
                 <div class="">
                     <?php
                     while ($row = oci_fetch_assoc($strSQL)) {
@@ -77,23 +77,23 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                         <div class="row">
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee ID:</label>
-                                <input name="emp_id" readonly  placeholder="EMP-ID" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['RML_ID']; ?>' >
+                                <input name="emp_id" readonly placeholder="EMP-ID" class="form-control cust-control" type='text'
+                                    value='<?php echo $row['RML_ID']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Name:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_NAME']; ?>' >
+                                    value='<?php echo $row['EMP_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Designation:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DESIGNATION']; ?>' >
+                                    value='<?php echo $row['DESIGNATION']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Department:</label>
                                 <input required="" name="emp_dep" readonly placeholder="EMP dep" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DEPT_NAME']; ?>' >
+                                    value='<?php echo $row['DEPT_NAME']; ?>'>
                             </div>
                         </div>
 
@@ -101,22 +101,22 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-1:</label>
                                 <input class="form-control cust-control" required="" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' >
+                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-2:</label>
                                 <input required="" required="" class="form-control cust-control" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' >
+                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Group:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_GROUP']; ?>' >
+                                    value='<?php echo $row['EMP_GROUP']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Branch:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['BRANCH_NAME']; ?>' >
+                                    value='<?php echo $row['BRANCH_NAME']; ?>'>
                             </div>
                         </div>
 
@@ -126,13 +126,12 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="row mt-3">
                                 <div class="col-sm-6">
                                     <label class="form-label" for="basic-default-fullname">Comment</label>
-                                    <input required="" name="remarks"  placeholder="Approval Or Denied Remarks" class="form-control cust-control"
-                                        type="text">
+                                    <input required="" name="remarks" placeholder="Approval Or Denied Remarks" class="form-control cust-control" type="text">
                                 </div>
                                 <div class="col-sm-3">
 
                                     <label class="form-label" for="basic-default-fullname">Select Type</label>
-                                    <select name="app_status" class="form-control cust-control"  required="">
+                                    <select name="app_status" class="form-control cust-control" required="">
                                         <option selected="" value="">---</option>
                                         <option value="1">Approve</option>
                                         <option value="0">Denied</option>
@@ -142,7 +141,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                 <div class="col-sm-3">
                                     <div class="md-form">
                                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                                        <input class="form-control btn btn-primary cust-control" type="submit"  value="Submit">
+                                        <input class="form-control btn btn-primary cust-control" type="submit" value="Submit">
                                     </div>
                                 </div>
 
@@ -207,7 +206,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                         <?php
 
                                         $slNumber    = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
@@ -275,7 +274,8 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                             ?>
                                             <tr>
                                                 <td>
-                                                    <?php echo  $rowIN['REMARKS']; ?> <hr>
+                                                    <?php echo $rowIN['REMARKS']; ?>
+                                                    <hr>
                                                 </td>
 
                                             </tr>
@@ -527,7 +527,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="content">
                                 <h4 class="title shadow-none bg-light rounded">HR </h4>
                                 <p class="description">
-                                    <?php  echo $HR_STATUS_REMARKS ?>
+                                    <?php echo $HR_STATUS_REMARKS ?>
                                 </p>
                             </div>
                         </div>
