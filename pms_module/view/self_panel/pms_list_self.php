@@ -286,15 +286,13 @@ oci_execute($strSQL);
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
-												style="display:none" >
+											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" >
 											<br>
 											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
-												<a class="btn btn-warning btn-sm" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i
-														class='bx bxs-message-square-add'></i> </a>
+												<a class="btn btn-warning btn-sm" style="padding: 3% 8%;" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i class='bx bxs-message-square-add'></i> </a>
 											<?php }
 											else {
-												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '">View KPI</a>';
+												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '" style="padding: 3% 8%;">View KPI</a>';
 											} ?>
 
 										</td>
