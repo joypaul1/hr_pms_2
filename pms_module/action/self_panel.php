@@ -29,9 +29,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_list.php'</script>";
     }
-
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_create') {
+
+    $editId         = $_POST['editId'];
+    $v_kra_name     = $_POST['kra_name'];
+    $HR_PMS_LIST_ID = $_POST['pms_title_id'];
+    $query          = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
+    $strSQL         = oci_parse($objConnect, $query);
+
+    if (oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'KRA is Edited successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kra_edit.php?id=$editId'</script>";
+    }
+    else {
+
+        $e                        = oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_kra_edit.php?id=$editId'</script>";
+    }
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_edit') {

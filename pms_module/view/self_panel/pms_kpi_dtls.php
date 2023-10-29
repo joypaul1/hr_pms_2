@@ -23,9 +23,67 @@ while ($row = oci_fetch_assoc($strSQL)) {
     $HR_STATUS_REMARKS     = $row['HR_STATUS_REMARKS'];
 }
 
+if (isset($_POST['kra_name'])) {
 
+    $self_submitted_status = 0;
 
+    $v_kra_name     = $_REQUEST['kra_name'];
+    $v_pms_title_id = $_REQUEST['pms_title_id'];
+    $strStatus      = oci_parse(
+        $objConnect,
+        "SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP 
+                       WHERE EMP_ID='$emp_session_id'
+                       AND HR_PMS_LIST_ID='$v_pms_title_id'"
+    );
 
+    if (oci_execute($strStatus)) {
+        while ($row = oci_fetch_assoc($strStatus)) {
+            $self_submitted_status = $row['SELF_SUBMITTED_STATUS'];
+        }
+    }
+
+    if ($self_submitted_status == 0) {
+        $strSQL = oci_parse(
+            $objConnect,
+            "INSERT INTO HR_PMS_KRA_LIST (
+                             KRA_NAME,
+                             HR_PMS_LIST_ID,											 
+                             CREATED_BY, 
+                             CREATED_DATE, 
+                             IS_ACTIVE) 
+                        VALUES ( 
+                             '$v_kra_name',
+                             '$v_pms_title_id',
+                             '$emp_session_id',
+                             sysdate,
+                             1)"
+        );
+        if (@oci_execute($strSQL)) {
+            $message                  = [
+                'text'   => 'KRA is created successfully.',
+                'status' => 'true',
+            ];
+            $_SESSION['noti_message'] = $message;
+        }
+        else {
+            $e                        = oci_error($strSQL);
+            $message                  = [
+                'text'   => htmlentities($e['message'], ENT_QUOTES),
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+
+        }
+    }
+    else {
+
+        $message                  = [
+            'text'   => "You can not create new KRA  cause of this MS data are already submitted.",
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+    }
+}
 // Weaightage value
 $v_previous_weightage = 0;
 $WATESQL              = oci_parse(
@@ -110,13 +168,13 @@ if (isset($_POST['kpi_name'])) {
         ?>
         <div class="card col-lg-12">
             <form action="" method="post">
-                <div class="card-body row text-center justify-content-end">
-                    <!-- <button class="btn btn-sm btn-warning">Add KRA</button> -->
+                <div class="card-body row  justify-content-end align-items-center">
 
                     <div class="col-sm-3">
-                        <a href="pms_kra_create.php" class="form-label  btn btn-sm text-white btn-warning"><i class='bx bxs-location-plus'></i> Add KRA
-                            ?</a>
-                        <!-- <label class="form-label" for="kra_id">Select KRA Option <span class="text-danger">*</span></label> -->
+                        <!-- Button trigger modal -->
+                        <button type="button" class="form-label  btn btn-sm text-white btn-warning" data-bs-toggle="modal" data-bs-target="#kraModal">
+                            <i class='bx bxs-location-plus'></i> Add KRA ?
+                        </button>
                         <select required="" name="kra_id" class="form-control text-center cust-control" id='kra_id'>
                             <option hidden value=""><- selecte KRA -></option>
 
@@ -189,7 +247,7 @@ if (isset($_POST['kpi_name'])) {
                     </div>
                     <div class="col-sm-6 mt-2">
                         <label class="form-label" for="basic-default-fullname">Any Comment ?</label>
-                        <input class="form-control" type='text' name="ramarks">
+                        <input class="form-control cust-control"" type='text' name=" ramarks">
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
@@ -265,7 +323,7 @@ if (isset($_POST['kpi_name'])) {
                                                                 style="margin:0;font-size:16px"></i></a>
                                                     <?php } ?>
 
-                                                    <?php echo  $rowIN['KPI_NAME']; ?>
+                                                    <?php echo $rowIN['KPI_NAME']; ?>
                                                 </td>
                                                 <td style="width: 15%;text-align:center ">
                                                     <span class="WEIGHTAGE">
@@ -303,10 +361,10 @@ if (isset($_POST['kpi_name'])) {
                              
 
                             </td> -->
-                            <td colspan="2" class="text-center" >
-                            <strong>
+                            <td colspan="2" class="text-center">
+                                <strong>
                                     Total Weightage :
-                                </strong>  <strong style="text-decoration-line: underline;text-decoration-style: double;" id="sum">0</strong>
+                                </strong> <strong style="text-decoration-line: underline;text-decoration-style: double;" id="sum">0</strong>
                             </td>
                         </tr>
                     </tfoot>
@@ -560,6 +618,58 @@ if (isset($_POST['kpi_name'])) {
     </div>
 </div>
 
+<!-- Modal -->
+<!-- Modal -->
+<div class="modal fade" id="kraModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bxs-message-square-add'></i> KRA Create</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="" method="POST">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <label for="exampleInputEmail1">KRA Name:</label>
+                            <input required="" style="padding:5px !important" name="kra_name" placeholder="Enter KRA Name"
+                                class="form-control cust-control" type='text'>
+                        </div>
+                        <div class="col-12">
+                            <label for="exampleInputEmail1">Select PMS Title:</label>
+                            <select required="" name="pms_title_id" class="form-control cust-control">
+                                <option value="" selected><-Select PMS -></option>
+
+                                <?php
+
+                                $strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
+                                oci_execute($strSQL);
+                                while ($row = oci_fetch_assoc($strSQL)) {
+                                    ?>
+
+                                    <option value="<?php echo $row['ID']; ?>" selected>
+                                        <?php echo $row['PMS_NAME']; ?>
+                                    </option>
+                                    <?php
+                                }
+                                ?>
+                            </select>
+                        </div>
+
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 
@@ -572,7 +682,6 @@ if (isset($_POST['kpi_name'])) {
         $(".WEIGHTAGE").each(function () {
             sum += parseFloat($(this).text());
         });
-        // console.log(sum)
         $('#sum').text(sum);
     }
 </script>

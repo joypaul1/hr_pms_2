@@ -202,14 +202,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
             WHERE ID = $editId";
 
         // when step2 active..store step1 data by procidure 
-        if (isset($step_status_2) || !empty($step_status_2)) {
-            $storeQuery = "BEGIN PMS_DATA_HISTORY('$editId',''); END;";
-
+        if (isset($step_status_2) && $step_status_2 == 1) {
+            $storeQuery   = "BEGIN PMS_DATA_HISTORY('$editId',''); END;";
             $storeDataSQL = @oci_parse($objConnect, $storeQuery);
             $storeResult  = @oci_execute($storeDataSQL);
             if (!$storeResult) {
-                $e       = @oci_error($storeDataSQL);
-                $message = [
+                $e                        = @oci_error($storeDataSQL);
+                $message                  = [
                     'text'   => htmlentities($e['message'], ENT_QUOTES),
                     'status' => 'false',
                 ];
@@ -218,7 +217,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
                 exit();
             }
 
-            // this function working on HR_PMS
         }
 
         $strSQL = @oci_parse($objConnect, $query);
