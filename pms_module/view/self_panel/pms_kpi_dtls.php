@@ -212,14 +212,17 @@ if (isset($_POST['kpi_name'])) {
                 <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
                     <thead class="table-dark">
                         <tr class="text-center">
+                            <th scope="col">Key Result Areas (KRA)</th>
+                            <th colspan="5">
+                                <table class="table table-bordered text-break" width="100%">
+                                    <th style="width: 45%;" scope="col">Key Performance indicators<br>(KPI)</th>
+                                    <th style="width: 15%;" scope="col">Weightage<br>(5%-30%)</th>
+                                    <th style="width: 10%;" scope="col">Target</th>
+                                    <th style="width: 10%;" scope="col">Eligibility Factor</th>
+                                    <th style="width: 20%;" scope="col">Comment</th>
+                                </table>
 
-                            <th class="text-center">Sl.</th>
-                            <th scope="col">Key Result Areas<br>KRA</th>
-                            <th scope="col">Key Performance indicators<br>KPI</th>
-                            <th scope="col">Weightage(%)<br>(Range of 5-30)</th>
-                            <th scope="col">Target</th>
-                            <th scope="col">Eligibility Factor</th>
-                            <th scope="col">Comment</th>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -235,120 +238,51 @@ if (isset($_POST['kpi_name'])) {
                                 $table_ID = $row['ID'];
                                 $number++;
                                 ?>
-
-                                <td class="align-middle">
-                                    <?php echo $number; ?>
-                                </td>
                                 <td class="align-middle gap-2">
-                                    <?php if ($SUBMITTED_STATUS != 1) {?>
-                                    <a class="btn btn-sm btn-warning" style="padding: 1%;" href="pms_kra_edit.php?id=<?php echo $table_ID; ?>"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></a>
-                                    <?php }?>
+                                    <?php if ($SUBMITTED_STATUS != 1) { ?>
+                                        <a class="btn btn-sm btn-warning" style="padding: 1%;" href="pms_kra_edit.php?id=<?php echo $table_ID; ?>"><i
+                                                class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></a>
+                                    <?php } ?>
                                     <?php echo $row['KRA_NAME']; ?>
 
 
                                 </td>
-                                <td class="align-middle">
-                                    <table width="100%">
+                                <td colspan="5">
+                                    <table class="table table-bordered text-break" width="100%">
                                         <?php
 
                                         $slNumber    = 0;
-                                        $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME,WEIGHTAGE,TARGET,ELIGIBILITY_FACTOR,REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
                                             ?>
                                             <tr>
-                                                <td>
-                                                <?php if ($SUBMITTED_STATUS != 1) {?>
-                                                    <a class="btn btn-info btn-sm" style="padding: 1%;"
-                                                        href="pms_kpi_list_edit.php?id=<?php echo $rowIN['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit"  style="margin:0;font-size:16px"></i></a>
-                                                <?php }?>
+                                                <td style="width: 45%;">
+                                                    <?php if ($SUBMITTED_STATUS != 1) { ?>
+                                                        <a class="btn btn-info btn-sm" style="padding: 1%;"
+                                                            href="pms_kpi_list_edit.php?id=<?php echo $rowIN['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit"
+                                                                style="margin:0;font-size:16px"></i></a>
+                                                    <?php } ?>
 
-                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
-                                                    <hr>
+                                                    <?php echo  $rowIN['KPI_NAME']; ?>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle text-center">
-                                    <table width="100%">
-                                        <?php
-
-                                        $strSQLInner = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-                                                <td class="align-middle">
+                                                <td style="width: 15%;text-align:center ">
                                                     <span class="WEIGHTAGE">
                                                         <?php echo $rowIN['WEIGHTAGE']; ?>
                                                     </span>
-                                                    <hr>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $strSQLInner = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-
-                                                <td class="align-middle">
+                                                <td style="width: 10%;text-align:center ">
                                                     <?php echo $rowIN['TARGET']; ?>
-                                                    <hr>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $strSQLInner = oci_parse($objConnect, "select ELIGIBILITY_FACTOR from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-
-                                                <td class="align-middle">
+                                                <td style="width: 10%;text-align:center ">
                                                     <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
-                                                    <hr>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-
-                                    <table width="100%">
-                                        <?php
-                                        $strSQLInner = oci_parse($objConnect, "SELECT REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-
-                                                <td class="align-middle">
+                                                <td style="width: 20%;">
                                                     <?php echo $rowIN['REMARKS']; ?>
-                                                    <hr>
                                                 </td>
+
+
                                             </tr>
                                             <?php
                                         }
@@ -365,14 +299,14 @@ if (isset($_POST['kpi_name'])) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" class="text-right">
-                                <strong>
-                                    Total Weightage :
-                                </strong>
+                            <!-- <td  class="text-right">
+                             
 
-                            </td>
-                            <td class="text-center">
-                                <strong id="sum">0</strong>
+                            </td> -->
+                            <td colspan="2" class="text-center" >
+                            <strong>
+                                    Total Weightage :
+                                </strong>  <strong style="text-decoration-line: underline;text-decoration-style: double;" id="sum">0</strong>
                             </td>
                         </tr>
                     </tfoot>
