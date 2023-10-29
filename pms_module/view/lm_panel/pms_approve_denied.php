@@ -168,14 +168,19 @@ while ($row = oci_fetch_assoc($commentSQL)) {
         <div class="card-body">
             <div class="table-responsive text-break">
                 <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
-                    <thead style="background-color: #0e024efa;">
+                    <thead class="table-dark">
                         <tr class="text-center">
-                            <th class="">Sl.</th>
-                            <th scope="col">KRA(Key Result Areas)<br>KRA</th>
-                            <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
-                            <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
-                            <th scope="col">Target</th>
-                            <th scope="col">Comment</th>
+                            <th scope="col">Key Result Areas (KRA)</th>
+                            <th colspan="5">
+                                <table class="table table-bordered text-break" width="100%">
+                                    <th style="width: 45%;" scope="col">Key Performance indicators<br>(KPI)</th>
+                                    <th style="width: 15%;" scope="col">Weightage<br>(5%-30%)</th>
+                                    <th style="width: 10%;" scope="col">Target</th>
+                                    <th style="width: 10%;" scope="col">Eligibility Factor</th>
+                                    <th style="width: 20%;" scope="col">Comment</th>
+                                </table>
+
+                            </th>
                         </tr>
                     </thead>
 
@@ -185,8 +190,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <?php
                             $strSQL = oci_parse(
                                 $objConnect,
-                                "select KRA_NAME,ID
-							        FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$v_emp_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
+                                "SELECT KRA_NAME,ID FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$v_emp_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -195,88 +199,39 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                 $number++;
                                 ?>
 
-                                <td class="align-middle">
-                                    <?php echo $number; ?>
-                                </td>
+
                                 <td class="align-middle">
                                     <?php echo $row['KRA_NAME']; ?>
                                 </td>
-                                <td class="align-middle">
-                                    <table width="100%">
+                                <td colspan="5">
+                                    <table class="table table-bordered text-break" width="100%">
                                         <?php
 
                                         $slNumber    = 0;
-                                        $strSQLInner = oci_parse($objConnect, "SELECT KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME,WEIGHTAGE,TARGET,ELIGIBILITY_FACTOR,REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
                                             ?>
                                             <tr>
-                                                <td>
-                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
-                                                    <hr>
+                                                <td style="width: 45%;">
+                                                    <?php echo $rowIN['KPI_NAME']; ?>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-
-                                        $strSQLInner = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <?php echo $rowIN['WEIGHTAGE']; ?>
-                                                    <hr>
+                                                <td style="width: 15%;text-align:center ">
+                                                    <span class="WEIGHTAGE">
+                                                        <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    </span>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $strSQLInner = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-
-                                                <td class="align-middle">
+                                                <td style="width: 10%;text-align:center ">
                                                     <?php echo $rowIN['TARGET']; ?>
-                                                    <hr>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $slNumberR   = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            $slNumberR++;
-                                            ?>
-                                            <tr>
-                                                <td>
+                                                <td style="width: 10%;text-align:center ">
+                                                    <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
+                                                </td>
+                                                <td style="width: 20%;">
                                                     <?php echo $rowIN['REMARKS']; ?>
-                                                    <hr>
                                                 </td>
+
 
                                             </tr>
                                             <?php

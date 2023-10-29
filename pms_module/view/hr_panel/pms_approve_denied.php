@@ -75,22 +75,22 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee ID:</label>
                                 <input name="emp_id" readonly placeholder="EMP-ID" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['RML_ID']; ?>' >
+                                    value='<?php echo $row['RML_ID']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Name:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_NAME']; ?>' >
+                                    value='<?php echo $row['EMP_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Designation:</label>
                                 <input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DESIGNATION']; ?>' >
+                                    value='<?php echo $row['DESIGNATION']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Department:</label>
                                 <input required="" name="emp_dep" readonly placeholder="EMP dep" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['DEPT_NAME']; ?>' >
+                                    value='<?php echo $row['DEPT_NAME']; ?>'>
                             </div>
                         </div>
 
@@ -98,22 +98,22 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-1:</label>
                                 <input class="form-control cust-control" required="" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' >
+                                    value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">PMS Line Manager-2:</label>
                                 <input required="" required="" class="form-control cust-control" readonly type='text'
-                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' >
+                                    value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Group:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['EMP_GROUP']; ?>' >
+                                    value='<?php echo $row['EMP_GROUP']; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <label for="exampleInputEmail1">Employee Branch:</label>
                                 <input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-                                    value='<?php echo $row['BRANCH_NAME']; ?>' >
+                                    value='<?php echo $row['BRANCH_NAME']; ?>'>
                             </div>
                         </div>
 
@@ -163,16 +163,21 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                 <?php echo $_GET['emp_id'] ?> For PMS Details
             </b></h5>
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
-                    <thead style="background-color: #0e024efa;">
+            <div class="table-responsive">
+                <table class="table table-bordered text-break" border="1" cellspacing="0" cellpadding="0">
+                    <thead class="table-dark">
                         <tr class="text-center">
-                            <th class="">Sl <br>No</th>
-                            <th scope="col">KRA(Key Result Areas)<br>KRA</th>
-                            <th scope="col">KPI (Key Performance indicators)<br>KPI</th>
-                            <th scope="col">Weightage (%) <br>(Range of 5-30)</th>
-                            <th scope="col">Target</th>
-                            <th scope="col">Comment</th>
+                            <th scope="col">Key Result Areas (KRA)</th>
+                            <th colspan="5">
+                                <table class="table table-bordered text-break" width="100%">
+                                    <th style="width: 45%;" scope="col">Key Performance indicators<br>(KPI)</th>
+                                    <th style="width: 15%;" scope="col">Weightage<br>(5%-30%)</th>
+                                    <th style="width: 10%;" scope="col">Target</th>
+                                    <th style="width: 10%;" scope="col">Eligibility Factor</th>
+                                    <th style="width: 20%;" scope="col">Comment</th>
+                                </table>
+
+                            </th>
                         </tr>
                     </thead>
 
@@ -192,88 +197,39 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                 $number++;
                                 ?>
 
-                                <td class="align-middle">
-                                    <?php echo $number; ?>
-                                </td>
+
                                 <td class="align-middle">
                                     <?php echo $row['KRA_NAME']; ?>
                                 </td>
-                                <td class="align-middle">
-                                    <table width="100%">
+                                <td colspan="5">
+                                    <table class="table table-bordered text-break" width="100%">
                                         <?php
 
                                         $slNumber    = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select KPI_NAME from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                        $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME,WEIGHTAGE,TARGET,ELIGIBILITY_FACTOR,REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
                                         while ($rowIN = oci_fetch_assoc($strSQLInner)) {
                                             $slNumber++;
                                             ?>
                                             <tr>
-                                                <td>
-                                                    <?php echo $slNumber . '. ' . $rowIN['KPI_NAME']; ?>
-                                                    <hr>
+                                                <td style="width: 45%;">
+                                                    <?php echo $rowIN['KPI_NAME']; ?>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-
-                                        $strSQLInner = oci_parse($objConnect, "select WEIGHTAGE from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-                                                <td class="align-middle">
-                                                    <?php echo $rowIN['WEIGHTAGE']; ?>
-                                                    <hr>
+                                                <td style="width: 15%;text-align:center ">
+                                                    <span class="WEIGHTAGE">
+                                                        <?php echo $rowIN['WEIGHTAGE']; ?>
+                                                    </span>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $strSQLInner = oci_parse($objConnect, "select TARGET from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            ?>
-                                            <tr>
-
-                                                <td class="align-middle">
+                                                <td style="width: 10%;text-align:center ">
                                                     <?php echo $rowIN['TARGET']; ?>
-                                                    <hr>
                                                 </td>
-                                            </tr>
-                                            <?php
-                                        }
-                                        ?>
-                                    </table>
-                                </td>
-
-                                <td class="align-middle">
-                                    <table width="100%">
-                                        <?php
-                                        $slNumberR   = 0;
-                                        $strSQLInner = oci_parse($objConnect, "select REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID ORDER BY ID");
-                                        oci_execute($strSQLInner);
-                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                            $slNumberR++;
-                                            ?>
-                                            <tr>
-                                                <td>
+                                                <td style="width: 10%;text-align:center ">
+                                                    <?php echo $rowIN['ELIGIBILITY_FACTOR']; ?>
+                                                </td>
+                                                <td style="width: 20%;">
                                                     <?php echo $rowIN['REMARKS']; ?>
-                                                    <hr>
                                                 </td>
+
 
                                             </tr>
                                             <?php
