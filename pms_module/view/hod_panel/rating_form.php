@@ -117,13 +117,13 @@ $EMP_ID         = $_GET['emp_id'];
                                 </div>
                                 <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">
                                     Head Of Department RATING <i class="bx bxs-hand-down text-info"></i></div>
-
-                                <div class="mt-3">
-                                    <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post" id="ratingForm">
-                                        <input type='hidden' name='actionType' value='rating_form'>
-                                        <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
-                                        <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
-                                        <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
+                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post" id="ratingForm">
+                                    <input type='hidden' name='actionType' value='rating_form'>
+                                    <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
+                                    <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
+                                    <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
+                                    <div class="mt-3">
+                                  
                                         <div class="row">
                                             <div class="col-sm-6 col-md-3  col-lg-3 ">
                                                 <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
@@ -209,135 +209,130 @@ $EMP_ID         = $_GET['emp_id'];
                                             echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
                                         }
                                         ?>
-                                    </form>
-                                </div>
-                                <div class="row ">
-
-                                    <div class="col-12">
-                                        <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold"
-                                            style="background: #0e024efa;">
-                                            <i class='bx bxs-shield-alt-2'></i>[Note : Here You Can Set Achivement Rating Value] <i
-                                                class='bx bxs-shield-alt-2'></i>
-                                        </div>
                                     </div>
-
-                                            <div class="col-12">
-
-                                                    <div class='card card-body '>
-
-                                                    <div class=" d-flex text-center">
-                                                <div class="col-2">
-                                                    <u> <strong>KRA Name</strong></u>
-                                                </div>
-                                                <div class="col-2">
-                                                    <u> <strong>KPI Name</strong></u>
-                                                </div>
-                                                <div class="col-1">
-                                                    <u> <strong>T</strong></u>
-                                                </div>
-                                                <div class="col-1">
-                                                    <u> <strong>TW</strong></u>
-                                                </div>
-                                                <div class="col-2">
-                                                    <u><strong>Ach. Comment</strong></u>
-                                                </div>
-                                                <div class="col-2">
-                                                    <u><strong>Achivement</strong></u>
-                                                </div>
-                                                <div class="col-1">
-                                                    <u><strong>AW</strong></u>
-                                                </div>
-                                                <div class="col-1">
-                                                    <u><strong>Score</strong></u>
-                                                </div>
-
+                                </form>
+                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post"
+                                    class=" justify-content-center" id="scoreForm">
+                                    <input type="hidden" name="actionType" value="kpi_achivement">
+                                    <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
+                                    <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
+                                    <input type="hidden" name="emp_id" value="<?php echo $_GET['emp_id'] ?>">
+                                    <?php   $locakSataus = false; ?>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold"
+                                                style="background: #0e024efa;">
+                                                <i class='bx bxs-shield-alt-2'></i>[Note : Here You Can Set Achivement Rating Value] <i
+                                                    class='bx bxs-shield-alt-2'></i>
                                             </div>
-                                            <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post"
-                                                class=" justify-content-center" id="scoreForm">
-                                                <input type="hidden" name="actionType" value="kpi_achivement">
-                                                <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
-                                                <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
-                                                <input type="hidden" name="emp_id" value="<?php echo $_GET['emp_id'] ?>">
-                                                <?php
-                                                $locakSataus = false;
+                                        </div>
 
-                                                $KRASQL = oci_parse(
-                                                    $objConnect,
-                                                    "SELECT  * FROM HR_PMS_KRA_LIST  WHERE CREATED_BY = '$EMP_ID' AND HR_PMS_LIST_ID = '$HR_PMS_LIST_ID'"
-                                                );
-                                                oci_execute($KRASQL);
-                                                $number = 0;
-                                                while ($kraRow = oci_fetch_assoc($KRASQL)) {
-                                                    $table_ID = $kraRow['ID'];
+                                        <div class="col-12">
+                                            <div class='card card-body '>
+                                                <div class=" d-flex text-center">
+                                                    <div class="col-2">
+                                                        <u> <strong>KRA Name</strong></u>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <u> <strong>KPI Name</strong></u>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <u> <strong>T</strong></u>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <u> <strong>TW</strong></u>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <u><strong>Ach. Comment</strong></u>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <u><strong>Achivement</strong></u>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <u><strong>AW</strong></u>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <u><strong>Score</strong></u>
+                                                    </div>
 
-                                                    $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, ACHIVEMENT_COMMENTS,WEIGHTAGE,ACHIEVEMENT_LOCK_STATUS FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
-                                                    oci_execute($strSQLInner);
-                                                    while ($rowIN = oci_fetch_assoc($strSQLInner)) {
-                                                        $achivement      = $rowIN['ACHIVEMENT'] ? $rowIN['ACHIVEMENT'] : 0;
-                                                        $targetWeightage = $rowIN['WEIGHTAGE'] ? $rowIN['WEIGHTAGE'] : 0;
-                                                        $target          = 100;
-                                                        $awValue         = ($achivement / $target) * 100;
-                                                        $score           = ($targetWeightage * $awValue) / 100;
-                                                        if($rowIN['ACHIEVEMENT_LOCK_STATUS'] == 1){
-                                                            $locakSataus = true;
-                                                        }
-                                                        ?>
-
-                                            <div class="row mb-2">
-                                                <div class="col-2">
-                                                    <textarea type="text"  disabled class="form-control "
-                                                        placeholder="kpi name"> <?php echo trim($kraRow['KRA_NAME']); ?> </textarea>
                                                 </div>
-                                                <div class="col-2">
-                                                    <textarea type="text" disabled class="form-control "
-                                                        placeholder="kpi name"><?php echo trim($rowIN['KPI_NAME']); ?> </textarea>
-                                                </div>
-                                                <div class="col-1">
-                                                    <input type="text" disabled class="form-control text-center target"
-                                                        value="<?php echo $rowIN['TARGET']; ?>" placeholder="target">
-                                                </div>
-                                                <div class="col-1">
-                                                    <input type="text" disabled class="form-control text-center targetWeightage"
-                                                        value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
-                                                </div>
-                                                <div class="col-2">
-                                                    <textarea type="text" name="ACHIVEMENT_COMMENTS[<?php echo $rowIN['ID']; ?>]"
-                                                        <?php if( $locakSataus){ 
-                                                            echo 'readonly';
-                                                        }?>
-                                                      
-                                                        class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?trim($rowIN['ACHIVEMENT_COMMENTS']):''; ?> </textarea>
-                                                </div>
-                                                <div class="col-2">
-                                                    <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
-                                                        <?php if( $locakSataus){ 
-                                                            echo 'readonly';
-                                                        }?>
-                                                        value="<?php echo $rowIN['ACHIVEMENT']?$rowIN['ACHIVEMENT']:0; ?>"
-                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                        class="form-control text-center achivement" max="100" min='0' required  placeholder="target achivement">
-                                                </div>
-                                              
                                                 
-                                                <div class="col-1">
-                                                    <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                        class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
-                                                        placeholder="achivement weight">
+                                                <?php
+                                                  
+
+                                                    $KRASQL = oci_parse(
+                                                        $objConnect,
+                                                        "SELECT  * FROM HR_PMS_KRA_LIST  WHERE CREATED_BY = '$EMP_ID' AND HR_PMS_LIST_ID = '$HR_PMS_LIST_ID'"
+                                                    );
+                                                    oci_execute($KRASQL);
+                                                    $number = 0;
+                                                    while ($kraRow = oci_fetch_assoc($KRASQL)) {
+                                                        $table_ID = $kraRow['ID'];
+
+                                                        $strSQLInner = oci_parse($objConnect, "SELECT ID,TARGET,KPI_NAME,ACHIVEMENT, ACHIVEMENT_COMMENTS,WEIGHTAGE,ACHIEVEMENT_LOCK_STATUS FROM HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
+                                                        oci_execute($strSQLInner);
+                                                        while ($rowIN = oci_fetch_assoc($strSQLInner)) {
+                                                            $achivement      = $rowIN['ACHIVEMENT'] ? $rowIN['ACHIVEMENT'] : 0;
+                                                            $targetWeightage = $rowIN['WEIGHTAGE'] ? $rowIN['WEIGHTAGE'] : 0;
+                                                            $target          = 100;
+                                                            $awValue         = ($achivement / $target) * 100;
+                                                            $score           = ($targetWeightage * $awValue) / 100;
+                                                            if($rowIN['ACHIEVEMENT_LOCK_STATUS'] == 1){
+                                                                $locakSataus = true;
+                                                            }
+                                                ?>
+
+                                                <div class="row mb-2">
+                                                    <div class="col-2">
+                                                        <textarea type="text"  disabled class="form-control "
+                                                            placeholder="kpi name"> <?php echo trim($kraRow['KRA_NAME']); ?> </textarea>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <textarea type="text" disabled class="form-control "
+                                                            placeholder="kpi name"><?php echo trim($rowIN['KPI_NAME']); ?> </textarea>
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <input type="text" disabled class="form-control text-center target"
+                                                            value="<?php echo $rowIN['TARGET']; ?>" placeholder="target">
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <input type="text" disabled class="form-control text-center targetWeightage"
+                                                            value="<?php echo $rowIN['WEIGHTAGE']; ?>" placeholder="WEIGHTAGE">
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <textarea type="text" name="ACHIVEMENT_COMMENTS[<?php echo $rowIN['ID']; ?>]"
+                                                            <?php if( $locakSataus){ 
+                                                                echo 'readonly';
+                                                            }?>
+                                                        
+                                                            class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?trim($rowIN['ACHIVEMENT_COMMENTS']):''; ?> </textarea>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <input type="number" name="achivement[<?php echo $rowIN['ID']; ?>]"
+                                                            <?php if( $locakSataus){ 
+                                                                echo 'readonly';
+                                                            }?>
+                                                            value="<?php echo $rowIN['ACHIVEMENT']?$rowIN['ACHIVEMENT']:0; ?>"
+                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                            class="form-control text-center achivement" max="100" min='0' required  placeholder="target achivement">
+                                                    </div>
+                                                
+                                                    
+                                                    <div class="col-1">
+                                                        <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                            class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
+                                                            placeholder="achivement weight">
+                                                    </div>
+                                                    <div class="col-1">
+                                                        <input type="text" value="<?php echo $score ?>" readonly
+                                                            onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+                                                            class="form-control text-center score" placeholder="score">
+                                                    </div>
+
+
                                                 </div>
-                                                <div class="col-1">
-                                                    <input type="text" value="<?php echo $score ?>" readonly
-                                                        onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-                                                        class="form-control text-center score" placeholder="score">
-                                                </div>
-
-
-                                            </div>
-
-
-
-                                                        <?php
-                                                    }
-                                                }
+                                                <?php
+                                                    } }
                                                 ?>
                                                 <div class="col-sm-12 d-flex justify-content-end mt-0">
                                                     <strong class="d-flex justify-content-end gap-2  align-items-center">
@@ -347,11 +342,45 @@ $EMP_ID         = $_GET['emp_id'];
                                                             value="<?php echo 0 ?>" class="form-control" id="totalScore" >
                                                     </strong>
                                                 </div>
-                                               
-                                                <?php
+                                                
+                                              
 
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <div class="col-12">
+                                            <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i
+                                                    class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="justify-content-center">
+                                                <div class="card card-body ">
+                                                    <div class="row mb-2 text-center">
+                                                        <div class="col-3">
+                                                            <label for="" class="font-weight-bold">Rating Point ( 20 %) </label>
+                                                            <input type="text" value="" name="RATING_POINT" readonly class="form-control text-center gradeRating">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="" class="font-weight-bold">Score ( 80 %) </label>
+                                                            <input type="text" value=""  name="SCORE_POINT" readonly class="form-control text-center gradeScore">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="" class="font-weight-bold">Total Point </label>
+                                                            <input type="text" readonly="" class="form-control text-center totalPoint" value="100" placeholder="target">
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <label for="" class="font-weight-bold"> Mark </label>
+                                                            <input type="text" readonly="" name="GRADE" class="form-control text-center totalMark" value="A"
+                                                                placeholder="target">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <?php
                                                     if ($locakSataus != true) {
-                                                        echo '<div class="text-center mt-2">
+                                                        echo '<div class="text-right mt-2">
                                                                 <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
                                                                 <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
                                                                 </div>';
@@ -360,99 +389,58 @@ $EMP_ID         = $_GET['emp_id'];
                                                         echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed <i class='bx bxs-home-smile text-success'></i></span>";
                                                     }
                                                 ?>
-
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row justify-content-center">
-                                    <div class="col-12">
-                                        <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;"><i
-                                                class='bx bxs-shield-alt-2'></i>[Grading Making Generate System ] <i class='bx bxs-shield-alt-2'></i>
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <form action="#" method="post" class="justify-content-center">
-                                            <div class="card card-body ">
-                                                <div class="row mb-2 text-center">
-                                                    <div class="col-3">
-                                                        <label for="" class="font-weight-bold">Rating Point ( 20 %) </label>
-                                                        <input type="text" value="" readonly class="form-control text-center gradeRating">
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <label for="" class="font-weight-bold">Score ( 80 %) </label>
-                                                        <input type="text" value="" readonly class="form-control text-center gradeScore">
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <label for="" class="font-weight-bold">Total Point </label>
-                                                        <input type="text" readonly="" class="form-control text-center totalPoint" value="100"
-                                                            placeholder="target">
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <label for="" class="font-weight-bold"> Mark </label>
-                                                        <input type="text" readonly="" class="form-control text-center totalMark" value="A"
-                                                            placeholder="target">
-                                                    </div>
-
-
-
-                                                </div>
-                                                <!-- <div class="text-center">
-                                                    <button type="submit" name="submit_confirm" class="btn btn-sm btn-info">Confirm <i
-                                                            class="bx bx-save"></i> </button> -->
-                                                </div>
                                             </div>
-                                        </form>
-                                    </div>
-
-                                    <div class="mx-auto">
-                                        <div class="card card-body mt-3">
-                                            <strong class="text-center">Grading System</strong>
-                                            <table class="table table-bordered tex-center text-break">
-                                                <thead style="background-color: #0e024efa;">
-                                                    <tr class="text-center">
-                                                        <th>Achivement</th>
-                                                        <th>Grade</th>
-                                                        <th>Status</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody class='text-center'>
-                                                    <tr>
-                                                        <td> 100% - Up</td>
-                                                        <td>O</td>
-                                                        <td>OUTSTADING</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>90% - 99%</td>
-                                                        <td>E</td>
-                                                        <td>EXCELLNT</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>80% - 89%</td>
-                                                        <td>G</td>
-                                                        <td>GOOD</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>70% - 79%</td>
-                                                        <td>A</td>
-                                                        <td>AVERAGE</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>61% - 69%</td>
-                                                        <td>U</td>
-                                                        <td>UNSATISFATORY</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Up - 60 %</td>
-                                                        <td>I</td>
-                                                        <td>INCOMPETENT</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
                                         </div>
-                                    </div>
 
-                                </div>
+                                        <div class="col-6">
+                                            <div class="card card-body mt-3">
+                                                <strong class="text-center">Grading System</strong>
+                                                <table class="table table-bordered tex-center text-break">
+                                                    <thead style="background-color: #0e024efa;">
+                                                        <tr class="text-center">
+                                                            <th>Achivement</th>
+                                                            <th>Grade</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class='text-center'>
+                                                        <tr>
+                                                            <td> 100% - Up</td>
+                                                            <td>O</td>
+                                                            <td>OUTSTADING</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>90% - 99%</td>
+                                                            <td>E</td>
+                                                            <td>EXCELLNT</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>80% - 89%</td>
+                                                            <td>G</td>
+                                                            <td>GOOD</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>70% - 79%</td>
+                                                            <td>A</td>
+                                                            <td>AVERAGE</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>61% - 69%</td>
+                                                            <td>U</td>
+                                                            <td>UNSATISFATORY</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Up - 60 %</td>
+                                                            <td>I</td>
+                                                            <td>INCOMPETENT</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

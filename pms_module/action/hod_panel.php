@@ -8,23 +8,30 @@ $basePath       = $_SESSION['basePath'];
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
-
     $ACHIVEMENT          = $_POST['achivement'];
     $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
     $key                 = $_POST['key'];
     $emp_id              = $_POST['emp_id'];
     $tab_id              = $_POST['tab_id'];
+    $RATING_POINT        = $_POST['RATING_POINT'];
+    $SCORE_POINT         = $_POST['SCORE_POINT'];
+    $GRADE               = $_POST['GRADE'];
 
-    if (isset($_POST['submit_draft']) ){
+    // Start a database transaction
+    oci_parse($objConnect, 'BEGIN');
+   
+
+    if (isset($_POST['submit_draft'])) {
         if (count($ACHIVEMENT) > 0) {
-           
             foreach ($ACHIVEMENT as $Idkey => $achValue) {
-                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]' WHERE ID='$Idkey'");
+                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET ACHIVEMENT='$achValue', ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]' WHERE ID='$Idkey'");
                 if (oci_execute($strSQL)) {
-    
-                }
-                else {
-    
+                    // Update successful
+                } else {
+                    // Update failed, rollback the transaction
+                    oci_rollback($objConnect);
+                    oci_rollback($strSQL);                  
+
                     $e                        = oci_error($strSQL);
                     $message                  = [
                         'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -32,21 +39,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
                     ];
                     $_SESSION['noti_message'] = $message;
                     echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+                    exit;
                 }
             }
-    
+            // If all updates were successful, commit the transaction
+            oci_commit($objConnect);
         }
-    }else if(isset($_POST['submit_confirm'])){
+    } elseif (isset($_POST['submit_confirm'])) {
         if (count($ACHIVEMENT) > 0) {
-//  print_r($_POST);
-//             die();
             foreach ($ACHIVEMENT as $Idkey => $achValue) {
-                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]',ACHIEVEMENT_LOCK_STATUS=1 WHERE ID='$Idkey'");
+                $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET ACHIVEMENT='$achValue', ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]', ACHIEVEMENT_LOCK_STATUS=1 WHERE ID='$Idkey'");
                 if (oci_execute($strSQL)) {
-    
-                }
-                else {
-    
+                    // Update successful
+                } else {
+                    // Update failed, rollback the transaction
+                    oci_rollback($objConnect);
+                    oci_rollback($strSQL);
+                 
+
                     $e                        = oci_error($strSQL);
                     $message                  = [
                         'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -54,20 +64,50 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
                     ];
                     $_SESSION['noti_message'] = $message;
                     echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+                    exit;
                 }
             }
-    
+            // If all updates were successful, commit the transaction
+            oci_commit($objConnect);
+
+            $gradeSQL = oci_parse($objConnect, "UPDATE HR_PMS_EMP
+                SET RATING_POINT='$RATING_POINT',
+                SCORE_POINT='$SCORE_POINT',
+                GRADE='$GRADE',
+                GRADE_CONFIRM_DATE_HOD=SYSDATE
+                WHERE ID='$tab_id");
+            if (oci_execute($gradeSQL)) {
+                // Update successful
+            } else {
+                // Update failed, rollback the transaction
+                oci_rollback($objConnect);
+                oci_rollback($gradeSQL);
+
+                $e                        = oci_error($gradeSQL);
+                $message                  = [
+                    'text'   => htmlentities($e['message'], ENT_QUOTES),
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
+                exit;
+            }
+            // If all updates were successful, commit the transaction
+            oci_commit($objConnect);
         }
     }
-    
+
+    // Commit the outermost transaction
+    oci_commit($objConnect);
 
     $message                  = [
-        'text'   => 'KPI Achivement Saved successfully.',
+        'text'   => 'KPI Achievement Saved successfully.',
         'status' => 'true',
     ];
     $_SESSION['noti_message'] = $message;
     echo "<script> window.location.href = '$basePath/pms_module/view/hod_panel/rating_form.php?key=$key&emp_id=$emp_id&tab_id=$tab_id'</script>";
 }
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
