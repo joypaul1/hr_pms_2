@@ -191,17 +191,15 @@ if (isset($_POST['kpi_name'])) {
                                 WHERE BB.CREATED_BY='$emp_session_id'";
 
 
-                            $strSQL = oci_parse($objConnect, $query);
-                            oci_execute($strSQL);
-                            while ($row = oci_fetch_assoc($strSQL)) {
+                                $strSQL = oci_parse($objConnect, $query);
+                                oci_execute($strSQL);
+                                while ($row = oci_fetch_assoc($strSQL)) {
 
-                                ?>
+                            ?>
                                 <option value="<?php echo $row['ID']; ?>">
                                     <?php echo $row['KRA_NAME']; ?>
                                 </option>
-                                <?php
-                            }
-                            ?>
+                            <?php }  ?>
                         </select>
                     </div>
                     <div class="col-sm-3">
