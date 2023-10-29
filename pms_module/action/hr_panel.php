@@ -201,6 +201,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
                 STEP_3_STATUS = '$step_status_3'
             WHERE ID = $editId";
 
+        // when step2 active..store step1 data by procidure 
+        if (isset($step_status_2) || !empty($step_status_2)) {
+            $storeQuery = "BEGIN PMS_DATA_HISTORY('$editId',''); END;";
+
+            $storeDataSQL = @oci_parse($objConnect, $storeQuery);
+            $storeResult  = @oci_execute($storeDataSQL);
+            if (!$storeResult) {
+                $e       = @oci_error($storeDataSQL);
+                $message = [
+                    'text'   => htmlentities($e['message'], ENT_QUOTES),
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                header("location:" . $basePath . "/pms_module/view/hr_panel/year.php");
+                exit();
+            }
+
+            // this function working on HR_PMS
+        }
+
         $strSQL = @oci_parse($objConnect, $query);
         $result = @oci_execute($strSQL);
 
