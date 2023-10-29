@@ -102,7 +102,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 if ($row['ACHIVEMENT'] || $row['STEP_3_STATUS'] === NULL || $row['STEP_3_STATUS'] === '0') {
                                                     $existAchievement = true;
                                                 }
-                                                if ($row['STEP_3_STATUS'] === '1' || $row['STEP_3_STATUS'] === '0') {
+                                                if ($row['STEP_3_STATUS'] === '1') {
                                                     ?>
 
                                                     <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="post">
