@@ -36,8 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             WHERE ID=$hr_pms_pms_emp_table_id"
         );
     }
-    
-   
+
+
     if (oci_execute($strSQL)) {
 
         if ($v_app_status == 1) {
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
 
     }
     else {
-        $e       = @oci_error($strSQL);
+        $e                        = @oci_error($strSQL);
         $e                        = oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -200,8 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
                 STEP_2_STATUS = '$step_status_2',
                 STEP_3_STATUS = '$step_status_3'
             WHERE ID = $editId";
-        // print_r($query);
-        // die();
+
         $strSQL = @oci_parse($objConnect, $query);
         $result = @oci_execute($strSQL);
 

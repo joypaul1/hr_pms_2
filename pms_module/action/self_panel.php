@@ -7,8 +7,8 @@ $basePath       = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
 
-    $editId     = $_POST['editId'];
-    $ACHIVEMENT = $_POST['achivement'];
+    $editId              = $_POST['editId'];
+    $ACHIVEMENT          = $_POST['achivement'];
     $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
 
     $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$ACHIVEMENT', ACHIVEMENT_COMMENTS ='$ACHIVEMENT_COMMENTS' WHERE ID='$editId'");
