@@ -297,13 +297,12 @@ if (isset($_POST['kpi_name'])) {
 
                                 <td class="align-middle gap-2">
                                     <?php if ($SUBMITTED_STATUS != 1) { ?>
-                                        <button data-id="<?php echo $table_ID; ?>" class="btn btn-sm btn-warning editKra" 
-                                       
-                                        style="padding: 1%;" href="#"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
+                                        <button data-id="<?php echo $table_ID; ?>" class="btn btn-sm btn-warning editKra" style="padding: 1%;" href="#"><i
+                                                class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
                                     <?php } ?>
                                     <?php echo $row['KRA_NAME']; ?>
 
-                                  
+
 
 
                                 </td>
@@ -320,9 +319,11 @@ if (isset($_POST['kpi_name'])) {
                                             <tr>
                                                 <td style="width: 45%;">
                                                     <?php if ($SUBMITTED_STATUS != 1) { ?>
-                                                        <a class="btn btn-info btn-sm" style="padding: 1%;"
+                                                        <!-- <a class="btn btn-info btn-sm" style="padding: 1%;"
                                                             href="pms_kpi_list_edit.php?id=<?php echo $rowIN['ID']; ?>"><i class="menu-icon tf-icons bx bx-edit"
-                                                                style="margin:0;font-size:16px"></i></a>
+                                                                style="margin:0;font-size:16px"></i></a> -->
+                                                        <button data-id="<?php echo $rowIN['ID']; ?>" class="btn btn-sm btn-info editKPI" style="padding: 1%;"
+                                                            href="#"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
                                                     <?php } ?>
 
                                                     <?php echo $rowIN['KPI_NAME']; ?>
@@ -673,7 +674,7 @@ if (isset($_POST['kpi_name'])) {
     </div>
 </div>
 <!-- kra Modal -->
-<!-- kra Modal -->
+<!-- kraEditModal -->
 <div class="modal fade" id="kraEditModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -681,11 +682,11 @@ if (isset($_POST['kpi_name'])) {
                 <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bxs-edit'></i> KRA Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="<?php echo $basePath . "/pms_module/action/self_panel.php"   ?>" method="POST">
-            <input type="hidden" name="actionType" value="kpi_update">
-            <input type="hidden" name="key" value="<?php echo $_GET['key']?>">
+            <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="POST">
+                <input type="hidden" name="actionType" value="kra_update">
+                <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
                 <div class="modal-body">
-                   <div id="kraEditHTMl"></div>
+                    <div id="kraEditHTMl"></div>
 
                 </div>
                 <div class="modal-footer">
@@ -698,7 +699,34 @@ if (isset($_POST['kpi_name'])) {
         </div>
     </div>
 </div>
-<!-- kra Modal -->
+<!-- kraEditModal -->
+<!-- kpiEditModal -->
+<div class="modal fade" id="kpiEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bxs-edit'></i> KPI Edit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="POST">
+                <input type="hidden" name="actionType" value="kpi_update">
+                <input type="hidden" name="key" value="<?php echo $_GET['key'] ?>">
+
+                <div class="modal-body">
+                    <div id="kpiEditHTMl"></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-info">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- kpiEditModal -->
 
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
@@ -712,18 +740,32 @@ if (isset($_POST['kpi_name'])) {
         });
         $('#sum').text(sum);
     }
-    
+
     $('.editKra').click(function () {
         var editId = $(this).attr('data-id');
         if (editId !== '') {
             $.ajax({
                 type: 'POST',
-                url: "/rHRT/pms_module/action/self_panel.php",
-                data: { actionType: 'ajaxkra_edit', 'editId': editId},
+                url: "<?php echo $_SESSION['basePath'] ?>/pms_module/action/self_panel.php",
+                data: { actionType: 'ajaxkra_edit', 'editId': editId },
                 success: function (response) {
-                    console.log(response);
                     $('#kraEditHTMl').html(response);
                     $('#kraEditModal').modal('show');
+                }
+            });
+        }
+    });
+    $('.editKPI').click(function () {
+        var editId = $(this).attr('data-id');
+        if (editId !== '') {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo $_SESSION['basePath'] ?>/pms_module/action/self_panel.php",
+                data: { actionType: 'ajaxkpi_edit', 'editID': editId },
+                success: function (response) {
+                    console.log(response);
+                    $('#kpiEditHTMl').html(response);
+                    $('#kpiEditModal').modal('show');
                 }
             });
         }
