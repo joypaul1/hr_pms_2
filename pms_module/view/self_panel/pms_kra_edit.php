@@ -9,7 +9,7 @@ $editId = $_REQUEST['id'];
 $strSQL  = oci_parse($objConnect, "SELECT KRA_NAME, HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=$editId");
 oci_execute($strSQL);
 $data = oci_fetch_assoc($strSQL);
-// print_r($row);
+
 
 
 ?>

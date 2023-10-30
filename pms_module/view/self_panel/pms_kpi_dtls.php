@@ -191,15 +191,15 @@ if (isset($_POST['kpi_name'])) {
                                 WHERE BB.CREATED_BY='$emp_session_id'";
 
 
-                                $strSQL = oci_parse($objConnect, $query);
-                                oci_execute($strSQL);
-                                while ($row = oci_fetch_assoc($strSQL)) {
+                            $strSQL = oci_parse($objConnect, $query);
+                            oci_execute($strSQL);
+                            while ($row = oci_fetch_assoc($strSQL)) {
 
-                            ?>
+                                ?>
                                 <option value="<?php echo $row['ID']; ?>">
                                     <?php echo $row['KRA_NAME']; ?>
                                 </option>
-                            <?php }  ?>
+                            <?php } ?>
                         </select>
                     </div>
                     <div class="col-sm-3">
@@ -286,7 +286,7 @@ if (isset($_POST['kpi_name'])) {
                             <?php
                             $strSQL = oci_parse(
                                 $objConnect,
-                                "select A.KRA_NAME,A.ID FROM HR_PMS_KRA_LIST A WHERE A.CREATED_BY='$emp_session_id' AND A.HR_PMS_LIST_ID='$v_key' ORDER BY A.ID"
+                                "select A.KRA_NAME,A.ID, A.HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST A WHERE A.CREATED_BY='$emp_session_id' AND A.HR_PMS_LIST_ID='$v_key' ORDER BY A.ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -294,12 +294,16 @@ if (isset($_POST['kpi_name'])) {
                                 $table_ID = $row['ID'];
                                 $number++;
                                 ?>
+
                                 <td class="align-middle gap-2">
                                     <?php if ($SUBMITTED_STATUS != 1) { ?>
-                                        <a class="btn btn-sm btn-warning" style="padding: 1%;" href="pms_kra_edit.php?id=<?php echo $table_ID; ?>"><i
-                                                class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></a>
+                                        <button data-id="<?php echo $table_ID; ?>" class="btn btn-sm btn-warning editKra" 
+                                       
+                                        style="padding: 1%;" href="#"><i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
                                     <?php } ?>
                                     <?php echo $row['KRA_NAME']; ?>
+
+                                  
 
 
                                 </td>
@@ -616,8 +620,8 @@ if (isset($_POST['kpi_name'])) {
     </div>
 </div>
 
-<!-- Modal -->
-<!-- Modal -->
+
+<!-- kra Modal -->
 <div class="modal fade" id="kraModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -668,7 +672,7 @@ if (isset($_POST['kpi_name'])) {
         </div>
     </div>
 </div>
-
+<!-- kra Modal -->
 
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
@@ -682,4 +686,19 @@ if (isset($_POST['kpi_name'])) {
         });
         $('#sum').text(sum);
     }
+    
+    $('.editKra').click(function () {
+        var editId = $(this).attr('data-id');
+        if (editId !== '') {
+            $.ajax({
+                type: 'POST',
+                url: "/rHRT/pms_module/action/self_panel.php",
+                data: { actionType: 'kra_edit', 'editId': editId},
+                success: function (response) {
+                    console.log(response);
+                    // $('#editForm').html(response);
+                }
+            });
+        }
+    });
 </script>
