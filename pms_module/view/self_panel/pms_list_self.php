@@ -368,9 +368,13 @@ oci_execute($strSQL);
 												}
 												else {
 													echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" >';
-												} }else{
-													echo '<strong class="text-info">Weightage value Must be 100.</strong>';
-												}?>
+												} 
+											}else{
+												echo '<strong class="text-info">Weightage value Must be equal to 100.</strong>';
+												echo '<br/>';
+												echo "<strong class='text-warning'>[Current Weight :".$row['PMS_WEIGHTAGE']."]</strong>";
+											}
+											?>
 
 										</td>
 									</tr>
