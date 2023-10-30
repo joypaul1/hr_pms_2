@@ -602,6 +602,13 @@ function isActive($url)
                                             </a>
                                         </li>
                                     <?php } ?>
+                                    <?php  if (checkPermission('pms-hr-report')) { ?>
+                                        <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/gradeReport.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/gradeReport.php" class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Grade Report</div>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                     <?php  if (checkPermission('pms-hr-year-create')) { ?>
                                         <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/year.php'); ?>">
                                             <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year.php" class="menu-link withoutIcon">

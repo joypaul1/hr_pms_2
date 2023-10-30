@@ -83,9 +83,6 @@ $v_excel_download = 0;
             
         </form>
     </div>
-  
-
-
 
     <!-- Bordered Table -->
     <div class="card mt-2">
