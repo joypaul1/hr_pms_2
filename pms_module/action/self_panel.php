@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_create') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_edit') {
 
     $editId         = $_POST['editId'];
     $v_kra_name     = $_POST['kra_name'];
@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
 
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_edit') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxkra_edit') {
     $editId = $_POST['editId'];
     $query  = "SELECT ID, KRA_NAME, HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID = $editId";
     $strSQL = oci_parse($objConnect, $query);
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
     if (oci_execute($strSQL)) {
         $data = oci_fetch_assoc($strSQL);
 
-        echo '<div class="row">
+        echo '<input type="hidden" name="editId" value="' . $editId . '"><div class="row">
             <div class="col-sm-6">
                 <label for="exampleInputEmail1">KRA Name:</label>
                 <input required="" value="' . $data['KRA_NAME'] . '" style="padding:5px !important" name="kra_name" placeholder="Enter KRA Name" class="form-control cust-control" type="text">
@@ -79,14 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
                 <select required="" name="pms_title_id" class="form-control cust-control">
                     <option value=""><-Select PMS -></option>';
 
-            $strSQL = oci_parse($objConnect, "SELECT ID, PMS_NAME from HR_PMS_LIST where is_active=1");
-            oci_execute($strSQL);
+        $strSQL = oci_parse($objConnect, "SELECT ID, PMS_NAME from HR_PMS_LIST where is_active=1");
+        oci_execute($strSQL);
 
-            while ($row = oci_fetch_assoc($strSQL)) {
-                echo '<option value="' . $row['ID'] . '" ' . ($data['HR_PMS_LIST_ID'] == $row['ID'] ? 'selected' : '') . '>' . $row['PMS_NAME'] . '</option>';
-            }
+        while ($row = oci_fetch_assoc($strSQL)) {
+            echo '<option value="' . $row['ID'] . '" ' . ($data['HR_PMS_LIST_ID'] == $row['ID'] ? 'selected' : '') . '>' . $row['PMS_NAME'] . '</option>';
+        }
 
-            echo '</select>
+        echo '</select>
                 </div>
             </div>';
     }
@@ -95,7 +95,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_update') {
+    $editId         = $_POST['editId'];
+    $key            = $_POST['key'];
+    $v_kra_name     = $_POST['kra_name'];
+    $HR_PMS_LIST_ID = $_POST['pms_title_id'];
+    $query          = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
+    $strSQL         = oci_parse($objConnect, $query);
 
+    if (oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'KRA is Edited successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_dtls.php?key=$key'</script>";
+    }
+    else {
+
+        $e                        = oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_dtls.php?key=$key'</script>";
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_edit') {
 
     $editId                    = $_POST['editId'];

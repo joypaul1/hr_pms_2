@@ -673,6 +673,32 @@ if (isset($_POST['kpi_name'])) {
     </div>
 </div>
 <!-- kra Modal -->
+<!-- kra Modal -->
+<div class="modal fade" id="kraEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bxs-edit'></i> KRA Edit</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?php echo $basePath . "/pms_module/action/self_panel.php"   ?>" method="POST">
+            <input type="hidden" name="actionType" value="kpi_update">
+            <input type="hidden" name="key" value="<?php echo $_GET['key']?>">
+                <div class="modal-body">
+                   <div id="kraEditHTMl"></div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-info">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- kra Modal -->
 
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
@@ -693,10 +719,11 @@ if (isset($_POST['kpi_name'])) {
             $.ajax({
                 type: 'POST',
                 url: "/rHRT/pms_module/action/self_panel.php",
-                data: { actionType: 'kra_edit', 'editId': editId},
+                data: { actionType: 'ajaxkra_edit', 'editId': editId},
                 success: function (response) {
                     console.log(response);
-                    // $('#editForm').html(response);
+                    $('#kraEditHTMl').html(response);
+                    $('#kraEditModal').modal('show');
                 }
             });
         }
