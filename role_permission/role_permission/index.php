@@ -92,7 +92,7 @@ if ($result) {
                                     echo "<td>";
                                     if (checkPermission('role-permission-edit')) {
 
-                                    echo '<a class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    echo '<a  href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit"  class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
                                     // href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" 
                                     }
                                     if (checkPermission('role-permission-delete')) {
