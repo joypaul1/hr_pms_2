@@ -670,21 +670,20 @@ function isActive($url)
             <!-- Report - module-list -->
 
 
-            <li class="menu-item <?php echo isActive('/roster'); ?>">
+            <li class="menu-item <?php echo isActive('/report_module'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-cube-alt"></i>
                     <div data-i18n="Misc">Report Module</div>
                 </a>
                 <ul class="menu-sub">
-                    <?php if (checkPermission('report-generate')) { ?>
-                        <li class="menu-item <?php echo isActive('/roster/view/create.php'); ?>">
-                            <a href="<?php echo $basePath ?>/roster/view/create.php" class="menu-link">
-                                <div>Report Generate</div>
+                
+                    <?php if (checkPermission('hr-offboarding-report')) { ?>
+                        <li class="menu-item <?php echo isActive('/report_module/view/accounts_clearance.php'); ?>">
+                            <a href="<?php echo $basePath ?>/report_module/view/accounts_clearance.php" class="menu-link">
+                                <div>Accounts Clearance</div>
                             </a>
                         </li>
                     <?php } ?>
-
-
                 </ul>
             </li>
             <!-- Report-list -->

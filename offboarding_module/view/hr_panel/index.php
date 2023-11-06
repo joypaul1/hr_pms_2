@@ -102,7 +102,7 @@ if (!checkPermission('hr-offboarding-report')) {
                                     <td>
                                         <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php
+                                    <td class="text-left"><?php
                                         echo $row['RML_ID'];
                                         echo '</br>';
                                         echo $row['EMP_NAME'];
@@ -112,7 +112,7 @@ if (!checkPermission('hr-offboarding-report')) {
                                         echo $row['DESIGNATION'];
                                         ?>
                                     </td>
-                                    <td><?php
+                                    <td ><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -219,7 +219,7 @@ if (!checkPermission('hr-offboarding-report')) {
                                     <td>
                                         <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php
+                                    <td class="text-left"><?php
                                         echo $row['RML_ID'];
                                         echo '</br>';
                                         echo $row['EMP_NAME'];
