@@ -677,7 +677,7 @@ function isActive($url)
                 </a>
                 <ul class="menu-sub">
                 
-                    <?php if (checkPermission('hr-offboarding-report')) { ?>
+                    <?php if (checkPermission('accounts-clearance-report')) { ?>
                         <li class="menu-item <?php echo isActive('/report_module/view/accounts_clearance.php'); ?>">
                             <a href="<?php echo $basePath ?>/report_module/view/accounts_clearance.php" class="menu-link">
                                 <div>Accounts Clearance</div>
