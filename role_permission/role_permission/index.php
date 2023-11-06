@@ -90,26 +90,19 @@ if ($result) {
                                     
                                     echo "<td>" . $row['role_name'] . "</td>";
                                     echo "<td>";
-                                    // if (checkPermission('role-permission-edit')) {
+                                    if (checkPermission('role-permission-edit')) {
 
-                                    echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    // }
-                                    // if (checkPermission('role-permission-delete')) {
+                                    echo '<a class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    // href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" 
+                                    }
+                                    if (checkPermission('role-permission-delete')) {
 
-                                    echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
-                                    //}
+                                    echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right "><i class="bx bx-trash-alt me-1"></i> </button>';
+                                    }
+                                    // delete_check
                                     echo "</td>";
                                     echo "<td>" . $row['permissions'] . "</td>";
-                                    // echo "<td>";
-                                    // // if (checkPermission('role-permission-edit')) {
-
-                                    // echo '<a href="edit.php?id=' . $row['role_id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    // // }
-                                    // // if (checkPermission('role-permission-delete')) {
-
-                                    // echo ' <button data-id="' . $row['role_id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role_permissions.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
-                                    // //}
-                                    // echo "</td>";
+                                    
                                     echo "</tr>";
                                 }
 

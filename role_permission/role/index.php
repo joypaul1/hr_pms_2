@@ -74,10 +74,12 @@ while ($row = mysqli_fetch_array($result)) {
                                     echo "<td>" . $row['slug'] . "</td>";
                                     echo "<td>";
                                     if (checkPermission('role-edit')) {
-                                        echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                        echo '<a href="#" class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                        // echo '<a href="' . $basePath . '/role_permission/role/edit.php?id=' . $row['id'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-secondary flo~at-right"> <i class="bx bx-edit-alt me-1"></i></a>';
                                     }
                                     if (checkPermission('role-delete')) {
-                                        echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                        echo ' <button type="button" class="btn btn-sm btn-danger float-right"><i class="bx bx-trash-alt me-1"></i> </button>';
+                                        // echo ' <button data-id="' . $row['id'] . '" data-href="' . $basePath . '/' . 'action/role_permission/role.php" type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-trash-alt me-1"></i> </button>';
                                     }
 
                                     echo "</tr>";
