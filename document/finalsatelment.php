@@ -477,7 +477,7 @@
                 </div>
                 <div>
                     <input readonly type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
-                    <p style="text-align: center; margin: 0;">Group CFO & CS</p>
+                    <p style="text-align: center; margin: 0;">Head Of Accounts</p>
                 </div>
                 <div>
                     <input  readonly type="text" style="min-width: 100px; border: none; border-bottom: 1px dashed #333; ">
