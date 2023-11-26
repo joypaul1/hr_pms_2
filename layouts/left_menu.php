@@ -44,6 +44,47 @@ function isActive($url)
 
             <!-- Leave- module-list -->
 
+            <li class="menu-item  <?php echo isActive('/resale_module/view'); ?>">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons bx bx-registered"></i>
+                    <div>Resale Module</div>
+                </a>
+
+
+                <ul class="menu-sub">
+                    <li class="menu-item <?php echo isActive('/resale_module'); ?>">
+                        <a href="javascript:void(0)" class="menu-link menu-toggle">
+                            <div>Product Panel</div>
+                        </a>
+                        <ul class="menu-sub">
+                            <?php if (checkPermission('self-leave-create')) { ?>
+                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Pending List
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            <?php if (checkPermission('self-leave-create')) { ?>
+                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Published List
+                                        </div>
+                                    </a>
+                                </li>
+                            <?php } ?>
+                            
+                        </ul>
+                    </li>
+
+                   
+                </ul>
+
+            </li>
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-user"></i>
