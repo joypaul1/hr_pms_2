@@ -69,25 +69,24 @@ else {
                 $rightSideName = 'Pending List';
                 $routePath     = '/resale_module/view/self_panel/pendingList.php';
                 include('../../../layouts/_tableHeader.php');
-
                 ?>
 
                 <!-- End table  header -->
                 <div class="card-body row">
                     <div class="col-8">
 
-                        <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>">
-                            <input type="hidden" name="actionType" value="update">
+                        <form method="post"  action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>" enctype="multipart/form-data" >
+                            <input type="hidden" name="actionType" value="pro_edit">
                             <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                             <div class="mb-3">
                                 <label class="form-label" for="DISPLAY_PRICE"> DISPLAY PRICE (MIN BID)</label>
-                                <input type="text" name="DISPLAY_PRICE" class="form-control" value="<?php echo $data['DISPLAY_PRICE'] ?>" required
+                                <input type="number" name="DISPLAY_PRICE" class="form-control" value="<?php echo $data['DISPLAY_PRICE'] ?>" required
                                     id="DISPLAY_PRICE" placeholder="DISPLAY_PRICE Name..">
 
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="BODY_SIT"> BODY_SIT</label>
+                                <label class="form-label" for="BODY_SIT"> BODY TYPE/SIT </label>
                                 <input type="text" name="BODY_SIT" class="form-control" value="<?php echo $data['BODY_SIT'] ?>" required id="BODY_SIT"
                                     placeholder="BODY_SIT Name..">
 
@@ -106,13 +105,13 @@ else {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="FUEL_TYPE"> THUMBNAIL IMAGE</label>
-                                <input type="file" data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
+                                <input type="file" name="PIC_URL" data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>"  class="dropify"
                                     data-max-file-size="3M" />
 
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="DESCRIPTION"> DESCRIPTION</label>
-                                <textarea class="editor">
+                                <textarea name="DESCRIPTION" class="editor">
                                 <?php echo $data['DESCRIPTION']; ?>
                           
                                 </textarea>
@@ -120,7 +119,7 @@ else {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="HISTORY"> HISTORY</label>
-                                <textarea class="editor">
+                                <textarea name="HISTORY" class="editor">
                                 <?php echo $data['HISTORY']; ?>
 
                                 </textarea>
@@ -131,9 +130,9 @@ else {
                                 <?php
                                 $product_image      = array();
                                 $product_images_SQL = oci_parse($objConnect, "SELECT 
-                                                     ID, URL, PRODUCT_ID,PIC_ORDER
-                                                     FROM PRODUCT_PICTURE
-                                                         WHERE PRODUCT_ID=$product_id");
+                         ID, URL, PRODUCT_ID,PIC_ORDER
+                         FROM PRODUCT_PICTURE
+                         WHERE PRODUCT_ID=$product_id");
 
                                 if (@oci_execute($product_images_SQL)) {
                                     while ($row = oci_fetch_assoc($product_images_SQL)) {
@@ -145,41 +144,37 @@ else {
                                         );
                                     }
                                 }
-                                // print_r($product_image[0]);
-                                if ($product_image[0]) {
-                                    echo '<input type="file" name="img_detials_1" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                }
-                                else {
-                                    echo '<input type="file" name="img_detials_1" class="dropify" data-max-file-size="3M" />';
-                                }
 
-                                if ($product_image[1]) {
-                                    echo '<input type="file" name="img_detials_2" data-default-file=" http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                }
-                                else {
-                                    echo '<input type="file" name="img_detials_2" class="dropify" data-max-file-size="3M" />';
-                                }
-                                if ($product_image[2]) {
-                                    echo '<input type="file" name="img_detials_3 data-default-file=" http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                }
-                                else {
-                                    echo '<input type="file" name="img_detials_3" class="dropify" data-max-file-size="3M" />';
-                                }
-                                if ($product_image[3]) {
-                                    echo '<input type="file" name="img_detials_4 data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                }
-                                else {
-                                    echo '<input type="file" name="img_detials_4" class="dropify" data-max-file-size="3M" />';
-                                }
+                                // Check if $product_image has elements before accessing them
+                                if (!empty($product_image)) {
+                                    if (isset($product_image[0])) {
+                                        echo '<input type="file" name="img_detials_1" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                    }
 
+                                    if (isset($product_image[1])) {
+                                        echo '<input type="file" name="img_detials_2" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                    }
+
+                                    if (isset($product_image[2])) {
+                                        echo '<input type="file" name="img_detials_3" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                    }
+
+                                    if (isset($product_image[3])) {
+                                        echo '<input type="file" name="img_detials_4" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                    }
+                                }
+                                else {
+                                    for ($i = 1; $i <= 4; $i++) {
+                                        echo '<input type="file" name="img_detials_' . $i . '" class="dropify" data-max-file-size="3M" />';
+                                    }
+                                }
                                 ?>
-
-
                             </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="HISTORY"> STATUS</label>
 
-                                <select class="form-select" aria-label="Default select example">
+                                <select class="form-select" name="PUBLISHED_STATUS"  aria-label="Default select example">
                                     <option <?php $data['PUBLISHED_STATUS'] == 'Y' ? 'Selected' : '' ?> value="Y">Published</option>
                                     <option <?php $data['PUBLISHED_STATUS'] == 'N' ? 'Selected' : '' ?> value="N">Unpublished</option>
                                 </select>
