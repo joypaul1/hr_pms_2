@@ -38,7 +38,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
     oci_execute($productSQL);
     $data = oci_fetch_array($productSQL);
-    // print_r($data);
 
 }
 else {
