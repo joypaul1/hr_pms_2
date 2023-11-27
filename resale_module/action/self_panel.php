@@ -22,10 +22,78 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     $HISTORY          = $_POST['HISTORY'];
     $PUBLISHED_STATUS = $_POST['PUBLISHED_STATUS'];
 
-    // product thamline image 
+
+    // if (count($_FILES['new_image_detials']) > 0) {
+    //     foreach (($_FILES['new_image_detials']['name']) as $key => $value) {
+
+    //         $imgStorePath = $folderPath . 'product_details/';
+    //         // echo( $imgStorePath); die();
+
+    //         pathExitOrCreate($imgStorePath); //check image upload path is exit or create folder   
+    //         $imagename = $_FILES['new_image_detials']['name'][$key];
+    //         $size      = $_FILES['new_image_detials']['size'][$key];
+    //         // print_r($_FILES['new_image_detials']['tmp_name'][$key]);
+    //         // die();
+    //         if (strlen($imagename)) {
+    //             $ext = strtolower(getExtension($imagename));
+    //             if (in_array($ext, $valid_formats)) {
+    //                 // if ($size < (2048 * 2048)) // Image size max 2 MB
+    //                 // {
+    //                 $actual_image_name = time() . "." . $ext;
+    //                 $uploadedfile      = $_FILES['new_image_detials']['tmp_name'][$key];
+                    
+    //                 // Define a custom file name (you can generate this dynamically)
+    //                 $customFileName =  str_replace('../', '', $imgStorePath). $actual_image_name;
+    //                 echo $customFileName;
+    //                 die();
+    //                 // Define the target path with the custom file name
+    //                 $targetPath = $uploadDirectory . $customFileName;
+
+    //                 if ($filename) {
+    //                     $insertSQL = oci_parse($objConnect, "INSERT INTO PRODUCT (URL, PRODUCT_ID,PIC_ORDER,STATUS) VALUES (:pic_url, :edit_id,pic_order,:status)");
+
+    //                     // Bind parameters
+    //                     @oci_bind_by_name($insertSQL, ':pic_url', $filename);
+    //                     @oci_bind_by_name($insertSQL, ':edit_id', $editId);
+    //                     @oci_bind_by_name($insertSQL, ':pic_order', 1);
+    //                     @oci_bind_by_name($insertSQL, ':status', 'Y');
+
+    //                     if (@oci_execute($insertSQL)) {
+    //                         @oci_free_statement($insertSQL);
+    //                         @oci_close($objConnect);
+
+    //                     }
+    //                     else {
+    //                         $e                        = @oci_error($strSQL);
+    //                         $message                  = [
+    //                             'text'   => htmlentities($e['message'], ENT_QUOTES),
+    //                             'status' => 'false',
+    //                         ];
+    //                         $_SESSION['noti_message'] = $message;
+    //                         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+    //                     }
+    //                 }
+    //                 else {
+
+    //                     $imageStatus             = "Something went wrong file uploading!";
+    //                     $_SESSION['imageStatus'] = $imageStatus;
+    //                     echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+    //                     exit();
+
+    //                 }
+    //             }
+    //             else {
+    //                 $imageStatus             = 'Sorry, only  jpg, png, gif,bmp & pdf files are allowed to upload!';
+    //                 $_SESSION['imageStatus'] = $imageStatus;
+    //                 echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+    //                 exit();
+
+    //             }
+    //         }
+    //     }
+    // }
+    // product THUMBNAIL  image 
     if (!empty($_FILES["PIC_URL"]["name"])) {
-        // print_r($_FILES['PIC_URL']['name']);
-        // die();
         $imgStorePath = $folderPath . 'product_image/';
         pathExitOrCreate($imgStorePath);
         $imagename = $_FILES['PIC_URL']['name'];
@@ -43,19 +111,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                 //Re-sizing image. 
                 $width    = $size; //You can change dimension here.
                 $filename = compressImage($ext, $uploadedfile, $imgStorePath, $actual_image_name, $width);
-
+               
+               
                 if ($filename) {
                     $picurlSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET PIC_URL = :pic_url WHERE ID = :edit_id");
                     // Bind parameters
                     @oci_bind_by_name($picurlSQL, ':pic_url', $filename);
                     @oci_bind_by_name($picurlSQL, ':edit_id', $editId);
                     if (@oci_execute($picurlSQL)) {
-                        $message                  = [
-                            'text'   => 'Data Saved successfully.',
-                            'status' => 'true',
-                        ];
-                        $_SESSION['noti_message'] = $message;
-                        echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+                        // $message                  = [
+                        //     'text'   => 'Data Saved successfully.',
+                        //     'status' => 'true',
+                        // ];
+                        // $_SESSION['noti_message'] = $message;
+                        // echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
                     }
                     else {
                         $e                        = @oci_error($strSQL);
@@ -84,13 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
             }
         }
-        else {
-            $imageStatus             = "Please select valid image..!";
-            $_SESSION['imageStatus'] = $imageStatus;
-            echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
-            exit();
 
-        }
     }
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, "
@@ -115,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     @oci_bind_by_name($strSQL, ':history', $HISTORY);
     @oci_bind_by_name($strSQL, ':published_status', $PUBLISHED_STATUS);
     @oci_bind_by_name($strSQL, ':edit_id', $editId);
-    
+
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
@@ -137,10 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     }
 
 }
-
-
-
-
 
 function pathExitOrCreate($folderPath)
 {

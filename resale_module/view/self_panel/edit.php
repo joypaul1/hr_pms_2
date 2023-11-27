@@ -49,7 +49,7 @@ else {
     header("location:" . $basePath . "/resale_module/view/self_panel/pendingList.php");
     exit();
 }
-print_r($data['PIC_URL']);
+// print_r($data['PIC_URL']);
 // die();
 ?>
 
@@ -72,7 +72,7 @@ print_r($data['PIC_URL']);
                 <!-- End table  header -->
                 <div class="card-body row">
                     <div class="col-8">
-                 
+
                         <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>"
                             enctype="multipart/form-data">
                             <input type="hidden" name="actionType" value="pro_edit">
@@ -126,7 +126,7 @@ print_r($data['PIC_URL']);
 
                             </div>
                             <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section</div>
-                            <div class="d-flex flex-row gap-1 bd-highlight mb-3">
+                            <!-- <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                 <?php
                                 $product_image      = array();
                                 $product_images_SQL = @oci_parse($objConnect, "SELECT 
@@ -149,48 +149,40 @@ print_r($data['PIC_URL']);
                                 // Check if $product_image has elements before accessing them
                                 if (!empty($product_image)) {
                                     if (isset($product_image[0])) {
-                                        echo '<input type="file" name="old_img_detials_1" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                    }
-                                    else {
-                                        echo '<input type="file" name="img_detials_1" required class="dropify" data-max-file-size="3M" />';
+                                        echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
                                     }
 
                                     if (isset($product_image[1])) {
-                                        echo '<input type="file" name="img_detials_2" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                        echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="3M" />';
                                     }
-                                    else {
-                                        echo '<input type="file" name="img_detials_2" required  class="dropify" data-max-file-size="3M" />';
-                                    }
+
 
                                     if (isset($product_image[2])) {
-                                        echo '<input type="file" name="img_detials_3" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="3M" />';
-                                    }
-                                    else {
-                                        echo '<input type="file" name="img_detials_3" required class="dropify" data-max-file-size="3M" />';
+                                        echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="3M" />';
                                     }
 
+
                                     if (isset($product_image[3])) {
-                                        echo '<input type="file" name="img_detials_4" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                        echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="3M" />';
                                     }
-                                    else {
-                                        echo '<input type="file" name="img_detials_4" required class="dropify" data-max-file-size="3M" />';
-                                    }
+
                                 }
                                 else {
                                     for ($i = 1; $i <= 4; $i++) {
-                                        echo '<input type="file" required name="img_detials_' . $i . '" class="dropify" data-max-file-size="3M" />';
+                                        echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-file-size="3M" />';
                                     }
                                 }
                                 ?>
-                            </div>
+                            </div> -->
 
                             <div class="mb-3">
                                 <label class="form-label" for="HISTORY"> STATUS</label>
 
                                 <select class="form-select" name="PUBLISHED_STATUS" aria-label="Default select example">
-                                    <option <?php $data['PUBLISHED_STATUS'] == 'Y' ? 'Selected' : '' ?> value="Y">Published</option>
-                                    <option <?php $data['PUBLISHED_STATUS'] == 'N' ? 'Selected' : '' ?> value="N">Unpublished</option>
+                                    <option <?php echo $data['PUBLISHED_STATUS'] == 'N' ? 'selected' : ''; ?> value="N">Unpublished</option>
+                                    <option <?php echo $data['PUBLISHED_STATUS'] == 'Y' ? 'selected' : ''; ?> value="Y">Published</option>
                                 </select>
+
                                 <?php if (!empty($_SESSION['imageStatus'])) {
                                     echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
                                     unset($_SESSION['imageStatus']);

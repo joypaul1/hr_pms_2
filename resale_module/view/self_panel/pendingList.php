@@ -59,7 +59,7 @@ if (!checkPermission('self-leave-report')) {
         <!-- table header -->
         <?php
         $leftSideName = 'Pending Prodduct List';
-      
+
 
         ?>
         <!-- End table  header -->
@@ -71,8 +71,8 @@ if (!checkPermission('self-leave-report')) {
                             <th>SL</th>
                             <th scope="col">Action</th>
                             <th scope="col">Price</th>
-                            <th scope="col">Ref. Code  </th>
-                            <th scope="col">Model  </th>
+                            <th scope="col">Ref. Code </th>
+                            <th scope="col">Model </th>
                             <th scope="col">Engine </th>
                             <th scope="col">Chassis </th>
                             <th scope="col">Reg Num.</th>
@@ -117,7 +117,7 @@ if (!checkPermission('self-leave-report')) {
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
-                               
+
                                 <td>
                                     <?php
                                     echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i></a>';
