@@ -46,11 +46,10 @@ else {
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
-    // print_r($_SESSION['noti_message']['status']);
     header("location:" . $basePath . "/resale_module/view/self_panel/pendingList.php");
     exit();
 }
-// print_r($data['name']);
+print_r($data['PIC_URL']);
 // die();
 ?>
 
@@ -177,6 +176,11 @@ else {
                                     <option <?php $data['PUBLISHED_STATUS'] == 'Y' ? 'Selected' : '' ?> value="Y">Published</option>
                                     <option <?php $data['PUBLISHED_STATUS'] == 'N' ? 'Selected' : '' ?> value="N">Unpublished</option>
                                 </select>
+                                <?php if (!empty($_SESSION['imageStatus'])) {
+                                    echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
+                                    unset($_SESSION['imageStatus']);
+                                }
+                                ?>
                             </div>
 
                             <div class="b-block text-right">
@@ -186,8 +190,6 @@ else {
 
                     </div>
                     <div class="col-4">
-
-
                         <div class="mb-3">
                             <label class="form-label" for="MODEL"> Model</label>
                             <input type="text" name="MODEL" class="form-control" value="<?php echo $data['MODEL'] ?>" required id="name" disabled
