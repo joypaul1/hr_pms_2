@@ -58,12 +58,8 @@ if (!checkPermission('self-leave-report')) {
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName = 'Self Leave List';
-        if (checkPermission('self-leave-create')) {
-            $rightSideName = 'Leave Create';
-            $routePath     = 'leave_module/view/self_panel/create.php';
-        }
-        include('../../../layouts/_tableHeader.php');
+        $leftSideName = 'Pending Prodduct List';
+      
 
         ?>
         <!-- End table  header -->
