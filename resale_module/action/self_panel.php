@@ -6,7 +6,7 @@ require_once('../../config_file_path.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
 $folderPath     = $rs_img_path;
-
+ini_set('memory_limit', '2560M');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit') {
 
