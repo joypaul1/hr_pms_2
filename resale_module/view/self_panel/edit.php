@@ -1,5 +1,7 @@
 <?php
-$dynamic_link_js[]  = 'https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js';
+// $dynamic_link_js[]  = 'https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js';
+$dynamic_link_js[] = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
+
 $dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js';
 $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
 require_once('../../../helper/3step_com_conn.php');
@@ -194,7 +196,7 @@ else {
                             </div>
 
                             <div class="b-block text-right">
-                                <input type="submit"  name="submit" class="btn btn-primary">
+                                <input type="submit" name="submit" class="btn btn-primary">
                             </div>
                         </form>
 
@@ -248,6 +250,7 @@ else {
 
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
+
     $('.dropify').dropify({
         messages: {
             'default': 'Select Product Details Image',
@@ -256,27 +259,15 @@ else {
             'error': 'Ooops, something wrong happended.'
         }
     });
-    tinymce.init({
-        selector: ".editor",
-        plugins:
-            "advcode advlist advtable anchor autocorrect autolink autosave casechange charmap checklist codesample directionality editimage emoticons export footnotes formatpainter help image insertdatetime link linkchecker lists media mediaembed mergetags nonbreaking pagebreak permanentpen powerpaste searchreplace table tableofcontents tinymcespellchecker typography visualblocks visualchars wordcount",
-        toolbar:
-            "undo redo spellcheckdialog  | blocks fontfamily fontsizeinput | bold italic underline forecolor backcolor | link image | align lineheight checklist bullist numlist | indent outdent | removeformat typography",
-        height: "300px",
+    // Get all elements with the 'editor' class
+    const editorElements = document.querySelectorAll('.editor');
 
-        //HTML custom font options
-        font_size_formats:
-            "8pt 9pt 10pt 11pt 12pt 14pt 18pt 24pt 30pt 36pt 48pt 60pt 72pt 96pt",
-
-        toolbar_sticky: true,
-        autosave_restore_when_empty: true,
-        spellchecker_active: true,
-        spellchecker_language: "en_US",
-        spellchecker_languages:
-            "English (United States)=en_US,English (United Kingdom)=en_GB",
-        typography_langs: ["en-US"],
-        typography_default_lang: "en-US",
-
-
+    // Loop through each element and create a ClassicEditor instance
+    editorElements.forEach(element => {
+        ClassicEditor
+            .create(element)
+            .catch(error => {
+                console.error(error);
+            });
     });
 </script>
