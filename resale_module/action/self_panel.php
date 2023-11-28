@@ -25,6 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     if ($_POST['new_image_or_old_image'] == '1') {
 
         foreach ($_FILES['new_image_detials']['name'] as $key => $new_image) {
+
             $image       = $_FILES['new_image_detials'];
             $fileName    = $image["name"][$key];
             $fileTmpName = $image["tmp_name"][$key];
@@ -91,12 +92,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
         foreach (($_FILES['old_img_detials']) as $key => $old_img_value) {
             foreach ($old_img_value as $pr_d_id => $value) {
-              
+
                 $image = $_FILES['old_img_detials'];
-               
-                if (!empty($image["name"][$pr_d_id])) {
-                    
-                    $fileName    = $image["name"][$pr_d_id];
+
+                $fileName = $image["name"][$pr_d_id];
+                if (!empty($fileName)) {
                     $fileTmpName = $image["tmp_name"][$pr_d_id];
                     $fileSize    = $image["size"][$pr_d_id];
                     $fileType    = $image["type"][$pr_d_id];
@@ -127,10 +127,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                         $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
 
                         $picurlSQL = "UPDATE PRODUCT_PICTURE SET URL = '$imageFinalName' WHERE ID = '$pr_d_id'";
-
-
                         // Prepare and execute the query
-                        $updateSQL = oci_parse($objConnect, $insertQuery);
+                        $updateSQL = oci_parse($objConnect, $picurlSQL);
 
                         if (@oci_execute($updateSQL)) {
                             @oci_free_statement($updateSQL);
@@ -149,19 +147,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
                     }
                     else {
-                       
-                        $imageStatus             = "Something went wrong file uploading!";
+
+                        $imageStatus             = "Something went wrong file uploading! old image deatils update:'$fileName','$pr_d_id'";
                         $_SESSION['imageStatus'] = $imageStatus;
                         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
                         exit();
                     }
-
                 }
-            }
 
-            // die();
+            }
         }
+
     }
+
 
 
     if (!empty($_FILES["PIC_URL"]["name"])) {
@@ -258,7 +256,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
     }
     else {
-
         $e                        = @oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -267,8 +264,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
     }
-
 }
+
 
 function pathExitOrCreate($folderPath)
 {
