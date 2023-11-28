@@ -124,7 +124,7 @@ if (!checkPermission('self-leave-report')) {
                                     ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['DISPLAY_PRICE']; ?>
+                                    <?php echo number_format($row['DISPLAY_PRICE'],2) ?>
                                 </td>
                                 <td>
                                     <?php echo $row['REF_CODE']; ?>

@@ -58,7 +58,7 @@ function isActive($url)
                         </a>
                         <ul class="menu-sub">
                             <?php if (checkPermission('self-leave-create')) { ?>
-                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
                                     <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>

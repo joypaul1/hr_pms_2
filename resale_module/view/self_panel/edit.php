@@ -81,13 +81,13 @@ else {
                             <div class="mb-3">
                                 <label class="form-label" for="DISPLAY_PRICE"> DISPLAY PRICE (MIN BID)</label>
                                 <input type="number" name="DISPLAY_PRICE" class="form-control" value="<?php echo $data['DISPLAY_PRICE'] ?>" required
-                                    id="DISPLAY_PRICE" placeholder="DISPLAY_PRICE Name..">
+                                    id="DISPLAY_PRICE" placeholder="DISPLAY PRICE (EX:10,000,00.00)">
 
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="BODY_SIT"> BODY TYPE/SIT </label>
                                 <input type="text" name="BODY_SIT" class="form-control" value="<?php echo $data['BODY_SIT'] ?>" required id="BODY_SIT"
-                                    placeholder="BODY_SIT Name..">
+                                    placeholder="BODY/SIT ..">
 
                             </div>
                             <div class="mb-3">
@@ -99,7 +99,7 @@ else {
                             <div class="mb-3">
                                 <label class="form-label" for="FUEL_TYPE"> FUEL TYPE</label>
                                 <input type="text" name="FUEL_TYPE" class="form-control" value="<?php echo $data['FUEL_TYPE'] ?>" required
-                                    id="FUEL_TYPE" placeholder="FUEL_TYPE Name..">
+                                    id="FUEL_TYPE" placeholder="FUEL TYPE Name..">
 
                             </div>
                             <div class="mb-3">
@@ -126,7 +126,7 @@ else {
 
                             </div>
                             <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section</div>
-                            <!-- <div class="d-flex flex-row gap-1 bd-highlight mb-3">
+                            <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                 <?php
                                 $product_image      = array();
                                 $product_images_SQL = @oci_parse($objConnect, "SELECT 
@@ -148,6 +148,8 @@ else {
                                 
                                 // Check if $product_image has elements before accessing them
                                 if (!empty($product_image)) {
+                                    echo '<input type="hidden" name="new_image_or_old_image" value="0"/>';
+
                                     if (isset($product_image[0])) {
                                         echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
                                     }
@@ -168,13 +170,14 @@ else {
 
                                 }
                                 else {
+                                    echo '<input type="hidden" name="new_image_or_old_image" value="1"/>';
                                     for ($i = 1; $i <= 4; $i++) {
                                         echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-file-size="3M" />';
                                     }
                                 }
                                 ?>
-                            </div> -->
-                                
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="HISTORY"> STATUS</label>
 
@@ -191,7 +194,7 @@ else {
                             </div>
 
                             <div class="b-block text-right">
-                                <input type="submit" value="update" name="submit" class="btn btn-primary">
+                                <input type="submit"  name="submit" class="btn btn-primary">
                             </div>
                         </form>
 

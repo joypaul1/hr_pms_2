@@ -144,10 +144,9 @@ if (!checkPermission('self-leave-report')) {
                                                 </div>
                                                 <div class="modal-body text-center">
                                                     <!-- QR code image -->
-                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://test.rangsmotors.com/product/<?php echo $row['PIC_URL']; ?>/0&choe=UTF-8"
-                                                        title="Link to resale" />
+                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://test.rangsmotors.com/product/<?php echo$row['ID'] ?>/0&choe=UTF-8"title="Link to resale" />
                                                     <br>
-                                                    <strong>Chassis No. :
+                                                    <strong>Chassis No. :   
                                                         <?php echo $row['CHS_NO'] ?>
                                                     </strong>
 
@@ -169,7 +168,7 @@ if (!checkPermission('self-leave-report')) {
                                 </td>
                                 <td>
                                     <strong>DISPLAY PRICE :</strong>
-                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> </br>
+                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
                                     <strong> MODEL :</strong>
                                     <?php echo ($row['MODEL']); ?> </br>
                                     <strong>REFERENCE CODE :</strong>
