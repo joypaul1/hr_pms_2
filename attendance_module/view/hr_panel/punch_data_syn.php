@@ -19,10 +19,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                     <div class="row">
                         <div class="col-sm-4">
                             <label for="title">Select Company:</label>
-                            <select required="" name="select_company" id="select_company" class="form-control cust-control">
+                            <select required="" name="organization" id="select_company" class="form-control cust-control">
                                 <option selected value="">--</option>
+								<option value="ALL">HO & Center Attendance Machine</option>
                                 <option value="SASH">Amishe Attendance Machine</option>
-                                <option value="ALL">HO & Center Attendance Machine</option>
+                                <option value="RMWL">Gazipur Wordwrap Attendance Machine</option>
+                                
                             </select>
                         </div>
                         <div class="col-sm-4">
@@ -73,107 +75,149 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                             <tbody>
 
-                                <?php
+    <?php
+
+    if (isset($_POST['start_date'])) {
+        $company = $_REQUEST['organization'];
+        $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+
+
+        if ($company == 'SASH') {
+            $synSQL  = oci_parse($objConnect,
+                "SELECT 
+				    to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
+					RML_ID,EMP_NAME,DEPT_NAME 
+				FROM RML_HR_APPS_USER
+                    WHERE USER_ROLE IS NOT NULL 
+					AND IS_ACTIVE=1								
+					AND R_CONCERN='$company'"
+            );
+        }else if ($company == 'RMWL') {
+            $synSQL  = oci_parse($objConnect,
+                "SELECT 
+				    to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
+					RML_ID,EMP_NAME,DEPT_NAME 
+				FROM RML_HR_APPS_USER
+                    WHERE USER_ROLE IS NOT NULL 
+					AND IS_ACTIVE=1	
+                    --AND RML_ID='RMWL-0634'					
+					AND R_CONCERN='$company'"
+            );
+        } else {
+            $synSQL  = oci_parse($objConnect,
+                 "SELECT 
+				    to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
+					RML_ID,EMP_NAME,DEPT_NAME 
+				FROM RML_HR_APPS_USER
+                    WHERE USER_ROLE IS NOT NULL 
+					AND IS_ACTIVE=1 
+					AND BRANCH_NAME IN ('Head Office','Rangs Center')"
+            );
+        }
 
 
 
+        if (oci_execute($synSQL)) {
+
+			if ($company == 'SASH') {
+				$serverName = "202.40.191.76";
+				$connectionInfo = array("Database" => "Attendence Amishee", "UID" => "sa", "PWD" => "R@ngs*it");
+				$dbConnect = sqlsrv_connect($serverName, $connectionInfo);
+			} else if($company == 'RMWL'){
+				$serverName = "202.40.188.67";
+				$connectionInfo = array("Database" => "rmwlgattdb", "UID" => "sa", "PWD" => "RMWL@it2023");
+				$dbConnect = sqlsrv_connect($serverName, $connectionInfo);
+			} else {
+				$serverName = "192.168.172.17";
+				$connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
+				$dbConnect = sqlsrv_connect($serverName, $connectionInfo);
+			}
+
+             $number = 0;
+            while ($row = oci_fetch_assoc($synSQL)) {
+
+				$ATTNMACHINE_ID = $row['ATTNMACHINE_ID'];
+				$v_rml_id = $row['RML_ID'];
+				$rml_name = $row['EMP_NAME'];
+				$rml_dept = $row['DEPT_NAME'];
 
 
-                                if (isset($_POST['start_date'])) {
-                                    $company = $_REQUEST['select_company'];
-                                    $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+				if ($company == 'SASH') {
+					$strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+				convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+				convert(varchar, dteDate, 103) AS ATTN_DATE 
+				FROM (
+				select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+				FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
+				where  USERID=(select USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+				and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
+				) bb
+				group by dteDate";
+				}else if ($company == 'RMWL') {
+					$strPunchSQL  = "select convert(varchar(30), 
+									MIN(dteTime), 108) IN_TIME, 
+									convert(varchar(30), 
+									MAX(dteTime), 108) OUT_TIME, 
+									convert(varchar, dteDate, 103) AS ATTN_DATE 
+									FROM ( 
+									select CHECKTIME dteTime,
+										   convert(varchar, '$attn_start_date', 103)dteDate 
+										   FROM [rmwlgattdb].[dbo].[CHECKINOUT] a 
+										   where USERID=(
+										   select USERID from [rmwlgattdb].[dbo].[USERINFO] 
+										   where BADGENUMBER='$ATTNMACHINE_ID') 
+										   and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103) ) bb 
+										   group by dteDate";
+				
+                   // echo $strPunchSQL;
+					//die();
 
+                /*
+                   $strPunchSQL  = "select convert(varchar(30), 
+									MIN(dteTime), 108) IN_TIME, 
+									convert(varchar(30), 
+									MAX(dteTime), 108) OUT_TIME, 
+									convert(varchar, dteDate, 103) AS ATTN_DATE 
+									FROM ( 
+									select CHECKTIME dteTime,
+										   convert(varchar, '$attn_start_date', 103)dteDate 
+										   FROM [rmwlgattdb].[dbo].[CHECKINOUT] a 
+										   where USERID=(
+										   select USERID from 
+									[rmwlgattdb].[dbo].[USERINFO] 
+										   where BADGENUMBER='$ATTNMACHINE_ID') 
+										   and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103) ) 
+										   bb group by dteDate";	
 
-                                    if ($company == 'SASH') {
-                                        $synSQL  = oci_parse(
-                                            $objConnect,
-                                            "select 
-				                to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-					            RML_ID,
-					            EMP_NAME,
-								DEPT_NAME 
-							from RML_HR_APPS_USER
-                                where USER_ROLE IS NOT NULL 
-								AND IS_ACTIVE=1								
-								AND R_CONCERN='$company'"
-                                        );
-                                    } else {
-                                        $synSQL  = oci_parse(
-                                            $objConnect,
-                                            "select 
-				                to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-					            RML_ID,
-					            EMP_NAME,
-								DEPT_NAME 
-							from RML_HR_APPS_USER
-                                where USER_ROLE IS NOT NULL 
-								AND IS_ACTIVE=1 
-								AND BRANCH_NAME IN ('Head Office','Rangs Center')"
-                                        );
-                                    }
-
-
-
-                                    if (oci_execute($synSQL)) {
-
-                                        if ($company == 'SASH') {
-                                            $serverName = "202.40.191.76";
-                                            $connectionInfo = array("Database" => "Attendence Amishee", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = sqlsrv_connect($serverName, $connectionInfo);
-                                        } else {
-                                            $serverName = "192.168.172.17";
-                                            $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = sqlsrv_connect($serverName, $connectionInfo);
-                                        }
-
-                                        $number = 0;
-
-                                        while ($row = oci_fetch_assoc($synSQL)) {
-
-                                            $ATTNMACHINE_ID = $row['ATTNMACHINE_ID'];
-                                            $v_rml_id = $row['RML_ID'];
-                                            $rml_name = $row['EMP_NAME'];
-                                            $rml_dept = $row['DEPT_NAME'];
-
-
-
-                                            if ($company == 'SASH') {
-                                                $strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-											convert(varchar, dteDate, 103) AS ATTN_DATE 
-											FROM (
-											select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-											FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
-											where  USERID=(select USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-											) bb
-											group by dteDate";
-                                            } else {
-                                                $strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-											convert(varchar, dteDate, 103) AS ATTN_DATE 
-											FROM (
-											select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-											FROM [attdb].[dbo].[CHECKINOUT] a
-											where  USERID=(select USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-											) bb
-											group by dteDate";
-                                            }
+   */										   
+				}else {
+					$strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+				convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+				convert(varchar, dteDate, 103) AS ATTN_DATE 
+				FROM (
+				select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+				FROM [attdb].[dbo].[CHECKINOUT] a
+				where  USERID=(select USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+				and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
+				) bb
+				group by dteDate";
+				}
 
 
 
-                                            try {
-                                                $stmt = sqlsrv_query($dbConnect, $strPunchSQL);
-                                            } catch (Exception $e) {
-                                                echo $e;
-                                            }
-                                            $isFound = 0;
-                                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                                $isFound = 1;
-                                                $ATTN_DATE = $row['ATTN_DATE'];
-                                                $IN_TIME = $row['IN_TIME'];
-                                                $OUT_TIME = $row['OUT_TIME'];
+			try {
+				$stmt = sqlsrv_query($dbConnect, $strPunchSQL);
+			} catch (Exception $e) {
+				echo 'Hi Firoz'.$e;
+			}
+            $isFound = 0;
+             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $isFound = 1;
+				
+                $ATTN_DATE = $row['ATTN_DATE'];
+			
+				$IN_TIME = $row['IN_TIME'];
+				$OUT_TIME = $row['OUT_TIME'];
 
 
                                                 if ($isFound == 1) {
@@ -215,7 +259,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 }
                                             }
                                         }
-                                    }
+        }
                                 }
                                 ?>
 
