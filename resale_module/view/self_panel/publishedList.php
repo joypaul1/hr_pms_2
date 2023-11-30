@@ -144,7 +144,7 @@ if (!checkPermission('self-leave-report')) {
                                                 </div>
                                                 <div class="modal-body text-center">
                                                     <!-- QR code image -->
-                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://test.rangsmotors.com/product/<?php echo$row['ID'] ?>/0&choe=UTF-8"title="Link to resale" />
+                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://resale.rangsmotors.com/product/<?php echo$row['ID'] ?>/0&choe=UTF-8"title="Link to resale" />
                                                     <br>
                                                     <strong>Chassis No. :   
                                                         <?php echo $row['CHS_NO'] ?>
@@ -163,7 +163,7 @@ if (!checkPermission('self-leave-report')) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    echo '<a target="_blank" href="https://test.rangsmotors.com/product/' . $row['ID'] . '/0" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-webcam"></i></a>';
+                                    echo '<a target="_blank" href="https://resale.rangsmotors.com/product/' . $row['ID'] . '/0" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-webcam"></i></a>';
                                     ?>
                                 </td>
                                 <td>
@@ -214,7 +214,7 @@ if (!checkPermission('self-leave-report')) {
         console.log(chassis);
         var printWindow = window.open('', '_blank');
         printWindow.document.write(
-            '<div style="display: flex; align-items: center; justify-content: center; height: 100vh;">' +
+            '<div style="display: flex; align-items: center; justify-content: center; height: 70vh;">' +
                 '<div style="text-align: center;">' +
                     '<img src="' + $('#' + modalId + ' img').attr('src') + '" style="max-width: 100%; height: auto;">' +
                     '<p><strong>Chassis No. :' + chassis + '</strong></p>' +
