@@ -357,7 +357,12 @@ else {
             // If value exists, enable the submit button
             displayPriceInput.style.borderColor = 'red';
             submitButton.disabled = true;
+        } else if ((displayPrice > bookValue)) {
+            // If value exists, enable the submit button
+            displayPriceInput.style.borderColor = '';
+            submitButton.disabled = false;
         } else {
+            displayPriceInput.style.borderColor = '';
             // If value exists, enable the submit button
             submitButton.disabled = false;
         }
