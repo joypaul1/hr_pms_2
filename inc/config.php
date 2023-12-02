@@ -7,7 +7,7 @@ define("DB_NAME", "rangs_hr_rml");
 $conn_hr = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
 
 if (!$conn_hr) {
-	die(mysqli_error());
+	die(mysqli_error ());
 }
 
 
