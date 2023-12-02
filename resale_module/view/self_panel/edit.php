@@ -74,25 +74,25 @@ else {
 
                     <div class="col-4">
                         <label class="form-label" for="MODEL"> Model</label>
-                        <input type="text" name="MODEL" class="form-control" value="<?php echo $data['MODEL'] ?>" required id="name" disabled
+                        <input type="text" name="MODEL" class="form-control" value="<?php echo $data['MODEL'] ?>" required id="MODEL" disabled
                             placeholder="MODEL Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REF_CODE"> REFERENCE CODE</label>
-                        <input type="text" name="REF_CODE" class="form-control" value="<?php echo $data['REF_CODE'] ?>" required id="name" disabled
-                            placeholder="REF_CODE Name..">
+                        <input type="text" name="REF_CODE" class="form-control" value="<?php echo $data['REF_CODE'] ?>" required id="REF_CODE"
+                            disabled placeholder="REF_CODE Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="ENG_NO"> ENGINE NO.</label>
-                        <input type="text" name="ENG_NO" class="form-control" value="<?php echo $data['ENG_NO'] ?>" required id="name" disabled
+                        <input type="text" name="ENG_NO" class="form-control" value="<?php echo $data['ENG_NO'] ?>" required id="ENG_NO" disabled
                             placeholder="ENG_NO Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="CHS_NO"> CHASSIS NO.</label>
-                        <input type="text" name="CHS_NO" class="form-control" value="<?php echo $data['CHS_NO'] ?>" required id="name" disabled
+                        <input type="text" name="CHS_NO" class="form-control" value="<?php echo $data['CHS_NO'] ?>" required id="CHS_NO" disabled
                             placeholder="CHS_NO Name..">
 
                     </div>
@@ -104,8 +104,8 @@ else {
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REG_NO"> Booked Value</label>
-                        <input type="text" name="REG_NO" class="form-control" value="<?php echo number_format($data['BOOK_VALUE'], 2) ?>" required
-                            id="name" disabled placeholder="REG_NO Name..">
+                        <input type="text" name="BOOK_VALUE" class="form-control" value="<?php echo number_format($data['BOOK_VALUE'], 2) ?>" required
+                            id="BOOK_VALUE" disabled placeholder="booked value ..">
 
                     </div>
                 </div>
@@ -174,7 +174,7 @@ else {
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <input type="submit" name="submit" class="btn btn-primary">
+                                    <input type="submit" name="submit" disabled class="btn btn-primary">
                                 </div>
                             </form>
                         </div>
@@ -309,8 +309,6 @@ else {
                                 </div>
                             </form>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -327,6 +325,49 @@ else {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    // This function ensures that the checkInputValue function is called when the document loads
+    function initialize() {
+        // Call the checkInputValue function initially
+        checkInputValue();
+
+        // Add an event listener to the DISPLAY_PRICE input for change and input events
+        displayPriceInput.addEventListener('change', checkInputValue);
+        displayPriceInput.addEventListener('input', checkInputValue);
+    }
+
+    // Add an event listener to wait for the document to finish loading before calling initialize
+    document.addEventListener('DOMContentLoaded', initialize);
+    const displayPriceInput = document.getElementById('DISPLAY_PRICE');
+    const submitButton = document.querySelector('input[name="submit"]');
+
+    // Function to check if the input value exists and enable/disable the button accordingly
+    function checkInputValue() {
+        // Get the values of DISPLAY_PRICE and BOOK_VALUE
+        const displayPrice = parseFloat(displayPriceInput.value.trim()); // Get the trimmed value of DISPLAY_PRICE
+        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE']; ?>);
+        console.log(displayPrice, bookValue);
+
+
+        // Check if DISPLAY_PRICE has a value or not
+        if (!displayPrice) {
+            // If value is empty or doesn't exist, disable the submit button
+            submitButton.disabled = true;
+        } else if ((displayPrice < bookValue)) {
+            // If value exists, enable the submit button
+            displayPriceInput.style.borderColor = 'red';
+            submitButton.disabled = true;
+        } else {
+            // If value exists, enable the submit button
+            submitButton.disabled = false;
+        }
+    }
+
+    // Add an event listener to the DISPLAY_PRICE input for change and input events
+    displayPriceInput.addEventListener('change', checkInputValue);
+    displayPriceInput.addEventListener('input', checkInputValue);
+
+</script>
 <script>
 
     $('.dropify').dropify({
