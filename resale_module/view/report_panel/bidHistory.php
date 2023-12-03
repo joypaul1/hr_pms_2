@@ -10,45 +10,7 @@ if (!checkPermission('resale-product-panel')) {
 ?>
 
 <!-- / Content -->
-<div class="container-xxl flex-grow-1 container-p-y">
-
-    <div class="card card-body ">
-        <form method="GET">
-            <div class="row justify-content-center">
-                <!-- <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Engine No.</label>
-
-                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng"
-                        value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
-                </div> -->
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Chassis No. </label>
-
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
-                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Model No. </label>
-
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
-                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
-                </div>
-
-
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
-                    </div>
-                </div>
-
-
-            </div>
-
-        </form>
-    </div>
-
-
+<div class="container-xxl flex-grow-1 container-p-y"        
 
 
     <!-- Bordered Table -->
@@ -69,8 +31,8 @@ if (!checkPermission('resale-product-panel')) {
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Product Info</th>
-                            <th scope="col"> Bid Info</th>
-                            <th scope="col"> Bid Status</th>
+                            <th scope="col">Total Bid </th>
+                            <th scope="col">highest Bid </th>
                             <th scope="col">Bid History</th>
                             <!-- <th scope="col">Action</th> -->
 
@@ -126,29 +88,29 @@ if (!checkPermission('resale-product-panel')) {
                         }
                         else {
                             $productSQL = oci_parse($objConnect, "SELECT 
-                            BB.ID,
-                            BB.CATEGORY,
-                            BB.MODEL,
-                            BB.REF_CODE,
-                            BB.CHS_NO,
-                            BB.ENG_NO,
-                            BB.REG_NO,
-                            BB.BOOK_VALUE,
-                            BB.DISPLAY_PRICE,
-                            BB.GRADE,
-                            AA.MAX_BID_AMOUNT,
-                            AA.TOTAL_BID,
-                            BB.AUCTTION_START_DATE,
-                            BB.AUCTION_END_DATE,
-                            (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                         FROM 
-                                (SELECT A.PRODUCT_ID,
-                                       COUNT(PRODUCT_ID) TOTAL_BID,
-                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
-                                FROM PRODUCT_BID A,PRODUCT B
-                                WHERE A.PRODUCT_ID=B.ID
-                                GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
-                            WHERE AA.PRODUCT_ID=BB.ID");
+                            ID, 
+                            REF_CODE, 
+                            ENG_NO, 
+                            CHS_NO, 
+                            REG_NO, 
+                            BOOK_VALUE, 
+                            DISPLAY_PRICE, 
+                            GRADE, 
+                            DEPO_LOCATION, 
+                            BRAND_ID, 
+                            CATEGORY, 
+                            MODEL, 
+                            INVOICE_STATUS, 
+                            BOOKED_STATUS, 
+                            PRODUCT_BID_ID, 
+                            BODY_SIT, 
+                            COLOR, 
+                            FUEL_TYPE,
+                            PIC_URL 
+                        FROM PRODUCT
+                        WHERE PUBLISHED_STATUS = 'Y' 
+                        AND ROWNUM <= 15 
+                        ORDER BY ID DESC");
                         }
 
 
@@ -156,8 +118,6 @@ if (!checkPermission('resale-product-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            // print_r($row['BID_REMAINDER'] );
-                            // die();
                             ?>
                             <tr>
                                 <td>
@@ -175,50 +135,24 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php echo ($row['CHS_NO']); ?> </br>
                                     <strong>REGISTATION NO. :</strong>
                                     <?php echo ($row['REG_NO']); ?> </br>
+
+                                    <strong>BOOK VALUE :</strong>
+                                    <?php echo number_format($row['BOOK_VALUE'], 2); ?> TK </br>
+                                    <strong>DISPLAY PRICE :</strong>
+                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
                                     <strong> MODEL :</strong>
                                     <?php echo ($row['MODEL']); ?> </br>
-
+                                  
                                 </td>
+                                <td class="text-center"><span class="flex-shrink-0 badge badge-center rounded-pill bg-info w-px-20 h-px-20">4</span></td>
+                                <td class="text-roght"><?php echo number_format(10000000, 2)?></td>
+
                                 
-                                <td class="text-right">
-                                    <strong>BOOK VALUE :
-                                        <?php echo number_format($row['BOOK_VALUE']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>DISPLAY PRICE :
-                                        <?php echo number_format($row['DISPLAY_PRICE']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>MAX BID :
-                                        <?php echo number_format($row['MAX_BID_AMOUNT']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>TOTAL BID :
-                                        <span class="badge badge-center bg-danger">
-                                            <?php echo $row['TOTAL_BID'] ?>
-                                        </span>
-                                    </strong>
-
-
-                                </td>
                                 <td class="text-center">
                                     <?php
-                                        if($row['BID_REMAINDER'] > 0){
-                                            echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>"; 
-                                            echo "<strong>Remian Days : ".$row['BID_REMAINDER']."</strong>";
-                                        }else{
-                                            echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
-
-                                        }
+                                    echo '<a target="_blank" href="https://resale.rangsmotors.com/product/' . $row['ID'] . '/0" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-time"></i></a>';
                                     ?>
-                                </td>
-
-
-                                <td class="text-center">
-                                    <?php
-                                    echo '<a target="_blank" href="' . $basePath . '/resale_module/view/report_panel/bidHistory.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit"" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-time"></i></a>';
-                                    ?>
-
+                                   
                                 </td>
 
 
