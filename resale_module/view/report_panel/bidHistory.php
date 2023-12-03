@@ -10,10 +10,7 @@ if (!checkPermission('resale-product-panel')) {
 ?>
 
 <!-- / Content -->
-<div class="container-xxl flex-grow-1 container-p-y"        
-
-
-    <!-- Bordered Table -->
+<div class="container-xxl flex-grow-1 container-p-y" <!-- Bordered Table -->
     <div class="card mt-2">
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
@@ -30,89 +27,27 @@ if (!checkPermission('resale-product-panel')) {
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Product Info</th>
-                            <th scope="col">Total Bid </th>
-                            <th scope="col">highest Bid </th>
-                            <th scope="col">Bid History</th>
-                            <!-- <th scope="col">Action</th> -->
-
+                            <th scope="col">Bidder Info</th>
+                            <th scope="col"> Bid Amount</th>
+                            <th scope="col">Action </th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
+                        $productID = $_GET['id'];
 
-                        // $model = isset($_GET['model']) ? '%' . $_GET['model'] . '%' : null;
-                        $model = isset($_REQUEST['model']) ? $_GET['model'] : null;
-                        $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
-                        // echo  $model;
-                        
-
-                        if ($chsNo || $model) {
-                            if (empty($model)) {
-                                $model = 'NULL';
-
-                            }
-                            //  echo  $model;
-                            if (empty($chsNo)) {
-                                $chsNo = 'NULL';
-                                // echo  $model;
-                            }
-                            $productSQL = oci_parse($objConnect, "SELECT 
-                            ID, 
-                            REF_CODE, 
-                            ENG_NO, 
-                            CHS_NO, 
-                            REG_NO, 
-                            BOOK_VALUE, 
-                            DISPLAY_PRICE, 
-                            GRADE, 
-                            DEPO_LOCATION, 
-                            BRAND_ID, 
-                            CATEGORY, 
-                            MODEL, 
-                            INVOICE_STATUS, 
-                            BOOKED_STATUS, 
-                            PRODUCT_BID_ID, 
-                            BODY_SIT, 
-                            COLOR, 
-                            FUEL_TYPE,
-                            PIC_URL 
-                            FROM PRODUCT
-                            WHERE     PUBLISHED_STATUS = 'Y'
-                            AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
-                            ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
-
-
-
-                        }
-                        else {
-                            $productSQL = oci_parse($objConnect, "SELECT 
-                            ID, 
-                            REF_CODE, 
-                            ENG_NO, 
-                            CHS_NO, 
-                            REG_NO, 
-                            BOOK_VALUE, 
-                            DISPLAY_PRICE, 
-                            GRADE, 
-                            DEPO_LOCATION, 
-                            BRAND_ID, 
-                            CATEGORY, 
-                            MODEL, 
-                            INVOICE_STATUS, 
-                            BOOKED_STATUS, 
-                            PRODUCT_BID_ID, 
-                            BODY_SIT, 
-                            COLOR, 
-                            FUEL_TYPE,
-                            PIC_URL 
-                        FROM PRODUCT
-                        WHERE PUBLISHED_STATUS = 'Y' 
-                        AND ROWNUM <= 15 
-                        ORDER BY ID DESC");
-                        }
-
+                        $productSQL = oci_parse($objConnect, "SELECT
+                            BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,BB.ID as BID_ID,
+                            AA.USER_ID,AA.PRODUCT_ID,AA.BOOKED_STATUS,AA.BID_AMOUNT,AA.ENTRY_DATE
+                         FROM 
+                                (
+                                SELECT A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE
+                                FROM PRODUCT_BID A
+                                WHERE PRODUCT_ID=$productID
+                                ORDER BY BID_AMOUNT DESC
+                                ) AA,USER_PROFILE BB
+                            WHERE AA.USER_ID=BB.ID");
 
                         oci_execute($productSQL);
                         $number = 0;
@@ -126,33 +61,29 @@ if (!checkPermission('resale-product-panel')) {
                                     </strong>
                                 </td>
                                 <td>
-                                    <strong>REFERENCE CODE :</strong>
-                                    <?php echo ($row['REF_CODE']); ?> </br>
-                                    <strong>ENGINE NO. :</strong>
+                                    <strong>CUSTOMER NAME :</strong>
+                                    <?php echo ($row['USER_NAME']); ?> </br>
+                                    <strong>MOBILE NO. :</strong>
 
-                                    <?php echo ($row['ENG_NO']); ?> </br>
-                                    <strong>CHASSIS NO. :</strong>
-                                    <?php echo ($row['CHS_NO']); ?> </br>
-                                    <strong>REGISTATION NO. :</strong>
-                                    <?php echo ($row['REG_NO']); ?> </br>
+                                    <?php echo ($row['USER_MOBILE']); ?> </br>
+                                    <strong>ADDRESS :</strong>
+                                    <?php echo ($row['ADDRESS']); ?>
 
-                                    <strong>BOOK VALUE :</strong>
-                                    <?php echo number_format($row['BOOK_VALUE'], 2); ?> TK </br>
-                                    <strong>DISPLAY PRICE :</strong>
-                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
-                                    <strong> MODEL :</strong>
-                                    <?php echo ($row['MODEL']); ?> </br>
-                                  
                                 </td>
-                                <td class="text-center"><span class="flex-shrink-0 badge badge-center rounded-pill bg-info w-px-20 h-px-20">4</span></td>
-                                <td class="text-roght"><?php echo number_format(10000000, 2)?></td>
+
+                                <td class="text-right">
+                                    <?php echo number_format($row['BID_AMOUNT']) ?>
+                                </td>
 
                                 
                                 <td class="text-center">
-                                    <?php
-                                    echo '<a target="_blank" href="https://resale.rangsmotors.com/product/' . $row['ID'] . '/0" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-time"></i></a>';
-                                    ?>
-                                   
+                                    <!-- data-bid-id="<?php echo  $row['BID_ID'] ?>"  -->
+                                    <!-- <form action="" method="post"> -->
+                                    <button 
+                                    data-href="<?php echo ($basePath . '/resale_module/action/self_panel.php?actionType=bidLook'); ?>"
+                                     type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>
+                                    </form>
+
                                 </td>
 
 
@@ -181,21 +112,48 @@ if (!checkPermission('resale-product-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    // Function to print QR code image
-    function printQRCode(modalId, chassis) {
-        console.log(chassis);
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write(
-            '<div style="display: flex; align-items: center; justify-content: center; height: 70vh;">' +
-            '<div style="text-align: center;">' +
-            '<img src="' + $('#' + modalId + ' img').attr('src') + '" style="max-width: 100%; height: auto;">' +
-            '<p><strong>Chassis No. :' + chassis + '</strong></p>' +
-            '</div>' +
-            '</div>'
-        );
+    //delete data processing
 
-        printWindow.document.close();
-        printWindow.focus();
-        printWindow.print();
-    }
+    $(document).on('click', '.delete_check', function() {
+        var id = $(this).data('bid-id');
+        var id = $(this).data('product-id');
+        let url = $(this).data('href');
+        swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            deleteID: id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
+                        console.log(response);
+                        swal.fire('Deleted!', response.message, response.status);
+                        location.reload(); // Reload the page
+                    })
+                    .fail(function() {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
+    });
 </script>
