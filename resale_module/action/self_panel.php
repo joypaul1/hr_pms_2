@@ -347,6 +347,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
     }
 }
+if (($_GET["actionType"]) == 'bidConfirm') {
+
+
+    $bidID = $_GET["bid_id"];
+    $productID = $_GET["product_id"];
+    $emp_session_id ;
+    $status = 'Y' ;
+    
+    // Prepare the SQL statement
+    $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
+
+    
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'Data Saved successfully.',
+            'status' => 'true',
+        ];
+        echo 'done';
+    }
+    else {
+        $e                        = @oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        print_r ($e) ;
+        
+    }
+}
+
+
+
 
 
 function pathExitOrCreate($folderPath)

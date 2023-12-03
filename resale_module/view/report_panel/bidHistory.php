@@ -39,11 +39,11 @@ if (!checkPermission('resale-product-panel')) {
                         $productID = $_GET['id'];
 
                         $productSQL = oci_parse($objConnect, "SELECT
-                            BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,BB.ID as BID_ID,
+                            BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,AA.ID as BID_ID,
                             AA.USER_ID,AA.PRODUCT_ID,AA.BOOKED_STATUS,AA.BID_AMOUNT,AA.ENTRY_DATE
                          FROM 
                                 (
-                                SELECT A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE
+                                SELECT A.ID,A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE
                                 FROM PRODUCT_BID A
                                 WHERE PRODUCT_ID=$productID
                                 ORDER BY BID_AMOUNT DESC
@@ -58,7 +58,8 @@ if (!checkPermission('resale-product-panel')) {
                             <tr>
                                 <td>
                                     <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
-                                        <?php echo $number; ?>
+                                        <?php echo $number;  ?>
+                                        (<?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -81,10 +82,11 @@ if (!checkPermission('resale-product-panel')) {
 
                                 
                                 <td class="text-center">
-                                    <!-- data-bid-id="<?php echo  $row['BID_ID'] ?>"  -->
                                     <!-- <form action="" method="post"> -->
-                                    <button 
-                                    data-href="<?php echo ($basePath . '/resale_module/action/self_panel.php?actionType=bidLook'); ?>"
+                                <button 
+                                    data-bid-id="<?php echo  $row['BID_ID'] ?>" 
+                                    data-product-id="<?php echo  $productID ?>" 
+                                    data-href="<?php echo ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm'); ?>"
                                      type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>
                                     </form>
 
@@ -119,8 +121,8 @@ if (!checkPermission('resale-product-panel')) {
     //delete data processing
 
     $(document).on('click', '.delete_check', function() {
-        var id = $(this).data('bid-id');
-        var id = $(this).data('product-id');
+        var bid_id = $(this).data('bid-id');
+        var product_id = $(this).data('product-id');
         let url = $(this).data('href');
         swal.fire({
             title: 'Are you sure?',
@@ -142,7 +144,8 @@ if (!checkPermission('resale-product-panel')) {
                         url: url,
                         type: 'GET',
                         data: {
-                            deleteID: id
+                            product_id: product_id,
+                            bid_id: bid_id
                         },
                         dataType: 'json'
                     })
