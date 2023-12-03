@@ -196,7 +196,7 @@ else {
 
                                 </div>
 
-                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section</div>
+                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span class="text-danger">(4image mandatory)</span></div>
                                 <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                     <?php
                                     $product_image      = array();
