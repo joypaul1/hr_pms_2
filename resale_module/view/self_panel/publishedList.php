@@ -4,7 +4,7 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
 
-if (!checkPermission('self-leave-report')) {
+if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 ?>
@@ -100,7 +100,7 @@ if (!checkPermission('self-leave-report')) {
                                         FUEL_TYPE,
                                         PIC_URL 
                                     FROM PRODUCT
-                                    WHERE PUBLISHED_STATUS = 'Y' AND (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
+                                    WHERE PUBLISHED_STATUS = 'Y' OR (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
 
                             oci_bind_by_name($productSQL, ':model', $model);
                             oci_bind_by_name($productSQL, ':engNo', $engNo);

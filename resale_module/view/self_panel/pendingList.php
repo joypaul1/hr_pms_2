@@ -13,29 +13,24 @@ if (!checkPermission('self-leave-report')) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form action="" method="post">
+    <form  method="GET">
             <div class="row justify-content-center">
-                <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>'>
-                <div class="col-sm-2">
-                    <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value="">
-                    </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Engine No.</label>
+
+                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng" value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
                 </div>
-                <div class="col-sm-2">
-                    <label class="form-label" for="basic-default-fullname">Select End Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value="">
-                    </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Chassis No.</label>
+
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Model No.</label>
+
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                </div>
+              
 
                 <div class="col-sm-2">
                     <div class="form-group">
