@@ -34,6 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                         PIC_URL,
                         DESCRIPTION,
                         HISTORY,
+                        AUCTTION_START_DATE,
+                        AUCTION_END_DATE,
                         PUBLISHED_STATUS
                         FROM PRODUCT
                         WHERE ID ='$product_id'");
@@ -289,6 +291,37 @@ else {
                                 enctype="multipart/form-data">
                                 <input type="hidden" name="actionType" value="pro_edit_4">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
+
+                                <div class="mb-3">
+                                    <label class="form-label" for="auctionStartDate">AUCTION START DATE</label>
+                                    <?php
+                                    $auctionStartDate = $data['AUCTTION_START_DATE'];
+                                  
+                                    // Convert date format from dd-MMM-yy to Y-m-d
+                                    $auctionStartDateObj = DateTime::createFromFormat('d-M-y', $auctionStartDate);
+                                    $formattedStartDate  = $auctionStartDateObj ? $auctionStartDateObj->format('Y-m-d') : '';
+
+                                    ?>
+                                    <input type="date" name="AUCTTION_START_DATE" class="form-control" value="<?php echo $formattedStartDate; ?>"
+                                        required id="auctionStartDate">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="auctionEndDate">AUCTION START DATE</label>
+                                    <?php
+                                    $auctionStartDate = $data['AUCTION_END_DATE'];
+
+                                    // Convert date format from dd-MMM-yy to Y-m-d
+                                    $auctionEndDate   = DateTime::createFromFormat('d-M-y', $auctionStartDate);
+                                    $formattedEndDate = $auctionEndDate ? $auctionEndDate->format('Y-m-d') : '';
+
+                                    ?>
+                                    <input type="date" name="AUCTION_END_DATE" class="form-control" value="<?php echo $formattedEndDate; ?>" required
+                                        id="auctionEndDate">
+                                </div>
+
+
+
+
                                 <div class="mb-3">
                                     <label class="form-label" for="HISTORY"> STATUS</label>
 

@@ -90,30 +90,22 @@ function isActive($url)
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('resale-report-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module'); ?>">
+                        <li class="menu-item <?php echo isActive('/resale_module/view/report_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                <div>Product Panel</div>
+                                <div>Report Panel</div>
                             </a>
                             <ul class="menu-sub">
 
                                 <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                    class="menu-item <?php echo isActive('/resale_module/view/report_panel/pendingList.php'); ?> <?php echo isActive('/resale_module/view/report_panel/edit.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/pendingList.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Pending List
+                                            Bid Report
                                         </div>
                                     </a>
                                 </li>
 
-                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Published List
-                                        </div>
-                                    </a>
-                                </li>
 
 
                             </ul>

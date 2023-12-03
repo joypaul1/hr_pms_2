@@ -61,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
     $valid_formats = array( "jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP" );
 
-    $editId           = $_POST['editId'];
- 
+    $editId = $_POST['editId'];
+
 
     if ($_POST['new_image_or_old_image'] == '1') {
 
@@ -311,22 +311,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_4') {
 
+    // print_r($_POST);
+    // die();
+    $editId              = $_POST['editId'];
+    $PUBLISHED_STATUS    = $_POST['PUBLISHED_STATUS'];
+    $AUCTTION_START_DATE = date("d/m/Y", strtotime($_POST['AUCTTION_START_DATE']));
+    $AUCTION_END_DATE    = date("d/m/Y", strtotime($_POST['AUCTION_END_DATE']));
 
-    $editId           = $_POST['editId'];
-    $PUBLISHED_STATUS = $_POST['PUBLISHED_STATUS'];
 
     // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "
-        UPDATE PRODUCT 
-        SET 
-            PUBLISHED_STATUS = :published_status
-        WHERE ID = :edit_id
-    ");
+    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT 
+    SET 
+    AUCTTION_START_DATE = to_date('$AUCTTION_START_DATE','dd/mm/yyyy'), 
+    AUCTION_END_DATE = to_date('$AUCTION_END_DATE','dd/mm/yyyy'),
+    PUBLISHED_STATUS = '$PUBLISHED_STATUS'
+    WHERE ID = $editId");
 
-    // Bind parameters
-    @oci_bind_by_name($strSQL, ':published_status', $PUBLISHED_STATUS);
-    @oci_bind_by_name($strSQL, ':edit_id', $editId);
-
+    
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
