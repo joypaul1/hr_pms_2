@@ -200,7 +200,7 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 					<h5 class="card-title text-primary">My Last 7 Days Attendance.</h5>
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
-							<thead class="">
+							<thead class="table-dark">
 								<tr>
 									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Date</strong></th>
