@@ -29,6 +29,7 @@ if (!checkPermission('resale-product-panel')) {
                             <th>SL</th>
                             <th scope="col">Bidder Info</th>
                             <th scope="col"> Bid Amount</th>
+                            <th scope="col"> ENTRY DATE</th>
                             <th scope="col">Action </th>
                         </tr>
                     </thead>
@@ -73,6 +74,9 @@ if (!checkPermission('resale-product-panel')) {
 
                                 <td class="text-right">
                                     <?php echo number_format($row['BID_AMOUNT']) ?>
+                                </td>
+                                <td class="text-right">
+                                    <?php echo ($row['ENTRY_DATE']) ?>
                                 </td>
 
                                 
