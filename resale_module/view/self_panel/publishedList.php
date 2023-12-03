@@ -13,29 +13,24 @@ if (!checkPermission('self-leave-report')) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form action="" method="post">
+        <form  method="GET">
             <div class="row justify-content-center">
-                <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>'>
-                <div class="col-sm-2">
-                    <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value="">
-                    </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Engine No.</label>
+
+                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng" value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
                 </div>
-                <div class="col-sm-2">
-                    <label class="form-label" for="basic-default-fullname">Select End Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value="">
-                    </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Chassis No.</label>
+
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Model No.</label>
+
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                </div>
+              
 
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -59,7 +54,7 @@ if (!checkPermission('self-leave-report')) {
         <!-- table header -->
         <?php
         $leftSideName = 'Published Product List';
-       
+
         include('../../../layouts/_tableHeader.php');
 
         ?>
@@ -74,46 +69,47 @@ if (!checkPermission('self-leave-report')) {
                             <th scope="col">QrCode Scane</th>
                             <th scope="col">Live Preview</th>
                             <th scope="col">Product Info</th>
-                            <!-- <th scope="col">Ref. Code  </th>
-                            <th scope="col">Model  </th>
-                            <th scope="col">Engine </th>
-                            <th scope="col">Chassis </th>
-                            <th scope="col">Reg Num.</th>
-                            <th scope="col">Color</th> -->
 
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                        $productSQL = oci_parse($objConnect, "SELECT 
-                                    ID, 
-                                    REF_CODE, 
-                                    ENG_NO, 
-                                    CHS_NO, 
-                                    REG_NO, 
-                                    BOOK_VALUE, 
-                                    DISPLAY_PRICE, 
-                                    GRADE, 
-                                    DEPO_LOCATION, 
-                                    BRAND_ID, 
-                                    CATEGORY, 
-                                    MODEL, 
-                                    INVOICE_STATUS, 
-                                    BOOKED_STATUS, 
-                                    PRODUCT_BID_ID, 
-                                    BODY_SIT, 
-                                    COLOR, 
-                                    FUEL_TYPE,
-                                    PIC_URL 
-                                   
-                                FROM PRODUCT
-                                WHERE PUBLISHED_STATUS ='Y'");
 
-                        oci_execute($productSQL);
-                        $number = 0;
-                        while ($row = oci_fetch_assoc($productSQL)) {
-                            $number++;
+                            $engNo = isset($_GET['eng_no']) ? $_GET['eng_no'] : null;
+                            $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
+                            $model = isset($_GET['model']) ? $_GET['model'] : null;
+                            $productSQL = oci_parse($objConnect, "SELECT 
+                                        ID, 
+                                        REF_CODE, 
+                                        ENG_NO, 
+                                        CHS_NO, 
+                                        REG_NO, 
+                                        BOOK_VALUE, 
+                                        DISPLAY_PRICE, 
+                                        GRADE, 
+                                        DEPO_LOCATION, 
+                                        BRAND_ID, 
+                                        CATEGORY, 
+                                        MODEL, 
+                                        INVOICE_STATUS, 
+                                        BOOKED_STATUS, 
+                                        PRODUCT_BID_ID, 
+                                        BODY_SIT, 
+                                        COLOR, 
+                                        FUEL_TYPE,
+                                        PIC_URL 
+                                    FROM PRODUCT
+                                    WHERE PUBLISHED_STATUS = 'Y' AND (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
+
+                            oci_bind_by_name($productSQL, ':model', $model);
+                            oci_bind_by_name($productSQL, ':engNo', $engNo);
+                            oci_bind_by_name($productSQL, ':chsNo', $chsNo);
+                            oci_execute($productSQL);
+
+                            $number = 0;
+                            while ($row = oci_fetch_assoc($productSQL)) {
+                                $number++;
                             ?>
                             <tr>
                                 <td>
@@ -144,9 +140,10 @@ if (!checkPermission('self-leave-report')) {
                                                 </div>
                                                 <div class="modal-body text-center">
                                                     <!-- QR code image -->
-                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://resale.rangsmotors.com/product/<?php echo$row['ID'] ?>/0&choe=UTF-8"title="Link to resale" />
+                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://resale.rangsmotors.com/product/<?php echo $row['ID'] ?>/0&choe=UTF-8"
+                                                        title="Link to resale" />
                                                     <br>
-                                                    <strong>Chassis No. :   
+                                                    <strong>Chassis No. :
                                                         <?php echo $row['CHS_NO'] ?>
                                                     </strong>
 
@@ -215,13 +212,13 @@ if (!checkPermission('self-leave-report')) {
         var printWindow = window.open('', '_blank');
         printWindow.document.write(
             '<div style="display: flex; align-items: center; justify-content: center; height: 70vh;">' +
-                '<div style="text-align: center;">' +
-                    '<img src="' + $('#' + modalId + ' img').attr('src') + '" style="max-width: 100%; height: auto;">' +
-                    '<p><strong>Chassis No. :' + chassis + '</strong></p>' +
-                '</div>' +
+            '<div style="text-align: center;">' +
+            '<img src="' + $('#' + modalId + ' img').attr('src') + '" style="max-width: 100%; height: auto;">' +
+            '<p><strong>Chassis No. :' + chassis + '</strong></p>' +
+            '</div>' +
             '</div>'
         );
-      
+
         printWindow.document.close();
         printWindow.focus();
         printWindow.print();
