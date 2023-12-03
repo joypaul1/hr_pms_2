@@ -13,24 +13,27 @@ if (!checkPermission('resale-product-panel')) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form  method="GET">
+        <form method="GET">
             <div class="row justify-content-center">
-                <div class="col-sm-3">
+                <!-- <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Engine No.</label>
 
-                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng" value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
+                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng"
+                        value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
+                </div> -->
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">Chassis No. </label>
+
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
+                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
                 <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Chassis No.</label>
+                    <label class="form-label" for="basic-default-fullname">Model No. </label>
 
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
+                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
                 </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Model No.</label>
 
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
-                </div>
-              
 
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -65,10 +68,10 @@ if (!checkPermission('resale-product-panel')) {
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">QrCode Scane</th>
-                            <th scope="col">Live Preview</th>
                             <th scope="col">Product Info</th>
+                            <th scope="col">QrCode Scane</th>
+                            <!-- <th scope="col">Live Preview</th> -->
+                            <th scope="col">Action</th>
 
                         </tr>
                     </thead>
@@ -76,40 +79,82 @@ if (!checkPermission('resale-product-panel')) {
 
                         <?php
 
-                            $engNo = isset($_GET['eng_no']) ? $_GET['eng_no'] : null;
-                            $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
-                            $model = isset($_GET['model']) ? $_GET['model'] : null;
+                        // $model = isset($_GET['model']) ? '%' . $_GET['model'] . '%' : null;
+                        $model = isset($_REQUEST['model']) ? $_GET['model'] : null;
+                        $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
+                        // echo  $model;
+                        
+
+                        if ($chsNo || $model) {
+                            if (empty($model)) {
+                                $model = 'NULL';
+
+                            }
+                            //  echo  $model;
+                            if (empty($chsNo)) {
+                                $chsNo = 'NULL';
+                                // echo  $model;
+                            }
                             $productSQL = oci_parse($objConnect, "SELECT 
-                                        ID, 
-                                        REF_CODE, 
-                                        ENG_NO, 
-                                        CHS_NO, 
-                                        REG_NO, 
-                                        BOOK_VALUE, 
-                                        DISPLAY_PRICE, 
-                                        GRADE, 
-                                        DEPO_LOCATION, 
-                                        BRAND_ID, 
-                                        CATEGORY, 
-                                        MODEL, 
-                                        INVOICE_STATUS, 
-                                        BOOKED_STATUS, 
-                                        PRODUCT_BID_ID, 
-                                        BODY_SIT, 
-                                        COLOR, 
-                                        FUEL_TYPE,
-                                        PIC_URL 
-                                    FROM PRODUCT
-                                    WHERE PUBLISHED_STATUS = 'Y' AND (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
+                            ID, 
+                            REF_CODE, 
+                            ENG_NO, 
+                            CHS_NO, 
+                            REG_NO, 
+                            BOOK_VALUE, 
+                            DISPLAY_PRICE, 
+                            GRADE, 
+                            DEPO_LOCATION, 
+                            BRAND_ID, 
+                            CATEGORY, 
+                            MODEL, 
+                            INVOICE_STATUS, 
+                            BOOKED_STATUS, 
+                            PRODUCT_BID_ID, 
+                            BODY_SIT, 
+                            COLOR, 
+                            FUEL_TYPE,
+                            PIC_URL 
+                            FROM PRODUCT
+                            WHERE     PUBLISHED_STATUS = 'Y'
+                            AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
+                            ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
 
-                            oci_bind_by_name($productSQL, ':model', $model);
-                            oci_bind_by_name($productSQL, ':engNo', $engNo);
-                            oci_bind_by_name($productSQL, ':chsNo', $chsNo);
-                            oci_execute($productSQL);
 
-                            $number = 0;
-                            while ($row = oci_fetch_assoc($productSQL)) {
-                                $number++;
+
+                        }
+                        else {
+                            $productSQL = oci_parse($objConnect, "SELECT 
+                            ID, 
+                            REF_CODE, 
+                            ENG_NO, 
+                            CHS_NO, 
+                            REG_NO, 
+                            BOOK_VALUE, 
+                            DISPLAY_PRICE, 
+                            GRADE, 
+                            DEPO_LOCATION, 
+                            BRAND_ID, 
+                            CATEGORY, 
+                            MODEL, 
+                            INVOICE_STATUS, 
+                            BOOKED_STATUS, 
+                            PRODUCT_BID_ID, 
+                            BODY_SIT, 
+                            COLOR, 
+                            FUEL_TYPE,
+                            PIC_URL 
+                        FROM PRODUCT
+                        WHERE PUBLISHED_STATUS = 'Y' 
+                        AND ROWNUM <= 15 
+                        ORDER BY ID DESC");
+                        }
+
+
+                        oci_execute($productSQL);
+                        $number = 0;
+                        while ($row = oci_fetch_assoc($productSQL)) {
+                            $number++;
                             ?>
                             <tr>
                                 <td>
@@ -117,12 +162,27 @@ if (!checkPermission('resale-product-panel')) {
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
-
                                 <td>
-                                    <?php
-                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i></a>';
-                                    ?>
+                                    <strong>REFERENCE CODE :</strong>
+                                    <?php echo ($row['REF_CODE']); ?> </br>
+                                    <strong>ENGINE NO. :</strong>
+
+                                    <?php echo ($row['ENG_NO']); ?> </br>
+                                    <strong>CHASSIS NO. :</strong>
+                                    <?php echo ($row['CHS_NO']); ?> </br>
+                                    <strong>REGISTATION NO. :</strong>
+                                    <?php echo ($row['REG_NO']); ?> </br>
+
+                                    <strong>BOOK VALUE :</strong>
+                                    <?php echo number_format($row['BOOK_VALUE'], 2); ?> TK </br>
+                                    <strong>DISPLAY PRICE :</strong>
+                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
+                                    <strong> MODEL :</strong>
+                                    <?php echo ($row['MODEL']); ?> </br>
+                                  
                                 </td>
+
+
                                 <td class="text-center">
                                     <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#qrModal_<?php echo $row['ID'] ?>">
@@ -162,22 +222,11 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php
                                     echo '<a target="_blank" href="https://resale.rangsmotors.com/product/' . $row['ID'] . '/0" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-webcam"></i></a>';
                                     ?>
-                                </td>
-                                <td>
-                                    <strong>DISPLAY PRICE :</strong>
-                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
-                                    <strong> MODEL :</strong>
-                                    <?php echo ($row['MODEL']); ?> </br>
-                                    <strong>REFERENCE CODE :</strong>
-                                    <?php echo ($row['REF_CODE']); ?> </br>
-                                    <strong>ENGINE NO. :</strong>
-                                    <?php echo ($row['ENG_NO']); ?> </br>
-                                    <strong>CHASSIS NO. :</strong>
-                                    <?php echo ($row['CHS_NO']); ?> </br>
-                                    <strong>REGISTATION NO. :</strong>
-                                    <?php echo ($row['REG_NO']); ?> </br>
-                                    <strong> COLOR :</strong>
-                                    <?php echo ($row['COLOR']); ?> </br>
+                                    <br>
+                                    <br>
+                                    <?php
+                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt"></i></a>';
+                                    ?>
                                 </td>
 
 
