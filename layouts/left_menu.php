@@ -52,10 +52,11 @@ function isActive($url)
 
 
                 <ul class="menu-sub">
+                
                     <?php if (checkPermission('resale-dashboard-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module/view/dashboard.php'); ?>  ">
+                        <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
                             <a href="javascript:void(0)" class="menu-link ">
-                                <div>Dashbpard Panel</div>
+                                <div>Dashboard Panel</div>
                             </a>
                         </li>
                     <?php } ?>
@@ -97,8 +98,8 @@ function isActive($url)
                             <ul class="menu-sub">
 
                                 <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/report_panel/pendingList.php'); ?> <?php echo isActive('/resale_module/view/report_panel/edit.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/pendingList.php" class="menu-link withoutIcon">
+                                    class="menu-item <?php echo isActive('/resale_module/view/report_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/report_panel/edit.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Bid Report
