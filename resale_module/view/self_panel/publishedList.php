@@ -100,7 +100,7 @@ if (!checkPermission('resale-product-panel')) {
                                         FUEL_TYPE,
                                         PIC_URL 
                                     FROM PRODUCT
-                                    WHERE PUBLISHED_STATUS = 'Y' OR (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
+                                    WHERE PUBLISHED_STATUS = 'Y' AND (MODEL=:model or CHS_NO = :chsNo OR ENG_NO = :engNo)");
 
                             oci_bind_by_name($productSQL, ':model', $model);
                             oci_bind_by_name($productSQL, ':engNo', $engNo);
