@@ -55,13 +55,13 @@ function isActive($url)
                 
                     <?php if (checkPermission('resale-dashboard-panel')) { ?>
                         <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
-                            <a href="javascript:void(0)" class="menu-link ">
+                            <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php" class="menu-link ">
                                 <div>Dashboard Panel</div>
                             </a>
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('resale-product-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module'); ?>">
+                        <li class="menu-item <?php echo isActive('//resale_module/view/self_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Product Panel</div>
                             </a>
