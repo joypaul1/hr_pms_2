@@ -16,7 +16,6 @@ if (!checkPermission('resale-product-panel')) {
         <!-- table header -->
         <?php
         $leftSideName = 'Bid History List';
-
         include('../../../layouts/_tableHeader.php');
 
         ?>
