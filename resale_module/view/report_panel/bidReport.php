@@ -96,30 +96,56 @@ if (!checkPermission('resale-product-panel')) {
                                 $chsNo = 'NULL';
                                 // echo  $model;
                             }
+                            // $productSQL = oci_parse($objConnect, "SELECT 
+                            // ID, 
+                            // REF_CODE, 
+                            // ENG_NO, 
+                            // CHS_NO, 
+                            // REG_NO, 
+                            // BOOK_VALUE, 
+                            // DISPLAY_PRICE, 
+                            // GRADE, 
+                            // DEPO_LOCATION, 
+                            // BRAND_ID, 
+                            // CATEGORY, 
+                            // MODEL, 
+                            // INVOICE_STATUS, 
+                            // BOOKED_STATUS, 
+                            // PRODUCT_BID_ID, 
+                            // BODY_SIT, 
+                            // COLOR, 
+                            // FUEL_TYPE,
+                            // PIC_URL 
+                            // FROM PRODUCT
+                            // WHERE     PUBLISHED_STATUS = 'Y'
+                            // AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
+                            // ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
+                            
                             $productSQL = oci_parse($objConnect, "SELECT 
-                            ID, 
-                            REF_CODE, 
-                            ENG_NO, 
-                            CHS_NO, 
-                            REG_NO, 
-                            BOOK_VALUE, 
-                            DISPLAY_PRICE, 
-                            GRADE, 
-                            DEPO_LOCATION, 
-                            BRAND_ID, 
-                            CATEGORY, 
-                            MODEL, 
-                            INVOICE_STATUS, 
-                            BOOKED_STATUS, 
-                            PRODUCT_BID_ID, 
-                            BODY_SIT, 
-                            COLOR, 
-                            FUEL_TYPE,
-                            PIC_URL 
-                            FROM PRODUCT
-                            WHERE     PUBLISHED_STATUS = 'Y'
-                            AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
-                            ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
+                            BB.ID,
+                            BB.CATEGORY,
+                            BB.MODEL,
+                            BB.REF_CODE,
+                            BB.CHS_NO,
+                            BB.ENG_NO,
+                            BB.REG_NO,
+                            BB.BOOK_VALUE,
+                            BB.DISPLAY_PRICE,
+                            BB.GRADE,
+                            AA.MAX_BID_AMOUNT,
+                            AA.TOTAL_BID,
+                            BB.AUCTTION_START_DATE,
+                            BB.AUCTION_END_DATE,
+                            (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
+                            FROM 
+                                (SELECT A.PRODUCT_ID,
+                                       COUNT(PRODUCT_ID) TOTAL_BID,
+                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
+                                FROM PRODUCT_BID A,PRODUCT B
+                                WHERE A.PRODUCT_ID=B.ID
+                                GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
+                            WHERE AA.PRODUCT_ID=BB.ID AND (('$model' IS NULL OR BB.MODEL LIKE '%$model%') OR
+                             ('$chsNo' IS NULL OR BB.CHS_NO = '$chsNo'))");
 
 
 
@@ -141,7 +167,7 @@ if (!checkPermission('resale-product-panel')) {
                             BB.AUCTTION_START_DATE,
                             BB.AUCTION_END_DATE,
                             (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                         FROM 
+                            FROM 
                                 (SELECT A.PRODUCT_ID,
                                        COUNT(PRODUCT_ID) TOTAL_BID,
                                        MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
@@ -179,7 +205,7 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php echo ($row['MODEL']); ?> </br>
 
                                 </td>
-                                
+
                                 <td class="text-right">
                                     <strong>BOOK VALUE :
                                         <?php echo number_format($row['BOOK_VALUE']) ?> TK
@@ -203,13 +229,14 @@ if (!checkPermission('resale-product-panel')) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                        if($row['BID_REMAINDER'] > 0){
-                                            echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>"; 
-                                            echo "<strong>Remian Days : ".$row['BID_REMAINDER']."</strong>";
-                                        }else{
-                                            echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
+                                    if ($row['BID_REMAINDER'] > 0) {
+                                        echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>";
+                                        echo "<strong>Remian Days : " . $row['BID_REMAINDER'] . "</strong>";
+                                    }
+                                    else {
+                                        echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
 
-                                        }
+                                    }
                                     ?>
                                 </td>
 
@@ -249,7 +276,6 @@ if (!checkPermission('resale-product-panel')) {
 <script>
     // Function to print QR code image
     function printQRCode(modalId, chassis) {
-        console.log(chassis);
         var printWindow = window.open('', '_blank');
         printWindow.document.write(
             '<div style="display: flex; align-items: center; justify-content: center; height: 70vh;">' +

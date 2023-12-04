@@ -61,7 +61,7 @@ function isActive($url)
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('resale-product-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('//resale_module/view/self_panel'); ?>">
+                        <li class="menu-item <?php echo isActive('/resale_module/view/self_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Product Panel</div>
                             </a>

@@ -361,19 +361,20 @@ if (($_GET["actionType"]) == 'bidConfirm') {
     
     // Execute the query
     if (@oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'Data Saved successfully.',
-            'status' => 'true',
+       
+        $response = [
+            'status'=>true,
+            'message'=>'Data Saved succesfully!'
         ];
-        echo 'done';
+        print_r(json_encode($response));
     }
     else {
         $e                        = @oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
-            'status' => 'false',
+        $response = [
+            'status'=>true,
+            'message'=>htmlentities($e['message'], ENT_QUOTES)
         ];
-        print_r ($e) ;
+        print_r(json_encode($response));
         
     }
 }

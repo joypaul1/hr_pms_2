@@ -15,7 +15,7 @@ if (!checkPermission('resale-product-panel')) {
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName = 'Published Product List';
+        $leftSideName = 'Bid History List';
 
         include('../../../layouts/_tableHeader.php');
 
@@ -58,8 +58,9 @@ if (!checkPermission('resale-product-panel')) {
                             <tr>
                                 <td>
                                     <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
-                                        <?php echo $number;  ?>
-                                        (<?php echo $row['BID_ID'] ?>)
+                                        <?php echo $number; ?>
+                                        (
+                                        <?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -80,15 +81,18 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php echo ($row['ENTRY_DATE']) ?>
                                 </td>
 
-                                
+
                                 <td class="text-center">
-                                    <!-- <form action="" method="post"> -->
-                                <button 
-                                    data-bid-id="<?php echo  $row['BID_ID'] ?>" 
-                                    data-product-id="<?php echo  $productID ?>" 
-                                    data-href="<?php echo ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm'); ?>"
-                                     type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>
-                                    </form>
+                                    <?php if($row['BOOKED_STATUS'] == 'Y' ){
+                                        echo  '<button data-bid-id="'.$row['BID_ID'].'" data-product-id="'. $productID.'"
+                                        data-href="'.($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') .'"
+                                        type="button" class="btn btn-sm btn-success float-right delete_check"><i class="bx bx-check"></i>Looked </button>';
+                                    }else{
+                                        echo  '<button data-bid-id="'.$row['BID_ID'].'" data-product-id="'. $productID.'"
+                                        data-href="'.($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') .'"
+                                        type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>';
+                                    }?>
+                                   
 
                                 </td>
 
@@ -120,7 +124,7 @@ if (!checkPermission('resale-product-panel')) {
 <script>
     //delete data processing
 
-    $(document).on('click', '.delete_check', function() {
+    $(document).on('click', '.delete_check', function () {
         var bid_id = $(this).data('bid-id');
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
@@ -141,20 +145,27 @@ if (!checkPermission('resale-product-panel')) {
                 });
 
                 $.ajax({
-                        url: url,
-                        type: 'GET',
-                        data: {
-                            product_id: product_id,
-                            bid_id: bid_id
-                        },
-                        dataType: 'json'
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        product_id: product_id,
+                        bid_id: bid_id
+                    },
+                    dataType: 'json'
+                })
+                    .done(function (res) {
+                        if (res.status) {
+                            swal.fire('Bid Looked!', res.message, res.status);
+                            setInterval(function () {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
                     })
-                    .done(function(response) {
-                        console.log(response);
-                        swal.fire('Deleted!', response.message, response.status);
-                        location.reload(); // Reload the page
-                    })
-                    .fail(function() {
+                    .fail(function () {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 
