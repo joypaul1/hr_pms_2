@@ -106,9 +106,6 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
-
-
-
                             </ul>
                         </li>
                     <?php } ?>
@@ -134,6 +131,37 @@ function isActive($url)
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                              Report Two
+                                        </div>
+                                    </a>
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+                    <?php } ?>
+                    <?php if (checkPermission('resale-report-panel')) { ?>
+                        <li class="menu-item">
+                            <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                <div>Form Panel</div>
+                            </a>
+                            <ul class="menu-sub">
+
+                                <li
+                                    class="menu-item">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Customer Review
+                                        </div>
+                                    </a>
+                                </li>
+                                <li
+                                    class="menu-item ">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Sale Concern
                                         </div>
                                     </a>
                                 </li>
