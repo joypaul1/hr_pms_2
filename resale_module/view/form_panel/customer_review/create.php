@@ -1,6 +1,11 @@
 <?php
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connresaleoracle.php');
+$basePath = $_SESSION['basePath'];
 
-require_once('../../helper/2step_com_conn.php');
+if (!checkPermission('resale-product-panel')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 ?>
 

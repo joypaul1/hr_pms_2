@@ -141,15 +141,15 @@ function isActive($url)
                         </li>
                     <?php } ?>
                     <?php if (checkPermission('resale-report-panel')) { ?>
-                        <li class="menu-item">
+                        <li class="menu-item <?php echo isActive('/resale_module/view/form_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Form Panel</div>
                             </a>
                             <ul class="menu-sub">
 
                                 <li
-                                    class="menu-item">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Customer Review
@@ -157,8 +157,8 @@ function isActive($url)
                                     </a>
                                 </li>
                                 <li
-                                    class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Sale Concern
