@@ -311,8 +311,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_4') {
 
-    // print_r($_POST);
-    // die();
     $editId              = $_POST['editId'];
     $PUBLISHED_STATUS    = $_POST['PUBLISHED_STATUS'];
     $AUCTTION_START_DATE = date("d/m/Y", strtotime($_POST['AUCTTION_START_DATE']));

@@ -2,7 +2,7 @@
 $dynamic_link_js[]  = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
 $dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js';
 $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
-require_once('../../../helper/4step_com_conn.php');
+require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 
 $data       = [];
