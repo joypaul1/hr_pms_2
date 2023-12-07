@@ -63,7 +63,7 @@ if (!checkPermission('resale-product-panel')) {
         ?>
         <!-- End table  header -->
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
+            <div class="table-responsive text-break">
                 <table class="table  table-bordered">
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">

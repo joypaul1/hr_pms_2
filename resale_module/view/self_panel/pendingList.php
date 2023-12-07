@@ -73,8 +73,8 @@ if (!checkPermission('resale-product-panel')) {
         ?>
         <!-- End table  header -->
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered">
+            <div class="table-responsive text-break">
+                <table class="table table-bordered">
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
                             <th>SL</th>
