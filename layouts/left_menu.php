@@ -76,6 +76,15 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
+                                <li
+                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Pre-Published List
+                                        </div>
+                                    </a>
+                                </li>
 
                                 <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
                                     <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
@@ -156,8 +165,7 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>">
                                     <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
@@ -165,9 +173,6 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
-
-
-
                             </ul>
                         </li>
                     <?php } ?>
