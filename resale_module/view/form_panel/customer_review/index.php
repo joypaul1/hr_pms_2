@@ -19,15 +19,13 @@ if (!checkPermission('resale-product-panel')) {
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName = 'Customer Review List';
+                $leftSideName  = 'Customer Review List';
                 $rightSideName = 'Customer Review Create';
                 $routePath     = 'resale_module/view/form_panel/customer_review/create.php';
                 include('../../../../layouts/_tableHeader.php');
 
                 ?>
                 <!-- End table  header -->
-
-
 
                 <div class="card-body">
                     <div class="table-responsive text-nowrap">
@@ -36,7 +34,7 @@ if (!checkPermission('resale-product-panel')) {
                                 <tr class="text-center">
                                     <th>Id</th>
                                     <th>Name</th>
-                                    <th>Slug</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>

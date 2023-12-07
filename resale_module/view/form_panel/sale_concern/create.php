@@ -1,6 +1,10 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connresaleoracle.php');
+$dynamic_link_js[]  = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
+$dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js';
+$dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
+require_once('../../../../helper/4step_com_conn.php');
+require_once('../../../../inc/connresaleoracle.php');
+
 $basePath = $_SESSION['basePath'];
 
 if (!checkPermission('resale-product-panel')) {
@@ -19,10 +23,11 @@ if (!checkPermission('resale-product-panel')) {
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName  = 'Role Create';
-                $rightSideName = 'Role List';
-                $routePath     = 'role_permission/role/index.php';
-                include('../../layouts/_tableHeader.php');
+                $leftSideName  = 'Sale Concern Create';
+                $rightSideName = 'Sale Concern List';
+                $routePath     = 'resale_module/view/form_panel/sale_concern/index.php';
+                include('../../../../layouts/_tableHeader.php');
+
 
                 ?>
                 <!-- End table  header -->
@@ -30,19 +35,26 @@ if (!checkPermission('resale-product-panel')) {
                 <div class="card-body">
                     <div class="col-6">
 
-                        <form  method="post"  action="<?php echo ($basePath.'/'.'action/role_permission/role.php'); ?>">
+                        <form method="post" action="<?php echo ($basePath . '/' . 'action/role_permission/role.php'); ?>">
                             <input type="hidden" name="actionType" value="create">
-                         
+
                             <div class="mb-3">
-                                <label class="form-label" for="name"> Name</label>
-                                <input type="text" name="name" class="form-control" id="name" required placeholder="Role Name.." >
-                              
+                                <label class="form-label" for="name">Customer Name <span class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" id="name" required placeholder="Customer Name..">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Sale Concern/Comment <span class="text-danger">*</span></label>
+                                <textarea name="DESCRIPTION" class="editor">
+                                </textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Customer Image</label>
+                                <input type="file" name="image" class="dropify" data-min-width="100" data-min-height="100" />
+                                <small class="text-info">[Image size will be max (100*100)px ]</small>
                             </div>
 
                             <div class="b-block text-right">
-                              
-                            <input type="submit" value="Save" name="submit" class="btn btn-primary">
-
+                                <input type="submit" value="Save" name="submit" class="btn btn-primary">
                             </div>
                         </form>
 
@@ -58,6 +70,26 @@ if (!checkPermission('resale-product-panel')) {
 
 <!-- / Content -->
 
-<?php require_once('../../layouts/footer_info.php'); ?>
+<?php require_once('../../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../../layouts/footer.php'); ?>
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Select Customer  Image',
+            'replace': 'Replace Customer Image',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong happended.'
+        }
+    });
+    // Get all elements with the 'editor' class
+    const editorElements = document.querySelectorAll('.editor');
 
-<?php require_once('../../layouts/footer.php'); ?>
+    // Loop through each element and create a ClassicEditor instance
+    editorElements.forEach(element => {
+        ClassicEditor
+            .create(element)
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
