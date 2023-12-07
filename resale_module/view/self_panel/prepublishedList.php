@@ -1,4 +1,5 @@
 <?php
+
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
@@ -14,26 +15,27 @@ if (!checkPermission('resale-product-panel')) {
     <div class="card card-body ">
         <form method="GET">
             <div class="row justify-content-center">
-                <div class="col-3">
+                <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Engine No.</label>
 
                     <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng"
                         value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
                 </div>
-                <div class="col-3">
+                <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No.</label>
 
                     <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
                         value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
-                <div class="col-3">
+                <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Model No.</label>
 
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
+                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
                 </div>
 
 
-                <div class="col-2">
+                <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
@@ -66,20 +68,17 @@ if (!checkPermission('resale-product-panel')) {
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Action</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Ref. Code </th>
-                            <th scope="col">Model </th>
-                            <th scope="col">Engine </th>
-                            <th scope="col">Chassis </th>
-                            <th scope="col">Reg Num.</th>
-                            <th scope="col">Color</th>
+                            <th scope="col">Brand & Category </th>
+                            <th scope="col">Ref. Code & Model </th>
+                            <th scope="col">Engine & Chassis & Registation </th>
+                            <th scope="col">Book Value & Grade & Depo</th>
 
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                        $productSQL = oci_parse($objConnect, "SELECT 
+                                $productSQL = oci_parse($objConnect, "SELECT 
                                     ID, 
                                     REF_CODE, 
                                     ENG_NO, 
@@ -113,34 +112,43 @@ if (!checkPermission('resale-product-panel')) {
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
-
-                                <td>
+                                <td class="text-center">
                                     <?php
-                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i></a>';
+                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i> Edit </a>';
                                     ?>
                                 </td>
-                                <td>
-                                    <?php echo number_format($row['DISPLAY_PRICE'], 2) ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['REF_CODE']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['MODEL']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['ENG_NO']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['CHS_NO']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['REG_NO']; ?>
-                                </td>
-                                <td>
-                                    <?php echo $row['COLOR']; ?>
-                                </td>
 
+                                <td class="text-left">
+                                    BRAND : 
+                                    <?php if ($row['BRAND_ID'] == 1) {
+                                        echo "EICHER";
+                                    }
+                                    else if ($row['BRAND_ID'] == 2) {
+                                        echo 'MAHINDRA';
+                                    }
+                                    else {
+                                        echo 'DONGFING';
+                                    } ?>
+                                    <br>
+                                    CATEGORY : <?php echo $row['CATEGORY'] ?>
+                                </td>
+                                <td>
+                                   REF : <?php echo $row['REF_CODE']; ?> </br>
+                                   MOD : <?php echo $row['MODEL']; ?>
+                                </td>
+                                <td>
+                                   ENG No. : <?php echo $row['ENG_NO']; ?></br>
+                                   CHS No. : <?php echo $row['CHS_NO']; ?> </br>
+                                   REG No. : <?php echo $row['REG_NO']; ?> </br>
+                                </td>
+                               
+                                <td>
+                                    BOOK VAL. : <?php echo number_format($row['BOOK_VALUE']) ?></br>
+                                    GRADE NUM. : <?php echo $row['GRADE']; ?></br>
+                                    DEPO lOC. : <?php echo $row['DEPO_LOCATION']; ?></br>
+
+                                </td>
+                                
                             </tr>
                             <?php
                         }

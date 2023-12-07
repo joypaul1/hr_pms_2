@@ -67,7 +67,6 @@ if (!checkPermission('resale-product-panel')) {
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <!-- <th scope="col">Price</th> -->
                             <th scope="col">Brand & Category </th>
                             <th scope="col">Ref. Code & Model </th>
                             <th scope="col">Engine & Chassis & Registation </th>
