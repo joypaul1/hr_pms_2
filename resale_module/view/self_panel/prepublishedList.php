@@ -161,12 +161,8 @@ if (!checkPermission('resale-product-panel')) {
 
                                 </td>
                                 <td>
-                                    Person :
-                                    <?php echo ($row['START_BY']) ?></br>
-                                    Date :
-                                    <?php echo $row['START_DATE']; ?></br>
-                                   
-
+                                    Person : <?php echo ($row['START_BY']) ?></br>
+                                    Date : <?php echo $row['START_DATE']; ?>
                                 </td>
 
                             </tr>
