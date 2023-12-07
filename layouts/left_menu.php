@@ -38,12 +38,10 @@ function isActive($url)
 
 
         <li class="menu-header big text-uppercase">
-            <span class=""><b>HR Apps </b></span>
+            <span class=""><b>Resale Bidding System </b></span>
         </li>
         <section style="width: 98%;">
-
-            <!-- Leave- module-list -->
-
+            <!-- Resale- module-list -->
             <li class="menu-item  <?php echo isActive('/resale_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-registered"></i>
@@ -52,7 +50,7 @@ function isActive($url)
 
 
                 <ul class="menu-sub">
-                
+
                     <?php if (checkPermission('resale-dashboard-panel')) { ?>
                         <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
                             <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php" class="menu-link ">
@@ -67,8 +65,7 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
                                     <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
@@ -125,21 +122,19 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li
-                                    class="menu-item">
+                                <li class="menu-item">
                                     <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                             Report One
+                                            Report One
                                         </div>
                                     </a>
                                 </li>
-                                <li
-                                    class="menu-item ">
+                                <li class="menu-item ">
                                     <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                             Report Two
+                                            Report Two
                                         </div>
                                     </a>
                                 </li>
@@ -156,9 +151,9 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php" class="menu-link withoutIcon">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
+                                        class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Customer Review
@@ -182,6 +177,11 @@ function isActive($url)
                 </ul>
 
             </li>
+        </section>
+        <li class="menu-header big text-uppercase">
+            <span class=""><b> HR Apps </b></span>
+        </li>
+        <section style="width: 98%;">
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons bx bx-user"></i>
