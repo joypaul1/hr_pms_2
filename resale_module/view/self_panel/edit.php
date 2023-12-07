@@ -265,7 +265,8 @@ else {
                                 <div class="mb-3">
                                     <label class="form-label" for="DESCRIPTION"> DESCRIPTION</label>
                                     <textarea name="DESCRIPTION" class="editor">
-                                        <?php echo $data['DESCRIPTION']; ?>
+                                    <?php echo $data['DESCRIPTION']; ?>
+                            
                                     </textarea>
 
                                 </div>

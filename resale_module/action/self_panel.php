@@ -353,7 +353,6 @@ if (($_GET["actionType"]) == 'started_work') {
     $status = 'Y';
 
     // Prepare the SQL statement
-    // $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
     $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET WORK_STATUS='Y', START_DATE=SYSDATE,START_BY='$emp_session_id'
     WHERE ID='$productID'");
 
