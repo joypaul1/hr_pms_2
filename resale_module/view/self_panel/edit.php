@@ -1,10 +1,8 @@
 <?php
-// $dynamic_link_js[]  = 'https://cdn.tiny.cloud/1/qagffr3pkuv17a8on1afax661irst1hbr4e6tbv888sz91jc/tinymce/6/tinymce.min.js';
-$dynamic_link_js[] = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
-
+$dynamic_link_js[]  = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
 $dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js';
 $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
-require_once('../../../helper/3step_com_conn.php');
+require_once('../../../helper/4step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 
 $data       = [];
@@ -196,7 +194,8 @@ else {
 
                                 </div>
 
-                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span class="text-danger">(4image mandatory)</span></div>
+                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span
+                                        class="text-danger">(4image mandatory)</span></div>
                                 <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                     <?php
                                     $product_image      = array();
@@ -266,9 +265,8 @@ else {
                                 <div class="mb-3">
                                     <label class="form-label" for="DESCRIPTION"> DESCRIPTION</label>
                                     <textarea name="DESCRIPTION" class="editor">
-                                <?php echo $data['DESCRIPTION']; ?>
-                          
-                                </textarea>
+                                        <?php echo $data['DESCRIPTION']; ?>
+                                    </textarea>
 
                                 </div>
                                 <div class="mb-3">
@@ -296,7 +294,7 @@ else {
                                     <label class="form-label" for="auctionStartDate">AUCTION START DATE</label>
                                     <?php
                                     $auctionStartDate = $data['AUCTTION_START_DATE'];
-                                  
+
                                     // Convert date format from dd-MMM-yy to Y-m-d
                                     $auctionStartDateObj = DateTime::createFromFormat('d-M-y', $auctionStartDate);
                                     $formattedStartDate  = $auctionStartDateObj ? $auctionStartDateObj->format('Y-m-d') : '';

@@ -77,8 +77,8 @@ function isActive($url)
                                     </a>
                                 </li>
                                 <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Pre-Published List

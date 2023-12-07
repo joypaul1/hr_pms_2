@@ -1,5 +1,4 @@
 <?php
-
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
@@ -13,26 +12,28 @@ if (!checkPermission('resale-product-panel')) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-    <form  method="GET">
+        <form method="GET">
             <div class="row justify-content-center">
-                <div class="col-sm-3">
+                <div class="col-3">
                     <label class="form-label" for="basic-default-fullname">Engine No.</label>
 
-                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng" value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
+                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng"
+                        value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
                 </div>
-                <div class="col-sm-3">
+                <div class="col-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No.</label>
 
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
+                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
-                <div class="col-sm-3">
+                <div class="col-3">
                     <label class="form-label" for="basic-default-fullname">Model No.</label>
 
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
                 </div>
-              
 
-                <div class="col-sm-2">
+
+                <div class="col-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
@@ -119,7 +120,7 @@ if (!checkPermission('resale-product-panel')) {
                                     ?>
                                 </td>
                                 <td>
-                                    <?php echo number_format($row['DISPLAY_PRICE'],2) ?>
+                                    <?php echo number_format($row['DISPLAY_PRICE'], 2) ?>
                                 </td>
                                 <td>
                                     <?php echo $row['REF_CODE']; ?>

@@ -1,66 +1,16 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connresaleoracle.php');
+$dynamic_link_js[]  = 'https://cdn.ckeditor.com/ckeditor5/40.1.0/classic/ckeditor.js';
+$dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js';
+$dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
+require_once('../../../../helper/4step_com_conn.php');
+require_once('../../../../inc/connresaleoracle.php');
+
 $basePath = $_SESSION['basePath'];
 
 if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
-$data = [];
-
-// Check existence of id parameter before processing further
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit') {
-
-    $sql = "SELECT * FROM tbl_roles WHERE id = ?"; // Prepare a select statement
-    if ($stmt = mysqli_prepare($conn_hr, $sql)) {
-        mysqli_stmt_bind_param($stmt, "i", $param_id); // Bind variables to the prepared statement as parameters
-        // Set parameters
-        $param_id = trim($_GET["id"]);
-
-        // Attempt to execute the prepared statement
-        if (mysqli_stmt_execute($stmt)) {
-            $result = mysqli_stmt_get_result($stmt);
-            if (mysqli_num_rows($result) == 1) {
-                $data = mysqli_fetch_array($result, MYSQLI_ASSOC);
-            }else {
-                // URL doesn't contain valid id parameter. Redirect to role index page
-                $message                  = [
-                    'text'   => "URL doesn't contain valid id parameter.",
-                    'status' => 'false',
-                ];
-                $_SESSION['noti_message'] = $message;
-              
-                header("location:" . $basePath . "/role_permission/role/index.php");
-                exit();
-            }
-        }else {
-            $message                  = [
-                'text'   => "Oops! Something went wrong. Please try again later.",
-                'status' => 'false',
-            ];
-            $_SESSION['noti_message'] = $message;
-            
-            header("location:" . $basePath . "/role_permission/role/index.php");
-        }
-        mysqli_stmt_close($stmt);
-
-        // Close connection
-        mysqli_close($conn_hr);
-    }
-}
-else {
-    $message                  = [
-        'text'   => "Oops! Something went wrong. Please try again later.",
-        'status' => 'false',
-    ];
-    $_SESSION['noti_message'] = $message;
-    print_r($_SESSION['noti_message']['status']);
-    header("location:" . $basePath . "/role_permission/role/index.php");
-    exit();
-}
-// print_r($data['name']);
-// die();
 ?>
 
 <!-- / Content -->
@@ -73,32 +23,38 @@ else {
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName  = 'Role Edit';
-                $rightSideName = 'Role List';
-                $routePath     = 'role_permission/role/index.php';
-                include('../../layouts/_tableHeader.php');
-                
-                ?>
+                $leftSideName  = 'Customer Review Create';
+                $rightSideName = 'Customer Review List';
+                $routePath     = 'resale_module/view/form_panel/customer_review/index.php';
+                include('../../../../layouts/_tableHeader.php');
 
+
+                ?>
                 <!-- End table  header -->
+
                 <div class="card-body">
                     <div class="col-6">
 
-                        <form method="post" action="<?php echo ($basePath .'/action/role_permission/role.php?editID='.trim($_GET["id"])); ?>">
-                            <input type="hidden" name="actionType" value="update">
-                            <input type="hidden" name="editId" value="<?php echo  $data['id'] ?>" >
+                        <form method="post" action="<?php echo ($basePath . '/' . 'action/role_permission/role.php'); ?>">
+                            <input type="hidden" name="actionType" value="create">
+
                             <div class="mb-3">
-                                <label class="form-label" for="name"> Name</label>
-                                <input type="text" name="name" class="form-control" 
-                                value="<?php echo  $data['name'] ?>" required
-                                id="name" placeholder="Role Name..">
-                                
+                                <label class="form-label" for="name">Customer Name <span class="text-danger">*</span></label>
+                                <input type="text" name="name" class="form-control" id="name" required placeholder="Customer Name..">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Customer Review/Comment <span class="text-danger">*</span></label>
+                                <textarea name="DESCRIPTION" class="editor">
+                                </textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Customer Image</label>
+                                <input type="file" name="image" class="dropify" data-min-width="100" data-min-height="100" />
+                                <small class="text-info">[Image size will be max (100*100)px ]</small>
                             </div>
 
                             <div class="b-block text-right">
-
-                                <input type="submit" value="update" name="submit" class="btn btn-primary">
-
+                                <input type="submit" value="Save" name="submit" class="btn btn-primary">
                             </div>
                         </form>
 
@@ -114,6 +70,26 @@ else {
 
 <!-- / Content -->
 
-<?php require_once('../../layouts/footer_info.php'); ?>
+<?php require_once('../../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../../layouts/footer.php'); ?>
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Select Customer  Image',
+            'replace': 'Replace Customer Image',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong happended.'
+        }
+    });
+    // Get all elements with the 'editor' class
+    const editorElements = document.querySelectorAll('.editor');
 
-<?php require_once('../../layouts/footer.php'); ?>
+    // Loop through each element and create a ClassicEditor instance
+    editorElements.forEach(element => {
+        ClassicEditor
+            .create(element)
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
