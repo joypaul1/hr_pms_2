@@ -32,7 +32,7 @@ if (!checkPermission('resale-product-panel')) {
                         <table class=" table table-bordered text-center dataTable">
                             <thead class="table-dark">
                                 <tr class="text-center">
-                                    <th>Id</th>
+                                    <th>SL.</th>
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Action</th>

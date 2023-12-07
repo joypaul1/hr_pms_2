@@ -34,10 +34,12 @@ if (!checkPermission('resale-product-panel')) {
                         <table class=" table table-bordered text-center dataTable">
                             <thead class="table-dark">
                                 <tr class="text-center">
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Image</th>
+                                    <th>SL.</th>
                                     <th>Action</th>
+                                    <th>Shop Name</th>
+                                    <th>Proprietor Name</th>
+                                    <th>Location</th>
+                                    <!-- <th>Image</th> -->
                                 </tr>
                             </thead>
 
