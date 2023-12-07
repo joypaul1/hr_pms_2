@@ -3,7 +3,6 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
-
 if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
@@ -99,7 +98,7 @@ if (!checkPermission('resale-product-panel')) {
                                     FUEL_TYPE,
                                     PIC_URL
                                 FROM PRODUCT
-                                WHERE PUBLISHED_STATUS ='N'");
+                                WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS IS NULL");
 
                         oci_execute($productSQL);
                         $number = 0;
@@ -144,7 +143,10 @@ if (!checkPermission('resale-product-panel')) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i> Start Work</a>';
+                                    echo '<button  data-product-id="'. $row['ID'].'"
+                                    data-href="'.($basePath . '/resale_module/action/self_panel.php?actionType=started_work') .'" type="button" 
+                                    class="btn btn-sm btn-info float-right start_work">
+                                    Star Work <i class="bx bx-chevrons-right"></i> </button>';
                                     ?>
                                 </td>
 
@@ -172,3 +174,55 @@ if (!checkPermission('resale-product-panel')) {
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    //delete data processing
+
+    $(document).on('click', '.start_work', function () {
+        var product_id = $(this).data('product-id');
+        let url = $(this).data('href');
+        swal.fire({
+            title: 'Are you to  sure start work?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        product_id: product_id
+                    },
+                    dataType: 'json'
+                })
+                    .done(function (res) {
+                        if (res.status) {
+                            swal.fire('Star Work!', res.message, res.status);
+                            setInterval(function () {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function () {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
+    });
+</script>

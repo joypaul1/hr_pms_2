@@ -327,7 +327,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     PUBLISHED_STATUS = '$PUBLISHED_STATUS'
     WHERE ID = $editId");
 
-    
+
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
@@ -347,39 +347,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
     }
 }
-if (($_GET["actionType"]) == 'bidConfirm') {
-
-
-    $bidID = $_GET["bid_id"];
+if (($_GET["actionType"]) == 'started_work') {
     $productID = $_GET["product_id"];
-    $emp_session_id ;
-    $status = 'Y' ;
-    
-    // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
+    $emp_session_id;
+    $status = 'Y';
 
-    
+    // Prepare the SQL statement
+    // $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
+    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET WORK_STATUS='Y', START_DATE=SYSDATE,START_BY='$emp_session_id'
+    WHERE ID='$productID'");
+
+
     // Execute the query
     if (@oci_execute($strSQL)) {
-       
+
         $response = [
-            'status'=>true,
-            'message'=>'Data Saved succesfully!'
+            'status'  => true,
+            'message' => 'Data Saved succesfully!'
         ];
         print_r(json_encode($response));
     }
     else {
-        $e                        = @oci_error($strSQL);
+        $e        = @oci_error($strSQL);
         $response = [
-            'status'=>true,
-            'message'=>htmlentities($e['message'], ENT_QUOTES)
+            'status'  => true,
+            'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
         print_r(json_encode($response));
-        
+
     }
 }
+if (($_GET["actionType"]) == 'bidConfirm') {
+
+    $bidID     = $_GET["bid_id"];
+    $productID = $_GET["product_id"];
+    $emp_session_id;
+    $status = 'Y';
+
+    // Prepare the SQL statement
+    $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
 
 
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+
+        $response = [
+            'status'  => true,
+            'message' => 'Data Saved succesfully!'
+        ];
+        print_r(json_encode($response));
+    }
+    else {
+        $e        = @oci_error($strSQL);
+        $response = [
+            'status'  => true,
+            'message' => htmlentities($e['message'], ENT_QUOTES)
+        ];
+        print_r(json_encode($response));
+
+    }
+}
 
 
 

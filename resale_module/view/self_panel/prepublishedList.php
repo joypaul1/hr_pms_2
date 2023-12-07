@@ -99,7 +99,7 @@ if (!checkPermission('resale-product-panel')) {
                                     FUEL_TYPE,
                                     PIC_URL
                                 FROM PRODUCT
-                                WHERE PUBLISHED_STATUS ='N'");
+                                WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS ='Y'");
 
                         oci_execute($productSQL);
                         $number = 0;
