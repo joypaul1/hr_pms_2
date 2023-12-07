@@ -72,13 +72,14 @@ if (!checkPermission('resale-product-panel')) {
                             <th scope="col">Ref. Code & Model </th>
                             <th scope="col">Engine & Chassis & Registation </th>
                             <th scope="col">Book Value & Grade & Depo</th>
+                            <th scope="col">Start By & Stat Date </th>
 
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                                $productSQL = oci_parse($objConnect, "SELECT 
+                        $productSQL = oci_parse($objConnect, "SELECT 
                                     ID, 
                                     REF_CODE, 
                                     ENG_NO, 
@@ -97,7 +98,9 @@ if (!checkPermission('resale-product-panel')) {
                                     BODY_SIT, 
                                     COLOR, 
                                     FUEL_TYPE,
-                                    PIC_URL
+                                    PIC_URL,
+                                    START_DATE,
+                                    START_BY
                                 FROM PRODUCT
                                 WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS ='Y'");
 
@@ -119,7 +122,7 @@ if (!checkPermission('resale-product-panel')) {
                                 </td>
 
                                 <td class="text-left">
-                                    BRAND : 
+                                    BRAND :
                                     <?php if ($row['BRAND_ID'] == 1) {
                                         echo "EICHER";
                                     }
@@ -130,25 +133,42 @@ if (!checkPermission('resale-product-panel')) {
                                         echo 'DONGFING';
                                     } ?>
                                     <br>
-                                    CATEGORY : <?php echo $row['CATEGORY'] ?>
+                                    CATEGORY :
+                                    <?php echo $row['CATEGORY'] ?>
                                 </td>
                                 <td>
-                                   REF : <?php echo $row['REF_CODE']; ?> </br>
-                                   MOD : <?php echo $row['MODEL']; ?>
+                                    REF :
+                                    <?php echo $row['REF_CODE']; ?> </br>
+                                    MOD :
+                                    <?php echo $row['MODEL']; ?>
                                 </td>
                                 <td>
-                                   ENG No. : <?php echo $row['ENG_NO']; ?></br>
-                                   CHS No. : <?php echo $row['CHS_NO']; ?> </br>
-                                   REG No. : <?php echo $row['REG_NO']; ?> </br>
+                                    ENG No. :
+                                    <?php echo $row['ENG_NO']; ?></br>
+                                    CHS No. :
+                                    <?php echo $row['CHS_NO']; ?> </br>
+                                    REG No. :
+                                    <?php echo $row['REG_NO']; ?> </br>
                                 </td>
-                               
+
                                 <td>
-                                    BOOK VAL. : <?php echo number_format($row['BOOK_VALUE']) ?></br>
-                                    GRADE NUM. : <?php echo $row['GRADE']; ?></br>
-                                    DEPO lOC. : <?php echo $row['DEPO_LOCATION']; ?></br>
+                                    BOOK VAL. :
+                                    <?php echo number_format($row['BOOK_VALUE']) ?></br>
+                                    GRADE NUM. :
+                                    <?php echo $row['GRADE']; ?></br>
+                                    DEPO lOC. :
+                                    <?php echo $row['DEPO_LOCATION']; ?></br>
 
                                 </td>
-                                
+                                <td>
+                                    Person :
+                                    <?php echo ($row['START_BY']) ?></br>
+                                    Date :
+                                    <?php echo $row['START_DATE']; ?></br>
+                                   
+
+                                </td>
+
                             </tr>
                             <?php
                         }
