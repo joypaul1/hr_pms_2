@@ -187,15 +187,17 @@ else {
 
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="FUEL_TYPE"> THUMBNAIL IMAGE</label>
+                                    <label class="form-label" for="FUEL_TYPE"> THUMBNAIL IMAGE 
+                                        <small class="text-danger">[Max File Size 2MB ]</small>
+                                    </label>
                                     <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
                                         data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
-                                        data-max-file-size="3M" />
+                                        data-max-file-size="2M" />
 
                                 </div>
 
                                 <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span
-                                        class="text-danger">(4image mandatory)</span></div>
+                                        class="text-danger">(4image mandatory) [Max File Size 2MB ]</span></div>
                                 <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                     <?php
                                     $product_image      = array();
@@ -221,28 +223,28 @@ else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="0"/>';
 
                                         if (isset($product_image[0])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="2M" />';
                                         }
 
                                         if (isset($product_image[1])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="2M" />';
                                         }
 
 
                                         if (isset($product_image[2])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="2M" />';
                                         }
 
 
                                         if (isset($product_image[3])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="3M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="2M" />';
                                         }
 
                                     }
                                     else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="1"/>';
                                         for ($i = 1; $i <= 4; $i++) {
-                                            echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-file-size="3M" />';
+                                            echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-file-size="2M" />';
                                         }
                                     }
                                     ?>
