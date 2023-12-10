@@ -34,7 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                         HISTORY,
                         AUCTTION_START_DATE,
                         AUCTION_END_DATE,
-                        PUBLISHED_STATUS
+                        PUBLISHED_STATUS,
+                        REG_PAPER
                         FROM PRODUCT
                         WHERE ID ='$product_id'");
 
@@ -103,6 +104,12 @@ else {
 
                     </div>
                     <div class="col-4">
+                        <label class="form-label" for="REG_NO"> DEPO LOCATION</label>
+                        <input type="text" name="REG_NO" class="form-control" value="<?php echo $data['DEPO_LOCATION'] ?>" required id="name" disabled
+                            placeholder="REG_NO Name..">
+
+                    </div>
+                    <div class="col-4">
                         <label class="form-label" for="REG_NO"> Booked Value</label>
                         <input type="text" name="BOOK_VALUE" class="form-control" value="<?php echo number_format($data['BOOK_VALUE'], 2) ?>" required
                             id="BOOK_VALUE" disabled placeholder="booked value ..">
@@ -150,24 +157,36 @@ else {
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="DISPLAY_PRICE"> DISPLAY PRICE (MIN BID)</label>
+                                    <label class="form-label" for="DISPLAY_PRICE"> DISPLAY PRICE (MIN BID) <small
+                                            class='text-danger'>*</small></label>
                                     <input type="number" name="DISPLAY_PRICE" class="form-control" value="<?php echo $data['DISPLAY_PRICE'] ?>"
                                         required id="DISPLAY_PRICE" placeholder="DISPLAY PRICE (EX:10,000,00.00)">
                                 </div>
+
                                 <div class="mb-3">
-                                    <label class="form-label" for="BODY_SIT"> BODY TYPE/SIT </label>
+                                    <label class="form-label" for="REG_PAPER"> REGISTATION PAPER UPDATE? <small class='text-danger'>*</small></label>
+                                    <select name="REG_PAPER" class="form-control" id="" required>
+                                        <option value=" " hidden><- Select Status -></option>
+                                        <option value="Yes" <?php echo $data['REG_PAPER'] == 'Yes' ? 'Selected' : '' ?>>Yes</option>
+                                        <option value="No" <?php echo $data['REG_PAPER'] == 'No' ? 'Selected' : '' ?>>No</option>
+                                    </select>
+
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="BODY_SIT"> BODY TYPE/SIT <small class='text-danger'>*</small></label>
                                     <input type="text" name="BODY_SIT" class="form-control" value="<?php echo $data['BODY_SIT'] ?>" required
                                         id="BODY_SIT" placeholder="BODY/SIT ..">
 
                                 </div>
+
                                 <div class="mb-3">
-                                    <label class="form-label" for="COLOR"> COLOR</label>
+                                    <label class="form-label" for="COLOR"> COLOR <small class='text-danger'>*</small></label>
                                     <input type="text" name="COLOR" class="form-control" value="<?php echo $data['COLOR'] ?>" required id="COLOR"
                                         placeholder="COLOR Name..">
 
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label" for="FUEL_TYPE"> FUEL TYPE</label>
+                                    <label class="form-label" for="FUEL_TYPE"> FUEL TYPE <small class='text-danger'>*</small></label>
                                     <input type="text" name="FUEL_TYPE" class="form-control" value="<?php echo $data['FUEL_TYPE'] ?>" required
                                         id="FUEL_TYPE" placeholder="FUEL TYPE Name..">
 
@@ -187,18 +206,18 @@ else {
 
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="FUEL_TYPE"> 
+                                    <label class="form-label" for="FUEL_TYPE">
                                         <strong>THUMBNAIL IMAGE
-                                        <small class="text-danger">[Max File Size 2MB ]</small></strong>
+                                            <small class="text-danger">[Max File Size (300 × 200)px ]</small></strong>
                                     </label>
                                     <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
                                         data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
-                                        data-max-file-size="2M" />
+                                        data-max-width="256" data-max-height="154" />
 
                                 </div>
 
                                 <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span
-                                        class="text-danger">(4image mandatory) <small>[Max File Size 2MB ]</small></span></div>
+                                        class="text-danger">(4image mandatory) <small>[Max File Size (300 × 200)px ]</small></span></div>
                                 <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                     <?php
                                     $product_image      = array();
@@ -224,28 +243,28 @@ else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="0"/>';
 
                                         if (isset($product_image[0])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-file-size="2M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-width="300" data-max-height ="200" />';
                                         }
 
                                         if (isset($product_image[1])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-file-size="2M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-width="300" data-max-height ="200" />';
                                         }
 
 
                                         if (isset($product_image[2])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-file-size="2M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-width="300" data-max-height ="200" />';
                                         }
 
 
                                         if (isset($product_image[3])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-file-size="2M" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-width="300" data-max-height ="200" />';
                                         }
 
                                     }
                                     else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="1"/>';
                                         for ($i = 1; $i <= 4; $i++) {
-                                            echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-file-size="2M" />';
+                                            echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-width="300" data-max-height ="200" />';
                                         }
                                     }
                                     ?>
@@ -314,7 +333,7 @@ else {
                                     // Convert date format from dd-MMM-yy to Y-m-d
                                     
                                     $auctionEndDate   = DateTime::createFromFormat('d-M-y', $auctionEndDate);
-                                    $formattedEndDate = $auctionEndDate ? $auctionEndDate->format('Y-m-d') : date('Y-m-d',strtotime('+30 day'));
+                                    $formattedEndDate = $auctionEndDate ? $auctionEndDate->format('Y-m-d') : date('Y-m-d', strtotime('+30 day'));
 
                                     ?>
                                     <input type="date" name="AUCTION_END_DATE" class="form-control" value="<?php echo $formattedEndDate; ?>" required

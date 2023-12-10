@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     $BODY_SIT      = $_POST['BODY_SIT'];
     $COLOR         = $_POST['COLOR'];
     $FUEL_TYPE     = $_POST['FUEL_TYPE'];
+    $REG_PAPER     = $_POST['REG_PAPER'];
 
 
     // Prepare the SQL statement
@@ -25,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
             DISPLAY_PRICE = :display_price,
             BODY_SIT = :body_sit,
             COLOR = :color,
+            REG_PAPER = :reg_paper,
             FUEL_TYPE = :fuel_type            
         WHERE ID = :edit_id
     ");
@@ -34,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     @oci_bind_by_name($strSQL, ':body_sit', $BODY_SIT);
     @oci_bind_by_name($strSQL, ':color', $COLOR);
     @oci_bind_by_name($strSQL, ':fuel_type', $FUEL_TYPE);
+    @oci_bind_by_name($strSQL, ':reg_paper', $REG_PAPER);
     @oci_bind_by_name($strSQL, ':edit_id', $editId);
 
     // Execute the query
