@@ -36,8 +36,6 @@ $data = oci_fetch_assoc($commentSQL);
                 $rightSideName = 'Customer Review List';
                 $routePath     = 'resale_module/view/form_panel/customer_review/index.php';
                 include('../../../../layouts/_tableHeader.php');
-
-
                 ?>
                 <!-- End table  header -->
 
