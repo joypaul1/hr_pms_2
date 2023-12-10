@@ -53,7 +53,7 @@ if (!checkPermission('resale-product-panel')) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="image">Image <span class="text-danger">*</span></label>
-                                <input type="file" name="image" required class="dropify" data-max-width="100" data-max-height="100"/>
+                                <input type="file" name="image" required class="dropify" data-max-width="110" data-max-height="110"/>
                                 <small class="text-danger">[Image size will be max (100*100)px]</small>
                             </div>
                             <div class="mb-3">
