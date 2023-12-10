@@ -151,7 +151,7 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
                                     <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
                                         class="menu-link withoutIcon">
                                         <div>
