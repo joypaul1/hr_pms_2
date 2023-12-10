@@ -193,7 +193,7 @@ else {
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <input type="submit" name="submit" disabled class="btn btn-primary">
+                                    <button type="submit" disabled class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -272,7 +272,7 @@ else {
 
 
                                 <div class="b-block text-right">
-                                    <input type="submit" name="submit" class="btn btn-primary">
+                                    <button type="submit" disabled class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -302,7 +302,7 @@ else {
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <input type="submit" name="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -359,7 +359,8 @@ else {
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <input type="submit" name="submit" class="btn btn-primary">
+                                    <button type="submit" class="btn btn-primary">Update</button>
+
                                 </div>
                             </form>
                         </div>
@@ -393,7 +394,7 @@ else {
     // Add an event listener to wait for the document to finish loading before calling initialize
     document.addEventListener('DOMContentLoaded', initialize);
     const displayPriceInput = document.getElementById('DISPLAY_PRICE');
-    const submitButton = document.querySelector('input[name="submit"]');
+    const submitButton = document.querySelector('button[name="submit"]');
 
     // Function to check if the input value exists and enable/disable the button accordingly
     function checkInputValue() {
