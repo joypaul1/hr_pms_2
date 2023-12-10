@@ -47,6 +47,7 @@ $data = oci_fetch_assoc($commentSQL);
                         <form method="post" action="<?php echo ($basePath . '/' . 'resale_module/action/form_panel.php'); ?>"
                             enctype="multipart/form-data">
                             <input type="hidden" name="actionType" value="edit">
+                            <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
@@ -55,25 +56,27 @@ $data = oci_fetch_assoc($commentSQL);
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="TYPE"> Comment Type <span class="text-danger">*</span></label>
-                                <input type="text" name="TYPE" value="<?php echo $data['NAME'] ?>" class class="form-control" id="name" required
+                                <input type="text" name="TYPE" value="<?php echo $data['TYPE'] ?>" class="form-control" id="name" required
                                     placeholder="comment type..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="COMMENTS"> Review/Comment <span class="text-danger">*</span></label>
                                 <textarea name="COMMENTS" class="editor">
-                                <?php echo $data['NAME'] ?> class
+                                <?php echo $data['COMMENTS'] ?> 
                                 </textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="image">Image <span class="text-danger">*</span></label>
-                                <input type="file" name="image" required class="dropify" data-max-width="110" data-max-height="110" />
+                                <input type="file" name="image" required <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
+                                    data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
+                                    data-max-width="110" data-max-height="110" />
                                 <small class="text-danger">[Image size will be max (100*100)px]</small>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="STATUS">Status <span class="text-danger">*</span></label>
                                 <select name="STATUS" class="form-control" id="STATUS" required>
-                                    <option value="1">Active</option>
-                                    <option value="0">Deactive</option>
+                                    <option value="1" <?php echo $data['STATUS'] == '1' ? 'selected' : ''; ?>>Active</option>
+                                    <option value="0" <?php echo $data['STATUS'] == '0' ? 'selected' : ''; ?>>Deactive</option>
                                 </select>
                             </div>
 

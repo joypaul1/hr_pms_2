@@ -95,8 +95,114 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit') {
-    $editId = $_POST['editId'];
-    $STATUS = $_POST['STATUS'];
+    $editId   = $_POST['editId'];
+    $NAME     = $_POST['NAME'];
+    $TYPE     = $_POST['TYPE'];
+    $COMMENTS = $_POST['COMMENTS'];
+    $STATUS   = $_POST['STATUS'];
+    // echo "UPDATE CLIENT_COMMENTS 
+    //     SET
+    //     NAME = '$NAME',
+    //     TYPE = '$TYPE',
+    //     COMMENTS = '$COMMENTS',
+    //     STATUS = '$STATUS'
+    // WHERE ID = $editId";
+    // die();
+    if (!empty($_FILES["image"]["name"])) {
+
+        $image       = $_FILES['image'];
+        $fileName    = $image["name"];
+        $fileTmpName = $image["tmp_name"];
+        $fileSize    = $image["size"];
+        $fileType    = $image["type"];
+        $fileError   = $image["error"];
+        //Check if the file is an actual image
+        $validExtensions = array( "jpg", "jpeg", "png", "gif" );
+        $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($fileExtension, $validExtensions)) {
+            $imageStatus             = 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF';
+            $_SESSION['imageStatus'] = $imageStatus;
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+            exit();
+        }
+
+        $imgStorePath = $folderPath . 'client_image/';
+        pathExitOrCreate($imgStorePath); // check if folder exists or create
+
+        // Define a custom file name
+        $customFileName = 'client_' . random_strings(4) . '_' . time() . "." . $fileExtension;
+
+        // Define the target path with the custom file name
+        $targetPath_fullImgName = $imgStorePath . $customFileName;
+        // image store folder path name is relative to  the image store
+        if (move_uploaded_file($fileTmpName, $targetPath_fullImgName)) {
+            // image final name for database store name
+            $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
+            $PIC_URL        = $imageFinalName;
+            $strSQL         = @oci_parse($objConnect, "UPDATE CLIENT_COMMENTS 
+                                SET PIC_URL = '$PIC_URL'
+                                WHERE ID = $editId");
+
+            // Execute the query
+            if (@oci_execute($strSQL)) {
+                // $message                  = [
+                //     'text'   => 'Data Updated successfully.',
+                //     'status' => 'true',
+                // ];
+                // $_SESSION['noti_message'] = $message;
+                // echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/edit.php?id=25&&actionType=edit'</script>";
+            }
+            else {
+                $e                        = @oci_error($strSQL);
+                $message                  = [
+                    'text'   => htmlentities($e['message'], ENT_QUOTES),
+                    'status' => 'false',
+                ];
+                $_SESSION['noti_message'] = $message;
+                echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/edit.php?id=" . $editId . "&&actionType=edit'</script>";
+            }
+        }
+        else {
+            $message                  = [
+                'text'   => "Something went wrong file uploading!",
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/edit.php?id=" . $editId . "&&actionType=edit'</script>";
+            exit();
+        }
+
+    }
+    $strSQL = @oci_parse($objConnect, "UPDATE CLIENT_COMMENTS 
+        SET
+            NAME = '$NAME',
+            TYPE = '$TYPE',
+            COMMENTS = '$COMMENTS',
+            STATUS = '$STATUS'
+        WHERE ID = $editId");
+
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'Data Updated successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/edit.php?id=" . $editId . "&&actionType=edit'</script>";
+        exit();
+    }
+    else {
+        $e                        = @oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/edit.php?id=" . $editId . "&&actionType=edit'</script>";
+        exit();
+    }
+
 }
 
 
