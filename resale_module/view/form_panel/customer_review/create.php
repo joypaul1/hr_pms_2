@@ -35,22 +35,33 @@ if (!checkPermission('resale-product-panel')) {
                 <div class="card-body">
                     <div class="col-6">
 
-                        <form method="post" action="<?php echo ($basePath . '/' . 'action/role_permission/role.php'); ?>">
+                        <form method="post" action="<?php echo ($basePath . '/' . 'resale_module/action/form_panel.php'); ?>" enctype="multipart/form-data" >
                             <input type="hidden" name="actionType" value="create">
 
                             <div class="mb-3">
-                                <label class="form-label" for="name">Customer Name <span class="text-danger">*</span></label>
-                                <input type="text" name="name" class="form-control" id="name" required placeholder="Customer Name..">
+                                <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
+                                <input type="text" name="NAME" class="form-control" id="name" required placeholder=" Name here..">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="name">Customer Review/Comment <span class="text-danger">*</span></label>
-                                <textarea name="DESCRIPTION" class="editor">
+                                <label class="form-label" for="TYPE"> Comment Type <span class="text-danger">*</span></label>
+                                <input type="text" name="TYPE" class="form-control" id="name" required placeholder="comment type..">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="COMMENTS"> Review/Comment <span class="text-danger">*</span></label>
+                                <textarea name="COMMENTS" class="editor">
                                 </textarea>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="name">Customer Image</label>
-                                <input type="file" name="image" class="dropify" data-min-width="100" data-min-height="100" />
+                                <label class="form-label" for="image">Image <span class="text-danger">*</span></label>
+                                <input type="file" name="image"  required class="dropify" data-min-width="100" data-min-height="100" />
                                 <small class="text-danger">[Image size will be max (100*100)px]</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="STATUS">Status <span class="text-danger">*</span></label>
+                               <select name="STATUS" class="form-control" id="STATUS" required>
+                                    <option value="1">Active</option>
+                                    <option value="0">Deactive</option>
+                               </select>
                             </div>
 
                             <div class="b-block text-right">

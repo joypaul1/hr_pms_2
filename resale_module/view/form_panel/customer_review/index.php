@@ -2,7 +2,6 @@
 require_once('../../../../helper/4step_com_conn.php');
 require_once('../../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
-
 if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
@@ -33,14 +32,59 @@ if (!checkPermission('resale-product-panel')) {
                             <thead class="table-dark">
                                 <tr class="text-center">
                                     <th>SL.</th>
+                                    <th>Action</th>
                                     <th>Name</th>
                                     <th>Image</th>
-                                    <th>Action</th>
+                                    <th>Status</th>
+                                    <th>Comment</th>
                                 </tr>
                             </thead>
-
                             <tbody>
+                                <?php
 
+                                $commentSQL = oci_parse($objConnect, "SELECT 
+                                    ID, PIC_URL, NAME, 
+                                    TYPE, COMMENTS, STATUS, 
+                                    SORT_ORDER
+                                    FROM CLIENT_COMMENTS");
+
+                                oci_execute($commentSQL);
+                                $number = 0;
+                                while ($row = oci_fetch_assoc($commentSQL)) {
+                                    $number++;
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php
+                                            echo $number;
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            echo '<a href="' . $basePath . '/resale_module/view/form_panel/customer_review/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt"></i> </a>';
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['NAME'] ?>
+                                        </td>
+                                        <td>
+                                            <img src="<?php echo 'http://202.40.181.98:9090/' . $row['PIC_URL'] ?>" width="100px" alt="">
+                                        </td>
+                                        <td>
+                                            <?php  if($row['STATUS'] == 1){
+                                                echo "<span class ='badge bg-success'> Active</span>";
+                                            }else{
+                                                echo "<span class ='badge bg-warning'> Deactive</span>";
+                                            } ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['COMMENTS'] ?>
+                                        </td>
+                                    </tr>
+
+                                    <?php
+                                }
+                                ?>
                             </tbody>
                         </table>
                     </div>
