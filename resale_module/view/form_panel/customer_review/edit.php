@@ -59,15 +59,13 @@ $data = oci_fetch_assoc($commentSQL);
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="COMMENTS"> Review/Comment <span class="text-danger">*</span></label>
-                                <textarea name="COMMENTS" class="editor">
+                                <textarea name="COMMENTS" class="editor" required>
                                 <?php echo $data['COMMENTS'] ?> 
                                 </textarea>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="image">Image <span class="text-danger">*</span></label>
-                                <input type="file" name="image" required <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
-                                    data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
-                                    data-max-width="110" data-max-height="110" />
+                                <input type="file" name="image"  <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?> data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="110" data-max-height="110" />
                                 <small class="text-danger">[Image size will be max (100*100)px]</small>
                             </div>
                             <div class="mb-3">

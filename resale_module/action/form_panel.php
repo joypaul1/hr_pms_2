@@ -100,14 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
     $TYPE     = $_POST['TYPE'];
     $COMMENTS = $_POST['COMMENTS'];
     $STATUS   = $_POST['STATUS'];
-    // echo "UPDATE CLIENT_COMMENTS 
-    //     SET
-    //     NAME = '$NAME',
-    //     TYPE = '$TYPE',
-    //     COMMENTS = '$COMMENTS',
-    //     STATUS = '$STATUS'
-    // WHERE ID = $editId";
-    // die();
+
     if (!empty($_FILES["image"]["name"])) {
 
         $image       = $_FILES['image'];
