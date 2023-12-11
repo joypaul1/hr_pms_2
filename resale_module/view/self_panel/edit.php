@@ -4,8 +4,7 @@ $dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/d
 $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
-$baseUrl    = $_SESSION['baseUrl'];
-$basePath   = $_SESSION['basePath'];
+
 $data       = [];
 $product_id = trim($_GET["id"]);
 // Check existence of id parameter before processing further
@@ -53,8 +52,8 @@ else {
     header("location:" . $basePath . "/resale_module/view/self_panel/pendingList.php");
     exit();
 }
-// print_r($data['PIC_URL']);
-// die();
+$baseUrl    = $_SESSION['baseUrl'];
+$basePath   = $_SESSION['basePath'];
 ?>
 
 <!-- / Content -->

@@ -6,7 +6,10 @@ require_once('../../inc/connresaleoracle.php');
 require_once('../../config_file_path.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
+$baseUrl        = $_SESSION['baseUrl'];
 $folderPath     = $rs_img_path;
+
+
 ini_set('memory_limit', '2560M');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'create') {
@@ -343,16 +346,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
         if (move_uploaded_file($fileTmpName, $targetPath_fullImgName)) {
             // image final name for database store name
             $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
-            $PIC_URL        = $imageFinalName; 
+            $PIC_URL        = $imageFinalName;
             //check if old image exists & delete it
             $imgSQL = oci_parse($objConnect, "SELECT PIC_URL from RESALE_TEAM  WHERE ID = $editId");
             @oci_execute($imgSQL);
-            $image = oci_fetch_assoc($imgSQL);
-            print_r( $image);
-
-            die();
-
-            // $imgStorePath.
+            $image = oci_fetch_assoc($imgSQL); 
+            if ($image) {
+                if (file_exists($baseUrl . '/' . $image['PIC_URL'])) {
+                    unlink($baseUrl . '/' . $image['PIC_URL']);
+                }
+            }
         }
         else {
             $message                  = [
@@ -360,12 +363,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=" . $editId . "&&actionType=edit'</script>";
             exit();
         }
 
     }
-    
+
     // Prepare the SQL statement
     $strSQL = oci_parse($objConnect, "UPDATE RESALE_TEAM 
         SET RML_ID = '$RML_ID',
@@ -387,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=" . $editId . "&&actionType=edit'</script>";
         exit();
 
     }
@@ -398,7 +401,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=" . $editId . "&&actionType=edit'</script>";
         exit();
 
     }
