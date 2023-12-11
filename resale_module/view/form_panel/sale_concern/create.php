@@ -41,7 +41,11 @@ if (!checkPermission('resale-product-panel')) {
 
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
-                                <input type="text" name="TITLE_NAME" class="form-control" id="name" required placeholder="Shop Name..">
+                                <input type="text" name="TITLE_NAME" class="form-control" id="name" required placeholder="Name here..">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="RML_ID"> RML ID <span class="text-danger">*</span></label>
+                                <input type="text" name="RML_ID" class="form-control" id="RML_ID" required placeholder="RML ID here ..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="designation">Designation <span class="text-danger">*</span></label>
@@ -49,7 +53,7 @@ if (!checkPermission('resale-product-panel')) {
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="mobile">Mobile Number <span class="text-danger">*</span></label>
-                                <input type="text" name="MOBILE" class="form-control" id="mobile" required placeholder="mobile number..">
+                                <input type="number" name="MOBILE" class="form-control" id="mobile" required placeholder="mobile number..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="mail">Mail Address </label>
@@ -58,7 +62,7 @@ if (!checkPermission('resale-product-panel')) {
 
                             <div class="mb-3">
                                 <label class="form-label" for="PIC_URL"> Image</label>
-                                <input type="file" name="PIC_URL" class="dropify" data-min-width="570" data-min-height="682" />
+                                <input type="file" name="PIC_URL" class="dropify" data-max-width="570" data-max-height="682" />
                                 <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
                             </div>
                             <div class="mb-3">
@@ -72,7 +76,6 @@ if (!checkPermission('resale-product-panel')) {
                                     while ($stationData = oci_fetch_assoc($workStationSql)) {
                                         echo '<option value="' . $stationData["ID"] . '">' . $stationData['TITLE'] . '</option>';
                                     }
-
                                     ?>
 
                                 </select>
@@ -86,7 +89,7 @@ if (!checkPermission('resale-product-panel')) {
                             </div>
 
                             <div class="b-block text-right">
-                                <button type="submit"  class="btn btn-primary">Save</button>
+                                <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>
 

@@ -29,9 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         if (!in_array($fileExtension, $validExtensions)) {
-            $imageStatus             = 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF';
-            $_SESSION['imageStatus'] = $imageStatus;
-            echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+            // $imageStatus             = '';
+            // $_SESSION['imageStatus'] = $imageStatus;
+            $message                  = [
+                'text'   => 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF',
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
             exit();
         }
 
@@ -115,8 +120,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
         $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         if (!in_array($fileExtension, $validExtensions)) {
-            $imageStatus             = 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF';
-            $_SESSION['imageStatus'] = $imageStatus;
+            $message                  = [
+                'text'   => 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF',
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
             echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
             exit();
         }
@@ -200,13 +208,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createSaleConcern') {
-    print_r($_POST);
-    die();
-    $NAME     = $_POST['NAME'];
-    $TYPE     = $_POST['TYPE'];
-    $COMMENTS = $_POST['COMMENTS'];
-    $PIC_URL  = '';
-    $STATUS   = $_POST['STATUS'];
+
+    $TITLE_NAME      = $_POST['TITLE_NAME'];
+    $DESIGNATION     = $_POST['DESIGNATION'];
+    $MOBILE          = $_POST['MOBILE'];
+    $MAIL            = $_POST['MAIL'];
+    $WORK_STATION_ID = $_POST['WORK_STATION_ID'];
+    $STATUS          = $_POST['STATUS'];
+    $RML_ID          = $_POST['RML_ID'];
+    $PIC_URL         = '';
 
     if (!empty($_FILES["image"]["name"])) {
 
@@ -227,7 +237,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             exit();
         }
 
-        $imgStorePath = $folderPath . 'client_image/';
+        $imgStorePath = $folderPath . 'sale_concern/';
         pathExitOrCreate($imgStorePath); // check if folder exists or create
 
         // Define a custom file name
@@ -252,17 +262,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         }
 
     }
+    
     // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "INSERT INTO CLIENT_COMMENTS (
-         PIC_URL, NAME, TYPE, COMMENTS, STATUS) 
-            VALUES (
-            '$PIC_URL',
-            '$NAME',
-            '$TYPE',
-            '$COMMENTS',
-            '$STATUS'
-            )");
-
+    $strSQL = @oci_parse($objConnect, "INSERT INTO  RESALE_TEAM 
+    (RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, ENTRY_DATE,ENTRY_BY, PIC_URL) 
+            VALUES ( 
+            '$RML_ID',
+            '$TITLE_NAME',
+            '$DESIGNATION',
+            '$MOBILE',
+            '$WORK_STATION_ID' ,
+            '$MAIL',
+            '$STATUS',
+            SYSDATE,
+            '$emp_session_id',
+            '$PIC_URL')");
+    
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
