@@ -19,7 +19,7 @@ $commentSQL = oci_parse($objConnect, "SELECT
 oci_execute($commentSQL);
 
 $data = oci_fetch_assoc($commentSQL);
-// print_r($data);
+
 ?>
 
 <!-- / Content -->

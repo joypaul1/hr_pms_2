@@ -35,8 +35,9 @@ if (!checkPermission('resale-product-panel')) {
                 <div class="card-body">
                     <div class="col-6">
 
-                        <form method="post" action="<?php echo ($basePath . '/' . 'action/role_permission/role.php'); ?>">
-                            <input type="hidden" name="actionType" value="create">
+                        <form method="post" action="<?php echo ($basePath . '/' . 'resale_module/action/form_panel.php'); ?>"
+                            enctype="multipart/form-data">
+                            <input type="hidden" name="actionType" value="createSaleConcern">
 
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
@@ -50,22 +51,42 @@ if (!checkPermission('resale-product-panel')) {
                                 <label class="form-label" for="mobile">Mobile Number <span class="text-danger">*</span></label>
                                 <input type="text" name="MOBILE" class="form-control" id="mobile" required placeholder="mobile number..">
                             </div>
-                           
+                            <div class="mb-3">
+                                <label class="form-label" for="mail">Mail Address </label>
+                                <input type="email" name="MAIL" class="form-control" id="mail" placeholder="mail address..">
+                            </div>
+
                             <div class="mb-3">
                                 <label class="form-label" for="PIC_URL"> Image</label>
                                 <input type="file" name="PIC_URL" class="dropify" data-min-width="570" data-min-height="682" />
                                 <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
                             </div>
                             <div class="mb-3">
+                                <label class="form-label" for="WORK_STATION_ID">Work Station <span class="text-danger">*</span></label>
+                                <select name="WORK_STATION_ID" class="form-control" id="WORK_STATION_ID" required>
+                                    <option value="" hidden><- Select Work Station -></option>
+                                    <?php
+                                    $workStationSql = oci_parse($objConnect, "SELECT 
+                                    ID, TITLE FROM  WORK_STATION WHERE STATUS= 'Y'");
+                                    oci_execute($workStationSql);
+                                    while ($stationData = oci_fetch_assoc($workStationSql)) {
+                                        echo '<option value="' . $stationData["ID"] . '">' . $stationData['TITLE'] . '</option>';
+                                    }
+
+                                    ?>
+
+                                </select>
+                            </div>
+                            <div class="mb-3">
                                 <label class="form-label" for="STATUS">Status <span class="text-danger">*</span></label>
-                               <select name="STATUS" class="form-control" id="STATUS" required>
+                                <select name="STATUS" class="form-control" id="STATUS" required>
                                     <option value="1">Active</option>
                                     <option value="0">Deactive</option>
-                               </select>
+                                </select>
                             </div>
 
                             <div class="b-block text-right">
-                                <input type="submit" value="Save" name="submit" class="btn btn-primary">
+                                <button type="submit"  class="btn btn-primary">Save</button>
                             </div>
                         </form>
 
