@@ -39,22 +39,29 @@ if (!checkPermission('resale-product-panel')) {
                             <input type="hidden" name="actionType" value="create">
 
                             <div class="mb-3">
-                                <label class="form-label" for="name">Shop Name <span class="text-danger">*</span></label>
-                                <input type="text" name="shop_name" class="form-control" id="name" required placeholder="Shop Name..">
+                                <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
+                                <input type="text" name="TITLE_NAME" class="form-control" id="name" required placeholder="Shop Name..">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="name">Proprietor Name <span class="text-danger">*</span></label>
-                                <input type="text" name="proprietor_name" class="form-control" id="name" required placeholder="Proprietor Name..">
+                                <label class="form-label" for="designation">Designation <span class="text-danger">*</span></label>
+                                <input type="text" name="DESIGNATION" class="form-control" id="designation" required placeholder="designation Name..">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="name">Location <span class="text-danger">*</span></label>
-                                <input type="text" name="location" class="form-control" id="name" required placeholder="Location..">
+                                <label class="form-label" for="mobile">Mobile Number <span class="text-danger">*</span></label>
+                                <input type="text" name="MOBILE" class="form-control" id="mobile" required placeholder="mobile number..">
                             </div>
                            
                             <div class="mb-3">
-                                <label class="form-label" for="name">Shop/Dealer Image</label>
-                                <input type="file" name="image" class="dropify" data-min-width="370" data-min-height="200" />
-                                <small class="text-danger">[Image size will be max (370 × 200 )px]</small>
+                                <label class="form-label" for="PIC_URL"> Image</label>
+                                <input type="file" name="PIC_URL" class="dropify" data-min-width="570" data-min-height="682" />
+                                <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="STATUS">Status <span class="text-danger">*</span></label>
+                               <select name="STATUS" class="form-control" id="STATUS" required>
+                                    <option value="1">Active</option>
+                                    <option value="0">Deactive</option>
+                               </select>
                             </div>
 
                             <div class="b-block text-right">
