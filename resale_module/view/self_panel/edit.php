@@ -272,7 +272,7 @@ else {
 
 
                                 <div class="b-block text-right">
-                                    <button type="submit" disabled class="btn btn-primary">Update</button>
+                                    <button type="submit"  class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
