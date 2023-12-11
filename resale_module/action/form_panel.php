@@ -335,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
         pathExitOrCreate($imgStorePath); // check if folder exists or create
 
         // Define a custom file name
-        $customFileName = 'client_' . random_strings(4) . '_' . time() . "." . $fileExtension;
+        $customFileName = 'concern_' . random_strings(4) . '_' . time() . "." . $fileExtension;
 
         // Define the target path with the custom file name
         $targetPath_fullImgName = $imgStorePath . $customFileName;
@@ -343,7 +343,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
         if (move_uploaded_file($fileTmpName, $targetPath_fullImgName)) {
             // image final name for database store name
             $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
-            $PIC_URL        = $imageFinalName;
+            $PIC_URL        = $imageFinalName; 
+            //check if old image exists & delete it
+            $imgSQL = oci_parse($objConnect, "SELECT PIC_URL from RESALE_TEAM  WHERE ID = $editId");
+            @oci_execute($imgSQL);
+            $image = oci_fetch_assoc($imgSQL);
+            print_r( $image);
+
+            die();
+
+            // $imgStorePath.
         }
         else {
             $message                  = [

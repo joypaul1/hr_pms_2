@@ -5,7 +5,7 @@ $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/
 require_once('../../../../helper/4step_com_conn.php');
 require_once('../../../../inc/connresaleoracle.php');
 
-$basePath = $_SESSION['basePath'];
+
 
 if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
@@ -17,8 +17,9 @@ ID, RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, PIC_UR
 FROM RESALE_TEAM A WHERE A.ID =" . $_GET['id']);
 
 oci_execute($concernSQL);
-
 $data = oci_fetch_assoc($concernSQL);
+$baseUrl  = $_SESSION['baseUrl'];
+$basePath = $_SESSION['basePath'];
 ?>
 
 <!-- / Content -->
@@ -36,7 +37,7 @@ $data = oci_fetch_assoc($concernSQL);
                 $routePath     = 'resale_module/view/form_panel/sale_concern/index.php';
                 include('../../../../layouts/_tableHeader.php');
 
-
+                // echo $baseUrl;
                 ?>
                 <!-- End table  header -->
 
@@ -50,7 +51,8 @@ $data = oci_fetch_assoc($concernSQL);
 
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
-                                <input type="text" name="TITLE_NAME" value="<?php echo $data['TITLE_NAME'] ?>" class="form-control" id="name" required placeholder="Name here..">
+                                <input type="text" name="TITLE_NAME" value="<?php echo $data['TITLE_NAME'] ?>" class="form-control" id="name" required
+                                    placeholder="Name here..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="RML_ID"> RML ID <span class="text-danger">*</span></label>
@@ -75,9 +77,9 @@ $data = oci_fetch_assoc($concernSQL);
 
                             <div class="mb-3">
                                 <label class="form-label" for="PIC_URL"> Image</label>
-                                <input type="file" name="PIC_URL" 
-                                <?php echo !isset($data['PIC_URL']) ? ' ' : '' ?> data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>"
-                                class="dropify" data-max-width="570" data-max-height="682" />
+                                <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? ' ' : '' ?>
+                                    data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="570"
+                                    data-max-height="682" />
                                 <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
                             </div>
                             <div class="mb-3">

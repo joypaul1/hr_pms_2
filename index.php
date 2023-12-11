@@ -29,7 +29,7 @@ if (isset($_POST['login_hr'])) {
       unset($getUserRow_hr['hrpassword']);
 
       $_SESSION['HR']          = $getUserRow_hr;
-      $_SESSION['baseURL']     = $baseUrl;
+      $_SESSION['baseUrl']     = $baseUrl;
       $_SESSION['basePath']    = $basePath;
       $_SESSION['rs_img_path'] = $rs_img_path;
 

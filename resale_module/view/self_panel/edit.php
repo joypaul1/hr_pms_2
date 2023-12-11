@@ -4,7 +4,8 @@ $dynamic_link_js[]  = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/d
 $dynamic_link_css[] = 'https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
-
+$baseUrl    = $_SESSION['baseUrl'];
+$basePath   = $_SESSION['basePath'];
 $data       = [];
 $product_id = trim($_GET["id"]);
 // Check existence of id parameter before processing further
@@ -211,8 +212,8 @@ else {
                                             <small class="text-danger">[Max File Size (645 × 387)px ]</small></strong>
                                     </label>
                                     <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
-                                        data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>" class="dropify"
-                                        data-max-width="645" data-max-height="387" />
+                                        data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="645"
+                                        data-max-height="387" />
 
                                 </div>
 
@@ -243,21 +244,21 @@ else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="0"/>';
 
                                         if (isset($product_image[0])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[0]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[0]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[0]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
 
                                         if (isset($product_image[1])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[1]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[1]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[1]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
 
 
                                         if (isset($product_image[2])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[2]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[2 ]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
 
 
                                         if (isset($product_image[3])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="http://202.40.181.98:9090/' . $product_image[3]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[3]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
 
                                     }
@@ -272,7 +273,7 @@ else {
 
 
                                 <div class="b-block text-right">
-                                    <button type="submit"  class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -395,12 +396,12 @@ else {
     document.addEventListener('DOMContentLoaded', initialize);
     const displayPriceInput = document.getElementById('DISPLAY_PRICE');
     const submitButton = document.querySelector('button[type="submit"]');
-    
+
     // Function to check if the input value exists and enable/disable the button accordingly
     function checkInputValue() {
         // Get the values of DISPLAY_PRICE and BOOK_VALUE
         const displayPrice = parseFloat(displayPriceInput.value.trim()); // Get the trimmed value of DISPLAY_PRICE
-        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE']?$data['BOOK_VALUE']:10000; ?>);
+        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE'] ? $data['BOOK_VALUE'] : 10000; ?>);
         console.log(displayPrice, bookValue);
 
 
