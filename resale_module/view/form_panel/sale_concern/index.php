@@ -19,7 +19,7 @@ if (!checkPermission('resale-product-panel')) {
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName = 'Sale Concern List';
+                $leftSideName  = 'Sale Concern List';
                 $rightSideName = 'Sale Concern Create';
                 $routePath     = 'resale_module/view/form_panel/sale_concern/create.php';
                 include('../../../../layouts/_tableHeader.php');
@@ -36,14 +36,69 @@ if (!checkPermission('resale-product-panel')) {
                                 <tr class="text-center">
                                     <th>SL.</th>
                                     <th>Action</th>
-                                    <th>Shop Name</th>
-                                    <th>Proprietor Name</th>
-                                    <th>Location</th>
-                                    <!-- <th>Image</th> -->
+                                    <th>Concern Info </th>
+                                    <th>MOBILE</th>
+                                    <th>WORK STATION</th>
+                                    <th>Image</th>
+                                    <th>STATUS</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                <?php
+                                $concernSQL = oci_parse($objConnect, "SELECT 
+                                ID, RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, PIC_URL,
+                                (SELECT TITLE FROM WORK_STATION WHERE ID = A.WORK_STATION_ID) AS WORK_STATION
+                                FROM RESALE_TEAM A");
+
+                                oci_execute($concernSQL);
+                                $number = 0;
+                                while ($row = oci_fetch_assoc($concernSQL)) {
+                                    $number++;
+                                    ?>
+                                    <tr>
+                                        <td>
+                                            <?php
+                                            echo $number;
+                                            ?>
+                                        </td>
+                                        <td>
+                                            <?php
+                                            echo '<a href="' . $basePath . '/resale_module/view/form_panel/sale_concern/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt"></i> </a>';
+                                            ?>
+                                        </td>
+                                        <td class="text-left">
+                                            Name :
+                                            <?php echo $row['TITLE_NAME'] ?> </br>
+                                            DES. :
+                                            <?php echo $row['DESIGNATION'] ?></br>
+                                            ID :
+                                            <?php echo $row['RML_ID'] ?></br>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['MOBILE'] ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row['WORK_STATION'] ?>
+
+                                        </td>
+                                        <td>
+                                            <img src="<?php echo 'http://202.40.181.98:9090/' . $row['PIC_URL'] ?>" width="100px" alt="">
+                                        </td>
+                                        <td>
+                                            <?php if ($row['STATUS'] == 1) {
+                                                echo "<span class ='badge bg-success'> Active</span>";
+                                            }
+                                            else {
+                                                echo "<span class ='badge bg-warning'> Deactive</span>";
+                                            } ?>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <?php
+                                }
+                                ?>
 
                             </tbody>
                         </table>

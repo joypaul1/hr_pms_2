@@ -151,7 +151,8 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
+                                <li
+                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/create.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
                                     <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
                                         class="menu-link withoutIcon">
                                         <div>
@@ -160,7 +161,11 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>">
+                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>
+                                <?php echo isActive('/resale_module/view/form_panel/sale_concern/create.php'); ?>
+                                <?php echo isActive('/resale_module/view/form_panel/sale_concern/edit.php'); ?>
+                                
+                                ">
                                     <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>

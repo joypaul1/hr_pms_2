@@ -107,24 +107,3 @@ if (!checkPermission('resale-product-panel')) {
 
 <?php require_once('../../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../../layouts/footer.php'); ?>
-<script>
-    $('.dropify').dropify({
-        messages: {
-            'default': 'Select Customer  Image',
-            'replace': 'Replace Customer Image',
-            'remove': 'Remove',
-            'error': 'Ooops, something wrong happended.'
-        }
-    });
-    // Get all elements with the 'editor' class
-    const editorElements = document.querySelectorAll('.editor');
-
-    // Loop through each element and create a ClassicEditor instance
-    editorElements.forEach(element => {
-        ClassicEditor
-            .create(element)
-            .catch(error => {
-                console.error(error);
-            });
-    });
-</script>

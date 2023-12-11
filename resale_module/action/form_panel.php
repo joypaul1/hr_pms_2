@@ -300,6 +300,99 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 
 
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'editSaleConcern') {
+
+    $TITLE_NAME      = $_POST['TITLE_NAME'];
+    $DESIGNATION     = $_POST['DESIGNATION'];
+    $MOBILE          = $_POST['MOBILE'];
+    $MAIL            = $_POST['MAIL'];
+    $WORK_STATION_ID = $_POST['WORK_STATION_ID'];
+    $STATUS          = $_POST['STATUS'];
+    $RML_ID          = $_POST['RML_ID'];
+    $PIC_URL         = '';
+
+    if (!empty($_FILES["image"]["name"])) {
+
+        $image       = $_FILES['image'];
+        $fileName    = $image["name"];
+        $fileTmpName = $image["tmp_name"];
+        $fileSize    = $image["size"];
+        $fileType    = $image["type"];
+        $fileError   = $image["error"];
+        //Check if the file is an actual image
+        $validExtensions = array( "jpg", "jpeg", "png", "gif" );
+        $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+        if (!in_array($fileExtension, $validExtensions)) {
+            $imageStatus             = 'Invalid file_' . $key . 'format. Allowed formats: JPG, JPEG, PNG, GIF';
+            $_SESSION['imageStatus'] = $imageStatus;
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
+            exit();
+        }
+
+        $imgStorePath = $folderPath . 'sale_concern/';
+        pathExitOrCreate($imgStorePath); // check if folder exists or create
+
+        // Define a custom file name
+        $customFileName = 'client_' . random_strings(4) . '_' . time() . "." . $fileExtension;
+
+        // Define the target path with the custom file name
+        $targetPath_fullImgName = $imgStorePath . $customFileName;
+        // image store folder path name is relative to  the image store
+        if (move_uploaded_file($fileTmpName, $targetPath_fullImgName)) {
+            // image final name for database store name
+            $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
+            $PIC_URL        = $imageFinalName;
+        }
+        else {
+            $message                  = [
+                'text'   => "Something went wrong file uploading!",
+                'status' => 'false',
+            ];
+            $_SESSION['noti_message'] = $message;
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+            exit();
+        }
+
+    }
+    
+    // Prepare the SQL statement
+    $strSQL = @oci_parse($objConnect, "INSERT INTO  RESALE_TEAM 
+    (RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, ENTRY_DATE,ENTRY_BY, PIC_URL) 
+            VALUES ( 
+            '$RML_ID',
+            '$TITLE_NAME',
+            '$DESIGNATION',
+            '$MOBILE',
+            '$WORK_STATION_ID' ,
+            '$MAIL',
+            '$STATUS',
+            SYSDATE,
+            '$emp_session_id',
+            '$PIC_URL')");
+    
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'Data Saved successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+    }
+    else {
+        $e                        = @oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+    }
+
+
+
+}
 function pathExitOrCreate($folderPath)
 {
     if (!file_exists($folderPath)) {

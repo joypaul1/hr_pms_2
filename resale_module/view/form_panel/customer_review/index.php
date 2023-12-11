@@ -41,7 +41,6 @@ if (!checkPermission('resale-product-panel')) {
                             </thead>
                             <tbody>
                                 <?php
-
                                 $commentSQL = oci_parse($objConnect, "SELECT 
                                     ID, PIC_URL, NAME, 
                                     TYPE, COMMENTS, STATUS, 
