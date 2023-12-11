@@ -17,7 +17,7 @@ ID, RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, PIC_UR
 FROM RESALE_TEAM A WHERE A.ID =" . $_GET['id']);
 
 oci_execute($concernSQL);
-$data = oci_fetch_assoc($concernSQL);
+$data     = oci_fetch_assoc($concernSQL);
 $baseUrl  = $_SESSION['baseUrl'];
 $basePath = $_SESSION['basePath'];
 ?>
@@ -78,9 +78,10 @@ $basePath = $_SESSION['basePath'];
                             <div class="mb-3">
                                 <label class="form-label" for="PIC_URL"> Image</label>
                                 <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? ' ' : '' ?>
-                                    data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="570"
-                                    data-max-height="682" />
-                                <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
+                                    data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="250"
+                                    data-max-height="300" />
+                                <small class="text-danger">[Image size will be max (246 × 294 )px]</small>
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="WORK_STATION_ID">Work Station <span class="text-danger">*</span></label>
