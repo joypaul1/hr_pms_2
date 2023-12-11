@@ -193,7 +193,7 @@ else {
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <button type="submit"  class="btn btn-primary">Update</button>
+                                    <button type="submit" disabled class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -269,6 +269,7 @@ else {
                                     }
                                     ?>
                                 </div>
+
 
                                 <div class="b-block text-right">
                                     <button type="submit"  class="btn btn-primary">Update</button>
@@ -393,13 +394,13 @@ else {
     // Add an event listener to wait for the document to finish loading before calling initialize
     document.addEventListener('DOMContentLoaded', initialize);
     const displayPriceInput = document.getElementById('DISPLAY_PRICE');
-    const submitButton = document.querySelector('button[name="submit"]');
-
+    const submitButton = document.querySelector('button[type="submit"]');
+    
     // Function to check if the input value exists and enable/disable the button accordingly
     function checkInputValue() {
         // Get the values of DISPLAY_PRICE and BOOK_VALUE
         const displayPrice = parseFloat(displayPriceInput.value.trim()); // Get the trimmed value of DISPLAY_PRICE
-        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE']; ?>);
+        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE']?$data['BOOK_VALUE']:10000; ?>);
         console.log(displayPrice, bookValue);
 
 

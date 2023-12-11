@@ -218,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $RML_ID          = $_POST['RML_ID'];
     $PIC_URL         = '';
 
-    if (!empty($_FILES["image"]["name"])) {
+    if (!empty($_FILES["PIC_URL"]["name"])) {
 
         $image       = $_FILES['image'];
         $fileName    = $image["name"];
@@ -262,7 +262,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         }
 
     }
-    
+
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, "INSERT INTO  RESALE_TEAM 
     (RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, ENTRY_DATE,ENTRY_BY, PIC_URL) 
@@ -277,7 +277,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             SYSDATE,
             '$emp_session_id',
             '$PIC_URL')");
-    
+
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
@@ -302,6 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'editSaleConcern') {
 
+    $editId          = $_POST['editId'];
     $TITLE_NAME      = $_POST['TITLE_NAME'];
     $DESIGNATION     = $_POST['DESIGNATION'];
     $MOBILE          = $_POST['MOBILE'];
@@ -311,9 +312,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
     $RML_ID          = $_POST['RML_ID'];
     $PIC_URL         = '';
 
-    if (!empty($_FILES["image"]["name"])) {
+    if (!empty($_FILES["PIC_URL"]["name"])) {
 
-        $image       = $_FILES['image'];
+        $image       = $_FILES['PIC_URL'];
         $fileName    = $image["name"];
         $fileTmpName = $image["tmp_name"];
         $fileSize    = $image["size"];
@@ -350,27 +351,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
-            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+            echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
             exit();
         }
 
     }
     
     // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "INSERT INTO  RESALE_TEAM 
-    (RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, ENTRY_DATE,ENTRY_BY, PIC_URL) 
-            VALUES ( 
-            '$RML_ID',
-            '$TITLE_NAME',
-            '$DESIGNATION',
-            '$MOBILE',
-            '$WORK_STATION_ID' ,
-            '$MAIL',
-            '$STATUS',
-            SYSDATE,
-            '$emp_session_id',
-            '$PIC_URL')");
-    
+    $strSQL = oci_parse($objConnect, "UPDATE RESALE_TEAM 
+        SET RML_ID = '$RML_ID',
+            TITLE_NAME = '$TITLE_NAME',
+            DESIGNATION = '$DESIGNATION',
+            MOBILE = '$MOBILE',
+            WORK_STATION_ID = '$WORK_STATION_ID',
+            MAIL = '$MAIL',
+            STATUS = '$STATUS',
+            ENTRY_DATE = SYSDATE,
+            ENTRY_BY = '$emp_session_id',
+            PIC_URL = '$PIC_URL'
+        WHERE ID = $editId");
+
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [
@@ -378,7 +378,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
+        exit();
+
     }
     else {
         $e                        = @oci_error($strSQL);
@@ -387,7 +389,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'edit
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/customer_review/create.php'</script>";
+        echo "<script> window.location.href = '{$basePath}/resale_module/view/form_panel/sale_concern/edit.php?id=".$editId."&&actionType=edit'</script>";
+        exit();
+
     }
 
 

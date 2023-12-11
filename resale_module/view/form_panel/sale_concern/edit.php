@@ -10,7 +10,15 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('resale-product-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
+$data       = [];
+$concernSQL = oci_parse($objConnect, "SELECT 
+ID, RML_ID, TITLE_NAME,DESIGNATION, MOBILE, WORK_STATION_ID,MAIL, STATUS, PIC_URL,
+(SELECT TITLE FROM WORK_STATION WHERE ID = A.WORK_STATION_ID) AS WORK_STATION
+FROM RESALE_TEAM A WHERE A.ID =" . $_GET['id']);
 
+oci_execute($concernSQL);
+
+$data = oci_fetch_assoc($concernSQL);
 ?>
 
 <!-- / Content -->
@@ -37,32 +45,39 @@ if (!checkPermission('resale-product-panel')) {
 
                         <form method="post" action="<?php echo ($basePath . '/' . 'resale_module/action/form_panel.php'); ?>"
                             enctype="multipart/form-data">
-                            <input type="hidden" name="actionType" value="createSaleConcern">
+                            <input type="hidden" name="actionType" value="editSaleConcern">
+                            <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                             <div class="mb-3">
                                 <label class="form-label" for="name"> Name <span class="text-danger">*</span></label>
-                                <input type="text" name="TITLE_NAME" class="form-control" id="name" required placeholder="Name here..">
+                                <input type="text" name="TITLE_NAME" value="<?php echo $data['TITLE_NAME'] ?>" class="form-control" id="name" required placeholder="Name here..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="RML_ID"> RML ID <span class="text-danger">*</span></label>
-                                <input type="text" name="RML_ID" class="form-control" id="RML_ID" required placeholder="RML ID here ..">
+                                <input type="text" value="<?php echo $data['RML_ID'] ?>" name="RML_ID" class="form-control" id="RML_ID" required
+                                    placeholder="RML ID here ..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="designation">Designation <span class="text-danger">*</span></label>
-                                <input type="text" name="DESIGNATION" class="form-control" id="designation" required placeholder="designation Name..">
+                                <input type="text" value="<?php echo $data['DESIGNATION'] ?>" name="DESIGNATION" class="form-control" id="designation"
+                                    required placeholder="designation Name..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="mobile">Mobile Number <span class="text-danger">*</span></label>
-                                <input type="number" name="MOBILE" class="form-control" id="mobile" required placeholder="mobile number..">
+                                <input type="number" value="<?php echo $data['MOBILE'] ?>" name="MOBILE" class="form-control" id="mobile" required
+                                    placeholder="mobile number..">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="mail">Mail Address </label>
-                                <input type="email" name="MAIL" class="form-control" id="mail" placeholder="mail address..">
+                                <input type="email" value="<?php echo $data['MAIL'] ?>" name="MAIL" class="form-control" id="mail"
+                                    placeholder="mail address..">
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label" for="PIC_URL"> Image</label>
-                                <input type="file" name="PIC_URL" class="dropify" data-max-width="570" data-max-height="682" />
+                                <input type="file" name="PIC_URL" 
+                                <?php echo !isset($data['PIC_URL']) ? ' ' : '' ?> data-default-file="<?php echo 'http://202.40.181.98:9090/' . $data['PIC_URL'] ?>"
+                                class="dropify" data-max-width="570" data-max-height="682" />
                                 <small class="text-danger">[Image size will be max (570 × 682 )px]</small>
                             </div>
                             <div class="mb-3">
@@ -70,21 +85,23 @@ if (!checkPermission('resale-product-panel')) {
                                 <select name="WORK_STATION_ID" class="form-control" id="WORK_STATION_ID" required>
                                     <option value="" hidden><- Select Work Station -></option>
                                     <?php
-                                    $workStationSql = oci_parse($objConnect, "SELECT 
-                                    ID, TITLE FROM  WORK_STATION WHERE STATUS= 'Y'");
+                                    $workStationSql = oci_parse($objConnect, "SELECT ID, TITLE FROM WORK_STATION WHERE STATUS= 'Y'");
                                     oci_execute($workStationSql);
                                     while ($stationData = oci_fetch_assoc($workStationSql)) {
-                                        echo '<option value="' . $stationData["ID"] . '">' . $stationData['TITLE'] . '</option>';
+                                        $isSelected = $data['WORK_STATION_ID'] == $stationData["ID"] ? "selected" : "";
+                                        echo '<option value="' . $stationData["ID"] . '" ' . $isSelected . '>
+                                            ' . $stationData['TITLE'] . '
+                                        </option>';
                                     }
                                     ?>
-
                                 </select>
+
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="STATUS">Status <span class="text-danger">*</span></label>
                                 <select name="STATUS" class="form-control" id="STATUS" required>
-                                    <option value="1">Active</option>
-                                    <option value="0">Deactive</option>
+                                    <option value="1" <?php echo $data['STATUS'] == '1' ? 'selected' : ''; ?>>Active</option>
+                                    <option value="0" <?php echo $data['STATUS'] == '0' ? 'selected' : ''; ?>>Deactive</option>
                                 </select>
                             </div>
 
@@ -107,3 +124,13 @@ if (!checkPermission('resale-product-panel')) {
 
 <?php require_once('../../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../../layouts/footer.php'); ?>
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Select Image',
+            'replace': 'Replace Image?',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong happended.'
+        }
+    }); 
+</script>

@@ -107,3 +107,13 @@ if (!checkPermission('resale-product-panel')) {
 
 <?php require_once('../../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../../layouts/footer.php'); ?>
+<script>
+    $('.dropify').dropify({
+        messages: {
+            'default': 'Select Image',
+            'replace': 'Replace Image?',
+            'remove': 'Remove',
+            'error': 'Ooops, something wrong happended.'
+        }
+    }); 
+</script>
