@@ -46,7 +46,6 @@ if (!checkPermission('resale-product-panel')) {
 
                     </select>
                 </div>
-
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
@@ -56,10 +55,7 @@ if (!checkPermission('resale-product-panel')) {
                             class="form-control  btn btn-sm btn-warning"> Reset Data</a>
                     </div>
                 </div>
-
-
             </div>
-
         </form>
     </div>
 
