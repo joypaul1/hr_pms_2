@@ -33,8 +33,8 @@ if (!checkPermission('resale-product-panel')) {
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Category</label>
 
-                    <select class="form-select select2" name="cateogry_id" id="cateogry_id">
-                        <option value="" hidden><-- Select Category</option> -->
+                    <select class="form-select select2" name="category_id" id="category_id">
+                        <option hidden><-- Select Category</option> -->
 
                     </select>
                 </div>
@@ -42,16 +42,18 @@ if (!checkPermission('resale-product-panel')) {
                     <label class="form-label" for="basic-default-fullname">Model.</label>
 
                     <select class="form-select select2" name="model_id" id="model_id">
-                        <option value="" hidden><-- Select Model --></option>
+                        <option hidden><-- Select Model --></option>
 
                     </select>
                 </div>
 
-
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
+                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
+                        </br>
+                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/pendingList.php' ?>"
+                            class="form-control  btn btn-sm btn-warning"> Reset Data</a>
                     </div>
                 </div>
 
@@ -87,30 +89,54 @@ if (!checkPermission('resale-product-panel')) {
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php
-                        $productSQL = oci_parse($objConnect, "SELECT 
-                                    ID, 
-                                    REF_CODE, 
-                                    ENG_NO, 
-                                    CHS_NO, 
-                                    REG_NO, 
-                                    BOOK_VALUE, 
-                                    DISPLAY_PRICE, 
-                                    GRADE, 
-                                    DEPO_LOCATION, 
-                                    BRAND_ID, 
-                                    CATEGORY, 
-                                    MODEL, 
-                                    INVOICE_STATUS, 
-                                    BOOKED_STATUS, 
-                                    PRODUCT_BID_ID, 
-                                    BODY_SIT, 
-                                    COLOR, 
-                                    FUEL_TYPE,
-                                    PIC_URL
-                                FROM PRODUCT
-                                WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS IS NULL");
+                        $query = "SELECT 
+                        ID, 
+                        REF_CODE, 
+                        ENG_NO, 
+                        CHS_NO, 
+                        REG_NO, 
+                        BOOK_VALUE, 
+                        DISPLAY_PRICE, 
+                        GRADE, 
+                        DEPO_LOCATION, 
+                        BRAND_ID, 
+                        CATEGORY, 
+                        MODEL, 
+                        INVOICE_STATUS, 
+                        BOOKED_STATUS, 
+                        PRODUCT_BID_ID, 
+                        BODY_SIT, 
+                        COLOR, 
+                        FUEL_TYPE,
+                        PIC_URL
+                        FROM PRODUCT
+                        WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS IS NULL";
+
+
+                        // Checking and adding the BRAND_ID condition if applicable
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            $query .= " AND BRAND_ID = :brandId";
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            $query .= " AND CATEGORY = :categoryId";
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
+                            $query .= " AND MODEL = :modelId";
+                        }
+
+                        $productSQL = oci_parse($objConnect, $query);
+
+                        // Bind the parameter if the condition applies
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            oci_bind_by_name($productSQL, ':categoryId', $_GET['category_id']);
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
+                            oci_bind_by_name($productSQL, ':modelId', $_GET['model_id']);
+                        }
 
                         oci_execute($productSQL);
                         $number = 0;
@@ -119,11 +145,9 @@ if (!checkPermission('resale-product-panel')) {
                             ?>
                             <tr>
                                 <td>
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
-                                        <?php
-                                        echo $number;
-                                        ?>
-                                    </strong>
+                                    <?php
+                                    echo $number;
+                                    ?>
                                 </td>
                                 <td class="text-left">
                                     BRAND :
@@ -187,9 +211,9 @@ if (!checkPermission('resale-product-panel')) {
                                 <td class="text-center">
                                     <?php
                                     echo '<button  data-product-id="' . $row['ID'] . '"
-                                            data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=started_work') . '" type="button" 
-                                            class="btn btn-sm btn-info float-right start_work">
-                                            Star Work <i class="bx bx-chevrons-right"></i> </button>';
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=started_work') . '" type="button" 
+                                        class="btn btn-sm btn-info float-right start_work">
+                                        Star Work <i class="bx bx-chevrons-right"></i> </button>';
                                     ?>
                                 </td>
 
@@ -213,8 +237,6 @@ if (!checkPermission('resale-product-panel')) {
 
 <?php
 require_once('../../../layouts/footer_info.php');
-?>
-<?php
 require_once('../../../layouts/footer.php');
 ?>
 <script>
@@ -226,27 +248,41 @@ require_once('../../../layouts/footer.php');
     });
 
     $('#brand_id').on('change', function () {
-        $('#cateogry_id').html(' ');
+        $('#category_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: {brand_id: $(this).val()},
+            data: { brand_id: $(this).val() },
             dataType: "json",
             success: function (res) {
-                $('#cateogry_id').append('<option hidden> <-- Select Category --></option>')
+                $('#category_id').append('<option hidden> <-- Select Category --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#cateogry_id').append('<option value='+optionData.value+'>'+optionData.value+'</option>')
+                    $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
                 });
-                
+
             }
         });
     });
-    // $('#brand_id').select2({
-    //     data:brandData
-    // });
-    //delete data processing
+    $('#category_id').on('change', function () {
+        $('#model_id').html(' ');
+        let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { categoryData: $(this).val() },
+            dataType: "json",
+            success: function (res) {
+                $('#model_id').append('<option hidden> <-- Select Model --></option>')
+                $.map(res.data, function (optionData, indexOrKey) {
+                    $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                });
 
+            }
+        });
+    });
+
+    //delete data processing
     $(document).on('click', '.start_work', function () {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
