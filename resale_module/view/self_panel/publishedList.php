@@ -100,7 +100,9 @@ if (!checkPermission('resale-product-panel')) {
                             CHS_NO, 
                             REG_NO, 
                             BOOK_VALUE, 
-                            DISPLAY_PRICE, 
+                            -- DISPLAY_PRICE, 
+                            CASH_PRICE, 
+                            CREDIT_PRICE,
                             GRADE, 
                             DEPO_LOCATION, 
                             BRAND_ID, 
@@ -129,7 +131,9 @@ if (!checkPermission('resale-product-panel')) {
                             CHS_NO, 
                             REG_NO, 
                             BOOK_VALUE, 
-                            DISPLAY_PRICE, 
+                            -- DISPLAY_PRICE,
+                            CASH_PRICE, 
+                            CREDIT_PRICE, 
                             GRADE, 
                             DEPO_LOCATION, 
                             BRAND_ID, 
@@ -173,8 +177,10 @@ if (!checkPermission('resale-product-panel')) {
 
                                     <strong>BOOK VALUE :</strong>
                                     <?php echo number_format($row['BOOK_VALUE'], 2); ?> TK </br>
-                                    <strong>DISPLAY PRICE :</strong>
-                                    <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
+                                    <strong>CASH PRICE :</strong>
+                                    <?php echo number_format($row['CASH_PRICE'], 2); ?> TK </br>
+                                    <strong>CREDIT PRICE :</strong>
+                                    <?php echo number_format($row['CREDIT_PRICE'], 2); ?> TK </br>
                                     <strong> MODEL :</strong>
                                     <?php echo ($row['MODEL']); ?> </br>
 

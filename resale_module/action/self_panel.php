@@ -11,28 +11,30 @@ ini_set('memory_limit', '2560M');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_1') {
 
-    $editId        = $_POST['editId'];
-    $DISPLAY_PRICE = $_POST['DISPLAY_PRICE'];
-    $BODY_SIT      = $_POST['BODY_SIT'];
-    $COLOR         = $_POST['COLOR'];
-    $FUEL_TYPE     = $_POST['FUEL_TYPE'];
-    $REG_PAPER     = $_POST['REG_PAPER'];
+    $editId       = $_POST['editId'];
+    $CREDIT_PRICE = $_POST['CREDIT_PRICE'];
+    $CASH_PRICE   = $_POST['CASH_PRICE'];
+    $BODY_SIT     = $_POST['BODY_SIT'];
+    $COLOR        = $_POST['COLOR'];
+    $FUEL_TYPE    = $_POST['FUEL_TYPE'];
+    $REG_PAPER    = $_POST['REG_PAPER'];
 
 
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, "
-        UPDATE PRODUCT 
-        SET 
-            DISPLAY_PRICE = :display_price,
-            BODY_SIT = :body_sit,
-            COLOR = :color,
-            REG_PAPER = :reg_paper,
-            FUEL_TYPE = :fuel_type            
-        WHERE ID = :edit_id
+        UPDATE PRODUCT SET 
+            CREDIT_PRICE    = :credit_price,
+            CASH_PRICE      = :cash_price,
+            BODY_SIT        = :body_sit,
+            COLOR           = :color,
+            REG_PAPER       = :reg_paper,
+            FUEL_TYPE       = :fuel_type            
+            WHERE ID        = :edit_id
     ");
 
     // Bind parameters
-    @oci_bind_by_name($strSQL, ':display_price', $DISPLAY_PRICE);
+    @oci_bind_by_name($strSQL, ':credit_price', $CREDIT_PRICE);
+    @oci_bind_by_name($strSQL, ':cash_price', $CASH_PRICE);
     @oci_bind_by_name($strSQL, ':body_sit', $BODY_SIT);
     @oci_bind_by_name($strSQL, ':color', $COLOR);
     @oci_bind_by_name($strSQL, ':fuel_type', $FUEL_TYPE);

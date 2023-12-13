@@ -96,30 +96,7 @@ if (!checkPermission('resale-product-panel')) {
                                 $chsNo = 'NULL';
                                 // echo  $model;
                             }
-                            // $productSQL = oci_parse($objConnect, "SELECT 
-                            // ID, 
-                            // REF_CODE, 
-                            // ENG_NO, 
-                            // CHS_NO, 
-                            // REG_NO, 
-                            // BOOK_VALUE, 
-                            // DISPLAY_PRICE, 
-                            // GRADE, 
-                            // DEPO_LOCATION, 
-                            // BRAND_ID, 
-                            // CATEGORY, 
-                            // MODEL, 
-                            // INVOICE_STATUS, 
-                            // BOOKED_STATUS, 
-                            // PRODUCT_BID_ID, 
-                            // BODY_SIT, 
-                            // COLOR, 
-                            // FUEL_TYPE,
-                            // PIC_URL 
-                            // FROM PRODUCT
-                            // WHERE     PUBLISHED_STATUS = 'Y'
-                            // AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
-                            // ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
+                            
                             
                             $productSQL = oci_parse($objConnect, "SELECT 
                             BB.ID,
@@ -130,7 +107,9 @@ if (!checkPermission('resale-product-panel')) {
                             BB.ENG_NO,
                             BB.REG_NO,
                             BB.BOOK_VALUE,
-                            BB.DISPLAY_PRICE,
+                            -- BB.DISPLAY_PRICE,
+                            BB.CREDIT_PRICE,
+                            BB.CASH_PRICE,
                             BB.GRADE,
                             AA.MAX_BID_AMOUNT,
                             AA.TOTAL_BID,
@@ -160,7 +139,9 @@ if (!checkPermission('resale-product-panel')) {
                             BB.ENG_NO,
                             BB.REG_NO,
                             BB.BOOK_VALUE,
-                            BB.DISPLAY_PRICE,
+                            -- BB.DISPLAY_PRICE,
+                            BB.CREDIT_PRICE,
+                            BB.CASH_PRICE,
                             BB.GRADE,
                             AA.MAX_BID_AMOUNT,
                             AA.TOTAL_BID,
@@ -211,8 +192,12 @@ if (!checkPermission('resale-product-panel')) {
                                         <?php echo number_format($row['BOOK_VALUE']) ?> TK
                                     </strong>
                                     </br>
-                                    <strong>DISPLAY PRICE :
-                                        <?php echo number_format($row['DISPLAY_PRICE']) ?> TK
+                                    <strong>CASH PRICE :
+                                        <?php echo number_format($row['CASH_PRICE']) ?> TK
+                                    </strong>
+                                    </br>
+                                    <strong>CREDIT PRICE :
+                                        <?php echo number_format($row['CREDIT_PRICE']) ?> TK
                                     </strong>
                                     </br>
                                     <strong>MAX BID :

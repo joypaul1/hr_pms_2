@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
                         CHS_NO, 
                         REG_NO, 
                         BOOK_VALUE, 
-                        DISPLAY_PRICE, 
+                        CASH_PRICE, 
+                        CREDIT_PRICE,
                         GRADE, 
                         DEPO_LOCATION, 
                         BRAND_ID, 
@@ -52,8 +53,8 @@ else {
     header("location:" . $basePath . "/resale_module/view/self_panel/pendingList.php");
     exit();
 }
-$baseUrl    = $_SESSION['baseUrl'];
-$basePath   = $_SESSION['basePath'];
+$baseUrl  = $_SESSION['baseUrl'];
+$basePath = $_SESSION['basePath'];
 ?>
 
 <!-- / Content -->
@@ -157,10 +158,14 @@ $basePath   = $_SESSION['basePath'];
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                                 <div class="mb-3">
-                                    <label class="form-label" for="DISPLAY_PRICE"> DISPLAY PRICE (MIN BID) <small
-                                            class='text-danger'>*</small></label>
-                                    <input type="number" name="DISPLAY_PRICE" class="form-control" value="<?php echo $data['DISPLAY_PRICE'] ?>"
-                                        required id="DISPLAY_PRICE" placeholder="DISPLAY PRICE (EX:10,000,00.00)">
+                                    <label class="form-label" for="CASH_PRICE"> CASH PRICE (MIN BID) <small class='text-danger'>*</small></label>
+                                    <input type="number" name="CASH_PRICE" class="form-control" value="<?php echo $data['CASH_PRICE'] ?>" required
+                                        id="CASH_PRICE" placeholder="CASH PRICE (EX:10,000,00.00)">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="CREDIT_PRICE">CREDIT PRICE (MIN BID) <small class='text-danger'>*</small></label>
+                                    <input type="number" name="CREDIT_PRICE" class="form-control" value="<?php echo $data['CREDIT_PRICE'] ?>" required
+                                        id="CREDIT_PRICE" placeholder="CREDIT PRICE (EX:10,000,00.00)">
                                 </div>
 
                                 <div class="mb-3">
@@ -193,7 +198,7 @@ $basePath   = $_SESSION['basePath'];
                                 </div>
 
                                 <div class="b-block text-right">
-                                    <button type="submit" disabled class="btn btn-primary">Update</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -252,7 +257,7 @@ $basePath   = $_SESSION['basePath'];
 
 
                                         if (isset($product_image[2])) {
-                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[2 ]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
+                                            echo '<input type="file" name="old_img_detials[' . $product_image[2]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[2]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
 
 
@@ -269,6 +274,11 @@ $basePath   = $_SESSION['basePath'];
                                     }
                                     ?>
                                 </div>
+                                <?php if (!empty($_SESSION['imageStatus'])) {
+                                    echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
+                                    unset($_SESSION['imageStatus']);
+                                }
+                                ?>
 
 
                                 <div class="b-block text-right">
@@ -351,11 +361,7 @@ $basePath   = $_SESSION['basePath'];
                                         <option <?php echo $data['PUBLISHED_STATUS'] == 'Y' ? 'selected' : ''; ?> value="Y">Published</option>
                                     </select>
 
-                                    <?php if (!empty($_SESSION['imageStatus'])) {
-                                        echo '<p class="text-info"> ' . $_SESSION['imageStatus'] . '</p>';
-                                        unset($_SESSION['imageStatus']);
-                                    }
-                                    ?>
+
                                 </div>
 
                                 <div class="b-block text-right">
@@ -382,50 +388,47 @@ $basePath   = $_SESSION['basePath'];
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
     // This function ensures that the checkInputValue function is called when the document loads
-    function initialize() {
-        // Call the checkInputValue function initially
-        checkInputValue();
-
-        // Add an event listener to the DISPLAY_PRICE input for change and input events
-        displayPriceInput.addEventListener('change', checkInputValue);
-        displayPriceInput.addEventListener('input', checkInputValue);
-    }
+    // function initialize() {
+    //     checkInputValue();
+    //     displayPriceInput.addEventListener('change', checkInputValue);
+    //     displayPriceInput.addEventListener('input', checkInputValue);
+    // }
 
     // Add an event listener to wait for the document to finish loading before calling initialize
-    document.addEventListener('DOMContentLoaded', initialize);
-    const displayPriceInput = document.getElementById('DISPLAY_PRICE');
-    const submitButton = document.querySelector('button[type="submit"]');
+    // document.addEventListener('DOMContentLoaded', initialize);
+    // const displayPriceInput = document.getElementById('DISPLAY_PRICE');
+    // const submitButton = document.querySelector('button[type="submit"]');
 
     // Function to check if the input value exists and enable/disable the button accordingly
-    function checkInputValue() {
-        // Get the values of DISPLAY_PRICE and BOOK_VALUE
-        const displayPrice = parseFloat(displayPriceInput.value.trim()); // Get the trimmed value of DISPLAY_PRICE
-        const bookValue = parseFloat(<?php echo $data['BOOK_VALUE'] ? $data['BOOK_VALUE'] : 10000; ?>);
-        console.log(displayPrice, bookValue);
+    // function checkInputValue() {
+    // Get the values of DISPLAY_PRICE and BOOK_VALUE
+    // const displayPrice = parseFloat(displayPriceInput.value.trim()); // Get the trimmed value of DISPLAY_PRICE
+    // const bookValue = parseFloat(<?php echo $data['BOOK_VALUE'] ? $data['BOOK_VALUE'] : 10000; ?>);
 
 
-        // Check if DISPLAY_PRICE has a value or not
-        if (!displayPrice) {
-            // If value is empty or doesn't exist, disable the submit button
-            submitButton.disabled = true;
-        } else if ((displayPrice < bookValue)) {
-            // If value exists, enable the submit button
-            displayPriceInput.style.borderColor = 'red';
-            submitButton.disabled = true;
-        } else if ((displayPrice > bookValue)) {
-            // If value exists, enable the submit button
-            displayPriceInput.style.borderColor = '';
-            submitButton.disabled = false;
-        } else {
-            displayPriceInput.style.borderColor = '';
-            // If value exists, enable the submit button
-            submitButton.disabled = false;
-        }
-    }
+
+    // Check if DISPLAY_PRICE has a value or not
+    // if (!displayPrice) {
+    // If value is empty or doesn't exist, disable the submit button
+    // submitButton.disabled = true;
+    // } else if ((displayPrice < bookValue)) {
+    // If value exists, enable the submit button
+    // displayPriceInput.style.borderColor = 'red';
+    // submitButton.disabled = true;
+    // } else if ((displayPrice > bookValue)) {
+    // If value exists, enable the submit button
+    // displayPriceInput.style.borderColor = '';
+    // submitButton.disabled = false;
+    // } else {
+    //displayPriceInput.style.borderColor = '';
+    // If value exists, enable the submit button
+    //submitButton.disabled = false;
+    //}
+    //}
 
     // Add an event listener to the DISPLAY_PRICE input for change and input events
-    displayPriceInput.addEventListener('change', checkInputValue);
-    displayPriceInput.addEventListener('input', checkInputValue);
+    // displayPriceInput.addEventListener('change', checkInputValue);
+    // displayPriceInput.addEventListener('input', checkInputValue);
 
 </script>
 <script>
