@@ -88,12 +88,10 @@ if (!checkPermission('resale-product-panel')) {
                         if ($chsNo || $model) {
                             if (empty($model)) {
                                 $model = 'NULL';
-
                             }
                             //  echo  $model;
                             if (empty($chsNo)) {
                                 $chsNo = 'NULL';
-                                // echo  $model;
                             }
                             $productSQL = oci_parse($objConnect, "SELECT 
                             ID, 
@@ -179,7 +177,7 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php echo number_format($row['DISPLAY_PRICE'], 2); ?> TK </br>
                                     <strong> MODEL :</strong>
                                     <?php echo ($row['MODEL']); ?> </br>
-                                  
+
                                 </td>
 
 
@@ -272,4 +270,97 @@ if (!checkPermission('resale-product-panel')) {
         printWindow.focus();
         printWindow.print();
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $('.select2').each(function () {
+            $(this).select2();
+
+        });
+    });
+
+    $('#brand_id').on('change', function () {
+        $('#category_id').html(' ');
+        let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { brand_id: $(this).val() },
+            dataType: "json",
+            success: function (res) {
+                $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
+                $.map(res.data, function (optionData, indexOrKey) {
+                    $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                });
+
+            }
+        });
+    });
+    $('#category_id').on('change', function () {
+        $('#model_id').html(' ');
+        let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
+        $.ajax({
+            type: "GET",
+            url: url,
+            data: { categoryData: $(this).val() },
+            dataType: "json",
+            success: function (res) {
+                $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
+                $.map(res.data, function (optionData, indexOrKey) {
+                    $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                });
+
+            }
+        });
+    });
+
+    //delete data processing
+    $(document).on('click', '.start_work', function () {
+        var product_id = $(this).data('product-id');
+        let url = $(this).data('href');
+        swal.fire({
+            title: 'Are you to  sure start work?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        product_id: product_id
+                    },
+                    dataType: 'json'
+                })
+                    .done(function (res) {
+                        if (res.status) {
+                            swal.fire('Star Work!', res.message, res.status);
+                            setInterval(function () {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function () {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
+    });
 </script>

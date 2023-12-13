@@ -34,7 +34,7 @@ if (!checkPermission('resale-product-panel')) {
                     <label class="form-label" for="basic-default-fullname">Category</label>
 
                     <select class="form-select select2" name="category_id" id="category_id">
-                        <option hidden><-- Select Category</option> -->
+                        <option value=" " hidden><-- Select Category</option> -->
 
                     </select>
                 </div>
@@ -42,7 +42,7 @@ if (!checkPermission('resale-product-panel')) {
                     <label class="form-label" for="basic-default-fullname">Model.</label>
 
                     <select class="form-select select2" name="model_id" id="model_id">
-                        <option hidden><-- Select Model --></option>
+                        <option value="" hidden><-- Select Model --></option>
 
                     </select>
                 </div>
@@ -252,7 +252,7 @@ require_once('../../../layouts/footer.php');
             data: { brand_id: $(this).val() },
             dataType: "json",
             success: function (res) {
-                $('#category_id').append('<option hidden> <-- Select Category --></option>')
+                $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
                     $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
                 });
@@ -269,7 +269,7 @@ require_once('../../../layouts/footer.php');
             data: { categoryData: $(this).val() },
             dataType: "json",
             success: function (res) {
-                $('#model_id').append('<option hidden> <-- Select Model --></option>')
+                $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
                     $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
                 });
