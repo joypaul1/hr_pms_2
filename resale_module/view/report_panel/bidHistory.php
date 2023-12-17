@@ -28,6 +28,7 @@ if (!checkPermission('resale-product-panel')) {
                             <th>SL</th>
                             <th scope="col">Bidder Info</th>
                             <th scope="col"> Bid Amount</th>
+                            <th scope="col"> BID REF.</th>
                             <th scope="col"> ENTRY DATE</th>
                             <th scope="col">Action </th>
                         </tr>
@@ -37,17 +38,33 @@ if (!checkPermission('resale-product-panel')) {
                         <?php
                         $productID = $_GET['id'];
 
-                        $productSQL = oci_parse($objConnect, "SELECT
-                            BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,AA.ID as BID_ID,
-                            AA.USER_ID,AA.PRODUCT_ID,AA.BOOKED_STATUS,AA.BID_AMOUNT,AA.ENTRY_DATE
-                         FROM 
-                                (
-                                SELECT A.ID,A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE
-                                FROM PRODUCT_BID A
-                                WHERE PRODUCT_ID=$productID
-                                ORDER BY BID_AMOUNT DESC
-                                ) AA,USER_PROFILE BB
-                            WHERE AA.USER_ID=BB.ID");
+                        // $productSQL = oci_parse($objConnect, "SELECT
+                        //     BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,AA.ID as BID_ID,
+                        //     AA.USER_ID,AA.PRODUCT_ID,AA.BOOKED_STATUS,AA.BID_AMOUNT,AA.ENTRY_DATE,
+                        //     AA.BID_PRICE_TYPE,AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID
+                        //  FROM 
+                        //     ( A.ID,A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE,
+                        //     A.BID_PRICE_TYPE,A.REFERENCE_TYPE, A.RESALE_TEAM_ID
+                        //     FROM PRODUCT_BID A
+                        //     WHERE PRODUCT_ID=$productID
+                        //     ORDER BY BID_AMOUNT DESC ) AA,USER_PROFILE BB
+                        //     WHERE AA.USER_ID=BB.ID");
+                        $productSQL = oci_parse($objConnect, "SELECT 
+                                        BB.USER_NAME, BB.USER_MOBILE, BB.ADDRESS, AA.ID as BID_ID, AA.USER_ID, 
+                                        AA.PRODUCT_ID, AA.BOOKED_STATUS, AA.BID_AMOUNT, AA.ENTRY_DATE, 
+                                        AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID
+                                    FROM 
+                                        (SELECT 
+                                            A.ID, A.USER_ID, A.PRODUCT_ID, A.BOOKED_STATUS, A.BID_AMOUNT, 
+                                            A.ENTRY_DATE, A.BID_PRICE_TYPE, A.REFERENCE_TYPE, A.RESALE_TEAM_ID
+                                        FROM 
+                                            PRODUCT_BID A
+                                        WHERE 
+                                            A.PRODUCT_ID = $productID
+                                        ORDER BY 
+                                            A.BID_AMOUNT DESC) AA
+                                    JOIN 
+                                        USER_PROFILE BB ON AA.USER_ID = BB.ID");
 
                         oci_execute($productSQL);
                         $number = 0;
@@ -58,8 +75,7 @@ if (!checkPermission('resale-product-panel')) {
                                 <td>
                                     <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
                                         <?php echo $number; ?>
-                                        (
-                                        <?php echo $row['BID_ID'] ?>)
+                                        ( <?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -75,6 +91,11 @@ if (!checkPermission('resale-product-panel')) {
 
                                 <td class="text-right">
                                     <?php echo number_format($row['BID_AMOUNT']) ?>
+                                    <br>
+                                    BID FOR : <?php echo ($row['BID_PRICE_TYPE']) ?>
+                                </td>
+                                <td class="text-right">
+                                    <?php echo ($row['REFERENCE_TYPE']) ?>
                                 </td>
                                 <td class="text-right">
                                     <?php echo ($row['ENTRY_DATE']) ?>
@@ -82,16 +103,17 @@ if (!checkPermission('resale-product-panel')) {
 
 
                                 <td class="text-center">
-                                    <?php if($row['BOOKED_STATUS'] == 'Y' ){
-                                        echo  '<button data-bid-id="'.$row['BID_ID'].'" data-product-id="'. $productID.'"
-                                        data-href="'.($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') .'"
+                                    <?php if ($row['BOOKED_STATUS'] == 'Y') {
+                                        echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') . '"
                                         type="button" class="btn btn-sm btn-success float-right delete_check"><i class="bx bx-check"></i>Looked </button>';
-                                    }else{
-                                        echo  '<button data-bid-id="'.$row['BID_ID'].'" data-product-id="'. $productID.'"
-                                        data-href="'.($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') .'"
+                                    }
+                                    else {
+                                        echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') . '"
                                         type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>';
-                                    }?>
-                                   
+                                    } ?>
+
 
                                 </td>
 

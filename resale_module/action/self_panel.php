@@ -328,6 +328,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     AUCTTION_START_DATE = to_date('$AUCTTION_START_DATE','dd/mm/yyyy'), 
     AUCTION_END_DATE = to_date('$AUCTION_END_DATE','dd/mm/yyyy'),
     PUBLISHED_STATUS = '$PUBLISHED_STATUS'
+    PUBLISHED_BY = '$emp_session_id',
+    PUBLISHED_DATA = SYSDATE
     WHERE ID = $editId");
 
 
