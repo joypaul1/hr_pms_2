@@ -84,9 +84,9 @@ oci_execute($attDataSQL);
 $attData = oci_fetch_assoc($attDataSQL);
 // print_r($attData['PRESENT_TOTAL']);
 
-$attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
-$attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
-// print_r($attPieChartData);
+$attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+$attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+print_r($attPieChartData);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
