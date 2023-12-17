@@ -323,14 +323,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
 
     // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT 
+    $strSQL = oci_parse($objConnect, "UPDATE PRODUCT 
     SET 
     AUCTTION_START_DATE = to_date('$AUCTTION_START_DATE','dd/mm/yyyy'), 
     AUCTION_END_DATE = to_date('$AUCTION_END_DATE','dd/mm/yyyy'),
-    PUBLISHED_STATUS = '$PUBLISHED_STATUS'
+    PUBLISHED_STATUS = '$PUBLISHED_STATUS',
     PUBLISHED_BY = '$emp_session_id',
-    PUBLISHED_DATA = SYSDATE
+    PUBLISHED_DATE = SYSDATE
     WHERE ID = $editId");
+
+
 
 
     // Execute the query
