@@ -333,8 +333,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     WHERE ID = $editId");
 
 
-
-
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message                  = [

@@ -1,7 +1,7 @@
 <?php
 require_once('../helper/com_conn.php');
 require_once('../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 
 $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' 	APPROVAL_LINK 
 		FROM EMP_CLEARENCE A,EMP_CLEARENCE_DTLS B,RML_HR_APPS_USER C
@@ -31,7 +31,7 @@ $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$b
 	AND LINE_MANAGER_2_ID='$emp_session_id'";
 
 
-$allDataSQL  = oci_parse($objConnect, $sqlQuary);
+$allDataSQL = oci_parse($objConnect, $sqlQuary);
 oci_execute($allDataSQL);
 
 $sqlAtt = "SELECT RML_ID,(RML_HR_ATTN_STATUS_COUNT(
@@ -79,14 +79,14 @@ $sqlAtt = "SELECT RML_ID,(RML_HR_ATTN_STATUS_COUNT(
   WHERE RML_ID='$emp_session_id'
   AND IS_ACTIVE=1";
 
-$attDataSQL  = oci_parse($objConnect, $sqlAtt);
+$attDataSQL = oci_parse($objConnect, $sqlAtt);
 oci_execute($attDataSQL);
 $attData = oci_fetch_assoc($attDataSQL);
 // print_r($attData['PRESENT_TOTAL']);
 
-$attBarChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
-$attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL']];
-// print_r($attBarChartData);
+$attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+$attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+print_r($attPieChartData);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
@@ -100,7 +100,9 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 				<div class="d-flex align-items-end row">
 					<div class="col-sm-7">
 						<div class="card-body">
-							<h5 class="card-title text-primary">Hi <?php echo $_SESSION['HR']['first_name_hr']; ?>! 🎉</h5>
+							<h5 class="card-title text-primary">Hi
+								<?php echo $_SESSION['HR']['first_name_hr']; ?>! 🎉
+							</h5>
 							<p class="mb-4s">
 								Access Are Predefine according to <span class="fw-bold">Rangs Motors HR Policy.</span>
 								If you need more access please contact with HR.
@@ -110,7 +112,9 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 					</div>
 					<div class="col-sm-5 text-center text-sm-left">
 						<div class="card-body pb-0 px-0 px-md-4">
-							<img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png" >
+							<img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User"
+								data-app-dark-img="illustrations/man-with-laptop-dark.png"
+								data-app-light-img="illustrations/man-with-laptop-light.png">
 						</div>
 					</div>
 				</div>
@@ -133,19 +137,25 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 								$number = 0;
 								while ($row = oci_fetch_assoc($allDataSQL)) {
 									$number++;
-								?>
+									?>
 									<tr>
 										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3 "></i>
-											<strong><?php echo $number; ?></strong>
+											<strong>
+												<?php echo $number; ?>
+											</strong>
 										</td>
-										<td><?php echo $row['APPROVAL_TYPE']; ?></td>
+										<td>
+											<?php echo $row['APPROVAL_TYPE']; ?>
+										</td>
 										<td align="center">
 											<a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>>
-												<span class="badge badge-center rounded-pill bg-info"><?php echo $row['NUMBER_TOTAL']; ?></span>
+												<span class="badge badge-center rounded-pill bg-info">
+													<?php echo $row['NUMBER_TOTAL']; ?>
+												</span>
 											</a>
 										</td>
 									</tr>
-								<?php
+									<?php
 								}
 								?>
 							</tbody>
@@ -159,7 +169,9 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 		<div class="col-sm-12 col-md-12  col-lg-6 order-0">
 			<div class="card">
 				<h5 class="card-header m-0 me-2 ">
-					<span class="badge bg-label-success rounded-pill"><?php echo date('F') ?></span> Month Attendance
+					<span class="badge bg-label-success rounded-pill">
+						<?php echo date('F') ?>
+					</span> Month Attendance
 				</h5>
 				<div class="">
 
@@ -177,12 +189,14 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 						</div>
 						<ul class="nav nav-tabs nav-fill" role="tablist">
 							<li class="nav-item">
-								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
+								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
 									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
 								</button>
 							</li>
 							<li class="nav-item">
-								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart" aria-controls="navs-justified-Piechart" aria-selected="true">
+								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart"
+									aria-controls="navs-justified-Piechart" aria-selected="true">
 									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
 								</button>
 							</li>
@@ -211,7 +225,7 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 							</thead>
 							<tbody>
 								<?php
-								$allDataSQL  = oci_parse(
+								$allDataSQL = oci_parse(
 									$objConnect,
 									"select ATTN_DATE,IN_TIME,OUT_TIME,STATUS,DAY_NAME
                                                                      from RML_HR_ATTN_DAILY_PROC
@@ -223,18 +237,28 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 								$number = 0;
 								while ($row = oci_fetch_assoc($allDataSQL)) {
 									$number++;
-								?>
+									?>
 									<tr>
 										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i>
-											<strong><?php echo $number; ?></strong>
+											<strong>
+												<?php echo $number; ?>
+											</strong>
 										</td>
-										<td><?php echo $row['ATTN_DATE']; ?></td>
-										<td><?php echo $row['IN_TIME']; ?></td>
-										<td><?php echo $row['OUT_TIME']; ?></td>
-										<td><?php echo $row['STATUS']; ?></td>
+										<td>
+											<?php echo $row['ATTN_DATE']; ?>
+										</td>
+										<td>
+											<?php echo $row['IN_TIME']; ?>
+										</td>
+										<td>
+											<?php echo $row['OUT_TIME']; ?>
+										</td>
+										<td>
+											<?php echo $row['STATUS']; ?>
+										</td>
 
 									</tr>
-								<?php
+									<?php
 								}
 								?>
 							</tbody>
@@ -263,7 +287,7 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 			series: [{
 				name: new Date().getFullYear(),
 				data: <?php echo json_encode($attBarChartData); ?>,
-			}, ],
+			},],
 			chart: {
 				height: 300,
 				stacked: false,
@@ -340,159 +364,159 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 				},
 			},
 			responsive: [{
-					breakpoint: 1700,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "32%",
-							},
+				breakpoint: 1700,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "32%",
 						},
 					},
 				},
-				{
-					breakpoint: 1580,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "35%",
-							},
+			},
+			{
+				breakpoint: 1580,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "35%",
 						},
 					},
 				},
-				{
-					breakpoint: 1440,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "42%",
-							},
+			},
+			{
+				breakpoint: 1440,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "42%",
 						},
 					},
 				},
-				{
-					breakpoint: 1300,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "48%",
-							},
+			},
+			{
+				breakpoint: 1300,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "48%",
 						},
 					},
 				},
-				{
-					breakpoint: 1200,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "40%",
-							},
+			},
+			{
+				breakpoint: 1200,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "40%",
 						},
 					},
 				},
-				{
-					breakpoint: 1040,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 11,
-								columnWidth: "48%",
-							},
+			},
+			{
+				breakpoint: 1040,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 11,
+							columnWidth: "48%",
 						},
 					},
 				},
-				{
-					breakpoint: 991,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "30%",
-							},
+			},
+			{
+				breakpoint: 991,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "30%",
 						},
 					},
 				},
-				{
-					breakpoint: 840,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "35%",
-							},
+			},
+			{
+				breakpoint: 840,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "35%",
 						},
 					},
 				},
-				{
-					breakpoint: 768,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "28%",
-							},
+			},
+			{
+				breakpoint: 768,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "28%",
 						},
 					},
 				},
-				{
-					breakpoint: 640,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "32%",
-							},
+			},
+			{
+				breakpoint: 640,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "32%",
 						},
 					},
 				},
-				{
-					breakpoint: 576,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "37%",
-							},
+			},
+			{
+				breakpoint: 576,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "37%",
 						},
 					},
 				},
-				{
-					breakpoint: 480,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "45%",
-							},
+			},
+			{
+				breakpoint: 480,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "45%",
 						},
 					},
 				},
-				{
-					breakpoint: 420,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "52%",
-							},
+			},
+			{
+				breakpoint: 420,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "52%",
 						},
 					},
 				},
-				{
-					breakpoint: 380,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "60%",
-							},
+			},
+			{
+				breakpoint: 380,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "60%",
 						},
 					},
 				},
+			},
 			],
 			states: {
 				hover: {
@@ -519,15 +543,20 @@ $attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData[
 
 
 
-
+	let $attPieChartData = <?php echo json_encode($attPieChartData) ?>;
+	// Convert string elements to integers using map
+	var $FinalPieChartData = $attPieChartData.map(function (item) {
+		return parseInt(item, 10); // Convert each element to an integer
+	});
 	var attpieChartOptions = {
-		series: <?php echo json_encode($attPieChartData); ?>,
+		series: $FinalPieChartData,
 		chart: {
 			width: 350,
 			type: 'pie',
 		},
-		labels: ['Preset', 'Late', 'Absent'],
-		colors: [config.colors.success, config.colors.warning, config.colors.danger],
+		labels: ['Preset', 'Late', 'Absent', 'Holyday', 'Tour', 'Leave'],
+		// labels: ['Preset', 'Late', 'Absent'],
+		colors: [config.colors.success, config.colors.warning, config.colors.danger, '#14d0c5', '#8829ca', '#b84467'],
 		responsive: [{
 			breakpoint: 480,
 			options: {
