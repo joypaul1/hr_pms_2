@@ -86,13 +86,13 @@ $attData = oci_fetch_assoc($attDataSQL);
 
 $attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
 $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
-print_r($attPieChartData);
+//print_r($attPieChartData);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
 		<div class="col-lg-12 ">
 			<div class=" card card-title p-2">
-				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee>
+			<!--	<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee> -->
 			</div>
 		</div>
 		<div class="col-lg-6 mb-2 order-0">
@@ -218,8 +218,7 @@ print_r($attPieChartData);
 								<tr>
 									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Date</strong></th>
-									<th scope="col" align="center"><strong>In-Time</strong></th>
-									<th scope="col" align="center"><strong>Out-Time</strong></th>
+									<th scope="col" align="center"><strong>In/Out-Time</strong></th>
 									<th scope="col" align="center"><strong>Status</strong></th>
 								</tr>
 							</thead>
@@ -248,10 +247,10 @@ print_r($attPieChartData);
 											<?php echo $row['ATTN_DATE']; ?>
 										</td>
 										<td>
-											<?php echo $row['IN_TIME']; ?>
-										</td>
-										<td>
-											<?php echo $row['OUT_TIME']; ?>
+											<?php echo $row['IN_TIME'];
+											      echo '<br>';
+											      echo $row['OUT_TIME'];
+											?>
 										</td>
 										<td>
 											<?php echo $row['STATUS']; ?>
