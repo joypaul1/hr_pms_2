@@ -161,7 +161,7 @@ select CONCERN,
     from RML_COLL_ATTN_HOLIDAY Where CONCERN = 'RMWL'
     order by ATTN_DATE DESC
 )
-WHERE ROWNUM<=20";
+WHERE ROWNUM<=10";
                         }
                         else {
                             $query = "SELECT * FROM
@@ -175,7 +175,7 @@ WHERE ROWNUM<=20";
         from RML_COLL_ATTN_HOLIDAY
         order by ATTN_DATE DESC
     )
-    WHERE ROWNUM<=20";
+    WHERE ROWNUM<=10";
                         }
                         $allDataSQL = oci_parse(
                             $objConnect, $query
