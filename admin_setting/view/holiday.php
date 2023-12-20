@@ -58,7 +58,7 @@ if (!checkPermission('holiday-list')) {
                     </div>
                 <?php } ?>
             </div>
-            <div class="row">
+            <div class="">
                 <div class="col-12">
                     <div class="md-form mt-3">
                         <label for="comment">Holiday Remarks:</label>
