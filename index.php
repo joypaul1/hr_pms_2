@@ -36,7 +36,7 @@ if (isset($_POST['login_hr'])) {
       header('location:home/dashboard.php');
       exit;
     }
-    else {
+  else {
       $errorMsg = "Wrong EMP-ID or password";
     }
   }
