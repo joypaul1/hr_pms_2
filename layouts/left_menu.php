@@ -36,7 +36,7 @@ function isActive($url)
             </a>
         </li>
 
-
+        <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel'))  { ?>
         <li class="menu-header big text-uppercase">
             <span class=""><b>Resale Bidding System </b></span>
         </li>
@@ -114,8 +114,7 @@ function isActive($url)
                                 </li>
                             </ul>
                         </li>
-                    <?php } ?>
-                    <?php if (checkPermission('resale-report-panel')) { ?>
+                    
                         <li class="menu-item">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Report Panel</div>
@@ -143,8 +142,7 @@ function isActive($url)
 
                             </ul>
                         </li>
-                    <?php } ?>
-                    <?php if (checkPermission('resale-report-panel')) { ?>
+                  
                         <li class="menu-item <?php echo isActive('/resale_module/view/form_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Form Panel</div>
@@ -183,6 +181,7 @@ function isActive($url)
 
             </li>
         </section>
+        <?php }?>
         <li class="menu-header big text-uppercase">
             <span class=""><b> HR Apps </b></span>
         </li>
