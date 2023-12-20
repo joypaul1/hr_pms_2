@@ -24,18 +24,20 @@ $basePath = $_SESSION['basePath'];
 								<tr>
 									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Brand</strong></th>
-									<th scope="col" align="center"><strong>Total Product</strong></th>
+									<th align="center"><strong>Product</strong></th>
+									<th align="center"><strong>Pre-Published</strong></th>
 									<th scope="col" align="center"><strong>Published</strong></th>
 								</tr>
 							</thead>
 							<tbody>
 								<?php
                             $PRODUCT_SQL  = oci_parse($objConnect, 
-												"select (SELECT TITLE FROM BRAND WHERE ID=BRAND_ID) BRAND_NAME,
-														count(BRAND_ID) TOTAL_PRODUCT,
-														PUBLISHED_PRODUCT(BRAND_ID,'Y')  TOTAL_PUBLISHED
-														from PRODUCT
-														group by BRAND_ID");
+												" SELECT 
+												  B.TITLE BRAND_NAME,
+												  (SELECT COUNT(A.ID) FROM PRODUCT A WHERE A.BRAND_ID=B.ID) TOTAL_PRODUCT,
+												  PRE_PUBLISHED_PRODUCT(ID) TOTAL_PRE_PUBLISHED,
+												  PUBLISHED_PRODUCT(ID,'Y')  TOTAL_PUBLISHED
+												FROM BRAND B");
 												
 	                        oci_execute($PRODUCT_SQL);
 								$number = 0;
@@ -47,7 +49,16 @@ $basePath = $_SESSION['basePath'];
 											<strong><?php echo $number; ?></strong>
 										</td>
 										<td><?php echo $row['BRAND_NAME']; ?></td>
-										<td><?php echo $row['TOTAL_PRODUCT']; ?></td>
+										<td align="center">
+											<a target="_blank" href=<?php echo $row['TOTAL_PRODUCT']; ?>>
+												<span class="badge badge-center rounded-pill bg-info"><?php echo $row['TOTAL_PRODUCT']; ?></span>
+											</a>
+										</td>
+										<td align="center">
+											<a target="_blank" href=<?php echo $row['TOTAL_PRE_PUBLISHED']; ?>>
+												<span class="badge badge-center rounded-pill bg-info"><?php echo $row['TOTAL_PRE_PUBLISHED']; ?></span>
+											</a>
+										</td>
 										<td align="center">
 											<a target="_blank" href=<?php echo $row['TOTAL_PUBLISHED']; ?>>
 												<span class="badge badge-center rounded-pill bg-info"><?php echo $row['TOTAL_PUBLISHED']; ?></span>
@@ -112,11 +123,13 @@ $basePath = $_SESSION['basePath'];
 										</td>
 										<td>
 											<?php 
-											echo $row['MODEL'].'<br>'.'BV:'.$row['BOOK_VALUE']; 
-											echo '<br>';
-											echo 'DV:'.$row['DISPLAY_PRICE']; 
-											echo '<br>';
-											echo 'MV:'.$row['MAX_BID_AMOUNT']; 
+											echo $row['MODEL']; 
+											//echo '<br>';
+											//echo 'BV:'.$row['BOOK_VALUE']; 
+											//echo '<br>';
+											//echo 'DV:'.$row['DISPLAY_PRICE']; 
+											//echo '<br>';
+											//echo 'MV:'.$row['MAX_BID_AMOUNT']; 
 											?>
 										</td>
 										<td><?php echo $row['TOTAL_BID']; ?></td>

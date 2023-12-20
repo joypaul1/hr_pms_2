@@ -300,7 +300,9 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-leave-create') || checkPermission('concern-leave-report')) { ?>
+                    <?php if (checkPermission('concern-leave-create') || 
+					          checkPermission('concern-leave-delete') || 
+							  checkPermission('concern-leave-report')) { ?>
                         <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
@@ -310,6 +312,14 @@ function isActive($url)
                                     <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/create.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/create.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
+								<?php if (checkPermission('concern-leave-delete')) { ?>
+                                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/delete.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/delete.php" class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Delete
                                             </div>
                                         </a>
                                     </li>
