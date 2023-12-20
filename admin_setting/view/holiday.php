@@ -38,6 +38,7 @@ if (!checkPermission('holiday-list')) {
                         <select required="" name="emp_concern" class="form-control cust-control">
                             <option selected value="">---</option>
                             <option value="RMWL">Workshoop</option>
+                        </select>
                     </div>
                 <?php }
                 else { ?>
