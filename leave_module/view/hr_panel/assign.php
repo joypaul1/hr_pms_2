@@ -123,7 +123,7 @@ $v_excel_download = 0;
                                 "SELECT  RML_ID,
                                      EMP_NAME,
                                      R_CONCERN,
-                                     DEPT_NAME,R_CONCERN,
+                                     DEPT_NAME,
                                      BRANCH_NAME,
                                      DOJ,
                                      DOC,
@@ -157,16 +157,13 @@ $v_excel_download = 0;
 
                                     <td><?php echo $row['LEAVE_TAKEN']; ?></td>
                                     <td><?php echo $row['LATE_LEAVE']; ?></td>
-                                    <td><?php echo $row['PROCESS_DATE']; ?></td>
-
-
-
                                     <td><?php echo $row['R_CONCERN']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php echo $row['R_CONCERN']; ?></td>
                                     <td><?php echo $row['DOJ']; ?></td>
                                     <td><?php echo $row['LEAVE_PERIOD']; ?></td>
+                                    <td><?php echo $row['PROCESS_DATE']; ?></td>
 
                                 </tr>
 
@@ -184,6 +181,7 @@ $v_excel_download = 0;
             <?php
             if ($v_excel_download == 1) {
             ?>
+			    <br>
                 <div>
                     <a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to excel</a>
                 </div>
