@@ -24,9 +24,15 @@ if (!checkPermission('resale-product-panel')) {
                     <label class="form-label" for="basic-default-fullname">Brand </label>
                     <select class="form-select select2" name="brand_id" id="brand_id">
                         <option value="" hidden><-- Select Brand --></option>
-                        <option value="1">Eicher</option>
-                        <option value="2">Mahindra</option>
-                        <option value="3">Dongfeng</option>
+                        <option value="1" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 1) {
+                            echo 'Selected';
+                        } ?>>Eicher</option>
+                        <option value="2" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 2) {
+                            echo 'Selected';
+                        } ?>>Mahindra</option>
+                        <option value="3" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 3) {
+                            echo 'Selected';
+                        } ?>>Dongfeng</option>
                     </select>
 
                 </div>
@@ -105,7 +111,7 @@ if (!checkPermission('resale-product-panel')) {
                         BOOKED_STATUS, 
                         PRODUCT_BID_ID, 
                         BODY_SIT, 
-                        COLOR, 
+                        COLOR,  
                         FUEL_TYPE,
                         PIC_URL
                         FROM PRODUCT
@@ -130,10 +136,13 @@ if (!checkPermission('resale-product-panel')) {
                             oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
                         }
                         if (isset($_GET['category_id']) && $_GET['category_id']) {
-                            oci_bind_by_name($productSQL, ':categoryId', $_GET['category_id']);
+                            $category = str_replace('-', ' ', $_GET["category_id"]);
+                            oci_bind_by_name($productSQL, ':categoryId', $category);
                         }
                         if (isset($_GET['model_id']) && $_GET['model_id']) {
-                            oci_bind_by_name($productSQL, ':modelId', $_GET['model_id']);
+
+                            $model = str_replace('-', ' ', $_GET["model_id"]);
+                            oci_bind_by_name($productSQL, ':modelId', $model);
                         }
 
                         oci_execute($productSQL);
@@ -246,44 +255,56 @@ require_once('../../../layouts/footer.php');
     });
 
     $('#brand_id').on('change', function () {
+        categoryData($(this).val());
+    });
+
+
+    function categoryData(brand_id) {
         $('#category_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: $(this).val() },
+            data: { brand_id: brand_id },
             dataType: "json",
             success: function (res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
-    });
+    };
+
     $('#category_id').on('change', function () {
+        modelData($(this).val());
+    });
+
+    function modelData(category_data) {
         $('#model_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: $(this).val() },
+            data: { categoryData: category_data },
             dataType: "json",
             success: function (res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
-    });
+    };
 
     //delete data processing
     $(document).on('click', '.start_work', function () {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
+
+
         swal.fire({
             title: 'Are you to  sure start work?',
             text: "You won't be able to revert this!",

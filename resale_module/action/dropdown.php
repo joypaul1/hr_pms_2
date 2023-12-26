@@ -35,9 +35,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'brand_
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'category_wise_model') {
 
     $category = $_GET["categoryData"];
-    // Prepare the SQL statement
-    $QEURY_SQL = oci_parse($objConnect, "SELECT UNIQUE MODEL  from PRODUCT WHERE CATEGORY='$category'");
+    $category = str_replace('-', ' ', $category);
 
+    // Prepare the SQL statement
+    $QEURY_SQL           = oci_parse($objConnect, "SELECT UNIQUE MODEL  from PRODUCT WHERE CATEGORY='$category'");
+    $brand_wise_cat_data = [];
     if (@oci_execute($QEURY_SQL)) {
         while ($row = oci_fetch_assoc($QEURY_SQL)) {
             $brand_wise_cat_data[] = array(
@@ -56,4 +58,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'catego
     oci_close($objConnect);
 
 
-}  
+}

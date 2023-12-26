@@ -4,7 +4,7 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
 
-if (!checkPermission('resale-product-panel')) {
+if (!checkPermission('resale-report-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 ?>
@@ -228,7 +228,7 @@ if (!checkPermission('resale-product-panel')) {
 
                                 <td class="text-center">
                                     <?php
-                                    echo '<a target="_blank" href="' . $basePath . '/resale_module/view/report_panel/bidHistory.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit"" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-time"></i></a>';
+                                    echo '<a target="_blank" href="' . $basePath . '/resale_module/view/bidreport_panel/bidHistory.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit"" disabled class="btn btn-sm btn-success float-right"> <i class="bx bx-time"></i></a>';
                                     ?>
 
                                 </td>

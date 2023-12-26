@@ -36,152 +36,152 @@ function isActive($url)
             </a>
         </li>
 
-        <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel'))  { ?>
-        <li class="menu-header big text-uppercase">
-            <span class=""><b>Resale Bidding System </b></span>
-        </li>
-        <section style="width: 98%;">
-            <!-- Resale- module-list -->
-            <li class="menu-item  <?php echo isActive('/resale_module/view'); ?>">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-registered"></i>
-                    <div>Resale Module</div>
-                </a>
+        <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel')) { ?>
+            <li class="menu-header big text-uppercase">
+                <span class=""><b>Resale Bidding System </b></span>
+            </li>
+            <section style="width: 98%;">
+                <!-- Resale- module-list -->
+                <li class="menu-item  <?php echo isActive('/resale_module/view'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-registered"></i>
+                        <div>Resale Module</div>
+                    </a>
 
 
-                <ul class="menu-sub">
+                    <ul class="menu-sub">
 
-                    <?php if (checkPermission('resale-dashboard-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
-                            <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php" class="menu-link ">
-                                <div>Dashboard Panel</div>
-                            </a>
-                        </li>
-                    <?php } ?>
-                    <?php if (checkPermission('resale-product-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module/view/self_panel'); ?>">
-                            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                <div>Product Panel</div>
-                            </a>
-                            <ul class="menu-sub">
+                        <?php if (checkPermission('resale-dashboard-panel')) { ?>
+                            <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
+                                <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php" class="menu-link ">
+                                    <div>Dashboard Panel</div>
+                                </a>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('resale-product-panel')) { ?>
+                            <li class="menu-item <?php echo isActive('/resale_module/view/self_panel'); ?>">
+                                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                    <div>Product Panel</div>
+                                </a>
+                                <ul class="menu-sub">
 
-                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Pending List
-                                        </div>
-                                    </a>
-                                </li>
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Pre-Published List
-                                        </div>
-                                    </a>
-                                </li>
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Pending List
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Pre-Published List
+                                            </div>
+                                        </a>
+                                    </li>
 
-                                <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Published List
-                                        </div>
-                                    </a>
-                                </li>
-
-
-                            </ul>
-                        </li>
-                    <?php } ?>
-                    <?php if (checkPermission('resale-report-panel')) { ?>
-                        <li class="menu-item <?php echo isActive('/resale_module/view/report_panel'); ?>">
-                            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                <div>Bid Panel</div>
-                            </a>
-                            <ul class="menu-sub">
-
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/report_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/report_panel/edit.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Bid Report
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    
-                        <li class="menu-item">
-                            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                <div>Report Panel</div>
-                            </a>
-                            <ul class="menu-sub">
-
-                                <li class="menu-item">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Report One
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item ">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Report Two
-                                        </div>
-                                    </a>
-                                </li>
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Published List
+                                            </div>
+                                        </a>
+                                    </li>
 
 
+                                </ul>
+                            </li>
+                        <?php } ?>
+                        <?php if (checkPermission('resale-report-panel')) { ?>
+                            <li class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel'); ?>">
+                                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                    <div>Bid Panel</div>
+                                </a>
+                                <ul class="menu-sub">
 
-                            </ul>
-                        </li>
-                  
-                        <li class="menu-item <?php echo isActive('/resale_module/view/form_panel'); ?>">
-                            <a href="javascript:void(0)" class="menu-link menu-toggle">
-                                <div>Form Panel</div>
-                            </a>
-                            <ul class="menu-sub">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidReport.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Bid Report
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                                <li
-                                    class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/create.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
-                                        class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Customer Review
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>
+                            <li class="menu-item <?php echo isActive('/resale_module/view/report_panel'); ?>">
+                                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                    <div>Report Panel</div>
+                                </a>
+                                <ul class="menu-sub">
+
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/product_info.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/product_info.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Product Info.
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Report Two
+                                            </div>
+                                        </a>
+                                    </li>
+
+
+
+                                </ul>
+                            </li>
+
+                            <li class="menu-item <?php echo isActive('/resale_module/view/form_panel'); ?>">
+                                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                                    <div>Form Panel</div>
+                                </a>
+                                <ul class="menu-sub">
+
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/create.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Customer Review
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/create.php'); ?>
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/edit.php'); ?>
                                 
                                 ">
-                                    <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
-                                        <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Sale Concern
-                                        </div>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    <?php } ?>
+                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Sale Concern
+                                            </div>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        <?php } ?>
 
 
 
-                </ul>
+                    </ul>
 
-            </li>
-        </section>
-        <?php }?>
+                </li>
+            </section>
+        <?php } ?>
         <li class="menu-header big text-uppercase">
             <span class=""><b> HR Apps </b></span>
         </li>
@@ -299,9 +299,10 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-leave-create') || 
-					          checkPermission('concern-leave-delete') || 
-							  checkPermission('concern-leave-report')) { ?>
+                    <?php if (checkPermission('concern-leave-create') ||
+                        checkPermission('concern-leave-delete') ||
+                        checkPermission('concern-leave-report')
+                    ) { ?>
                         <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Concern Panel</div>
@@ -315,7 +316,7 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
-								<?php if (checkPermission('concern-leave-delete')) { ?>
+                                <?php if (checkPermission('concern-leave-delete')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/delete.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/delete.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Delete

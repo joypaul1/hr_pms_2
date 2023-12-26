@@ -85,7 +85,7 @@ if (!checkPermission('resale-product-panel')) {
                     <tbody>
 
                         <?php
-                            $query = "SELECT 
+                        $query = "SELECT 
                                 ID, 
                                 REF_CODE, 
                                 ENG_NO, 
@@ -112,91 +112,94 @@ if (!checkPermission('resale-product-panel')) {
                                 FROM PRODUCT
                                 WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS ='Y'";
 
-                                // Checking and adding the BRAND_ID condition if applicable
-                                if (isset($_GET['brand_id']) && $_GET['brand_id']) {
-                                    $query .= " AND BRAND_ID = :brandId";
-                                }
-                                if (isset($_GET['category_id']) && $_GET['category_id']) {
-                                    $query .= " AND CATEGORY = :categoryId";
-                                }
-                                if (isset($_GET['model_id']) && $_GET['model_id']) {
-                                    $query .= " AND MODEL = :modelId";
-                                }
+                        // Checking and adding the BRAND_ID condition if applicable
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            $query .= " AND BRAND_ID = :brandId";
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            $query .= " AND CATEGORY = :categoryId";
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
+                            $query .= " AND MODEL = :modelId";
+                        }
 
-                                $productSQL = oci_parse($objConnect, $query);
+                        $productSQL = oci_parse($objConnect, $query);
 
-                                // Bind the parameter if the condition applies
-                                if (isset($_GET['brand_id']) && $_GET['brand_id']) {
-                                    oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
-                                }
-                                if (isset($_GET['category_id']) && $_GET['category_id']) {
-                                    oci_bind_by_name($productSQL, ':categoryId', $_GET['category_id']);
-                                }
-                                if (isset($_GET['model_id']) && $_GET['model_id']) {
-                                    oci_bind_by_name($productSQL, ':modelId', $_GET['model_id']);
-                                }
-                                oci_execute($productSQL);
+                        // Bind the parameter if the condition applies
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            $category = str_replace('-', ' ', $_GET["category_id"]);
+                            oci_bind_by_name($productSQL, ':categoryId', $category);
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
 
-                                $number = 0;
-                                while ($row = oci_fetch_assoc($productSQL)) {
-                                    $number++;
+                            $model = str_replace('-', ' ', $_GET["model_id"]);
+                            oci_bind_by_name($productSQL, ':modelId', $model);
+                        }
+                        oci_execute($productSQL);
+
+                        $number = 0;
+                        while ($row = oci_fetch_assoc($productSQL)) {
+                            $number++;
                             ?>
-                                <tr>
-                                    <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
-                                            <?php echo $number; ?>
-                                        </strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php
-                                        echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i> Edit </a>';
-                                        ?>
-                                    </td>
-                                    <td class="text-left">
-                                        BRAND :
-                                        <?php if ($row['BRAND_ID'] == 1) {
-                                            echo "EICHER";
-                                        }
-                                        else if ($row['BRAND_ID'] == 2) {
-                                            echo 'MAHINDRA';
-                                        }
-                                        else {
-                                            echo 'DONGFING';
-                                        } ?>
-                                        <br>
-                                        CATEGORY :
-                                        <?php echo $row['CATEGORY'] ?>
-                                    </td>
-                                    <td>
-                                        REF :
-                                        <?php echo $row['REF_CODE']; ?> </br>
-                                        MOD :
-                                        <?php echo $row['MODEL']; ?>
-                                    </td>
-                                    <td>
-                                        ENG No. :
-                                        <?php echo $row['ENG_NO']; ?></br>
-                                        CHS No. :
-                                        <?php echo $row['CHS_NO']; ?> </br>
-                                        REG No. :
-                                        <?php echo $row['REG_NO']; ?> </br>
-                                    </td>
-                                    <td>
-                                        BOOK VAL. :
-                                        <?php echo number_format($row['BOOK_VALUE']) ?></br>
-                                        GRADE NUM. :
-                                        <?php echo $row['GRADE']; ?></br>
-                                        DEPO lOC. :
-                                        <?php echo $row['DEPO_LOCATION']; ?></br>
-                                    </td>
-                                    <td>
-                                        Person :
-                                        <?php echo ($row['START_BY']) ?></br>
-                                        Date :
-                                        <?php echo $row['START_DATE']; ?>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            <tr>
+                                <td>
+                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                                        <?php echo $number; ?>
+                                    </strong>
+                                </td>
+                                <td class="text-center">
+                                    <?php
+                                    echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i> Edit </a>';
+                                    ?>
+                                </td>
+                                <td class="text-left">
+                                    BRAND :
+                                    <?php if ($row['BRAND_ID'] == 1) {
+                                        echo "EICHER";
+                                    }
+                                    else if ($row['BRAND_ID'] == 2) {
+                                        echo 'MAHINDRA';
+                                    }
+                                    else {
+                                        echo 'DONGFING';
+                                    } ?>
+                                    <br>
+                                    CATEGORY :
+                                    <?php echo $row['CATEGORY'] ?>
+                                </td>
+                                <td>
+                                    REF :
+                                    <?php echo $row['REF_CODE']; ?> </br>
+                                    MOD :
+                                    <?php echo $row['MODEL']; ?>
+                                </td>
+                                <td>
+                                    ENG No. :
+                                    <?php echo $row['ENG_NO']; ?></br>
+                                    CHS No. :
+                                    <?php echo $row['CHS_NO']; ?> </br>
+                                    REG No. :
+                                    <?php echo $row['REG_NO']; ?> </br>
+                                </td>
+                                <td>
+                                    BOOK VAL. :
+                                    <?php echo number_format($row['BOOK_VALUE']) ?></br>
+                                    GRADE NUM. :
+                                    <?php echo $row['GRADE']; ?></br>
+                                    DEPO lOC. :
+                                    <?php echo $row['DEPO_LOCATION']; ?></br>
+                                </td>
+                                <td>
+                                    Person :
+                                    <?php echo ($row['START_BY']) ?></br>
+                                    Date :
+                                    <?php echo $row['START_DATE']; ?>
+                                </td>
+                            </tr>
+                        <?php } ?>
 
 
 
@@ -225,37 +228,99 @@ if (!checkPermission('resale-product-panel')) {
     });
 
     $('#brand_id').on('change', function () {
+        categoryData($(this).val());
+    });
+
+
+    function categoryData(brand_id) {
         $('#category_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: $(this).val() },
+            data: { brand_id: brand_id },
             dataType: "json",
             success: function (res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
-    });
+    };
+
     $('#category_id').on('change', function () {
+        modelData($(this).val());
+    });
+
+    function modelData(category_data) {
         $('#model_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: $(this).val() },
+            data: { categoryData: category_data },
             dataType: "json",
             success: function (res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
+    };
+
+    //delete data processing
+    $(document).on('click', '.start_work', function () {
+        var product_id = $(this).data('product-id');
+        let url = $(this).data('href');
+
+
+        swal.fire({
+            title: 'Are you to  sure start work?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        product_id: product_id
+                    },
+                    dataType: 'json'
+                })
+                    .done(function (res) {
+                        if (res.status) {
+                            swal.fire('Star Work!', res.message, res.status);
+                            setInterval(function () {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function () {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
     });
 </script>
