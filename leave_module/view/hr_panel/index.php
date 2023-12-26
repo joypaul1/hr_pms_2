@@ -259,7 +259,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		  return false;
 		}
 	</script>
-	
 
 
 </div>

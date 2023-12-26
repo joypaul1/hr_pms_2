@@ -8,6 +8,7 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('resale-report-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
+$number = 0;
 ?>
 
 <!-- / Content -->
@@ -41,60 +42,95 @@ if (!checkPermission('resale-report-panel')) {
                         <option value="" hidden><-- Select Model --></option>
                     </select>
                 </div>
-                <div class="col-sm-2">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data"></br>
-                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/prepublishedList.php' ?>"
-                            class="form-control  btn btn-sm btn-warning"> Reset Data
-                        </a>
-                    </div>
+                <div class="col-sm-3">
+                    <label class="form-label" for="basic-default-fullname">STATUS </label>
+                    <select class="form-select select2" name="status" id="status">
+                        <option value="1">ALL</option>
+                        <option value="2">Pending</option>
+                        <option value="4">Working</option>
+                        <option value="5">Published</option>
+                    </select>
+
                 </div>
+            </div>
+
+            <div class="d-flex flex-row  justify-content-end mt-3">
+                <div class="col-sm-3">
+                    <button class="form-control btn btn-sm btn-primary" type="submit">
+                        Search Data
+                    </button>
+                    <a href="<?php echo $basePath . '/resale_module/view/report_panel/product_info.php' ?>"
+                        class="form-control  btn btn-sm btn-warning"> Reset Data
+                    </a>
+                </div>
+
+
             </div>
         </form>
     </div>
 
+    <style>
+        tbody {
+            display: block;
+            height: 250px;
+            overflow-y: scroll;
+        }
 
+        tr {
+            display: block;
+        }
+
+        th,
+        td {
+            width: 250px;
+        }
+
+        .table tr {
+            font-size: 12px !important;
+            color: black !important;
+        }
+    </style>
 
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
-        <!-- table header -->
-        <?php
-        $leftSideName = 'Pending Prodduct List';
 
-
-        ?>
         <!-- End table  header -->
         <div class="card-body">
-            <div class="table-responsive text-break">
-                <table class="table  table-bordered">
+            <div class="table-responsive  text-break">
+                <table class="table table-bordered" id="table">
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
-                            <th>SL</th>
-                            <th scope="col">Action</th>
-                            <th scope="col">Brand & Category </th>
-                            <th scope="col">Ref. Code & Model </th>
-                            <th scope="col">Engine & Chassis & Registation </th>
-                            <th scope="col">Book Value & Grade & Depo</th>
-                            <th scope="col">Start By & Stat Date </th>
+                            <th style="width:10px">SL</th>
+                            <th>Brand </th>
+                            <th>Category </th>
+                            <th>Ref. Code </th>
+                            <th>Model </th>
+                            <th>Engine </th>
+                            <th>Chassis </th>
+                            <th>Registation </th>
+                            <th>Book Value</th>
+                            <th>Cash Price</th>
+                            <th>Credit Price</th>
+                            <th>Grade </th>
+                            <th>Depo</th>
+                            <!-- <th scope="col">Start By </th>
+                            <th scope="col">Stat Date </th> -->
 
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody style="width:100%;height: 200px; display: block;overflow-x: auto;">
 
                         <?php
-                            $query = "SELECT 
+                        $query = "SELECT 
                                 ID, 
                                 REF_CODE, 
                                 ENG_NO, 
                                 CHS_NO, 
                                 REG_NO, 
-                                BOOK_VALUE, 
-                                -- DISPLAY_PRICE,
-                                -- CASH_PRICE, 
-                                -- CREDIT_PRICE, 
+                                BOOK_VALUE,
+                                CASH_PRICE, 
+                                CREDIT_PRICE, 
                                 GRADE, 
                                 DEPO_LOCATION, 
                                 BRAND_ID, 
@@ -109,99 +145,118 @@ if (!checkPermission('resale-report-panel')) {
                                 PIC_URL,
                                 START_DATE,
                                 START_BY
-                                FROM PRODUCT
-                                WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS ='Y'";
+                                FROM PRODUCT WHERE ID IS NOT NULL";
 
-                                // Checking and adding the BRAND_ID condition if applicable
-                                if (isset($_GET['brand_id']) && $_GET['brand_id']) {
-                                    $query .= " AND BRAND_ID = :brandId";
-                                }
-                                if (isset($_GET['category_id']) && $_GET['category_id']) {
-                                    $query .= " AND CATEGORY = :categoryId";
-                                }
-                                if (isset($_GET['model_id']) && $_GET['model_id']) {
-                                    $query .= " AND MODEL = :modelId";
-                                }
+                        // Checking and adding the BRAND_ID condition if applicable
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            $query .= " AND BRAND_ID = :brandId";
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            $query .= " AND CATEGORY = :categoryId";
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
+                            $query .= " AND MODEL = :modelId";
+                        }
+                        if (isset($_GET['status']) && $_GET['status'] != '1') {
+                            // WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS ='Y'
+                            if ($_GET['status'] == '2') {
+                                $query .= " AND PUBLISHED_STATUS ='N'";
+                            }
+                            if ($_GET['status'] == '3') {
+                                $query .= " WORK_STATUS ='Y'";
+                            }
+                            if ($_GET['status'] == '4') {
+                                $query .= " PUBLISHED_STATUS ='Y'";
+                            }
 
-                                $productSQL = oci_parse($objConnect, $query);
+                        }
 
-                                // Bind the parameter if the condition applies
-                                if (isset($_GET['brand_id']) && $_GET['brand_id']) {
-                                    oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
-                                }
-                                if (isset($_GET['category_id']) && $_GET['category_id']) {
-                                    oci_bind_by_name($productSQL, ':categoryId', $_GET['category_id']);
-                                }
-                                if (isset($_GET['model_id']) && $_GET['model_id']) {
-                                    oci_bind_by_name($productSQL, ':modelId', $_GET['model_id']);
-                                }
-                                oci_execute($productSQL);
+                        $productSQL = oci_parse($objConnect, $query);
 
-                                $number = 0;
-                                while ($row = oci_fetch_assoc($productSQL)) {
-                                    $number++;
+                        // Bind the parameter if the condition applies
+                        if (isset($_GET['brand_id']) && $_GET['brand_id']) {
+                            oci_bind_by_name($productSQL, ':brandId', $_GET['brand_id']);
+                        }
+                        if (isset($_GET['category_id']) && $_GET['category_id']) {
+                            $category = str_replace('-', ' ', $_GET["category_id"]);
+                            oci_bind_by_name($productSQL, ':categoryId', $category);
+                        }
+                        if (isset($_GET['model_id']) && $_GET['model_id']) {
+
+                            $model = str_replace('-', ' ', $_GET["model_id"]);
+                            oci_bind_by_name($productSQL, ':modelId', $model);
+                        }
+                        oci_execute($productSQL);
+
+
+                        while ($row = oci_fetch_assoc($productSQL)) {
+                            $number++;
                             ?>
-                                <tr>
-                                    <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
-                                            <?php echo $number; ?>
-                                        </strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <?php
-                                        echo '<a href="' . $basePath . '/resale_module/view/self_panel/edit.php?id=' . $row['ID'] . '&amp;&amp;actionType=edit" disabled class="btn btn-sm btn-warning float-right"> <i class="bx bx-edit-alt me-1"></i> Edit </a>';
-                                        ?>
-                                    </td>
-                                    <td class="text-left">
-                                        BRAND :
-                                        <?php if ($row['BRAND_ID'] == 1) {
-                                            echo "EICHER";
-                                        }
-                                        else if ($row['BRAND_ID'] == 2) {
-                                            echo 'MAHINDRA';
-                                        }
-                                        else {
-                                            echo 'DONGFING';
-                                        } ?>
-                                        <br>
-                                        CATEGORY :
-                                        <?php echo $row['CATEGORY'] ?>
-                                    </td>
-                                    <td>
-                                        REF :
-                                        <?php echo $row['REF_CODE']; ?> </br>
-                                        MOD :
-                                        <?php echo $row['MODEL']; ?>
-                                    </td>
-                                    <td>
-                                        ENG No. :
-                                        <?php echo $row['ENG_NO']; ?></br>
-                                        CHS No. :
-                                        <?php echo $row['CHS_NO']; ?> </br>
-                                        REG No. :
-                                        <?php echo $row['REG_NO']; ?> </br>
-                                    </td>
-                                    <td>
-                                        BOOK VAL. :
-                                        <?php echo number_format($row['BOOK_VALUE']) ?></br>
-                                        GRADE NUM. :
-                                        <?php echo $row['GRADE']; ?></br>
-                                        DEPO lOC. :
-                                        <?php echo $row['DEPO_LOCATION']; ?></br>
-                                    </td>
-                                    <td>
-                                        Person :
-                                        <?php echo ($row['START_BY']) ?></br>
-                                        Date :
-                                        <?php echo $row['START_DATE']; ?>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                            <tr>
+                                <td style="width:10px">
+                                    <?php echo $number; ?>
+                                </td>
 
+                                <td class="text-left">
+                                    <?php if ($row['BRAND_ID'] == 1) {
+                                        echo "EICHER";
+                                    }
+                                    else if ($row['BRAND_ID'] == 2) {
+                                        echo 'MAHINDRA';
+                                    }
+                                    else {
+                                        echo 'DONGFING';
+                                    } ?>
+                                </td>
+                                <td class="text-left">
+                                    <?php echo $row['CATEGORY'] ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['REF_CODE']; ?>
 
+                                </td>
+                                <td>
+                                    <?php echo $row['MODEL']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['ENG_NO']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['CHS_NO']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['REG_NO']; ?>
+                                </td>
+                                <td>
+                                    <?php echo number_format($row['BOOK_VALUE']) ?>
+                                </td>
+                                <td>
+                                    <?php echo number_format($row['CASH_PRICE']) ?>
+                                </td>
+                                <td>
+                                    <?php echo number_format($row['CREDIT_PRICE']) ?></br>
+                                </td>
+                                <td>
+                                    <?php echo $row['GRADE']; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row['DEPO_LOCATION']; ?></br>
+                                </td>
+                            </tr>
+                        <?php } ?>
 
                     </tbody>
+
                 </table>
+                <strong>Total Data :
+                    <?php echo $number ?>
+                </strong>
+
+            </div>
+            <div class='text-right'>
+                <a class="btn btn-md btn-info text-white" onclick="exportF(this)" style="margin-left:5px;">
+                    <i class='bx bxs-file-export'></i>
+                    Export to excel</a>
             </div>
         </div>
     </div>
@@ -217,6 +272,17 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
+    function exportF(elem) {
+        var table = document.getElementById("table");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "Resale Product.xls"); // Choose the file name
+        return false;
+    }
+</script>
+
+<script>
     $(document).ready(function () {
         $('.select2').each(function () {
             $(this).select2();
@@ -225,37 +291,99 @@ if (!checkPermission('resale-report-panel')) {
     });
 
     $('#brand_id').on('change', function () {
+        categoryData($(this).val());
+    });
+
+
+    function categoryData(brand_id) {
         $('#category_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: $(this).val() },
+            data: { brand_id: brand_id },
             dataType: "json",
             success: function (res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
-    });
+    };
+
     $('#category_id').on('change', function () {
+        modelData($(this).val());
+    });
+
+    function modelData(category_data) {
         $('#model_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: $(this).val() },
+            data: { categoryData: category_data },
             dataType: "json",
             success: function (res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
                 $.map(res.data, function (optionData, indexOrKey) {
-                    $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
+                    $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
             }
         });
+    };
+
+    //delete data processing
+    $(document).on('click', '.start_work', function () {
+        var product_id = $(this).data('product-id');
+        let url = $(this).data('href');
+
+
+        swal.fire({
+            title: 'Are you to  sure start work?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: url,
+                    type: 'GET',
+                    data: {
+                        product_id: product_id
+                    },
+                    dataType: 'json'
+                })
+                    .done(function (res) {
+                        if (res.status) {
+                            swal.fire('Star Work!', res.message, res.status);
+                            setInterval(function () {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function () {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+
+            }
+
+        })
+
     });
 </script>
