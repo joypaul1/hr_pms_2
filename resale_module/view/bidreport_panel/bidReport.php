@@ -15,12 +15,6 @@ if (!checkPermission('resale-report-panel')) {
     <div class="card card-body ">
         <form method="GET">
             <div class="row justify-content-center">
-                <!-- <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Engine No.</label>
-
-                    <input placeholder="Engine Number" type="text" name="eng_no" class="form-control  cust-control" id="eng"
-                        value="<?php echo isset($_GET['eng_no']) ? $_GET['eng_no'] : null ?>">
-                </div> -->
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No. </label>
 

@@ -129,11 +129,11 @@ function isActive($url)
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="menu-item ">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/bidReport.php" class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/web_user.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/web_user.php" class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                                Report Two
+                                                Web User List
                                             </div>
                                         </a>
                                     </li>

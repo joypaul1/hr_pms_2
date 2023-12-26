@@ -119,7 +119,7 @@ $number = 0;
 
                         </tr>
                     </thead>
-                    <tbody style="width:100%;height: 200px; display: block;overflow-x: auto;">
+                    <tbody >
 
                         <?php
                         $query = "SELECT 
