@@ -110,3 +110,13 @@ $number = 0;
 
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    function exportF(elem) {
+        var table = document.getElementById("table");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "Resale Web User.xls"); // Choose the file name
+        return false;
+    }
+</script>
