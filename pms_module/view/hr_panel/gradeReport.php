@@ -129,7 +129,7 @@ $v_excel_download = 0;
                                 ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                                         <strong>
                                             <?php echo $number; ?>
                                         </strong>
                                     </td>

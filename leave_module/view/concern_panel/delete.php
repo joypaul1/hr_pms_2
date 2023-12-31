@@ -122,7 +122,7 @@ if (isset($_POST['submit_delete'])) {
                                 <tr>
                                     <td>
 									    <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php 
 									     echo $row['RML_ID']; 
@@ -198,7 +198,7 @@ if (isset($_POST['submit_delete'])) {
                                 <tr>
                                     <td>
 									    <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php 
 									     echo $row['RML_ID']; 

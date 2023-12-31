@@ -3,7 +3,6 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connresaleoracle.php');
 $basePath = $_SESSION['basePath'];
-
 if (!checkPermission('resale-report-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
@@ -12,7 +11,6 @@ if (!checkPermission('resale-report-panel')) {
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y" <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
         $leftSideName = 'Bid History List';
@@ -52,19 +50,21 @@ if (!checkPermission('resale-report-panel')) {
                         $productSQL = oci_parse($objConnect, "SELECT 
                                         BB.USER_NAME, BB.USER_MOBILE, BB.ADDRESS, AA.ID as BID_ID, AA.USER_ID, 
                                         AA.PRODUCT_ID, AA.BOOKED_STATUS, AA.BID_AMOUNT, AA.ENTRY_DATE, 
-                                        AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID
+                                        AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID, AA.INVOICE_STATUS
                                     FROM 
                                         (SELECT 
                                             A.ID, A.USER_ID, A.PRODUCT_ID, A.BOOKED_STATUS, A.BID_AMOUNT, 
-                                            A.ENTRY_DATE, A.BID_PRICE_TYPE, A.REFERENCE_TYPE, A.RESALE_TEAM_ID
+                                            A.ENTRY_DATE, A.BID_PRICE_TYPE, A.REFERENCE_TYPE, A.RESALE_TEAM_ID,
+                                            P.INVOICE_STATUS
                                         FROM 
                                             PRODUCT_BID A
+                                        JOIN PRODUCT P ON A.PRODUCT_ID = P.ID 
                                         WHERE 
                                             A.PRODUCT_ID = $productID
                                         ORDER BY 
                                             A.BID_AMOUNT DESC) AA
-                                    JOIN 
-                                        USER_PROFILE BB ON AA.USER_ID = BB.ID");
+                                            
+                                    JOIN  USER_PROFILE BB ON AA.USER_ID = BB.ID");
 
                         oci_execute($productSQL);
                         $number = 0;
@@ -72,10 +72,10 @@ if (!checkPermission('resale-report-panel')) {
                             $number++;
                             ?>
                             <tr>
-                                <td>
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                                <td> 
+                                     <strong>
                                         <?php echo $number; ?>
-                                        ( <?php echo $row['BID_ID'] ?>)
+                                        (<?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -92,10 +92,11 @@ if (!checkPermission('resale-report-panel')) {
                                 <td class="text-right">
                                     <?php echo number_format($row['BID_AMOUNT']) ?>
                                     <br>
-                                    BID FOR : <?php echo ($row['BID_PRICE_TYPE']) ?>
+                                    BID FOR :
+                                    <?php echo ($row['BID_PRICE_TYPE']) ?>
                                 </td>
-                                <td class="text-right">
-                                    <?php echo ($row['REFERENCE_TYPE']) ?>
+                                <td class="text-center">
+                                    <?php echo ucwords(str_replace('_', ' ', ($row['REFERENCE_TYPE']))) ?>
                                 </td>
                                 <td class="text-right">
                                     <?php echo ($row['ENTRY_DATE']) ?>
@@ -103,16 +104,30 @@ if (!checkPermission('resale-report-panel')) {
 
 
                                 <td class="text-center">
-                                    <?php if ($row['BOOKED_STATUS'] == 'Y') {
-                                        echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"
+
+                                    <?php
+                                    if ($row['BOOKED_STATUS'] == 'Y') {
+                                        echo '<button style="margin-bottom:2%" data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '" data-status="N"
                                         data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') . '"
-                                        type="button" class="btn btn-sm btn-success float-right delete_check"><i class="bx bx-check"></i>Looked </button>';
+                                        type="button" class="btn btn-sm btn-info float-right bid_looked"><i class="bx bx-check"></i> Bid Looked </button> </br>';
+
+                                        if ($row['INVOICE_STATUS'] != 'Y') {
+                                            echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '" data-status="Y"
+                                            data-href="' . ($basePath . '/resale_module/action/self_panel.php?  actionType=invoiceConfirm') . '"
+                                            type="button" class="btn btn-sm btn-warning float-right     invocie_looked"> Invoice Looked <i class="bx bx-question-mark"></i> </button>';
+                                        }
+                                        else {
+                                            echo '<button  type="button" class="btn btn-sm btn-warning float-right">
+                                            <i class="bx bx-check"></i>  Invoice Looked </button>';
+                                        }
+
                                     }
                                     else {
-                                        echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"
-                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') . '"
-                                        type="button" class="btn btn-sm btn-danger float-right delete_check"><i class="bx bx-check"></i> </button>';
-                                    } ?>
+                                        echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"  data-status="Y"
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=invoiceConfirm') . '"
+                                        type="button" class="btn btn-sm btn-danger float-right bid_looked"><i class="bx bx-question-mark"></i> </button>';
+                                    }
+                                    ?>
 
 
                                 </td>
@@ -143,15 +158,117 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    //delete data processing
 
-    $(document).on('click', '.delete_check', function () {
+
+    $(document).on('click', '.bid_looked', function () {
+        var bid_id = $(this).data('bid-id');
+        var status = $(this).data('status');
+        var product_id = $(this).data('product-id');
+        let url = $(this).data('href');
+        if (status == 'Y') {
+            swal.fire({
+                title: 'Are you sure looked this Bid?',
+                // text: "You won't be able to revert this!",
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Confirm!',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id,
+                            bid_id: bid_id,
+                            status: status,
+                        },
+                        dataType: 'json'
+                    })
+                        .done(function (res) {
+                            if (res.status) {
+                                swal.fire('Bid Looked!', res.message, res.status);
+                                setInterval(function () {
+                                    location.reload();
+                                }, 1000);
+
+                            } else {
+                                swal.fire('Oops...', res.message, res.status);
+
+                            }
+                        })
+                        .fail(function () {
+                            swal.fire('Oops...', 'Something went wrong!', 'error');
+                        });
+
+                }
+
+            })
+            // console.log(status);
+        } else {
+            swal.fire({
+                title: 'Are you sure unlooked this Bid?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, Confirm!',
+            }).then((result) => {
+                if (result.value) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id,
+                            bid_id: bid_id,
+                            status: status,
+                        },
+                        dataType: 'json'
+                    })
+                        .done(function (res) {
+                            if (res.status) {
+                                swal.fire('Bid UnLooked!', res.message, res.status);
+                                setInterval(function () {
+                                    location.reload();
+                                }, 1000);
+
+                            } else {
+                                swal.fire('Oops...', res.message, res.status);
+
+                            }
+                        })
+                        .fail(function () {
+                            swal.fire('Oops...', 'Something went wrong!', 'error');
+                        });
+
+                }
+
+            })
+        }
+
+
+    });
+
+    $(document).on('click', '.invocie_looked', function () {
         var bid_id = $(this).data('bid-id');
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
+        var status = $(this).data('status');
         swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
+            title: 'Are you sure looked this Bid for Invoice?',
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -170,13 +287,14 @@ if (!checkPermission('resale-report-panel')) {
                     type: 'GET',
                     data: {
                         product_id: product_id,
-                        bid_id: bid_id
+                        bid_id: bid_id,
+                        status: status,
                     },
                     dataType: 'json'
                 })
                     .done(function (res) {
                         if (res.status) {
-                            swal.fire('Bid Looked!', res.message, res.status);
+                            swal.fire('Invoice Looked!', res.message, res.status);
                             setInterval(function () {
                                 location.reload();
                             }, 1000);
@@ -192,7 +310,8 @@ if (!checkPermission('resale-report-panel')) {
 
             }
 
-        })
+        });
+
 
     });
 </script>

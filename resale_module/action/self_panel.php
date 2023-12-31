@@ -381,15 +381,42 @@ if (($_GET["actionType"]) == 'started_work') {
 
     }
 }
+if (($_GET["actionType"]) == 'invoiceConfirm') {
+
+    $bidID     = $_GET["bid_id"];
+    $productID = $_GET["product_id"];
+    $status    = $_GET["status"];
+    // Prepare the SQL statement
+    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET INVOICE_STATUS = '$status'
+    WHERE ID= $productID");
+
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+
+        $response = [
+            'status'  => true,
+            'message' => 'Invoice Status Updated Succesfully!'
+        ];
+        print_r(json_encode($response));
+    }
+    else {
+        $e        = @oci_error($strSQL);
+        $response = [
+            'status'  => true,
+            'message' => htmlentities($e['message'], ENT_QUOTES)
+        ];
+        print_r(json_encode($response));
+
+    }
+}
 if (($_GET["actionType"]) == 'bidConfirm') {
 
     $bidID     = $_GET["bid_id"];
     $productID = $_GET["product_id"];
+    $status    = $_GET["status"];
     $emp_session_id;
-    $status = 'Y';
-
     // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', 'Y','','' ); END;");
+    $strSQL = @oci_parse($objConnect, "BEGIN BID_CONFIRM($bidID,$productID, '$emp_session_id', '$status','','' ); END;");
 
 
     // Execute the query

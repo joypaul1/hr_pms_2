@@ -190,7 +190,7 @@ WHERE ROWNUM<=10";
                             ?>
                             <tr>
                                 <td>
-                                    <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>
+                                     <strong>
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>

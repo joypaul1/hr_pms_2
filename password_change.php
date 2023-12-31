@@ -136,7 +136,7 @@ $emp_sesssion_id = $_SESSION['HR']['emp_id_hr'];
 						?>
 							<tr>
 								<td>
-									<i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+									 <strong><?php echo $number; ?></strong>
 								</td>
 								<td><?php echo $row['changed_date']; ?></td>
 								<td><?php echo $row['changed_by']; ?></td>

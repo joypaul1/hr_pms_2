@@ -66,7 +66,7 @@ if (!checkPermission('department-list')) {
                         ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td><?php echo $row['RESPONSIBLE_HR']; ?></td>
@@ -107,7 +107,7 @@ if (!checkPermission('department-list')) {
                             ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td><?php echo $row['RESPONSIBLE_HR']; ?></td>

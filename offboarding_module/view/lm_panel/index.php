@@ -93,7 +93,7 @@ if (!checkPermission('lm-offboarding-report')) {
                         ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];

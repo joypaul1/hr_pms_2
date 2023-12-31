@@ -22,7 +22,7 @@ $basePath = $_SESSION['basePath'];
 						<table class="table  table-bordered">
 							<thead class="table-dark">
 								<tr>
-									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
+									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Brand</strong></th>
 									<th align="center"><strong>Product</strong></th>
 									<th align="center"><strong>Pre-Published</strong></th>
@@ -87,7 +87,7 @@ $basePath = $_SESSION['basePath'];
 						<table class="table  table-bordered">
 							<thead class="table-dark">
 								<tr>
-									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
+									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Product</strong></th>
 									<th scope="col" align="center"><strong>Total Bid</strong></th>
 								</tr>

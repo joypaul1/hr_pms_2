@@ -135,7 +135,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>
@@ -193,7 +193,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>

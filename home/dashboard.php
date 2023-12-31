@@ -126,7 +126,7 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 						<table class="table  table-bordered">
 							<thead class="table-dark">
 								<tr>
-									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
+									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Approval Type</strong></th>
 									<th scope="col" align="center"><strong>Count</strong></th>
 								</tr>
@@ -216,7 +216,7 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 						<table class="table table-bordered">
 							<thead class="table-dark">
 								<tr>
-									<th scope="col" align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>SL</strong></th>
+									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Date</strong></th>
 									<th scope="col" align="center"><strong>In/Out-Time</strong></th>
 									<th scope="col" align="center"><strong>Status</strong></th>
@@ -238,7 +238,7 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 									$number++;
 									?>
 									<tr>
-										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3"></i>
+										<td align="center">
 											<strong>
 												<?php echo $number; ?>
 											</strong>

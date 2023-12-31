@@ -79,7 +79,7 @@ if (!checkPermission('branch-list')) {
                         ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php echo $row['LATITUDE']; ?></td>
@@ -127,7 +127,7 @@ if (!checkPermission('branch-list')) {
                             ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php echo $row['LATITUDE']; ?></td>

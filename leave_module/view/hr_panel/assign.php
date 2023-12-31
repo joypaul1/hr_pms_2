@@ -149,7 +149,7 @@ $v_excel_download = 0;
                         ?>
                                 <tr>
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME'] . '(' . $row['RML_ID'] . ')'; ?></td>
                                     <td><?php echo $row['LEAVE_TYPE']; ?></td>

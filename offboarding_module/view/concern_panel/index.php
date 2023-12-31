@@ -105,7 +105,7 @@ echo $emp_session_id ;
                         ?>
                                 <tr style="text-align: center;">
                                     <td>
-                                        <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?php echo $number; ?></strong>
+                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];
