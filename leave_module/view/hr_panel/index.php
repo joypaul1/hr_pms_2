@@ -244,7 +244,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
             </div>
 			<br>
 			<div>
-			<a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to excel</a>
+			<a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to Excel</a>
 			</div> 
         </div>
     </div>

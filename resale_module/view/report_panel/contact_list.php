@@ -18,7 +18,7 @@ $number = 0;
     <!-- Bordered Table -->
     <div class="card mt-2">
         <?php
-        $leftSideName = 'Web User List';
+        $leftSideName = 'Contact List';
 
         include('../../../layouts/_tableHeader.php');
 
@@ -29,14 +29,11 @@ $number = 0;
                 <table class="table table-bordered" id="table">
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
-                            <th style="width:10px">SL</th>
+                            <th style="width:15px">SL</th>
                             <th>Name </th>
                             <th>MOBILE </th>
-                            <th>EMAIL </th>
-                            <th>ADDRESS </th>
-                            <th>JOIN DATE </th>
-                            <!-- <th scope="col">Start By </th>
-                            <th scope="col">Stat Date </th> -->
+                            <th>Message </th>
+                            <th>Contact DATE </th>
 
                         </tr>
                     </thead>
@@ -44,12 +41,9 @@ $number = 0;
 
                         <?php
                         $query = "SELECT 
-                                    ID, USER_NAME, USER_MOBILE, 
-                                    EMAIL, PASSWORD, PICTURE_LINK, 
-                                    USER_ROLE_ID, STATUS, ONTIME_PIN, 
-                                    CREATE_DATE, DISTRICT_ID, UPAZILA_ID, 
-                                    ADDRESS, UPDATED, PENDRIVE
-                                    FROM USER_PROFILE";
+                                    ID, NAME, MOBILE, 
+                                    MESSAGES, CREATED_DATE
+                                    FROM CLIENT_CONTACT";
 
 
 
@@ -62,24 +56,21 @@ $number = 0;
                             $number++;
                             ?>
                             <tr>
-                                <td style="width:15px">
+                                <td style="width:10px">
                                     <?php echo $number; ?>
                                 </td>
                                 <td class="text-left">
-                                    <?php echo $row['USER_NAME'] ?>
+                                    <?php echo $row['NAME'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['USER_MOBILE']; ?>
+                                    <?php echo $row['MOBILE']; ?>
                                 </td>
 
                                 <td>
-                                    <?php echo $row['EMAIL']; ?></br>
+                                    <?php echo $row['MESSAGES']; ?>
                                 </td>
                                 <td>
-                                    <?php echo $row['ADDRESS']; ?></br>
-                                </td>
-                                <td>
-                                    <?php echo $row['CREATE_DATE']; ?></br>
+                                    <?php echo $row['CREATED_DATE']; ?>
                                 </td>
                             </tr>
                         <?php } ?>

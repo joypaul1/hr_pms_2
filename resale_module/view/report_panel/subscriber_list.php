@@ -18,8 +18,7 @@ $number = 0;
     <!-- Bordered Table -->
     <div class="card mt-2">
         <?php
-        $leftSideName = 'Web User List';
-
+        $leftSideName = 'Subscriber List';
         include('../../../layouts/_tableHeader.php');
 
         ?>
@@ -29,57 +28,30 @@ $number = 0;
                 <table class="table table-bordered" id="table">
                     <thead style="background-color: #0e024efa;">
                         <tr class="text-center">
-                            <th style="width:10px">SL</th>
-                            <th>Name </th>
+                            <th>SL</th>
                             <th>MOBILE </th>
-                            <th>EMAIL </th>
-                            <th>ADDRESS </th>
-                            <th>JOIN DATE </th>
-                            <!-- <th scope="col">Start By </th>
-                            <th scope="col">Stat Date </th> -->
+                            <th>Created DATE </th>
 
                         </tr>
                     </thead>
-                    <tbody style="">
+                    <tbody>
 
                         <?php
-                        $query = "SELECT 
-                                    ID, USER_NAME, USER_MOBILE, 
-                                    EMAIL, PASSWORD, PICTURE_LINK, 
-                                    USER_ROLE_ID, STATUS, ONTIME_PIN, 
-                                    CREATE_DATE, DISTRICT_ID, UPAZILA_ID, 
-                                    ADDRESS, UPDATED, PENDRIVE
-                                    FROM USER_PROFILE";
-
-
-
-                        $productSQL = oci_parse($objConnect, $query);
-
-                        oci_execute($productSQL);
-
-
-                        while ($row = oci_fetch_assoc($productSQL)) {
+                            $query      = "SELECT ID,USER_MOBILE,CREATED_DATE FROM MOBILE_NOTIFICATION";
+                            $productSQL = oci_parse($objConnect, $query);
+                            oci_execute($productSQL);
+                            while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
-                                <td style="width:15px">
+                                <td style="width:10px">
                                     <?php echo $number; ?>
-                                </td>
-                                <td class="text-left">
-                                    <?php echo $row['USER_NAME'] ?>
                                 </td>
                                 <td>
                                     <?php echo $row['USER_MOBILE']; ?>
                                 </td>
-
                                 <td>
-                                    <?php echo $row['EMAIL']; ?></br>
-                                </td>
-                                <td>
-                                    <?php echo $row['ADDRESS']; ?></br>
-                                </td>
-                                <td>
-                                    <?php echo $row['CREATE_DATE']; ?></br>
+                                    <?php echo $row['CREATED_DATE']; ?>
                                 </td>
                             </tr>
                         <?php } ?>

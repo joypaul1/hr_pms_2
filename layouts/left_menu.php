@@ -137,6 +137,22 @@ function isActive($url)
                                             </div>
                                         </a>
                                     </li>
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/contact_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/contact_list.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Contact List
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/subscriber_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/subscriber_list.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Subscriber List
+                                            </div>
+                                        </a>
+                                    </li>
 
 
 
