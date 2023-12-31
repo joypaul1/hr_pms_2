@@ -256,7 +256,7 @@ $number = 0;
             <div class='text-right'>
                 <a class="btn btn-md btn-info text-white" onclick="exportF(this)" style="margin-left:5px;">
                     <i class='bx bxs-file-export'></i>
-                    Export to Excel</a>
+                    Export To Excel</a>
             </div>
         </div>
     </div>

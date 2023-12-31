@@ -167,7 +167,7 @@ $v_excel_download = 0;
             if ($v_excel_download == 1) {
                 ?>
                 <div class="text-right mt-2">
-                    <a class="btn btn-sm btn-success text-white" id="downloadLink" onclick="exportF(this)" style=""><i class='bx bxs-file-export'></i> Export to Excel</a>
+                    <a class="btn btn-sm btn-success text-white" id="downloadLink" onclick="exportF(this)" style=""><i class='bx bxs-file-export'></i> Export To Excel</a>
                 </div>
                 <?php
             }

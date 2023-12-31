@@ -261,7 +261,7 @@
 					if($is_exel_download_eanble!=0){
 					?>
 					<div>
-					<a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export to Excel</a>
+					<a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export To Excel</a>
 					</div> 
 					<?php
 					}

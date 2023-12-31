@@ -273,7 +273,7 @@ $is_exel_download_eanble = 0;
                         ?>
                             <div class="d-block text-right mt-1">
                                 <a class="btn btn-sm btn-info subbtn" id="downloadLink" onclick="exportF(this)">
-                                    Export to Excel <i class="menu-icon tf-icons bx bx-download"></i></a>
+                                    Export To Excel <i class="menu-icon tf-icons bx bx-download"></i></a>
                             </div>
                         <?php
                         }
