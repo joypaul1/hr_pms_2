@@ -83,7 +83,7 @@ if (!checkPermission('resale-report-panel')) {
                                 <td>
                                     <strong>CUSTOMER NAME :</strong>
                                     <?php echo ($row['USER_NAME']); ?> </br>
-                                    <strong>MOBILE NO. :</strong>
+                                    <strong>MOBILE NO :</strong>
 
                                     <?php echo ($row['USER_MOBILE']); ?> </br>
                                     <strong>ADDRESS :</strong>
