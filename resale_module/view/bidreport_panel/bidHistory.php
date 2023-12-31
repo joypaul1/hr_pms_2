@@ -72,10 +72,12 @@ if (!checkPermission('resale-report-panel')) {
                             $number++;
                             ?>
                             <tr>
-                                <td> 
-                                     <strong>
+                                <input type="hidden" id="INVOICE_STATUS" value="<?php echo $row['INVOICE_STATUS'] ?>">
+                                <td>
+                                    <strong>
                                         <?php echo $number; ?>
-                                        (<?php echo $row['BID_ID'] ?>)
+                                        (
+                                        <?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -158,7 +160,12 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-
+    $(document).ready(function () {
+        var $INVOICE_STATUS = $('#INVOICE_STATUS').val();
+        if ($INVOICE_STATUS == 'Y') {
+            $("button").attr("disabled", "disabled");;
+        }
+    });
 
     $(document).on('click', '.bid_looked', function () {
         var bid_id = $(this).data('bid-id');
