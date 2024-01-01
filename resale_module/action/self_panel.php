@@ -279,19 +279,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_3') {
 
     $editId      = $_POST['editId'];
-    $DESCRIPTION = $_POST['DESCRIPTION'];
+    // $DESCRIPTION = $_POST['DESCRIPTION'];
     $HISTORY     = $_POST['HISTORY'];
 
-    // Prepare the SQL statement
+    // Prepare the SQL statement    --x DESCRIPTION = :description,
     $strSQL = @oci_parse($objConnect, "
         UPDATE PRODUCT 
         SET 
-            DESCRIPTION = :description,
             HISTORY = :history
         WHERE ID = :edit_id
     ");
 
-    @oci_bind_by_name($strSQL, ':description', $DESCRIPTION);
+    // @oci_bind_by_name($strSQL, ':description', $DESCRIPTION);
     @oci_bind_by_name($strSQL, ':history', $HISTORY);
     @oci_bind_by_name($strSQL, ':edit_id', $editId);
 

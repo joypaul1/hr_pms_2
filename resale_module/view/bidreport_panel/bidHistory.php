@@ -88,7 +88,6 @@ if (!checkPermission('resale-report-panel')) {
                                     <?php echo ($row['USER_MOBILE']); ?> </br>
                                     <strong>ADDRESS :</strong>
                                     <?php echo ($row['ADDRESS']); ?>
-
                                 </td>
 
                                 <td class="text-right">
@@ -116,11 +115,11 @@ if (!checkPermission('resale-report-panel')) {
                                         if ($row['INVOICE_STATUS'] != 'Y') {
                                             echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '" data-status="Y"
                                             data-href="' . ($basePath . '/resale_module/action/self_panel.php?  actionType=invoiceConfirm') . '"
-                                            type="button" class="btn btn-sm btn-warning float-right     invocie_looked"> Invoice Looked <i class="bx bx-question-mark"></i> </button>';
+                                            type="button" class="btn btn-sm btn-warning float-right     invocie_looked"> Customer Confirm <i class="bx bx-question-mark"></i> </button>';
                                         }
                                         else {
                                             echo '<button  type="button" class="btn btn-sm btn-warning float-right">
-                                            <i class="bx bx-check"></i>  Invoice Looked </button>';
+                                            <i class="bx bx-check"></i>  Customer Confirm </button>';
                                         }
 
                                     }
@@ -301,7 +300,7 @@ if (!checkPermission('resale-report-panel')) {
                 })
                     .done(function (res) {
                         if (res.status) {
-                            swal.fire('Invoice Looked!', res.message, res.status);
+                            swal.fire('Customer Confirm!', res.message, res.status);
                             setInterval(function () {
                                 location.reload();
                             }, 1000);

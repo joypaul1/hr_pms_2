@@ -294,14 +294,14 @@ $basePath = $_SESSION['basePath'];
                                 <input type="hidden" name="actionType" value="pro_edit_3">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
-                                <div class="mb-3">
+                                <!-- <div class="mb-3">
                                     <label class="form-label" for="DESCRIPTION"> DESCRIPTION</label>
                                     <textarea name="DESCRIPTION" class="editor">
                                     <?php echo $data['DESCRIPTION']; ?>
                             
                                     </textarea>
 
-                                </div>
+                                </div> -->
                                 <div class="mb-3">
                                     <label class="form-label" for="HISTORY"> HISTORY</label>
                                     <textarea name="HISTORY" class="editor">
