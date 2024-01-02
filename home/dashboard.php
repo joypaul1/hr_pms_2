@@ -31,8 +31,8 @@ $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$b
 	AND LINE_MANAGER_2_ID='$emp_session_id'";
 
 
-$allDataSQL = oci_parse($objConnect, $sqlQuary);
-oci_execute($allDataSQL);
+$allDataSQL = @oci_parse($objConnect, $sqlQuary);
+@oci_execute($allDataSQL);
 
 $sqlAtt = "SELECT RML_ID,(RML_HR_ATTN_STATUS_COUNT(
 	RML_ID,
@@ -79,49 +79,82 @@ $sqlAtt = "SELECT RML_ID,(RML_HR_ATTN_STATUS_COUNT(
   WHERE RML_ID='$emp_session_id'
   AND IS_ACTIVE=1";
 
-$attDataSQL = oci_parse($objConnect, $sqlAtt);
-oci_execute($attDataSQL);
-$attData = oci_fetch_assoc($attDataSQL);
-// print_r($attData['PRESENT_TOTAL']);
+$attDataSQL = @oci_parse($objConnect, $sqlAtt);
+@oci_execute($attDataSQL);
+$attData = @oci_fetch_assoc($attDataSQL);
+// ($attData['PRESENT_TOTAL']);
 
 $attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
 $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
-//print_r($attPieChartData);
+
+$userProfile = [];
+$userSQL     = @oci_parse(
+	$objConnect,
+	"SELECT DEPT_NAME, BRANCH_NAME, DESIGNATION, DOJ, R_CONCERN
+	From RML_HR_APPS_USER  WHERE RML_ID='$emp_session_id'"
+);
+
+@oci_execute($userSQL);
+$userProfile = @oci_fetch_assoc($userSQL);
+
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
-		<div class="col-lg-12 ">
+		<!--	<div class="col-lg-12 ">
 			<div class=" card card-title p-2">
-			<!--	<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee> -->
+				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee> 
 			</div>
-		</div>
-		<div class="col-lg-6 mb-2 order-0">
-			<div class="card">
-				<div class="d-flex align-items-end row">
-					<div class="col-sm-7">
-						<div class="card-body">
-							<h5 class="card-title text-primary">Hi
-								<?php echo $_SESSION['HR']['first_name_hr']; ?>! 🎉
-							</h5>
-							<p class="mb-4s">
-								Access Are Predefine according to <span class="fw-bold">Rangs Motors HR Policy.</span>
-								If you need more access please contact with HR.
-							</p>
-							<!-- <a href="" class="btn btn-sm btn-primary">Universal Notification</a> -->
-						</div>
+		</div>-->
+		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
+			<div class="card boxDkh  text-white">
+				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
+					<div class="flex-shrink-0  mx-sm-0 mx-auto">
+						<img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
+							alt="User Image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
 					</div>
-					<div class="col-sm-5 text-center text-sm-left">
-						<div class="card-body pb-0 px-0 px-md-4">
-							<img src="<?php echo $basePath ?>/assets/img/illustrations/man-with-laptop-light.png" height="140" alt="View Badge User"
-								data-app-dark-img="illustrations/man-with-laptop-dark.png"
-								data-app-light-img="illustrations/man-with-laptop-light.png">
+					<div class="flex-grow-1 mt-3 ">
+						<div
+							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+							<div class="user-profile-info">
+
+								<h4 class="text-white">
+									<?php echo $_SESSION['HR']['first_name_hr']; ?>
+								</h4>
+								<ul
+									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+									<li class="list-inline-item fw-medium">
+										<i class="bx bx-pen"></i>
+										<?php echo $userProfile['DESIGNATION'] ?>
+									</li>
+									<li class="list-inline-item fw-medium">
+										<i class='bx bx-network-chart'></i>
+										<?php echo $userProfile['DEPT_NAME'] ?>
+									</li>
+									<li class="list-inline-item fw-medium">
+										<i class="bx bx-map"></i>
+										<?php echo $userProfile['BRANCH_NAME'] ?>
+									</li>
+
+									<li class="list-inline-item fw-medium">
+										<i class="bx bx-calendar-alt"></i> Joined
+										<?php echo $userProfile['DOJ'] ?>
+									</li>
+								</ul>
+							</div>
+							<a href="javascript:void(0)" class="btn btn btn-danger btn-buy-now text-nowrap">
+								<i class="bx bx-group me-1"></i>Team Member <i class='bx bx-arrow-from-left'></i>
+							</a>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="card mt-1">
-				<div class="card-body">
-					<h5 class="card-title text-primary">Approval Pending List</h5>
+
+
+		</div>
+		<div class="col-sm-12 col-md-6  col-lg-6 order-0">
+			<div class="card">
+				<h5 class="card-header m-auto boxDkh text-white ">Approval Pending List</h5>
+				<div class="card-body ">
 					<div class="table-responsive text-nowrap">
 						<table class="table  table-bordered">
 							<thead class="table-dark">
@@ -163,55 +196,11 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<!--  attendance -->
-		<div class="col-sm-12 col-md-12  col-lg-6 order-0">
-			<div class="card">
-				<h5 class="card-header m-0 me-2 ">
-					<span class="badge bg-label-success rounded-pill">
-						<?php echo date('F') ?>
-					</span> Month Attendance
-				</h5>
-				<div class="">
-
-					<div class="nav-align-top ">
-
-						<div class="tab-content">
-							<div class="tab-pane active show" id="navs-justified-Barchart" role="tabpanel">
-								<div id="attendanceBarChat" class="px-2"></div>
-
-							</div>
-							<div class="tab-pane fade " id="navs-justified-Piechart" role="tabpanel">
-								<div id="attPieChart"></div>
-							</div>
-
-						</div>
-						<ul class="nav nav-tabs nav-fill" role="tablist">
-							<li class="nav-item">
-								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
-									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
-								</button>
-							</li>
-							<li class="nav-item">
-								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart"
-									aria-controls="navs-justified-Piechart" aria-selected="true">
-									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
-								</button>
-							</li>
-
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End attendance -->
-		<!-- <-- Approval -->
-		<div class="col-lg-6 mb-2 order-0">
-			<div class="card">
+			<div class="card mt-3">
+				<h5 class="card-header m-auto boxDkh text-white ">My Last 7 Days Attendance</h5>
 				<div class="card-body">
-					<h5 class="card-title text-primary">My Last 7 Days Attendance.</h5>
+
+					<!-- <h5 class="card-title text-primary">.</h5> -->
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
 							<thead class="table-dark">
@@ -248,8 +237,8 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 										</td>
 										<td>
 											<?php echo $row['IN_TIME'];
-											      echo '<br>';
-											      echo $row['OUT_TIME'];
+											echo '<br>';
+											echo $row['OUT_TIME'];
 											?>
 										</td>
 										<td>
@@ -265,6 +254,50 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 					</div>
 				</div>
 			</div>
+		</div>
+		<!--  attendance -->
+		<div class="col-sm-12 col-md-6  col-lg-6 order-0">
+			<div class="card boxDkh">
+				<h5 class="card-header m-auto" style="color:#fff">
+					The Month of <span class="badge bg-label-success rounded-pill">
+						<?php echo date('F') ?>
+					</span> Attendance
+				</h5>
+				<div class="">
+
+					<div class="nav-align-top">
+						<div class="tab-content boxDkb">
+							<div class=" tab-pane active show" id="navs-justified-Barchart" role="tabpanel">
+								<div id="attendanceBarChat" class="px-2 "></div>
+							</div>
+							<div class="tab-pane fade " id="navs-justified-Piechart" role="tabpanel">
+								<div id="attPieChart"></div>
+							</div>
+
+						</div>
+						<ul class="nav nav-tabs nav-fill" role="tablist">
+							<li class="nav-item">
+								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
+									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
+								</button>
+							</li>
+							<li class="nav-item">
+								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart"
+									aria-controls="navs-justified-Piechart" aria-selected="true">
+									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
+								</button>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End attendance -->
+		<!-- <-- Approval -->
+		<div class="col-sm-12 col-md-6 col-lg-6 mb-2 order-0">
+			
 
 		</div>
 
@@ -279,6 +312,8 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 <?php require_once('../layouts/footer_info.php'); ?>
 
 <?php require_once('../layouts/footer.php'); ?>
+
+
 <script>
 	let cardColor, headingColor, axisColor, shadeColor, borderColor;
 	const attendanceBarChatEl = document.querySelector("#attendanceBarChat"),
@@ -291,7 +326,8 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 				height: 300,
 				stacked: false,
 				type: "bar",
-
+				foreColor: '#fff',
+				fontFamily: 'Helvetica, Arial, sans-serif',
 			},
 			plotOptions: {
 				bar: {
@@ -307,6 +343,9 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 			dataLabels: {
 				enabled: true,
 			},
+			grid: {
+				borderColor: "#40475D"
+			},
 			stroke: {
 				curve: "smooth",
 				width: 6,
@@ -315,20 +354,6 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 			},
 			legend: {
 				show: false,
-				// horizontalAlign: "left",
-				// position: "top",
-				// markers: {
-				// 	height: 8,
-				// 	width: 8,
-				// 	radius: 12,
-				// 	offsetX: -3,
-				// },
-				// labels: {
-				// 	colors: axisColor,
-				// },
-				// itemMargin: {
-				// 	horizontal: 10,
-				// },
 			},
 			grid: {
 				borderColor: borderColor,
@@ -550,8 +575,11 @@ $attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData
 	var attpieChartOptions = {
 		series: $FinalPieChartData,
 		chart: {
-			width: 350,
+			width: 455,
 			type: 'pie',
+			foreColor: '#fff',
+			fontFamily: 'Helvetica, Arial, sans-serif',
+
 		},
 		labels: ['Preset', 'Late', 'Absent', 'Holyday', 'Tour', 'Leave'],
 		// labels: ['Preset', 'Late', 'Absent'],

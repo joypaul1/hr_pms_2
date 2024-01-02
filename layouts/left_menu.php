@@ -38,7 +38,7 @@ function isActive($url)
 
         <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel')) { ?>
             <li class="menu-header big text-uppercase">
-                <span class=""><b>Resale Bidding System </b></span>
+                <span class="text-white"><b>Resale Bidding System </b></span>
             </li>
             <section style="width: 98%;">
                 <!-- Resale- module-list -->
@@ -199,7 +199,7 @@ function isActive($url)
             </section>
         <?php } ?>
         <li class="menu-header big text-uppercase">
-            <span class=""><b> HR Apps </b></span>
+            <span class="text-white"><b> HR Apps </b></span>
         </li>
         <section style="width: 98%;">
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
