@@ -50,18 +50,33 @@ $basePath = $_SESSION['basePath'];
 			</div>
 		</div>
 		<!--/ New Visitors & Activity -->
-		<!-- New Visitors & Activity -->
-		<div class="col-12 mb-4">
+
+		<!-- Bidding Analysis  & Activity -->
+		<div class="col-6 mb-4">
 			<div class="card" style="background-color:#313c6af7  !important">
 				<h5 class="card-header m-auto boxDkh text-white"> Bidding Analysis Information</h5>
 				<div class="card-body row g-4 text-white">
 					<div class="d-flex justify-content-center">
-						<div id="monthwisebidChart"></div>
+						<div id="monthwiseBidChart"></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!--/ New Visitors & Activity -->
+		<!--/ Bidding Analysis & Activity -->
+		<!-- Bidding Analysis  & Activity -->
+		<div class="col-6 mb-4">
+			<div class="card" style="background-color:#313c6af7  !important">
+				<h5 class="card-header m-auto boxDkh text-white"> Sells Analysis Information</h5>
+				<div class="card-body row g-4 text-white">
+					<div class="d-flex justify-content-center">
+						<div id="monthwiseSellChart"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/ Bidding Analysis & Activity -->
+
+
 		<div class="col-sm-12 col-md-8 col-lg-8 mb-2 order-0">
 			<div class="card ">
 				<h5 class="card-header m-auto boxDkh text-white ">Product Published Information</h5>
@@ -373,9 +388,7 @@ $basePath = $_SESSION['basePath'];
 
 
 	//monthwisebidBarChart//
-	const monthwisebidChart = document.querySelector("#monthwisebidChart"),
-		// monthwisebidChartOptions
-
+	const monthwiseBidChart = document.querySelector("#monthwiseBidChart"),
 		monthwisebidChartOptions = {
 			series: [{
 				name: 'Eicher',
@@ -389,14 +402,14 @@ $basePath = $_SESSION['basePath'];
 			}],
 			chart: {
 				type: 'bar',
-				height: 350,
-				width: 1000,
+				height: 500,
+				width: 500,
 				foreColor: '#fff',
 				fontFamily: 'Helvetica, Arial, sans-serif',
 			},
 			plotOptions: {
 				bar: {
-					horizontal: false,
+					horizontal: true,
 					columnWidth: '55%',
 					endingShape: 'rounded'
 				},
@@ -406,7 +419,7 @@ $basePath = $_SESSION['basePath'];
 			},
 			stroke: {
 				show: true,
-				width: 2,
+				width: 3,
 				colors: ['transparent']
 			},
 			xaxis: {
@@ -418,7 +431,7 @@ $basePath = $_SESSION['basePath'];
 				}
 			},
 			fill: {
-				opacity: 1,
+				opacity: 2,
 			},
 			tooltip: {
 				y: {
@@ -429,12 +442,81 @@ $basePath = $_SESSION['basePath'];
 			}
 		};
 
-	if (typeof monthwisebidChart !== undefined &&
-		monthwisebidChart !== null
+	if (typeof monthwiseBidChart !== undefined &&
+		monthwiseBidChart !== null
 	) {
 		const monthwisebidBarChart = new ApexCharts(
-			monthwisebidChart,
+			monthwiseBidChart,
 			monthwisebidChartOptions
+		);
+		monthwisebidBarChart.render();
+	}
+
+
+
+	//monthwiseSellChart
+	//monthwisebidBarChart//
+	const monthwiseSellChart = document.querySelector("#monthwiseSellChart"),
+		monthwiseSellChartOptions = {
+			series: [{
+				name: 'Eicher',
+				data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 55, 57, 56]
+			}, {
+				name: 'Mahindra',
+				data: [76, 85, 101, 98, 87, 105, 91, 114, 94, 101, 98, 87]
+			}, {
+				name: 'Dongfeng',
+				data: [35, 41, 36, 26, 45, 48, 52, 53, 41, 36, 26, 45]
+			}],
+			chart: {
+				type: 'bar',
+				height: 500,
+				width: 500,
+				foreColor: '#fff',
+				fontFamily: 'Helvetica, Arial, sans-serif',
+			},
+			plotOptions: {
+				bar: {
+					horizontal: true,
+					columnWidth: '55%',
+					endingShape: 'rounded'
+				},
+			},
+			dataLabels: {
+				enabled: false
+			},
+			stroke: {
+				show: true,
+				width: 3,
+				colors: ['transparent']
+			},
+			xaxis: {
+				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			},
+			yaxis: {
+				reversed: true,
+				title: {
+					text: 'TK (thousands)'
+				}
+			},
+			fill: {
+				opacity: 2,
+			},
+			tooltip: {
+				y: {
+					formatter: function (val) {
+						return "TK " + val + " thousands"
+					}
+				}
+			}
+		};
+
+	if (typeof monthwiseSellChart !== undefined &&
+		monthwiseSellChart !== null
+	) {
+		const monthwisebidBarChart = new ApexCharts(
+			monthwiseSellChart,
+			monthwiseSellChartOptions
 		);
 		monthwisebidBarChart.render();
 	}
