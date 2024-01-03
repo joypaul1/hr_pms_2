@@ -51,7 +51,7 @@ $basePath = $_SESSION['basePath'];
 		</div>
 		<!--/ New Visitors & Activity -->
 
-		<!-- Bidding Analysis  & Activity -->
+		<!-- monthwiseBidChart -->
 		<div class="col-6 mb-4">
 			<div class="card" style="background-color:#313c6af7  !important">
 				<h5 class="card-header m-auto boxDkh text-white"> Bidding Analysis Information</h5>
@@ -62,8 +62,8 @@ $basePath = $_SESSION['basePath'];
 				</div>
 			</div>
 		</div>
-		<!--/ Bidding Analysis & Activity -->
-		<!-- Bidding Analysis  & Activity -->
+		<!--/monthwiseBidChart -->
+		<!-- monthwiseSellChart -->
 		<div class="col-6 mb-4">
 			<div class="card" style="background-color:#313c6af7  !important">
 				<h5 class="card-header m-auto boxDkh text-white"> Sells Analysis Information</h5>
@@ -74,10 +74,10 @@ $basePath = $_SESSION['basePath'];
 				</div>
 			</div>
 		</div>
-		<!--/ Bidding Analysis & Activity -->
+		<!--/ monthwiseSellChart -->
 
 
-		<div class="col-sm-12 col-md-8 col-lg-8 mb-2 order-0">
+		<div class="col-sm-12 col-md-6 col-lg-6 mb-2 order-0">
 			<div class="card ">
 				<h5 class="card-header m-auto boxDkh text-white ">Product Published Information</h5>
 				<div class="card-body">
@@ -149,37 +149,24 @@ $basePath = $_SESSION['basePath'];
 					</div>
 				</div>
 			</div>
-		</div>
-
-	</div>
-
-	<div class="col-lg-6 mb-2 order-0">
-		<div class="card mt-1">
-			<h5 class="card-header m-auto boxDkh text-white ">Product Bid Information</h5>
-			<div class="card-body">
-
-			</div>
-		</div>
-	</div>
-	<div class="col-lg-6 mb-2 order-0">
-		<div class="card mt-1">
-			<h5 class="card-header m-auto boxDkh text-white ">Product Bid Information</h5>
-			<div class="card-body">
-				<div class="table-responsive text-nowrap">
+			<div class="card mt-3">
+				<h5 class="card-header m-auto boxDkh text-white ">Product Bid Information</h5>
+				<div class="card-body">
 					<div class="table-responsive text-nowrap">
-						<table class="table  table-bordered">
-							<thead style="background-color:green">
-								<tr>
-									<th scope="col" align="center"> <strong>SL</strong></th>
-									<th scope="col" align="center"><strong>Product</strong></th>
-									<th scope="col" align="center"><strong>Total Bid</strong></th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php
-								$PRODUCT_SQL = oci_parse(
-									$objConnect,
-									"SELECT 
+						<div class="table-responsive text-nowrap">
+							<table class="table  table-bordered">
+								<thead style="background-color:green">
+									<tr>
+										<th scope="col" align="center"> <strong>SL</strong></th>
+										<th scope="col" align="center"><strong>Product</strong></th>
+										<th scope="col" align="center"><strong>Total Bid</strong></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$PRODUCT_SQL = oci_parse(
+										$objConnect,
+										"SELECT 
 													BB.ID,
 													BB.MODEL,
 													BB.BOOK_VALUE,
@@ -195,40 +182,57 @@ $basePath = $_SESSION['basePath'];
 														WHERE A.PRODUCT_ID=B.ID
 														GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
 													WHERE AA.PRODUCT_ID=BB.ID"
-								);
+									);
 
-								oci_execute($PRODUCT_SQL);
-								$number = 0;
-								while ($row = oci_fetch_assoc($PRODUCT_SQL)) {
-									$number++;
+									oci_execute($PRODUCT_SQL);
+									$number = 0;
+									while ($row = oci_fetch_assoc($PRODUCT_SQL)) {
+										$number++;
+										?>
+										<tr>
+											<td align="center"><i class="fab fa-angular fa-lg text-danger me-3 "></i>
+												<strong>
+													<?php echo $number; ?>
+												</strong>
+											</td>
+											<td>
+												<?php
+												echo $row['MODEL']
+													?>
+											</td>
+											<td>
+												<?php echo $row['TOTAL_BID']; ?>
+											</td>
+
+										</tr>
+										<?php
+									}
+
 									?>
-									<tr>
-										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3 "></i>
-											<strong>
-												<?php echo $number; ?>
-											</strong>
-										</td>
-										<td>
-											<?php
-											echo $row['MODEL']
-												?>
-										</td>
-										<td>
-											<?php echo $row['TOTAL_BID']; ?>
-										</td>
-
-									</tr>
-									<?php
-								}
-
-								?>
-							</tbody>
-						</table>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<!-- monthwiseSellChart -->
+		<div class="col-sm-12 col-md-6 col-lg-6 mb-2 order-0">
+			<div class="card" style="background-color:#313c6af7  !important">
+				<h5 class="card-header m-auto boxDkh text-white"> Division Wise Customer </h5>
+				<div class="card-body row g-4 text-white">
+					<div class="d-flex justify-content-center">
+						<div id="divisionWiseUser"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--/ monthwiseSellChart -->
+
 	</div>
+
+
+
 </div>
 
 <!-- / Content -->
@@ -454,8 +458,8 @@ $basePath = $_SESSION['basePath'];
 
 
 
-	//monthwiseSellChart
 	//monthwisebidBarChart//
+	//monthwiseSellChart
 	const monthwiseSellChart = document.querySelector("#monthwiseSellChart"),
 		monthwiseSellChartOptions = {
 			series: [{
@@ -518,6 +522,77 @@ $basePath = $_SESSION['basePath'];
 			monthwiseSellChartOptions
 		);
 		monthwisebidBarChart.render();
+	}
+
+
+	//divisionWiseUser 
+	//divisionWiseUser
+	const divisionWiseUser = document.querySelector("#divisionWiseUser"),
+		divisionWiseUserOptions = {
+			series: [
+				{
+					name: "",
+					data: [200, 330, 548, 740, 880, 990, 1100, 1380],
+				},
+			],
+			chart: {
+				type: "bar",
+				height: 350,
+				foreColor: '#fff',
+				fontFamily: 'Helvetica, Arial, sans-serif',
+			},
+			plotOptions: {
+				bar: {
+					borderRadius: 0,
+					horizontal: true,
+					distributed: true,
+					barHeight: "80%",
+					isFunnel: true,
+				},
+			},
+			colors: [
+				"#F44F5E",
+				"#E55A89",
+				"#D863B1",
+				"#CA6CD8",
+				"#B57BED",
+				"#8D95EB",
+				"#62ACEA",
+				"#4BC3E6",
+			],
+			dataLabels: {
+				enabled: false,
+				formatter: function (val, opt) {
+					return opt.w.globals.labels[opt.dataPointIndex];
+				},
+				dropShadow: {
+					enabled: true,
+				},
+			},
+
+			xaxis: {
+				categories: [
+					"Dhaka",
+					"Chattogram",
+					"Barishal",
+					"Khulna",
+					"Rajshahi",
+					"Rangpur",
+					"Mymensingh",
+					"Sylhet",
+				],
+			},
+			legend: {
+				show: false,
+			},
+		};
+
+	if (typeof divisionWiseUser !== undefined && divisionWiseUser !== null) {
+		const divisionWiseUserBarChart = new ApexCharts(
+			divisionWiseUser,
+			divisionWiseUserOptions
+		);
+		divisionWiseUserBarChart.render();
 	}
 
 </script>
