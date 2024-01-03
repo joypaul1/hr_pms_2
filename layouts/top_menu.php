@@ -62,7 +62,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <!-- notification  -->
         <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-            <i class="bx bx-bell bx-sm"></i>
+            <i class="bx bx-bell bx-sm" style="color:orangered"></i>
             <span class="badge bg-danger rounded-pill badge-notifications"><?php echo $notification_number; ?></span>
           </a>
           <ul class="dropdown-menu dropdown-menu-end py-0">

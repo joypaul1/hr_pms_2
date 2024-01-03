@@ -106,7 +106,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			</div>
 		</div>-->
 		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
-			<div class="card boxDkh  text-white">
+			<div class="card boxDkhs  text-whites">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
 						<img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
@@ -117,7 +117,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
 							<div class="user-profile-info">
 
-								<h4 class="text-white">
+								<h4 class="text-whites">
 									<?php echo $_SESSION['HR']['first_name_hr']; ?>
 								</h4>
 								<ul
@@ -157,7 +157,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 				<div class="card-body ">
 					<div class="table-responsive text-nowrap">
 						<table class="table  table-bordered">
-							<thead class="table-dark">
+							<thead class="table-darks" style="background-color:green">
 								<tr>
 									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Approval Type</strong></th>
@@ -203,7 +203,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 					<!-- <h5 class="card-title text-primary">.</h5> -->
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
-							<thead class="table-dark">
+							<thead class="table-darks" style="background-color:green">
 								<tr>
 									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Date</strong></th>

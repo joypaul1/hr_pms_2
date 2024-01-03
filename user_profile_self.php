@@ -1,29 +1,13 @@
 <?php
 
 session_start();
-if ($_SESSION['HR']['hr_role'] != 1 && $_SESSION['HR']['hr_role'] != 2 && $_SESSION['HR']['hr_role'] != 3 && $_SESSION['HR']['hr_role'] != 4) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
 
-if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
 require_once('inc/config.php');
 require_once('layouts/header.php');
-
-// $v_page = '';
-// $v_active_open = 'active open';
-// $v_active = 'active';
-
-
 require_once('layouts/left_menu.php');
 require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
-
 
 ?>
 
@@ -34,7 +18,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 		<form id="Form1" action="" method="post"></form>
 		<form id="Form2" action="" method="post"></form>
 		<?php
-		$strSQL  = oci_parse(
+		$strSQL = oci_parse(
 			$objConnect,
 			"select RML_ID,
 							EMP_NAME,
@@ -67,7 +51,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
 		while ($row = oci_fetch_assoc($strSQL)) {
-		?>
+			?>
 			<div class="col-lg-12">
 				<div class="md-form mt-5">
 					<div class="resume-item d-flex flex-column flex-md-row">
@@ -80,27 +64,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Emp ID:</label>
-												<input type="text" class="form-control" id="title" form="Form2" name="form_rml_id" value="<?php echo $row['RML_ID']; ?>" readonly>
+												<input type="text" class="form-control" id="title" form="Form2" name="form_rml_id"
+													value="<?php echo $row['RML_ID']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Name:</label>
-												<input type="text" name="emp_form_name" class="form-control" id="title" value="<?php echo $row['EMP_NAME']; ?>" form="Form2">
+												<input type="text" name="emp_form_name" class="form-control" id="title"
+													value="<?php echo $row['EMP_NAME']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Mobile:</label>
-												<input type="text" name="emp_mobile" class="form-control" id="title" value="<?php echo $row['MOBILE_NO']; ?>" form="Form2">
+												<input type="text" name="emp_mobile" class="form-control" id="title"
+													value="<?php echo $row['MOBILE_NO']; ?>" form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Department:</label>
-												<input type="text" name="emp_dept" class="form-control" id="title" value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
+												<input type="text" name="emp_dept" class="form-control" id="title"
+													value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
 											</div>
 										</div>
 									</div>
@@ -109,27 +97,31 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-1 ID:</label>
-												<input type="text" class="form-control" id="title" name="form_res1_id" value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>" form="Form2">
+												<input type="text" class="form-control" id="title" name="form_res1_id"
+													value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-1 Mobile:</label>
-												<input type="text" class="form-control" id="title" name="form_res1_mobile" value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>" form="Form2">
+												<input type="text" class="form-control" id="title" name="form_res1_mobile"
+													value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-2 ID:</label>
-												<input type="text" class="form-control" id="title" name="form_res2_id" value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>" form="Form2">
+												<input type="text" class="form-control" id="title" name="form_res2_id"
+													value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>" form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-2 Mobile:</label>
-												<input type="text" class="form-control" id="title" name="form_res2_mobile" value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>" form="Form2">
+												<input type="text" class="form-control" id="title" name="form_res2_mobile"
+													value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>" form="Form2">
 											</div>
 										</div>
 									</div>
@@ -138,7 +130,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">IEMI_NO:</label>
-												<input type="text" class="form-control" id="title" name="form_iemi_no" value="<?php echo $row['IEMI_NO']; ?>" form="Form2">
+												<input type="text" class="form-control" id="title" name="form_iemi_no"
+													value="<?php echo $row['IEMI_NO']; ?>" form="Form2">
 											</div>
 										</div>
 
@@ -181,12 +174,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 											<div class="form-group">
 												<label for="title">Gendar:</label>
 												<input type="text" class="form-control" id="title" value="<?php
-																											if ($row['GENDER'] === 'M') {
-																												echo 'Male';
-																											} else if ($row['GENDER'] === 'F') {
-																												echo 'Female';
-																											}
-																											?>" readonly>
+												if ($row['GENDER'] === 'M') {
+													echo 'Male';
+												}
+												else if ($row['GENDER'] === 'F') {
+													echo 'Female';
+												}
+												?>" readonly>
 											</div>
 										</div>
 										<div class="col-sm-3">
@@ -220,7 +214,8 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">User Created Date:</label>
-												<input type="text" class="form-control" id="title" value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly>
+												<input type="text" class="form-control" id="title" value="<?php echo $row['USER_CREATE_DATE']; ?>"
+													readonly>
 											</div>
 										</div>
 									</div>
@@ -243,16 +238,17 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													<?php
 
 													if ($row['USER_ROLE'] == 'NU') {
-													?>
+														?>
 														<option value="NU">Normal User</option>
 														<option value="LM">Line Manager</option>
 
-													<?php
-													} else {
-													?>
+														<?php
+													}
+													else {
+														?>
 														<option value="LM">Line Manager</option>
 														<option value="NU">Normal User</option>
-													<?php
+														<?php
 													}
 
 													?>
@@ -263,13 +259,15 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Lat:</label>
-												<input type="text" class="form-control" name="lat" id="title" value="<?php echo $row['LAT']; ?>" form="Form2">
+												<input type="text" class="form-control" name="lat" id="title" value="<?php echo $row['LAT']; ?>"
+													form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Lang:</label>
-												<input type="text" class="form-control" name="lang" id="title" value="<?php echo $row['LANG']; ?>" form="Form2">
+												<input type="text" class="form-control" name="lang" id="title" value="<?php echo $row['LANG']; ?>"
+													form="Form2">
 											</div>
 										</div>
 									</div>
@@ -281,17 +279,18 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 													<?php
 
 													if ($row['TRACE_LOCATION'] == '1') {
-													?>
+														?>
 														<option value="1">Active</option>
 														<option value="0">In-Active</option>
 
-													<?php
-													} else {
-													?>
+														<?php
+													}
+													else {
+														?>
 														<option value="0">In-Active</option>
 														<option value="1">Active</option>
 
-													<?php
+														<?php
 													}
 
 													?>
@@ -314,42 +313,42 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 						</div>
 
-					<?php
-				}
-					?>
+						<?php
+		}
+		?>
 
 
-
-					</div>
 
 				</div>
 
 			</div>
 
-			<?php
+		</div>
 
-			@$form_rml_id = $_REQUEST['form_rml_id'];
-			@$emp_form_name = $_REQUEST['emp_form_name'];
-			@$emp_mobile = $_REQUEST['emp_mobile'];
-			@$emp_dept = $_REQUEST['emp_dept'];
+		<?php
+
+		@$form_rml_id = $_REQUEST['form_rml_id'];
+		@$emp_form_name = $_REQUEST['emp_form_name'];
+		@$emp_mobile = $_REQUEST['emp_mobile'];
+		@$emp_dept = $_REQUEST['emp_dept'];
 
 
-			@$form_iemi_no = $_REQUEST['form_iemi_no'];
-			@$form_res1_id = $_REQUEST['form_res1_id'];
-			@$form_res1_mobile = $_REQUEST['form_res1_mobile'];
-			@$form_res2_id = $_REQUEST['form_res2_id'];
-			@$form_res2_mobile = $_REQUEST['form_res2_mobile'];
+		@$form_iemi_no = $_REQUEST['form_iemi_no'];
+		@$form_res1_id = $_REQUEST['form_res1_id'];
+		@$form_res1_mobile = $_REQUEST['form_res1_mobile'];
+		@$form_res2_id = $_REQUEST['form_res2_id'];
+		@$form_res2_mobile = $_REQUEST['form_res2_mobile'];
 
-			@$emp_role = $_REQUEST['emp_role'];
-			@$form_emp_status = $_REQUEST['emp_status'];
-			@$form_emp_lat = $_REQUEST['lat'];
-			@$form_emp_lang = $_REQUEST['lang'];
+		@$emp_role = $_REQUEST['emp_role'];
+		@$form_emp_status = $_REQUEST['emp_status'];
+		@$form_emp_lat = $_REQUEST['lat'];
+		@$form_emp_lang = $_REQUEST['lang'];
 
-			@$traceable_status = $_REQUEST['traceable_status'];
+		@$traceable_status = $_REQUEST['traceable_status'];
 
-			if (isset($_POST['form_iemi_no'])) {
+		if (isset($_POST['form_iemi_no'])) {
 
-				$strSQL  = oci_parse($objConnect, "update RML_HR_APPS_USER SET
+			$strSQL = oci_parse($objConnect, "update RML_HR_APPS_USER SET
 							            EMP_NAME='$emp_form_name',
                                         MOBILE_NO='$emp_mobile',
 										DEPT_NAME='$emp_dept',									
@@ -365,22 +364,22 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										TRACE_LOCATION='$traceable_status'
 								where RML_ID='$form_rml_id'");
 
-				if (oci_execute($strSQL)) {
-			?>
+			if (oci_execute($strSQL)) {
+				?>
 
-					<div class="container-fluid">
-						<div class="md-form mt-5">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item">
-									Information is updated successfully.
-								</li>
-							</ol>
-						</div>
+				<div class="container-fluid">
+					<div class="md-form mt-5">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item">
+								Information is updated successfully.
+							</li>
+						</ol>
 					</div>
-			<?php
-				}
+				</div>
+				<?php
 			}
-			?>
+		}
+		?>
 	</div>
 </div>
 

@@ -15,8 +15,8 @@ function isActive($url)
             <span class="app-brand-logo demo">
                 <img src="<?php echo $basePath ?>/images/app_icon_hr.png" class="img-fluid" style="width: 35px;">
             </span>
-            <span class="demo menu-text fw-bolder mt-3" style="margin-left: 2px;">
-                <h3>Rangs Group</h3>
+            <span class=" fw-bolder mt-3" style="margin-left: 2px;">
+                <h3 class="text-white">Rangs Group</h3>
             </span>
         </a>
 
@@ -37,7 +37,7 @@ function isActive($url)
         </li>
 
         <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel')) { ?>
-            <li class="menu-header big text-uppercase">
+            <li class="menu-header big text-uppercase" style="background-color:lightslategray">
                 <span class="text-white"><b>Resale Bidding System </b></span>
             </li>
             <section style="width: 98%;">
@@ -198,7 +198,7 @@ function isActive($url)
                 </li>
             </section>
         <?php } ?>
-        <li class="menu-header big text-uppercase">
+        <li class="menu-header big text-uppercase" style="background-color:lightslategray">
             <span class="text-white"><b> HR Apps </b></span>
         </li>
         <section style="width: 98%;">
