@@ -402,7 +402,7 @@ $basePath = $_SESSION['basePath'];
 			}],
 			chart: {
 				type: 'bar',
-				height: 500,
+				height: 600,
 				width: 500,
 				foreColor: '#fff',
 				fontFamily: 'Helvetica, Arial, sans-serif',
@@ -427,7 +427,7 @@ $basePath = $_SESSION['basePath'];
 			},
 			yaxis: {
 				title: {
-					text: 'TK (thousands)'
+					text: 'TK (Thousands)'
 				}
 			},
 			fill: {
@@ -436,7 +436,7 @@ $basePath = $_SESSION['basePath'];
 			tooltip: {
 				y: {
 					formatter: function (val) {
-						return "TK " + val + " thousands"
+						return "TK " + val + " Thousands"
 					}
 				}
 			}
@@ -470,14 +470,14 @@ $basePath = $_SESSION['basePath'];
 			}],
 			chart: {
 				type: 'bar',
-				height: 500,
+				height: 600,
 				width: 500,
 				foreColor: '#fff',
 				fontFamily: 'Helvetica, Arial, sans-serif',
 			},
 			plotOptions: {
 				bar: {
-					horizontal: true,
+					horizontal: false,
 					columnWidth: '55%',
 					endingShape: 'rounded'
 				},
@@ -487,16 +487,15 @@ $basePath = $_SESSION['basePath'];
 			},
 			stroke: {
 				show: true,
-				width: 3,
+				width: 2,
 				colors: ['transparent']
 			},
 			xaxis: {
 				categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
 			},
 			yaxis: {
-				reversed: true,
 				title: {
-					text: 'TK (thousands)'
+					text: 'TK (Thousands)'
 				}
 			},
 			fill: {
@@ -505,7 +504,7 @@ $basePath = $_SESSION['basePath'];
 			tooltip: {
 				y: {
 					formatter: function (val) {
-						return "TK " + val + " thousands"
+						return "TK " + val + " Thousands"
 					}
 				}
 			}
