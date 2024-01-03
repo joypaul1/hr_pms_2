@@ -106,7 +106,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			</div>
 		</div>-->
 		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
-			<div class="card boxDkhs  text-whites">
+			<div class="card" style="background-color:#80808063">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
 						<img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
