@@ -17,6 +17,7 @@ if (isset($_POST['login_hr'])) {
 					  first_name    as first_name_hr,
 					  emp_id        as emp_id_hr,
 					  image_url     as emp_image_hr,
+					  last_log_seen,
 					  password      as hrpassword 
 			      from tbl_users 
 				    where emp_id = '" . $v_username . "' and password = '" . $md5Password . "'";
@@ -28,6 +29,19 @@ if (isset($_POST['login_hr'])) {
       $getUserRow_hr = mysqli_fetch_assoc($rs_hr);
       unset($getUserRow_hr['hrpassword']);
 
+      if ($getUserRow_hr['last_log_seen'] == null || empty($getUserRow_hr['last_log_seen'])) {
+        $currentTimestamp = date('Y-m-d H:i:s');
+        $sql1             = "UPDATE tbl_users SET last_log_seen = '$currentTimestamp' WHERE emp_id = '" . $v_username . "'";
+        $result1          = mysqli_query($conn_hr, $sql1);
+      }
+      else {
+        $currentTimestamp = date('Y-m-d H:i:s');
+        $sql2             = "UPDATE tbl_users SET last_log_seen = '$currentTimestamp' WHERE emp_id = '" . $v_username . "'";
+        $result2          = mysqli_query($conn_hr, $sql2);
+      }
+
+
+
       $_SESSION['HR']          = $getUserRow_hr;
       $_SESSION['baseUrl']     = $baseUrl;
       $_SESSION['basePath']    = $basePath;
@@ -36,7 +50,7 @@ if (isset($_POST['login_hr'])) {
       header('location:home/dashboard.php');
       exit;
     }
-  else {
+    else {
       $errorMsg = "Wrong EMP-ID or password";
     }
   }

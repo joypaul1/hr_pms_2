@@ -123,21 +123,29 @@ $userProfile = @oci_fetch_assoc($userSQL);
 								<ul
 									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
 									<li class="list-inline-item fw-medium">
-										<i class="bx bx-pen"></i>
-										<?php echo $userProfile['DESIGNATION'] ?>
+
+										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
+											<?php echo $userProfile['DESIGNATION'] ?>
+										</span>
 									</li>
 									<li class="list-inline-item fw-medium">
-										<i class='bx bx-network-chart'></i>
-										<?php echo $userProfile['DEPT_NAME'] ?>
+
+										<span class="badge bg-label-danger"><i class='bx bx-network-chart'></i>
+											<?php echo $userProfile['DEPT_NAME'] ?>
+										</span>
 									</li>
 									<li class="list-inline-item fw-medium">
-										<i class="bx bx-map"></i>
-										<?php echo $userProfile['BRANCH_NAME'] ?>
+
+										<span class="badge bg-label-info"><i class="bx bx-map"></i>
+											<?php echo $userProfile['BRANCH_NAME'] ?>
+										</span>
 									</li>
 
 									<li class="list-inline-item fw-medium">
-										<i class="bx bx-calendar-alt"></i> Joined
-										<?php echo $userProfile['DOJ'] ?>
+										<span class="badge bg-label-warning">
+											<i class="bx bx-calendar-alt"></i>
+											<?php echo $userProfile['DOJ'] ?>
+										</span>
 									</li>
 								</ul>
 							</div>
@@ -297,7 +305,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 		<!-- End attendance -->
 		<!-- <-- Approval -->
 		<div class="col-sm-12 col-md-6 col-lg-6 mb-2 order-0">
-			
+
 
 		</div>
 
@@ -334,9 +342,6 @@ $userProfile = @oci_fetch_assoc($userSQL);
 					distributed: true,
 					horizontal: false,
 					columnWidth: "33%",
-					// borderRadius: 12,
-					// startingShape: "rounded",
-					// endingShape: "rounded",
 				},
 			},
 			colors: [config.colors.success, config.colors.warning, config.colors.danger, '#14d0c5', '#8829ca', '#b84467'],
