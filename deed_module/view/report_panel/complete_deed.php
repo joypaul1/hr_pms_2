@@ -69,7 +69,7 @@ if (!checkPermission('upload-document')) {
             </div>
             <div class="table-responsive text-nowrap" id='printableArea'>
                 <table class="table table-bordered" id="downloadSection" border="1" cellspacing="0" cellpadding="0">
-                    <thead style="background-color: #0e024efa;">
+                    <thead style="background-color: #02c102;">
                         <tr class="text-center">
                             <th> Sl</th>
                             <th> Invoice Number</th>

@@ -59,7 +59,7 @@ if (!checkPermission('resale-report-panel')) {
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table  table-bordered">
-                    <thead style="background-color: #0e024efa;">
+                    <thead style="background-color: #02c102;">
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Product Info</th>

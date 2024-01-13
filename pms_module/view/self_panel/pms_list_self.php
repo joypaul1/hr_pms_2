@@ -221,7 +221,7 @@ oci_execute($strSQL);
 				<div class="col-lg-12">
 					<div class="table-responsive text-break">
 						<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
-							<thead style="background-color: #0e024efa;">
+							<thead style="background-color: #02c102;">
 								<tr class="text-center">
 									<th class="text-center">Sl</th>
 									<th scope="col">PM Title</th>
