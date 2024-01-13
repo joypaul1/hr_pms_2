@@ -80,8 +80,10 @@ $number = 0;
             display: block;
         }
 
-        th,
-        td {
+        .table th{
+            font-size: 10px;
+        }
+        th,td {
             width: 250px;
         }
 
