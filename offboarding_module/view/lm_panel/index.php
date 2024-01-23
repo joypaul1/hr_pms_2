@@ -22,7 +22,7 @@ if (!checkPermission('lm-offboarding-report')) {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -46,11 +46,43 @@ if (!checkPermission('lm-offboarding-report')) {
             $rightSideName = 'Offboarding Create';
             $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-        include('../../../layouts/_tableHeader.php');
+        // include('../../../layouts/_tableHeader.php');
+        ?>
+
+        <?php
+
+        $html = '<div class="card">
+                <div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
+                    <div href="#" style="font-size: 18px;font-weight:700">
+                        <i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:30px"></i>';
+
+        if (isset($leftSideName)) {
+            $html .= $leftSideName;
+        }
+        $html .= '</div>
+                            <div>
+                                <a class="btn btn-sm btn-success text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
+                            </div>
+                            <div>';
+        if (isset($routePath)) {
+            $route = $basePath . '/' . $routePath;
+            $html .= '<a href="' . $route . '" class="btn btn-sm btn-info">';
+        }
+
+        if (isset($rightSideName)) {
+            $html .= '<i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;"></i>' . $rightSideName;
+        }
+
+        $html .= '</a>
+                    </div>
+                </div>
+            </div>';
+
+        echo $html;
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="table">
                     <thead class="table-dark">
                         <tr class="text-center">
                             <th>SL</th>
@@ -93,7 +125,7 @@ if (!checkPermission('lm-offboarding-report')) {
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];
@@ -225,8 +257,8 @@ if (!checkPermission('lm-offboarding-report')) {
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-								//print_r ($row);
-								//die();
+                                //print_r ($row);
+                                //die();
                             ?>
                                 <tr class="text-center">
                                     <td>
@@ -240,10 +272,10 @@ if (!checkPermission('lm-offboarding-report')) {
                                         echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
                                         echo '</br>';
                                         echo $row['DESIGNATION'];
-										
+
                                         ?>
                                     </td>
-                                    <td><?php  
+                                    <td><?php
                                         if ($row['APPROVAL_STATUS'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['APPROVAL_STATUS'] == '0') {
@@ -302,14 +334,14 @@ if (!checkPermission('lm-offboarding-report')) {
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel1"> APPROVAL STATUS VIEW :
-                       
+
 
                     </h5>
 
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body row text-left ">
-                   
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-info" data-bs-dismiss="modal">Close</button>
@@ -326,6 +358,27 @@ if (!checkPermission('lm-offboarding-report')) {
 <!-- / Content -->
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+<script>
+    function exportF(elem) {
+        var table = document.getElementById("table");
+        var html = table.outerHTML;
+
+        // Get the current date
+        var currentDate = new Date();
+        var formattedDate = currentDate.toISOString().slice(0, 10); // Format as YYYY-MM-DD
+
+        // Set the file name with the current date
+        var fileName = "Offboarding Information(" + formattedDate + ").xls";
+
+        var url = 'data:application/vnd.ms-excel,' + escape(html);
+
+        // Set the href and download attributes
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", fileName);
+
+        return false;
+    }
+</script>
 
 <script>
     function seeStatus(id) {
