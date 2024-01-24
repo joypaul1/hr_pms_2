@@ -61,7 +61,10 @@ if (!checkPermission('lm-offboarding-report')) {
         }
         $html .= '</div>
                             <div>
-                                <a class="btn btn-sm btn-success text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
+                                <a class="btn btn-sm btn-primary text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
+                            </div>
+                            <div>
+                                <a target="_blank" href="approval_report.php" class="btn btn-sm btn-warning text-white" style="margin-left:5px;"> <i class="bx bxs-arrow-to-right"></i>View Approval Details </a>
                             </div>
                             <div>';
         if (isset($routePath)) {
@@ -81,8 +84,8 @@ if (!checkPermission('lm-offboarding-report')) {
         echo $html;
         ?>
         <div class="card-body">
-            <div class="table-responsive text-nowrap">
-                <table class="table table-bordered" id="table">
+            <div class="table-responsive ">
+                <table class="table table-sm table-bordered" id="table">
                     <thead class="table-dark">
                         <tr class="text-center">
                             <th>SL</th>
