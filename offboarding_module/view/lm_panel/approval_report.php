@@ -62,7 +62,7 @@ if (!checkPermission('lm-offboarding-report')) {
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">EMP Info</th>
-                            <th scope="col">RML ID</th>
+                            <!-- <th scope="col">RML ID</th> -->
                             <th scope="col">Approval Status</th>
                             <th scope="col">Approval Details </th>
                         </tr>
@@ -95,11 +95,11 @@ if (!checkPermission('lm-offboarding-report')) {
                                 <td>
                                     <strong><?php echo $number; ?></strong>
                                 </td>
-                                <td><?= $row['EMP_NAME']; ?>
+                                <td> <?= $row['EMP_NAME']; ?>
+                                <br>
+                                ID :  <?= $row['RML_ID']; ?>
                                 </td>
-                                <td>
-                                    <?= $row['RML_ID']; ?>
-                                </td>
+                               
                                 <td><?php
                                     if ($row['APPROVAL_STATUS'] == '1') {
                                         echo 'Approved';
@@ -116,8 +116,8 @@ if (!checkPermission('lm-offboarding-report')) {
                                     <table class="table table-bordered">
                                         <?php
                                         $statusDataSQL = oci_parse($objConnect, "SELECT 
-                                                d.ID, d.EMP_CLEARENCE_ID, d.CONCERN_NAME, 
-                                                d.DEPARTMENT_ID, d.APPROVAL_STATUS, d.APPROVE_BY, 
+                                                d.ID, d.EMP_CLEARENCE_ID, d.REMARKS, 
+                                                d.DEPARTMENT_ID, d.APPROVAL_STATUS, 
                                                 d.APPROVE_DATE, h.DEPT_NAME
                                             FROM EMP_CLEARENCE_DTLS d
                                             JOIN RML_HR_DEPARTMENT h ON d.DEPARTMENT_ID = h.ID
@@ -135,6 +135,9 @@ if (!checkPermission('lm-offboarding-report')) {
                                                 </td>
                                                 <td>
                                                     <?= $statusRow['APPROVE_DATE'] ?>
+                                                </td>
+                                                <td class="text-left">
+                                                    <?= $statusRow['REMARKS'] ?>
                                                 </td>
                                             </tr>
                                         <?php
