@@ -13,7 +13,7 @@ if (!checkPermission('lm-offboarding-report')) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form action="" method="post">
+        <form action="" method="get">
             <div class="row justify-content-center">
                 <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>'>
                 <div class="col-sm-3">
