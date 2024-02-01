@@ -8,10 +8,6 @@ if (!checkPermission('self-leave-report')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
-// $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
-
-
 ?>
 
 <!-- / Content -->
