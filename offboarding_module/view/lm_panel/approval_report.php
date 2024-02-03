@@ -43,8 +43,6 @@ if (!checkPermission('lm-offboarding-report')) {
                         <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
                     </div>
                 </div>
-
-
             </div>
 
         </form>
