@@ -312,31 +312,38 @@ if (!checkPermission('lm-offboarding-report')) {
                                 <td> <?= $row['EMP_NAME']; ?></td>
                                 <td> <?= $row['DEPT_NAME']; ?></td>
                                 <td> <?= $row['DESIGNATION']; ?></td>
-                                <td> <?= date('d-m-Y', strtotime($row['CREATED_DATE'])) ?></td>
+                                <td > <?= date('d/m/Y', strtotime($row['CREATED_DATE'])) ?></td>
 
                                 <td>
-                                    <?php echo isset($row['ADMINISTRATION_APPROVAL_DATE']) ? $row['ADMINISTRATION_APPROVAL_DATE'] : "-"  ?>
+                                    <?php echo isset($row['ADMINISTRATION_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['ADMINISTRATION_APPROVAL_DATE'])) : "-"  ?>
 
                                 </td>
                                 <td>
-                                    <?php echo isset($row['Administration_Remarks']) ? $row['Administration_Remarks'] : "-"  ?>
+                                    <?php echo isset($row['Administration_Remarks']) ?
+                                        $row['Administration_Remarks'] : "-"  ?>
                                 </td>
                                 <td>
-                                    <?php echo isset($row['FINANCE_ACCOUNTS_APPROVAL_DATE']) ? $row['FINANCE_ACCOUNTS_APPROVAL_DATE'] : "-" ?>
+                                    <?php echo isset($row['FINANCE_ACCOUNTS_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['FINANCE_ACCOUNTS_APPROVAL_DATE']))
+                                        : "-" ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['FINANCE_ACCOUNTS_REMARKS']) ? $row['FINANCE_ACCOUNTS_REMARKS'] : "-" ?>
                                 </td>
 
                                 <td>
-                                    <?php echo isset($row['HUMAN_RESOURCES_APPROVAL_DATE']) ? $row['HUMAN_RESOURCES_APPROVAL_DATE'] : "-" ?>
+                                    <?php echo isset($row['HUMAN_RESOURCES_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['HUMAN_RESOURCES_APPROVAL_DATE'])) : "-" ?>
 
                                 </td>
                                 <td>
-                                    <?php echo isset($row['HUMAN_RESOURCES_REMARKS']) ? $row['HUMAN_RESOURCES_REMARKS'] : "-" ?>
+                                    <?php echo isset($row['HUMAN_RESOURCES_REMARKS']) ?
+                                        $row['HUMAN_RESOURCES_REMARKS'] : "-" ?>
                                 </td>
                                 <td>
-                                    <?php echo isset($row['INTERNAL_AUDIT_APPROVAL_DATE']) ? $row['INTERNAL_AUDIT_APPROVAL_DATE'] : "-" ?>
+                                    <?php echo isset($row['INTERNAL_AUDIT_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['INTERNAL_AUDIT_APPROVAL_DATE'])) : "-" ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['IT_ERP_REMARKS']) ? $row['IT_ERP_REMARKS'] : "-" ?>
@@ -344,13 +351,17 @@ if (!checkPermission('lm-offboarding-report')) {
                                 </td>
 
                                 <td>
-                                    <?php echo isset($row['INTERNAL_AUDIT_APPROVAL_DATE']) ? $row['INTERNAL_AUDIT_APPROVAL_DATE'] : "-" ?>
+                                    <?php echo isset($row['INTERNAL_AUDIT_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['INTERNAL_AUDIT_APPROVAL_DATE']))
+                                        : "-" ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['INTERNAL_AUDIT_REMARKS']) ? $row['INTERNAL_AUDIT_REMARKS'] : "-" ?>
                                 </td>
                                 <td>
-                                    <?php echo isset($row['LEGAL_APPROVAL_DATE']) ? $row['LEGAL_APPROVAL_DATE'] : "-" ?>
+                                    <?php echo isset($row['LEGAL_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['LEGAL_APPROVAL_DATE']))
+                                        : "-" ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['LEGAL_REMARKS']) ? $row['LEGAL_REMARKS'] : "-" ?>
