@@ -12,10 +12,9 @@ if (!checkPermission('lm-offboarding-report')) {
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="card card-body ">
+    <!-- <div class="card card-body ">
         <form action="" method="get">
             <div class="row justify-content-center">
-                <input required name="emp_id" type='hidden' value='<?php echo $emp_session_id; ?>'>
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
                     <div class="input-group">
@@ -23,7 +22,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value="">
+                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" alue='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -33,7 +32,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value="">
+                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" alue='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -46,7 +45,7 @@ if (!checkPermission('lm-offboarding-report')) {
             </div>
 
         </form>
-    </div>
+    </div> -->
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -109,7 +108,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <th scope="col">Internal Audit REMARKS </th>
                             <th scope="col">Legal DEPARTMENT DATE </th>
                             <th scope="col">Legal DEPARTMENT REMARKS </th>
-                            <th scope="col">Age</th>
+                            <th scope="col">Age as on today</th>
                             <th scope="col">Status</th>
                         </tr>
                     </thead>
@@ -119,7 +118,7 @@ if (!checkPermission('lm-offboarding-report')) {
 
 
                         $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-                        $quary = "WITH
+                        $query = "WITH
                                     CTE_EMP_CLEARENCE AS (
                                         SELECT
                                             A.ID AS EMP_CLEARENCE_ID,
@@ -268,10 +267,17 @@ if (!checkPermission('lm-offboarding-report')) {
                                         CTE_EMP_CLEARENCE
                                         JOIN DEVELOPERS.RML_HR_APPS_USER B ON CTE_EMP_CLEARENCE.RML_HR_APPS_USER_ID = B.ID
                                         LEFT JOIN DEVELOPERS.EMP_CLEARENCE_DTLS D ON CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID = D.EMP_CLEARENCE_ID
-                                        LEFT JOIN DEVELOPERS.RML_HR_DEPARTMENT H ON D.DEPARTMENT_ID = H.ID
-                                        --where CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID = 605
-                                    
-                                    GROUP BY
+                                        LEFT JOIN DEVELOPERS.RML_HR_DEPARTMENT H ON D.DEPARTMENT_ID = H.ID";
+
+                        if (isset($_GET["start_date"]) && isset($_GET["start_date"])) {
+
+                            $leave_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                            $leave_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                            // $query .=  "AND (TO_DATE(CTE_EMP_CLEARENCE.CREATED_DATE, 'MM/DD/YYYY') BETWEEN TO_DATE('$leave_start_date', 'DD/MM/YYYY') AND TO_DATE('$leave_end_date', 'DD/MM/YYYY'))";
+                            //$query .=  " AND(TO_DATE(CTE_EMP_CLEARENCE.CREATED_DATE, 'MM/DD/YYYY HH:MI:SS AM') BETWEEN TO_DATE('01/02/2024', 'DD/MM/YYYY') AND TO_DATE('05/02/2024', 'DD/MM/YYYY'))";
+                        }
+
+                        $query .= " GROUP BY
                                         CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID,
                                         B.EMP_NAME,
                                         B.RML_ID,
@@ -280,9 +286,11 @@ if (!checkPermission('lm-offboarding-report')) {
                                         B.DESIGNATION,
                                         CTE_EMP_CLEARENCE.APPROVAL_STATUS,
                                         CTE_EMP_CLEARENCE.CREATED_DATE";
+
+                        // echo $query;
                         $allDataSQL  = oci_parse(
                             $objConnect,
-                            $quary
+                            $query
                         );
 
                         oci_execute($allDataSQL);
@@ -312,7 +320,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                 <td> <?= $row['EMP_NAME']; ?></td>
                                 <td> <?= $row['DEPT_NAME']; ?></td>
                                 <td> <?= $row['DESIGNATION']; ?></td>
-                                <td > <?= date('d/m/Y', strtotime($row['CREATED_DATE'])) ?></td>
+                                <td> <?= date('d/m/Y', strtotime($row['CREATED_DATE'])) ?></td>
 
                                 <td>
                                     <?php echo isset($row['ADMINISTRATION_APPROVAL_DATE']) ?

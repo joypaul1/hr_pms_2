@@ -9,7 +9,7 @@ if (!checkPermission('concern-offboarding-report')) {
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
-echo $emp_session_id ;
+
 
 ?>
 
