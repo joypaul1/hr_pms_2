@@ -12,7 +12,7 @@ if (!checkPermission('lm-offboarding-report')) {
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <!-- <div class="card card-body ">
+    <div class="card card-body ">
         <form action="" method="get">
             <div class="row justify-content-center">
                 <div class="col-sm-3">
@@ -22,7 +22,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" alue='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+                        <input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value='<?php echo isset($_GET['start_date']) ? $_GET['start_date'] : date('Y-m-01'); ?>'>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -32,7 +32,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" alue='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
+                        <input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value='<?php echo isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d'); ?>'>
                     </div>
                 </div>
 
@@ -45,7 +45,7 @@ if (!checkPermission('lm-offboarding-report')) {
             </div>
 
         </form>
-    </div> -->
+    </div>
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -130,7 +130,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                     )
                                     SELECT
                                         CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID,
-                                        TO_CHAR (CTE_EMP_CLEARENCE.CREATED_DATE, 'DD-MM-YYYY') AS CREATED_DATE,
+                                        TO_DATE (CTE_EMP_CLEARENCE.CREATED_DATE, 'DD/MM/YYYY') AS CREATED_DATE,
                                         B.EMP_NAME,
                                         B.RML_ID,
                                         B.R_CONCERN,
@@ -150,7 +150,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS FINANCE_ACCOUNTS_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -169,7 +169,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS INTERNAL_AUDIT_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -189,7 +189,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS IT_ERP_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -209,7 +209,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS LEGAL_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -229,7 +229,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS ADMINISTRATION_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -249,7 +249,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         ) AS HUMAN_RESOURCES_REMARKS,
                                         (
                                             SELECT
-                                                TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                                TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                             FROM
                                                 DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                             WHERE
@@ -257,7 +257,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                                 AND ECD.DEPARTMENT_ID = 141
                                         ) AS HUMAN_RESOURCES_APPROVAL_DATE,
                                         -- Human Resources
-                                        (SELECT TO_CHAR (ECD.APPROVE_DATE, 'DD-MM-YYYY')
+                                        (SELECT TO_DATE (ECD.APPROVE_DATE, 'DD/MM/YYYY')
                                                 FROM DEVELOPERS.EMP_CLEARENCE_DTLS ECD
                                                 WHERE ECD.EMP_CLEARENCE_ID = CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID
                                             ORDER BY ECD.APPROVE_DATE DESC
@@ -273,8 +273,11 @@ if (!checkPermission('lm-offboarding-report')) {
 
                             $leave_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
                             $leave_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
-                            // $query .=  "AND (TO_DATE(CTE_EMP_CLEARENCE.CREATED_DATE, 'MM/DD/YYYY') BETWEEN TO_DATE('$leave_start_date', 'DD/MM/YYYY') AND TO_DATE('$leave_end_date', 'DD/MM/YYYY'))";
-                            //$query .=  " AND(TO_DATE(CTE_EMP_CLEARENCE.CREATED_DATE, 'MM/DD/YYYY HH:MI:SS AM') BETWEEN TO_DATE('01/02/2024', 'DD/MM/YYYY') AND TO_DATE('05/02/2024', 'DD/MM/YYYY'))";
+                            $query .=  " WHERE trunc(CTE_EMP_CLEARENCE.CREATED_DATE) between TO_DATE('$leave_start_date', 'DD/MM/YYYY') and TO_DATE('$leave_end_date', 'DD/MM/YYYY')";
+                        } else {
+                            $leave_start_date = date("01/m/Y");
+                            $leave_end_date = date("d/m/Y");
+                            $query .=  " WHERE trunc(CTE_EMP_CLEARENCE.CREATED_DATE) between TO_DATE('$leave_start_date', 'DD/MM/YYYY') and TO_DATE('$leave_end_date', 'DD/MM/YYYY')";
                         }
 
                         $query .= " GROUP BY
@@ -297,7 +300,6 @@ if (!checkPermission('lm-offboarding-report')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($allDataSQL)) {
                             $number++;
-                            // print_r($row);
                             $startDate = date('Y-m-d', strtotime($row['CREATED_DATE']));
                             $days = 0;
                             if ($row['APPROVAL_STATUS'] == '1') {
@@ -328,8 +330,8 @@ if (!checkPermission('lm-offboarding-report')) {
 
                                 </td>
                                 <td>
-                                    <?php echo isset($row['Administration_Remarks']) ?
-                                        $row['Administration_Remarks'] : "-"  ?>
+                                    <?php echo isset($row['ADMINISTRATION_REMARKS']) ?
+                                        $row['ADMINISTRATION_REMARKS'] : "-"  ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['FINANCE_ACCOUNTS_APPROVAL_DATE']) ?
@@ -379,11 +381,11 @@ if (!checkPermission('lm-offboarding-report')) {
                                 <td><?= $days ?></td>
                                 <td><?php
                                     if ($row['APPROVAL_STATUS'] == '1') {
-                                        echo 'Approved';
+                                        echo "<span class='badge rounded-pill bg-primary'> Approved </span>";
                                     } else if ($row['APPROVAL_STATUS'] == '0') {
-                                        echo 'Denied';
+                                        echo "<span class='badge rounded-pill bg-danger'> Denied </span>";
                                     } else if ($row['APPROVAL_STATUS'] == '') {
-                                        echo 'Pending';
+                                        echo "<span class='badge rounded-pill bg-warning text-white'> Pending </span>";
                                     }
                                     ?>
 
