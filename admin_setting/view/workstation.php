@@ -3,14 +3,13 @@ require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('user-transfer')) {
+if (!checkPermission('concern-work-station')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 ?>
 
 
 <!-- / Content -->
-
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body">
