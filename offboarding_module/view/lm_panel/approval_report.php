@@ -16,7 +16,7 @@ if (!checkPermission('lm-offboarding-report')) {
         <form action="" method="get">
             <div class="row justify-content-center">
                 <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Select Start Date*</label>
+                    <label class="form-label" for="basic-default-fullname">Created Start Date *</label>
                     <div class="input-group">
                         <div class="input-group-addon">
                             <i class="fa fa-calendar">

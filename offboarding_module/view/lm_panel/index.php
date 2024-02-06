@@ -235,8 +235,6 @@ if (!checkPermission('lm-offboarding-report')) {
                             <?php
                             }
                         } else {
-
-
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
@@ -253,15 +251,13 @@ if (!checkPermission('lm-offboarding-report')) {
 										   A.CREATED_DATE,
 										   A.CREATED_BY
 									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-									  WHERE A.RML_HR_APPS_USER_ID=B.ID"
+									  WHERE A.RML_HR_APPS_USER_ID=B.ID AND ROWNUM <=10"
                             );
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-                                //print_r ($row);
-                                //die();
                             ?>
                                 <tr class="text-center">
                                     <td>
