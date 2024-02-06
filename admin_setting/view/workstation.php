@@ -3,7 +3,7 @@ require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('concern-work-station')) {
+if (!checkPermission('user-transfer')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 ?>
@@ -19,7 +19,7 @@ if (!checkPermission('concern-work-station')) {
         <div class="row justify-content-center">
             <div class="col-sm-4">
                 <div class="form-group">
-                    <input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                    <input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                 </div>
             </div>
 
@@ -75,54 +75,54 @@ if (!checkPermission('concern-work-station')) {
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <label for="title">Name</label>
-                                            <input type="text" class="form-control cust-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="title">RML-ID</label>
-                                            <input type="text" class="form-control cust-control" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row mt-2">
                                         <div class="col-sm-6">
                                             <label for="title">Department</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['DEPT_NAME']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['DEPT_NAME']; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="title">Designation</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['DESIGNATION']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['DESIGNATION']; ?>" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row mt-2">
                                         <div class="col-sm-6">
                                             <label for="title">Branch</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['BRANCH_NAME']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['BRANCH_NAME']; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="title">User Created</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly>
                                         </div>
                                     </div>
 
                                     <div class="row mt-2">
                                         <div class="col-sm-6">
                                             <label for="title">Concern</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['R_CONCERN']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['R_CONCERN']; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="title">EMP Grpup</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['EMP_GROUP']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['EMP_GROUP']; ?>" readonly>
                                         </div>
                                     </div>
                                     <div class="row mt-2">
                                         <div class="col-sm-6">
                                             <label for="title">Line Manager-1</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['LINE_MANAGER_1']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['LINE_MANAGER_1']; ?>" readonly>
                                         </div>
                                         <div class="col-sm-6">
                                             <label for="title">Line Manager-2</label>
-                                            <input type="text" class="form-control cust-control" value="<?php echo $row['LINE_MANAGER_2']; ?>" readonly >
+                                            <input type="text" class="form-control cust-control" value="<?php echo $row['LINE_MANAGER_2']; ?>" readonly>
                                         </div>
                                     </div>
 
@@ -137,7 +137,7 @@ if (!checkPermission('concern-work-station')) {
                                                     <i class="fa fa-calendar">
                                                     </i>
                                                 </div>
-                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='form_effect_date' value='<?php echo isset($_POST['form_effect_date']) ? $_POST['form_effect_date'] : ''; ?>' >
+                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='form_effect_date' value='<?php echo isset($_POST['form_effect_date']) ? $_POST['form_effect_date'] : ''; ?>'>
                                             </div>
                                         </div>
                                     </div>
@@ -148,7 +148,7 @@ if (!checkPermission('concern-work-station')) {
                                                 <div class="input-group-addon">
                                                     <i class="fa fa-calendar"></i>
                                                 </div>
-                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
@@ -158,7 +158,7 @@ if (!checkPermission('concern-work-station')) {
                                                     <i class="fa fa-calendar">
                                                     </i>
                                                 </div>
-                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+                                                <input required="" form="Form2" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                                             </div>
                                         </div>
                                     </div>
@@ -166,13 +166,13 @@ if (!checkPermission('concern-work-station')) {
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="title">Responsible-1 ID:</label>
-                                                <input name="ref_id_1" form="Form2" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>' >
+                                                <input name="ref_id_1" form="Form2" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>'>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="title">Responsible-2 ID:</label>
-                                                <input name="ref_id_2" form="Form2" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>' >
+                                                <input name="ref_id_2" form="Form2" class="form-control cust-control" type='text' value='<?php echo isset($_POST['ref_code']) ? $_POST['ref_code'] : ''; ?>'>
                                             </div>
                                         </div>
                                     </div>
@@ -286,7 +286,7 @@ if (!checkPermission('concern-work-station')) {
                                 $v_end_date         = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
 
-                                if ($transfer_effect_date == date("d/m/Y")) {
+                                if ($v_form_effect_date == date("d/m/Y")) {
                                     $strSQL  = oci_parse($objConnect, "INSERT INTO RML_HR_EMP_TRANSFER (
 																  RML_ID, 
 																  RML_HR_BRANCH_ID, 
@@ -345,7 +345,7 @@ if (!checkPermission('concern-work-station')) {
                                 }
 
                                 if (@oci_execute(@$strSQL)) {
-                                    if ($transfer_effect_date == date("d/m/Y")) {
+                                    if ($v_form_effect_date == date("d/m/Y")) {
                                         $autoSQL  = oci_parse($objConnect, "update RML_HR_APPS_USER set 
 												LINE_MANAGER_RML_ID='$v_ref_id_1',
 												DEPT_HEAD_RML_ID='$v_ref_id_2',
@@ -354,7 +354,7 @@ if (!checkPermission('concern-work-station')) {
 												BRANCH_NAME=(SELECT BRANCH_NAME FROM RML_HR_BRANCH WHERE ID='$v_emp_branch_id' AND IS_ACTIVE=1),
 												LAT=(SELECT LATITUDE FROM RML_HR_BRANCH WHERE ID='$v_emp_branch_id' AND IS_ACTIVE=1),
 												LANG=(SELECT LONGITUDE FROM RML_HR_BRANCH WHERE ID='$v_emp_branch_id' AND IS_ACTIVE=1)
-											where RML_ID='$form_rml_id'");
+											where RML_ID='$v_emp_id'");
                                         oci_execute($autoSQL);
                                     }
                                     echo "Transfer entry created successfully.";
