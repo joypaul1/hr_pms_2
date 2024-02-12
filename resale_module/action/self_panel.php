@@ -50,8 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
-    }
-    else {
+    } else {
         $e                        = @oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -64,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_2') {
 
 
-    $valid_formats = array( "jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP" );
+    $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
 
     $editId = $_POST['editId'];
 
@@ -80,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
             $fileType    = $image["type"][$key];
             $fileError   = $image["error"][$key];
             //Check if the file is an actual image
-            $validExtensions = array( "jpg", "jpeg", "png", "gif" );
+            $validExtensions = array("jpg", "jpeg", "png", "gif");
             $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
             if (!in_array($fileExtension, $validExtensions)) {
@@ -112,8 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                 if (@oci_execute($insertSQL)) {
                     @oci_free_statement($insertSQL);
                     // @oci_close($objConnect);
-                }
-                else {
+                } else {
                     $e                        = @oci_error($insertSQL);
                     $message                  = [
                         'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -122,20 +120,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                     $_SESSION['noti_message'] = $message;
                     echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
                 }
-
-
-            }
-            else {
+            } else {
                 $imageStatus             = "Something went wrong file uploading!";
                 $_SESSION['imageStatus'] = $imageStatus;
                 echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
                 exit();
             }
-
         }
-
-    }
-    else if ($_POST['new_image_or_old_image'] == '0') {
+    } else if ($_POST['new_image_or_old_image'] == '0') {
 
         foreach (($_FILES['old_img_detials']) as $key => $old_img_value) {
             foreach ($old_img_value as $pr_d_id => $value) {
@@ -149,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                     $fileType    = $image["type"][$pr_d_id];
                     $fileError   = $image["error"][$pr_d_id];
 
-                    $validExtensions = array( "jpg", "jpeg", "png", "gif" );
+                    $validExtensions = array("jpg", "jpeg", "png", "gif");
                     $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
                     if (!in_array($fileExtension, $validExtensions)) {
@@ -180,8 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                         if (@oci_execute($updateSQL)) {
                             @oci_free_statement($updateSQL);
                             // @oci_close($objConnect);
-                        }
-                        else {
+                        } else {
                             $e                        = @oci_error($updateSQL);
                             $message                  = [
                                 'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -190,10 +181,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                             $_SESSION['noti_message'] = $message;
                             echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
                         }
-
-
-                    }
-                    else {
+                    } else {
 
                         $imageStatus             = "Something went wrong file uploading! old image deatils update:'$fileName','$pr_d_id'";
                         $_SESSION['imageStatus'] = $imageStatus;
@@ -201,10 +189,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                         exit();
                     }
                 }
-
             }
         }
-
     }
 
 
@@ -217,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         $fileType    = $image["type"];
         $fileError   = $image["error"];
         //Check if the file is an actual image
-        $validExtensions = array( "jpg", "jpeg", "png", "gif" );
+        $validExtensions = array("jpg", "jpeg", "png", "gif");
         $fileExtension   = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
         if (!in_array($fileExtension, $validExtensions)) {
@@ -248,8 +234,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
             $updatePicSQL = oci_parse($objConnect, $picurlSQL);
             if (@oci_execute($updatePicSQL)) {
                 @oci_free_statement($updatePicSQL);
-            }
-            else {
+            } else {
                 $e                        = @oci_error($updatePicSQL);
                 $message                  = [
                     'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -258,15 +243,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                 $_SESSION['noti_message'] = $message;
                 echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
             }
-
-        }
-        else {
+        } else {
             $imageStatus             = "Something went wrong file uploading!";
             $_SESSION['imageStatus'] = $imageStatus;
             echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
             exit();
         }
-
     }
     $message                  = [
         'text'   => 'Data Saved successfully.',
@@ -274,7 +256,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
     ];
     $_SESSION['noti_message'] = $message;
     echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
-
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_edit_3') {
 
@@ -302,8 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
-    }
-    else {
+    } else {
         $e                        = @oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -340,8 +320,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '{$basePath}/resale_module/view/self_panel/edit.php?id={$editId}&actionType=edit'</script>";
-    }
-    else {
+    } else {
         $e                        = @oci_error($strSQL);
         $message                  = [
             'text'   => htmlentities($e['message'], ENT_QUOTES),
@@ -369,46 +348,45 @@ if (($_GET["actionType"]) == 'started_work') {
             'message' => 'Data Saved succesfully!'
         ];
         print_r(json_encode($response));
-    }
-    else {
+    } else {
         $e        = @oci_error($strSQL);
         $response = [
             'status'  => true,
             'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
         print_r(json_encode($response));
-
     }
 }
-if (($_GET["actionType"]) == 'invoiceConfirm') {
+if (($_GET["actionType"]) == 'bidLookedConfirm') {
 
     $bidID     = $_GET["bid_id"];
     $productID = $_GET["product_id"];
     $status    = $_GET["status"];
-    // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET INVOICE_STATUS = '$status'
+    // Prepare the SQL statementm
+    $strSQL = @oci_parse($objConnect, "UPDATE PRODUCT SET BOOKED_STATUS = '$status'
     WHERE ID= $productID");
+    $strSQL2 = @oci_parse($objConnect, "UPDATE PRODUCT_BID SET BOOKED_STATUS = '$status',
+    BOOKED_BY = '$emp_session_id', BOOKED_DATE = SYSDATE WHERE ID= $bidID");
+
 
     // Execute the query
-    if (@oci_execute($strSQL)) {
+    if (@oci_execute($strSQL) &&  @oci_execute($strSQL2)) {
 
         $response = [
             'status'  => true,
-            'message' => 'Invoice Status Updated Succesfully!'
+            'message' => 'Bid Locked Updated Succesfully!'
         ];
         print_r(json_encode($response));
-    }
-    else {
+    } else {
         $e        = @oci_error($strSQL);
         $response = [
             'status'  => true,
             'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
         print_r(json_encode($response));
-
     }
 }
-if (($_GET["actionType"]) == 'bidConfirm') {
+if (($_GET["actionType"]) == 'invoiceConfirm') {
 
     $bidID     = $_GET["bid_id"];
     $productID = $_GET["product_id"];
@@ -426,15 +404,13 @@ if (($_GET["actionType"]) == 'bidConfirm') {
             'message' => 'Data Saved succesfully!'
         ];
         print_r(json_encode($response));
-    }
-    else {
+    } else {
         $e        = @oci_error($strSQL);
         $response = [
             'status'  => true,
             'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
         print_r(json_encode($response));
-
     }
 }
 
@@ -446,47 +422,12 @@ function pathExitOrCreate($folderPath)
         mkdir($folderPath, 0777, true);
     }
 }
-function getExtension($str)
-{
-    $i = strrpos($str, ".");
-    if (!$i) {
-        return "";
-    }
-    $l   = strlen($str) - $i;
-    $ext = substr($str, $i + 1, $l);
-    return $ext;
-}
 
-function compressImage($ext, $uploadedfile, $path, $actual_image_name, $newwidth)
-{
-    if ($ext == "jpg" || $ext == "jpeg") {
-        $src = imagecreatefromjpeg($uploadedfile);
-    }
-    else if ($ext == "png") {
-        $src = imagecreatefrompng($uploadedfile);
-    }
-    else if ($ext == "gif") {
-        $src = imagecreatefromgif($uploadedfile);
-    }
-    else {
-        $src = imagecreatefrombmp($uploadedfile);
-    }
-    list( $width, $height ) = getimagesize($uploadedfile);
-    $newheight              = ($height / $width) * $newwidth;
-    $tmp                    = imagecreatetruecolor($newwidth, $newheight);
-    imagecopyresampled($tmp, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
-    $filename = $path . $newwidth . '_' . $actual_image_name; //PixelSize_TimeStamp.jpg
-    imagejpeg($tmp, $filename, 100);
-    imagedestroy($tmp);
-    return str_replace('../', '', $filename);
-}
 
 function random_strings($length_of_string)
 {
-
     // String of all alphanumeric character
     $str_result = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
     // Shuffle the $str_result and returns substring
     // of specified length
     return substr(

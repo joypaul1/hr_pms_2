@@ -36,33 +36,20 @@ if (!checkPermission('resale-report-panel')) {
                         <?php
                         $productID = $_GET['id'];
 
-                        // $productSQL = oci_parse($objConnect, "SELECT
-                        //     BB.USER_NAME,BB.USER_MOBILE,BB.ADDRESS,AA.ID as BID_ID,
-                        //     AA.USER_ID,AA.PRODUCT_ID,AA.BOOKED_STATUS,AA.BID_AMOUNT,AA.ENTRY_DATE,
-                        //     AA.BID_PRICE_TYPE,AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID
-                        //  FROM 
-                        //     ( A.ID,A.USER_ID,A.PRODUCT_ID,A.BOOKED_STATUS,A.BID_AMOUNT,A.ENTRY_DATE,
-                        //     A.BID_PRICE_TYPE,A.REFERENCE_TYPE, A.RESALE_TEAM_ID
-                        //     FROM PRODUCT_BID A
-                        //     WHERE PRODUCT_ID=$productID
-                        //     ORDER BY BID_AMOUNT DESC ) AA,USER_PROFILE BB
-                        //     WHERE AA.USER_ID=BB.ID");
                         $productSQL = oci_parse($objConnect, "SELECT 
                                         BB.USER_NAME, BB.USER_MOBILE, BB.ADDRESS, AA.ID as BID_ID, AA.USER_ID, 
                                         AA.PRODUCT_ID, AA.BOOKED_STATUS, AA.BID_AMOUNT, AA.ENTRY_DATE, 
-                                        AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID, AA.INVOICE_STATUS
+                                        AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID, AA.INVOICE_STATUS,
+                                        AA.BOOKED_STATUS
                                     FROM 
                                         (SELECT 
                                             A.ID, A.USER_ID, A.PRODUCT_ID, A.BOOKED_STATUS, A.BID_AMOUNT, 
                                             A.ENTRY_DATE, A.BID_PRICE_TYPE, A.REFERENCE_TYPE, A.RESALE_TEAM_ID,
                                             P.INVOICE_STATUS
-                                        FROM 
-                                            PRODUCT_BID A
+                                        FROM  PRODUCT_BID A
                                         JOIN PRODUCT P ON A.PRODUCT_ID = P.ID 
-                                        WHERE 
-                                            A.PRODUCT_ID = $productID
-                                        ORDER BY 
-                                            A.BID_AMOUNT DESC) AA
+                                        WHERE  A.PRODUCT_ID = $productID
+                                        ORDER BY  A.BID_AMOUNT DESC) AA
                                             
                                     JOIN  USER_PROFILE BB ON AA.USER_ID = BB.ID");
 
@@ -70,8 +57,9 @@ if (!checkPermission('resale-report-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
+                                <input type="hidden" id="INVOICE_STATUS" value="<?php echo $row['INVOICE_STATUS'] ?>">
                                 <input type="hidden" id="INVOICE_STATUS" value="<?php echo $row['INVOICE_STATUS'] ?>">
                                 <td>
                                     <strong>
@@ -81,7 +69,7 @@ if (!checkPermission('resale-report-panel')) {
                                     </strong>
                                 </td>
                                 <td>
-                                    <strong>CUSTOMER NAME :</strong>
+                                    <strong> CUSTOMER NAME :</strong>
                                     <?php echo ($row['USER_NAME']); ?> </br>
                                     <strong>MOBILE NO :</strong>
 
@@ -117,16 +105,11 @@ if (!checkPermission('resale-report-panel')) {
                                             data-href="' . ($basePath . '/resale_module/action/self_panel.php?  actionType=invoiceConfirm') . '"
                                             type="button" class="btn btn-sm btn-warning float-right     invocie_looked"> Customer Confirm <i class="bx bx-question-mark"></i> </button>';
                                         }
-                                        else {
-                                            echo '<button  type="button" class="btn btn-sm btn-warning float-right">
-                                            <i class="bx bx-check"></i>  Customer Confirm </button>';
-                                        }
-
-                                    }
-                                    else {
+                                    } else {
                                         echo '<button data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '"  data-status="Y"
-                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=invoiceConfirm') . '"
-                                        type="button" class="btn btn-sm btn-danger float-right bid_looked"><i class="bx bx-question-mark"></i> </button>';
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidLookedConfirm') . '"
+                                        type="button" class="btn btn-sm btn-danger float-right bid_looked iflookdedbid">
+                                        Bid Looked <i class="bx bx-question-mark"></i> </button>';
                                     }
                                     ?>
 
@@ -135,7 +118,7 @@ if (!checkPermission('resale-report-panel')) {
 
 
                             </tr>
-                            <?php
+                        <?php
                         }
 
                         ?>
@@ -159,14 +142,14 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var $INVOICE_STATUS = $('#INVOICE_STATUS').val();
         if ($INVOICE_STATUS == 'Y') {
             $("button").attr("disabled", "disabled");;
         }
     });
 
-    $(document).on('click', '.bid_looked', function () {
+    $(document).on('click', '.bid_looked', function() {
         var bid_id = $(this).data('bid-id');
         var status = $(this).data('status');
         var product_id = $(this).data('product-id');
@@ -189,19 +172,19 @@ if (!checkPermission('resale-report-panel')) {
                     });
 
                     $.ajax({
-                        url: url,
-                        type: 'GET',
-                        data: {
-                            product_id: product_id,
-                            bid_id: bid_id,
-                            status: status,
-                        },
-                        dataType: 'json'
-                    })
-                        .done(function (res) {
+                            url: url,
+                            type: 'GET',
+                            data: {
+                                product_id: product_id,
+                                bid_id: bid_id,
+                                status: status,
+                            },
+                            dataType: 'json'
+                        })
+                        .done(function(res) {
                             if (res.status) {
                                 swal.fire('Bid Looked!', res.message, res.status);
-                                setInterval(function () {
+                                setInterval(function() {
                                     location.reload();
                                 }, 1000);
 
@@ -210,7 +193,7 @@ if (!checkPermission('resale-report-panel')) {
 
                             }
                         })
-                        .fail(function () {
+                        .fail(function() {
                             swal.fire('Oops...', 'Something went wrong!', 'error');
                         });
 
@@ -235,19 +218,19 @@ if (!checkPermission('resale-report-panel')) {
                     });
 
                     $.ajax({
-                        url: url,
-                        type: 'GET',
-                        data: {
-                            product_id: product_id,
-                            bid_id: bid_id,
-                            status: status,
-                        },
-                        dataType: 'json'
-                    })
-                        .done(function (res) {
+                            url: url,
+                            type: 'GET',
+                            data: {
+                                product_id: product_id,
+                                bid_id: bid_id,
+                                status: status,
+                            },
+                            dataType: 'json'
+                        })
+                        .done(function(res) {
                             if (res.status) {
                                 swal.fire('Bid UnLooked!', res.message, res.status);
-                                setInterval(function () {
+                                setInterval(function() {
                                     location.reload();
                                 }, 1000);
 
@@ -256,7 +239,7 @@ if (!checkPermission('resale-report-panel')) {
 
                             }
                         })
-                        .fail(function () {
+                        .fail(function() {
                             swal.fire('Oops...', 'Something went wrong!', 'error');
                         });
 
@@ -268,7 +251,7 @@ if (!checkPermission('resale-report-panel')) {
 
     });
 
-    $(document).on('click', '.invocie_looked', function () {
+    $(document).on('click', '.invocie_looked', function() {
         var bid_id = $(this).data('bid-id');
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
@@ -289,19 +272,19 @@ if (!checkPermission('resale-report-panel')) {
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        product_id: product_id,
-                        bid_id: bid_id,
-                        status: status,
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (res) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id,
+                            bid_id: bid_id,
+                            status: status,
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
                         if (res.status) {
                             swal.fire('Customer Confirm!', res.message, res.status);
-                            setInterval(function () {
+                            setInterval(function() {
                                 location.reload();
                             }, 1000);
 
@@ -310,7 +293,7 @@ if (!checkPermission('resale-report-panel')) {
 
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 
