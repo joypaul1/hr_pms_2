@@ -22,13 +22,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, "
-        UPDATE PRODUCT SET 
+        UPDATE PRODUCT SET
             CREDIT_PRICE    = :credit_price,
             CASH_PRICE      = :cash_price,
             BODY_SIT        = :body_sit,
             COLOR           = :color,
             REG_PAPER       = :reg_paper,
-            FUEL_TYPE       = :fuel_type            
+            FUEL_TYPE       = :fuel_type
             WHERE ID        = :edit_id
     ");
 

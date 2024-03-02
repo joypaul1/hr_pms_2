@@ -106,7 +106,7 @@ if (!checkPermission('resale-report-panel')) {
                                     <?php
                                     if ($row['BOOKED_STATUS'] == 'Y') {
                                         echo '<button style="margin-bottom:2%" data-bid-id="' . $row['BID_ID'] . '" data-product-id="' . $productID . '" data-status="N"
-                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidConfirm') . '"
+                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=bidLookedConfirm') . '"
                                         type="button" class="btn btn-sm btn-info float-right bid_looked"><i class="bx bx-check"></i> Bid Looked </button> </br>';
 
                                         if ($row['INVOICE_STATUS'] != 'Y') {
