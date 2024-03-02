@@ -15,36 +15,17 @@ if (!checkPermission('resale-report-panel')) {
     <div class="card card-body ">
         <form method="GET">
             <div class="row justify-content-center">
-                <!-- <div class="col-sm-3">
+                <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No. </label>
 
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs" value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
+                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Model No. </label>
 
                     <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
                         value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
-                </div> -->
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" value="<?php echo date('Y-m-d'); ?>" class="form-control" type="date" name="start_date">
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <input required="" value="<?php echo date('Y-m-d'); ?>" class="form-control" type="date" name="end_date">
-                    </div>
                 </div>
 
 
@@ -92,26 +73,26 @@ if (!checkPermission('resale-report-panel')) {
                     <tbody>
 
                         <?php
-                        $model      = isset($_REQUEST['model']) ? $_GET['model'] : null;
-                        $chsNo      = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
-                        // $start_date = date('Y-m-d H:i:s')
-                        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
-                        $end_date   = isset($_GET['end_date']) ? $_GET['end_date'] : null;
-                        // echo  $model;
 
+                        // $model = isset($_GET['model']) ? '%' . $_GET['model'] . '%' : null;
+                        $model = isset($_REQUEST['model']) ? $_GET['model'] : null;
+                        $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
+                        // echo  $model;
+                        
 
                         if ($chsNo || $model) {
                             if (empty($model)) {
                                 $model = 'NULL';
+
                             }
                             //  echo  $model;
                             if (empty($chsNo)) {
                                 $chsNo = 'NULL';
                                 // echo  $model;
                             }
-
-
-                            $productSQL = oci_parse($objConnect, "SELECT
+                            
+                            
+                            $productSQL = oci_parse($objConnect, "SELECT 
                             BB.ID,
                             BB.CATEGORY,
                             BB.MODEL,
@@ -120,6 +101,7 @@ if (!checkPermission('resale-report-panel')) {
                             BB.ENG_NO,
                             BB.REG_NO,
                             BB.BOOK_VALUE,
+                            -- BB.DISPLAY_PRICE,
                             BB.CREDIT_PRICE,
                             BB.CASH_PRICE,
                             BB.GRADE,
@@ -128,16 +110,20 @@ if (!checkPermission('resale-report-panel')) {
                             BB.AUCTTION_START_DATE,
                             BB.AUCTION_END_DATE,
                             (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                            FROM
+                            FROM 
                                 (SELECT A.PRODUCT_ID,
-                                COUNT(PRODUCT_ID) TOTAL_BID,
-                                MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
+                                       COUNT(PRODUCT_ID) TOTAL_BID,
+                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
                                 FROM PRODUCT_BID A,PRODUCT B
                                 WHERE A.PRODUCT_ID=B.ID
                                 GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
                             WHERE AA.PRODUCT_ID=BB.ID AND (('$model' IS NULL OR BB.MODEL LIKE '%$model%') OR
                              ('$chsNo' IS NULL OR BB.CHS_NO = '$chsNo'))");
-                        } else {
+
+
+
+                        }
+                        else {
                             $productSQL = oci_parse($objConnect, "SELECT 
                             BB.ID,
                             BB.CATEGORY,
@@ -173,10 +159,10 @@ if (!checkPermission('resale-report-panel')) {
                             $number++;
                             // print_r($row['BID_REMAINDER'] );
                             // die();
-                        ?>
+                            ?>
                             <tr>
                                 <td>
-                                    <strong>
+                                     <strong>
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
@@ -225,8 +211,10 @@ if (!checkPermission('resale-report-panel')) {
                                     if ($row['BID_REMAINDER'] > 0) {
                                         echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>";
                                         echo "<strong>Remian Days : " . $row['BID_REMAINDER'] . "</strong>";
-                                    } else {
+                                    }
+                                    else {
                                         echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
+
                                     }
                                     ?>
                                 </td>
@@ -241,7 +229,7 @@ if (!checkPermission('resale-report-panel')) {
 
 
                             </tr>
-                        <?php
+                            <?php
                         }
 
                         ?>

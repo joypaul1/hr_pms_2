@@ -112,6 +112,15 @@ function isActive($url)
                                             </div>
                                         </a>
                                     </li>
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidSummary.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidSummary.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                Bid Summary
+                                            </div>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 
