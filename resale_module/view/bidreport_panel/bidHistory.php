@@ -13,44 +13,53 @@ if (!checkPermission('resale-report-panel')) {
     <div class="card mt-2">
         <!-- table header -->
         <?php
+        $productInfoRow = [];
+        $productID = $_GET['id'];
         $leftSideName = 'Bid History List';
         include('../../../layouts/_tableHeader.php');
-
+        $productInfoSQL = oci_parse($objConnect, "SELECT A.ID, A.MODEL, A.REG_NO
+        FROM PRODUCT A WHERE A.ID =" . $productID) ;
+        oci_execute($productInfoSQL);
+        $productInfoRow = oci_fetch_assoc($productInfoSQL);
+        // print_r($productInfoRow['MODEL']);
         ?>
+        <div class="card-header text-center fw-bold">
+            MODEL     NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
+            REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
+        </div>
         <!-- End table  header -->
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered">
+                <table class="table table-bordered">
                     <thead style="background-color: #02c102;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Bidder Info</th>
-                            <th scope="col"> Bid Amount</th>
-                            <th scope="col"> BID REF.</th>
-                            <th scope="col"> ENTRY DATE</th>
-                            <th scope="col">Action </th>
+                            <th scope="col"> Bidder Info </th>
+                            <th scope="col"> Bid Amount </th>
+                            <th scope="col"> BID REF. </th>
+                            <th scope="col"> ENTRY DATE </th>
+                            <th scope="col"> Action </th>
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
-                        $productID = $_GET['id'];
 
-                        $productSQL = oci_parse($objConnect, "SELECT 
-                                        BB.USER_NAME, BB.USER_MOBILE, BB.ADDRESS, AA.ID as BID_ID, AA.USER_ID, 
-                                        AA.PRODUCT_ID, AA.BOOKED_STATUS, AA.BID_AMOUNT, AA.ENTRY_DATE, 
+
+                        $productSQL = oci_parse($objConnect, "SELECT
+                                        BB.USER_NAME, BB.USER_MOBILE, BB.ADDRESS, AA.ID as BID_ID, AA.USER_ID,
+                                        AA.PRODUCT_ID, AA.BOOKED_STATUS, AA.BID_AMOUNT, AA.ENTRY_DATE,
                                         AA.BID_PRICE_TYPE, AA.REFERENCE_TYPE, AA.RESALE_TEAM_ID, AA.INVOICE_STATUS,
                                         AA.BOOKED_STATUS
-                                    FROM 
-                                        (SELECT 
-                                            A.ID, A.USER_ID, A.PRODUCT_ID, A.BOOKED_STATUS, A.BID_AMOUNT, 
+                                    FROM
+                                        (SELECT
+                                            A.ID, A.USER_ID, A.PRODUCT_ID, A.BOOKED_STATUS, A.BID_AMOUNT,
                                             A.ENTRY_DATE, A.BID_PRICE_TYPE, A.REFERENCE_TYPE, A.RESALE_TEAM_ID,
                                             P.INVOICE_STATUS
                                         FROM  PRODUCT_BID A
-                                        JOIN PRODUCT P ON A.PRODUCT_ID = P.ID 
+                                        JOIN PRODUCT P ON A.PRODUCT_ID = P.ID
                                         WHERE  A.PRODUCT_ID = $productID
                                         ORDER BY  A.BID_AMOUNT DESC) AA
-                                            
                                     JOIN  USER_PROFILE BB ON AA.USER_ID = BB.ID");
 
                         oci_execute($productSQL);
