@@ -18,13 +18,13 @@ if (!checkPermission('resale-report-panel')) {
         $leftSideName = 'Bid History List';
         include('../../../layouts/_tableHeader.php');
         $productInfoSQL = oci_parse($objConnect, "SELECT A.ID, A.MODEL, A.REG_NO
-        FROM PRODUCT A WHERE A.ID =" . $productID) ;
+        FROM PRODUCT A WHERE A.ID =" . $productID);
         oci_execute($productInfoSQL);
         $productInfoRow = oci_fetch_assoc($productInfoSQL);
         // print_r($productInfoRow['MODEL']);
         ?>
         <div class="card-header text-center fw-bold">
-            MODEL     NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
+            MODEL NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
             REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
         </div>
         <!-- End table  header -->
@@ -73,8 +73,7 @@ if (!checkPermission('resale-report-panel')) {
                                 <td>
                                     <strong>
                                         <?php echo $number; ?>
-                                        (
-                                        <?php echo $row['BID_ID'] ?>)
+                                        ( <?php echo $row['BID_ID'] ?>)
                                     </strong>
                                 </td>
                                 <td>
@@ -83,18 +82,27 @@ if (!checkPermission('resale-report-panel')) {
                                     <strong>MOBILE NO :</strong>
 
                                     <?php echo ($row['USER_MOBILE']); ?> </br>
-                                    <strong>ADDRESS :</strong>
+                                    <strong> ADDRESS :</strong>
                                     <?php echo ($row['ADDRESS']); ?>
                                 </td>
 
                                 <td class="text-right">
-                                    <?php echo number_format($row['BID_AMOUNT']) ?>
+                                    <?php echo number_format($row['BID_AMOUNT'], 2) ?>
                                     <br>
                                     BID FOR :
                                     <?php echo ($row['BID_PRICE_TYPE']) ?>
                                 </td>
                                 <td class="text-center">
-                                    <?php echo ucwords(str_replace('_', ' ', ($row['REFERENCE_TYPE']))) ?>
+                                    <?php
+                                    echo '<span class="btn btn-sm btn-info">'.ucwords(str_replace('_', ' ', ($row['REFERENCE_TYPE']))).'</span>' ;
+                                    if ($row['REFERENCE_TYPE'] == 'sale_concern') {
+                                        $resaleTeamSQL = @oci_parse($objConnect, "SELECT RML_ID,TITLE_NAME,MOBILE FROM  RESALE_TEAM WHERE ID =" . $row['RESALE_TEAM_ID']);
+                                        oci_execute($resaleTeamSQL);
+                                        $teamRow = oci_fetch_assoc($resaleTeamSQL);
+                                        echo '</br> <span>Name : ' . $teamRow["TITLE_NAME"] . ' </span> </br> ID : ' . $teamRow["RML_ID"] . '</br> Mobile : ' . $teamRow["MOBILE"];
+                                    }
+
+                                    ?>
                                 </td>
                                 <td class="text-right">
                                     <?php echo ($row['ENTRY_DATE']) ?>

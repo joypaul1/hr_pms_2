@@ -66,11 +66,11 @@ if (!checkPermission('resale-report-panel')) {
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName = 'Published Product List';
-
+        $v_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date']))  : date('d/m/Y');
+        $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('d/m/Y');
+        $leftSideName = 'BID Report List';
         include('../../../layouts/_tableHeader.php');
 
         ?>
@@ -85,33 +85,17 @@ if (!checkPermission('resale-report-panel')) {
                             <th scope="col"> Bid Info</th>
                             <th scope="col"> Bid Status</th>
                             <th scope="col">Bid History</th>
-                            <!-- <th scope="col">Action</th> -->
 
                         </tr>
                     </thead>
                     <tbody>
 
                         <?php
+                        // ENTRY_DATE
                         $model      = isset($_REQUEST['model']) ? $_GET['model'] : null;
                         $chsNo      = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
-                        // $start_date = date('Y-m-d H:i:s')
-                        $start_date = isset($_GET['start_date']) ? $_GET['start_date'] : null;
-                        $end_date   = isset($_GET['end_date']) ? $_GET['end_date'] : null;
-                        // echo  $model;
 
-
-                        if ($chsNo || $model) {
-                            if (empty($model)) {
-                                $model = 'NULL';
-                            }
-                            //  echo  $model;
-                            if (empty($chsNo)) {
-                                $chsNo = 'NULL';
-                                // echo  $model;
-                            }
-
-
-                            $productSQL = oci_parse($objConnect, "SELECT
+                        $productSQL = @oci_parse($objConnect, "SELECT
                             BB.ID,
                             BB.CATEGORY,
                             BB.MODEL,
@@ -127,45 +111,16 @@ if (!checkPermission('resale-report-panel')) {
                             AA.TOTAL_BID,
                             BB.AUCTTION_START_DATE,
                             BB.AUCTION_END_DATE,
-                            (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
+                            (BB.AUCTION_END_DATE-TRUNC(SYSDATE)) as BID_REMAINDER
                             FROM
-                                (SELECT A.PRODUCT_ID,
+                                (SELECT PB.PRODUCT_ID,
                                 COUNT(PRODUCT_ID) TOTAL_BID,
-                                MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
-                                FROM PRODUCT_BID A,PRODUCT B
-                                WHERE A.PRODUCT_ID=B.ID
-                                GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
-                            WHERE AA.PRODUCT_ID=BB.ID AND (('$model' IS NULL OR BB.MODEL LIKE '%$model%') OR
-                             ('$chsNo' IS NULL OR BB.CHS_NO = '$chsNo'))");
-                        } else {
-                            $productSQL = oci_parse($objConnect, "SELECT 
-                            BB.ID,
-                            BB.CATEGORY,
-                            BB.MODEL,
-                            BB.REF_CODE,
-                            BB.CHS_NO,
-                            BB.ENG_NO,
-                            BB.REG_NO,
-                            BB.BOOK_VALUE,
-                            -- BB.DISPLAY_PRICE,
-                            BB.CREDIT_PRICE,
-                            BB.CASH_PRICE,
-                            BB.GRADE,
-                            AA.MAX_BID_AMOUNT,
-                            AA.TOTAL_BID,
-                            BB.AUCTTION_START_DATE,
-                            BB.AUCTION_END_DATE,
-                            (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                            FROM 
-                                (SELECT A.PRODUCT_ID,
-                                       COUNT(PRODUCT_ID) TOTAL_BID,
-                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
-                                FROM PRODUCT_BID A,PRODUCT B
-                                WHERE A.PRODUCT_ID=B.ID
-                                GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
+                                MAX(PB.BID_AMOUNT) AS MAX_BID_AMOUNT
+                                FROM PRODUCT_BID PB,PRODUCT PR
+                                WHERE PB.PRODUCT_ID=PR.ID
+                                AND TRUNC (PB.ENTRY_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
+                                GROUP BY PB.PRODUCT_ID) AA,PRODUCT BB
                             WHERE AA.PRODUCT_ID=BB.ID");
-                        }
-
 
                         oci_execute($productSQL);
                         $number = 0;

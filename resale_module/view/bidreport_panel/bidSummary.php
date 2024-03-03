@@ -50,7 +50,7 @@ if (!checkPermission('resale-report-panel')) {
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName = 'Published Product List';
+        $leftSideName = ' BID Summary List';
 
         include('../../../layouts/_tableHeader.php');
 
