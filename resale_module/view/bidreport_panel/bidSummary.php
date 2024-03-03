@@ -17,17 +17,12 @@ if (!checkPermission('resale-report-panel')) {
             <div class="row justify-content-center">
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No. </label>
-
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
-                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs" value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Model No. </label>
-
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
-                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
                 </div>
-
 
                 <div class="col-sm-2">
                     <div class="form-group">
@@ -51,14 +46,16 @@ if (!checkPermission('resale-report-panel')) {
         <!-- table header -->
         <?php
         $leftSideName = ' BID Summary List';
-
         include('../../../layouts/_tableHeader.php');
 
         ?>
         <!-- End table  header -->
         <div class="card-body">
+            <div class="text-end">
+                <a class="btn btn-sm btn-info text-white" id="" onclick="exportF(this)" style="margin-bottom:2px;"> <i class='bx bx-cloud-download'></i> Export To Excel </a>
+            </div>
             <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered">
+                <table class="table  table-bordered" id="downloadData">
                     <thead style="background-color: #02c102;">
                         <tr class="text-center">
                             <th>SL</th>
@@ -78,20 +75,19 @@ if (!checkPermission('resale-report-panel')) {
                         $model = isset($_REQUEST['model']) ? $_GET['model'] : null;
                         $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
                         // echo  $model;
-                        
+
 
                         if ($chsNo || $model) {
                             if (empty($model)) {
                                 $model = 'NULL';
-
                             }
                             //  echo  $model;
                             if (empty($chsNo)) {
                                 $chsNo = 'NULL';
                                 // echo  $model;
                             }
-                            
-                            
+
+
                             $productSQL = oci_parse($objConnect, "SELECT 
                             BB.ID,
                             BB.CATEGORY,
@@ -119,11 +115,7 @@ if (!checkPermission('resale-report-panel')) {
                                 GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
                             WHERE AA.PRODUCT_ID=BB.ID AND (('$model' IS NULL OR BB.MODEL LIKE '%$model%') OR
                              ('$chsNo' IS NULL OR BB.CHS_NO = '$chsNo'))");
-
-
-
-                        }
-                        else {
+                        } else {
                             $productSQL = oci_parse($objConnect, "SELECT 
                             BB.ID,
                             BB.CATEGORY,
@@ -159,10 +151,10 @@ if (!checkPermission('resale-report-panel')) {
                             $number++;
                             // print_r($row['BID_REMAINDER'] );
                             // die();
-                            ?>
+                        ?>
                             <tr>
                                 <td>
-                                     <strong>
+                                    <strong>
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
@@ -211,10 +203,8 @@ if (!checkPermission('resale-report-panel')) {
                                     if ($row['BID_REMAINDER'] > 0) {
                                         echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>";
                                         echo "<strong>Remian Days : " . $row['BID_REMAINDER'] . "</strong>";
-                                    }
-                                    else {
+                                    } else {
                                         echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
-
                                     }
                                     ?>
                                 </td>
@@ -229,7 +219,7 @@ if (!checkPermission('resale-report-panel')) {
 
 
                             </tr>
-                            <?php
+                        <?php
                         }
 
                         ?>
@@ -253,6 +243,15 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
+    function exportF(elem) {
+        var table = document.getElementById("downloadData");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "bid_summary.xls"); // Choose the file name
+        return false;
+    }
+
     // Function to print QR code image
     function printQRCode(modalId, chassis) {
         var printWindow = window.open('', '_blank');

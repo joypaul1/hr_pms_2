@@ -195,7 +195,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                             WHERE
                                                 ECD.EMP_CLEARENCE_ID = CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID
                                                 AND ECD.DEPARTMENT_ID = 15
-                                        ) AS INTERNAL_AUDIT_APPROVAL_DATE,
+                                        ) AS IT_ERP_APPROVAL_DATE,
                                         -- IT_ERP_Audit
                                         -- Legal
                                         (
@@ -352,8 +352,8 @@ if (!checkPermission('lm-offboarding-report')) {
                                         $row['HUMAN_RESOURCES_REMARKS'] : "-" ?>
                                 </td>
                                 <td>
-                                    <?php echo isset($row['INTERNAL_AUDIT_APPROVAL_DATE']) ?
-                                        date('d/m/Y', strtotime($row['INTERNAL_AUDIT_APPROVAL_DATE'])) : "-" ?>
+                                    <?php echo isset($row['IT_ERP_APPROVAL_DATE']) ?
+                                        date('d/m/Y', strtotime($row['IT_ERP_APPROVAL_DATE'])) : "-" ?>
                                 </td>
                                 <td>
                                     <?php echo isset($row['IT_ERP_REMARKS']) ? $row['IT_ERP_REMARKS'] : "-" ?>

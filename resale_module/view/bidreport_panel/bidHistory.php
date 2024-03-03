@@ -23,15 +23,24 @@ if (!checkPermission('resale-report-panel')) {
         $productInfoRow = oci_fetch_assoc($productInfoSQL);
         // print_r($productInfoRow['MODEL']);
         ?>
-        <div class="card-header text-center fw-bold">
+        <!-- <div class="card-header text-center fw-bold">
             MODEL NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
             REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
-        </div>
+        </div> -->
         <!-- End table  header -->
         <div class="card-body">
+            <div class="text-end">
+                <a class="btn btn-sm btn-info text-white" id="" onclick="exportF(this)" style="margin-bottom:2px;"> <i class='bx bx-cloud-download'></i> Export To Excel </a>
+            </div>
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
+                <table class="table table-bordered" id="downloadData">
                     <thead style="background-color: #02c102;">
+                        <tr class="text-center">
+                            <th colspan="6">
+                                MODEL NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
+                                REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
+                            </th>
+                        </tr>
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col"> Bidder Info </th>
@@ -94,7 +103,7 @@ if (!checkPermission('resale-report-panel')) {
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    echo '<span class="btn btn-sm btn-info">'.ucwords(str_replace('_', ' ', ($row['REFERENCE_TYPE']))).'</span>' ;
+                                    echo '<span class="btn btn-sm btn-info">' . ucwords(str_replace('_', ' ', ($row['REFERENCE_TYPE']))) . '</span>';
                                     if ($row['REFERENCE_TYPE'] == 'sale_concern') {
                                         $resaleTeamSQL = @oci_parse($objConnect, "SELECT RML_ID,TITLE_NAME,MOBILE FROM  RESALE_TEAM WHERE ID =" . $row['RESALE_TEAM_ID']);
                                         oci_execute($resaleTeamSQL);
@@ -159,6 +168,15 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
+    function exportF(elem) {
+        var table = document.getElementById("downloadData");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "bid_history.xls"); // Choose the file name
+        return false;
+    }
+
     $(document).ready(function() {
         var $INVOICE_STATUS = $('#INVOICE_STATUS').val();
         if ($INVOICE_STATUS == 'Y') {

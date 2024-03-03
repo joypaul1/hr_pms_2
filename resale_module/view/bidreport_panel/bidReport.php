@@ -76,14 +76,20 @@ if (!checkPermission('resale-report-panel')) {
         ?>
         <!-- End table  header -->
         <div class="card-body">
+            <div class="text-end">
+                <a class="btn btn-sm btn-info text-white" id="" onclick="exportF(this)" style="margin-bottom:2px;"> <i class='bx bx-cloud-download'></i> Export To Excel </a>
+            </div>
             <div class="table-responsive text-nowrap">
-                <table class="table  table-bordered">
+                <table class="table table-bordered" id="downloadData">
                     <thead style="background-color: #02c102;">
+                        <tr class="text-center">
+                            <th colspan="5">Start Date : <?= $v_start_date ?> - End Date : <?= $v_end_date ?></th>
+                        </tr>
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Product Info</th>
                             <th scope="col"> Bid Info</th>
-                            <th scope="col"> Bid Status</th>
+                            <th scope="col"> MAX BID</th>
                             <th scope="col">Bid History</th>
 
                         </tr>
@@ -126,8 +132,6 @@ if (!checkPermission('resale-report-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            // print_r($row['BID_REMAINDER'] );
-                            // die();
                         ?>
                             <tr>
                                 <td>
@@ -136,6 +140,8 @@ if (!checkPermission('resale-report-panel')) {
                                     </strong>
                                 </td>
                                 <td>
+                                    <strong> MODEL :</strong>
+                                    <?php echo ($row['MODEL']); ?> </br>
                                     <strong>REFERENCE CODE :</strong>
                                     <?php echo ($row['REF_CODE']); ?> </br>
                                     <strong>ENGINE NO. :</strong>
@@ -145,28 +151,13 @@ if (!checkPermission('resale-report-panel')) {
                                     <?php echo ($row['CHS_NO']); ?> </br>
                                     <strong>REGISTATION NO. :</strong>
                                     <?php echo ($row['REG_NO']); ?> </br>
-                                    <strong> MODEL :</strong>
-                                    <?php echo ($row['MODEL']); ?> </br>
+
 
                                 </td>
 
                                 <td class="text-right">
-                                    <strong>BOOK VALUE :
-                                        <?php echo number_format($row['BOOK_VALUE']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>CASH PRICE :
-                                        <?php echo number_format($row['CASH_PRICE']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>CREDIT PRICE :
-                                        <?php echo number_format($row['CREDIT_PRICE']) ?> TK
-                                    </strong>
-                                    </br>
-                                    <strong>MAX BID :
-                                        <?php echo number_format($row['MAX_BID_AMOUNT']) ?> TK
-                                    </strong>
-                                    </br>
+
+
                                     <strong>TOTAL BID :
                                         <span class="badge badge-center bg-danger">
                                             <?php echo $row['TOTAL_BID'] ?>
@@ -176,14 +167,10 @@ if (!checkPermission('resale-report-panel')) {
 
                                 </td>
                                 <td class="text-center">
-                                    <?php
-                                    if ($row['BID_REMAINDER'] > 0) {
-                                        echo "<span class='badge badge-center bg-info'><i class='bx bx-check'></i></span></br>";
-                                        echo "<strong>Remian Days : " . $row['BID_REMAINDER'] . "</strong>";
-                                    } else {
-                                        echo "<span class='badge badge-center bg-warning'><i class='bx bx-x'></i></span>";
-                                    }
-                                    ?>
+                                    <strong>
+                                        <?php echo number_format($row['MAX_BID_AMOUNT'], 2) ?>
+                                    </strong>
+                                    </br>
                                 </td>
 
 
@@ -220,20 +207,12 @@ if (!checkPermission('resale-report-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    // Function to print QR code image
-    function printQRCode(modalId, chassis) {
-        var printWindow = window.open('', '_blank');
-        printWindow.document.write(
-            '<div style="display: flex; align-items: center; justify-content: center; height: 70vh;">' +
-            '<div style="text-align: center;">' +
-            '<img src="' + $('#' + modalId + ' img').attr('src') + '" style="max-width: 100%; height: auto;">' +
-            '<p><strong>Chassis No. :' + chassis + '</strong></p>' +
-            '</div>' +
-            '</div>'
-        );
-
-        printWindow.document.close();
-        printWindow.focus();
-        printWindow.print();
+    function exportF(elem) {
+        var table = document.getElementById("downloadData");
+        var html = table.outerHTML;
+        var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+        elem.setAttribute("href", url);
+        elem.setAttribute("download", "bid_report.xls"); // Choose the file name
+        return false;
     }
 </script>
