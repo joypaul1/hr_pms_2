@@ -177,7 +177,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                                 AND ECD.DEPARTMENT_ID = 14
                                         ) AS INTERNAL_AUDIT_APPROVAL_DATE,
                                         -- Internal_Audit
-                                        -- IT_ERP_Audit
+                                        -- IT_ERP_
                                         (
                                             SELECT
                                                 NVL(ECD.REMARKS,'-')
@@ -196,7 +196,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                                 ECD.EMP_CLEARENCE_ID = CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID
                                                 AND ECD.DEPARTMENT_ID = 15
                                         ) AS IT_ERP_APPROVAL_DATE,
-                                        -- IT_ERP_Audit
+                                        -- IT_ERP_
                                         -- Legal
                                         (
                                             SELECT
@@ -262,7 +262,6 @@ if (!checkPermission('lm-offboarding-report')) {
                                                 WHERE ECD.EMP_CLEARENCE_ID = CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID
                                             ORDER BY ECD.APPROVE_DATE DESC
                                         FETCH FIRST 1 ROW ONLY) AS LAST_APPROVAL_DATE
-                                      
                                     FROM
                                         CTE_EMP_CLEARENCE
                                         JOIN DEVELOPERS.RML_HR_APPS_USER B ON CTE_EMP_CLEARENCE.RML_HR_APPS_USER_ID = B.ID
