@@ -5,7 +5,9 @@ require_once('../../inc/connoracle.php');
 
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
-
+if (empty($emp_session_id)) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'searchUser') {
@@ -16,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'sear
         $objConnect,
         "SELECT ID,EMP_NAME,MOBILE_NO,RML_ID,R_CONCERN,DEPT_NAME,DESIGNATION  FROM RML_HR_APPS_USER WHERE R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') AND RML_ID LIKE '%" . trim($_POST['search']) . "%' FETCH FIRST 10 ROWS ONLY"
     );
-    @oci_execute($strSQL); 
+    @oci_execute($strSQL);
     while ($row = @oci_fetch_assoc($strSQL)) {
         $response[] = array("value" => $row['RML_ID'], "label" => $row['RML_ID'], 'id' => $row['ID'], 'data' => $row, 'concern' => $row['R_CONCERN']);
     }
@@ -231,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     $check_list_id  = ($_POST['check_list_id']);
     $remarks        = ($_POST['remarks']);
-   
+
     $strSQL  = oci_parse(
         $objConnect,
         "BEGIN

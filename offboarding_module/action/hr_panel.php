@@ -2,13 +2,11 @@
 session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-// $baseUrl        = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https://" : "http://") . $_SERVER['HTTP_HOST'];
-// $basePath       = $baseUrl . '/rHRT';
+if (empty($emp_session_id)) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 $basePath =  $_SESSION['basePath'];
-
-
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'searchUser') {
 
@@ -230,7 +228,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'offb
 
     $check_list_id  = ($_POST['check_list_id']);
     $remarks        = ($_POST['remarks']);
-   
+
     $strSQL  = oci_parse(
         $objConnect,
         "BEGIN
