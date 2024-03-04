@@ -165,7 +165,7 @@ if (!checkPermission('user-list')) {
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['RML_ID']; ?></td>
                                     <td class="text-center">

@@ -2,30 +2,16 @@
 
 session_start();
 session_regenerate_id(TRUE);
-
-if ($_SESSION['HR']['hr_role'] != 1 && $_SESSION['HR']['hr_role'] != 2 && $_SESSION['HR']['hr_role'] != 3 && $_SESSION['HR']['hr_role'] != 4) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
-
-if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
-	header('location:index.php?lmsg_hr=true');
-	exit;
-}
 require_once('inc/config.php');
 require_once('layouts/header.php');
-
-
-
 require_once('layouts/left_menu.php');
 require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-
-
-
 $emp_id = htmlentities($_REQUEST['emp_id']);
-
+if (!checkPermission('user-edit')) {
+	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 
 ?>
 
@@ -69,7 +55,7 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 
 
 		while ($row = oci_fetch_assoc($strSQL)) {
-			?>
+		?>
 			<div class="  ">
 				<div class="md-form ">
 					<!-- <ol class="breadcrumb">
@@ -90,31 +76,27 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Emp ID:</label>
-												<input type="text" class="form-control cust-control" id="title" form="Form2" name="form_rml_id"
-													value="<?php echo $row['RML_ID']; ?>" readonly>
+												<input type="text" class="form-control cust-control" id="title" form="Form2" name="form_rml_id" value="<?php echo $row['RML_ID']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Name:</label>
-												<input type="text" name="emp_form_name" class="form-control cust-control" id="title"
-													value="<?php echo $row['EMP_NAME']; ?>" form="Form2">
+												<input type="text" name="emp_form_name" class="form-control cust-control" id="title" value="<?php echo $row['EMP_NAME']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Mobile:</label>
-												<input type="text" name="emp_mobile" class="form-control cust-control" id="title"
-													value="<?php echo $row['MOBILE_NO']; ?>" form="Form2">
+												<input type="text" name="emp_mobile" class="form-control cust-control" id="title" value="<?php echo $row['MOBILE_NO']; ?>" form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Department:</label>
-												<input type="text" name="emp_dept" class="form-control cust-control" id="title"
-													value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
+												<input type="text" name="emp_dept" class="form-control cust-control" id="title" value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
 											</div>
 										</div>
 									</div>
@@ -123,31 +105,27 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-1 ID:</label>
-												<input type="text" class="form-control cust-control" id="title" name="form_res1_id"
-													value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" id="title" name="form_res1_id" value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-1 Mobile:</label>
-												<input type="text" class="form-control cust-control" id="title" name="form_res1_mobile"
-													value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" id="title" name="form_res1_mobile" value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-2 ID:</label>
-												<input type="text" class="form-control cust-control" id="title" name="form_res2_id"
-													value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" id="title" name="form_res2_id" value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>" form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-2 Mobile:</label>
-												<input type="text" class="form-control cust-control" id="title" name="form_res2_mobile"
-													value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" id="title" name="form_res2_mobile" value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>" form="Form2">
 											</div>
 										</div>
 									</div>
@@ -156,31 +134,27 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">IEMI_NO:</label>
-												<input type="text" class="form-control cust-control" id="title" name="form_iemi_no"
-													value="<?php echo $row['IEMI_NO']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" id="title" name="form_iemi_no" value="<?php echo $row['IEMI_NO']; ?>" form="Form2">
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Designation:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DESIGNATION']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DESIGNATION']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Mail:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['MAIL']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['MAIL']; ?>" readonly>
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">DOJ:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>" readonly>
 											</div>
 										</div>
 									</div>
@@ -188,16 +162,14 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">DOC:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOC']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOC']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Brance Name:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['BRANCH_NAME']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['BRANCH_NAME']; ?>" readonly>
 											</div>
 										</div>
 
@@ -205,20 +177,18 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 											<div class="form-group">
 												<label for="title">Gendar:</label>
 												<input type="text" class="form-control cust-control" id="title" value="<?php
-												if ($row['GENDER'] === 'M') {
-													echo 'Male';
-												}
-												else if ($row['GENDER'] === 'F') {
-													echo 'Female';
-												}
-												?>" readonly>
+																														if ($row['GENDER'] === 'M') {
+																															echo 'Male';
+																														} else if ($row['GENDER'] === 'F') {
+																															echo 'Female';
+																														}
+																														?>" readonly>
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Joning Date:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>" readonly>
 											</div>
 										</div>
 									</div>
@@ -226,31 +196,27 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Blood:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['BLOOD']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['BLOOD']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Emp Concern:</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['R_CONCERN']; ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['R_CONCERN']; ?>" readonly>
 											</div>
 										</div>
 
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Apps Attn Range(Meter):</label>
-												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['ATTN_RANGE_M'] ?>"
-													readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['ATTN_RANGE_M'] ?>" readonly>
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">User Created Date:</label>
-												<input type="text" class="form-control cust-control" id="title"
-													value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly>
+												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly>
 											</div>
 										</div>
 									</div>
@@ -273,17 +239,16 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 													<?php
 
 													if ($row['USER_ROLE'] == 'NU') {
-														?>
+													?>
 														<option value="NU">Normal User</option>
 														<option value="LM">Line Manager</option>
 
-														<?php
-													}
-													else {
-														?>
+													<?php
+													} else {
+													?>
 														<option value="LM">Line Manager</option>
 														<option value="NU">Normal User</option>
-														<?php
+													<?php
 													}
 
 													?>
@@ -294,15 +259,13 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Lat:</label>
-												<input type="text" class="form-control cust-control" name="lat" id="title"
-													value="<?php echo $row['LAT']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" name="lat" id="title" value="<?php echo $row['LAT']; ?>" form="Form2">
 											</div>
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Lang:</label>
-												<input type="text" class="form-control cust-control" name="lang" id="title"
-													value="<?php echo $row['LANG']; ?>" form="Form2">
+												<input type="text" class="form-control cust-control" name="lang" id="title" value="<?php echo $row['LANG']; ?>" form="Form2">
 											</div>
 										</div>
 									</div>
@@ -314,18 +277,17 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 													<?php
 
 													if ($row['TRACE_LOCATION'] == '1') {
-														?>
+													?>
 														<option value="1">Active</option>
 														<option value="0">In-Active</option>
 
-														<?php
-													}
-													else {
-														?>
+													<?php
+													} else {
+													?>
 														<option value="0">In-Active</option>
 														<option value="1">Active</option>
 
-														<?php
+													<?php
 													}
 
 													?>
@@ -351,7 +313,7 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 				</div>
 
 			</div>
-			<?php
+		<?php
 		}
 		?>
 
@@ -398,7 +360,7 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 								where RML_ID='$form_rml_id'");
 
 			if (oci_execute($strSQL)) {
-				?>
+		?>
 
 				<div class="container-fluid">
 					<div class="md-form mt-5">
@@ -409,7 +371,7 @@ $emp_id = htmlentities($_REQUEST['emp_id']);
 						</ol>
 					</div>
 				</div>
-				<?php
+		<?php
 			}
 		}
 		?>
