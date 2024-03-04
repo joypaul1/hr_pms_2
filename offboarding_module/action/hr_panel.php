@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'sear
     echo json_encode($response);
 }
 
-// Check if the form is submitted create clearence 
+// Check if the form is submitted create clearence
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createClearence') {
 
     // Validate emp_id field

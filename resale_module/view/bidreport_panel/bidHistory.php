@@ -17,16 +17,13 @@ if (!checkPermission('resale-report-panel')) {
         $productID = $_GET['id'];
         $leftSideName = 'Bid History List';
         include('../../../layouts/_tableHeader.php');
-        $productInfoSQL = oci_parse($objConnect, "SELECT A.ID, A.MODEL, A.REG_NO
+        $productInfoSQL = oci_parse($objConnect, "SELECT A.ID, A.MODEL, A.REF_CODE
         FROM PRODUCT A WHERE A.ID =" . $productID);
         oci_execute($productInfoSQL);
         $productInfoRow = oci_fetch_assoc($productInfoSQL);
         // print_r($productInfoRow['MODEL']);
         ?>
-        <!-- <div class="card-header text-center fw-bold">
-            MODEL NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
-            REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
-        </div> -->
+        
         <!-- End table  header -->
         <div class="card-body">
             <div class="text-end">
@@ -38,7 +35,7 @@ if (!checkPermission('resale-report-panel')) {
                         <tr class="text-center">
                             <th colspan="6">
                                 MODEL NAME : <?PHP echo $productInfoRow['MODEL'] ?></br>
-                                REFFRENCE CODE : <?PHP echo $productInfoRow['REG_NO'] ?>
+                                REFFRENCE CODE : <?PHP echo $productInfoRow['REF_CODE'] ?>
                             </th>
                         </tr>
                         <tr class="text-center">
