@@ -28,8 +28,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <div class="navbar-nav align-items-center">
           <div class="nav-item d-flex align-items-center">
             <i class="bx bx-search fs-4 lh-0"></i>
-            <?php if (checkPermission('user-list')) { ?>
-
+            <?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
               <input type="text" name="search_input" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search..." >
             <?php
             }

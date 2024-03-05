@@ -7,28 +7,26 @@ define("DB_NAME", "rangs_hr_rml");
 $conn_hr = mysqli_connect(HOST, DB_USER, DB_PASS, DB_NAME);
 
 if (!$conn_hr) {
-	die(mysqli_error ());
+	die(mysqli_error());
 }
 
 
 function getUserAccessRoleByID($id)
 {
 	global $conn_hr;
-	$userRoleArray=[];
+	$userRoleArray = [];
 	$sql = "SELECT r.* FROM tbl_users_roles ur
         JOIN tbl_roles r ON ur.role_id = r.id
         WHERE ur.user_id = $id";
 	$rs = mysqli_query($conn_hr, $sql);
-	if (mysqli_num_rows($rs)> 0) {
-        while ($row = mysqli_fetch_assoc($rs)) {
-            array_push($userRoleArray,$row['name']);
-        }
-    }else{
+	if (mysqli_num_rows($rs) > 0) {
+		while ($row = mysqli_fetch_assoc($rs)) {
+			array_push($userRoleArray, $row['name']);
+		}
+	} else {
 		array_push($userRoleArray, "Public");
-
 	}
 	return $userRoleArray;
-	
 }
 
 function checkPermission($permissionSlug)
@@ -46,7 +44,6 @@ function checkPermission($permissionSlug)
 	} else {
 		$permissionArray = [];
 		$permissionSlugData = [];
-		
 		$rolesql        = "SELECT * FROM tbl_roles_permissions  Where role_id =7"; //  select query execution
 		$result     = mysqli_query($conn_hr, $rolesql);
 		if ($result) {
@@ -73,14 +70,12 @@ function checkPermission($permissionSlug)
 			$isPermission = true;
 		}
 		return $isPermission;
-		
 	}
 }
 
 function getUserWisePermissionName()
 {
 	global $conn_hr;
-
 	$user_id = $_SESSION['HR']['id_hr'];
 	$permissionArray = [];
 	$permissionSlug = [];
@@ -94,7 +89,7 @@ function getUserWisePermissionName()
 			);
 		}
 	}
-	// print_r( $permissionArray); die();
+
 	$permissionArray = array_column($permissionArray, 'permission_id');
 	foreach ($permissionArray as $key => $value) {
 		$sql        = "SELECT * FROM tbl_permissions  Where id=" . $value; //  select query execution
@@ -108,4 +103,27 @@ function getUserWisePermissionName()
 		}
 	}
 	return $permissionSlug;
+}
+
+function getUserWiseRoleName($roleSlug)
+{
+	global $conn_hr;
+	$rolePermission = false;
+	$user_id = $_SESSION['HR']['id_hr'];
+	$sql        = "SELECT id FROM tbl_roles  WHERE slug = '$roleSlug'"; //  select query execution
+	$perResult  = mysqli_query($conn_hr, $sql);
+	$dataRow 	= mysqli_fetch_assoc($perResult);
+	if (count($dataRow) > 0) {
+		$sql2        = "SELECT * FROM tbl_users_roles  WHERE  user_id = $user_id  AND role_id =" . $dataRow['id']; 
+		$result  	= mysqli_query($conn_hr, $sql2);
+		$dataRow2 	= mysqli_fetch_assoc($result);
+		if (count($dataRow2) > 0) {
+			$rolePermission = true;
+		} else {
+			$rolePermission = false;
+		}
+	} else {
+		$rolePermission = false;
+	}
+	return $rolePermission;
 }

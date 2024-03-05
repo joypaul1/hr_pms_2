@@ -9,10 +9,18 @@ require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $emp_id = htmlentities($_REQUEST['emp_id']);
-if (!checkPermission('user-edit')) {
+$logout = false;
+if (!getUserWiseRoleName('super-admin')) {
+	$logout  = true;
+}
+if ($logout == true) {
+	if (!getUserWiseRoleName('hr')) {
+		$logout  = false;
+	}
+}
+if($logout == true){
 	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-
 ?>
 
 <!-- / Content -->

@@ -172,7 +172,7 @@ if (!checkPermission('user-list')) {
                                         <?php if ($row['APPS_USER_STATUS'] == 'yes') {
                                             echo '<span  class="badge  rounded-pill bg-success">
                                             <span class="tf-icons bx bx-check"></span>
-                                          </span>';
+                                            </span>';
                                         } else {
                                             echo '<a href="' . $basePath . '/admin_setting/action/user_list.php?rml_id=' . $row['RML_ID'] . '"> 
                                                     <span data-toggle="tooltip" data-placement="top" title="defalt user Create?" class="badge rounded-pill bg-info">
