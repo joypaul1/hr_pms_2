@@ -300,13 +300,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										</div>
 									</div>
 
-									<!-- <div class="row">
+									<div class="row">
 										<div class="col-lg-12">
 											<div class="md-form mt-5">
 												<button type="submit" name="submit" class="btn btn-info" form="Form2">Submit Update</button>
 											</div>
 										</div>
-									</div> -->
+									</div>
 
 								</div>
 							</div>
@@ -351,7 +351,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 			$strSQL = oci_parse($objConnect, "update RML_HR_APPS_USER SET
 							            EMP_NAME='$emp_form_name',
                                         MOBILE_NO='$emp_mobile',
-										DEPT_NAME='$emp_dept',									
+										DEPT_NAME='$emp_dept',
 										IEMI_NO='$form_iemi_no',
 										LINE_MANAGER_RML_ID='$form_res1_id',
 										LINE_MANAGER_MOBILE='$form_res1_mobile',
