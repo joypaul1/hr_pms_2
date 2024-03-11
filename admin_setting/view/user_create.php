@@ -79,137 +79,148 @@ if (!checkPermission('user-create')) {
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-3">
-                                    <label for="title">Select Concern</label>
-                                    <select required="" name="company_concern" class="form-control">
-                                        <option selected value="">--</option>
-                                        <?php
-                                        $strSQL  = oci_parse($objConnect, "select distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
-																									where R_CONCERN is not null  and is_active=1 
-																									order by R_CONCERN");
-                                        oci_execute($strSQL);
-                                        while ($row = oci_fetch_assoc($strSQL)) {
-                                        ?>
-                                            <option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['company_concern']) && $_POST['company_concern'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
+                                    <?php if ($_SESSION['HR']['user_concern'] == 'RMWL') { ?>
+                                        <div class="col-sm-3">
+                                            <label for="title">Select Concern</label>
+                                            <select required="" name="company_concern" class="form-control">
+                                                <option  value="">--</option>
+                                                <option value="RMWL" selected >RMWL</option>
+                                            </select>
+                                        </div>
+                                    <?php } else { ?>
+                                        <div class="col-sm-3">
+                                            <label for="title">Select Concern</label>
+                                            <select required="" name="company_concern" class="form-control">
+                                                <option selected value="">--</option>
+                                                <?php
+                                                $strSQL  = oci_parse($objConnect, "select distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
+                                                                                                        where R_CONCERN is not null  and is_active=1 
+                                                                                                        order by R_CONCERN");
+                                                oci_execute($strSQL);
+                                                while ($row = oci_fetch_assoc($strSQL)) {
+                                                ?>
+                                                    <option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['company_concern']) && $_POST['company_concern'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
+                                                <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    <?php } ?>
 
-                                <div class="col-sm-3">
-                                    <label for="title">Select Department</label>
-                                    <select required="" name="emp_dept" class="form-control">
+                                    <div class="col-sm-3">
+                                        <label for="title">Select Department</label>
+                                        <select required="" name="emp_dept" class="form-control">
 
-                                        <option selected value="">--</option>
-                                        <?php
-                                        $strSQL  = oci_parse($objConnect, "select distinct(DEPT_NAME) DEPT_NAME from RML_HR_DEPARTMENT 
+                                            <option selected value="">--</option>
+                                            <?php
+                                            $strSQL  = oci_parse($objConnect, "select distinct(DEPT_NAME) DEPT_NAME from RML_HR_DEPARTMENT 
 																								where DEPT_NAME is not null and is_active=1 
 																								order by DEPT_NAME");
-                                        oci_execute($strSQL);
-                                        while ($row = oci_fetch_assoc($strSQL)) {
-                                        ?>
-                                            <option value="<?php echo $row['DEPT_NAME']; ?>" <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DEPT_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['DEPT_NAME']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
+                                            oci_execute($strSQL);
+                                            while ($row = oci_fetch_assoc($strSQL)) {
+                                            ?>
+                                                <option value="<?php echo $row['DEPT_NAME']; ?>" <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DEPT_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['DEPT_NAME']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
 
-                                </div>
-                                <div class="col-sm-3">
-                                    <label for="title">Select Brance</label>
-                                    <select required="" name="emp_branch" class="form-control">
-
-                                        <option selected value="">--</option>
-                                        <?php
-                                        $strSQL  = oci_parse($objConnect, "select DISTINCT(BRANCH_NAME) AS BRANCH_NAME from RML_HR_APPS_USER WHERE IS_ACTIVE=1 ORDER BY BRANCH_NAME");
-                                        oci_execute($strSQL);
-                                        while ($row = oci_fetch_assoc($strSQL)) {
-                                        ?>
-                                            <option value="<?php echo $row['BRANCH_NAME']; ?>" <?php echo (isset($_POST['emp_branch']) && $_POST['emp_branch'] == $row['BRANCH_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['BRANCH_NAME']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="title">Joining Date:</label>
-                                        <input required="" class="form-control" id="date" name="doj" type="date" >
                                     </div>
-                                </div>
+                                    <div class="col-sm-3">
+                                        <label for="title">Select Brance</label>
+                                        <select required="" name="emp_branch" class="form-control">
+
+                                            <option selected value="">--</option>
+                                            <?php
+                                            $strSQL  = oci_parse($objConnect, "select DISTINCT(BRANCH_NAME) AS BRANCH_NAME from RML_HR_APPS_USER WHERE IS_ACTIVE=1 ORDER BY BRANCH_NAME");
+                                            oci_execute($strSQL);
+                                            while ($row = oci_fetch_assoc($strSQL)) {
+                                            ?>
+                                                <option value="<?php echo $row['BRANCH_NAME']; ?>" <?php echo (isset($_POST['emp_branch']) && $_POST['emp_branch'] == $row['BRANCH_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['BRANCH_NAME']; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="title">Joining Date:</label>
+                                            <input required="" class="form-control" id="date" name="doj" type="date">
+                                        </div>
+                                    </div>
 
 
                             </div>
-                            <div class="row">
-                                <div class="col-sm-3">
-                                    <label for="title">Select Designation</label>
-                                    <select required="" name="emp_designation" class="form-control">
+                        <?php } ?>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <label for="title">Select Designation</label>
+                                <select required="" name="emp_designation" class="form-control">
 
-                                        <option selected value="">--</option>
-                                        <?php
-                                        $strSQL  = oci_parse($objConnect, "select distinct(DESIGNATION_NAME) DESIGNATION_NAME from RML_HR_DESIGNATION 
+                                    <option selected value="">--</option>
+                                    <?php
+                                    $strSQL  = oci_parse($objConnect, "select distinct(DESIGNATION_NAME) DESIGNATION_NAME from RML_HR_DESIGNATION 
 																								where DESIGNATION_NAME is not null and is_active=1 
 																								order by DESIGNATION_NAME");
-                                        oci_execute($strSQL);
-                                        while ($row = oci_fetch_assoc($strSQL)) {
-                                        ?>
-                                            <option value="<?php echo $row['DESIGNATION_NAME']; ?>" <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DESIGNATION_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['DESIGNATION_NAME']; ?></option>
-                                        <?php
-                                        }
-                                        ?>
+                                    oci_execute($strSQL);
+                                    while ($row = oci_fetch_assoc($strSQL)) {
+                                    ?>
+                                        <option value="<?php echo $row['DESIGNATION_NAME']; ?>" <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DESIGNATION_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['DESIGNATION_NAME']; ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
+
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="title">Blood Group:</label>
+                                    <select name="emp_blood" class="form-control">
+                                        <option selected value="">--</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
                                     </select>
-
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="title">Blood Group:</label>
-                                        <select name="emp_blood" class="form-control">
-                                            <option selected value="">--</option>
-                                            <option value="A+">A+</option>
-                                            <option value="A-">A-</option>
-                                            <option value="AB+">AB+</option>
-                                            <option value="B+">B+</option>
-                                            <option value="B-">B-</option>
-                                            <option value="O+">O+</option>
-                                            <option value="O-">O-</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="title">User Type:</label>
-                                        <select name="user_role" class="form-control" required="">
-                                            <option selected value="">--</option>
-                                            <option value="LM">Line Manager</option>
-                                            <option value="NU">Normal User</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="title">Gender:</label>
-                                        <select name="emp_gender" class="form-control" required="">
-                                            <option selected value="">--</option>
-                                            <option value="M">Male</option>
-                                            <option value="F">Fe-Male</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-12  text-right">
-                                    <div class="mt-5">
-                                        <button type="submit" name="submit" class="btn btn-sm btn-info">Create & Save</button>
-                                    </div>
                                 </div>
                             </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="title">User Type:</label>
+                                    <select name="user_role" class="form-control" required="">
+                                        <option selected value="">--</option>
+                                        <option value="LM">Line Manager</option>
+                                        <option value="NU">Normal User</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="title">Gender:</label>
+                                    <select name="emp_gender" class="form-control" required="">
+                                        <option selected value="">--</option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Fe-Male</option>
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12  text-right">
+                                <div class="mt-5">
+                                    <button type="submit" name="submit" class="btn btn-sm btn-info">Create & Save</button>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </div>
 
@@ -294,7 +305,7 @@ if (!checkPermission('user-create')) {
                                                  '202CB962AC59075B964B07152D234B70')");
 
                     if (oci_execute($strSQL)) {
-                
+
 
                         // <!-- <div class="container-fluid">
                         //     <div class="md-form mt-5">
@@ -305,14 +316,13 @@ if (!checkPermission('user-create')) {
                         //         </ol>
                         //     </div>
                         // </div> -->
-                       
+
                         $message = [
-                        'text' => ' User is Created successfully.',
-                        'status' => 'true',
+                            'text' => ' User is Created successfully.',
+                            'status' => 'true',
                         ];
                         $_SESSION['noti_message'] = $message;
                         header("location:" . $basePath . "/admin_setting/view/user_create.php");
-                 
                     }
                 }
                 ?>
