@@ -9,18 +9,6 @@ require_once('inc/config.php');
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $emp_id = htmlentities($_GET['emp_id']);
 
-// $logout = false;
-// if (!getUserWiseRoleName('super-admin')) {
-// 	$logout  = true;
-// }
-// if ($logout == true) {
-// 	if (!getUserWiseRoleName('hr')) {
-// 		$logout  = false;
-// 	}
-// }
-// if ($logout == true) {
-// 	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
-// }
 ?>
 
 <!DOCTYPE html>
@@ -100,7 +88,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 					<?php
 					$strSQL = oci_parse(
 						$objConnect,
-						"select RML_ID,
+						"SELECT RML_ID,
 							EMP_NAME,
 							MOBILE_NO,
 							DEPT_NAME,
@@ -122,27 +110,19 @@ $emp_id = htmlentities($_GET['emp_id']);
 							USER_ROLE,
 							LAT,
 							LANG,
-							TRACE_LOCATION
-					 from RML_HR_APPS_USER 
+							TRACE_LOCATION,
+							IS_ACTIVE
+					 		FROM RML_HR_APPS_USER
 						  where RML_ID='$emp_id'"
 					);
 
 					oci_execute($strSQL);
-
-
 					while ($row = oci_fetch_assoc($strSQL)) {
 					?>
 						<div class="  ">
 							<div class="md-form ">
-								<!-- <ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							
-						</li>
-					</ol> -->
 								<h5 class="card-header text-center text-danger">You will be responsible. if you update anything here? </h5>
 								<div class="resume-item d-flex flex-column flex-md-row">
-
-
 									<div class="container">
 
 										<div class="row">
@@ -302,9 +282,10 @@ $emp_id = htmlentities($_GET['emp_id']);
 														<div class="form-group">
 															<label for="title">Employee Status:</label>
 															<select name="emp_status" class="form-control cust-control" form="Form2">
-																<option value="1">Active</option>
-																<option value="0">In-Active</option>
+																<option value="1" <?php echo $row['IS_ACTIVE'] == 1 ? 'selected' : ''; ?>>Active</option>
+																<option value="0" <?php echo $row['IS_ACTIVE'] == 0 ? 'selected' : ''; ?>>In-Active</option>
 															</select>
+
 
 														</div>
 													</div>
@@ -414,15 +395,14 @@ $emp_id = htmlentities($_GET['emp_id']);
 					@$form_emp_status = $_REQUEST['emp_status'];
 					@$form_emp_lat = $_REQUEST['lat'];
 					@$form_emp_lang = $_REQUEST['lang'];
-
 					@$traceable_status = $_REQUEST['traceable_status'];
 
 					if (isset($_POST['form_iemi_no'])) {
 
-						$strSQL = oci_parse($objConnect, "update RML_HR_APPS_USER SET
+						$strSQL = oci_parse($objConnect, "UPDATE RML_HR_APPS_USER SET
 							            EMP_NAME='$emp_form_name',
                                         MOBILE_NO='$emp_mobile',
-										DEPT_NAME='$emp_dept',									
+										DEPT_NAME='$emp_dept',
 										IEMI_NO='$form_iemi_no',
 										LINE_MANAGER_RML_ID='$form_res1_id',
 										LINE_MANAGER_MOBILE='$form_res1_mobile',
