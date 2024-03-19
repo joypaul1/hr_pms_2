@@ -73,8 +73,7 @@ function isActive($url)
                                             </div>
                                         </a>
                                     </li>
-                                    <li
-                                        class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
                                         <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php" class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
@@ -103,8 +102,7 @@ function isActive($url)
                                 </a>
                                 <ul class="menu-sub">
 
-                                    <li
-                                        class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
                                         <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidReport.php" class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
@@ -112,8 +110,7 @@ function isActive($url)
                                             </div>
                                         </a>
                                     </li>
-                                    <li
-                                        class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidSummary.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidSummary.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
                                         <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidSummary.php" class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
@@ -174,10 +171,8 @@ function isActive($url)
                                 </a>
                                 <ul class="menu-sub">
 
-                                    <li
-                                        class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/create.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
-                                            class="menu-link withoutIcon">
+                                    <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/customer_review/index.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/create.php'); ?><?php echo isActive('/resale_module/view/form_panel/customer_review/edit.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php" class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                                 Customer Review
@@ -276,7 +271,7 @@ function isActive($url)
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-leave-assign')) {
-                                    ?>
+                                ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/assign.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign
@@ -285,7 +280,7 @@ function isActive($url)
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-leave-advance')) {
-                                    ?>
+                                ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/advance.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Advance
@@ -324,7 +319,8 @@ function isActive($url)
                         </li>
                     <?php } ?>
 
-                    <?php if (checkPermission('concern-leave-create') ||
+                    <?php if (
+                        checkPermission('concern-leave-create') ||
                         checkPermission('concern-leave-delete') ||
                         checkPermission('concern-leave-report')
                     ) { ?>
@@ -611,6 +607,15 @@ function isActive($url)
                                         </a>
                                     </li>
                                 <?php } ?>
+                                <?php if (checkPermission('concern-attendance-report')) { ?>
+                                    <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/punch_data_syn.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/punch_data_syn.php" class="menu-link withoutIcon">
+                                            <div>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> W.S. Punch Data Syn
+                                            </div>
+                                        </a>
+                                    </li>
+                                <?php } ?>
 
 
 
@@ -638,8 +643,7 @@ function isActive($url)
                                 <ul class="menu-sub">
 
                                     <?php if (checkPermission('hr-offboarding-report')) { ?>
-                                        <li
-                                            class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/create.php'); ?> <?php echo isActive('/offboarding_module/view/hr_panel/index.php'); ?>">
+                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/create.php'); ?> <?php echo isActive('/offboarding_module/view/hr_panel/index.php'); ?>">
                                             <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/index.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> List</div>
                                             </a>
@@ -662,8 +666,7 @@ function isActive($url)
                                     <?php } ?>
 
                                     <?php if (checkPermission("hr-offboarding-id-assign-list")) { ?>
-                                        <li
-                                            class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/offboarding_module/view/hr_panel/id_assign_list.php'); ?>">
+                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/offboarding_module/view/hr_panel/id_assign_list.php'); ?>">
                                             <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign List
                                                 </div>
@@ -717,7 +720,7 @@ function isActive($url)
                                 <ul class="menu-sub">
                                     <?php if (checkPermission('concern-offboarding-create')) {
 
-                                        ?>
+                                    ?>
                                         <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/create.php'); ?>">
                                             <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/create.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding
@@ -1101,7 +1104,6 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('user-transfer')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/user_transfer.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/user_transfer.php" class="menu-link">
                                     <div data-i18n="Under Maintenance">User Transfer</div>
@@ -1123,8 +1125,9 @@ function isActive($url)
             <!-- Application Setting Module -->
             <!-- role&permission Module -->
 
-            <?php if (checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list'))
-                || (checkPermission('user-role-list')))
+            <?php if (
+                checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list'))
+                    || (checkPermission('user-role-list')))
             ) { ?>
 
                 <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">

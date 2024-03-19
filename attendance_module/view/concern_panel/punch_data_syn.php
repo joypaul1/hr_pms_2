@@ -2,7 +2,7 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('hr-attendance-punch-data-syn')) {
+if (!checkPermission('concern-attendance-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
@@ -20,10 +20,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         <div class="col-sm-4">
                             <label for="title">Select Company:</label>
                             <select required="" name="organization" id="select_company" class="form-control cust-control">
-                                <option selected value="">--</option>
-                                <option value="ALL">HO & Center Attendance Machine</option>
-                                <option value="SASH">Amishe Attendance Machine</option>
-                                <option value="RMWL">Gazipur Workshop Attendance Machine</option>
+                                <option selected value="RMWL">Gazipur Workshop Attendance Machine</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
@@ -80,18 +77,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     $company = $_REQUEST['organization'];
                                     $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
 
-
-                                    if ($company == 'SASH') {
-                                        $synSQL  = oci_parse(
-                                            $objConnect,
-                                            "SELECT  to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-					                        RML_ID,EMP_NAME,DEPT_NAME
-				                            FROM RML_HR_APPS_USER
-                                            WHERE USER_ROLE IS NOT NULL
-					                        AND IS_ACTIVE=1
-					                        AND R_CONCERN='$company'"
-                                        );
-                                    } else if ($company == 'RMWL') {
+                                    if ($company == 'RMWL') {
                                         $synSQL  = oci_parse(
                                             $objConnect,
                                             "SELECT
@@ -102,32 +88,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             AND IS_ACTIVE=1
                                             AND R_CONCERN='$company'"
                                         );
-                                    } else {
-                                        $synSQL  = oci_parse(
-                                            $objConnect,
-                                            "SELECT
-                                            to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-                                            RML_ID,EMP_NAME,DEPT_NAME
-                                            FROM RML_HR_APPS_USER
-                                            WHERE USER_ROLE IS NOT NULL
-                                            AND IS_ACTIVE=1
-					                        AND BRANCH_NAME IN ('Head Office','Rangs Center')"
-                                        );
                                     }
 
                                     if (oci_execute($synSQL)) {
 
-                                        if ($company == 'SASH') {
-                                            $serverName = "202.40.191.76";
-                                            $connectionInfo = array("Database" => "Attendence Amishee", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = sqlsrv_connect($serverName, $connectionInfo);
-                                        } else if ($company == 'RMWL') {
+                                        if ($company == 'RMWL') {
                                             $serverName = "202.40.188.67";
                                             $connectionInfo = array("Database" => "rmwlgattdb", "UID" => "sa", "PWD" => "RMWL@it2023");
-                                            $dbConnect = sqlsrv_connect($serverName, $connectionInfo);
-                                        } else {
-                                            $serverName = "192.168.172.17";
-                                            $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
                                             $dbConnect = sqlsrv_connect($serverName, $connectionInfo);
                                         }
                                         $number = 0;
@@ -137,20 +104,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             $v_rml_id = $row['RML_ID'];
                                             $rml_name = $row['EMP_NAME'];
                                             $rml_dept = $row['DEPT_NAME'];
-
-
-                                            if ($company == 'SASH') {
-                                                $strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-                                                convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-                                                convert(varchar, dteDate, 103) AS ATTN_DATE
-                                                FROM (
-                                                select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-                                                FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
-                                                where  USERID=(select USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-                                                and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-                                                ) bb
-                                                group by dteDate";
-                                            } else if ($company == 'RMWL') {
+                                            if ($company == 'RMWL') {
                                                 $strPunchSQL  = "select convert(varchar(30),
                                                 MIN(dteTime), 108) IN_TIME,
                                                 convert(varchar(30),
@@ -164,17 +118,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 select USERID from [rmwlgattdb].[dbo].[USERINFO]
                                                 where BADGENUMBER='$ATTNMACHINE_ID')
                                                 and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103) ) bb
-                                                group by dteDate";
-                                            } else {
-                                                $strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-                                                convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-                                                convert(varchar, dteDate, 103) AS ATTN_DATE
-                                                FROM (
-                                                select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-                                                FROM [attdb].[dbo].[CHECKINOUT] a
-                                                where  USERID=(select USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-                                                and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-                                                ) bb
                                                 group by dteDate";
                                             }
 
@@ -192,7 +135,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                                 if ($isFound == 1) {
                                                     $number++;
                                                     $processSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_DATA_SYN('$v_rml_id','$ATTN_DATE','$IN_TIME','$OUT_TIME');END;");
-
                                                     ini_set('max_execution_time', 0);
                                                     set_time_limit(1800);
                                                     ini_set('memory_limit', '-1');
