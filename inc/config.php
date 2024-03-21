@@ -117,7 +117,7 @@ function getUserWiseRoleName($roleSlug)
 		$sql2        = "SELECT * FROM tbl_users_roles  WHERE  user_id = $user_id  AND role_id =" . $dataRow['id']; 
 		$result  	= mysqli_query($conn_hr, $sql2);
 		$dataRow2 	= mysqli_fetch_assoc($result);
-		if (count($dataRow2) > 0) {
+		if (($dataRow2) > 0) {
 			$rolePermission = true;
 		} else {
 			$rolePermission = false;
