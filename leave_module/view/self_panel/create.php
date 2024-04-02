@@ -14,7 +14,7 @@ $LINE_MANAGER_NAME = '';
 $strSQL  = oci_parse(
     $objConnect,
     "SELECT A.RML_ID,A.EMP_NAME,A.DEPT_NAME,A.DESIGNATION,A.BRANCH_NAME,MOBILE_NO
-                       FROM RML_HR_APPS_USER A WHERE A.IS_ACTIVE=1 AND A.RML_ID ='$emp_session_id'"
+    FROM RML_HR_APPS_USER A WHERE A.IS_ACTIVE=1 AND A.RML_ID ='$emp_session_id'"
 );
 @oci_execute($strSQL);
 $number = 0;

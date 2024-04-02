@@ -20,7 +20,7 @@ $v_excel_download = 0;
                 <div class="col-sm-2">
                     <label class="form-label" for="title">RML ID</label>
                     <div class="input-group">
-                        <input class="form-control cust-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>' >
+                        <input class="form-control cust-control" type='text' name='rml_id' value='<?php echo isset($_POST['rml_id']) ? $_POST['rml_id'] : ''; ?>'>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -80,13 +80,19 @@ $v_excel_download = 0;
                     </div>
                 </div>
             </div>
-            
+
         </form>
     </div>
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Yearly Leave Assign</b></h5>
+        <div class="card-header d-flex align-items-center justify-content-between" style="padding: 1.0% 1rem">
+            <div href="#" style="font-size: 18px;font-weight:700">
+                <i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:30px"></i>Yearly Leave Assign Report
+            </div>
+            <div><a href="<?php echo ($basePath . '/leave_module/view/hr_panel/assignCreate.php'); ?>" class="btn btn-sm btn-info"><i class="menu-icon tf-icons bx bx-message-alt-add" style="margin:0;"></i>Yearly Leave Assign Create</a>
+            </div>
+        </div>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="table">
@@ -149,7 +155,7 @@ $v_excel_download = 0;
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME'] . '(' . $row['RML_ID'] . ')'; ?></td>
                                     <td><?php echo $row['LEAVE_TYPE']; ?></td>
@@ -181,7 +187,7 @@ $v_excel_download = 0;
             <?php
             if ($v_excel_download == 1) {
             ?>
-			    <br>
+                <br>
                 <div>
                     <a class="btn btn-success subbtn" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export To Excel</a>
                 </div>

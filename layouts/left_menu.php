@@ -274,7 +274,7 @@ function isActive($url)
                                 ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/assign.php'); ?>">
                                         <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign (R&C)
                                             </div>
                                         </a>
                                     </li>
