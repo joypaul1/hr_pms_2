@@ -84,9 +84,11 @@
                 /* margin: 0 auto; */
                 padding-top: 10px;
             }
-            #hidden{
+
+            #hidden {
                 display: none;
             }
+
             table.bordered {
                 border-collapse: collapse;
                 width: 100%;
@@ -118,10 +120,8 @@
 <body>
 
     <?php
-    session_start();
-   
     $basePath =  $_SESSION['basePath'];
-    
+
     date_default_timezone_set("Asia/Dhaka");
     require_once('../inc/config.php');
     require_once('../inc/connoracle.php');
@@ -182,7 +182,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Defining variables
-        $remarks = $_POST['remarks'] ?$_POST['remarks'] : null;
+        $remarks = $_POST['remarks'] ? $_POST['remarks'] : null;
         $all_reason = [];
         for ($i = 1; $i <= 15; $i++) {
             array_push($all_reason, $_POST["reason_" . $i]);
@@ -254,7 +254,7 @@
             <fieldset style="margin: 10px 0; border-radius: 10px; ">
                 <legend style="display: flex; align-items: center; gap: 10px; width: 95%; margin-left: 10px; ">
                     <svg style="width: 20px; margin-left: -4px; margin-top: -0.5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333">
-                        <path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd" >
+                        <path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd">
                     </svg>
 
                     <h3 style="min-width:max-content; margin: 0; margin-right: 20px;">Section I</h3>
@@ -394,12 +394,12 @@
             $exit_interviewData = oci_parse($objConnect, "SELECT * FROM EXIT_CLEARENCE_FORM WHERE EXIT_EMP_ID ='$rml_id' AND EMP_CLEARENCE_ID ='$emp_id'");
             oci_execute($exit_interviewData);
             $exit_interviewData = oci_fetch_assoc($exit_interviewData);
-                    // print_r(($exit_interviewData) );
-                    // die();
+            // print_r(($exit_interviewData) );
+            // die();
             ?>
             <?php
 
-            if (!empty($exit_interviewData) ) {
+            if (!empty($exit_interviewData)) {
                 // $exit_interviewData['YES_NO_STATUS'] = "no,no,no,no,no,no,no,no,no,no,no,no,no,no,no";
                 $reason = explode(',', $exit_interviewData['YES_NO_STATUS']);
 
@@ -768,7 +768,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_1" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_1'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_1" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_1'] . '</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -782,7 +782,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_2" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_2'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_2" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_2'] . '</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -796,7 +796,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_3" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_3'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_3" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_3'] . '</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -810,7 +810,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_4" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_4'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_4" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_4'] . '</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -824,7 +824,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_5" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_5'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_5" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_5'] . '</textarea>
                         </td>
                     </tr>
                     <tr>
@@ -838,7 +838,7 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ddd; overflow: hidden;">
-                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_6" id="" cols="10" rows="5">'.$exit_interviewData['FEEDBACK_6'].'</textarea>
+                            <textarea readonly style="width: 100%;border: none;outline: none;" name="feedback_6" id="" cols="10" rows="5">' . $exit_interviewData['FEEDBACK_6'] . '</textarea>
                         </td>
                     </tr>
 
@@ -1644,7 +1644,7 @@
             <fieldset style="margin: 10px 0; border-radius: 10px; ">
                 <legend style="display: flex; align-items: center; gap: 10px; width: 95%; margin-left: 10px; ">
                     <svg style="width: 20px; margin-left: -4px; margin-top: -0.5px;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333">
-                        <path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd" >
+                        <path fillRule="evenodd" d="M12.97 3.97a.75.75 0 011.06 0l7.5 7.5a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 11-1.06-1.06l6.22-6.22H3a.75.75 0 010-1.5h16.19l-6.22-6.22a.75.75 0 010-1.06z" clipRule="evenodd">
                     </svg>
 
                     <h3 style="min-width:max-content; margin: 0; margin-right: 20px;">Section IV</h3>
