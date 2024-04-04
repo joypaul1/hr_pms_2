@@ -46,7 +46,7 @@ if (!checkPermission('lm-offboarding-report')) {
             $rightSideName = 'Offboarding Create';
             $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-        // include('../../../layouts/_tableHeader.php');
+        // print_r($_SESSION['HR']);
         ?>
 
         <?php
@@ -101,26 +101,26 @@ if (!checkPermission('lm-offboarding-report')) {
                         if (isset($_POST['emp_id'])) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
-
-                            $strSQL  = oci_parse(
-                                $objConnect,
-                                "SELECT A.ID,
-									   B.EMP_NAME,
-									   B.RML_ID,
-									   B.R_CONCERN,
-									   B.DEPT_NAME,
-									   B.DESIGNATION,
-									   RML_HR_APPS_USER_ID,
-									   APPROVAL_STATUS,
-									   EXIT_INTERVIEW_STATUS,
-									   EXIT_INTERVIEW_DATE,
-									   EXIT_INTERVIEW_BY,
-									   CREATED_DATE,
-									   CREATED_BY
-								  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-								  WHERE A.RML_HR_APPS_USER_ID=B.ID
-								  AND B.RML_ID='$v_emp_id'"
-                            );
+                            $query = "SELECT A.ID,
+                                            B.EMP_NAME,
+                                            B.RML_ID,
+                                            B.R_CONCERN,
+                                            B.DEPT_NAME,
+                                            B.DESIGNATION,
+                                            RML_HR_APPS_USER_ID,
+                                            APPROVAL_STATUS,
+                                            EXIT_INTERVIEW_STATUS,
+                                            EXIT_INTERVIEW_DATE,
+                                            EXIT_INTERVIEW_BY,
+                                            CREATED_DATE,
+                                            CREATED_BY
+                                    FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
+                                    WHERE A.RML_HR_APPS_USER_ID=B.ID
+                                    AND B.RML_ID='$v_emp_id'";
+                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                                $query .= " AND B.R_CONCERN = 'RMWL'";
+                            }
+                            $strSQL  = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -236,23 +236,24 @@ if (!checkPermission('lm-offboarding-report')) {
                             }
                         } else {
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
-                            $allDataSQL  = oci_parse(
-                                $objConnect,
-                                "SELECT A.ID,
-										   B.EMP_NAME,
-										   B.RML_ID,
-										   B.R_CONCERN,
-										   B.DEPT_NAME,
-										   B.DESIGNATION,
-									       A.APPROVAL_STATUS,
-										   A.EXIT_INTERVIEW_STATUS,
-										   A.EXIT_INTERVIEW_DATE,
-										   A.EXIT_INTERVIEW_BY,
-										   A.CREATED_DATE,
-										   A.CREATED_BY
-									  FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-									  WHERE A.RML_HR_APPS_USER_ID=B.ID AND ROWNUM <=10"
-                            );
+                            $query = "SELECT A.ID,
+                                        B.EMP_NAME,
+                                        B.RML_ID,
+                                        B.R_CONCERN,
+                                        B.DEPT_NAME,
+                                        B.DESIGNATION,
+                                        A.APPROVAL_STATUS,
+                                        A.EXIT_INTERVIEW_STATUS,
+                                        A.EXIT_INTERVIEW_DATE,
+                                        A.EXIT_INTERVIEW_BY,
+                                        A.CREATED_DATE,
+                                        A.CREATED_BY
+                                FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
+                                WHERE A.RML_HR_APPS_USER_ID=B.ID AND ROWNUM <=10";
+                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                                $query .= " AND B.R_CONCERN = 'RMWL'";
+                            }
+                            $allDataSQL  = oci_parse($objConnect, $query);
 
                             oci_execute($allDataSQL);
                             $number = 0;
@@ -381,7 +382,6 @@ if (!checkPermission('lm-offboarding-report')) {
 
 <script>
     function seeStatus(id) {
-        console.log(id);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
