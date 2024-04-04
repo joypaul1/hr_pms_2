@@ -13,7 +13,7 @@ if (isset($_POST['login_hr'])) {
     $md5Password = md5($v_password);
     // last_log_seen,
 
-    $sql = "select id as id_hr,
+    $sql = "SELECT id as id_hr,
 		        user_role_id  as hr_role,
 					  first_name    as first_name_hr,
 					  emp_id        as emp_id_hr,
@@ -29,19 +29,6 @@ if (isset($_POST['login_hr'])) {
     if ($getNumRows_hr == 1) {
       $getUserRow_hr = mysqli_fetch_assoc($rs_hr);
       unset($getUserRow_hr['hrpassword']);
-
-      // if ($getUserRow_hr['last_log_seen'] == null || empty($getUserRow_hr['last_log_seen'])) {
-      //   $currentTimestamp = date('Y-m-d H:i:s');
-      //   $sql1             = "UPDATE tbl_users SET last_log_seen = '$currentTimestamp' WHERE emp_id = '" . $v_username . "'";
-      //   $result1          = mysqli_query($conn_hr, $sql1);
-      // }
-      // else {
-      //   $currentTimestamp = date('Y-m-d H:i:s');
-      //   $sql2             = "UPDATE tbl_users SET last_log_seen = '$currentTimestamp' WHERE emp_id = '" . $v_username . "'";
-      //   $result2          = mysqli_query($conn_hr, $sql2);
-      // }
-
-
 
       $_SESSION['HR']          = $getUserRow_hr;
       $_SESSION['baseUrl']     = $baseUrl;

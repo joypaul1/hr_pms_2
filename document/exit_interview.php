@@ -8,8 +8,6 @@
     <title>Exit Interview</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
-
     <style>
         .btn {
             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
@@ -50,16 +48,13 @@
         label {
             font-weight: 600;
         }
-
         #main {
             /* A4 size */
             width: 21cm;
             height: 29.7cm;
-
             margin: 0 auto;
             padding-top: 10px;
         }
-
         table.bordered {
             border-collapse: collapse;
             width: 100%;
@@ -70,12 +65,9 @@
         table.bordered td {
             border: 1px solid #ccc;
         }
-
         fieldset {
             font-size: 12pt !important;
         }
-
-
         /* Print only one page */
         @media print {
             #main {
@@ -84,31 +76,25 @@
                 /* margin: 0 auto; */
                 padding-top: 10px;
             }
-
             #hidden {
                 display: none;
             }
-
             table.bordered {
                 border-collapse: collapse;
                 width: 100%;
             }
-
             table.bordered,
             table.bordered th,
             table.bordered td {
                 border: 1px solid #ccc;
             }
-
             fieldset {
                 font-size: 9pt !important;
             }
-
             @page {
                 size: A4;
                 /* margin: 0; */
             }
-
             body {
                 /* margin: 0; */
             }
@@ -121,7 +107,6 @@
 
     <?php
     $basePath =  $_SESSION['basePath'];
-
     date_default_timezone_set("Asia/Dhaka");
     require_once('../inc/config.php');
     require_once('../inc/connoracle.php');
