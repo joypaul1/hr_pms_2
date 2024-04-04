@@ -58,13 +58,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 							   C.BRANCH_NAME,
 							   A.CREATED_DATE,
 							   A.CREATED_BY
-						FROM EMP_CLEARENCE A,HOD_CLEARENCE_DTLS B,RML_HR_APPS_USER C					
+						FROM EMP_CLEARENCE A,HOD_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 						WHERE A.ID=B.EMP_CLEARENCE_ID
 						AND A.RML_HR_APPS_USER_ID=C.ID
 						AND B.APPROVAL_STATUS IS NULL
 						AND A.HOD_STATUS IS NULL
 						AND HOD_ID='$emp_session_id'"
-						
                     );
 
                     @oci_execute($allDataSQL);

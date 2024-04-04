@@ -5,7 +5,6 @@ $basePath =  $_SESSION['basePath'];
 if (!$_SESSION['HR']['emp_id_hr'] == "RMWL-0605" || !$_SESSION['HR']['emp_id_hr'] == "RMWL-0942") {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-
 $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 $v_view_approval = 0;
 ?>
@@ -53,30 +52,25 @@ $v_view_approval = 0;
                                 </tr>
                             </thead>
 
-
-
                             <?php
 
                             if (isset($_POST['emp_concern'])) {
                                 $emp_concern = $_REQUEST['emp_concern'];
                                 $strSQL  = oci_parse($objConnect, "SELECT A.ID,
-																	   C.EMP_NAME,
-																	   C.RML_ID,
-																	   C.R_CONCERN,
-																	   C.DEPT_NAME,
-																	   C.DESIGNATION,
-																	   C.BRANCH_NAME,
-																	   A.CREATED_DATE,
-																	   A.CREATED_BY
+																C.EMP_NAME,
+																C.RML_ID,
+																C.R_CONCERN,
+																C.DEPT_NAME,
+																C.DESIGNATION,
+																C.BRANCH_NAME,
+																A.CREATED_DATE,
+																A.CREATED_BY
 																FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
 																WHERE A.RML_HR_APPS_USER_ID=C.ID
 																AND A.APPROVAL_STATUS=1
                                                                 AND C.R_CONCERN = 'RMWL'
 																AND EXIT_INTERVIEW_STATUS IS NULL
 																AND C.RML_ID='$emp_concern'");
-                                // if ($_SESSION['HR']['user_concern'] == "RMWL") {
-                                //     $query .= " AND B.R_CONCERN = 'RMWL'";
-                                // }
 
                                 oci_execute($strSQL);
                                 $number = 0;
