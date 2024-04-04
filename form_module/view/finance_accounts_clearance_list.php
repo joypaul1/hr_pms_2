@@ -24,7 +24,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -57,8 +57,6 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             <th>SL</th>
                             <th scope="col">EMP Info</th>
                             <th scope="col">HOD Status</th>
-                            <!-- <th scope="col">Department Approval Status</th> -->
-                            <!-- <th scope="col">Exit Interview Status</th> -->
                             <th scope="col">Accounts Clearnence Form</th>
                             <th scope="col">Created Info</th>
                         </tr>
@@ -69,34 +67,33 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         if (isset($_POST['emp_id'])) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
-
-
-                            $strSQL  = oci_parse(
-                                $objConnect,
-                                "SELECT 
-                                    A.ID,
-                                    B.EMP_NAME,
-                                    B.RML_ID,
-                                    B.R_CONCERN,
-                                    B.DEPT_NAME,
-                                    B.DESIGNATION,
-                                    A.APPROVAL_STATUS,
-                                    A.HOD_STATUS,
-                                    A.EXIT_INTERVIEW_STATUS,
-                                    A.EXIT_INTERVIEW_DATE,
-                                    A.EXIT_INTERVIEW_BY,
-                                    A.CREATED_DATE,
-                                    A.CREATED_BY,
-                                    A.LAST_WORKING_DATE,
-                                    A.RESIGNATION_DATE,
-                                    A.REASON,
-                                    A.RML_HR_APPS_USER_ID
-                                FROM 
-                                    EMP_CLEARENCE A
-                                INNER JOIN 
-                                    RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
-                                WHERE B.RML_ID='$v_emp_id'"
-                            );
+                            $query = "SELECT 
+                                        A.ID,
+                                        B.EMP_NAME,
+                                        B.RML_ID,
+                                        B.R_CONCERN,
+                                        B.DEPT_NAME,
+                                        B.DESIGNATION,
+                                        A.APPROVAL_STATUS,
+                                        A.HOD_STATUS,
+                                        A.EXIT_INTERVIEW_STATUS,
+                                        A.EXIT_INTERVIEW_DATE,
+                                        A.EXIT_INTERVIEW_BY,
+                                        A.CREATED_DATE,
+                                        A.CREATED_BY,
+                                        A.LAST_WORKING_DATE,
+                                        A.RESIGNATION_DATE,
+                                        A.REASON,
+                                        A.RML_HR_APPS_USER_ID
+                                    FROM
+                                        EMP_CLEARENCE A
+                                    INNER JOIN
+                                        RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                                    WHERE B.RML_ID='$v_emp_id'";
+                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                                $query .= " AND B.R_CONCERN = 'RMWL'";
+                            }
+                            $strSQL  = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -105,7 +102,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         ?>
                                 <tr style="text-align: center;">
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];
@@ -127,12 +124,12 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             echo 'Pending';
                                         }
                                         ?>
-                                        
+
                                     </td>
                                     <?php
-                                   
+
                                     ?>
-                                   
+
                                     <td>
                                         <?php
                                         $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM  ACCOUNTS_CLEARENCE_FORMS  WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
@@ -224,13 +221,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                         ?>
                                     </td>
                                     <?php
-                                   
+
                                     ?>
-                                   
+
                                     <?php
-                                    
+
                                     ?>
-                                    
+
                                     <td>
                                         <?php
                                         $singledataOFAccClear = oci_parse($objConnect, "SELECT * FROM ACCOUNTS_CLEARENCE_FORMS WHERE EMP_CLEARENCE_ID =" . $row['ID'] . " FETCH FIRST 1 ROWS ONLY");
