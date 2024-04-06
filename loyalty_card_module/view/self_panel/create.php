@@ -25,11 +25,12 @@ $basePath =  $_SESSION['basePath'];
 
         <div class="card-body">
             <form action="<?php echo ($basePath . '/loyalty_card_module/action/self_panel.php'); ?>" method="post">
-                <input type='hidden' hidden name='actionType' value='createClearence'>
+                <input type='hidden' hidden name='actionType' value='createCard'>
                 <div class="row justify-content-center">
                     <div class="col-6">
                         <label for="cust_id">Customer Reference Code : </label>
-                        <input required class="form-control cust-control" id="autocomplete" name="cust_id" type="text">
+                        <input required class="form-control cust-control" id="autocomplete"  type="text">
+                        <input type="hidden" name="cust_id" id="cust_id" value="">
                         <div class="text-info" id="message"></div>
                     </div>
                     <div class="col-12">
