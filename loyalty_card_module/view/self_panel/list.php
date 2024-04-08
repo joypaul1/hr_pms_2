@@ -76,7 +76,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                         HANDOVER_TO_NAME,
                         HANDOVER_MOBILE_NUMBER,
                         VARIFICATION_PIN,
-                        HANDOVER_STATYS,
+                        HANDOVER_STATUS,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
                         FROM CARD_INFO";
 
