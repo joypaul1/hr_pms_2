@@ -4,7 +4,7 @@ $dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connloyaltyoracle.php');
 $basePath =  $_SESSION['basePath'];
-if (!checkPermission('loyalty-card-all-module	')) {
+if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 if (isset($_GET['id']) && $_GET['id']) {

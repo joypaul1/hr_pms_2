@@ -35,7 +35,7 @@ function isActive($url)
                 <div data-i18n="Analytics">Home</div>
             </a>
         </li>
-        <?php if (checkPermission('loyalty-card-all-module	')) { ?>
+        <?php if (checkPermission('loyalty-card-all-module')) { ?>
             <li class="menu-header big text-uppercase" style="background-color:lightslategray">
                 <span class="text-white"><b>Loyalty Card System </b></span>
             </li>
