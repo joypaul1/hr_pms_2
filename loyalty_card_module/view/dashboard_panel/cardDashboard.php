@@ -2,9 +2,10 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 require_once('../../../inc/connresaleoracle.php');
-
 $basePath = $_SESSION['basePath'];
-
+if (!checkPermission('loyalty-card-all-module')) {
+	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 ?>
 <style>
 	.card>.card-border-shadow-info::after {
