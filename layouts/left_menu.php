@@ -35,28 +35,24 @@ function isActive($url)
                 <div data-i18n="Analytics">Home</div>
             </a>
         </li>
-        <li class="menu-header big text-uppercase" style="background-color:lightslategray">
-            <span class="text-white"><b>Loyalty Card System </b></span>
-        </li>
-        <section style="width: 98%;">
-            <!-- Resale- module-list -->
-            <li class="menu-item  <?php echo isActive('/loyalty_card_module/view'); ?>">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons bx bx-registered"></i>
-                    <div>Loyalty Card Module</div>
-                </a>
-
-
-                <ul class="menu-sub">
-
-                    <?php if (checkPermission('resale-dashboard-panel')) { ?>
+        <?php if (checkPermission('loyalty-card-all-module	')) { ?>
+            <li class="menu-header big text-uppercase" style="background-color:lightslategray">
+                <span class="text-white"><b>Loyalty Card System </b></span>
+            </li>
+            <section style="width: 98%;">
+                <!-- Resale- module-list -->
+                <li class="menu-item  <?php echo isActive('/loyalty_card_module/view'); ?>">
+                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                        <i class="menu-icon tf-icons bx bx-registered"></i>
+                        <div>Loyalty Card Module</div>
+                    </a>
+                    <ul class="menu-sub">
                         <li class="menu-item <?php echo isActive('/loyalty_card_module/view/dashboard_panel/cardDashboard.php'); ?>  ">
                             <a href="<?php echo $basePath ?>/loyalty_card_module/view/dashboard_panel/cardDashboard.php" class="menu-link ">
                                 <div>Dashboard Panel</div>
                             </a>
                         </li>
-                    <?php } ?>
-                    <?php if (checkPermission('resale-product-panel')) { ?>
+
                         <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>Card Panel</div>
@@ -83,15 +79,11 @@ function isActive($url)
 
                             </ul>
                         </li>
-                    <?php } ?>
+                    </ul>
 
-
-
-                </ul>
-
-            </li>
-        </section>
-
+                </li>
+            </section>
+        <?php } ?>
         <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel')) { ?>
             <li class="menu-header big text-uppercase" style="background-color:lightslategray">
                 <span class="text-white"><b>Resale Bidding System </b></span>

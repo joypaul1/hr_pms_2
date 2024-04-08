@@ -4,9 +4,9 @@ $dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connloyaltyoracle.php');
 $basePath =  $_SESSION['basePath'];
-// if (!checkPermission('hr-offboarding-create')) {
-//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-// }
+if (!checkPermission('loyalty-card-all-module	')) {
+    echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
+}
 if (isset($_GET['id']) && $_GET['id']) {
     $cardID = $_GET['id'];
 }
@@ -79,8 +79,7 @@ $cardRow = oci_fetch_assoc($cardSQL)
                     </div>
                     <div class="col-sm-6 mt-3">
                         <label for="HANDOVER_MOBILE_NUMBER">HANDOVER MOBILE NUMBER <span class="text-danger"> *</span></label>
-                        <input class="form-control" value="<?= $cardRow['CUSTOMER_MOBILE'] ?>" 
-                        minlength="11" id="HANDOVER_MOBILE_NUMBER" name="HANDOVER_MOBILE_NUMBER" required type="text">
+                        <input class="form-control" value="<?= $cardRow['CUSTOMER_MOBILE'] ?>" minlength="11" id="HANDOVER_MOBILE_NUMBER" name="HANDOVER_MOBILE_NUMBER" required type="text">
                     </div>
                 </div>
                 <div class="mt-2 w-25 mx-auto">

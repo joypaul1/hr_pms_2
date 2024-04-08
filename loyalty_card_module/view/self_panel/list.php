@@ -5,9 +5,9 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connloyaltyoracle.php');
 $basePath = $_SESSION['basePath'];
 
-// if (!checkPermission('resale-product-panel')) {
-//     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
-// }
+if (!checkPermission('loyalty-card-all-module	')) {
+    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+}
 ?>
 <style>
     .light-style .select2-container--default .select2-selection--single .select2-selection__arrow b {
