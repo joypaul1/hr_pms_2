@@ -29,7 +29,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                 <div class="row justify-content-center">
                     <div class="col-6">
                         <label for="cust_id">Customer Reference Code : </label>
-                        <input required class="form-control cust-control" id="autocomplete"  type="text">
+                        <input required class="form-control cust-control" id="autocomplete" type="text">
                         <input type="hidden" name="cust_id" id="cust_id" value="">
                         <div class="text-info" id="message"></div>
                     </div>
