@@ -11,9 +11,6 @@ ini_set('memory_limit', '2560M');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createCard') {
 
-    // print_r($_POST);
-
-    // $editId         = $_POST['editId'];
     $REF_NO                 = $_POST['REF_CODE'];
     $CUSTOMER_NAME          = $_POST['CUSTOMER_NAME'];
     $CUSTOMER_MOBILE        = $_POST['CUSTOMER_MOBILE_NO'];
@@ -29,9 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     // $CREATED_DATE              = SYSDATE;
 
     $query = "INSERT INTO CARD_INFO (
-        CUSTOMER_NAME, CUSTOMER_MOBILE, REF_NO, ENG_NO, REG_NO,
-        CHS_NO, VALID_START_DATE, VALID_END_DATE,CARD_TYPE_ID,
-        CREATED_DATE, CREATED_BY, UPDATED_DATE,UPDATED_BY)
+        CUSTOMER_NAME, CUSTOMER_MOBILE, REF_NO, ENG_NO, REG_NO, CHS_NO, VALID_START_DATE, VALID_END_DATE,CARD_TYPE_ID,HANDOVER_STATYS, CREATED_DATE, CREATED_BY, UPDATED_DATE,UPDATED_BY)
      VALUES (
       '$CUSTOMER_NAME',
       '$CUSTOMER_MOBILE',
@@ -42,11 +37,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
       TO_DATE('$VALID_START_DATE','DD/MM/YYYY'),
       TO_DATE('$VALID_END_DATE','DD/MM/YYYY'),
       '$CARD_TYPE_ID',
+      0,
       SYSDATE,
       '$CREATED_BY',
       SYSDATE,
       '$UPDATED_BY')";
-    
+
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, $query);
     // Execute the query
@@ -65,5 +61,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/create.php'</script>";
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'handOverCard') {
+
+    $cardID                         = $_POST['cardID'];
+    $HANDOVER_DATE                  = date("d/m/Y", strtotime($_REQUEST['HANDOVER_DATE']));
+    $HANDOVER_TO_NAME               = $_POST['HANDOVER_TO_NAME'];
+    $HANDOVER_MOBILE_NUMBER         = $_POST['HANDOVER_MOBILE_NUMBER'];
+    $HANDOVER_STATYS                = 1;
+    $UPDATED_BY                     = $emp_session_id;
+
+    $query = "UPDATE CARD_INFO
+    SET HANDOVER_DATE =   TO_DATE('$HANDOVER_DATE','DD/MM/YYYY'),
+    HANDOVER_TO_NAME = '$HANDOVER_TO_NAME',
+    HANDOVER_MOBILE_NUMBER = '$HANDOVER_MOBILE_NUMBER',
+    HANDOVER_STATYS = '$HANDOVER_STATYS',
+    UPDATED_BY = '$UPDATED_BY',
+    UPDATED_DATE=SYSDATE
+    WHERE ID = '$cardID'";
+
+    // Prepare the SQL statement
+    $strSQL = @oci_parse($objConnect, $query);
+    // Execute the query
+    if (@oci_execute($strSQL)) {
+        $message                  = [
+            'text'   => 'Data Updated successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/list.php'</script>";
+    } else {
+        $e                        = @oci_error($strSQL);
+        $message                  = [
+            'text'   => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/hand_over_card.php?id={$cardID}'</script>";
     }
 }

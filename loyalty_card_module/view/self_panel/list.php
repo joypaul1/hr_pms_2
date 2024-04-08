@@ -20,7 +20,7 @@ $basePath = $_SESSION['basePath'];
     <div class="card card-body ">
         <form method="GET" class="row justify-content-center align-items-center">
             <div class="col-4">
-                <input class="form-control" type="text" placeholder="Mobile number...(EX:01*******)" name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : NULL ?>">
+                <input class="form-control" type="text" placeholder="Mobile Number / Reference Code Enter.." name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : NULL ?>">
             </div>
 
             <div class="col-4 ">
@@ -82,10 +82,11 @@ $basePath = $_SESSION['basePath'];
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
-                            $query .= " WHERE CUSTOMER_MOBILE =" . $_GET['search_data'];
-                            // echo $query;
-                            // die();
+                            $searchData = urldecode($_GET['search_data']);
+                            $query .= " WHERE CUSTOMER_MOBILE ='$searchData'";
+                            $query .= " OR REF_NO ='$searchData'";
                         }
+
                         $cardSQL = oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);
@@ -100,7 +101,7 @@ $basePath = $_SESSION['basePath'];
                                     ?>
                                 </td>
                                 <td class="text-center">
-                                    <span class="btn btn-sm btn-warning">
+                                    <span class="btn btn-sm btn-info">
                                         <?= $row['CARD_TYPE_NAME'] ?>
                                     </span>
                                 </td>
@@ -140,10 +141,13 @@ $basePath = $_SESSION['basePath'];
                                 </td>
                                 <td class="text-center">
                                     <?php
-                                    echo '<a  data-product-id="' . $row['ID'] . '"
-                                        data-href="' . ($basePath . '/resale_module/action/self_panel.php?actionType=started_work') . '" type="button" 
-                                        class="btn btn-sm btn-warning text-white  start_work">
-                                        Star Work <i class="bx bx-chevrons-right"></i> </a>';
+                                    if (isset($row['HANDOVER_DATE']) && $row['HANDOVER_DATE']) {
+                                        echo "<span ><i class='bx bxs-badge-check' style='
+                                        font-size: 35px;color: green;'></i></span>";
+                                    } else {
+                                        echo '<a href="' . ($basePath . '/loyalty_card_module/view/self_panel/hand_over_card.php?id=' . $row['ID']) . '" class="btn btn-sm btn-warning text-white"> Hand Over Card <i class="bx bx-chevrons-right"></i> </a>';
+                                    }
+
                                     ?>
                                 </td>
 
