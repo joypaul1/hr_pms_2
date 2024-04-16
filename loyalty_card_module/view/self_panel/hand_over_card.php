@@ -83,7 +83,7 @@ $cardRow = oci_fetch_assoc($cardSQL)
                     </div>
                 </div>
                 <div class="mt-2 w-25 mx-auto">
-                    <button class="form-control btn btn-sm btn-primary" type="submit">Submit to Create</button>
+                    <button class="form-control btn btn-sm btn-primary" type="submit">Submit to Handover</button>
                 </div>
 
             </form>
