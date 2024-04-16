@@ -75,6 +75,14 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li>
+                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/cardReport.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cardReport.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Card OF Report
+                                        </div>
+                                    </a>
+                                </li>
 
 
                             </ul>

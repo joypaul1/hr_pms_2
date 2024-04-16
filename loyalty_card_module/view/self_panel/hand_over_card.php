@@ -44,7 +44,7 @@ $cardRow = oci_fetch_assoc($cardSQL)
         <?php
         $leftSideName  = 'Loyalty Card Hand Over Process';
         $rightSideName = 'Loyalty Card List';
-        $routePath     = 'loyalty_card_module/view/self_panel/index.php';
+        $routePath     = 'loyalty_card_module/view/self_panel/list.php';
         include('../../../layouts/_tableHeader.php');
         ?>
 

@@ -1,6 +1,6 @@
 <?php
-$dynamic_link_css[] = 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/libs/select2/select2.css';
-$dynamic_link_js[]  = 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/libs/select2/select2.js';
+// $dynamic_link_css[] = 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/libs/select2/select2.css';
+// $dynamic_link_js[]  = 'https://demos.themeselection.com/sneat-bootstrap-html-admin-template/assets/vendor/libs/select2/select2.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connloyaltyoracle.php');
 $basePath = $_SESSION['basePath'];
@@ -9,11 +9,7 @@ if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 ?>
-<style>
-    .light-style .select2-container--default .select2-selection--single .select2-selection__arrow b {
-        background-image: none !important;
-    }
-</style>
+
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -53,10 +49,10 @@ if (!checkPermission('loyalty-card-all-module')) {
                     <thead style="background-color: #02c102;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">CARD TYPE</th>
                             <th scope="col">Customer Info </th>
                             <th scope="col">Card VALIDity</th>
-                            <th scope="col">Action </th>
+                            <th scope="col">Created Details</th>
+                            <th scope="col">HandOver Action </th>
 
                         </tr>
                     </thead>
@@ -77,13 +73,15 @@ if (!checkPermission('loyalty-card-all-module')) {
                         HANDOVER_MOBILE_NUMBER,
                         VARIFICATION_PIN,
                         HANDOVER_STATUS,
+                        CREATED_DATE,
+                        CREATED_BY,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO";
+                        FROM CARD_INFO WHERE ROWNUM <= 10";
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
                             $searchData = urldecode($_GET['search_data']);
-                            $query .= " WHERE CUSTOMER_MOBILE ='$searchData'";
+                            $query .= " AND CUSTOMER_MOBILE ='$searchData'";
                             $query .= " OR REF_NO ='$searchData'";
                         }
 
@@ -99,11 +97,6 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     <?php
                                     echo $number;
                                     ?>
-                                </td>
-                                <td class="text-center">
-                                    <span class="btn btn-sm btn-info">
-                                        <?= $row['CARD_TYPE_NAME'] ?>
-                                    </span>
                                 </td>
                                 <td>
                                     NAME :
@@ -131,19 +124,37 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     REG. NO. :
                                     <?php
                                     echo $row['REG_NO'];
-                                    ?>
+
+                                    ?></br>
+                                    Type :
+                                    <span class="btn btn-sm btn-info">
+                                        <?= $row['CARD_TYPE_NAME'] ?>
+                                    </span>
                                 </td>
                                 <td>
-                                    Start : <?= $row['VALID_START_DATE'] ?>
+                                    (<?= $row['VALID_START_DATE'] ?>) - (<?= $row['VALID_END_DATE'] ?>)
                                     <br>
-                                    End : <?= $row['VALID_END_DATE'] ?>
+                                    <?php
+                                    $startDate  = date_create(date('Y-m-d', strtotime($row['VALID_END_DATE'])));
+                                    $endDate    = date_create(date('Y-m-d', strtotime($row['VALID_START_DATE'])));
+                                    $diff = date_diff($startDate, $endDate);
+                                    $days =  $diff->format("%a")
+                                    ?>
+                                    Expire : <?= $days ?> Days
 
                                 </td>
-                                <td class="text-center">
+                                <td>
+                                    Date : <?= $row['CREATED_DATE'] ?> </br>
+                                    BY : <?= $row['CREATED_BY'] ?>
+                                </td>
+                                <td class="text-start">
                                     <?php
                                     if (isset($row['HANDOVER_DATE']) && $row['HANDOVER_DATE']) {
-                                        echo "<span ><i class='bx bxs-badge-check' style='
-                                        font-size: 35px;color: green;'></i></span>";
+                                        // echo "<span class='text-center'><i class='bx bxs-badge-check' style='
+                                        // font-size: 35px;color: green;'></i></span> " . '</br>';
+                                        echo 'Name : ' . $row['HANDOVER_TO_NAME'] . '</br>';
+                                        echo 'Mobile : ' . $row['HANDOVER_MOBILE_NUMBER'] . '</br>';
+                                        echo 'Date : ' . $row['HANDOVER_DATE'] . '</br>';
                                     } else {
                                         echo '<a href="' . ($basePath . '/loyalty_card_module/view/self_panel/hand_over_card.php?id=' . $row['ID']) . '" class="btn btn-sm btn-warning text-white"> Hand Over Card <i class="bx bx-chevrons-right"></i> </a>';
                                     }

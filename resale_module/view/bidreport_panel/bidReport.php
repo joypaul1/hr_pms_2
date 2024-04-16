@@ -7,6 +7,8 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('resale-report-panel')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
+$v_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date']))  : date('d/m/Y');
+$v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('d/m/Y');
 ?>
 
 <!-- / Content -->
@@ -15,17 +17,6 @@ if (!checkPermission('resale-report-panel')) {
     <div class="card card-body ">
         <form method="GET">
             <div class="row justify-content-center">
-                <!-- <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Chassis No. </label>
-
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs" value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Model No. </label>
-
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
-                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
-                </div> -->
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
                     <div class="input-group">
@@ -33,7 +24,7 @@ if (!checkPermission('resale-report-panel')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" value="<?php echo date('Y-m-d'); ?>" class="form-control" type="date" name="start_date">
+                        <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $v_start_date)->format('Y-m-d') ?>" class="form-control" type="date" name="start_date">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -43,21 +34,16 @@ if (!checkPermission('resale-report-panel')) {
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" value="<?php echo date('Y-m-d'); ?>" class="form-control" type="date" name="end_date">
+                        <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $v_end_date)->format('Y-m-d') ?>" class="form-control" type="date" name="end_date">
                     </div>
                 </div>
-
-
                 <div class="col-sm-2">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control  btn btn-sm btn-primary" type="submit" value="Search Data">
                     </div>
                 </div>
-
-
             </div>
-
         </form>
     </div>
 
@@ -68,8 +54,7 @@ if (!checkPermission('resale-report-panel')) {
     <div class="card mt-2">
         <!-- table header -->
         <?php
-        $v_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date']))  : date('d/m/Y');
-        $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('d/m/Y');
+
         $leftSideName = 'BID Report List';
         include('../../../layouts/_tableHeader.php');
 
