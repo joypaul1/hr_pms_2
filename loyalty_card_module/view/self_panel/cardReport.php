@@ -41,7 +41,7 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
 
                 <div class="d-flex justify-content-between align-items-center gap-2">
                     <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/list.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
+                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/cardReport.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
                 </div>
             </div>
         </form>

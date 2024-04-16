@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' &&  isset($_GET["rml_id"])) {
 
     try {
         $conn_hr->begin_transaction();
-        //WEB USER CREATE 
+        //WEB USER CREATE
         $checkData = mysqli_query($conn_hr,  "SELECT `id`FROM `tbl_users` WHERE emp_id ='$RML_ID'");
         if (mysqli_num_rows($checkData) > 0) {
             $message = [

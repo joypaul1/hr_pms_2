@@ -21,7 +21,7 @@ $is_exel_download_eanble = 0;
                     <form action="" method="post">
                         <div class="row">
                             <div class="col-sm-3">
-                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -29,7 +29,7 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -38,17 +38,18 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <select name="attn_status" class="form-control cust-control">
                                     <option value="">Select Attendance Status</option>
-                                    <option <?PHP echo ($_POST['attn_status']) == 'P' ? 'Selected' : ''; ?> value="P">Present</option>
-                                    <option <?PHP echo ($_POST['attn_status']) == 'L' ? 'Selected' : ''; ?> value="L">Late</option>
-                                    <option <?PHP echo ($_POST['attn_status']) == 'A' ? 'Selected' : ''; ?> value="A">Absent</option>
-                                    <option <?PHP echo ($_POST['attn_status']) == 'RP' ? 'Selected' : ''; ?> value="RP">Roster Present</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'P' ? 'selected' : ''; ?> value="P">Present</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'L' ? 'selected' : ''; ?> value="L">Late</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'A' ? 'selected' : ''; ?> value="A">Absent</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'RP' ? 'selected' : ''; ?> value="RP">Roster Present</option>
                                 </select>
+
 
                             </div>
                         </div>

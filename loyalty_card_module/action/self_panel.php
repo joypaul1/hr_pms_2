@@ -26,22 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     // $CREATED_DATE              = SYSDATE;
 
     $query = "INSERT INTO CARD_INFO (
-        CUSTOMER_NAME, CUSTOMER_MOBILE, REF_NO, ENG_NO, REG_NO, CHS_NO, VALID_START_DATE, VALID_END_DATE,CARD_TYPE_ID,HANDOVER_STATUS, CREATED_DATE, CREATED_BY, UPDATED_DATE,UPDATED_BY)
-     VALUES (
-      '$CUSTOMER_NAME',
-      '$CUSTOMER_MOBILE',
-      '$REF_NO',
-      '$ENG_NO',
-      '$REG_NO',
-      '$CHS_NO',
-      TO_DATE('$VALID_START_DATE','DD/MM/YYYY'),
-      TO_DATE('$VALID_END_DATE','DD/MM/YYYY'),
-      '$CARD_TYPE_ID',
-      0,
-      SYSDATE,
-      '$CREATED_BY',
-      SYSDATE,
-      '$UPDATED_BY')";
+    CUSTOMER_NAME, CUSTOMER_MOBILE, REF_NO, ENG_NO, REG_NO, CHS_NO, VALID_START_DATE, VALID_END_DATE,CARD_TYPE_ID,HANDOVER_STATUS, CREATED_DATE, CREATED_BY, UPDATED_DATE,UPDATED_BY)
+    VALUES (
+    '$CUSTOMER_NAME',
+    '$CUSTOMER_MOBILE',
+    '$REF_NO',
+    '$ENG_NO',
+    '$REG_NO',
+    '$CHS_NO',
+    TO_DATE('$VALID_START_DATE','DD/MM/YYYY'),
+    TO_DATE('$VALID_END_DATE','DD/MM/YYYY'),
+    '$CARD_TYPE_ID',
+    0,
+    SYSDATE,
+    '$CREATED_BY',
+    SYSDATE,
+    '$UPDATED_BY')";
 
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, $query);
