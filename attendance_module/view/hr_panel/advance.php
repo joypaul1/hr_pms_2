@@ -50,7 +50,7 @@ $is_exel_download_eanble = 0;
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+									<input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 								</div>
 							</div>
 							<div class="col-sm-3">
@@ -60,7 +60,7 @@ $is_exel_download_eanble = 0;
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+									<input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
 								</div>
 							</div>
 							<div class="col-sm-3">
@@ -103,21 +103,6 @@ $is_exel_download_eanble = 0;
 
 
 				<div class="card mt-2" id="table">
-					<!-- <div class="card-body">
-						<div class="col-lg-12">
-							<div class="row mt-3 text-uppercase d-flex justify-content-center">
-								<h3><b>RANGS MOTORS LIMITED</b></h3>
-								<h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
-								<h6>Tejgoan,Dhaka-1215</h6>
-								<h6>Date :- <?php if (isset($_POST['attn_status'])) {
-												echo  $attn_start_date . ' -To- ' . $attn_end_date;
-											} ?>
-									<h6>
-							</div>
-
-						</div>
-					</div> -->
-
 
 					<div class="card-body">
 						<div class="">
@@ -190,20 +175,20 @@ $is_exel_download_eanble = 0;
 										$strSQL  = oci_parse(
 											$objConnect,
 											"select RML_ID,
-						           ATTN_DATE,
-								   RML_NAME,
-								   IN_TIME,
-								   OUT_TIME,
-								   STATUS,
-								   DEPT_NAME,
-								   IN_LAT,
-								   IN_LANG,
-								   DAY_NAME,
-								   BRANCH_NAME,
-								   LOCK_STATUS,
-								   LOCAK_DATE,
-								   LATE_TIME
-                            from RML_HR_ATTN_DAILY_PROC
+											ATTN_DATE,
+											RML_NAME,
+											IN_TIME,
+											OUT_TIME,
+											STATUS,
+											DEPT_NAME,
+											IN_LAT,
+											IN_LANG,
+											DAY_NAME,
+											BRANCH_NAME,
+											LOCK_STATUS,
+											LOCAK_DATE,
+											LATE_TIME
+										from RML_HR_ATTN_DAILY_PROC
                                 where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
                                 and ('$attn_status' is null OR STATUS='$attn_status')
 								and ('$emp_id' is null or RML_ID='$emp_id')

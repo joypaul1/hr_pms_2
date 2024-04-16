@@ -57,10 +57,10 @@ $cardRow = oci_fetch_assoc($cardSQL)
                         <p class="card-text">REF. NO. : <?= $cardRow['REF_NO'] ?></p>
                         <p class="card-text">ENG. NO. : <?= $cardRow['ENG_NO'] ?></p>
                         <p class="card-text">CHS. NO. : <?= $cardRow['CHS_NO'] ?></p>
-                        <p class="card-text">VALID START_DATE : <?= $cardRow['VALID_START_DATE'] ?></p>
-                        <p class="card-text">VALID END_DATE : <?= $cardRow['VALID_END_DATE'] ?></p>
+                        <p class="card-text">VALID START DATE : <?= $cardRow['VALID_START_DATE'] ?></p>
+                        <p class="card-text">VALID END DATE : <?= $cardRow['VALID_END_DATE'] ?></p>
                     </span>
-                    <img src="https://uploads-ssl.webflow.com/602bfd3cc368c527f1c2a863/607b172df9b78f16865957a2_black-and-white-business-cards-qr-code.png" alt="" style="width: 300px;">
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $cardRow['REF_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
 
                 </div>
             </div>

@@ -1,6 +1,4 @@
 <?php
-$dynamic_link_css[] = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-$dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connloyaltyoracle.php');
 $basePath =  $_SESSION['basePath'];
@@ -33,9 +31,37 @@ FROM CARD_INFO WHERE REF_NO='$cardRefCode'";
 
 $cardSQL = oci_parse($objConnect, $query);
 oci_execute($cardSQL);
-$cardRow = oci_fetch_assoc($cardSQL)
+$cardRow = oci_fetch_assoc($cardSQL);
 ?>
+<!-- CSS for printing -->
+<style media="print">
+    @page {
+        size: A4;
+        margin: 0;
+    }
 
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .container-xxl {
+        width: 100%;
+        padding: 10mm;
+        box-sizing: border-box;
+    }
+
+    .container-p-y {
+        padding-top: 10mm;
+        padding-bottom: 10mm;
+    }
+
+    .d-print-flex {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -61,21 +87,29 @@ $cardRow = oci_fetch_assoc($cardSQL)
                         <p class="card-text">VALID START DATE : <?= $cardRow['VALID_START_DATE'] ?></p>
                         <p class="card-text">VALID END DATE : <?= $cardRow['VALID_END_DATE'] ?></p>
                     </span>
-                    <!-- <img src="https://uploads-ssl.webflow.com/602bfd3cc368c527f1c2a863/607b172df9b78f16865957a2_black-and-white-business-cards-qr-code.png" alt="" style="width: 300px;"> -->
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $cardRow['REF_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
-
-
+                    <span id="printarea">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $basePath ?>/loyalty_card_module/view/self_panel/cardDetails.php?ref_no=<?= $cardRow['REF_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
+                    </span>
                 </div>
             </div>
-
         </div>
-
+        <!-- Add a button for printing -->
+        <div class="card-footer text-end">
+            <button onclick="printCard()" class="btn btn-primary">Print <i class='bx bxs-printer'></i></button>
+        </div>
     </div>
-
-
-
 </div>
 
 <!-- / Content -->
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
+
+<script>
+    function printCard() {
+        var printContents = document.getElementById("printarea").innerHTML;
+        var originalContents = document.body.innerHTML;
+        document.body.innerHTML = printContents;
+        window.print();
+        document.body.innerHTML = originalContents;
+    }
+</script>

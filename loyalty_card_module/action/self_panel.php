@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/create.php'</script>";
+        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/cardDetails.php?ref_no={$REF_NO}'</script>";
     } else {
         $e                        = @oci_error($strSQL);
         $message                  = [
