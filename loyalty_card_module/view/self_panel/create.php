@@ -27,7 +27,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                 <input type='hidden' hidden name='actionType' value='createCard'>
                 <div class="row justify-content-center">
                     <div class="col-6">
-                        <label for="cust_id">Customer Reference Code : </label>
+                        <label for="cust_id">Customer Reference Code /Chassis No. : </label>
                         <input required class="form-control cust-control" id="autocomplete" type="text">
                         <input type="hidden" name="cust_id" id="cust_id" value="">
                         <div class="text-info" id="message"></div>
