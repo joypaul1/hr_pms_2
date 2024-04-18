@@ -144,7 +144,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                     <div class="card-title text-center text-white bg-warning p-2"> Customer / Party Information </div>
                         <div class="d-flex text-center">
                             <div class="bg-primary w-100">
-                                <div class="p-2 d-flex justify-content-between rounded text-white stats">
+                                <div class="p-2 d-flex justify-content-between rounded text-white">
                                     <div class="d-flex flex-column">
                                         <u class="articles">Name </u>
                                         <span class="number1">${info.CUSTOMER_NAME}</span>
@@ -175,13 +175,22 @@ if (!checkPermission('loyalty-card-all-module')) {
                                         <u class="rating">CHA. NO.</u>
                                         <span class="number3">${info.CHASSIS_NO}</span>
                                         <input name="CHASSIS_NO" required="" value="${info.CHASSIS_NO}" type="hidden">
-
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column text-white">
-                                    <u class="rating">Address</u>
-                                    <span class="number3">${info.PARTY_ADDRESS}</span>
-                                    <input name="PARTY_ADDRESS" required="" value="${info.PARTY_ADDRESS}" type="hidden">
+                                <div class="p-2  d-flex justify-content-between rounded text-white">
+                                    <span class="d-flex flex-column">
+                                        <u class="rating">SALE TYPE</u>
+                                        <span class="number3">${info.PAMTMODE}</span>
+                                    </span>
+                                    <span class="d-flex flex-column">
+                                        <u class="rating">PRODUCT</u>
+                                        <span class="number3">${info.PRODUCT_CODE_NAME}</span>
+                                    </span>
+                                    <span class="d-flex flex-column">
+                                        <u class="rating">Address</u>
+                                        <span class="number3">${info.PARTY_ADDRESS}</span>
+                                        <input name="PARTY_ADDRESS" required="" value="${info.PARTY_ADDRESS}" type="hidden">
+                                    </span>
                                 </div>
                             </div>
                         </div>
