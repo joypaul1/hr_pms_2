@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'search
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
     while ($row = @oci_fetch_assoc($strSQL)) {
-        $response[] = array("value" => $row['CHASSIS_NO'], "label" => $row['CUSTOMER_NAME'].' / Chassis No.:' .$row['CHASSIS_NO']. ' / Reg. No.:'. $row['REG_NO']. ' / Ref. Code:' . $row['REF_CODE'], 'id' => $row['CHASSIS_NO'], 'data' => $row);
+        $response[] = array("value" => $row['CHASSIS_NO'], "label" => $row['CUSTOMER_NAME'].' / Chassis No.:' .$row['CHASSIS_NO']. ' / Reg. No.:'. $row['REG_NO']. ' / Ref. Code:' . $row['REF_CODE'], 'id' => $row['CHASSIS_NO'], 'data' => $row, 'searchData'=>trim($_GET['search']) );
     }
     if (empty($response)) {
         $response[] = array("value" => 'Sorry! No Data Found!', "label" => null, 'id' => null);

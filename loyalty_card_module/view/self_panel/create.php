@@ -79,9 +79,7 @@ if (!checkPermission('loyalty-card-all-module')) {
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
     $(function() {
-
         $("#autocomplete").autocomplete({
-
             source: function(request, response) {
                 // Fetch data
                 $.ajax({
@@ -104,6 +102,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                             return {
                                 label: item.label,
                                 value: item.value,
+                                searchData: item.searchData,
                                 empData: item
                             };
                         }));
@@ -115,7 +114,7 @@ if (!checkPermission('loyalty-card-all-module')) {
             },
             select: function(event, ui) {
                 // Set selection
-                $('#autocomplete').val(ui.item.label); // display the selected text
+                $('#autocomplete').val(ui.item.searchData); // display the selected text
                 userInfo(ui.item.empData.data);
                 buttonValidation();
                 return false;
@@ -184,7 +183,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     </span>
                                     <span class="d-flex flex-column">
                                         <u class="rating">PRODUCT</u>
-                                        <span class="number3">${info.PRODUCT_CODE_NAME}</span>
+                                        <span class="number3">${(info.PRODUCT_CODE_NAME).substring((info.PRODUCT_CODE_NAME).indexOf("-") + 1)}</span>
                                     </span>
                                     <span class="d-flex flex-column">
                                         <u class="rating">Address</u>
