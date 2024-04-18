@@ -18,7 +18,7 @@ if (!checkPermission('loyalty-card-all-module')) {
         <?php
         $leftSideName  = 'Loyalty Card Create';
         $rightSideName = 'Loyalty Card List';
-        $routePath     = 'loyalty_card_module/view/self_panel/index.php';
+        $routePath     = 'loyalty_card_module/view/self_panel/list.php';
         include('../../../layouts/_tableHeader.php');
         ?>
 
@@ -26,9 +26,9 @@ if (!checkPermission('loyalty-card-all-module')) {
             <form action="<?php echo ($basePath . '/loyalty_card_module/action/self_panel.php'); ?>" method="post">
                 <input type='hidden' hidden name='actionType' value='createCard'>
                 <div class="row justify-content-center">
-                    <div class="col-6">
+                    <div class="col-12">
                         <label for="cust_id">Search By Reference Code / Chassis No. : </label>
-                        <input required class="form-control cust-control" id="autocomplete" type="text" placeholder="EX : (JT355/R1)/(MC2K1HRC0JJ063401)">
+                        <input required class="form-control cust-control" id="autocomplete" type="text" placeholder="EX : (JT355/R1) / (MC2K1HRC0JJ063401)">
                         <input type="hidden" name="cust_id" id="cust_id" value="">
                         <div class="text-info" id="message"></div>
                     </div>
@@ -62,7 +62,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                     </div>
                 </div>
                 <div class="mt-2 w-25 mx-auto">
-                    <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create</button>
+                    <button class="form-control btn btn-sm btn-primary" type="submit" disabled>Submit to Create Card</button>
                 </div>
 
             </form>

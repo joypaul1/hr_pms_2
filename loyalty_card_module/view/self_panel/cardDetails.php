@@ -5,8 +5,8 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-if (isset($_GET['ref_no']) && $_GET['ref_no']) {
-    $cardRefCode = $_GET['ref_no'];
+if (isset($_GET['chas_no']) && $_GET['chas_no']) {
+    $dataChasNo  = $_GET['chas_no'];
 }
 
 $query = "SELECT ID,
@@ -25,7 +25,7 @@ HANDOVER_MOBILE_NUMBER,
 VARIFICATION_PIN,
 HANDOVER_STATUS,
 (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-FROM CARD_INFO WHERE REF_NO='$cardRefCode'";
+FROM CARD_INFO WHERE CHS_NO='$dataChasNo'";
 
 // Checking and adding the BRAND_ID condition if applicable
 
@@ -88,7 +88,7 @@ $cardRow = oci_fetch_assoc($cardSQL);
                         <p class="card-text">VALID END DATE : <?= $cardRow['VALID_END_DATE'] ?></p>
                     </span>
                     <span id="printarea">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $basePath ?>/loyalty_card_module/view/self_panel/cardDetails.php?ref_no=<?= $cardRow['REF_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $basePath ?>/loyalty_card_module/view/self_panel/cardDetails.php?chas_no=<?= $cardRow['CHS_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
                     </span>
                 </div>
             </div>
