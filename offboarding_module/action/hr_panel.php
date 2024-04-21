@@ -66,11 +66,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
         //<---- EMP_CLEARENCE query with values from the database table  ---->
         $strSQL = oci_parse(
             $objConnect,
-            "BEGIN EMP_CLEARENCE_CREATE( $emp_id,'$reason_of_resignation','$allDepartmentID','$emp_session_id','$concern_name','$last_working_day','$resignation_date','$reason_of_resignation');
+            "BEGIN EMP_CLEARENCE_CREATE($emp_id,'$reason_of_resignation','$allDepartmentID','$emp_session_id','$concern_name','$last_working_day','$resignation_date','$reason_of_resignation');
 			END;"
         );
-
-
         if (@oci_execute($strSQL)) {
             $message = [
                 'text'   => 'Offboarding Created Successfully.',
@@ -104,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
 }
 
 
-// Check if the form is submitted create clearence 
+// Check if the form is submitted create clearence
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'idAssign') {
     // Validate emp_id field
     if (!isset($_POST['emp_id']) || empty($_POST['emp_id'])) {

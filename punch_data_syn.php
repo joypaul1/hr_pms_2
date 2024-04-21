@@ -29,21 +29,21 @@ require_once('inc/connoracle.php');
 				<form action="" method="post">
 					<div class="row">
 						<div class="col-sm-4">
-							<label for="title">Select Company:</label>
-							<select required="" name="select_company" id="select_company" class="form-control">
-								<option selected value="">--</option>
+							<label for="title">SELECT Company:</label>
+							<SELECT required="" name="SELECT_company" id="SELECT_company" class="form-control">
+								<option SELECTed value="">--</option>
 								<option value="SASH">Amishe Attendance Machine</option>
 								<option value="ALL">HO & Center Attendance Machine</option>
-							</select>
+							</SELECT>
 						</div>
 						<div class="col-sm-4">
-							<label for="title">Select Date:</label>
+							<label for="title">SELECT Date:</label>
 							<div class="input-group">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar">
 									</i>
 								</div>
-								<input required="" class="form-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+								<input required="" class="form-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 							</div>
 						</div>
 
@@ -83,44 +83,30 @@ require_once('inc/connoracle.php');
 
 								<?php
 
-
-
-
-
 								if (isset($_POST['start_date'])) {
-									$company = $_REQUEST['select_company'];
+									$company = $_REQUEST['SELECT_company'];
 									$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
 
 
 									if ($company == 'SASH') {
 										$synSQL  = oci_parse(
 											$objConnect,
-											"select 
-				                to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-					            RML_ID,
-					            EMP_NAME,
-								DEPT_NAME 
-							from RML_HR_APPS_USER
-                                where USER_ROLE IS NOT NULL 
-								AND IS_ACTIVE=1								
-								AND R_CONCERN='$company'"
+											"SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,RML_ID,EMP_NAME,DEPT_NAME
+											from RML_HR_APPS_USER
+											where USER_ROLE IS NOT NULL
+											AND IS_ACTIVE=1
+											AND R_CONCERN='$company'"
 										);
 									} else {
 										$synSQL  = oci_parse(
 											$objConnect,
-											"select 
-				                to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-					            RML_ID,
-					            EMP_NAME,
-								DEPT_NAME 
-							from RML_HR_APPS_USER
-                                where USER_ROLE IS NOT NULL 
-								AND IS_ACTIVE=1 
-								AND BRANCH_NAME IN ('Head Office','Rangs Center')"
+											"SELECT  to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,RML_ID,EMP_NAME,DEPT_NAME
+											from RML_HR_APPS_USER
+											where USER_ROLE IS NOT NULL
+											AND IS_ACTIVE=1
+											AND BRANCH_NAME IN ('Head Office','Rangs Center')"
 										);
 									}
-
-
 
 									if (oci_execute($synSQL)) {
 
@@ -146,24 +132,24 @@ require_once('inc/connoracle.php');
 
 
 											if ($company == 'SASH') {
-												$strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+												$strPunchSQL  = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
 											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
 											convert(varchar, dteDate, 103) AS ATTN_DATE 
 											FROM (
-											select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+											SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
 											FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
-											where  USERID=(select USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+											where  USERID=(SELECT USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
 											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
 											) bb
 											group by dteDate";
 											} else {
-												$strPunchSQL  = "select convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+												$strPunchSQL  = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
 											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
 											convert(varchar, dteDate, 103) AS ATTN_DATE 
 											FROM (
-											select CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+											SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
 											FROM [attdb].[dbo].[CHECKINOUT] a
-											where  USERID=(select USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+											where  USERID=(SELECT USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
 											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
 											) bb
 											group by dteDate";
