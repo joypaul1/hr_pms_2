@@ -14,8 +14,6 @@ if (!checkPermission('user-list')) {
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-
-
     <div class="card card-body col-lg-12">
         <form action="" method="post">
             <div class="row justify-content-center">
