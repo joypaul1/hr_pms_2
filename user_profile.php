@@ -353,13 +353,15 @@ $emp_id = htmlentities($_GET['emp_id']);
 														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-lg-12">
-														<div class="d-block text-center mt-1">
-															<button type="submit" name="submit" class="btn btn-sm btn-info" form="Form2">Submit Update</button>
+												<?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
+													<div class="row">
+														<div class="col-lg-12">
+															<div class="d-block text-center mt-1">
+																<button type="submit" name="submit" class="btn btn-sm btn-info" form="Form2">Submit Update</button>
+															</div>
 														</div>
 													</div>
-												</div>
+												<?php } ?>
 											</div>
 										</div>
 
