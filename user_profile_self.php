@@ -300,13 +300,13 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 										</div>
 									</div>
 
-									<div class="row">
+									<!-- <div class="row">
 										<div class="col-lg-12">
 											<div class="md-form mt-5">
 												<button type="submit" name="submit" class="btn btn-info" form="Form2">Submit Update</button>
 											</div>
 										</div>
-									</div>
+									</div> -->
 
 								</div>
 							</div>
