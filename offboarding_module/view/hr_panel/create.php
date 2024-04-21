@@ -184,7 +184,6 @@ if (!checkPermission('hr-offboarding-create')) {
                     <div class="card p-3">
                         <div class="d-flex  text-center">
                             <div class="w-100">
-                              
                                 <div class="p-2  bg-primary d-flex justify-content-between rounded text-white stats">
                                     <div class="d-flex flex-column">
                                         <span class="articles">Name </span>
