@@ -205,17 +205,16 @@ if (!checkPermission('hr-offboarding-create')) {
                                         <span class="number3">${info.DEPT_NAME}</span>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <span class="rating">Designation</span>
-                                        <span class="number3">${info.DESIGNATION}</span>
+                                        <span class="rating">HOD</span>
+                                        <span class="number3">${info.DEPT_HEAD_RML_ID}</span>
                                     </div>
                                     <div class="d-flex flex-column">
                                         <span class="rating">View Profile</span>
                                         <span class="number3">
-                                        <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
+                                        <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a>
                                         </span>
                                     </div>
                                 </div>
-                               
                             </div>
                         </div>
                     </div>

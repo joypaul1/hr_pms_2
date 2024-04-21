@@ -50,7 +50,7 @@ if (!checkPermission('user-list')) {
                         <?php
                         $strSQL  = oci_parse(
                             $objConnect,
-                            "select distinct(DEPT_NAME) DEPT_NAME FROM RML_HR_DEPARTMENT 
+                            "SELECT distinct(DEPT_NAME) DEPT_NAME FROM RML_HR_DEPARTMENT 
 										where DEPT_NAME is not null and is_active=1 
 											order by DEPT_NAME"
                         );
@@ -71,8 +71,8 @@ if (!checkPermission('user-list')) {
                         <?php
                         $strSQL  = oci_parse(
                             $objConnect,
-                            "select distinct(EMP_GROUP) EMP_GROUP from RML_HR_APPS_USER 
-									where EMP_GROUP is not null  and is_active=1 
+                            "SELECT distinct(EMP_GROUP) EMP_GROUP from RML_HR_APPS_USER
+									where EMP_GROUP is not null  and is_active=1
 									order by EMP_GROUP"
                         );
                         oci_execute($strSQL);
@@ -248,7 +248,7 @@ if (!checkPermission('user-list')) {
                                             <span class="tf-icons bx bx-check"></span>
                                           </span>';
                                         } else {
-                                            echo '<a href="' . $basePath . '/admin_setting/action/user_list.php?rml_id=' . $row['RML_ID'] . '"> 
+                                            echo '<a href="' . $basePath . '/admin_setting/action/user_list.php?rml_id=' . $row['RML_ID'] . '">
                                                 <span data-toggle="tooltip" data-placement="top" title="defalt user Create?" class="badge rounded-pill bg-info">
                                                     <span class="tf-icons bx bx-edit-alt"></span>
                                                 </span>
