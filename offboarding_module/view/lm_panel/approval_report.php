@@ -278,18 +278,19 @@ if (!checkPermission('lm-offboarding-report')) {
                             $leave_end_date = date("d/m/Y");
                             $query .=  " WHERE trunc(CTE_EMP_CLEARENCE.CREATED_DATE) between TO_DATE('$leave_start_date', 'DD/MM/YYYY') and TO_DATE('$leave_end_date', 'DD/MM/YYYY')";
                         }
-
+                        if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                            $query .= " AND B.R_CONCERN = 'RMWL'";
+                        }
                         $query .= " GROUP BY
-                                        CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID,
-                                        B.EMP_NAME,
-                                        B.RML_ID,
-                                        B.R_CONCERN,
-                                        B.DEPT_NAME,
-                                        B.DESIGNATION,
-                                        CTE_EMP_CLEARENCE.APPROVAL_STATUS,
-                                        CTE_EMP_CLEARENCE.CREATED_DATE";
+                                    CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID,
+                                    B.EMP_NAME,
+                                    B.RML_ID,
+                                    B.R_CONCERN,
+                                    B.DEPT_NAME,
+                                    B.DESIGNATION,
+                                    CTE_EMP_CLEARENCE.APPROVAL_STATUS,
+                                    CTE_EMP_CLEARENCE.CREATED_DATE";
 
-                        // echo $query;
                         $allDataSQL  = oci_parse(
                             $objConnect,
                             $query

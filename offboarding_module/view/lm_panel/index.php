@@ -46,7 +46,6 @@ if (!checkPermission('lm-offboarding-report')) {
             $rightSideName = 'Offboarding Create';
             $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-        // print_r($_SESSION['HR']);
         ?>
 
         <?php
@@ -63,11 +62,11 @@ if (!checkPermission('lm-offboarding-report')) {
         <div>
             <a class="btn btn-sm btn-primary text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
         </div>';
-        if ($_SESSION['HR']['user_concern'] != "RMWL") {
+        // if ($_SESSION['HR']['user_concern'] != "RMWL") {
             $html .= '<div>
                 <a target="_blank" href="approval_report.php" class="btn btn-sm btn-warning text-white" style="margin-left:5px;"> <i class="bx bxs-arrow-to-right"></i>View Approval Details </a>
             </div>';
-        }
+        // }
         $html .= '<div>';
         if (isset($routePath)) {
             $route = $basePath . '/' . $routePath;

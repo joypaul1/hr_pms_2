@@ -194,8 +194,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                 A.REASON
                             FROM 
                                 EMP_CLEARENCE A
-                            
-                             JOIN 
+                            JOIN 
                                 RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID Where A.CREATED_BY='$emp_session_id'"
                             );
 
