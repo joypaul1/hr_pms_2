@@ -87,7 +87,7 @@ $is_exel_download_eanble = 0;
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-3">
-								<?php print_r($_REQUEST['emp_dept']) ?>
+								<!-- <?php print_r($_REQUEST['emp_dept']) ?> -->
 
 							</div>
 							<div class="col-sm-3">
@@ -102,7 +102,7 @@ $is_exel_download_eanble = 0;
 
 				@$emp_id = $_REQUEST['emp_id'];
 				@$attn_status = $_REQUEST['attn_status'];
-
+				$v_emp_dept = isset($_REQUEST['emp_dept']) ? $_REQUEST['emp_dept'] : null;
 				@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
 				@$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 				?>
@@ -184,8 +184,8 @@ $is_exel_download_eanble = 0;
 									<?php
 
 									if (isset($_POST['attn_status'])) {
-										$v_emp_dept = $_REQUEST['emp_dept'];
-										if (isset($_POST['remarks_status']) && $_POST['remarks_status']== 'with') {
+
+										if (isset($_POST['remarks_status']) && $_POST['remarks_status'] == 'with') {
 											$query = "SELECT a.RML_ID,
 											a.ATTN_DATE,
 											a.RML_NAME,
@@ -307,7 +307,7 @@ $is_exel_download_eanble = 0;
 													?>
 
 												</td>
-												<?php if (isset($_POST['remarks_status']) && $_POST['remarks_status']== 'with') { ?>
+												<?php if (isset($_POST['remarks_status']) && $_POST['remarks_status'] == 'with') { ?>
 													<td><?= $row['HR_REMARKS'] ?> </td>
 												<?php } ?>
 
