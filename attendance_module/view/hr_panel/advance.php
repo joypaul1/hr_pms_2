@@ -43,7 +43,7 @@ $is_exel_download_eanble = 0;
 									?>
 								</select>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-2">
 								<label class="form-label" for="basic-default-fullname" style="color:red;">Select Start Date<b>**</b></label>
 								<div class="input-group">
 									<div class="input-group-addon">
@@ -53,7 +53,7 @@ $is_exel_download_eanble = 0;
 									<input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 								</div>
 							</div>
-							<div class="col-sm-3">
+							<div class="col-sm-2">
 								<label class="form-label" for="basic-default-fullname" style="color:red;">Select End Date<b>**</b></label>
 								<div class="input-group">
 									<div class="input-group-addon">
@@ -71,6 +71,13 @@ $is_exel_download_eanble = 0;
 									<option value="L">Late</option>
 									<option value="A">Absent</option>
 									<option value="RP">Roster Present</option>
+								</select>
+							</div>
+							<div class="col-sm-2">
+								<label class="form-label" for="basic-default-fullname">REMARKS</label>
+								<select name="remarks_status" class="form-control cust-control">
+									<option selected value="<?= null ?>">Without Remarks</option>
+									<option value="with">With Remarks</option>
 								</select>
 							</div>
 						</div>
@@ -163,6 +170,12 @@ $is_exel_download_eanble = 0;
 										<th scope="col">Branch Name</th>
 										<th scope="col">Dept. Name</th>
 										<th scope="col">ATTN Lock Status</th>
+										<?php
+										if (isset($_POST['remarks_status'])) {
+											echo '<th scope="col">HR Entry REMARKS</th>';
+										}
+										?>
+
 									</tr>
 								</thead>
 
@@ -172,29 +185,59 @@ $is_exel_download_eanble = 0;
 
 									if (isset($_POST['attn_status'])) {
 										$v_emp_dept = $_REQUEST['emp_dept'];
-										$strSQL  = oci_parse(
-											$objConnect,
-											"select RML_ID,
-											ATTN_DATE,
-											RML_NAME,
-											IN_TIME,
-											OUT_TIME,
-											STATUS,
-											DEPT_NAME,
-											IN_LAT,
-											IN_LANG,
-											DAY_NAME,
-											BRANCH_NAME,
-											LOCK_STATUS,
-											LOCAK_DATE,
-											LATE_TIME
-										from RML_HR_ATTN_DAILY_PROC
-                                where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
-                                and ('$attn_status' is null OR STATUS='$attn_status')
-								and ('$emp_id' is null or RML_ID='$emp_id')
-								and ('$v_emp_dept' is null or DEPT_NAME='$v_emp_dept')
-                                order by ATTN_DATE"
-										);
+										if (isset($_POST['remarks_status']) && $_POST['remarks_status']== 'with') {
+											$query = "SELECT a.RML_ID,
+											a.ATTN_DATE,
+											a.RML_NAME,
+											a.IN_TIME,
+											a.OUT_TIME,
+											a.STATUS,
+											a.DEPT_NAME,
+											a.IN_LAT,
+											a.IN_LANG,
+											a.DAY_NAME,
+											a.BRANCH_NAME,
+											a.LOCK_STATUS,
+											a.LOCAK_DATE,
+											a.LATE_TIME,
+											(select ATTN.OUTSIDE_REMARKS
+											from RML_HR_ATTN_DAILY ATTN
+											where ATTN.INSIDE_OR_OUTSIDE='HR ATTN'
+											and ATTN.RML_ID=a.RML_ID
+											and trunc(ATTN.ATTN_DATE) = trunc(a.ATTN_DATE)
+											AND ROWNUM=1) HR_REMARKS
+											from RML_HR_ATTN_DAILY_PROC a ,RML_HR_APPS_USER b
+											where a.RML_ID = b.RML_ID
+											and b.IS_ACTIVE = 1
+											and trunc(a.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
+											and ('$attn_status' is null OR a.STATUS='$attn_status')
+											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
+											order by a.ATTN_DATE";
+										} else {
+											$query = "SELECT a.RML_ID,
+											a.ATTN_DATE,
+											a.RML_NAME,
+											a.IN_TIME,
+											a.OUT_TIME,
+											a.STATUS,
+											a.DEPT_NAME,
+											a.IN_LAT,
+											a.IN_LANG,
+											a.DAY_NAME,
+											a.BRANCH_NAME,
+											a.LOCK_STATUS,
+											a.LOCAK_DATE,
+											a.LATE_TIME
+											from RML_HR_ATTN_DAILY_PROC a ,RML_HR_APPS_USER b
+											where a.RML_ID = b.RML_ID
+											and b.IS_ACTIVE = 1
+											and trunc(a.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
+											and ('$attn_status' is null OR a.STATUS='$attn_status')
+											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
+											order by a.ATTN_DATE";
+										}
+
+										$strSQL  = oci_parse($objConnect, $query);
 
 										oci_execute($strSQL);
 										$number = 0;
@@ -264,6 +307,9 @@ $is_exel_download_eanble = 0;
 													?>
 
 												</td>
+												<?php if (isset($_POST['remarks_status']) && $_POST['remarks_status']== 'with') { ?>
+													<td><?= $row['HR_REMARKS'] ?> </td>
+												<?php } ?>
 
 											</tr>
 									<?php
