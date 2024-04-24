@@ -1,5 +1,5 @@
 <?php
-if (!isset($_SESSION['HR'])) {
+if (!isset($_SESSION['HR_APPS'])) {
   $currentScriptPath = __FILE__;
   $directoryPath     = dirname($currentScriptPath);
   $includeFilePath   = $directoryPath . '/../config_file_path.php';

@@ -6,7 +6,7 @@ if (!checkPermission('concern-leave-report')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 //To run PHP script on submit
@@ -171,7 +171,7 @@ if (isset($_POST['submit_delete'])) {
                         } else {
 
 
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT A.ID,B.RML_ID,

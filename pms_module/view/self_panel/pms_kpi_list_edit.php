@@ -4,7 +4,7 @@ require_once('../../../inc/connoracle.php');
 $basePath                  = $_SESSION['basePath'];
 $v_ACHIEVEMENT_LOCK_STATUS = 0;
 $v_key                     = $_REQUEST['id'];
-$emp_session_id            = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id            = $_SESSION['HR_APPS']['emp_id_hr'];
 $query                     = "SELECT 
             KPI_NAME,
             HR_KRA_LIST_ID,ACHIEVEMENT_LOCK_STATUS,

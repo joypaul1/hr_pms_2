@@ -2,12 +2,12 @@
 session_start();
 session_regenerate_id(TRUE);
 
-// if ($_SESSION['HR']['hr_role'] != 1) {
+// if ($_SESSION['HR_APPS']['hr_role'] != 1) {
 // 	header('location:index.php?lmsg_hr=true');
 // 	exit;
 // }
 
-// if (!isset($_SESSION['HR']['id_hr'], $_SESSION['HR']['hr_role'])) {
+// if (!isset($_SESSION['HR_APPS']['id_hr'], $_SESSION['HR_APPS']['hr_role'])) {
 // 	header('location:index.php?lmsg_hr=true');
 // 	exit;
 // }
@@ -24,7 +24,7 @@ require_once('layouts/left_menu.php');
 require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 ?>
 <!-- / Content -->
@@ -130,7 +130,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 						} else {
 
 
-							$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+							$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$allDataSQL  = oci_parse(
 								$objConnect,
 								"SELECT ID,

@@ -3,7 +3,7 @@
 session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 
 // Check if the form is submitted create clearence 

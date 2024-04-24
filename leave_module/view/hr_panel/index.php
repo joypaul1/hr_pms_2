@@ -5,7 +5,7 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-leave-report')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 ?>
@@ -183,7 +183,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         } else {
 
 
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.RML_ID,

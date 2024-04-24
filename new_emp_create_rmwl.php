@@ -2,7 +2,7 @@
 session_start();
 session_regenerate_id(TRUE);
 
-if ($_SESSION['HR']['hr_role'] != 5) {
+if ($_SESSION['HR_APPS']['hr_role'] != 5) {
 	header('location:index.php?lmsg_hr=true');
 	exit;
 }
@@ -22,7 +22,7 @@ require_once('inc/connoracle.php');
 
 
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 ?>
 <div class="content-wrapper">
 	<div class="container-fluid">
@@ -194,7 +194,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 					<?php
 					//   $emp_session_id=$_SESSION['emp_id'];
-					$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+					$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 					@$form_rml_id = $_REQUEST['form_rml_id'];
 					@$emp_form_name = $_REQUEST['emp_form_name'];
 					@$emp_mobile = $_REQUEST['emp_mobile'];

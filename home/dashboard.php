@@ -109,7 +109,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			<div class="card" style="background: linear-gradient(to bottom, #24ff72, #0c184e69);">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
-						<img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
+						<img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
 							alt="User Image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
 					</div>
 					<div class="flex-grow-1 mt-3 ">
@@ -118,7 +118,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 							<div class="user-profile-info">
 
 								<h4 class="text-whites">
-									<?php echo $_SESSION['HR']['first_name_hr']; ?>
+									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
 								</h4>
 								<ul
 									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">

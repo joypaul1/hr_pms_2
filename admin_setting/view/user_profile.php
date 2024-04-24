@@ -1,13 +1,10 @@
 <?php
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $emp_id = htmlentities($_GET['emp_id']);
 $basePath =  $_SESSION['basePath'];
-// if (!checkPermission('user-transfer')) {
-//     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
-// }
-if (!isset($_SESSION['HR'])) {
+if (!isset($_SESSION['HR_APPS'])) {
 	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 ?>

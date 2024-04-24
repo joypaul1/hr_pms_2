@@ -764,7 +764,7 @@ function isActive($url)
                                             </a>
                                         </li>
                                     <?php } ?>
-                                    <?php if ($_SESSION['HR']['emp_id_hr'] == "RMWL-0605" || $_SESSION['HR']['emp_id_hr'] == "RMWL-0942") { ?>
+                                    <?php if ($_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0605" || $_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0942") { ?>
                                         <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/exit_interview.php'); ?>">
                                             <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/exit_interview.php" class="menu-link withoutIcon">
                                                 <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Exit Interview

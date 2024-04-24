@@ -1,7 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('lm-offboarding-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -117,7 +117,7 @@ if (!checkPermission('lm-offboarding-report')) {
                         <?php
 
 
-                        $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                        $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         $query = "WITH
                                     CTE_EMP_CLEARENCE AS (
                                         SELECT
@@ -278,7 +278,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             $leave_end_date = date("d/m/Y");
                             $query .=  " WHERE trunc(CTE_EMP_CLEARENCE.CREATED_DATE) between TO_DATE('$leave_start_date', 'DD/MM/YYYY') and TO_DATE('$leave_end_date', 'DD/MM/YYYY')";
                         }
-                        if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                        if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                             $query .= " AND B.R_CONCERN = 'RMWL'";
                         }
                         $query .= " GROUP BY

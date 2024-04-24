@@ -5,7 +5,7 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('lm-attendance-outdoor')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 ?>
 
 
@@ -90,7 +90,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                             <?php
                             // $emp_id=$_SESSION['emp_id'];
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             @$emp_concern = $_REQUEST['emp_concern'];
                             @$start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
                             @$end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));

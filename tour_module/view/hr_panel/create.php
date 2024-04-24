@@ -7,7 +7,7 @@ if (!checkPermission('hr-tour-create')) {
 		window.location.href = '$basePath/index.php?logout=true';
 	</script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 ?>
 
@@ -136,7 +136,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 						<?php
 
-						$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+						$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						if (isset($_POST['submit_leave'])) {
 							if (isset($_POST['leave_end_date'])) {
 								$v_emp_id = $_REQUEST['emp_id'];

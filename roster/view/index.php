@@ -108,7 +108,7 @@ require_once('../../inc/connoracle.php');
                             <tbody>
 
                                 <?php
-                                $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                                $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
                                 if (isset($_POST['rml_id'])) {

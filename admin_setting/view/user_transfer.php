@@ -1,7 +1,7 @@
 <?php
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('user-transfer')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -268,7 +268,7 @@ if (!checkPermission('user-transfer')) {
 
                         <?php
 
-                        $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                        $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         if (isset($_POST['submit_leave'])) {
                             if (isset($_POST['form_effect_date'])) {
 

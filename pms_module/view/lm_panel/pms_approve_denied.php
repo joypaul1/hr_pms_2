@@ -5,7 +5,7 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-lm-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $v_key          = $_REQUEST['key'];
 $v_emp_id       = $_REQUEST['emp_id'];
 $v_emp_table_id = $_REQUEST['tab_id'];

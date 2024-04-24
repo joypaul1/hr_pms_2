@@ -5,7 +5,7 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-leave-assign')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $v_excel_download = 0;
 
 ?>
@@ -79,7 +79,7 @@ $v_excel_download = 0;
 
     <?php
     if (isset($_POST['leave_year'])) {
-        $user_id    = $_SESSION['HR']['emp_id_hr'];
+        $user_id    = $_SESSION['HR_APPS']['emp_id_hr'];
         $r_concern  = $_REQUEST['r_concern'];
         $leave_year = $_REQUEST['leave_year'];
         $v_doj      = $_REQUEST['v_doj'];

@@ -1,7 +1,7 @@
 <?php
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('user-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -79,7 +79,7 @@ if (!checkPermission('user-create')) {
                             </div>
 
                             <div class="row">
-                                    <?php if ($_SESSION['HR']['user_concern'] == 'RMWL') { ?>
+                                    <?php if ($_SESSION['HR_APPS']['user_concern'] == 'RMWL') { ?>
                                         <div class="col-sm-3">
                                             <label for="title">Select Concern</label>
                                             <select required="" name="company_concern" class="form-control">
@@ -229,7 +229,7 @@ if (!checkPermission('user-create')) {
 
 
                 <?php
-                $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                 @$form_rml_id = $_REQUEST['form_rml_id'];
                 @$emp_form_name = $_REQUEST['emp_form_name'];
                 @$emp_mobile = $_REQUEST['emp_mobile'];

@@ -5,7 +5,7 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-attendance-manual-entry')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 ?>
 
 
@@ -180,7 +180,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
                         <?php
 
-                        $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                        $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         if (isset($_POST['submit_attendance'])) {
                             if (isset($_POST['attn_start_date'])) {
                                 $v_emp_id = $_REQUEST['emp_id'];

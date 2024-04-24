@@ -6,7 +6,7 @@ require_once('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 //pms profile create

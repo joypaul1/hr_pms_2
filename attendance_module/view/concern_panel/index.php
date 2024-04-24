@@ -1,11 +1,13 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('concern-attendance-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
+$attn_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date']))  : date('d/m/Y');
+$attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('d/m/Y');
 ?>
 
 
@@ -14,26 +16,26 @@ if (!checkPermission('concern-attendance-report')) {
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="card">
         <div class="card-body">
-            <form action="" method="post">
+            <form action="" method="GET">
                 <div class="row">
                     <div class="col-sm-3">
                         <label> Employee ID </label>
                         <div class="input-group">
-                            <input required="" class="form-control cust-control" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' placeholder="EX: RML:00955 / RMWL:0942">
+                            <input class="form-control cust-control" type='text' name='emp_id' value='<?php echo isset($_GET['emp_id']) ? $_GET['emp_id'] : ''; ?>' placeholder="EX: RML:00955 / RMWL:0942">
 
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <label>From Date:</label>
                         <div class="input-group">
-                            <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+                            <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_start_date)->format('Y-m-d') ?>" class="form-control" type="date" name="start_date">
 
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <label>To Date:</label>
                         <div class="input-group">
-                            <input required="" class="form-control  cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
+                            <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_end_date)->format('Y-m-d') ?>" class="form-control" type="date" name="end_date">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -83,10 +85,10 @@ if (!checkPermission('concern-attendance-report')) {
 
                         @$emp_id            = $_REQUEST['emp_id'];
                         @$attn_status       = $_REQUEST['attn_status'];
-                        @$attn_start_date   = date("d/m/Y", strtotime($_REQUEST['start_date']));
-                        @$attn_end_date     = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                        // @$attn_start_date   = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                        // @$attn_end_date     = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
-                        if (isset($_POST['attn_status'])) {
+                        // if (isset($_GET['attn_status'])) {
                             $query = "SELECT
                                         A.RML_ID,
                                         A.ATTN_DATE,
@@ -174,15 +176,15 @@ if (!checkPermission('concern-attendance-report')) {
                                 <td></td>
                                 <td><b>Summary</b></td>
                                 <td>Present: <?php echo $presentCount; ?></td>
-                                <td>Late:   <?php echo  $lateCount; ?></td>
-                                <td>Absent:     <?php echo $absentCount; ?></td>
+                                <td>Late: <?php echo  $lateCount; ?></td>
+                                <td>Absent: <?php echo $absentCount; ?></td>
                                 <td>Weekend: <?php echo $weekendCount; ?></td>
                                 <td>Holiday: <?php echo $holidayCount; ?></td>
                                 <td>Leave: <?php echo $leaveCount; ?></td>
                                 <td></td>
                             </tr>
                         <?php
-                        }
+                        // }
 
                         ?>
                     </tbody>

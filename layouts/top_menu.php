@@ -1,5 +1,5 @@
 <?php
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $objConnect = oci_connect("DEVELOPERS", "Test1234", "10.99.99.20:1525/ORCLPDB", 'AL32UTF8');
 $notification_number = 0;
 $sqlQuary = "Select sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
@@ -49,7 +49,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <li class="nav-item lh-1 me-3">
           <a class="github-button" href="" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
             <strong>
-              <?php echo $_SESSION['HR']['first_name_hr']; ?>
+              <?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
             </strong>
           </a>
         </li>
@@ -114,7 +114,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
+              <img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -123,15 +123,15 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="<?php echo $_SESSION['HR']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
+                      <img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
                     </div>
                   </div>
                   <div class="flex-grow-1">
                     <span class="fw-semibold d-block">
-                      <?php echo $_SESSION['HR']['first_name_hr']; ?>
+                      <?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
                     </span>
                     <small class="text-muted">
-                      <?php echo (implode(',', getUserAccessRoleByID($_SESSION['HR']['id_hr']))); ?>
+                      <?php echo (implode(',', getUserAccessRoleByID($_SESSION['HR_APPS']['id_hr']))); ?>
                     </small>
                   </div>
                 </div>

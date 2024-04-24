@@ -7,7 +7,7 @@ if (!checkPermission('lm-attendance-approval')) {
 }
 $v_view_approval = 0;
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 

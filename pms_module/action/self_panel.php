@@ -2,7 +2,7 @@
 session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
@@ -127,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxkpi_edit') {
     $v_ACHIEVEMENT_LOCK_STATUS = 0;
     $editID                    = $_REQUEST['editID'];
-    $emp_session_id            = $_SESSION['HR']['emp_id_hr'];
+    $emp_session_id            = $_SESSION['HR_APPS']['emp_id_hr'];
     $query                     = "SELECT KPI_NAME, HR_KRA_LIST_ID, ACHIEVEMENT_LOCK_STATUS, WEIGHTAGE, REMARKS, TARGET, ELIGIBILITY_FACTOR, ACHIVEMENT, (SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP WHERE IS_ACTIVE=1 AND EMP_ID='$emp_session_id' AND HR_PMS_LIST_ID=(SELECT HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)) SUBMITTED_STATUS FROM HR_PMS_KPI_LIST WHERE ID=$editID";
     $strSQL                    = oci_parse($objConnect, $query);
 

@@ -160,7 +160,7 @@ require_once('../../inc/connoracle.php');
                                 <tbody>
 
                                     <?php
-                                    $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                                    $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
                                     if (isset($_POST['rml_id'])) {
@@ -307,7 +307,7 @@ require_once('../../inc/connoracle.php');
 
         if (isset($_POST['submit_approval'])) {
             // $emp_session_id    = $_SESSION['emp_id'];
-            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
             $roster_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
             $roster_end_date   = date("d/m/Y", strtotime($_REQUEST['end_date']));

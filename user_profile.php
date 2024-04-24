@@ -1,12 +1,12 @@
 <?php
 session_start();
-if (!isset($_SESSION['HR'])) {
+if (!isset($_SESSION['HR_APPS'])) {
 	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 require_once('./config_file_path.php');
 require_once('inc/connoracle.php');
 require_once('inc/config.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $emp_id = htmlentities($_GET['emp_id']);
 
 ?>

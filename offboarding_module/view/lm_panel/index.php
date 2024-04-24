@@ -1,7 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('lm-offboarding-report')) {
 
@@ -62,7 +62,7 @@ if (!checkPermission('lm-offboarding-report')) {
         <div>
             <a class="btn btn-sm btn-primary text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
         </div>';
-        // if ($_SESSION['HR']['user_concern'] != "RMWL") {
+        // if ($_SESSION['HR_APPS']['user_concern'] != "RMWL") {
             $html .= '<div>
                 <a target="_blank" href="approval_report.php" class="btn btn-sm btn-warning text-white" style="margin-left:5px;"> <i class="bx bxs-arrow-to-right"></i>View Approval Details </a>
             </div>';
@@ -118,7 +118,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                     FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
                                     WHERE A.RML_HR_APPS_USER_ID=B.ID
                                     AND B.RML_ID='$v_emp_id'";
-                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                                 $query .= " AND B.R_CONCERN = 'RMWL'";
                             }
                             $strSQL  = oci_parse($objConnect, $query);
@@ -236,7 +236,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <?php
                             }
                         } else {
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $query = "SELECT A.ID,
                                         B.EMP_NAME,
                                         B.RML_ID,
@@ -251,7 +251,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                         A.CREATED_BY
                                 FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
                                 WHERE A.RML_HR_APPS_USER_ID=B.ID AND ROWNUM <=10";
-                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                                 $query .= " AND B.R_CONCERN = 'RMWL'";
                             }
                             $allDataSQL  = oci_parse($objConnect, $query);

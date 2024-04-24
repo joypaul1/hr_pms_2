@@ -76,7 +76,7 @@ function checkPermission($permissionSlug)
 function getUserWisePermissionName()
 {
 	global $conn_hr;
-	$user_id = $_SESSION['HR']['id_hr'];
+	$user_id = $_SESSION['HR_APPS']['id_hr'];
 	$permissionArray = [];
 	$permissionSlug = [];
 	$sql        = "SELECT * FROM tbl_users_permissions  Where user_id=" . $user_id; //  select query execution
@@ -109,7 +109,7 @@ function getUserWiseRoleName($roleSlug)
 {
 	global $conn_hr;
 	$rolePermission = false;
-	$user_id = $_SESSION['HR']['id_hr'];
+	$user_id = $_SESSION['HR_APPS']['id_hr'];
 	$sql        = "SELECT id FROM tbl_roles  WHERE slug = '$roleSlug'"; //  select query execution
 	$perResult  = mysqli_query($conn_hr, $sql);
 	$dataRow 	= mysqli_fetch_assoc($perResult);

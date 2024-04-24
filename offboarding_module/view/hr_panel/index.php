@@ -1,7 +1,7 @@
 <?php
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-offboarding-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -182,7 +182,7 @@ if (!checkPermission('hr-offboarding-report')) {
                         } else {
 
 
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT 

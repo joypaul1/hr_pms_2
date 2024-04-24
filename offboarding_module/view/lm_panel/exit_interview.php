@@ -2,10 +2,10 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
-if (!$_SESSION['HR']['emp_id_hr'] == "RMWL-0605" || !$_SESSION['HR']['emp_id_hr'] == "RMWL-0942") {
+if (!$_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0605" || !$_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0942") {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $v_view_approval = 0;
 ?>
 

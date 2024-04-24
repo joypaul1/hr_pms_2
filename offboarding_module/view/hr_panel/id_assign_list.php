@@ -106,7 +106,7 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
                         } else {
 
 
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.EMP_NAME,

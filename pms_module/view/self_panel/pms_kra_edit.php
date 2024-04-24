@@ -3,7 +3,7 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $editId = $_REQUEST['id'];
 
 $strSQL  = oci_parse($objConnect, "SELECT KRA_NAME, HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=$editId");

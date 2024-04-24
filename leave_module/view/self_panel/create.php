@@ -6,7 +6,7 @@ if (!checkPermission('self-leave-create')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 $EMP_NAME = '';
 $EMP_MOBILE = '';

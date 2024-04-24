@@ -17,7 +17,7 @@ require_once('layouts/top_menu.php');
 require_once('inc/connoracle.php');
 
 
-// $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+// $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 ?>

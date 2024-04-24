@@ -2,7 +2,7 @@
 session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 if (empty($emp_session_id)) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     $concern_name               = ($_POST['concern_name']);
     $department_id              = ($_POST['department_id']);
     $empConcernID               = ($_POST['emp_rml_id']);
-    $emp_session_id             = $_SESSION['HR']['emp_id_hr'];
+    $emp_session_id             = $_SESSION['HR_APPS']['emp_id_hr'];
     // new variable
     $last_working_day = date("d/m/Y", strtotime($_REQUEST['last_working_day']));
     $resignation_date = date("d/m/Y", strtotime($_REQUEST['resignation_date']));

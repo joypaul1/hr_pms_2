@@ -8,7 +8,7 @@ $basePath =  $_SESSION['basePath'];
 if (!checkPermission('accounts-clearance-form')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 ?>
 
@@ -90,7 +90,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                     INNER JOIN
                                         RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
                                     WHERE B.RML_ID='$v_emp_id'";
-                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                                 $query .= " AND B.R_CONCERN = 'RMWL'";
                             }
                             $strSQL  = oci_parse($objConnect, $query);
@@ -162,7 +162,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                         } else {
 
 
-                            $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $query = "SELECT 
                             A.ID,
                             B.EMP_NAME,
@@ -185,7 +185,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                             EMP_CLEARENCE A
                          JOIN 
                             RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID";
-                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                                 $query .= " WHERE B.R_CONCERN = 'RMWL'";
                             }
                             $allDataSQL  = oci_parse(

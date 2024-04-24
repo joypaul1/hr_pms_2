@@ -30,7 +30,7 @@ if (isset($_POST['login_hr'])) {
       $getUserRow_hr = mysqli_fetch_assoc($rs_hr);
       unset($getUserRow_hr['hrpassword']);
 
-      $_SESSION['HR']          = $getUserRow_hr;
+      $_SESSION['HR_APPS']          = $getUserRow_hr;
       $_SESSION['baseUrl']     = $baseUrl;
       $_SESSION['basePath']    = $basePath;
       $_SESSION['rs_img_path'] = $rs_img_path;

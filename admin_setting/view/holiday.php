@@ -1,7 +1,7 @@
 <?php
 require_once('../../helper/2step_com_conn.php');
 require_once('../../inc/connoracle.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $errorMsg       = '';
 $basePath       = $_SESSION['basePath'];
 if (!checkPermission('holiday-list')) {
@@ -31,7 +31,7 @@ if (!checkPermission('holiday-list')) {
                     </select>
                 </div>
                 <?php
-                $allRole = ((getUserAccessRoleByID($_SESSION['HR']['id_hr'])));
+                $allRole = ((getUserAccessRoleByID($_SESSION['HR_APPS']['id_hr'])));
                 if (in_array('Concern', $allRole)) { ?>
                     <div class="col-4">
                         <label for="exampleInputEmail1">Select Concern:</label>
@@ -81,7 +81,7 @@ if (!checkPermission('holiday-list')) {
     </br>
     <?php
     if (isset($_POST['holiday_date'])) {
-        $emp_session_id  = $_SESSION['HR']['emp_id_hr'];
+        $emp_session_id  = $_SESSION['HR_APPS']['emp_id_hr'];
         $holiday_date    = date("d/m/Y", strtotime($_REQUEST['holiday_date']));
         $emp_concern     = $_REQUEST['emp_concern'];
         $holiday_type    = $_REQUEST['holiday_type'];
@@ -149,7 +149,7 @@ if (!checkPermission('holiday-list')) {
 
                         <?php
 
-                        $allRole = ((getUserAccessRoleByID($_SESSION['HR']['id_hr'])));
+                        $allRole = ((getUserAccessRoleByID($_SESSION['HR_APPS']['id_hr'])));
                         if (in_array('Concern', $allRole)) {
                             $query = "SELECT * FROM
 (

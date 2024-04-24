@@ -3,7 +3,7 @@ session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connresaleoracle.php');
 require_once('../../config_file_path.php');
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 // echo gettype($_GET["actionType"]);
 // echo $_GET["brand_id"];

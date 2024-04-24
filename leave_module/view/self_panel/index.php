@@ -140,7 +140,7 @@ if (!checkPermission('self-leave-report')) {
                         } else {
 
 
-                            // $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            // $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.RML_ID,

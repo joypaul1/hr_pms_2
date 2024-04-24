@@ -5,7 +5,7 @@ if (!checkPermission('pms-hr-year-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
 $basePath =  $_SESSION['basePath'];
-$emp_session_id = $_SESSION['HR']['emp_id_hr'];
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 ?>
 
