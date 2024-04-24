@@ -17,28 +17,27 @@ if (!checkPermission('concern-attendance-report')) {
             <form action="" method="post">
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>From Date:</label>
+                        <label> Employee ID </label>
                         <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+                            <input required="" class="form-control cust-control" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' placeholder="EX: RML:00955 / RMWL:0942">
 
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
+                        <label>From Date:</label>
+                        <div class="input-group">
+                            <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
                         <label>To Date:</label>
                         <div class="input-group">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar">
-                                </i>
-                            </div>
-                            <input required="" class="form-control  cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+                            <input required="" class="form-control  cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                         </div>
                     </div>
                     <div class="col-sm-3">
-                        <label>Select Attendance Status:</label>
+                        <label>Attendance Status:</label>
                         <select name="attn_status" class="form-control  cust-control">
                             <option selected value="">Select Attendance Status</option>
                             <option value="P">Present</option>
@@ -47,10 +46,10 @@ if (!checkPermission('concern-attendance-report')) {
                         </select>
 
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit" value="Search Data">
+                            <input class="form-control btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit" value="Search Data">
                         </div>
                     </div>
                 </div>
@@ -82,14 +81,44 @@ if (!checkPermission('concern-attendance-report')) {
 
                         <?php
 
-                        @$attn_status = $_REQUEST['attn_status'];
-                        @$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-                        @$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                        @$emp_id            = $_REQUEST['emp_id'];
+                        @$attn_status       = $_REQUEST['attn_status'];
+                        @$attn_start_date   = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                        @$attn_end_date     = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                         if (isset($_POST['attn_status'])) {
-                            $strSQL  = oci_parse($objConnect, "SELECT A.RML_ID,A.ATTN_DATE,A.RML_NAME,A.IN_TIME,A.OUT_TIME,A.STATUS,A.DEPT_NAME,A.IN_LAT,A.IN_LANG,A.DAY_NAME,A.BRANCH_NAME from RML_HR_ATTN_DAILY_PROC A ,RML_HR_APPS_USER B 
-                                where trunc(A.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy') and ('$attn_status' is null OR A.STATUS='$attn_status') and A.RML_ID=B.RML_ID and B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
-                                order by A.ATTN_DATE");
+                            $query = "SELECT
+                                        A.RML_ID,
+                                        A.ATTN_DATE,
+                                        A.RML_NAME,
+                                        A.IN_TIME,
+                                        A.OUT_TIME,
+                                        A.STATUS,
+                                        A.DEPT_NAME,
+                                        A.IN_LAT,
+                                        A.IN_LANG,
+                                        A.DAY_NAME,
+                                        A.BRANCH_NAME
+                                    FROM
+                                        RML_HR_ATTN_DAILY_PROC A,
+                                        RML_HR_APPS_USER B
+                                    WHERE
+                                        TRUNC(A.ATTN_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy')
+                                        AND ('$attn_status' IS NULL OR A.STATUS='$attn_status')
+                                        AND ('$emp_id' IS NULL OR B.RML_ID='$emp_id')
+                                        AND A.RML_ID=B.RML_ID
+                                        AND B.R_CONCERN IN (
+                                        SELECT
+                                            R_CONCERN
+                                        FROM
+                                            RML_HR_APPS_USER
+                                        WHERE
+                                            IS_ACTIVE=1
+                                            AND RML_ID ='$emp_session_id'
+                                        )
+                                        ORDER BY A.ATTN_DATE";
+
+                            $strSQL  = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             $number = 0;
                             $lateCount = 0;
@@ -139,15 +168,14 @@ if (!checkPermission('concern-attendance-report')) {
 
                                 </tr>
                             <?php
-
                             }
                             ?>
                             <tr>
                                 <td></td>
                                 <td><b>Summary</b></td>
                                 <td>Present: <?php echo $presentCount; ?></td>
-                                <td>Late: <?php echo  $lateCount; ?></td>
-                                <td>Absent: <?php echo $absentCount; ?></td>
+                                <td>Late:   <?php echo  $lateCount; ?></td>
+                                <td>Absent:     <?php echo $absentCount; ?></td>
                                 <td>Weekend: <?php echo $weekendCount; ?></td>
                                 <td>Holiday: <?php echo $holidayCount; ?></td>
                                 <td>Leave: <?php echo $leaveCount; ?></td>

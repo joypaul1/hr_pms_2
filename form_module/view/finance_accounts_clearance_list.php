@@ -163,31 +163,36 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
 
 
                             $emp_session_id = $_SESSION['HR']['emp_id_hr'];
+                            $query = "SELECT 
+                            A.ID,
+                            B.EMP_NAME,
+                            B.RML_ID,
+                            B.R_CONCERN,
+                            B.DEPT_NAME,
+                            B.DESIGNATION,
+                            A.APPROVAL_STATUS,
+                            A.HOD_STATUS,
+                            A.EXIT_INTERVIEW_STATUS,
+                            A.EXIT_INTERVIEW_DATE,
+                            A.EXIT_INTERVIEW_BY,
+                            A.CREATED_DATE,
+                            A.CREATED_BY,
+                            A.LAST_WORKING_DATE,
+                            A.RESIGNATION_DATE,
+                            A.REASON,
+                            A.RML_HR_APPS_USER_ID
+                        FROM 
+                            EMP_CLEARENCE A
+                         JOIN 
+                            RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID";
+                            if ($_SESSION['HR']['user_concern'] == "RMWL") {
+                                $query .= " WHERE B.R_CONCERN = 'RMWL'";
+                            }
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT 
-                                A.ID,
-                                B.EMP_NAME,
-                                B.RML_ID,
-                                B.R_CONCERN,
-                                B.DEPT_NAME,
-                                B.DESIGNATION,
-                                A.APPROVAL_STATUS,
-                                A.HOD_STATUS,
-                                A.EXIT_INTERVIEW_STATUS,
-                                A.EXIT_INTERVIEW_DATE,
-                                A.EXIT_INTERVIEW_BY,
-                                A.CREATED_DATE,
-                                A.CREATED_BY,
-                                A.LAST_WORKING_DATE,
-                                A.RESIGNATION_DATE,
-                                A.REASON,
-                                A.RML_HR_APPS_USER_ID
-                            FROM 
-                                EMP_CLEARENCE A
-                             JOIN 
-                                RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID"
+                                $query
                             );
+
 
                             oci_execute($allDataSQL);
                             $number = 0;
@@ -242,8 +247,7 @@ $emp_session_id = $_SESSION['HR']['emp_id_hr'];
                                             </button>
                                         </a>';
                                         } else {
-                                            echo "Pending";
-                                            echo '</br>';
+                                            echo "Pending" . '</br>';
                                             echo '<a href="' . $basePath . '/form_module/view/finance_accounts_clearance.php?rml_hr_apps_user_id=' . $row['RML_HR_APPS_USER_ID'] . '" target="_blank">
                                                 <button type="button" class="btn btn-sm btn-outline-info">
                                                     Create Form   <i class="menu-icon tf-icons bx bx-right-arrow"></i>
