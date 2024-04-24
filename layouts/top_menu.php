@@ -24,17 +24,13 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
     <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
       <!-- Search -->
 
-      <form action="" method="post">
+      <form action="<?php echo ($basePath . '/admin_setting/view/user_profile.php') ?>" method="GET">
         <div class="navbar-nav align-items-center">
           <div class="nav-item d-flex align-items-center">
             <i class="bx bx-search fs-4 lh-0"></i>
             <?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
-              <input type="text" name="search_input" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search...">
+              <input type="text" name="emp_id" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search...">
             <?php
-            }
-            if (isset($_POST['search_input'])) {
-              $v_search_input = $_REQUEST['search_input'];
-              echo "<script>window.location = '" . $basePath . "/admin_setting/view/user_profile.php?emp_id=$v_search_input'</script>";
             }
             ?>
           </div>

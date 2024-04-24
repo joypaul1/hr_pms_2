@@ -9,7 +9,7 @@ if (!checkPermission('resale-report-panel')) {
 ?>
 
 <!-- / Content -->
-<div class="container-xxl flex-grow-1 container-p-y" <!-- Bordered Table -->
+<div class="container-xxl flex-grow-1 container-p-y" 
     <div class="card mt-2">
         <!-- table header -->
         <?php
@@ -23,7 +23,7 @@ if (!checkPermission('resale-report-panel')) {
         $productInfoRow = oci_fetch_assoc($productInfoSQL);
         // print_r($productInfoRow['MODEL']);
         ?>
-        
+
         <!-- End table  header -->
         <div class="card-body">
             <div class="text-end">
@@ -143,11 +143,7 @@ if (!checkPermission('resale-report-panel')) {
                             </tr>
                         <?php
                         }
-
                         ?>
-
-
-
                     </tbody>
                 </table>
             </div>
