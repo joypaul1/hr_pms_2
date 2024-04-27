@@ -22,24 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
     // Prepare the SQL statement
     $strSQL = @oci_parse($objConnect, "
-        UPDATE PRODUCT SET
-            CREDIT_PRICE    = :credit_price,
-            CASH_PRICE      = :cash_price,
-            BODY_SIT        = :body_sit,
-            COLOR           = :color,
-            REG_PAPER       = :reg_paper,
-            FUEL_TYPE       = :fuel_type
-            WHERE ID        = :edit_id
+            UPDATE PRODUCT SET
+            CREDIT_PRICE    = '$CREDIT_PRICE',
+            CASH_PRICE      = '$CASH_PRICE',
+            BODY_SIT        = '$BODY_SIT',
+            COLOR           = '$COLOR',
+            REG_PAPER       = '$REG_PAPER',
+            FUEL_TYPE       = '$FUEL_TYPE',
+            UPDATED_DATE    =  SYSDATE,
+            UPDATED_BY      = '$emp_session_id'
+            WHERE ID        = '$editId'
     ");
 
-    // Bind parameters
-    @oci_bind_by_name($strSQL, ':credit_price', $CREDIT_PRICE);
-    @oci_bind_by_name($strSQL, ':cash_price', $CASH_PRICE);
-    @oci_bind_by_name($strSQL, ':body_sit', $BODY_SIT);
-    @oci_bind_by_name($strSQL, ':color', $COLOR);
-    @oci_bind_by_name($strSQL, ':fuel_type', $FUEL_TYPE);
-    @oci_bind_by_name($strSQL, ':reg_paper', $REG_PAPER);
-    @oci_bind_by_name($strSQL, ':edit_id', $editId);
 
     // Execute the query
     if (@oci_execute($strSQL)) {
@@ -165,7 +159,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
                         // image final name for database store name
                         $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
 
-                        $picurlSQL = "UPDATE PRODUCT_PICTURE SET URL = '$imageFinalName' WHERE ID = '$pr_d_id'";
+                        $picurlSQL = "UPDATE PRODUCT_PICTURE SET URL = '$imageFinalName',
+                        UPDATED_DATE    =  SYSDATE,
+                        UPDATED_BY      = '$emp_session_id'
+                        WHERE ID = '$pr_d_id'";
                         // Prepare and execute the query
                         $updateSQL = oci_parse($objConnect, $picurlSQL);
 
@@ -228,7 +225,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
             $imageFinalName = str_replace('../', '', $targetPath_fullImgName);
             // Prepare and execute the query
 
-            $picurlSQL = "UPDATE PRODUCT SET PIC_URL = '$imageFinalName' WHERE ID = '$editId'";
+            $picurlSQL = "UPDATE PRODUCT SET PIC_URL = '$imageFinalName',
+            UPDATED_DATE  =  SYSDATE,
+            UPDATED_BY      = '$emp_session_id'
+            WHERE ID = '$editId'";
             // echo "Full Raw Query: " .$picurlSQL;
             // die();
             $updatePicSQL = oci_parse($objConnect, $picurlSQL);
@@ -302,9 +302,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pro_
 
 
     // Prepare the SQL statement
-    $strSQL = oci_parse($objConnect, "UPDATE PRODUCT 
-    SET 
-    AUCTTION_START_DATE = to_date('$AUCTTION_START_DATE','dd/mm/yyyy'), 
+    $strSQL = oci_parse($objConnect, "UPDATE PRODUCT
+    SET
+    AUCTTION_START_DATE = to_date('$AUCTTION_START_DATE','dd/mm/yyyy'),
     AUCTION_END_DATE = to_date('$AUCTION_END_DATE','dd/mm/yyyy'),
     PUBLISHED_STATUS = '$PUBLISHED_STATUS',
     PUBLISHED_BY = '$emp_session_id',

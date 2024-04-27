@@ -42,9 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
     oci_execute($productSQL);
     $data = oci_fetch_array($productSQL);
-
-}
-else {
+} else {
     $message                  = [
         'text'   => "Oops! Something went wrong. Please try again later.",
         'status' => 'false',
@@ -76,44 +74,37 @@ $basePath = $_SESSION['basePath'];
 
                     <div class="col-4">
                         <label class="form-label" for="MODEL"> Model</label>
-                        <input type="text" name="MODEL" class="form-control" value="<?php echo $data['MODEL'] ?>" required id="MODEL" disabled
-                            placeholder="MODEL Name..">
+                        <input type="text" name="MODEL" class="form-control" value="<?php echo $data['MODEL'] ?>" required id="MODEL" disabled placeholder="MODEL Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REF_CODE"> REFERENCE CODE</label>
-                        <input type="text" name="REF_CODE" class="form-control" value="<?php echo $data['REF_CODE'] ?>" required id="REF_CODE"
-                            disabled placeholder="REF_CODE Name..">
+                        <input type="text" name="REF_CODE" class="form-control" value="<?php echo $data['REF_CODE'] ?>" required id="REF_CODE" disabled placeholder="REF_CODE Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="ENG_NO"> ENGINE NO.</label>
-                        <input type="text" name="ENG_NO" class="form-control" value="<?php echo $data['ENG_NO'] ?>" required id="ENG_NO" disabled
-                            placeholder="ENG_NO Name..">
+                        <input type="text" name="ENG_NO" class="form-control" value="<?php echo $data['ENG_NO'] ?>" required id="ENG_NO" disabled placeholder="ENG_NO Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="CHS_NO"> CHASSIS NO.</label>
-                        <input type="text" name="CHS_NO" class="form-control" value="<?php echo $data['CHS_NO'] ?>" required id="CHS_NO" disabled
-                            placeholder="CHS_NO Name..">
+                        <input type="text" name="CHS_NO" class="form-control" value="<?php echo $data['CHS_NO'] ?>" required id="CHS_NO" disabled placeholder="CHS_NO Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REG_NO"> REGISTATION NO.</label>
-                        <input type="text" name="REG_NO" class="form-control" value="<?php echo $data['REG_NO'] ?>" required id="name" disabled
-                            placeholder="REG_NO Name..">
+                        <input type="text" name="REG_NO" class="form-control" value="<?php echo $data['REG_NO'] ?>" required id="name" disabled placeholder="REG_NO Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REG_NO"> DEPO LOCATION</label>
-                        <input type="text" name="REG_NO" class="form-control" value="<?php echo $data['DEPO_LOCATION'] ?>" required id="name" disabled
-                            placeholder="REG_NO Name..">
+                        <input type="text" name="REG_NO" class="form-control" value="<?php echo $data['DEPO_LOCATION'] ?>" required id="name" disabled placeholder="REG_NO Name..">
 
                     </div>
                     <div class="col-4">
                         <label class="form-label" for="REG_NO"> Booked Value</label>
-                        <input type="text" name="BOOK_VALUE" class="form-control" value="<?php echo number_format($data['BOOK_VALUE'], 2) ?>" required
-                            id="BOOK_VALUE" disabled placeholder="booked value ..">
+                        <input type="text" name="BOOK_VALUE" class="form-control" value="<?php echo number_format($data['BOOK_VALUE'], 2) ?>" required id="BOOK_VALUE" disabled placeholder="booked value ..">
 
                     </div>
                 </div>
@@ -151,21 +142,17 @@ $basePath = $_SESSION['basePath'];
                                 Section</button>
                         </div>
                         <div class="step_1">
-                            <form method="post"
-                                action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>"
-                                enctype="multipart/form-data">
+                            <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>" enctype="multipart/form-data">
                                 <input type="hidden" name="actionType" value="pro_edit_1">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
                                 <div class="mb-3">
                                     <label class="form-label" for="CASH_PRICE"> CASH PRICE (MIN BID) <small class='text-danger'>*</small></label>
-                                    <input type="number" name="CASH_PRICE" class="form-control" value="<?php echo $data['CASH_PRICE'] ?>" required
-                                        id="CASH_PRICE" placeholder="CASH PRICE (EX:10,000,00.00)">
+                                    <input type="number" name="CASH_PRICE" class="form-control" value="<?php echo $data['CASH_PRICE'] ?>" required id="CASH_PRICE" placeholder="CASH PRICE (EX:10,000,00.00)">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="CREDIT_PRICE">CREDIT PRICE (MIN BID) <small class='text-danger'>*</small></label>
-                                    <input type="number" name="CREDIT_PRICE" class="form-control" value="<?php echo $data['CREDIT_PRICE'] ?>" required
-                                        id="CREDIT_PRICE" placeholder="CREDIT PRICE (EX:10,000,00.00)">
+                                    <input type="number" name="CREDIT_PRICE" class="form-control" value="<?php echo $data['CREDIT_PRICE'] ?>" required id="CREDIT_PRICE" placeholder="CREDIT PRICE (EX:10,000,00.00)">
                                 </div>
 
                                 <div class="mb-3">
@@ -179,21 +166,18 @@ $basePath = $_SESSION['basePath'];
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="BODY_SIT"> BODY TYPE/SIT <small class='text-danger'>*</small></label>
-                                    <input type="text" name="BODY_SIT" class="form-control" value="<?php echo $data['BODY_SIT'] ?>" required
-                                        id="BODY_SIT" placeholder="BODY/SIT ..">
+                                    <input type="text" name="BODY_SIT" class="form-control" value="<?php echo $data['BODY_SIT'] ?>" required id="BODY_SIT" placeholder="BODY/SIT ..">
 
                                 </div>
 
                                 <div class="mb-3">
                                     <label class="form-label" for="COLOR"> COLOR <small class='text-danger'>*</small></label>
-                                    <input type="text" name="COLOR" class="form-control" value="<?php echo $data['COLOR'] ?>" required id="COLOR"
-                                        placeholder="COLOR Name..">
+                                    <input type="text" name="COLOR" class="form-control" value="<?php echo $data['COLOR'] ?>" required id="COLOR" placeholder="COLOR Name..">
 
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="FUEL_TYPE"> FUEL TYPE <small class='text-danger'>*</small></label>
-                                    <input type="text" name="FUEL_TYPE" class="form-control" value="<?php echo $data['FUEL_TYPE'] ?>" required
-                                        id="FUEL_TYPE" placeholder="FUEL TYPE Name..">
+                                    <input type="text" name="FUEL_TYPE" class="form-control" value="<?php echo $data['FUEL_TYPE'] ?>" required id="FUEL_TYPE" placeholder="FUEL TYPE Name..">
 
                                 </div>
 
@@ -203,9 +187,7 @@ $basePath = $_SESSION['basePath'];
                             </form>
                         </div>
                         <div class="step_2 d-none">
-                            <form method="post"
-                                action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>"
-                                enctype="multipart/form-data">
+                            <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>" enctype="multipart/form-data">
                                 <input type="hidden" name="actionType" value="pro_edit_2">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
@@ -215,14 +197,11 @@ $basePath = $_SESSION['basePath'];
                                         <strong>THUMBNAIL IMAGE
                                             <small class="text-danger">[Max File Size (645 × 387)px ]</small></strong>
                                     </label>
-                                    <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?>
-                                        data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="645"
-                                        data-max-height="387" />
+                                    <input type="file" name="PIC_URL" <?php echo !isset($data['PIC_URL']) ? 'required' : '' ?> data-default-file="<?php echo $baseUrl . '/' . $data['PIC_URL'] ?>" class="dropify" data-max-width="645" data-max-height="387" />
 
                                 </div>
 
-                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span
-                                        class="text-danger">(4image mandatory) <small>[Max File Size (645 × 387)px ]</small></span></div>
+                                <div class="text-center shadow-sm p-3 mb-2 bg-body rounded fw-bold">Image Details Section <span class="text-danger">(4image mandatory) <small>[Max File Size (645 × 387)px ]</small></span></div>
                                 <div class="d-flex flex-row gap-1 bd-highlight mb-3">
                                     <?php
                                     $product_image      = array();
@@ -242,7 +221,7 @@ $basePath = $_SESSION['basePath'];
                                         }
                                     }
                                     // print_r($product_image);
-                                    
+
                                     // Check if $product_image has elements before accessing them
                                     if (!empty($product_image)) {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="0"/>';
@@ -264,9 +243,7 @@ $basePath = $_SESSION['basePath'];
                                         if (isset($product_image[3])) {
                                             echo '<input type="file" name="old_img_detials[' . $product_image[3]['ID'] . ']" data-default-file="' . $baseUrl . '/' . $product_image[3]['URL'] . '" class="dropify" data-max-width="645" data-max-height ="387" />';
                                         }
-
-                                    }
-                                    else {
+                                    } else {
                                         echo '<input type="hidden" name="new_image_or_old_image" value="1"/>';
                                         for ($i = 1; $i <= 4; $i++) {
                                             echo '<input type="file" required name="new_image_detials[]" class="dropify" data-max-width="645" data-max-height ="387" />';
@@ -288,9 +265,7 @@ $basePath = $_SESSION['basePath'];
                         </div>
 
                         <div class="step_3 d-none">
-                            <form method="post"
-                                action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>"
-                                enctype="multipart/form-data">
+                            <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>" enctype="multipart/form-data">
                                 <input type="hidden" name="actionType" value="pro_edit_3">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
@@ -317,9 +292,7 @@ $basePath = $_SESSION['basePath'];
                             </form>
                         </div>
                         <div class="step_4 d-none">
-                            <form method="post"
-                                action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>"
-                                enctype="multipart/form-data">
+                            <form method="post" action="<?php echo ($basePath . '/resale_module/action/self_panel.php?editID=' . trim($_GET["id"])); ?>" enctype="multipart/form-data">
                                 <input type="hidden" name="actionType" value="pro_edit_4">
                                 <input type="hidden" name="editId" value="<?php echo $data['ID'] ?>">
 
@@ -333,21 +306,19 @@ $basePath = $_SESSION['basePath'];
                                     $formattedStartDate  = $auctionStartDateObj ? $auctionStartDateObj->format('Y-m-d') : date('Y-m-d');
 
                                     ?>
-                                    <input type="date" name="AUCTTION_START_DATE" class="form-control" value="<?php echo $formattedStartDate; ?>"
-                                        required id="auctionStartDate">
+                                    <input type="date" name="AUCTTION_START_DATE" class="form-control" value="<?php echo $formattedStartDate; ?>" required id="auctionStartDate">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="auctionEndDate">AUCTION END DATE</label>
                                     <?php
                                     $auctionEndDate = $data['AUCTION_END_DATE'];
                                     // Convert date format from dd-MMM-yy to Y-m-d
-                                    
+
                                     $auctionEndDate   = DateTime::createFromFormat('d-M-y', $auctionEndDate);
                                     $formattedEndDate = $auctionEndDate ? $auctionEndDate->format('Y-m-d') : date('Y-m-d', strtotime('+30 day'));
 
                                     ?>
-                                    <input type="date" name="AUCTION_END_DATE" class="form-control" value="<?php echo $formattedEndDate; ?>" required
-                                        id="auctionEndDate">
+                                    <input type="date" name="AUCTION_END_DATE" class="form-control" value="<?php echo $formattedEndDate; ?>" required id="auctionEndDate">
                                 </div>
 
 
@@ -429,10 +400,8 @@ $basePath = $_SESSION['basePath'];
     // Add an event listener to the DISPLAY_PRICE input for change and input events
     // displayPriceInput.addEventListener('change', checkInputValue);
     // displayPriceInput.addEventListener('input', checkInputValue);
-
 </script>
 <script>
-
     $('.dropify').dropify({
         messages: {
             'default': 'Select Product Details Image',
@@ -489,6 +458,4 @@ $basePath = $_SESSION['basePath'];
             showStep(`${stepId}`);
         });
     });
-
-
 </script>
