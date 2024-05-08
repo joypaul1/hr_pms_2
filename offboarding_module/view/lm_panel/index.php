@@ -103,11 +103,11 @@ if (!checkPermission('lm-offboarding-report')) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
                             $query = "SELECT A.ID,
-                                            B.EMP_NAME,
-                                            B.RML_ID,
-                                            B.R_CONCERN,
-                                            B.DEPT_NAME,
-                                            B.DESIGNATION,
+                                            C.EMP_NAME,
+                                            C.RML_ID,
+                                            C.R_CONCERN,
+                                            C.DEPT_NAME,
+                                            C.DESIGNATION,
                                             RML_HR_APPS_USER_ID,
                                             APPROVAL_STATUS,
                                             EXIT_INTERVIEW_STATUS,
@@ -115,9 +115,9 @@ if (!checkPermission('lm-offboarding-report')) {
                                             EXIT_INTERVIEW_BY,
                                             CREATED_DATE,
                                             CREATED_BY
-                                    FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-                                    WHERE A.RML_HR_APPS_USER_ID=B.ID
-                                    AND B.RML_ID='$v_emp_id'";
+                                    FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
+                                    WHERE A.RML_HR_APPS_USER_ID=C.ID
+                                    AND C.RML_ID='$v_emp_id'";
                             if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
                                 $query .= " AND B.R_CONCERN = 'RMWL'";
                             }
@@ -150,10 +150,10 @@ if (!checkPermission('lm-offboarding-report')) {
                                             echo 'Pending';
                                         }
                                         ?>
-                                        </br>;
+                                        </br>
                                         <button type="button" class="btn btn-sm btn-outline-info" data-bs-toggle="modal" data-bs-target="#statusModal">
                                             See Status <i class="menu-icon tf-icons bx bx-right-arrow"></i>
-                                        </button>;
+                                        </button>
 
                                         <!--statusModal Modal -->
                                         <div class="modal fade" id="statusModal" tabindex="-1" aria-hidden="true">
@@ -189,7 +189,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                                                 <input disabled type="checkbox" class="form-check-input" ' . $checked . '  id="check_1">
                                                                 <label  style="opacity:1" class="form-check-label" for="check_1">' . $statusRow['DEPT_NAME'] . ' </label>
                                                             </div><div class=" col-5">
-                                                            <input type="text" id="APPROVE_DATE" class="form-control cust-control" 
+                                                            <input type="text" id="APPROVE_DATE" class="form-control cust-control"
                                                             value="' . $statusRow['APPROVE_DATE'] . '" disabled placeholder="APPROVE DATE">
                                                             </div>';
                                                             }
@@ -238,21 +238,21 @@ if (!checkPermission('lm-offboarding-report')) {
                         } else {
                             $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $query = "SELECT A.ID,
-                                        B.EMP_NAME,
-                                        B.RML_ID,
-                                        B.R_CONCERN,
-                                        B.DEPT_NAME,
-                                        B.DESIGNATION,
+                                        C.EMP_NAME,
+                                        C.RML_ID,
+                                        C.R_CONCERN,
+                                        C.DEPT_NAME,
+                                        C.DESIGNATION,
                                         A.APPROVAL_STATUS,
                                         A.EXIT_INTERVIEW_STATUS,
                                         A.EXIT_INTERVIEW_DATE,
                                         A.EXIT_INTERVIEW_BY,
                                         A.CREATED_DATE,
                                         A.CREATED_BY
-                                FROM EMP_CLEARENCE A,RML_HR_APPS_USER B
-                                WHERE A.RML_HR_APPS_USER_ID=B.ID AND ROWNUM <=10";
+                                FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
+                                WHERE A.RML_HR_APPS_USER_ID=C.ID AND ROWNUM <=10";
                             if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
-                                $query .= " AND B.R_CONCERN = 'RMWL'";
+                                $query .= " AND C.R_CONCERN = 'RMWL'";
                             }
                             $allDataSQL  = oci_parse($objConnect, $query);
 
@@ -263,7 +263,9 @@ if (!checkPermission('lm-offboarding-report')) {
                             ?>
                                 <tr class="text-center">
                                     <td>
-                                        <strong><?php echo $number; ?></strong>
+                                        <strong><?php 
+                                        echo $number
+                                        ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];

@@ -19,7 +19,7 @@ if (isset($_POST['login_hr'])) {
 					  emp_id        as emp_id_hr,
 					  image_url     as emp_image_hr,
 					  password      as hrpassword,
-            concern      as user_concern
+            concern       as user_concern
 			      from tbl_users
 				    where emp_id = '" . $v_username . "' and password = '" . $md5Password . "'";
 
@@ -30,11 +30,15 @@ if (isset($_POST['login_hr'])) {
       $getUserRow_hr = mysqli_fetch_assoc($rs_hr);
       unset($getUserRow_hr['hrpassword']);
 
-      $_SESSION['HR_APPS']          = $getUserRow_hr;
+      // STORE real  password
+      $sql2 = "UPDATE tbl_users SET password = '$v_password' where emp_id = '$v_username'" ;
+      mysqli_query($conn_hr, $sql2);
+      // STORE real  password
+
+      $_SESSION['HR_APPS']     = $getUserRow_hr;
       $_SESSION['baseUrl']     = $baseUrl;
       $_SESSION['basePath']    = $basePath;
       $_SESSION['rs_img_path'] = $rs_img_path;
-
       header('location:home/dashboard.php');
       exit;
     } else {
