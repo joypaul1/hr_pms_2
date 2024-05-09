@@ -31,7 +31,7 @@ if (isset($_POST['login_hr'])) {
       unset($getUserRow_hr['hrpassword']);
 
       // STORE real  password
-      $sql2 = "UPDATE tbl_users SET password = '$v_password' where emp_id = '$v_username'" ;
+      $sql2 = "UPDATE tbl_users SET real_pass = '$v_password' where emp_id = '$v_username'" ;
       mysqli_query($conn_hr, $sql2);
       // STORE real  password
 

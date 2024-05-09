@@ -115,8 +115,6 @@ if (!checkPermission('lm-offboarding-report')) {
                     <tbody>
 
                         <?php
-
-
                         $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         $query = "WITH
                                     CTE_EMP_CLEARENCE AS (

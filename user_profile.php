@@ -60,11 +60,11 @@ $emp_id = htmlentities($_GET['emp_id']);
 	<!-- // Echo the value of $dynamic_link_css to verify its content -->
 
 	<?php
-	if (isset($dynamic_link_css) && count($dynamic_link_css) > 0) {
-		foreach ($dynamic_link_css as $key => $linkCss) {
-			echo "<link rel='stylesheet' type='text/css' href='$linkCss'>";
-		}
-	}
+	// if (isset($dynamic_link_css) && count($dynamic_link_css) > 0) {
+	// 	foreach ($dynamic_link_css as $key => $linkCss) {
+	// 		echo "<link rel='stylesheet' type='text/css' href='$linkCss'>";
+	// 	}
+	// }
 	?>
 
 

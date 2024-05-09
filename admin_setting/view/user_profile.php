@@ -6,6 +6,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 // if (!checkPermission('user-list')) {
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
+$emp_id = htmlentities($_GET['emp_id']);
 
 ?>
 

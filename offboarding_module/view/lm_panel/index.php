@@ -63,7 +63,7 @@ if (!checkPermission('lm-offboarding-report')) {
             <a class="btn btn-sm btn-primary text-white" onclick="exportF(this)" style="margin-left:5px;"> <i class="bx bx-download"></i> Export To Excel</a>
         </div>';
         // if ($_SESSION['HR_APPS']['user_concern'] != "RMWL") {
-            $html .= '<div>
+        $html .= '<div>
                 <a target="_blank" href="approval_report.php" class="btn btn-sm btn-warning text-white" style="margin-left:5px;"> <i class="bx bxs-arrow-to-right"></i>View Approval Details </a>
             </div>';
         // }
@@ -103,24 +103,29 @@ if (!checkPermission('lm-offboarding-report')) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
                             $query = "SELECT A.ID,
-                                            C.EMP_NAME,
-                                            C.RML_ID,
-                                            C.R_CONCERN,
-                                            C.DEPT_NAME,
-                                            C.DESIGNATION,
-                                            RML_HR_APPS_USER_ID,
-                                            APPROVAL_STATUS,
-                                            EXIT_INTERVIEW_STATUS,
-                                            EXIT_INTERVIEW_DATE,
-                                            EXIT_INTERVIEW_BY,
-                                            CREATED_DATE,
-                                            CREATED_BY
-                                    FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
-                                    WHERE A.RML_HR_APPS_USER_ID=C.ID
-                                    AND C.RML_ID='$v_emp_id'";
-                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
-                                $query .= " AND B.R_CONCERN = 'RMWL'";
-                            }
+                                    B.EMP_NAME,
+                                    B.RML_ID,
+                                    B.R_CONCERN,
+                                    B.DEPT_NAME,
+                                    B.DESIGNATION,
+                                    A.APPROVAL_STATUS,
+                                    A.EXIT_INTERVIEW_STATUS,
+                                    A.EXIT_INTERVIEW_DATE,
+                                    A.EXIT_INTERVIEW_BY,
+                                    A.CREATED_DATE,
+                                    A.CREATED_BY
+                                    FROM EMP_CLEARENCE A
+                                    JOIN
+                                        RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                                    JOIN
+                                        EMP_CLEARENCE_DTLS C ON A.ID = C.EMP_CLEARENCE_ID
+                                    WHERE C.CONCERN_NAME IN (
+                                        SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                        (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                                    AND C.DEPARTMENT_ID IN (
+                                        SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                        (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                                    AND B.RML_ID='$v_emp_id'";
                             $strSQL  = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             $number = 0;
@@ -238,22 +243,30 @@ if (!checkPermission('lm-offboarding-report')) {
                         } else {
                             $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $query = "SELECT A.ID,
-                                        C.EMP_NAME,
-                                        C.RML_ID,
-                                        C.R_CONCERN,
-                                        C.DEPT_NAME,
-                                        C.DESIGNATION,
+                                        B.EMP_NAME,
+                                        B.RML_ID,
+                                        B.R_CONCERN,
+                                        B.DEPT_NAME,
+                                        B.DESIGNATION,
                                         A.APPROVAL_STATUS,
                                         A.EXIT_INTERVIEW_STATUS,
                                         A.EXIT_INTERVIEW_DATE,
                                         A.EXIT_INTERVIEW_BY,
                                         A.CREATED_DATE,
                                         A.CREATED_BY
-                                FROM EMP_CLEARENCE A,RML_HR_APPS_USER C
-                                WHERE A.RML_HR_APPS_USER_ID=C.ID AND ROWNUM <=10";
-                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
-                                $query .= " AND C.R_CONCERN = 'RMWL'";
-                            }
+                                FROM EMP_CLEARENCE A
+                                JOIN
+                                    RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                                JOIN
+                                    EMP_CLEARENCE_DTLS C ON A.ID = C.EMP_CLEARENCE_ID
+                                WHERE C.CONCERN_NAME IN (
+                                    SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                    (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                                AND C.DEPARTMENT_ID IN (
+                                    SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                    (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                                AND ROWNUM <=10";
+                                
                             $allDataSQL  = oci_parse($objConnect, $query);
 
                             oci_execute($allDataSQL);
@@ -263,9 +276,9 @@ if (!checkPermission('lm-offboarding-report')) {
                             ?>
                                 <tr class="text-center">
                                     <td>
-                                        <strong><?php 
-                                        echo $number
-                                        ?></strong>
+                                        <strong><?php
+                                                echo $number
+                                                ?></strong>
                                     </td>
                                     <td><?php
                                         echo $row['RML_ID'];

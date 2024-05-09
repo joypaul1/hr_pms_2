@@ -9,7 +9,6 @@ if (!checkPermission('accounts-clearance-form')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-
 ?>
 
 
@@ -67,7 +66,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         if (isset($_POST['emp_id'])) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
-                            $query = "SELECT 
+                            $query = "SELECT
                                         A.ID,
                                         B.EMP_NAME,
                                         B.RML_ID,
@@ -87,12 +86,19 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         A.RML_HR_APPS_USER_ID
                                     FROM
                                         EMP_CLEARENCE A
-                                    INNER JOIN
+                                    JOIN
                                         RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
-                                    WHERE B.RML_ID='$v_emp_id'";
-                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
-                                $query .= " AND B.R_CONCERN = 'RMWL'";
-                            }
+                                        JOIN
+                            RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                            JOIN
+                                EMP_CLEARENCE_DTLS C ON A.ID = C.EMP_CLEARENCE_ID
+                            WHERE C.CONCERN_NAME IN (
+                                SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                            AND C.DEPARTMENT_ID IN (
+                                SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                                (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                            AND B.RML_ID='$v_emp_id'";
                             $strSQL  = oci_parse($objConnect, $query);
                             oci_execute($strSQL);
                             $number = 0;
@@ -160,9 +166,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <?php
                             }
                         } else {
-
-
-                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+                            
                             $query = "SELECT 
                             A.ID,
                             B.EMP_NAME,
@@ -181,13 +185,19 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             A.RESIGNATION_DATE,
                             A.REASON,
                             A.RML_HR_APPS_USER_ID
-                        FROM 
+                        FROM
                             EMP_CLEARENCE A
-                         JOIN 
-                            RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID";
-                            if ($_SESSION['HR_APPS']['user_concern'] == "RMWL") {
-                                $query .= " WHERE B.R_CONCERN = 'RMWL'";
-                            }
+                        JOIN
+                            RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID
+                        JOIN
+                            EMP_CLEARENCE_DTLS C ON A.ID = C.EMP_CLEARENCE_ID
+                        WHERE C.CONCERN_NAME IN (
+                            SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+                            (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                        AND C.DEPARTMENT_ID IN (
+							SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
+							(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
+                            ";
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 $query
