@@ -55,7 +55,7 @@ if (!checkPermission('resale-product-panel')) {
                                 $number = 0;
                                 while ($row = oci_fetch_assoc($concernSQL)) {
                                     $number++;
-                                    ?>
+                                ?>
                                     <tr>
                                         <td>
                                             <?php
@@ -88,15 +88,14 @@ if (!checkPermission('resale-product-panel')) {
                                         <td>
                                             <?php if ($row['STATUS'] == 1) {
                                                 echo "<span class ='badge bg-success'> Active</span>";
-                                            }
-                                            else {
+                                            } else {
                                                 echo "<span class ='badge bg-warning'> Deactive</span>";
                                             } ?>
                                         </td>
-                                        
+
                                     </tr>
 
-                                    <?php
+                                <?php
                                 }
                                 ?>
 
@@ -122,7 +121,7 @@ if (!checkPermission('resale-product-panel')) {
 <script>
     //delete data processing
 
-    $(document).on('click', '.delete_check', function () {
+    $(document).on('click', '.delete_check', function() {
         var id = $(this).data('id');
         let url = $(this).data('href');
         swal.fire({
@@ -142,19 +141,19 @@ if (!checkPermission('resale-product-panel')) {
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        deleteID: id
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (response) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            deleteID: id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(response) {
                         console.log(response);
                         swal.fire('Deleted!', response.message, response.status);
                         location.reload(); // Reload the page
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 

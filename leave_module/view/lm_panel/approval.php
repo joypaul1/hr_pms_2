@@ -59,7 +59,7 @@ if (isset($_POST['submit_approval'])) {
         foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
             $strSQL = oci_parse(
                 $objConnect,
-                "update RML_HR_EMP_LEAVE 
+                "UPDATE RML_HR_EMP_LEAVE 
 										set LINE_MNGR_APVL_STS=1,
 										LINE_MNGR_APVL_DATE=sysdate,
 										LINE_MNGR_APVL_BY='$emp_session_id',
@@ -161,12 +161,12 @@ if (isset($_POST['submit_denied'])) {
                 </div>
                 <div class="col-sm-3">
                     <label>From Date:</label>
-                    <input required="" class="form-control  cust-control" name="start_date" type="date" form="Form1" >
+                    <input required="" class="form-control  cust-control" name="start_date" type="date" form="Form1">
 
                 </div>
                 <div class="col-sm-3">
                     <label>To Date:</label>
-                    <input required="" class="form-control  cust-control" id="date" name="end_date" type="date" form="Form1" >
+                    <input required="" class="form-control  cust-control" id="date" name="end_date" type="date" form="Form1">
 
                 </div>
                 <div class="col-sm-3">
@@ -178,7 +178,7 @@ if (isset($_POST['submit_denied'])) {
         </div>
 
         <div class="card  col-lg-12 mt-2">
-            <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
+            <h5 class="card-header"><b>Leave Approval List</b></h5>
             <form id="Form1" action="" method="post " class="card-body">
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
@@ -200,16 +200,14 @@ if (isset($_POST['submit_denied'])) {
 
                             if (isset($_POST['start_date'])) {
 
-                                $strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
+                                $strSQL  = oci_parse($objConnect, "SELECT a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
 														and b.LINE_MANAGER_RML_ID='$emp_session_id'
-														 and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
-														 and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
-                                                              trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
-														and a.LINE_MNGR_APVL_STS IS NULL
-														order by START_DATE desc");
-
+														and ('$emp_concern' is null OR A.RML_ID='$emp_concern')
+														and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
+                                                        trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
+														and a.LINE_MNGR_APVL_STS IS NULL order by START_DATE desc");
                                 oci_execute($strSQL);
                                 $number = 0;
 
@@ -232,7 +230,7 @@ if (isset($_POST['submit_denied'])) {
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" >
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve">
                                             </td>
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -256,17 +254,17 @@ if (isset($_POST['submit_denied'])) {
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" >
+                                                <input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve">
                                             </td>
 
-                                            <td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" ></td>
+                                            <td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied"></td>
                                         </tr>
 
                                     <?php
                                 }
                             } else {
 
-                                $allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
+                                $allDataSQL  = oci_parse($objConnect, "SELECT a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
 														and b.LINE_MANAGER_RML_ID='$emp_session_id'
@@ -295,7 +293,7 @@ if (isset($_POST['submit_denied'])) {
                                                 echo $row['DESIGNATION'];
                                                 echo ',<br>';
                                                 echo $row['BRANCH_NAME']; ?>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve" >
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval_single" value="Approve">
                                             </td>
                                             <td>
                                                 <?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -320,10 +318,10 @@ if (isset($_POST['submit_denied'])) {
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" >
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve">
                                             </td>
                                             <td>
-                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_denied" value="Denied" >
+                                                <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_denied" value="Denied">
                                             </td>
 
                                         </tr>

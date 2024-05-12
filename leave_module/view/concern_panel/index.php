@@ -20,7 +20,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                 <div class="col-sm-3">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input  placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                        <input placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -53,7 +53,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
             </div>
         </form>
     </div>
-  
+
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -102,39 +102,39 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '<br>';
-                                         echo 'Name: '.$row['EMP_NAME'];	
-                                         echo '<br>';
-                                         echo 'Dept: '.$row['DEPT_NAME'];
-                                         echo '<br>';
-                                         echo 'Brance: '.$row['BRANCH_NAME'];											 
-									    ?>
-									</td>
-									 <td><?php 
-									    $leave_days=($row['END_DATE']-$row['START_DATE']+1);
-										if($leave_days==1)
-											$display=$leave_days.' Day';
-									    else
-											$display=$leave_days.' Days';
-										 echo  $display; 
-										 echo '<br>';
-									     echo 'Leave Type:  '.$row['LEAVE_TYPE']; 
-										 echo '<br>';
-                                         echo 'Start: '.$row['START_DATE'];	
-                                         echo '<br>';
-                                         echo 'End: '.$row['END_DATE'];
-                                         echo '<br>';
-                                         echo 'Entry: '.$row['ENTRY_DATE'];											 
-									    ?>
-									</td>
                                     <td><?php
-									
-									   
-										
+                                        echo $row['RML_ID'];
+                                        echo '<br>';
+                                        echo 'Name: ' . $row['EMP_NAME'];
+                                        echo '<br>';
+                                        echo 'Dept: ' . $row['DEPT_NAME'];
+                                        echo '<br>';
+                                        echo 'Brance: ' . $row['BRANCH_NAME'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        $END_DATE = date_create($row['END_DATE']);
+                                        $START_DATE = date_create($row['START_DATE']);
+                                        $leave_days = date_diff($END_DATE, $START_DATE);
+                                        // $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
+                                        // if ($leave_days == 1)
+                                        //     $display = $leave_days . ' Day';
+                                        // else
+                                        //     $display = $leave_days . ' Days';
+                                        echo  $leave_days . ' Day';
+                                        echo '<br>';
+                                        echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
+                                        echo '<br>';
+                                        echo 'Start: ' . $row['START_DATE'];
+                                        echo '<br>';
+                                        echo 'End: ' . $row['END_DATE'];
+                                        echo '<br>';
+                                        echo 'Entry: ' . $row['ENTRY_DATE'];
+                                        ?>
+                                    </td>
+                                    <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['IS_APPROVED'] == '0') {
@@ -150,9 +150,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <?php
                             }
                         } else {
-
-
-                            $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT B.RML_ID,
@@ -178,39 +175,41 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '<br>';
-                                         echo 'Name: '.$row['EMP_NAME'];	
-                                         echo '<br>';
-                                         echo 'Dept: '.$row['DEPT_NAME'];
-                                         echo '<br>';
-                                         echo 'Brance: '.$row['BRANCH_NAME'];											 
-									    ?>
-									</td>
-									 <td><?php 
-									    $leave_days=($row['END_DATE']-$row['START_DATE']+1);
-										if($leave_days==1)
-											$display=$leave_days.' Day';
-									    else
-											$display=$leave_days.' Days';
-										 echo  $display; 
-										 echo '<br>';
-									     echo 'Leave Type:  '.$row['LEAVE_TYPE']; 
-										 echo '<br>';
-                                         echo 'Start: '.$row['START_DATE'];	
-                                         echo '<br>';
-                                         echo 'End: '.$row['END_DATE'];
-                                         echo '<br>';
-                                         echo 'Entry: '.$row['ENTRY_DATE'];											 
-									    ?>
-									</td>
                                     <td><?php
-									
-									   
-										
+                                        echo $row['RML_ID'];
+                                        echo '<br>';
+                                        echo 'Name: ' . $row['EMP_NAME'];
+                                        echo '<br>';
+                                        echo 'Dept: ' . $row['DEPT_NAME'];
+                                        echo '<br>';
+                                        echo 'Brance: ' . $row['BRANCH_NAME'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        $END_DATE = strtotime($row['END_DATE']);
+                                        $START_DATE = strtotime($row['START_DATE']);
+                                        $leave_days = ($END_DATE - $START_DATE) / (60 * 60 * 24);
+                                        echo $leave_days;
+
+
+                                        // if ($leave_days == 1)
+                                        //     $display = $leave_days . ' Day';
+                                        // else
+                                        //     $display = $leave_days . ' Days';
+                                        // echo  $display;
+                                        echo '<br>';
+                                        echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
+                                        echo '<br>';
+                                        echo 'Start: ' . $row['START_DATE'];
+                                        echo '<br>';
+                                        echo 'End: ' . $row['END_DATE'];
+                                        echo '<br>';
+                                        echo 'Entry: ' . $row['ENTRY_DATE'];
+                                        ?>
+                                    </td>
+                                    <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['IS_APPROVED'] == '0') {

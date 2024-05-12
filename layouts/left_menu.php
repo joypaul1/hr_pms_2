@@ -238,7 +238,6 @@ function isActive($url)
                                     <li class="menu-item <?php echo isActive('/resale_module/view/form_panel/sale_concern/index.php'); ?>
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/create.php'); ?>
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/edit.php'); ?>
-                                
                                 ">
                                         <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
                                             <div>
@@ -259,7 +258,7 @@ function isActive($url)
             </section>
         <?php } ?>
         <li class="menu-header big text-uppercase" style="background-color:lightslategray">
-            <span class="text-white"><b> HR Apps </b></span>
+            <span class="text-white"><b> HR Apps System</b></span>
         </li>
         <section style="width: 98%;">
             <li class="menu-item  <?php echo isActive('/leave_module/view'); ?>">
@@ -267,7 +266,6 @@ function isActive($url)
                     <i class="menu-icon tf-icons bx bx-user"></i>
                     <div>Leave Module</div>
                 </a>
-
 
                 <ul class="menu-sub">
                     <li class="menu-item <?php echo isActive('/self_panel'); ?>">

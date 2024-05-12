@@ -19,12 +19,12 @@ if (isset($_POST['submit_delete'])) {
             );
             oci_execute($strSQL);
             $attnProcSQL  = oci_parse($objConnect, "DECLARE V_START_DATE VARCHAR2(100);
-						                                                 V_END_DATE VARCHAR2(100);
-																		 V_RML_ID VARCHAR2(100);
+						                V_END_DATE VARCHAR2(100);
+										V_RML_ID VARCHAR2(100);
 									  BEGIN
 									   SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID 
-									   INTO V_START_DATE,V_END_DATE,V_RML_ID 
-									   FROM RML_HR_EMP_LEAVE_DELETE  
+									   INTO V_START_DATE,V_END_DATE,V_RML_ID
+									   FROM RML_HR_EMP_LEAVE_DELETE
 									   WHERE ID='$TT_ID_SELECTTED';
 									   RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
 
@@ -52,28 +52,28 @@ if (isset($_POST['submit_delete'])) {
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card col-lg-12">
-       
-		    <form id="Form1" action="" method="post"></form>
-            <form id="Form2" action="" method="post"></form>
-            <div class="card-body row justify-content-center">
-                <div class="col-sm-6"></div> 
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input form="Form1"  placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
-                    </div>
-                </div>
 
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input form="Form1" class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    </div>
+        <form id="Form1" action="" method="post"></form>
+        <form id="Form2" action="" method="post"></form>
+        <div class="card-body row justify-content-center">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
+                    <input form="Form1" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                 </div>
             </div>
-        
+
+            <div class="col-sm-3">
+                <div class="form-group">
+                    <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                    <input form="Form1" class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
+                </div>
+            </div>
+        </div>
+
     </div>
-  
+
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -121,36 +121,36 @@ if (isset($_POST['submit_delete'])) {
                         ?>
                                 <tr>
                                     <td>
-									    <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
-                                         <strong><?php echo $number; ?></strong>
+                                        <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '<br>';
-                                         echo 'Name: '.$row['EMP_NAME'];	
-                                         echo '<br>';
-                                         echo 'Dept: '.$row['DEPT_NAME'];
-                                         echo '<br>';
-                                         echo 'Brance: '.$row['BRANCH_NAME'];											 
-									    ?>
-									</td>
-									 <td><?php 
-									    $leave_days=($row['END_DATE']-$row['START_DATE']+1);
-										if($leave_days==1)
-											$display=$leave_days.' Day';
-									    else
-											$display=$leave_days.' Days';
-										 echo  $display; 
-										 echo '<br>';
-									     echo 'Leave Type:  '.$row['LEAVE_TYPE']; 
-										 echo '<br>';
-                                         echo 'Start: '.$row['START_DATE'];	
-                                         echo '<br>';
-                                         echo 'End: '.$row['END_DATE'];
-                                         echo '<br>';
-                                         echo 'Entry: '.$row['ENTRY_DATE'];											 
-									    ?>
-									</td>
+                                    <td><?php
+                                        echo $row['RML_ID'];
+                                        echo '<br>';
+                                        echo 'Name: ' . $row['EMP_NAME'];
+                                        echo '<br>';
+                                        echo 'Dept: ' . $row['DEPT_NAME'];
+                                        echo '<br>';
+                                        echo 'Brance: ' . $row['BRANCH_NAME'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
+                                        if ($leave_days == 1)
+                                            $display = $leave_days . ' Day';
+                                        else
+                                            $display = $leave_days . ' Days';
+                                        echo  $display;
+                                        echo '<br>';
+                                        echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
+                                        echo '<br>';
+                                        echo 'Start: ' . $row['START_DATE'];
+                                        echo '<br>';
+                                        echo 'End: ' . $row['END_DATE'];
+                                        echo '<br>';
+                                        echo 'Entry: ' . $row['ENTRY_DATE'];
+                                        ?>
+                                    </td>
                                     <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
@@ -160,9 +160,9 @@ if (isset($_POST['submit_delete'])) {
                                             echo 'Pending';
                                         }
                                         ?>
-									<br>
-									<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_delete" value="Delete" >	
-										</td>
+                                        <br>
+                                        <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_delete" value="Delete">
+                                    </td>
                                 </tr>
 
 
@@ -197,40 +197,37 @@ if (isset($_POST['submit_delete'])) {
                             ?>
                                 <tr>
                                     <td>
-									    <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
-                                         <strong><?php echo $number; ?></strong>
+                                        <input type="checkbox" name="check_list[]" value="<?php echo $row['ID']; ?>" form="Form2">
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
-                                    <td><?php 
-									     echo $row['RML_ID']; 
-										 echo '<br>';
-                                         echo 'Name: '.$row['EMP_NAME'];	
-                                         echo '<br>';
-                                         echo 'Dept: '.$row['DEPT_NAME'];
-                                         echo '<br>';
-                                         echo 'Brance: '.$row['BRANCH_NAME'];											 
-									    ?>
-									</td>
-									 <td><?php 
-									    $leave_days=($row['END_DATE']-$row['START_DATE']+1);
-										if($leave_days==1)
-											$display=$leave_days.' Day';
-									    else
-											$display=$leave_days.' Days';
-										 echo  $display; 
-										 echo '<br>';
-									     echo 'Leave Type:  '.$row['LEAVE_TYPE']; 
-										 echo '<br>';
-                                         echo 'Start: '.$row['START_DATE'];	
-                                         echo '<br>';
-                                         echo 'End: '.$row['END_DATE'];
-                                         echo '<br>';
-                                         echo 'Entry: '.$row['ENTRY_DATE'];											 
-									    ?>
-									</td>
                                     <td><?php
-									
-									   
-										
+                                        echo $row['RML_ID'];
+                                        echo '<br>';
+                                        echo 'Name: ' . $row['EMP_NAME'];
+                                        echo '<br>';
+                                        echo 'Dept: ' . $row['DEPT_NAME'];
+                                        echo '<br>';
+                                        echo 'Brance: ' . $row['BRANCH_NAME'];
+                                        ?>
+                                    </td>
+                                    <td><?php
+                                        $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
+                                        if ($leave_days == 1)
+                                            $display = $leave_days . ' Day';
+                                        else
+                                            $display = $leave_days . ' Days';
+                                        echo  $display;
+                                        echo '<br>';
+                                        echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
+                                        echo '<br>';
+                                        echo 'Start: ' . $row['START_DATE'];
+                                        echo '<br>';
+                                        echo 'End: ' . $row['END_DATE'];
+                                        echo '<br>';
+                                        echo 'Entry: ' . $row['ENTRY_DATE'];
+                                        ?>
+                                    </td>
+                                    <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
                                         } else if ($row['IS_APPROVED'] == '0') {
@@ -238,11 +235,10 @@ if (isset($_POST['submit_delete'])) {
                                         } else {
                                             echo 'Pending';
                                         }
-
                                         ?>
-										<br>
-									<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_delete" value="Delete" >	
-									</td>
+                                        <br>
+                                        <input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_delete" value="Delete">
+                                    </td>
                                 </tr>
                         <?php
                             }

@@ -60,7 +60,7 @@ $number = 0;
 
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
                                 <td style="width:15px">
                                     <?php echo $number; ?>

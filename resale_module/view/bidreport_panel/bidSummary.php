@@ -106,10 +106,9 @@ if (!checkPermission('resale-report-panel')) {
                             BB.AUCTTION_START_DATE,
                             BB.AUCTION_END_DATE,
                             (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                            FROM 
+                            FROM
                                 (SELECT A.PRODUCT_ID,
-                                       COUNT(PRODUCT_ID) TOTAL_BID,
-                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
+                                COUNT(PRODUCT_ID) TOTAL_BID, MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
                                 FROM PRODUCT_BID A,PRODUCT B
                                 WHERE A.PRODUCT_ID=B.ID
                                 GROUP BY A.PRODUCT_ID) AA,PRODUCT BB
@@ -134,10 +133,9 @@ if (!checkPermission('resale-report-panel')) {
                             BB.AUCTTION_START_DATE,
                             BB.AUCTION_END_DATE,
                             (BB.AUCTION_END_DATE-trunc(SYSDATE)) as BID_REMAINDER
-                            FROM 
-                                (SELECT A.PRODUCT_ID,
-                                       COUNT(PRODUCT_ID) TOTAL_BID,
-                                       MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
+                            FROM
+                                (SELECT A.PRODUCT_ID,COUNT(PRODUCT_ID) TOTAL_BID,
+                                MAX_BID_AMOUNT(A.PRODUCT_ID) MAX_BID_AMOUNT
                                 FROM PRODUCT_BID A,PRODUCT B
                                 WHERE A.PRODUCT_ID=B.ID
                                 GROUP BY A.PRODUCT_ID) AA,PRODUCT BB

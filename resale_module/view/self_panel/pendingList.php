@@ -25,14 +25,14 @@ if (!checkPermission('resale-product-panel')) {
                     <select class="form-select select2" name="brand_id" id="brand_id">
                         <option value="" hidden><-- Select Brand --></option>
                         <option value="1" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 1) {
-                            echo 'Selected';
-                        } ?>>Eicher</option>
+                                                echo 'Selected';
+                                            } ?>>Eicher</option>
                         <option value="2" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 2) {
-                            echo 'Selected';
-                        } ?>>Mahindra</option>
+                                                echo 'Selected';
+                                            } ?>>Mahindra</option>
                         <option value="3" <?php if (isset($_GET['brand_id']) && $_GET['brand_id'] == 3) {
-                            echo 'Selected';
-                        } ?>>Dongfeng</option>
+                                                echo 'Selected';
+                                            } ?>>Dongfeng</option>
                     </select>
 
                 </div>
@@ -57,8 +57,7 @@ if (!checkPermission('resale-product-panel')) {
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
                         </br>
-                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/pendingList.php' ?>"
-                            class="form-control  btn btn-sm btn-warning"> Reset Data</a>
+                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/pendingList.php' ?>" class="form-control  btn btn-sm btn-warning"> Reset Data</a>
                     </div>
                 </div>
             </div>
@@ -74,6 +73,7 @@ if (!checkPermission('resale-product-panel')) {
         <!-- table header -->
         <?php
         $leftSideName = 'Pending Product List';
+        include('../../../layouts/_tableHeader.php');
         ?>
         <!-- End table  header -->
         <div class="card-body">
@@ -92,31 +92,30 @@ if (!checkPermission('resale-product-panel')) {
                     </thead>
                     <tbody>
                         <?php
-                        $query = "SELECT 
-                        ID, 
-                        REF_CODE, 
-                        ENG_NO, 
-                        CHS_NO, 
-                        REG_NO, 
-                        BOOK_VALUE, 
-                        -- DISPLAY_PRICE, 
-                        -- CASH_PRICE, 
+                        $query = "SELECT
+                        ID,
+                        REF_CODE,
+                        ENG_NO,
+                        CHS_NO,
+                        REG_NO,
+                        BOOK_VALUE,
+                        -- DISPLAY_PRICE,
+                        -- CASH_PRICE,
                         -- CREDIT_PRICE,
-                        GRADE, 
-                        DEPO_LOCATION, 
-                        BRAND_ID, 
-                        CATEGORY, 
-                        MODEL, 
-                        INVOICE_STATUS, 
-                        BOOKED_STATUS, 
-                        PRODUCT_BID_ID, 
-                        BODY_SIT, 
-                        COLOR,  
+                        GRADE,
+                        DEPO_LOCATION,
+                        BRAND_ID,
+                        CATEGORY,
+                        MODEL,
+                        INVOICE_STATUS,
+                        BOOKED_STATUS,
+                        PRODUCT_BID_ID,
+                        BODY_SIT,
+                        COLOR,
                         FUEL_TYPE,
                         PIC_URL
                         FROM PRODUCT
                         WHERE PUBLISHED_STATUS ='N' AND WORK_STATUS IS NULL";
-
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['brand_id']) && $_GET['brand_id']) {
@@ -149,7 +148,7 @@ if (!checkPermission('resale-product-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
                                 <td>
                                     <?php
@@ -161,11 +160,9 @@ if (!checkPermission('resale-product-panel')) {
                                     <?php
                                     if ($row['BRAND_ID'] == 1) {
                                         echo "EICHER";
-                                    }
-                                    else if ($row['BRAND_ID'] == 2) {
+                                    } else if ($row['BRAND_ID'] == 2) {
                                         echo 'MAHINDRA';
-                                    }
-                                    else {
+                                    } else {
                                         echo 'DONGFENG';
                                     }
                                     ?>
@@ -225,7 +222,7 @@ if (!checkPermission('resale-product-panel')) {
                                 </td>
 
                             </tr>
-                            <?php
+                        <?php
                         }
                         ?>
                     </tbody>
@@ -247,14 +244,14 @@ require_once('../../../layouts/footer_info.php');
 require_once('../../../layouts/footer.php');
 ?>
 <script>
-    $(document).ready(function () {
-        $('.select2').each(function () {
+    $(document).ready(function() {
+        $('.select2').each(function() {
             $(this).select2();
 
         });
     });
 
-    $('#brand_id').on('change', function () {
+    $('#brand_id').on('change', function() {
         categoryData($(this).val());
     });
 
@@ -265,11 +262,13 @@ require_once('../../../layouts/footer.php');
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: brand_id },
+            data: {
+                brand_id: brand_id
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -277,7 +276,7 @@ require_once('../../../layouts/footer.php');
         });
     };
 
-    $('#category_id').on('change', function () {
+    $('#category_id').on('change', function() {
         modelData($(this).val());
     });
 
@@ -287,11 +286,13 @@ require_once('../../../layouts/footer.php');
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: category_data },
+            data: {
+                categoryData: category_data
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -300,7 +301,7 @@ require_once('../../../layouts/footer.php');
     };
 
     //delete data processing
-    $(document).on('click', '.start_work', function () {
+    $(document).on('click', '.start_work', function() {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
 
@@ -322,17 +323,17 @@ require_once('../../../layouts/footer.php');
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        product_id: product_id
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (res) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
                         if (res.status) {
                             swal.fire('Star Work!', res.message, res.status);
-                            setInterval(function () {
+                            setInterval(function() {
                                 location.reload();
                             }, 1000);
 
@@ -341,7 +342,7 @@ require_once('../../../layouts/footer.php');
 
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 

@@ -59,8 +59,7 @@ $number = 0;
                     <button class="form-control btn btn-sm btn-primary" type="submit">
                         Search Data
                     </button>
-                    <a href="<?php echo $basePath . '/resale_module/view/report_panel/product_info.php' ?>"
-                        class="form-control  btn btn-sm btn-warning"> Reset Data
+                    <a href="<?php echo $basePath . '/resale_module/view/report_panel/product_info.php' ?>" class="form-control  btn btn-sm btn-warning"> Reset Data
                     </a>
                 </div>
 
@@ -80,10 +79,12 @@ $number = 0;
             display: block;
         }
 
-        .table th{
+        .table th {
             font-size: 10px;
         }
-        th,td {
+
+        th,
+        td {
             width: 250px;
         }
 
@@ -121,28 +122,28 @@ $number = 0;
 
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
 
                         <?php
-                        $query = "SELECT 
-                                ID, 
-                                REF_CODE, 
-                                ENG_NO, 
-                                CHS_NO, 
-                                REG_NO, 
+                        $query = "SELECT
+                                ID,
+                                REF_CODE,
+                                ENG_NO,
+                                CHS_NO,
+                                REG_NO,
                                 BOOK_VALUE,
-                                CASH_PRICE, 
-                                CREDIT_PRICE, 
-                                GRADE, 
-                                DEPO_LOCATION, 
-                                BRAND_ID, 
-                                CATEGORY, 
-                                MODEL, 
-                                INVOICE_STATUS, 
-                                BOOKED_STATUS, 
-                                PRODUCT_BID_ID, 
-                                BODY_SIT, 
-                                COLOR, 
+                                CASH_PRICE,
+                                CREDIT_PRICE,
+                                GRADE,
+                                DEPO_LOCATION,
+                                BRAND_ID,
+                                CATEGORY,
+                                MODEL,
+                                INVOICE_STATUS,
+                                BOOKED_STATUS,
+                                PRODUCT_BID_ID,
+                                BODY_SIT,
+                                COLOR,
                                 FUEL_TYPE,
                                 PIC_URL,
                                 START_DATE,
@@ -170,7 +171,6 @@ $number = 0;
                             if ($_GET['status'] == '4') {
                                 $query .= " PUBLISHED_STATUS ='Y'";
                             }
-
                         }
 
                         $productSQL = oci_parse($objConnect, $query);
@@ -193,7 +193,7 @@ $number = 0;
 
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
                                 <td style="width:10px">
                                     <?php echo $number; ?>
@@ -202,11 +202,9 @@ $number = 0;
                                 <td class="text-left">
                                     <?php if ($row['BRAND_ID'] == 1) {
                                         echo "EICHER";
-                                    }
-                                    else if ($row['BRAND_ID'] == 2) {
+                                    } else if ($row['BRAND_ID'] == 2) {
                                         echo 'MAHINDRA';
-                                    }
-                                    else {
+                                    } else {
                                         echo 'DONGFING';
                                     } ?>
                                 </td>
@@ -285,14 +283,14 @@ $number = 0;
 </script>
 
 <script>
-    $(document).ready(function () {
-        $('.select2').each(function () {
+    $(document).ready(function() {
+        $('.select2').each(function() {
             $(this).select2();
 
         });
     });
 
-    $('#brand_id').on('change', function () {
+    $('#brand_id').on('change', function() {
         categoryData($(this).val());
     });
 
@@ -303,11 +301,13 @@ $number = 0;
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: brand_id },
+            data: {
+                brand_id: brand_id
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -315,7 +315,7 @@ $number = 0;
         });
     };
 
-    $('#category_id').on('change', function () {
+    $('#category_id').on('change', function() {
         modelData($(this).val());
     });
 
@@ -325,11 +325,13 @@ $number = 0;
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: category_data },
+            data: {
+                categoryData: category_data
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -338,7 +340,7 @@ $number = 0;
     };
 
     //delete data processing
-    $(document).on('click', '.start_work', function () {
+    $(document).on('click', '.start_work', function() {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
 
@@ -360,17 +362,17 @@ $number = 0;
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        product_id: product_id
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (res) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
                         if (res.status) {
                             swal.fire('Star Work!', res.message, res.status);
-                            setInterval(function () {
+                            setInterval(function() {
                                 location.reload();
                             }, 1000);
 
@@ -379,7 +381,7 @@ $number = 0;
 
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 

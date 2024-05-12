@@ -46,7 +46,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="title">EMP ID:</label>
-                                    <input type="text" form="Form1" name="form_rml_id" class="form-control cust-control" id="form_rml_id" value='<?php echo isset($_POST['form_rml_id']) ? $_POST['form_rml_id'] : ''; ?>' >
+                                    <input type="text" form="Form1" name="form_rml_id" class="form-control cust-control" id="form_rml_id" value='<?php echo isset($_POST['form_rml_id']) ? $_POST['form_rml_id'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -72,6 +72,17 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                     <div id="branch_name">
                                         <select name="branch_name" required="" class="form-control cust-control" id="branch_name" form="Form1">
                                             <option selected value="--">--</option>
+                                            <?php
+                                            $strSQL  = oci_parse(
+                                                $objConnect,
+                                                "SELECT BRANCH_NAME,ID FROM RML_HR_BRANCH ORDER BY BRANCH_NAME"
+                                            );
+                                            oci_execute($strSQL);
+                                            while ($row = oci_fetch_assoc($strSQL)) {
+                                            ?>
+                                                <option value="<?php echo $row['ID']; ?>"><?php echo $row['BRANCH_NAME']; ?></option>
+                                            <?php
+                                            } ?>
                                         </select>
                                     </div>
                                 </div>
@@ -83,7 +94,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" type="date" form="Form1" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+                                    <input required="" type="date" form="Form1" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -93,7 +104,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" form="Form1" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+                                    <input required="" form="Form1" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                                 </div>
                             </div>
 
@@ -116,7 +127,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
             <div class="card card-body col-lg-12 mt-2">
                 <form id="Form1" action="" method="post">
-                    <div class="md-form mt-5">
+                    <div class="">
                         <div class="table-responsive text-nowrap">
                             <table class="table table-bordered piechart-key" id="" style="width:100%">
                                 <thead class="table-dark">
@@ -175,7 +186,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         $branch_title = NULL;
                                     }
 
-                                    $strSQL  = oci_parse($objConnect, "select a.ID,
+                                    $strSQL  = oci_parse($objConnect, "SELECT a.ID,
 						                                            b.EMP_NAME,
 																	a.RML_ID,
 																	b.R_CONCERN,
@@ -189,9 +200,9 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 																	b.DESIGNATION
 														from RML_HR_EMP_LEAVE a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
-														 and ('$form_rml_id' is null OR A.RML_ID='$form_rml_id')
-														 and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
-                                                              trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
+														and ('$form_rml_id' is null OR A.RML_ID='$form_rml_id')
+														and (trunc(START_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy') OR
+                                                        trunc(END_DATE) BETWEEN TO_DATE('$attn_start_date','dd/mm/yyyy') AND TO_DATE('$attn_end_date','dd/mm/yyyy'))
 														and a.LINE_MNGR_APVL_STS IS NULL
 														and a.IS_APPROVED IS NULL
 														and ('$r_compnay' IS NULL OR b.R_CONCERN='$r_compnay')
@@ -232,7 +243,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             <tr>
                                                 <td></td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_approval" value="Save & Approve" >
+                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_approval" value="Save & Approve">
                                                 </td>
                                                 <td></td>
                                                 <td></td>
@@ -241,7 +252,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                                 <td></td>
                                                 <td></td>
                                                 <td>
-                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_denied" value="Save & Denied" >
+                                                    <input class="btn btn-sm btn-primary btn pull-right" type="submit" name="submit_denied" value="Save & Denied">
                                                 </td>
                                             </tr>
                                     <?php
@@ -264,7 +275,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                         $strSQL = oci_parse(
                             $objConnect,
-                            "update RML_HR_EMP_LEAVE 
+                            "UPDATE RML_HR_EMP_LEAVE
 										set LINE_MNGR_APVL_STS=1,
 										IS_APPROVED=1,
 										LINE_MNGR_APVL_BY='$emp_session_id',
@@ -273,7 +284,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         );
 
                         oci_execute($strSQL);
-                        $attnProcSQL  = oci_parse($objConnect, "declare V_START_DATE VARCHAR2(100); V_END_DATE VARCHAR2(100);  V_RML_ID VARCHAR2(100);
+                        $attnProcSQL  = oci_parse($objConnect, "DECLARE V_START_DATE VARCHAR2(100); V_END_DATE VARCHAR2(100);  V_RML_ID VARCHAR2(100);
 									  begin SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID INTO V_START_DATE,V_END_DATE,V_RML_ID FROM RML_HR_EMP_LEAVE WHERE ID='$TT_ID_SELECTTED'; RML_HR_ATTN_PROC(V_RML_ID,TO_DATE(V_START_DATE,'dd/mm/yyyy'),TO_DATE(V_END_DATE,'dd/mm/yyyy'));end;");
 
                         oci_execute($attnProcSQL);
@@ -301,7 +312,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
                         $strSQL = oci_parse(
                             $objConnect,
-                            "update RML_HR_EMP_LEAVE 
+                            "UPDATE RML_HR_EMP_LEAVE 
 										set LINE_MNGR_APVL_STS=0,
 										IS_APPROVED=0,
 										LINE_MNGR_APVL_BY='$emp_session_id',

@@ -3,10 +3,10 @@ require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath =  $_SESSION['basePath'];
 if (!checkPermission('hr-leave-advance')) {
-    echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
+	echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 
-$v_excel_download=0; 
+$v_excel_download = 0;
 ?>
 <!-- / Content -->
 
@@ -38,7 +38,7 @@ $v_excel_download=0;
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+						<input required="" type="date" name="start_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 					</div>
 				</div>
 				<div class="col-sm-2">
@@ -48,7 +48,7 @@ $v_excel_download=0;
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+						<input required="" type="date" name="end_date" class="form-control  cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -57,9 +57,7 @@ $v_excel_download=0;
 						<option selected value="">All</option>
 						<?php
 
-						$strSQL  = oci_parse($objConnect, "select distinct(LEAVE_TYPE) LEAVE_TYPE from RML_HR_EMP_LEAVE 
-															where LEAVE_TYPE is not null 
-															order by LEAVE_TYPE");
+						$strSQL  = oci_parse($objConnect, "SELECT distinct(LEAVE_TYPE) LEAVE_TYPE from RML_HR_EMP_LEAVE  where LEAVE_TYPE is not null  order by LEAVE_TYPE");
 						oci_execute($strSQL);
 						while ($row = oci_fetch_assoc($strSQL)) {
 						?>
@@ -78,7 +76,7 @@ $v_excel_download=0;
 
 
 			</div>
-			
+
 		</form>
 	</div>
 
@@ -116,7 +114,7 @@ $v_excel_download=0;
 
 							$strSQL  = oci_parse(
 								$objConnect,
-								"SELECT 
+								"SELECT
 						        B.RML_ID,
 								B.EMP_NAME,
 								B.R_CONCERN,
@@ -144,7 +142,7 @@ $v_excel_download=0;
 						?>
 								<tr>
 									<td>
-										 <strong><?php echo $number; ?></strong>
+										<strong><?php echo $number; ?></strong>
 									</td>
 									<td><?php echo $row['RML_ID']; ?></td>
 									<td><?php echo $row['EMP_NAME']; ?></td>
@@ -200,10 +198,8 @@ $v_excel_download=0;
 	function exportF(elem) {
 		var table = document.getElementById("table");
 		table.style.border = "1px solid red";
-
-
 		var html = table.outerHTML;
-		var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+		var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url
 		elem.setAttribute("href", url);
 
 		elem.setAttribute("download", "EMP_LEAVE_REPORT.xls"); // Choose the file name

@@ -24,14 +24,12 @@ if (!checkPermission('resale-product-panel')) {
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Chassis No. </label>
 
-                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs"
-                        value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
+                    <input placeholder="Chassis Number" type="text" name="chs_no" class="form-control  cust-control" id="chs" value="<?php echo isset($_GET['chs_no']) ? $_GET['chs_no'] : null ?>">
                 </div>
                 <div class="col-sm-3">
                     <label class="form-label" for="basic-default-fullname">Model No. </label>
 
-                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl"
-                        value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
+                    <input placeholder="Model Number" type="text" name="model" class="form-control  cust-control" id="mdl" value="<?php echo isset($_GET['model']) ? $_GET['model'] : null ?>">
                 </div>
 
 
@@ -83,7 +81,7 @@ if (!checkPermission('resale-product-panel')) {
                         $model = isset($_REQUEST['model']) ? $_GET['model'] : null;
                         $chsNo = isset($_GET['chs_no']) ? $_GET['chs_no'] : null;
                         // echo  $model;
-                        
+
 
                         if ($chsNo || $model) {
                             if (empty($model)) {
@@ -119,11 +117,7 @@ if (!checkPermission('resale-product-panel')) {
                             WHERE     PUBLISHED_STATUS = 'Y'
                             AND (('$model' IS NULL OR MODEL LIKE '%$model%') OR
                             ('$chsNo' IS NULL OR CHS_NO = '$chsNo'))");
-
-
-
-                        }
-                        else {
+                        } else {
                             $productSQL = oci_parse($objConnect, "SELECT 
                             ID, 
                             REF_CODE, 
@@ -157,10 +151,10 @@ if (!checkPermission('resale-product-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
                                 <td>
-                                     <strong>
+                                    <strong>
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
@@ -188,13 +182,11 @@ if (!checkPermission('resale-product-panel')) {
 
 
                                 <td class="text-center">
-                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#qrModal_<?php echo $row['ID'] ?>">
+                                    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#qrModal_<?php echo $row['ID'] ?>">
                                         <i class='bx bx-qr-scan'></i>
                                     </button>
                                     <!-- QR code modal -->
-                                    <div class="modal fade" tabindex="-1" aria-labelledby="qrModal_<?php echo $row['ID'] ?>" aria-hidden="true"
-                                        id="qrModal_<?php echo $row['ID'] ?>">
+                                    <div class="modal fade" tabindex="-1" aria-labelledby="qrModal_<?php echo $row['ID'] ?>" aria-hidden="true" id="qrModal_<?php echo $row['ID'] ?>">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <!-- Modal content -->
@@ -204,8 +196,7 @@ if (!checkPermission('resale-product-panel')) {
                                                 </div>
                                                 <div class="modal-body text-center">
                                                     <!-- QR code image -->
-                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://resale.rangsmotors.com/product/<?php echo $row['ID'] ?>/0&choe=UTF-8"
-                                                        title="Link to resale" />
+                                                    <img src="https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=https://resale.rangsmotors.com/product/<?php echo $row['ID'] ?>/0&choe=UTF-8" title="Link to resale" />
                                                     <br>
                                                     <strong>Chassis No. :
                                                         <?php echo $row['CHS_NO'] ?>
@@ -214,8 +205,7 @@ if (!checkPermission('resale-product-panel')) {
                                                 </div>
                                                 <div class="modal-footer">
                                                     <!-- Print button -->
-                                                    <button type="button" class="btn btn-success"
-                                                        onclick="printQRCode('qrModal_<?php echo $row['ID'] ?>', '<?php echo $row['CHS_NO'] ?>')">Print</button>
+                                                    <button type="button" class="btn btn-success" onclick="printQRCode('qrModal_<?php echo $row['ID'] ?>', '<?php echo $row['CHS_NO'] ?>')">Print</button>
                                                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
@@ -235,7 +225,7 @@ if (!checkPermission('resale-product-panel')) {
 
 
                             </tr>
-                            <?php
+                        <?php
                         }
 
                         ?>
@@ -278,41 +268,45 @@ if (!checkPermission('resale-product-panel')) {
     }
 </script>
 <script>
-    $(document).ready(function () {
-        $('.select2').each(function () {
+    $(document).ready(function() {
+        $('.select2').each(function() {
             $(this).select2();
 
         });
     });
 
-    $('#brand_id').on('change', function () {
+    $('#brand_id').on('change', function() {
         $('#category_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=brand_wise_category') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: $(this).val() },
+            data: {
+                brand_id: $(this).val()
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#category_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
                 });
 
             }
         });
     });
-    $('#category_id').on('change', function () {
+    $('#category_id').on('change', function() {
         $('#model_id').html(' ');
         let url = "<?php echo ($basePath . '/resale_module/action/dropdown.php?actionType=category_wise_model') ?> ";
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: $(this).val() },
+            data: {
+                categoryData: $(this).val()
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#model_id').append('<option value=' + optionData.value + '>' + optionData.value + '</option>')
                 });
 
@@ -321,7 +315,7 @@ if (!checkPermission('resale-product-panel')) {
     });
 
     //delete data processing
-    $(document).on('click', '.start_work', function () {
+    $(document).on('click', '.start_work', function() {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
         swal.fire({
@@ -341,17 +335,17 @@ if (!checkPermission('resale-product-panel')) {
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        product_id: product_id
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (res) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
                         if (res.status) {
                             swal.fire('Star Work!', res.message, res.status);
-                            setInterval(function () {
+                            setInterval(function() {
                                 location.reload();
                             }, 1000);
 
@@ -360,7 +354,7 @@ if (!checkPermission('resale-product-panel')) {
 
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 

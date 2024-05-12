@@ -45,8 +45,7 @@ if (!checkPermission('resale-product-panel')) {
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">&nbsp;</label>
                         <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data"></br>
-                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/prepublishedList.php' ?>"
-                            class="form-control  btn btn-sm btn-warning"> Reset Data
+                        <a href="<?php echo $basePath . '/resale_module/view/self_panel/prepublishedList.php' ?>" class="form-control  btn btn-sm btn-warning"> Reset Data
                         </a>
                     </div>
                 </div>
@@ -62,9 +61,8 @@ if (!checkPermission('resale-product-panel')) {
         <!-- <h5 class="card-header "><b>Leave Taken List</b></h5> -->
         <!-- table header -->
         <?php
-        $leftSideName = 'Pending Prodduct List';
-
-
+        $leftSideName = 'Pre Published Product List';
+        include('../../../layouts/_tableHeader.php');
         ?>
         <!-- End table  header -->
         <div class="card-body">
@@ -143,10 +141,10 @@ if (!checkPermission('resale-product-panel')) {
                         $number = 0;
                         while ($row = oci_fetch_assoc($productSQL)) {
                             $number++;
-                            ?>
+                        ?>
                             <tr>
                                 <td>
-                                     <strong>
+                                    <strong>
                                         <?php echo $number; ?>
                                     </strong>
                                 </td>
@@ -159,11 +157,9 @@ if (!checkPermission('resale-product-panel')) {
                                     BRAND :
                                     <?php if ($row['BRAND_ID'] == 1) {
                                         echo "EICHER";
-                                    }
-                                    else if ($row['BRAND_ID'] == 2) {
+                                    } else if ($row['BRAND_ID'] == 2) {
                                         echo 'MAHINDRA';
-                                    }
-                                    else {
+                                    } else {
                                         echo 'DONGFING';
                                     } ?>
                                     <br>
@@ -220,14 +216,14 @@ if (!checkPermission('resale-product-panel')) {
 <?php require_once('../../../layouts/footer_info.php'); ?>
 <?php require_once('../../../layouts/footer.php'); ?>
 <script>
-    $(document).ready(function () {
-        $('.select2').each(function () {
+    $(document).ready(function() {
+        $('.select2').each(function() {
             $(this).select2();
 
         });
     });
 
-    $('#brand_id').on('change', function () {
+    $('#brand_id').on('change', function() {
         categoryData($(this).val());
     });
 
@@ -238,11 +234,13 @@ if (!checkPermission('resale-product-panel')) {
         $.ajax({
             type: "GET",
             url: url,
-            data: { brand_id: brand_id },
+            data: {
+                brand_id: brand_id
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#category_id').append('<option value="" hidden> <-- Select Category --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#category_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -250,7 +248,7 @@ if (!checkPermission('resale-product-panel')) {
         });
     };
 
-    $('#category_id').on('change', function () {
+    $('#category_id').on('change', function() {
         modelData($(this).val());
     });
 
@@ -260,11 +258,13 @@ if (!checkPermission('resale-product-panel')) {
         $.ajax({
             type: "GET",
             url: url,
-            data: { categoryData: category_data },
+            data: {
+                categoryData: category_data
+            },
             dataType: "json",
-            success: function (res) {
+            success: function(res) {
                 $('#model_id').append('<option value="" hidden> <-- Select Model --></option>')
-                $.map(res.data, function (optionData, indexOrKey) {
+                $.map(res.data, function(optionData, indexOrKey) {
                     $('#model_id').append('<option value=' + (optionData.value).replaceAll(' ', '-') + '>' + optionData.value + '</option>')
                 });
 
@@ -273,7 +273,7 @@ if (!checkPermission('resale-product-panel')) {
     };
 
     //delete data processing
-    $(document).on('click', '.start_work', function () {
+    $(document).on('click', '.start_work', function() {
         var product_id = $(this).data('product-id');
         let url = $(this).data('href');
 
@@ -295,17 +295,17 @@ if (!checkPermission('resale-product-panel')) {
                 });
 
                 $.ajax({
-                    url: url,
-                    type: 'GET',
-                    data: {
-                        product_id: product_id
-                    },
-                    dataType: 'json'
-                })
-                    .done(function (res) {
+                        url: url,
+                        type: 'GET',
+                        data: {
+                            product_id: product_id
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
                         if (res.status) {
                             swal.fire('Star Work!', res.message, res.status);
-                            setInterval(function () {
+                            setInterval(function() {
                                 location.reload();
                             }, 1000);
 
@@ -314,7 +314,7 @@ if (!checkPermission('resale-product-panel')) {
 
                         }
                     })
-                    .fail(function () {
+                    .fail(function() {
                         swal.fire('Oops...', 'Something went wrong!', 'error');
                     });
 

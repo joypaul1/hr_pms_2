@@ -20,7 +20,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
             <div class="col-sm-4">
                 <div class="form-group">
                     <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                    <input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                    <input form="Form1" required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                 </div>
             </div>
 
@@ -70,31 +70,31 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly >
+                                    <input type="text" class="form-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">RML-ID</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-company" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly >
+                                    <input type="text" class="form-control" id="basic-default-company" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DEPT_NAME']; ?>" readonly >
+                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DEPT_NAME']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DESIGNATION']; ?>" readonly >
+                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DESIGNATION']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label" for="basic-default-company">Location</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['BRANCH_NAME']; ?>" readonly >
+                                    <input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['BRANCH_NAME']; ?>" readonly>
                                 </div>
                             </div>
 
@@ -106,7 +106,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             <i class="fa fa-calendar">
                                             </i>
                                         </div>
-                                        <input required="" form="Form2" class="form-control" type='date' name='leave_start_date' value='<?php echo isset($_POST['leave_start_date']) ? $_POST['leave_start_date'] : ''; ?>' >
+                                        <input required="" form="Form2" class="form-control" type='date' name='leave_start_date' value='<?php echo isset($_POST['leave_start_date']) ? $_POST['leave_start_date'] : ''; ?>'>
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             <i class="fa fa-calendar">
                                             </i>
                                         </div>
-                                        <input required="" form="Form2" class="form-control" type='date' name='leave_end_date' value='<?php echo isset($_POST['leave_end_date']) ? $_POST['leave_end_date'] : ''; ?>' >
+                                        <input required="" form="Form2" class="form-control" type='date' name='leave_end_date' value='<?php echo isset($_POST['leave_end_date']) ? $_POST['leave_end_date'] : ''; ?>'>
                                     </div>
                                 </div>
                             </div>
@@ -178,12 +178,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
                                     $leaveSQL = oci_parse($objConnect, "BEGIN RML_HR_ATTN_PROC('$v_emp_id',TO_DATE('$v_leave_start_date','dd/mm/yyyy'),TO_DATE('$v_leave_end_date','dd/mm/yyyy'));END;");
 
-                                    // if (@oci_execute($leaveSQL)) {
-                                    //     echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
-                                    // } else {
-                                    //     echo "Sorry! Contact with IT.";
-                                    // }
-
 
                                     if (@oci_execute($leaveSQL)) {
 
@@ -193,24 +187,15 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         ];
                                         $_SESSION['noti_message'] = $message;
                                     } else {
-                                        // echo '<div class="alert alert-danger">';
-                                        // echo 'Sorry! Contact with IT.';
-                                        // echo '</div>';
                                         $message = [
                                             'text' => "Sorry! Contact with IT.",
                                             'status' => 'false',
                                         ];
                                         $_SESSION['noti_message'] = $message;
                                     }
-
-
-
-                                    //echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
                                 } else {
                                     @$lastError = error_get_last();
                                     @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                                    // echo preg_split("/\@@@@/", @$error)[1];
-
                                     $message = [
                                         'text' => (preg_split("/\@@@@/", @$error)[1]),
                                         'status' => 'false',

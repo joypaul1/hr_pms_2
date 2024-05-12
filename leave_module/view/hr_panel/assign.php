@@ -43,7 +43,7 @@ $v_excel_download = 0;
                     <label class="form-label" for="title">Select Leave Year</label>
                     <select required="" name="leave_year" class="form-control cust-control">
                         <?php
-                        $strSQL  = oci_parse($objConnect, "select YEAR from RML_HR_EMP_LEAVE_PERIOD WHERE IS_ACTIVE=1");
+                        $strSQL  = oci_parse($objConnect, "SELECT YEAR from RML_HR_EMP_LEAVE_PERIOD WHERE IS_ACTIVE=1");
                         oci_execute($strSQL);
                         while ($row = oci_fetch_assoc($strSQL)) {
                         ?>
@@ -60,7 +60,7 @@ $v_excel_download = 0;
                     <select name="leave_type" class="form-control cust-control">
                         <option selected value="">--</option>
                         <?php
-                        $strSQL  = oci_parse($objConnect, "select LEAVE_TITLE,SHORT_NAME  from RML_HR_EMP_LEAVE_NAME 
+                        $strSQL  = oci_parse($objConnect, "SELECT LEAVE_TITLE,SHORT_NAME  from RML_HR_EMP_LEAVE_NAME 
 															order by LEAVE_TITLE");
                         oci_execute($strSQL);
                         while ($row = oci_fetch_assoc($strSQL)) {
@@ -104,7 +104,6 @@ $v_excel_download = 0;
                             <th scope="col">Assign Leave Days</th>
                             <th scope="col">Leave Taken Days</th>
                             <th scope="col">Late to Leave</th>
-
                             <th scope="col">Company</th>
                             <th scope="col">Department</th>
                             <th scope="col">Branch</th>
@@ -127,25 +126,25 @@ $v_excel_download = 0;
                             $strSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT  RML_ID,
-                                     EMP_NAME,
-                                     R_CONCERN,
-                                     DEPT_NAME,
-                                     BRANCH_NAME,
-                                     DOJ,
-                                     DOC,
-                                     LEAVE_TYPE,
-                                     LEAVE_ASSIGN,
-									 LEAVE_TAKEN,
-									 LATE_LEAVE,
-                                     DAY_CALCULATION,
-                                     LEAVE_PERIOD,
-                                     PROCESS_DATE 									 
+                                    EMP_NAME,
+                                    R_CONCERN,
+                                    DEPT_NAME,
+                                    BRANCH_NAME,
+                                    DOJ,
+                                    DOC,
+                                    LEAVE_TYPE,
+                                    LEAVE_ASSIGN,
+									LEAVE_TAKEN,
+									LATE_LEAVE,
+                                    DAY_CALCULATION,
+                                    LEAVE_PERIOD,
+                                    PROCESS_DATE
 								FROM LEAVE_DETAILS_INFORMATION B
-									 WHERE  ('$v_rml_id' IS NULL OR B.RML_ID='$v_rml_id')
-									 AND ('$company_name' IS NULL OR B.R_CONCERN='$company_name')
-									 AND  ('$leave_type' IS NULL OR B.LEAVE_TYPE='$leave_type')
-									 AND B.LEAVE_PERIOD='$leave_year'
-									 ORDER BY B.RML_ID"
+								WHERE  ('$v_rml_id' IS NULL OR B.RML_ID='$v_rml_id')
+								AND ('$company_name' IS NULL OR B.R_CONCERN='$company_name')
+								AND  ('$leave_type' IS NULL OR B.LEAVE_TYPE='$leave_type')
+								AND B.LEAVE_PERIOD='$leave_year'
+								ORDER BY B.RML_ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;

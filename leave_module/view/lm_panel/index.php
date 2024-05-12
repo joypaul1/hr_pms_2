@@ -43,7 +43,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input required="" class="form-control cust-control" name="start_date" type="date" >
+                        <input required="" class="form-control cust-control" name="start_date" type="date">
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -53,7 +53,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <i class="fa fa-calendar">
                             </i>
                         </div>
-                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
+                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date">
                     </div>
                 </div>
                 <div class="col-sm-3">
@@ -82,7 +82,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><b>Concern Leave Taken List</b></h5>
+        <h5 class="card-header"><b>Leave Taken List</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -134,7 +134,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>
@@ -192,7 +192,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td>

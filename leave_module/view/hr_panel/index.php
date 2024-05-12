@@ -17,59 +17,59 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
     <div class="card col-lg-12">
         <form action="" method="post">
             <div class="card-body row justify-content-center">
-			<div class="row">
-                <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input  placeholder="Employee ID" name="emp_id" class="form-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Leave Start Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
+                            <input placeholder="Employee ID" name="emp_id" class="form-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                         </div>
-						<input  required="" class="form-control"  type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
                     </div>
-                </div>
-                <div class="col-sm-3">
-                    <label class="form-label" for="basic-default-fullname">Leave End Date*</label>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
+                    <div class="col-sm-3">
+                        <label class="form-label" for="basic-default-fullname">Leave Start Date*</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar">
+                                </i>
+                            </div>
+                            <input required="" class="form-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' />
                         </div>
-						<input  required="" class="form-control"  type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="form-label" for="basic-default-fullname">Leave End Date*</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar">
+                                </i>
+                            </div>
+                            <input required="" class="form-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' />
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="form-label" for="basic-default-fullname">Select Leave Status</label>
+                        <div class="input-group">
+                            <select name="leave_status" class="form-control">
+                                <option value="Pending">Pending</option>
+                                <option value="1">Approved</option>
+                                <option value="0">Denied</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-9"> </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label class="form-label" for="basic-default-fullname">&nbsp;</label>
+                            <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-3">
-					<label class="form-label" for="basic-default-fullname">Select Leave Status</label>
-					<div class="input-group">
-					<select name="leave_status" class="form-control">
-						<option  value="Pending">Pending</option>
-						<option  value="1">Approved</option>
-						<option  value="0">Denied</option>
-					</select>
-					</div>
-				</div>
-               
             </div>
-			
-			 <div class="row">
-			 <div class="col-sm-9"> </div>
-			    <div class="col-sm-3">
-                    <div class="form-group">
-                        <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                        <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    </div>
-                </div>
-			 </div>
-			 </div>
         </form>
     </div>
-  
+
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -83,8 +83,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <th scope="col">Emp ID</th>
                             <th scope="col">Name</th>
                             <th scope="col">Dept.</th>
-							<th scope="col">Branch</th>
-							<th scope="col">Concern</th>
+                            <th scope="col">Branch</th>
+                            <th scope="col">Concern</th>
                             <th scope="col">Leave Type</th>
                             <th scope="col">Start Date</th>
                             <th scope="col">End Date</th>
@@ -98,11 +98,11 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         if (isset($_POST['emp_id'])) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
-                             $v_leave_status = $_REQUEST['leave_status'];
-							 $leave_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-							 $leave_end_date= date("d/m/Y", strtotime($_REQUEST['end_date']));
-                            if($v_leave_status=="Pending"){
-								$quary="SELECT B.RML_ID,
+                            $v_leave_status = $_REQUEST['leave_status'];
+                            $leave_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
+                            $leave_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                            if ($v_leave_status == "Pending") {
+                                $quary = "SELECT B.RML_ID,
 								B.EMP_NAME,
 								B.DEPT_NAME,
 								B.BRANCH_NAME,
@@ -116,12 +116,11 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							WHERE  A.RML_ID=B.RML_ID
 							AND A.IS_APPROVED IS NULL
 							AND B.IS_ACTIVE=1
-							AND (TRUNC(A.START_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY')
-							    OR 
-								TRUNC(A.END_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY'))
+							AND (TRUNC(A.START_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY') OR
+							TRUNC(A.END_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY'))
 							ORDER BY START_DATE DESC";
-							}else{
-								 $quary="SELECT B.RML_ID,
+                            } else {
+                                $quary = "SELECT B.RML_ID,
 								B.EMP_NAME,
 								B.DEPT_NAME,
 								B.BRANCH_NAME,
@@ -136,15 +135,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							AND B.IS_ACTIVE=1
 							AND ('$v_emp_id' IS NULL OR A.RML_ID='$v_emp_id')
 							AND A.IS_APPROVED='$v_leave_status'
-							AND (TRUNC(A.START_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY')
-							    OR 
-								TRUNC(A.END_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY'))
+							AND (TRUNC(A.START_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY') OR
+							TRUNC(A.END_DATE) BETWEEN TO_DATE('$leave_start_date','DD/MM/YYYY') AND  TO_DATE('$leave_end_date','DD/MM/YYYY'))
 							ORDER BY START_DATE DESC";
-							}
-                           
-							//echo $quary;
-							//die();
-							$strSQL  = oci_parse($objConnect,$quary);
+                            }
+
+                            //echo $quary;
+                            //die();
+                            $strSQL  = oci_parse($objConnect, $quary);
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -152,18 +150,18 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['RML_ID']; ?></td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
-									<td><?php echo $row['BRANCH_NAME']; ?></td>
-									<td><?php echo $row['R_CONCERN']; ?></td>
+                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
+                                    <td><?php echo $row['R_CONCERN']; ?></td>
                                     <td><?php echo $row['LEAVE_TYPE']; ?></td>
                                     <td><?php echo $row['START_DATE']; ?></td>
                                     <td><?php echo $row['END_DATE']; ?></td>
                                     <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                    
+
                                     <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
@@ -209,18 +207,18 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['RML_ID']; ?></td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
-									 <td><?php echo $row['BRANCH_NAME']; ?></td>
-									 <td><?php echo $row['R_CONCERN']; ?></td>
+                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
+                                    <td><?php echo $row['R_CONCERN']; ?></td>
                                     <td><?php echo $row['LEAVE_TYPE']; ?></td>
                                     <td><?php echo $row['START_DATE']; ?></td>
                                     <td><?php echo $row['END_DATE']; ?></td>
                                     <td><?php echo $row['ENTRY_FROM']; ?></td>
-                                   
+
                                     <td><?php
                                         if ($row['IS_APPROVED'] == '1') {
                                             echo 'Approved';
@@ -242,23 +240,23 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     </tbody>
                 </table>
             </div>
-			<br>
-			<div>
-			<a class="btn btn-success" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export To Excel</a>
-			</div> 
+            <br>
+            <div>
+                <a class="btn btn-success" id="downloadLink" onclick="exportF(this)" style="margin-left:5px;">Export To Excel</a>
+            </div>
         </div>
     </div>
     <!--/ Bordered Table -->
-<script>
-	function exportF(elem) {
-		  var table = document.getElementById("table");
-		  var html = table.outerHTML;
-		  var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
-		  elem.setAttribute("href", url);
-		  elem.setAttribute("download", "Leave Information.xls"); // Choose the file name
-		  return false;
-		}
-	</script>
+    <script>
+        function exportF(elem) {
+            var table = document.getElementById("table");
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
+            elem.setAttribute("href", url);
+            elem.setAttribute("download", "Leave Information.xls"); // Choose the file name
+            return false;
+        }
+    </script>
 
 
 </div>
