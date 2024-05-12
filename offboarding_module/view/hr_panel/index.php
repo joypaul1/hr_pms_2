@@ -202,10 +202,9 @@ if (!checkPermission('hr-offboarding-report')) {
                                 A.LAST_WORKING_DATE,
                                 A.RESIGNATION_DATE,
                                 A.REASON
-                               
                             FROM 
                                 EMP_CLEARENCE A
-                             JOIN 
+                             JOIN
                                 RML_HR_APPS_USER B ON A.RML_HR_APPS_USER_ID = B.ID"
                             );
 

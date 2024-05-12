@@ -266,7 +266,6 @@ if (!checkPermission('lm-offboarding-report')) {
                                     SELECT RML_HR_DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
                                     (SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
                                 AND ROWNUM <=10";
-                                
                             $allDataSQL  = oci_parse($objConnect, $query);
 
                             oci_execute($allDataSQL);
