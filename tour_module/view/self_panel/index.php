@@ -1,7 +1,7 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('self-tour-report')) {
 	echo "<script>
 		window.location.href = '$basePath/index.php?logout=true';
@@ -19,19 +19,21 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 		<div class="card-body">
 			<form action="" method="post">
 				<div class="row justify-content-center">
-					<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>' >
+					<input readonly name="emp_id" class="form-control cust-control" type='hidden' value='<?php echo $emp_session_id; ?>'>
 					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
-							<input required="" type="date" name="start_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>' >
+							<input required="" type="date" name="start_date" class="form-control cust-control" id="title"
+								value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 						</div>
 					</div>
 					<div class="col-sm-2">
 						<label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
 						<div class="input-group">
 
-							<input required="" type="date" name="end_date" class="form-control cust-control" id="title" value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>' >
+							<input required="" type="date" name="end_date" class="form-control cust-control" id="title"
+								value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
 						</div>
 					</div>
 					<div class="col-sm-2">
@@ -88,7 +90,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 									B.RML_ID,
 									B.EMP_NAME,
 									B.R_CONCERN,
-									B.DEPT_NAME,B.BRANCH_NAME,B.DESIGNATION,								
+									B.DEPT_NAME,B.BRANCH_NAME,B.DESIGNATION,
 									A.START_DATE, 
 									A.END_DATE, 
 									A.REMARKS, 
@@ -110,10 +112,10 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$number = 0;
 							while ($row = oci_fetch_assoc($strSQL)) {
 								$number++;
-						?>
+								?>
 								<tr>
 									<td>
-										 <strong>
+										<strong>
 											<?php echo $number; ?>
 										</strong>
 									</td>
@@ -130,9 +132,11 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										<?php
 										if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
 											echo 'Approved';
-										} else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
+										}
+										else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
 											echo 'Denied';
-										} else {
+										}
+										else {
 											echo 'Pending';
 										}
 
@@ -148,9 +152,10 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 								</tr>
 
 
-							<?php
+								<?php
 							}
-						} else {
+						}
+						else {
 							$allDataSQL = oci_parse(
 								$objConnect,
 								"SELECT  
@@ -177,10 +182,10 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$number = 0;
 							while ($row = oci_fetch_assoc($allDataSQL)) {
 								$number++;
-							?>
+								?>
 								<tr>
 									<td>
-										 <strong>
+										<strong>
 											<?php echo $number; ?>
 										</strong>
 									</td>
@@ -198,9 +203,11 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										<?php
 										if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
 											echo 'Approved';
-										} else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
+										}
+										else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
 											echo 'Denied';
-										} else {
+										}
+										else {
 											echo 'Pending';
 										}
 										?>
@@ -213,7 +220,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 									</td>
 
 								</tr>
-						<?php
+								<?php
 							}
 						}
 						?>
@@ -230,5 +237,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

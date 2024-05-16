@@ -1,7 +1,7 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('lm-tour-report')) {
     echo "<script>
 		window.location.href = '$basePath/index.php?logout=true';
@@ -24,29 +24,27 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         <select name="emp_concern" class="form-control cust-control">
                             <option selected value="">---</option>
                             <?php
-                            $strSQL  = oci_parse(
+                            $strSQL = @oci_parse(
                                 $objConnect,
-                                "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
-									where LINE_MANAGER_RML_ID ='$emp_session_id'
-										and is_active=1 order by EMP_NAME"
+                                "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER  WHERE LINE_MANAGER_RML_ID ='$emp_session_id' and is_active = 1 order by EMP_NAME"
                             );
-                            oci_execute($strSQL);
-                            while ($row = oci_fetch_assoc($strSQL)) {
-                            ?>
+                            @oci_execute($strSQL);
+                            while ($row = @oci_fetch_assoc($strSQL)) {
+                                ?>
                                 <option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
-                            <?php
+                                <?php
                             }
                             ?>
                         </select>
                     </div>
                     <div class="col-sm-2">
                         <label>From Date:</label>
-                        <input required="" class="form-control cust-control" name="start_date" type="date" >
+                        <input required="" class="form-control cust-control" name="start_date" type="date">
 
                     </div>
                     <div class="col-sm-2">
                         <label>To Date:</label>
-                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
+                        <input required="" class="form-control cust-control" id="date" name="end_date" type="date">
 
                     </div>
                     <div class="col-sm-3">
@@ -98,40 +96,41 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         <?php
                         if (isset($_POST['emp_concern'])) {
 
-                            $v_emp_id = $_REQUEST['emp_concern'];
-                            $v_app_status = $_REQUEST['app_status'];
+                            $v_emp_id        = $_REQUEST['emp_concern'];
+                            $v_app_status    = $_REQUEST['app_status'];
                             $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-                            $attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                            $attn_end_date   = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
-                            $strSQL  = oci_parse(
+                            $strSQL = oci_parse(
                                 $objConnect,
-                                "select b.EMP_NAME,a.RML_ID,
+                                "SELECT b.EMP_NAME,a.RML_ID,
 				                a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 						        a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,
 						        b.DESIGNATION,a.LINE_MANAGER_APPROVAL_STATUS
-					        from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
-					            where a.RML_ID=b.RML_ID
-					            and a.LINE_MANAGER_ID='$emp_session_id'
-								and ('$v_emp_id' IS NULL OR a.RML_ID='$v_emp_id')
-								and ('$v_app_status' is null OR a.LINE_MANAGER_APPROVAL_STATUS='$v_app_status')
-								AND START_DATE BETWEEN TO_DATE('$attn_start_date','DD/MM/YYYY') AND TO_DATE('$attn_end_date','DD/MM/YYYY')
-					        order by START_DATE desc"
+                                from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
+                                where a.RML_ID=b.RML_ID
+                                and a.LINE_MANAGER_ID='$emp_session_id'
+                                and ('$v_emp_id' IS NULL OR a.RML_ID='$v_emp_id')
+                                and ('$v_app_status' is null OR a.LINE_MANAGER_APPROVAL_STATUS='$v_app_status')
+                                AND START_DATE BETWEEN TO_DATE('$attn_start_date','DD/MM/YYYY') AND TO_DATE('$attn_end_date','DD/MM/YYYY')
+                                order by START_DATE desc"
                             );
 
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
-                        ?>
+                                ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;;
+                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
+                                        ;
                                         echo $row['START_DATE'] . "-To-" . $row['END_DATE'];
                                         echo '<br>';
                                         echo $tour_day;
@@ -139,26 +138,30 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             echo '-Day';
                                         else
                                             echo '-Days';
-                                        ?></td>
+                                        ?>
+                                    </td>
                                     <td><?php echo $row['REMARKS']; ?></td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php
-                                        if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?></td>
+                                    if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
+                                        echo 'Approved';
+                                    }
+                                    else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
+                                        echo 'Denied';
+                                    }
+                                    else {
+                                        echo 'Pending';
+                                    }
+                                    ?></td>
 
                                 </tr>
 
 
-                            <?php
+                                <?php
                             }
-                        } else {
-                            $allDataSQL  = oci_parse(
+                        }
+                        else {
+                            $allDataSQL = oci_parse(
                                 $objConnect,
                                 "select b.EMP_NAME,a.RML_ID,
 				        a.ENTRY_DATE,a.START_DATE,a.END_DATE,
@@ -175,16 +178,17 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-                            ?>
+                                ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['EMP_NAME']; ?></td>
                                     <td><?php echo $row['DEPT_NAME']; ?></td>
                                     <td>
                                         <?php
-                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;;
+                                        $tour_day = abs(round(strtotime($row['END_DATE']) - strtotime($row['START_DATE'])) / 86400) + 1;
+                                        ;
 
                                         echo $row['START_DATE'] . "-To-" . $row['END_DATE'];
                                         echo '<br>';
@@ -193,20 +197,23 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             echo '-Day';
                                         else
                                             echo '-Days';
-                                        ?></td>
+                                        ?>
+                                    </td>
                                     <td><?php echo $row['REMARKS']; ?></td>
                                     <td><?php echo $row['BRANCH_NAME']; ?></td>
                                     <td><?php
-                                        if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?></td>
+                                    if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '1') {
+                                        echo 'Approved';
+                                    }
+                                    else if ($row['LINE_MANAGER_APPROVAL_STATUS'] == '0') {
+                                        echo 'Denied';
+                                    }
+                                    else {
+                                        echo 'Pending';
+                                    }
+                                    ?></td>
                                 </tr>
-                        <?php
+                                <?php
                             }
                         }
                         ?>
@@ -226,5 +233,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

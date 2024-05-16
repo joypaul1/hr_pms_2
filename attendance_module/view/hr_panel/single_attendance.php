@@ -1,11 +1,11 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('hr-attendance-single-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+$emp_session_id          = $_SESSION['HR_APPS']['emp_id_hr'];
 $is_exel_download_eanble = 0;
 
 ?>
@@ -21,7 +21,8 @@ $is_exel_download_eanble = 0;
                     <form action="" method="post">
                         <div class="row">
                             <div class="col-sm-3">
-                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
+                                <input required="" class="form-control cust-control" placeholder="EMP-ID" type='text' name='emp_id'
+                                    value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                             </div>
                             <div class="col-sm-3">
                                 <div class="input-group">
@@ -29,7 +30,8 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+                                    <input required="" class="form-control cust-control" type='date' name='start_date'
+                                        value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -38,16 +40,21 @@ $is_exel_download_eanble = 0;
                                         <i class="fa fa-calendar">
                                         </i>
                                     </div>
-                                    <input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
+                                    <input required="" class="form-control cust-control" type='date' name='end_date'
+                                        value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
                                 </div>
                             </div>
                             <div class="col-sm-3">
                                 <select name="attn_status" class="form-control cust-control">
                                     <option value="">Select Attendance Status</option>
-                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'P' ? 'selected' : ''; ?> value="P">Present</option>
-                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'L' ? 'selected' : ''; ?> value="L">Late</option>
-                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'A' ? 'selected' : ''; ?> value="A">Absent</option>
-                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'RP' ? 'selected' : ''; ?> value="RP">Roster Present</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'P' ? 'selected' : ''; ?> value="P">
+                                        Present</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'L' ? 'selected' : ''; ?> value="L">Late
+                                    </option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'A' ? 'selected' : ''; ?> value="A">
+                                        Absent</option>
+                                    <option <?php echo isset($_POST['attn_status']) && $_POST['attn_status'] == 'RP' ? 'selected' : ''; ?> value="RP">
+                                        Roster Present</option>
                                 </select>
 
 
@@ -76,8 +83,6 @@ $is_exel_download_eanble = 0;
                 @$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
                 ?>
 
-
-
                 <div class="card mt-2" id="table">
                     <div class="card-body">
                         <div class="">
@@ -96,8 +101,8 @@ $is_exel_download_eanble = 0;
                                 </div>
                                 <div>
                                     <h6>Date :- <?php if (isset($_POST['attn_status'])) {
-                                                    echo  $attn_start_date . ' -To- ' . $attn_end_date;
-                                                } ?>
+                                        echo $attn_start_date . ' -To- ' . $attn_end_date;
+                                    } ?>
                                         <h6>
 
                                 </div>
@@ -148,9 +153,9 @@ $is_exel_download_eanble = 0;
 
                                     if (isset($_POST['attn_status'])) {
 
-                                        $strSQL  = oci_parse(
+                                        $strSQL = oci_parse(
                                             $objConnect,
-                                            "select RML_ID,
+                                            "SELECT RML_ID,
                                                 ATTN_DATE,
                                                 RML_NAME,
                                                 IN_TIME,
@@ -164,7 +169,7 @@ $is_exel_download_eanble = 0;
                                                 LOCK_STATUS,
                                                 LOCAK_DATE,
                                                 LATE_TIME
-                                            from RML_HR_ATTN_DAILY_PROC
+                                                from RML_HR_ATTN_DAILY_PROC
                                                 where trunc(ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
                                                 and ('$attn_status' is null OR STATUS='$attn_status')
                                                 and ('$emp_id' is null or RML_ID='$emp_id')
@@ -172,20 +177,20 @@ $is_exel_download_eanble = 0;
                                         );
 
                                         oci_execute($strSQL);
-                                        $number = 0;
-                                        $lateCount = 0;
-                                        $presentCount = 0;
-                                        $absentCount = 0;
-                                        $tourCount = 0;
-                                        $leaveCount = 0;
-                                        $weekendCount = 0;
-                                        $holidayCount = 0;
+                                        $number           = 0;
+                                        $lateCount        = 0;
+                                        $presentCount     = 0;
+                                        $absentCount      = 0;
+                                        $tourCount        = 0;
+                                        $leaveCount       = 0;
+                                        $weekendCount     = 0;
+                                        $holidayCount     = 0;
                                         $lateMinutesCount = 0;
 
                                         while ($row = oci_fetch_assoc($strSQL)) {
                                             $number++;
                                             $is_exel_download_eanble = 1;
-                                    ?>
+                                            ?>
                                             <tr>
                                                 <td><?php echo $number; ?></td>
                                                 <td><?php echo $row['RML_ID']; ?></td>
@@ -194,28 +199,34 @@ $is_exel_download_eanble = 0;
                                                 <td><?php echo $row['IN_TIME']; ?></td>
                                                 <td><?php echo $row['OUT_TIME']; ?></td>
                                                 <td align="center"><?php echo $row['LATE_TIME'];
-                                                                    $lateMinutesCount += $row['LATE_TIME']; ?></td>
+                                                $lateMinutesCount += $row['LATE_TIME']; ?></td>
                                                 <td align="center">
                                                     <?php
                                                     if ($row['STATUS'] == 'L') {
                                                         echo '<span style="color:red;text-align:center;">Late</span>';
                                                         $lateCount++;
-                                                    } elseif ($row['STATUS'] == 'A') {
+                                                    }
+                                                    elseif ($row['STATUS'] == 'A') {
                                                         echo '<span style="color:red;text-align:center;">Absent</span>';
                                                         $absentCount++;
-                                                    } elseif ($row['STATUS'] == 'T') {
+                                                    }
+                                                    elseif ($row['STATUS'] == 'T') {
                                                         echo '<span style="color:green;text-align:center;">Tour</span>';
                                                         $tourCount++;
-                                                    } elseif ($row['STATUS'] == 'W') {
+                                                    }
+                                                    elseif ($row['STATUS'] == 'W') {
                                                         echo 'Weekend';
                                                         $weekendCount++;
-                                                    } elseif ($row['STATUS'] == 'H') {
+                                                    }
+                                                    elseif ($row['STATUS'] == 'H') {
                                                         echo 'Holiday';
                                                         $holidayCount++;
-                                                    } elseif ($row['STATUS'] == 'P') {
+                                                    }
+                                                    elseif ($row['STATUS'] == 'P') {
                                                         echo 'Present';
                                                         $presentCount++;
-                                                    } elseif (
+                                                    }
+                                                    elseif (
                                                         $row['STATUS'] == 'SL' ||
                                                         $row['STATUS'] == 'CL' ||
                                                         $row['STATUS'] == 'EL' ||
@@ -224,7 +235,8 @@ $is_exel_download_eanble = 0;
                                                     ) {
                                                         echo $row['STATUS'];
                                                         $leaveCount++;
-                                                    } else {
+                                                    }
+                                                    else {
                                                         echo $row['STATUS'];
                                                         $presentCount++;
                                                     }
@@ -234,14 +246,14 @@ $is_exel_download_eanble = 0;
                                                 <td><?php echo $row['BRANCH_NAME']; ?></td>
                                                 <td><?php echo $row['DEPT_NAME']; ?></td>
                                                 <td><?php
-                                                    if ($row['LOCK_STATUS'] == 1)
-                                                        echo 'Locked-' . $row['LOCAK_DATE'];
-                                                    ?>
+                                                if ($row['LOCK_STATUS'] == 1)
+                                                    echo 'Locked-' . $row['LOCAK_DATE'];
+                                                ?>
 
                                                 </td>
 
                                             </tr>
-                                        <?php
+                                            <?php
 
                                         }
                                         ?>
@@ -249,7 +261,7 @@ $is_exel_download_eanble = 0;
                                             <td></td>
                                             <td><b>Summary</b></td>
                                             <td>Present: <?php echo $presentCount; ?></td>
-                                            <td>Late: <?php echo  $lateCount; ?></td>
+                                            <td>Late: <?php echo $lateCount; ?></td>
                                             <td>Absent: <?php echo $absentCount; ?></td>
                                             <td>Weekend: <?php echo $weekendCount; ?></td>
                                             <td>Total Late Minutes: <?php echo $lateMinutesCount; ?></td>
@@ -259,7 +271,7 @@ $is_exel_download_eanble = 0;
 
                                         </tr>
 
-                                    <?php
+                                        <?php
                                     }
 
                                     ?>
@@ -271,12 +283,12 @@ $is_exel_download_eanble = 0;
 
                         <?php
                         if ($is_exel_download_eanble != 0) {
-                        ?>
+                            ?>
                             <div class="d-block text-right mt-1">
                                 <a class="btn btn-sm btn-info subbtn" id="downloadLink" onclick="exportF(this)">
                                     Export To Excel <i class="menu-icon tf-icons bx bx-download"></i></a>
                             </div>
-                        <?php
+                            <?php
                         }
                         ?>
 
@@ -304,5 +316,5 @@ $is_exel_download_eanble = 0;
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

@@ -1,11 +1,11 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('hr-attendance-advance-report')) {
 	echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+$emp_session_id          = $_SESSION['HR_APPS']['emp_id_hr'];
 $is_exel_download_eanble = 0;
 
 ?>
@@ -26,19 +26,15 @@ $is_exel_download_eanble = 0;
 								<select name="emp_dept" class="form-control cust-control">
 									<option selected value="">---</option>
 									<?php
-									$strSQL  = oci_parse($objConnect, "select distinct(DEPT_NAME) AS  DEPT_NAME from RML_HR_APPS_USER 
-																			where DEPT_NAME is not null and is_active=1 
-																			order by DEPT_NAME");
-									oci_execute($strSQL);
-									while ($row = oci_fetch_assoc($strSQL)) {
-									?>
+									$strSQL = @oci_parse($objConnect, "SELECT distinct(DEPT_NAME) AS  DEPT_NAME from RML_HR_APPS_USER where DEPT_NAME is not null and is_active=1 order by DEPT_NAME");
+									@oci_execute($strSQL);
+									while ($row = @oci_fetch_assoc($strSQL)) {
+										?>
 										<option <?php if (isset($_POST['emp_dept'])) {
-													echo ($_POST['emp_dept']) ===  $row['DEPT_NAME'] ? 'Selected' : '';
-												}
-
-
-												?> value="<?php $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
-									<?php
+											echo ($_POST['emp_dept']) === $row['DEPT_NAME'] ? 'Selected' : '';
+										}
+										?> value="<?php $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
+										<?php
 									}
 									?>
 								</select>
@@ -50,7 +46,8 @@ $is_exel_download_eanble = 0;
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" class="form-control cust-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+									<input required="" class="form-control cust-control" type='date' name='start_date'
+										value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 								</div>
 							</div>
 							<div class="col-sm-2">
@@ -60,7 +57,8 @@ $is_exel_download_eanble = 0;
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" class="form-control cust-control" type='date' name='end_date' value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
+									<input required="" class="form-control cust-control" type='date' name='end_date'
+										value='<?php echo isset($_POST['end_date']) ? $_POST['end_date'] : ''; ?>'>
 								</div>
 							</div>
 							<div class="col-sm-3">
@@ -128,8 +126,8 @@ $is_exel_download_eanble = 0;
 								</div>
 								<div>
 									<h6>Date :- <?php if (isset($_POST['attn_status'])) {
-													echo  $attn_start_date . ' -To- ' . $attn_end_date;
-												} ?>
+										echo $attn_start_date . ' -To- ' . $attn_end_date;
+									} ?>
 										<h6>
 
 								</div>
@@ -213,7 +211,8 @@ $is_exel_download_eanble = 0;
 											and ('$attn_status' is null OR a.STATUS='$attn_status')
 											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
 											order by a.ATTN_DATE";
-										} else {
+										}
+										else {
 											$query = "SELECT a.RML_ID,
 											a.ATTN_DATE,
 											a.RML_NAME,
@@ -237,23 +236,23 @@ $is_exel_download_eanble = 0;
 											order by a.ATTN_DATE";
 										}
 
-										$strSQL  = oci_parse($objConnect, $query);
+										$strSQL = oci_parse($objConnect, $query);
 
 										oci_execute($strSQL);
-										$number = 0;
-										$lateCount = 0;
-										$presentCount = 0;
-										$absentCount = 0;
-										$tourCount = 0;
-										$leaveCount = 0;
-										$weekendCount = 0;
-										$holidayCount = 0;
+										$number           = 0;
+										$lateCount        = 0;
+										$presentCount     = 0;
+										$absentCount      = 0;
+										$tourCount        = 0;
+										$leaveCount       = 0;
+										$weekendCount     = 0;
+										$holidayCount     = 0;
 										$lateMinutesCount = 0;
 
 										while ($row = oci_fetch_assoc($strSQL)) {
 											$number++;
 											$is_exel_download_eanble = 1;
-									?>
+											?>
 											<tr>
 												<td><?php echo $number; ?></td>
 												<td><?php echo $row['RML_ID']; ?></td>
@@ -262,28 +261,34 @@ $is_exel_download_eanble = 0;
 												<td><?php echo $row['IN_TIME']; ?></td>
 												<td><?php echo $row['OUT_TIME']; ?></td>
 												<td align="center"><?php echo $row['LATE_TIME'];
-																	$lateMinutesCount += $row['LATE_TIME']; ?></td>
+												$lateMinutesCount += $row['LATE_TIME']; ?></td>
 												<td align="center">
 													<?php
 													if ($row['STATUS'] == 'L') {
 														echo '<span style="color:red;text-align:center;">Late</span>';
 														$lateCount++;
-													} elseif ($row['STATUS'] == 'A') {
+													}
+													elseif ($row['STATUS'] == 'A') {
 														echo '<span style="color:red;text-align:center;">Absent</span>';
 														$absentCount++;
-													} elseif ($row['STATUS'] == 'T') {
+													}
+													elseif ($row['STATUS'] == 'T') {
 														echo '<span style="color:green;text-align:center;">Tour</span>';
 														$tourCount++;
-													} elseif ($row['STATUS'] == 'W') {
+													}
+													elseif ($row['STATUS'] == 'W') {
 														echo 'Weekend';
 														$weekendCount++;
-													} elseif ($row['STATUS'] == 'H') {
+													}
+													elseif ($row['STATUS'] == 'H') {
 														echo 'Holiday';
 														$holidayCount++;
-													} elseif ($row['STATUS'] == 'P') {
+													}
+													elseif ($row['STATUS'] == 'P') {
 														echo 'Present';
 														$presentCount++;
-													} elseif (
+													}
+													elseif (
 														$row['STATUS'] == 'SL' ||
 														$row['STATUS'] == 'CL' ||
 														$row['STATUS'] == 'EL' ||
@@ -292,7 +297,8 @@ $is_exel_download_eanble = 0;
 													) {
 														echo $row['STATUS'];
 														$leaveCount++;
-													} else {
+													}
+													else {
 														echo $row['STATUS'];
 														$presentCount++;
 													}
@@ -302,9 +308,9 @@ $is_exel_download_eanble = 0;
 												<td><?php echo $row['BRANCH_NAME']; ?></td>
 												<td><?php echo $row['DEPT_NAME']; ?></td>
 												<td><?php
-													if ($row['LOCK_STATUS'] == 1)
-														echo 'Locked-' . $row['LOCAK_DATE'];
-													?>
+												if ($row['LOCK_STATUS'] == 1)
+													echo 'Locked-' . $row['LOCAK_DATE'];
+												?>
 
 												</td>
 												<?php if (isset($_POST['remarks_status']) && $_POST['remarks_status'] == 'with') { ?>
@@ -312,7 +318,7 @@ $is_exel_download_eanble = 0;
 												<?php } ?>
 
 											</tr>
-									<?php
+											<?php
 										}
 									}
 
@@ -325,12 +331,12 @@ $is_exel_download_eanble = 0;
 
 						<?php
 						if ($is_exel_download_eanble != 0) {
-						?>
+							?>
 							<div class="d-block text-right mt-1">
 								<a class="btn btn-sm btn-info subbtn" id="downloadLink" onclick="exportF(this)">
 									Export To Excel <i class="menu-icon tf-icons bx bx-download"></i></a>
 							</div>
-						<?php
+							<?php
 						}
 						?>
 
@@ -358,5 +364,5 @@ $is_exel_download_eanble = 0;
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

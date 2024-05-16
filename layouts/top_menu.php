@@ -1,11 +1,11 @@
 <?php
-$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-$objConnect = oci_connect("DEVELOPERS", "Test1234", "10.99.99.20:1525/ORCLPDB", 'AL32UTF8');
+$emp_session_id      = $_SESSION['HR_APPS']['emp_id_hr'];
+$objConnect          = oci_connect("DEVELOPERS", "Test1234", "10.99.99.20:1525/ORCLPDB", 'AL32UTF8');
 $notification_number = 0;
-$sqlQuary = "Select sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
-$allDataSQL  = oci_parse($objConnect, $sqlQuary);
-oci_execute($allDataSQL);
-while ($row = oci_fetch_assoc($allDataSQL)) {
+$sqlQuary            = "SELECT sum(NUMBER_TOTAL) AS TOTAL_NOTI from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+$allDataSQL          = @oci_parse($objConnect, $sqlQuary);
+@oci_execute($allDataSQL);
+while ($row = @oci_fetch_assoc($allDataSQL)) {
   $notification_number = $row['TOTAL_NOTI'];
 }
 ?>
@@ -30,7 +30,7 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
             <i class="bx bx-search fs-4 lh-0"></i>
             <?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
               <input type="text" name="emp_id" class="form-control border-0 shadow-none" placeholder="Search Employee" aria-label="Search...">
-            <?php
+              <?php
             }
             ?>
           </div>
@@ -43,7 +43,8 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
       <ul class="navbar-nav flex-row align-items-center ms-auto">
         <!-- Place this tag where you want the button to render. -->
         <li class="nav-item lh-1 me-3">
-          <a class="github-button" href="" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
+          <a class="github-button" href="" data-icon="octicon-star" data-size="large" data-show-count="true"
+            aria-label="Star themeselection/sneat-html-admin-template-free on GitHub">
             <strong>
               <?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
             </strong>
@@ -51,7 +52,8 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         </li>
         <!-- notification  -->
         <li class="nav-item dropdown-notifications navbar-dropdown dropdown me-3 me-xl-1">
-          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+          <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+            aria-expanded="false">
             <i class="bx bx-bell bx-sm" style="color:orangered"></i>
             <span class="badge bg-danger rounded-pill badge-notifications"><?php echo $notification_number; ?></span>
           </a>
@@ -59,7 +61,8 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
             <li class="dropdown-menu-header border-bottom">
               <div class="dropdown-header d-flex align-items-center py-3">
                 <h5 class="text-body mb-0 me-auto">Approval Notification</h5>
-                <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Mark all as read" data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
+                <a href="javascript:void(0)" class="dropdown-notifications-all text-body" data-bs-toggle="tooltip" data-bs-placement="top"
+                  aria-label="Mark all as read" data-bs-original-title="Mark all as read"><i class="bx fs-4 bx-envelope-open"></i></a>
               </div>
             </li>
             <li class="dropdown-notifications-list scrollable-container ps">
@@ -71,19 +74,20 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
                     <div class="flex-grow-1">
                       <table class="table table-bordered">
                         <?php
-                        $sqlQuary = "Select APPROVAL_TYPE,NUMBER_TOTAL,APPROVAL_LINK from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
-                        $allDataSQL  = oci_parse($objConnect, $sqlQuary);
+                        $sqlQuary   = "SELECT APPROVAL_TYPE,NUMBER_TOTAL,APPROVAL_LINK from V_HR_APPROVAL_LIST where LINE_MANAGER_RML_ID='$emp_session_id'";
+                        $allDataSQL = oci_parse($objConnect, $sqlQuary);
                         oci_execute($allDataSQL);
                         while ($row = oci_fetch_assoc($allDataSQL)) {
-                        ?>
+                          ?>
 
                           <tr>
                             <td style="width: 70%;"><?php echo $row['APPROVAL_TYPE']; ?></td>
                             <td style="width: 30%;" align="center">
-                              <a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><span class="badge badge-center rounded-pill bg-warning"><?php echo $row['NUMBER_TOTAL']; ?></span> </a>
+                              <a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>><span
+                                  class="badge badge-center rounded-pill bg-warning"><?php echo $row['NUMBER_TOTAL']; ?></span> </a>
                             </td>
                           </tr>
-                        <?php
+                          <?php
                         }
                         ?>
 
@@ -110,7 +114,9 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
         <li class="nav-item navbar-dropdown dropdown-user dropdown">
           <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
             <div class="avatar avatar-online">
-              <img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
+              <img
+                src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
+                alt class="w-px-40 h-auto rounded-circle">
             </div>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
@@ -119,7 +125,9 @@ while ($row = oci_fetch_assoc($allDataSQL)) {
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar avatar-online">
-                      <img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt class="w-px-40 h-auto rounded-circle">
+                      <img
+                        src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
+                        alt class="w-px-40 h-auto rounded-circle">
                     </div>
                   </div>
                   <div class="flex-grow-1">

@@ -1,9 +1,9 @@
 <?php
 $dynamic_link_css[] = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-$dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$dynamic_link_js[]  = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('hr-offboarding-id-assign-list')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -20,7 +20,8 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text'
+                            value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -35,13 +36,13 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
     </div>
     <div class="card col-lg-12 mt-2">
         <?php
-        $leftSideName  = 'ID Assign List';
+        $leftSideName = 'ID Assign List';
         if (checkPermission('hr-offboarding-id-assign-create')) {
             $rightSideName = 'ID Assign Create';
             $routePath     = 'offboarding_module/view/hr_panel/id_assign.php';
         }
 
-        include('../../../layouts/_tableHeader.php');
+        include ('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
@@ -60,7 +61,7 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
 
                             $v_emp_id = $_REQUEST['emp_id'];
 
-                            $strSQL  = oci_parse(
+                            $strSQL = oci_parse(
                                 $objConnect,
                                 "SELECT B.EMP_NAME,
 								       b.RML_ID,
@@ -77,37 +78,38 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
-                        ?>
-                               <tr>
+                                ?>
+                                <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
-                                        ?>
+                                    echo $row['RML_ID'];
+                                    echo '</br>';
+                                    echo $row['EMP_NAME'];
+                                    echo '</br>';
+                                    echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['DESIGNATION'];
+                                    ?>
                                     </td>
                                     <td><?php
-                                        echo $row['RESPONSIBLE_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['RESPONSIBLE_DEPT'];
-                                        ?>
+                                    echo $row['RESPONSIBLE_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['RESPONSIBLE_DEPT'];
+                                    ?>
                                     </td>
                                 </tr>
 
 
-                            <?php
+                                <?php
                             }
-                        } else {
+                        }
+                        else {
 
 
                             $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-                            $allDataSQL  = oci_parse(
+                            $allDataSQL     = oci_parse(
                                 $objConnect,
                                 "SELECT B.EMP_NAME,
 								       b.RML_ID,
@@ -124,29 +126,29 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
-                            ?>
+                                ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
-                                        ?>
+                                    echo $row['RML_ID'];
+                                    echo '</br>';
+                                    echo $row['EMP_NAME'];
+                                    echo '</br>';
+                                    echo $row['DEPT_NAME'] . '=>' . $row['EMP_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['DESIGNATION'];
+                                    ?>
                                     </td>
                                     <td><?php
-                                        echo $row['RESPONSIBLE_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['RESPONSIBLE_DEPT'];
-                                        ?>
+                                    echo $row['RESPONSIBLE_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['RESPONSIBLE_DEPT'];
+                                    ?>
                                     </td>
                                 </tr>
-                        <?php
+                                <?php
                             }
                         }
                         ?>
@@ -162,5 +164,5 @@ if (!checkPermission('hr-offboarding-id-assign-list')) {
 </div>
 
 <!-- / Content -->
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

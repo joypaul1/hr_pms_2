@@ -1,7 +1,7 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('lm-attendance-outdoor')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -22,16 +22,16 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <option hidden value=""><-- Concern --></option>
 
                             <?php
-                            $strSQL  = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                            $strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
 																		where LINE_MANAGER_RML_ID ='$emp_session_id'
 																		and is_active=1 
 																		order by EMP_NAME");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
-                            ?>
+                                ?>
 
                                 <option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
-                            <?php
+                                <?php
                             }
                             ?>
                         </select>
@@ -43,7 +43,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control cust-control" name="start_date" type="date" >
+                            <input required="" class="form-control cust-control" name="start_date" type="date">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -53,13 +53,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
+                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date">
                         </div>
                     </div>
                     <div class="col-sm-3">
                         <div class="form-group">
                             <label class="form-label" for="basic-default-fullname">&nbsp;</label>
-                            <input class="form-control  btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit" value="Search Employee">
+                            <input class="form-control  btn  btn-sm  btn-primary" placeholder=" Search Employee" type="submit"
+                                value="Search Employee">
                         </div>
                     </div>
 
@@ -69,7 +70,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
         </div>
 
         <div class="card col-lg-12 mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Outdoor Attendance List</b></h5>
+            <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Outdoor Attendance
+                    List</b></h5>
             <div class="card-body">
                 <div class="resume-item d-flex flex-column flex-md-row">
                     <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
@@ -96,7 +98,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             @$end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                             if (isset($_POST['emp_concern'])) {
-                                $strSQL  = oci_parse($objConnect, "select a.RML_ID,
+                                $strSQL = oci_parse($objConnect, "select a.RML_ID,
 															 a.EMP_NAME,
 															 b.ATTN_DATE,
 															 b.LAT,b.LANG,
@@ -118,7 +120,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 $number = 0;
                                 while ($row = oci_fetch_assoc($strSQL)) {
                                     $number++;
-                            ?>
+                                    ?>
                                     <tr>
                                         <td><?php echo $number; ?></td>
                                         <td><?php echo $row['RML_ID']; ?></td>
@@ -126,28 +128,31 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <td><?php echo $row['ATTN_DATE']; ?></td>
                                         <td><?php echo $row['OUTSIDE_REMARKS']; ?></td>
                                         <td align="center"><?php
-                                                            if ($row['LINE_MANAGER_APPROVAL'] == '1') {
-                                                                echo 'Approved';
-                                                            } elseif ($row['LINE_MANAGER_APPROVAL'] == '0') {
-                                                                echo 'Denide';
-                                                            } else {
-                                                                echo 'Pending';
-                                                            }
-                                                            ?>
+                                        if ($row['LINE_MANAGER_APPROVAL'] == '1') {
+                                            echo 'Approved';
+                                        }
+                                        elseif ($row['LINE_MANAGER_APPROVAL'] == '0') {
+                                            echo 'Denide';
+                                        }
+                                        else {
+                                            echo 'Pending';
+                                        }
+                                        ?>
                                         </td>
                                         <td><?php
-                                            if ($row['LINE_MANAGER_APPROVAL'] == '1') {
-                                                echo $row['LINE_MANAGER_NAME'];
-                                            } else {
-                                                echo '';
-                                            }
+                                        if ($row['LINE_MANAGER_APPROVAL'] == '1') {
+                                            echo $row['LINE_MANAGER_NAME'];
+                                        }
+                                        else {
+                                            echo '';
+                                        }
 
 
 
-                                            ?></td>
+                                        ?></td>
                                         <td><?php echo $row['LINE_MANAGER_APPROVAL_DATE']; ?></td>
                                     </tr>
-                            <?php
+                                    <?php
                                 }
                             }
                             ?>
@@ -160,5 +165,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
     </div>
 </div>
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

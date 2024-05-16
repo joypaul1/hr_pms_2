@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-hod-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -34,12 +34,12 @@ $v_view_approval = 0;
                         <select name="emp_concern" class="form-control cust-control" form="Form1">
                             <option selected value=""><- Select Concern -></option>
                             <?php
-                            $strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                            $strSQL = @oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
 																		where LINE_MANAGER_RML_ID ='$emp_session_id'
 																		and is_active=1 
 																		order by EMP_NAME");
-                            oci_execute($strSQL);
-                            while ($row = oci_fetch_assoc($strSQL)) {
+                            @oci_execute($strSQL);
+                            while ($row = @oci_fetch_assoc($strSQL)) {
                                 ?>
                                 <option value="<?php echo $row['RML_ID']; ?>">
                                     <?php echo $row['EMP_NAME']; ?>
@@ -84,33 +84,36 @@ $v_view_approval = 0;
                     <?php
                     if (isset($_POST['emp_concern'])) {
                         $emp_concern = $_REQUEST['emp_concern'];
-                        $strSQL      = oci_parse($objConnect, "SELECT A.ID,
-													   A.EMP_ID,
-													   A.EMP_NAME,
-													   A.LINE_MANAGER_2_STATUS,
-													   A.LINE_MANAGER_2_UPDATED,
-													   A.LINE_MANAGE_2_REMARKS,
-													   A.EMP_DEPT,
-													   A.EMP_WORK_STATION,
-													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
-													   A.GROUP_NAME,
-													   A.GROUP_CONCERN,
-													   A.CREATED_DATE,
-													   A.CREATED_BY,HR_PMS_LIST_ID,
-                                                    (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
-                                                    (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
-                                                    (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS,
-                                                    (SELECT AA.STEP_3_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_3_STATUS
-													FROM HR_PMS_EMP A
-													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_2_STATUS  IS NOT NULL.
-													AND LINE_MANAGER_2_ID='$emp_session_id'
-													AND A.EMP_ID='$emp_concern'");
+                        $strSQL      = @oci_parse(
+                            $objConnect,
+                            "SELECT A.ID,
+										A.EMP_ID,
+										A.EMP_NAME,
+										A.LINE_MANAGER_2_STATUS,
+										A.LINE_MANAGER_2_UPDATED,
+										A.LINE_MANAGE_2_REMARKS,
+										A.EMP_DEPT,
+										A.EMP_WORK_STATION,
+										A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
+										A.GROUP_NAME,
+										A.GROUP_CONCERN,
+										A.CREATED_DATE,
+										A.CREATED_BY,HR_PMS_LIST_ID,
+                                        (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+                                        (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
+                                        (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS,
+                                        (SELECT AA.STEP_3_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_3_STATUS
+										FROM HR_PMS_EMP A
+										WHERE SELF_SUBMITTED_STATUS=1
+                                        AND LINE_MANAGER_2_STATUS  IS NOT NULL
+										AND LINE_MANAGER_2_ID='$emp_session_id'
+										AND A.EMP_ID='$emp_concern'"
+                        );
 
-                        oci_execute($strSQL);
+                        @oci_execute($strSQL);
                         $number = 0;
 
-                        while ($row = oci_fetch_assoc($strSQL)) {
+                        while ($row = @oci_fetch_assoc($strSQL)) {
                             $number++;
                             $v_view_approval = 1;
                             ?>
@@ -120,7 +123,7 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <?php if ($row['STEP_3_STATUS'] === '1' ) { ?>
+                                        <?php if ($row['STEP_3_STATUS'] === '1') { ?>
                                             <a
                                                 href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
                                                     type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
@@ -175,21 +178,21 @@ $v_view_approval = 0;
                         }
                     }
                     else {
-                        $allDataSQL = oci_parse(
+                        $allDataSQL = @oci_parse(
                             $objConnect,
                             "SELECT A.ID,
-							           A.EMP_ID,
-							           A.EMP_NAME,
-                                       A.LINE_MANAGER_2_STATUS,
-                                       A.LINE_MANAGER_2_UPDATED,
-                                       A.LINE_MANAGE_2_REMARKS,
-									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
-									   A.EMP_WORK_STATION,
-									   A.EMP_DESIGNATION,
-									   A.GROUP_NAME,
-									   A.GROUP_CONCERN,
-									   A.CREATED_DATE,
-									   A.CREATED_BY,HR_PMS_LIST_ID,
+							        A.EMP_ID,
+							        A.EMP_NAME,
+                                    A.LINE_MANAGER_2_STATUS,
+                                    A.LINE_MANAGER_2_UPDATED,
+                                    A.LINE_MANAGE_2_REMARKS,
+									A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
+									A.EMP_WORK_STATION,
+									A.EMP_DESIGNATION,
+									A.GROUP_NAME,
+									A.GROUP_CONCERN,
+									A.CREATED_DATE,
+									A.CREATED_BY,HR_PMS_LIST_ID,
                                     (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
                                     (SELECT AA.STEP_1_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_1_STATUS,
                                     (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS,
@@ -200,10 +203,10 @@ $v_view_approval = 0;
                                     AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
-                        oci_execute($allDataSQL);
+                        @oci_execute($allDataSQL);
                         $number = 0;
 
-                        while ($row = oci_fetch_assoc($allDataSQL)) {
+                        while ($row = @oci_fetch_assoc($allDataSQL)) {
                             $number++;
                             $v_view_approval = 1;
                             ?>
@@ -212,7 +215,7 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <?php if ($row['STEP_3_STATUS'] === '1' ) { ?>
+                                        <?php if ($row['STEP_3_STATUS'] === '1') { ?>
                                             <a
                                                 href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
                                                     type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
@@ -282,5 +285,5 @@ $v_view_approval = 0;
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

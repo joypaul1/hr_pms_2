@@ -1,11 +1,9 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('self-tour-create')) {
-	echo "<script>
-		window.location.href = '$basePath/index.php?logout=true';
-	</script>";
+	echo "<script>window.location.href = '$basePath/index.php?logout=true';</script>";
 }
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
@@ -25,7 +23,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 	@oci_execute($strSQL);
 	$number = 0;
 	while ($row = @oci_fetch_assoc($strSQL)) {
-	?>
+		?>
 		<!-- Basic Layout & Basic with Icons -->
 		<div class="row">
 			<!-- Basic Layout -->
@@ -39,31 +37,32 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly >
+								<input type="text" class="form-control" id="basic-default-name" value="<?php echo $row['EMP_NAME']; ?>" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-company">RML-ID</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="basic-default-company" form="Form2" name="emp_id" value="<?php echo $row['RML_ID']; ?>" readonly >
+								<input type="text" class="form-control" id="basic-default-company" form="Form2" name="emp_id"
+									value="<?php echo $row['RML_ID']; ?>" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DEPT_NAME']; ?>" readonly >
+								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DEPT_NAME']; ?>" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-company">Department</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DESIGNATION']; ?>" readonly >
+								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['DESIGNATION']; ?>" readonly>
 							</div>
 						</div>
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-company">Location</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['BRANCH_NAME']; ?>" readonly >
+								<input type="text" class="form-control" id="basic-default-company" value="<?php echo $row['BRANCH_NAME']; ?>" readonly>
 							</div>
 						</div>
 
@@ -75,7 +74,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" form="Form2" class="form-control" type='date' name='leave_start_date' value='<?php echo isset($_POST['leave_start_date']) ? $_POST['leave_start_date'] : ''; ?>' >
+									<input required="" form="Form2" class="form-control" type='date' name='leave_start_date'
+										value='<?php echo isset($_POST['leave_start_date']) ? $_POST['leave_start_date'] : ''; ?>'>
 								</div>
 							</div>
 						</div>
@@ -87,7 +87,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										<i class="fa fa-calendar">
 										</i>
 									</div>
-									<input required="" form="Form2" class="form-control" type='date' name='leave_end_date' value='<?php echo isset($_POST['leave_end_date']) ? $_POST['leave_end_date'] : ''; ?>' >
+									<input required="" form="Form2" class="form-control" type='date' name='leave_end_date'
+										value='<?php echo isset($_POST['leave_end_date']) ? $_POST['leave_end_date'] : ''; ?>'>
 								</div>
 							</div>
 						</div>
@@ -96,7 +97,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						<div class="row mb-3">
 							<label class="col-sm-2 col-form-label" for="basic-default-message">Remarks</label>
 							<div class="col-sm-10">
-								<textarea id="basic-default-message" class="form-control" form="Form2" name="remarks" placeholder="Hi, Do you have any Remarks?" required="" aria-describedby="basic-icon-default-message2"></textarea>
+								<textarea id="basic-default-message" class="form-control" form="Form2" name="remarks"
+									placeholder="Hi, Do you have any Remarks?" required="" aria-describedby="basic-icon-default-message2"></textarea>
 							</div>
 						</div>
 						<!-- <div class="row justify-content-center"> -->
@@ -113,8 +115,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 					if (isset($_POST['submit_leave'])) {
 						if (isset($_POST['leave_end_date'])) {
-							$v_emp_id           = $_REQUEST['emp_id'];
-							$leave_remarks      = $_REQUEST['remarks'];
+							$v_emp_id      = $_REQUEST['emp_id'];
+							$leave_remarks = $_REQUEST['remarks'];
 							// $leave_type         = $_REQUEST['leave_type'];
 							$v_leave_start_date = date("d/m/Y", strtotime($_REQUEST['leave_start_date']));
 							$v_leave_end_date   = date("d/m/Y", strtotime($_REQUEST['leave_end_date']));
@@ -132,16 +134,17 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 								// } else {
 								// 	echo "Sorry! Contact with IT.";
 								// }
-
+				
 								if (@oci_execute($leaveSQL)) {
-									$message = [
-										'text' =>  "Tour Create Successfully Done and waiting for approve.",
+									$message                  = [
+										'text'   => "Tour Create Successfully Done and waiting for approve.",
 										'status' => 'true',
 									];
 									$_SESSION['noti_message'] = $message;
-								} else {
-									$message = [
-										'text' =>  "Sorry! Contact with IT.",
+								}
+								else {
+									$message                  = [
+										'text'   => "Sorry! Contact with IT.",
 										'status' => 'false',
 									];
 									$_SESSION['noti_message'] = $message;
@@ -149,12 +152,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 								//echo "Leave Create and Attendance Process Successfully Done.Please Check Attendance.";
-							} else {
+							}
+							else {
 								@$lastError = error_get_last();
 								@$error = $lastError ? "" . $lastError["message"] . "" : "";
 								// echo preg_split("/\@@@@/", @$error)[1];
-								$message = [
-									'text' =>  preg_split("/\@@@@/", @$error)[1],
+								$message                  = [
+									'text'   => preg_split("/\@@@@/", @$error)[1],
 									'status' => 'false',
 								];
 								$_SESSION['noti_message'] = $message;
@@ -173,7 +177,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 
-	<?php
+		<?php
 	}
 
 	?>
@@ -185,5 +189,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

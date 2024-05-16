@@ -1,9 +1,9 @@
 <?php
 $dynamic_link_css[] = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-$dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+$dynamic_link_js[]  = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('hr-offboarding-id-assign-create')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -17,13 +17,13 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
     <div class="card col-lg-12 ">
 
         <?php
-        $leftSideName  = 'ID Assign';
+        $leftSideName = 'ID Assign';
         if (checkPermission('hr-offboarding-id-assign-list')) {
             $rightSideName = 'ID Assign List';
             $routePath     = 'offboarding_module/view/hr_panel/id_assign_list.php';
         }
 
-        include('../../../layouts/_tableHeader.php');
+        include ('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <form action="<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>" method="post">
@@ -31,9 +31,9 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                 <div class="row">
                     <div class="col-sm-4">
                         <label for="emp_id">Emp. ID:</label>
-                        <input required class="form-control cust-control" id="autocomplete" name="" type="text" >
+                        <input required class="form-control cust-control" id="autocomplete" name="" type="text">
                         <div class="text-info" id="message"></div>
-                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden >
+                        <input required class="form-control" id="emp_id" name="emp_id" type="hidden" hidden>
 
                     </div>
                     <div class="col-sm-6">
@@ -55,10 +55,10 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 
 
                             <h5 class="text-center"> Select Concern <span style="font-size: 12px;"> </h5>
-                            <hr >
+                            <hr>
                             <?php
                             $departmentArray = [];
-                            $strSQL  = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER WHERE R_CONCERN NOT IN('RG') ORDER BY R_CONCERN");
+                            $strSQL          = oci_parse($objConnect, "SELECT UNIQUE(R_CONCERN) AS R_CONCERN FROM RML_HR_APPS_USER WHERE R_CONCERN NOT IN('RG') ORDER BY R_CONCERN");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 echo ('
@@ -80,10 +80,10 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                         padding: 2%;">
 
                             <h5 class="text-center"> Select Department <span style="font-size: 12px;"> </h5>
-                            <hr >
+                            <hr>
                             <?php
                             $departmentArray = [];
-                            $strSQL  = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
+                            $strSQL          = oci_parse($objConnect, "SELECT ID, DEPT_NAME FROM RML_HR_DEPARTMENT where IS_ACTIVE=1 AND OFFBOARDING_STATUS=1");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 echo ('
@@ -120,14 +120,14 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 </div>
 
 <!-- / Content -->
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>
 <script>
-    $(function() {
+    $(function () {
 
         $("#autocomplete").autocomplete({
 
-            source: function(request, response) {
+            source: function (request, response) {
                 // Fetch data
                 $.ajax({
                     url: "<?php echo ($basePath . '/offboarding_module/action/hr_panel.php'); ?>",
@@ -137,15 +137,15 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                         actionType: 'searchUser',
                         search: request.term
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $("#userInfo").empty();
                         $("#emp_id").val(null);
                         showPleaseWaitMessage();
                     },
-                    success: function(data) {
+                    success: function (data) {
                         hidePleaseWaitMessage();
                         // Process the response data here
-                        response($.map(data, function(item) {
+                        response($.map(data, function (item) {
                             return {
                                 label: item.label,
                                 value: item.value,
@@ -154,13 +154,13 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                             };
                         }));
                     },
-                    error: function(data) {
+                    error: function (data) {
                         console.log(data)
                         hidePleaseWaitMessage();
                     }
                 });
             },
-            select: function(event, ui) {
+            select: function (event, ui) {
                 // Set selection
                 $('#autocomplete').val(ui.item.label); // display the selected text
                 $('#emp_id').val(ui.item.id); // save selected id to input
@@ -168,7 +168,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                 buttonValidation();
                 return false;
             },
-            focus: function(event, ui) {
+            focus: function (event, ui) {
                 // $("#autocomplete").val(ui.item.label);
                 // $("#emp_id").val(ui.item.id);
                 return false;
@@ -187,7 +187,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 
         function userInfo(info) {
 
-            let basePath = "<?php echo $basePath =  $_SESSION['basePath'] ?>";
+            let basePath = "<?php echo $basePath = $_SESSION['basePath'] ?>";
             let html = `<div class="justify-content-center">
                             <div class="card p-3">
                                 <div class="d-flex  text-center">
@@ -210,7 +210,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
                                             </div>
                                         </div>
                                         <div class="mt-2 d-flex flex-row justify-content-center">
-                                            <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a> 
+                                            <a target="_blank" href="${basePath}/user_profile.php?emp_id=${info.RML_ID}"><button class="btn btn-sm btn-info ml-2" type='button'>Go To Profile </button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -221,13 +221,13 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
         }
     });
 
-    $(document).on('change', '#autocomplete', function() {
+    $(document).on('change', '#autocomplete', function () {
         buttonValidation();
     });
-    $(document).on('click', '.concern_id', function() {
+    $(document).on('click', '.concern_id', function () {
         buttonValidation();
     });
-    $(document).on('click', '.department_id', function() {
+    $(document).on('click', '.department_id', function () {
         buttonValidation();
     });
 
@@ -244,7 +244,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 
     function concernCheck() {
         let flag = false;
-        $('.concern_id').each(function() {
+        $('.concern_id').each(function () {
             var isChecked = $(this).prop('checked');
             if (isChecked) {
                 flag = true;
@@ -256,7 +256,7 @@ if (!checkPermission('hr-offboarding-id-assign-create')) {
 
     function derpartmentCheck() {
         let flag = false;
-        $('.department_id').each(function() {
+        $('.department_id').each(function () {
             var isChecked = $(this).prop('checked');
             if (isChecked) {
                 flag = true;

@@ -100,28 +100,25 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             if($v_approval_status=='2'){
 								$strSQL  = oci_parse(
                                 $objConnect,
-                                "SELECT  
+                                "SELECT
 								B.RML_ID,
                                 B.EMP_NAME,
                                 B.R_CONCERN,
-                                B.DEPT_NAME,B.BRANCH_NAME,B.DESIGNATION,								
-								A.START_DATE, 
-								A.END_DATE, 
-								A.REMARKS, 
-								A.ENTRY_DATE, 
-								A.ENTRY_BY, 
-								A.LINE_MANAGER_ID, 
-								A.LINE_MANAGER_APPROVAL_STATUS, 
-								A.APPROVAL_DATE, 
+                                B.DEPT_NAME,B.BRANCH_NAME,B.DESIGNATION,
+								A.START_DATE,
+								A.END_DATE,
+								A.REMARKS,
+								A.ENTRY_DATE,
+								A.ENTRY_BY,
+								A.LINE_MANAGER_ID,
+								A.LINE_MANAGER_APPROVAL_STATUS,
+								A.APPROVAL_DATE,
 								A.APPROVAL_REMARKS
 								FROM RML_HR_EMP_TOUR A,RML_HR_APPS_USER B
 								WHERE A.RML_ID=B.RML_ID
-								AND (A.START_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY') or
-			                         A.END_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
-									 )
+								AND (A.START_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY') or A.END_DATE BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY'))
 								AND ('$v_emp_id' is null or B.RML_ID='$v_emp_id')
-								AND  A.LINE_MANAGER_APPROVAL_STATUS IS NULL
-								"
+								AND  A.LINE_MANAGER_APPROVAL_STATUS IS NULL"
                             );
 							}else{
                             $strSQL  = oci_parse(

@@ -1,12 +1,12 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-$basePath =  $_SESSION['basePath'];
+$basePath       = $_SESSION['basePath'];
 if (!checkPermission('concern-attendance-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-$attn_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date']))  : date('d/m/Y');
+$attn_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date'])) : date('d/m/Y');
 $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('d/m/Y');
 ?>
 
@@ -21,21 +21,24 @@ $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end
                     <div class="col-sm-3">
                         <label> Employee ID </label>
                         <div class="input-group">
-                            <input class="form-control cust-control" type='text' name='emp_id' value='<?php echo isset($_GET['emp_id']) ? $_GET['emp_id'] : ''; ?>' placeholder="EX: RML:00955 / RMWL:0942">
+                            <input class="form-control cust-control" type='text' name='emp_id'
+                                value='<?php echo isset($_GET['emp_id']) ? $_GET['emp_id'] : ''; ?>' placeholder="EX: RML:00955 / RMWL:0942">
 
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <label>From Date:</label>
                         <div class="input-group">
-                            <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_start_date)->format('Y-m-d') ?>" class="form-control" type="date" name="start_date">
+                            <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_start_date)->format('Y-m-d') ?>"
+                                class="form-control" type="date" name="start_date">
 
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <label>To Date:</label>
                         <div class="input-group">
-                            <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_end_date)->format('Y-m-d') ?>" class="form-control" type="date" name="end_date">
+                            <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $attn_end_date)->format('Y-m-d') ?>"
+                                class="form-control" type="date" name="end_date">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -83,13 +86,13 @@ $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end
 
                         <?php
 
-                        @$emp_id            = $_REQUEST['emp_id'];
-                        @$attn_status       = $_REQUEST['attn_status'];
+                        @$emp_id = $_REQUEST['emp_id'];
+                        @$attn_status = $_REQUEST['attn_status'];
                         // @$attn_start_date   = date("d/m/Y", strtotime($_REQUEST['start_date']));
                         // @$attn_end_date     = date("d/m/Y", strtotime($_REQUEST['end_date']));
-
+                        
                         // if (isset($_GET['attn_status'])) {
-                            $query = "SELECT
+                        $query = "SELECT
                                         A.RML_ID,
                                         A.ATTN_DATE,
                                         A.RML_NAME,
@@ -120,72 +123,78 @@ $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end
                                         )
                                         ORDER BY A.ATTN_DATE";
 
-                            $strSQL  = oci_parse($objConnect, $query);
-                            oci_execute($strSQL);
-                            $number = 0;
-                            $lateCount = 0;
-                            $presentCount = 0;
-                            $absentCount = 0;
-                            $leaveCount = 0;
-                            $weekendCount = 0;
-                            $holidayCount = 0;
+                        $strSQL = oci_parse($objConnect, $query);
+                        oci_execute($strSQL);
+                        $number       = 0;
+                        $lateCount    = 0;
+                        $presentCount = 0;
+                        $absentCount  = 0;
+                        $leaveCount   = 0;
+                        $weekendCount = 0;
+                        $holidayCount = 0;
 
-                            while ($row = oci_fetch_assoc($strSQL)) {
-                                $number++;
-                        ?>
-                                <tr>
-                                    <td><?php echo $number; ?></td>
-                                    <td><?php echo $row['RML_ID']; ?></td>
-                                    <td><?php echo $row['RML_NAME']; ?></td>
-                                    <td><?php echo $row['ATTN_DATE']; ?></td>
-                                    <td><?php echo $row['IN_TIME']; ?></td>
-                                    <td><?php echo $row['OUT_TIME']; ?></td>
-                                    <td align="center">
-                                        <?php
-                                        if ($row['STATUS'] == 'L') {
-                                            $lateCount++;
-                                        } elseif ($row['STATUS'] == 'A') {
-                                            $absentCount++;
-                                        } elseif ($row['STATUS'] == 'W') {
-                                            $weekendCount++;
-                                        } elseif ($row['STATUS'] == 'H') {
-                                            $holidayCount++;
-                                        } elseif ($row['STATUS'] == 'P') {
-                                            $presentCount++;
-                                        } elseif (
-                                            $row['STATUS'] == 'SL' ||
-                                            $row['STATUS'] == 'CL' ||
-                                            $row['STATUS'] == 'PL' ||
-                                            $row['STATUS'] == 'EL' ||
-                                            $row['STATUS'] == 'ML'
-                                        ) {
-                                            $leaveCount++;
-                                        } else {
-                                        }
-                                        echo $row['STATUS'];
-                                        ?>
-                                    </td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['DEPT_NAME']; ?></td>
-
-                                </tr>
-                            <?php
-                            }
+                        while ($row = oci_fetch_assoc($strSQL)) {
+                            $number++;
                             ?>
                             <tr>
-                                <td></td>
-                                <td><b>Summary</b></td>
-                                <td>Present: <?php echo $presentCount; ?></td>
-                                <td>Late: <?php echo  $lateCount; ?></td>
-                                <td>Absent: <?php echo $absentCount; ?></td>
-                                <td>Weekend: <?php echo $weekendCount; ?></td>
-                                <td>Holiday: <?php echo $holidayCount; ?></td>
-                                <td>Leave: <?php echo $leaveCount; ?></td>
-                                <td></td>
+                                <td><?php echo $number; ?></td>
+                                <td><?php echo $row['RML_ID']; ?></td>
+                                <td><?php echo $row['RML_NAME']; ?></td>
+                                <td><?php echo $row['ATTN_DATE']; ?></td>
+                                <td><?php echo $row['IN_TIME']; ?></td>
+                                <td><?php echo $row['OUT_TIME']; ?></td>
+                                <td align="center">
+                                    <?php
+                                    if ($row['STATUS'] == 'L') {
+                                        $lateCount++;
+                                    }
+                                    elseif ($row['STATUS'] == 'A') {
+                                        $absentCount++;
+                                    }
+                                    elseif ($row['STATUS'] == 'W') {
+                                        $weekendCount++;
+                                    }
+                                    elseif ($row['STATUS'] == 'H') {
+                                        $holidayCount++;
+                                    }
+                                    elseif ($row['STATUS'] == 'P') {
+                                        $presentCount++;
+                                    }
+                                    elseif (
+                                        $row['STATUS'] == 'SL' ||
+                                        $row['STATUS'] == 'CL' ||
+                                        $row['STATUS'] == 'PL' ||
+                                        $row['STATUS'] == 'EL' ||
+                                        $row['STATUS'] == 'ML'
+                                    ) {
+                                        $leaveCount++;
+                                    }
+                                    else {
+                                    }
+                                    echo $row['STATUS'];
+                                    ?>
+                                </td>
+                                <td><?php echo $row['BRANCH_NAME']; ?></td>
+                                <td><?php echo $row['DEPT_NAME']; ?></td>
+
                             </tr>
+                            <?php
+                        }
+                        ?>
+                        <tr>
+                            <td></td>
+                            <td><b>Summary</b></td>
+                            <td>Present: <?php echo $presentCount; ?></td>
+                            <td>Late: <?php echo $lateCount; ?></td>
+                            <td>Absent: <?php echo $absentCount; ?></td>
+                            <td>Weekend: <?php echo $weekendCount; ?></td>
+                            <td>Holiday: <?php echo $holidayCount; ?></td>
+                            <td>Leave: <?php echo $leaveCount; ?></td>
+                            <td></td>
+                        </tr>
                         <?php
                         // }
-
+                        
                         ?>
                     </tbody>
 
@@ -199,5 +208,5 @@ $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end
 </div>
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

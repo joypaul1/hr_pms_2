@@ -1,7 +1,7 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('lm-attendance-concern')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -22,15 +22,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         <select name="emp_concern" class="form-control text-center   cust-control">
                             <option hidden value=""><-- Concern --></option>
                             <?php
-                            $strSQL  = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                            $strSQL = oci_parse($objConnect, "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER
 													where LINE_MANAGER_RML_ID ='$emp_session_id'
-													and is_active=1 
-													order by EMP_NAME");
+													and is_active=1 order by EMP_NAME");
                             oci_execute($strSQL);
                             while ($row = oci_fetch_assoc($strSQL)) {
-                            ?>
+                                ?>
                                 <option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
-                            <?php
+                                <?php
                             }
                             ?>
                         </select>
@@ -42,7 +41,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control cust-control" name="start_date" type="date" >
+                            <input required="" class="form-control cust-control" name="start_date" type="date">
                         </div>
                     </div>
                     <div class="col-sm-2">
@@ -52,7 +51,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <i class="fa fa-calendar">
                                 </i>
                             </div>
-                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date" >
+                            <input required="" class="form-control cust-control" id="date" name="end_date" type="date">
                         </div>
                     </div>
                     <div class="col-sm-3">
@@ -71,12 +70,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         </div>
                     </div>
                 </div>
-              
+
             </form>
         </div>
 
         <div class="card col-lg-12 mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Attendance List</b></h5>
+            <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Concern Attendance List</b>
+            </h5>
             <div class="card-body">
                 <div class="resume-item d-flex flex-column flex-md-row">
                     <table class="table table-bordered piechart-key" id="" style="width:100%">
@@ -99,18 +99,18 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <?php
 
                             if (isset($_POST['attn_status'])) {
-                                $v_rml_id = $_REQUEST['emp_concern'];
-                                $attn_status = $_REQUEST['attn_status'];
+                                $v_rml_id        = $_REQUEST['emp_concern'];
+                                $attn_status     = $_REQUEST['attn_status'];
                                 $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-                                $attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
-                                $strSQL  = oci_parse(
+                                $attn_end_date   = date("d/m/Y", strtotime($_REQUEST['end_date']));
+                                $strSQL          = oci_parse(
                                     $objConnect,
-                                    "select A.RML_ID,
-						                     A.ATTN_DATE,A.RML_NAME,
-											 A.IN_TIME,A.OUT_TIME,
-											 A.STATUS,A.DEPT_NAME,
-											 A.IN_LAT,A.IN_LANG,
-											 A.DAY_NAME,A.BRANCH_NAME
+                                    "SELECT A.RML_ID,
+						            A.ATTN_DATE,A.RML_NAME,
+									A.IN_TIME,A.OUT_TIME,
+									A.STATUS,A.DEPT_NAME,
+									A.IN_LAT,A.IN_LANG,
+									A.DAY_NAME,A.BRANCH_NAME
 									from RML_HR_ATTN_DAILY_PROC A,RML_HR_APPS_USER B
 									where A.RML_ID =B.RML_ID
 									  AND B.IS_ACTIVE=1
@@ -121,17 +121,17 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 									  order by A.ATTN_DATE"
                                 );
                                 oci_execute($strSQL);
-                                $number = 0;
-                                $lateCount = 0;
+                                $number       = 0;
+                                $lateCount    = 0;
                                 $presentCount = 0;
-                                $absentCount = 0;
-                                $leaveCount = 0;
+                                $absentCount  = 0;
+                                $leaveCount   = 0;
                                 $weekendCount = 0;
                                 $holidayCount = 0;
 
                                 while ($row = oci_fetch_assoc($strSQL)) {
                                     $number++;
-                            ?>
+                                    ?>
                                     <tr>
                                         <td><?php echo $number; ?></td>
                                         <td><?php echo $row['RML_ID']; ?></td>
@@ -143,15 +143,20 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             <?php
                                             if ($row['STATUS'] == 'L') {
                                                 $lateCount++;
-                                            } elseif ($row['STATUS'] == 'A') {
+                                            }
+                                            elseif ($row['STATUS'] == 'A') {
                                                 $absentCount++;
-                                            } elseif ($row['STATUS'] == 'W') {
+                                            }
+                                            elseif ($row['STATUS'] == 'W') {
                                                 $weekendCount++;
-                                            } elseif ($row['STATUS'] == 'H') {
+                                            }
+                                            elseif ($row['STATUS'] == 'H') {
                                                 $holidayCount++;
-                                            } elseif ($row['STATUS'] == 'P') {
+                                            }
+                                            elseif ($row['STATUS'] == 'P') {
                                                 $presentCount++;
-                                            } elseif (
+                                            }
+                                            elseif (
                                                 $row['STATUS'] == 'SL' ||
                                                 $row['STATUS'] == 'CL' ||
                                                 $row['STATUS'] == 'PL' ||
@@ -159,7 +164,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                                 $row['STATUS'] == 'ML'
                                             ) {
                                                 $leaveCount++;
-                                            } else {
+                                            }
+                                            else {
                                             }
                                             echo $row['STATUS'];
                                             ?>
@@ -168,7 +174,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <td><?php echo $row['DEPT_NAME']; ?></td>
 
                                     </tr>
-                                <?php
+                                    <?php
 
                                 }
                                 ?>
@@ -176,14 +182,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                     <td></td>
                                     <td><b>Summary</b></td>
                                     <td>Present: <?php echo $presentCount; ?></td>
-                                    <td>Late: <?php echo  $lateCount; ?></td>
+                                    <td>Late: <?php echo $lateCount; ?></td>
                                     <td>Absent: <?php echo $absentCount; ?></td>
                                     <td>Weekend: <?php echo $weekendCount; ?></td>
                                     <td>Holiday: <?php echo $holidayCount; ?></td>
                                     <td>Leave: <?php echo $leaveCount; ?></td>
                                     <td></td>
                                 </tr>
-                            <?php
+                                <?php
                             }
 
                             ?>
@@ -202,5 +208,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>
