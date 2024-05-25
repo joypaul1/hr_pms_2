@@ -39,7 +39,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 								<?php
 
-								$strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
+								$strSQL = oci_parse($objConnect, "SELECT ID,PMS_NAME from HR_PMS_LIST where is_active=1");
 								oci_execute($strSQL);
 								while ($row = oci_fetch_assoc($strSQL)) {
 									?>
@@ -81,9 +81,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 					$v_pms_title_id = $_REQUEST['pms_title_id'];
 					$strStatus      = oci_parse(
 						$objConnect,
-						"SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP 
-								       WHERE EMP_ID='$emp_session_id'
-								       AND HR_PMS_LIST_ID='$v_pms_title_id'"
+						"SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP  WHERE EMP_ID='$emp_session_id'
+						AND HR_PMS_LIST_ID='$v_pms_title_id'"
 					);
 
 					if (oci_execute($strStatus)) {
@@ -96,17 +95,17 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						$strSQL = oci_parse(
 							$objConnect,
 							"INSERT INTO HR_PMS_KRA_LIST (
-                                             KRA_NAME,
-											 HR_PMS_LIST_ID,											 
-											 CREATED_BY, 
-                                             CREATED_DATE, 
-											 IS_ACTIVE) 
-                                        VALUES ( 
-                                             '$v_kra_name',
-											 '$v_pms_title_id',
-											 '$emp_session_id',
-											 sysdate,
-											 1)"
+                                            KRA_NAME,
+											HR_PMS_LIST_ID,
+											CREATED_BY,
+                                            CREATED_DATE,
+											IS_ACTIVE)
+                                        VALUES (
+                                            '$v_kra_name',
+											'$v_pms_title_id',
+											'$emp_session_id',
+											sysdate,
+											1)"
 						);
 						if (@oci_execute($strSQL)) {
 							$message                  = [
@@ -173,13 +172,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 											"SELECT BB.ID,
 											BB.KRA_NAME,
 											(select  PMS_NAME  FROM HR_PMS_LIST where id=BB.HR_PMS_LIST_ID) PMS_NAME,
-											(SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A 
-													WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
+											(SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A
+													WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID
 													AND A.EMP_ID='$emp_session_id'
 											)SUBMITTED_STATUS,
 											CREATED_BY,
 											CREATED_DATE,UPDATED_DATE,
-											IS_ACTIVE 
+											IS_ACTIVE
 										FROM HR_PMS_KRA_LIST BB
 										WHERE BB.CREATED_BY='$emp_session_id'"
 										);

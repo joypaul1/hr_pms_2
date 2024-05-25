@@ -1,22 +1,19 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('lm-tour-approval')) {
 	echo "<script>
 		window.location.href = '$basePath/index.php?logout=true';
 	</script>";
 }
-$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+$emp_session_id  = $_SESSION['HR_APPS']['emp_id_hr'];
 $v_view_approval = 0;
 if (isset($_POST['submit_approval_single'])) {
 
 	if (!empty($_POST['check_list'])) {
 		foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
-			$query = "UPDATE RML_HR_EMP_TOUR 
-			SET LINE_MANAGER_APPROVAL_STATUS=1,
-			APPROVAL_DATE=SYSDATE
-			where ID='$TT_ID_SELECTTED'";
+			$query = "UPDATE RML_HR_EMP_TOUR SET LINE_MANAGER_APPROVAL_STATUS=1, APPROVAL_DATE=SYSDATE where ID='$TT_ID_SELECTTED'";
 
 			$strSQL = oci_parse(
 				$objConnect,
@@ -24,17 +21,18 @@ if (isset($_POST['submit_approval_single'])) {
 			);
 
 			if (oci_execute($strSQL)) {
-				$message = [
-					'text' => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
+				$message                  = [
+					'text'   => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
 					'status' => 'true',
 				];
 				$_SESSION['noti_message'] = $message;
 			}
 		}
 		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
-	} else {
-		$message = [
-			'text' => "Sorry! You have not select any ID Code.",
+	}
+	else {
+		$message                  = [
+			'text'   => "Sorry! You have not select any ID Code.",
 			'status' => 'false',
 		];
 		$_SESSION['noti_message'] = $message;
@@ -62,17 +60,18 @@ if (isset($_POST['submit_approval'])) {
 
 
 			if (oci_execute($strSQL)) {
-				$message = [
-					'text' => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
+				$message                  = [
+					'text'   => 'Successfully Approved Tour. ' . $TT_ID_SELECTTED,
 					'status' => 'true',
 				];
 				$_SESSION['noti_message'] = $message;
 			}
 		}
 		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
-	} else {
-		$message = [
-			'text' => "Sorry! You have not select any ID Code.",
+	}
+	else {
+		$message                  = [
+			'text'   => "Sorry! You have not select any ID Code.",
 			'status' => 'false',
 		];
 		$_SESSION['noti_message'] = $message;
@@ -94,17 +93,18 @@ if (isset($_POST['submit_denied'])) {
 			);
 
 			if (oci_execute($strSQL)) {
-				$message = [
-					'text' => 'Successfully Denied Tour. ' . $TT_ID_SELECTTED,
+				$message                  = [
+					'text'   => 'Successfully Denied Tour. ' . $TT_ID_SELECTTED,
 					'status' => 'true',
 				];
 				$_SESSION['noti_message'] = $message;
 			}
 		}
 		echo "<script>window.location = " . $basePath . "'/leave_module/view/lm_panel/approval.php'</script>";
-	} else {
-		$message = [
-			'text' => "Sorry! You have not select any ID Code.",
+	}
+	else {
+		$message                  = [
+			'text'   => "Sorry! You have not select any ID Code.",
 			'status' => 'false',
 		];
 		$_SESSION['noti_message'] = $message;
@@ -129,16 +129,16 @@ if (isset($_POST['submit_denied'])) {
 						<?php
 
 
-						$strSQL  = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+						$strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
 																		where LINE_MANAGER_RML_ID ='$emp_session_id'
 																		and is_active=1 
 																		order by EMP_NAME");
 						oci_execute($strSQL);
 						while ($row = oci_fetch_assoc($strSQL)) {
-						?>
+							?>
 
 							<option value="<?php echo $row['RML_ID']; ?>"><?php echo $row['EMP_NAME']; ?></option>
-						<?php
+							<?php
 						}
 						?>
 					</select>
@@ -150,7 +150,7 @@ if (isset($_POST['submit_denied'])) {
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" class="form-control cust-control" form="Form1" name="start_date" type="date" >
+						<input required="" class="form-control cust-control" form="Form1" name="start_date" type="date">
 					</div>
 				</div>
 				<div class="col-sm-3">
@@ -160,7 +160,7 @@ if (isset($_POST['submit_denied'])) {
 							<i class="fa fa-calendar">
 							</i>
 						</div>
-						<input required="" class="form-control cust-control" form="Form1" id="date" name="end_date" type="date" >
+						<input required="" class="form-control cust-control" form="Form1" id="date" name="end_date" type="date">
 					</div>
 				</div>
 				<div class="col-sm-2">
@@ -195,15 +195,15 @@ if (isset($_POST['submit_denied'])) {
 
 
 								if (isset($_POST['start_date'])) {
-									$emp_concern = $_REQUEST['emp_concern'];
+									$emp_concern     = $_REQUEST['emp_concern'];
 									$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
-									$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+									$attn_end_date   = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
 
 
 
 
-									$strSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
+									$strSQL = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
 														and b.LINE_MANAGER_RML_ID='$emp_session_id'
@@ -219,7 +219,7 @@ if (isset($_POST['submit_denied'])) {
 									while ($row = oci_fetch_assoc($strSQL)) {
 										$number++;
 										$v_view_approval = 1;
-								?>
+										?>
 										<tbody>
 											<tr>
 												<td><input type="checkbox" name="check_list[]" form="Form2" value="<?php echo $row['ID']; ?>">
@@ -250,23 +250,26 @@ if (isset($_POST['submit_denied'])) {
 													?>
 												</td>
 											</tr>
-										<?php
+											<?php
 									}
 									if ($v_view_approval > 0) {
 										?>
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval" value="Approve" >
+													<input class="btn btn-primary btn pull-right" form="Form2" type="submit" name="submit_approval"
+														value="Approve">
 												</td>
 
-												<td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" ></td>
+												<td><input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied"
+														value="Denied"></td>
 											</tr>
 
-										<?php
+											<?php
 									}
-								} else {
-									$allDataSQL  = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
+								}
+								else {
+									$allDataSQL = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 																	a.REMARKS,
 																	a.ENTRY_BY,
 																	b.DEPT_NAME,
@@ -300,7 +303,8 @@ if (isset($_POST['submit_denied'])) {
 													echo $row['DESIGNATION'];
 													echo ',<br>';
 													echo $row['BRANCH_NAME']; ?>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval_single" value="Approve" >
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval_single"
+														value="Approve">
 												</td>
 												<td>
 													<?php echo $row['START_DATE'] . '-to-' . $row['END_DATE'];
@@ -318,25 +322,27 @@ if (isset($_POST['submit_denied'])) {
 
 
 											</tr>
-										<?php
+											<?php
 									}
 									if ($v_view_approval > 0) {
 										?>
 											<tr>
 												<td></td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval" value="Approve" >
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_approval"
+														value="Approve">
 												</td>
 												<td>
-													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied" value="Denied" >
+													<input class="btn btn-primary btn pull-right" type="submit" form="Form2" name="submit_denied"
+														value="Denied">
 												</td>
 
 											</tr>
-									<?php
+											<?php
 									}
 								}
-									?>
-										</tbody>
+								?>
+								</tbody>
 
 							</table>
 						</div>
@@ -357,5 +363,5 @@ if (isset($_POST['submit_denied'])) {
 <!-- / Content -->
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

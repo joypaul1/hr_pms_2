@@ -845,8 +845,6 @@ function isActive($url)
                                 </a>
                             </li>
 
-
-
                             <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kpi_list.php'); ?>">
                                 <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kpi_list.php" class="menu-link withoutIcon">
                                     <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>KPI List</div>

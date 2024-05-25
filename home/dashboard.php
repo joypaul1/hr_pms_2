@@ -1,6 +1,6 @@
 <?php
-require_once('../helper/com_conn.php');
-require_once('../inc/connoracle.php');
+require_once ('../helper/com_conn.php');
+require_once ('../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 
 $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' 	APPROVAL_LINK
@@ -84,8 +84,8 @@ $attDataSQL = @oci_parse($objConnect, $sqlAtt);
 $attData = @oci_fetch_assoc($attDataSQL);
 // ($attData['PRESENT_TOTAL']);
 
-$attBarChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
-$attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
+$attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+$attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
 
 $userProfile = [];
 $userSQL     = @oci_parse(
@@ -109,16 +109,19 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			<div class="card" style="background: linear-gradient(to bottom, #24ff72, #0c184e69);">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
-						<img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>" alt="User Image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
+						<img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
+							alt="User Image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
 					</div>
 					<div class="flex-grow-1 mt-3 ">
-						<div class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+						<div
+							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
 							<div class="user-profile-info">
 
 								<h4 class="text-whites">
 									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
 								</h4>
-								<ul class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+								<ul
+									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
 									<li class="list-inline-item fw-medium">
 
 										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
@@ -175,7 +178,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 								$number = 0;
 								while ($row = oci_fetch_assoc($allDataSQL)) {
 									$number++;
-								?>
+									?>
 									<tr>
 										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3 "></i>
 											<strong>
@@ -193,7 +196,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 											</a>
 										</td>
 									</tr>
-								<?php
+									<?php
 								}
 								?>
 							</tbody>
@@ -230,7 +233,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 								$number = 0;
 								while ($row = oci_fetch_assoc($allDataSQL)) {
 									$number++;
-								?>
+									?>
 									<tr>
 										<td align="center">
 											<strong>
@@ -251,7 +254,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 										</td>
 
 									</tr>
-								<?php
+									<?php
 								}
 								?>
 							</tbody>
@@ -282,12 +285,14 @@ $userProfile = @oci_fetch_assoc($userSQL);
 						</div>
 						<ul class="nav nav-tabs nav-fill" role="tablist">
 							<li class="nav-item">
-								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
+								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
 									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
 								</button>
 							</li>
 							<li class="nav-item">
-								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart" aria-controls="navs-justified-Piechart" aria-selected="true">
+								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart"
+									aria-controls="navs-justified-Piechart" aria-selected="true">
 									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
 								</button>
 							</li>
@@ -312,9 +317,9 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 
 
-<?php require_once('../layouts/footer_info.php'); ?>
+<?php require_once ('../layouts/footer_info.php'); ?>
 
-<?php require_once('../layouts/footer.php'); ?>
+<?php require_once ('../layouts/footer.php'); ?>
 
 
 <script>
@@ -324,7 +329,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			series: [{
 				name: new Date().getFullYear(),
 				data: <?php echo json_encode($attBarChartData); ?>,
-			}, ],
+			},],
 			chart: {
 				height: 300,
 				stacked: false,
@@ -388,159 +393,159 @@ $userProfile = @oci_fetch_assoc($userSQL);
 				},
 			},
 			responsive: [{
-					breakpoint: 1700,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "32%",
-							},
+				breakpoint: 1700,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "32%",
 						},
 					},
 				},
-				{
-					breakpoint: 1580,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "35%",
-							},
+			},
+			{
+				breakpoint: 1580,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "35%",
 						},
 					},
 				},
-				{
-					breakpoint: 1440,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "42%",
-							},
+			},
+			{
+				breakpoint: 1440,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "42%",
 						},
 					},
 				},
-				{
-					breakpoint: 1300,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "48%",
-							},
+			},
+			{
+				breakpoint: 1300,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "48%",
 						},
 					},
 				},
-				{
-					breakpoint: 1200,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "40%",
-							},
+			},
+			{
+				breakpoint: 1200,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "40%",
 						},
 					},
 				},
-				{
-					breakpoint: 1040,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 11,
-								columnWidth: "48%",
-							},
+			},
+			{
+				breakpoint: 1040,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 11,
+							columnWidth: "48%",
 						},
 					},
 				},
-				{
-					breakpoint: 991,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "30%",
-							},
+			},
+			{
+				breakpoint: 991,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "30%",
 						},
 					},
 				},
-				{
-					breakpoint: 840,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "35%",
-							},
+			},
+			{
+				breakpoint: 840,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "35%",
 						},
 					},
 				},
-				{
-					breakpoint: 768,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "28%",
-							},
+			},
+			{
+				breakpoint: 768,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "28%",
 						},
 					},
 				},
-				{
-					breakpoint: 640,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "32%",
-							},
+			},
+			{
+				breakpoint: 640,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "32%",
 						},
 					},
 				},
-				{
-					breakpoint: 576,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "37%",
-							},
+			},
+			{
+				breakpoint: 576,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "37%",
 						},
 					},
 				},
-				{
-					breakpoint: 480,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "45%",
-							},
+			},
+			{
+				breakpoint: 480,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "45%",
 						},
 					},
 				},
-				{
-					breakpoint: 420,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "52%",
-							},
+			},
+			{
+				breakpoint: 420,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "52%",
 						},
 					},
 				},
-				{
-					breakpoint: 380,
-					options: {
-						plotOptions: {
-							bar: {
-								borderRadius: 10,
-								columnWidth: "60%",
-							},
+			},
+			{
+				breakpoint: 380,
+				options: {
+					plotOptions: {
+						bar: {
+							borderRadius: 10,
+							columnWidth: "60%",
 						},
 					},
 				},
+			},
 			],
 			states: {
 				hover: {
@@ -569,7 +574,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 	let $attPieChartData = <?php echo json_encode($attPieChartData) ?>;
 	// Convert string elements to integers using map
-	var $FinalPieChartData = $attPieChartData.map(function(item) {
+	var $FinalPieChartData = $attPieChartData.map(function (item) {
 		return parseInt(item, 10); // Convert each element to an integer
 	});
 	var attpieChartOptions = {

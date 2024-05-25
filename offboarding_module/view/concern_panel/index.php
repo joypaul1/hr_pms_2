@@ -1,7 +1,7 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
-$basePath =  $_SESSION['basePath'];
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
+$basePath = $_SESSION['basePath'];
 if (!checkPermission('concern-offboarding-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
@@ -23,7 +23,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">EMP RML ID</label>
-                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text' value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>' >
+                        <input required="" placeholder="Employee ID" name="emp_id" class="form-control cust-control" type='text'
+                            value='<?php echo isset($_POST['emp_id']) ? $_POST['emp_id'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -41,12 +42,12 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
     <div class="card mt-2">
 
         <?php
-        $leftSideName  = 'Offboarding List';
+        $leftSideName = 'Offboarding List';
         if (checkPermission('hr-offboarding-create')) {
             $rightSideName = 'Offboarding Create';
             $routePath     = 'offboarding_module/view/hr_panel/create.php';
         }
-        include('../../../layouts/_tableHeader.php');
+        include ('../../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
@@ -70,7 +71,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $v_emp_id = $_REQUEST['emp_id'];
 
 
-                            $strSQL  = oci_parse(
+                            $strSQL = oci_parse(
                                 $objConnect,
                                 "SELECT 
                                     A.ID,
@@ -100,50 +101,54 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             while ($row = oci_fetch_assoc($strSQL)) {
 
                                 $number++;
-                        ?>
+                                ?>
                                 <tr style="text-align: center;">
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
-                                        ?>
+                                    echo $row['RML_ID'];
+                                    echo '</br>';
+                                    echo $row['EMP_NAME'];
+                                    echo '</br>';
+                                    echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['DESIGNATION'];
+                                    ?>
                                     </td>
                                     <td><?php
-                                        if ($row['APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
+                                    if ($row['APPROVAL_STATUS'] == '1') {
+                                        echo 'Approved';
+                                    }
+                                    else if ($row['APPROVAL_STATUS'] == '0') {
+                                        echo 'Denied';
+                                    }
+                                    else {
+                                        echo 'Pending';
+                                    }
+                                    ?>
 
 
                                     </td>
                                     <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
+                                    if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                        echo 'Approved';
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_DATE'];
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_BY'];
+                                    }
+                                    else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                        echo 'Denied';
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_DATE'];
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_BY'];
+                                    }
+                                    else {
+                                        echo 'Pending';
+                                    }
+                                    ?>
 
                                     </td>
                                     <td>
@@ -155,25 +160,27 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
                                         if ($clearenceFormFata) {
                                             echo "Done";
-                                        } else {
+                                        }
+                                        else {
                                             echo "Pending";
                                         }
                                         ?>
                                     </td>
                                     <td><?php
-                                        echo 'Created:' . $row['CREATED_DATE'];
-                                        echo '</br>';
-                                        echo 'Created By' . $row['CREATED_BY'];
-                                        ?>
+                                    echo 'Created:' . $row['CREATED_DATE'];
+                                    echo '</br>';
+                                    echo 'Created By' . $row['CREATED_BY'];
+                                    ?>
                                     </td>
                                 </tr>
 
 
-                            <?php
+                                <?php
                             }
-                        } else {
+                        }
+                        else {
 
-                            $allDataSQL  = oci_parse(
+                            $allDataSQL = oci_parse(
                                 $objConnect,
                                 "SELECT 
                                 A.ID,
@@ -203,61 +210,67 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
 
-                            ?>
+                                ?>
                                 <tr class="text-center">
                                     <td>
                                         <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php
-                                        echo $row['RML_ID'];
-                                        echo '</br>';
-                                        echo $row['EMP_NAME'];
-                                        echo '</br>';
-                                        echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
-                                        echo '</br>';
-                                        echo $row['DESIGNATION'];
+                                    echo $row['RML_ID'];
+                                    echo '</br>';
+                                    echo $row['EMP_NAME'];
+                                    echo '</br>';
+                                    echo $row['DEPT_NAME'] . '=>' . $row['R_CONCERN'];
+                                    echo '</br>';
+                                    echo $row['DESIGNATION'];
 
-                                        ?>
+                                    ?>
                                     </td>
                                     <td><?php
-                                        if ($row['HOD_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['HOD_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else if ($row['HOD_STATUS'] == '') {
-                                            echo 'Pending';
-                                        }
-                                        ?>
+                                    if ($row['HOD_STATUS'] == '1') {
+                                        echo 'Approved';
+                                    }
+                                    else if ($row['HOD_STATUS'] == '0') {
+                                        echo 'Denied';
+                                    }
+                                    else if ($row['HOD_STATUS'] == '') {
+                                        echo 'Pending';
+                                    }
+                                    ?>
                                     </td>
                                     <td><?php
-                                        if ($row['APPROVAL_STATUS'] == '1') {
-                                            echo 'Approved';
-                                        } else if ($row['APPROVAL_STATUS'] == '0') {
-                                            echo 'Denied';
-                                        } else if ($row['APPROVAL_STATUS'] == '') {
-                                            echo 'Pending';
-                                        }
-                                        ?>
+                                    if ($row['APPROVAL_STATUS'] == '1') {
+                                        echo 'Approved';
+                                    }
+                                    else if ($row['APPROVAL_STATUS'] == '0') {
+                                        echo 'Denied';
+                                    }
+                                    else if ($row['APPROVAL_STATUS'] == '') {
+                                        echo 'Pending';
+                                    }
+                                    ?>
 
 
                                     </td>
                                     <td><?php
-                                        if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
-                                            echo 'Approved';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
-                                            echo 'Denied';
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_DATE'];
-                                            echo '</br>';
-                                            echo $row['EXIT_INTERVIEW_BY'];
-                                        } else {
-                                            echo 'Pending';
-                                        }
-                                        ?>
+                                    if ($row['EXIT_INTERVIEW_STATUS'] == '1') {
+                                        echo 'Approved';
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_DATE'];
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_BY'];
+                                    }
+                                    else if ($row['EXIT_INTERVIEW_STATUS'] == '0') {
+                                        echo 'Denied';
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_DATE'];
+                                        echo '</br>';
+                                        echo $row['EXIT_INTERVIEW_BY'];
+                                    }
+                                    else {
+                                        echo 'Pending';
+                                    }
+                                    ?>
                                         </br>
 
 
@@ -270,20 +283,21 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
                                         if ($clearenceFormFata) {
                                             echo "Done";
-                                        } else {
+                                        }
+                                        else {
                                             echo "Pending";
                                         }
                                         ?>
                                     </td>
 
                                     <td><?php
-                                        echo 'Created: ' . $row['CREATED_DATE'];
-                                        echo '</br>';
-                                        echo 'Created By: ' . $row['CREATED_BY'];
-                                        ?>
+                                    echo 'Created: ' . $row['CREATED_DATE'];
+                                    echo '</br>';
+                                    echo 'Created By: ' . $row['CREATED_BY'];
+                                    ?>
                                     </td>
                                 </tr>
-                        <?php
+                                <?php
                             }
                         }
                         ?>
@@ -323,5 +337,5 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

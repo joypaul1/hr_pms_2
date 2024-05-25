@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath                  = $_SESSION['basePath'];
 $v_ACHIEVEMENT_LOCK_STATUS = 0;
 $v_key                     = $_REQUEST['id'];
@@ -17,7 +17,7 @@ $query                     = "SELECT
             WHERE IS_ACTIVE=1 
                 AND EMP_ID='$emp_session_id' 
                 AND HR_PMS_LIST_ID=(SELECT HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)
-            ) SUBMITTED_STATUS											
+            ) SUBMITTED_STATUS
             FROM HR_PMS_KPI_LIST 
             WHERE ID=$v_key";
 $strSQL                    = oci_parse($objConnect, $query);
@@ -165,5 +165,5 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
 </div>
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

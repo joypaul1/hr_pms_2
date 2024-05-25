@@ -10,7 +10,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 
 //pms profile create
-// print_r($_POST);
 if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS Profile") {
 
 	$emp_id         = $_REQUEST['emp_id'];
