@@ -12,8 +12,6 @@ $basePath       = $_SESSION['basePath'];
     <!-- -->
     <!--  -->
 
-
-
     <!-- Bordered Table -->
     <div class="card">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i> <b>Duplicate Attendance
