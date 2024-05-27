@@ -46,29 +46,26 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <tbody>
 
                                     <?php
-
-
-
                                     $strSQL = oci_parse(
                                         $objConnect,
                                         "SELECT B.ID,
-											   B.KPI_NAME,
-											   A.KRA_NAME,
-											   (SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = A.HR_PMS_LIST_ID AND D.EMP_ID=B.CREATED_BY) AS SUBMITTED_STATUS,
-                                               (SELECT E.STEP_3_STATUS FROM HR_PMS_LIST E WHERE E.ID=A.HR_PMS_LIST_ID) AS STEP_3_STATUS,
-											   B.WEIGHTAGE,
-											   B.TARGET,
-											   B.ELIGIBILITY_FACTOR,
-											   B.REMARKS,
-											   B.CREATED_BY,
-											   B.CREATED_DATE,
-											   B.IS_ACTIVE,
-											   B.ACHIVEMENT,
-											   B.ACHIVEMENT_COMMENTS,
-											   B.ACHIEVEMENT_LOCK_STATUS
-										  FROM HR_PMS_KPI_LIST B, HR_PMS_KRA_LIST A
-										 WHERE A.id = B.HR_KRA_LIST_ID 
-										 AND B.CREATED_BY = '$emp_session_id'"
+										B.KPI_NAME,
+										A.KRA_NAME,
+										(SELECT D.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP D WHERE D.HR_PMS_LIST_ID = A.HR_PMS_LIST_ID AND D.EMP_ID=B.CREATED_BY) AS SUBMITTED_STATUS,
+                                        (SELECT E.STEP_3_STATUS FROM HR_PMS_LIST E WHERE E.ID=HR_PMS_LIST_ID) AS STEP_3_STATUS,
+										B.WEIGHTAGE,
+										B.TARGET,
+										B.ELIGIBILITY_FACTOR,
+										B.REMARKS,
+										B.CREATED_BY,
+										B.CREATED_DATE,
+										B.IS_ACTIVE,
+										B.ACHIVEMENT,
+										B.ACHIVEMENT_COMMENTS,
+										B.ACHIEVEMENT_LOCK_STATUS
+										FROM HR_PMS_KPI_LIST B, HR_PMS_KRA_LIST A
+										WHERE A.id = B.HR_KRA_LIST_ID
+										AND B.CREATED_BY = '$emp_session_id'"
                                     );
                                     oci_execute($strSQL);
                                     $number = 0;

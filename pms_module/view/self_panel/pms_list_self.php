@@ -1,8 +1,8 @@
 <?php
 
 
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 
 
@@ -91,8 +91,7 @@ if (isset($_POST['submit_approval'])) {
 /// user information
 $strSQL = oci_parse(
 	$objConnect,
-	"select RML_ID,
-	
+	"SELECT RML_ID,
 		EMPLOYEE_NAME EMP_NAME,
 		COMPANY_NAME R_CONCERN,
 		DEPARTMENT DEPT_NAME,
@@ -127,22 +126,22 @@ oci_execute($strSQL);
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee ID:</label>
 								<input name="emp_id" readonly form="Form1" placeholder="EMP-ID" class="form-control cust-control" type='text'
-									value='<?php echo $row['RML_ID']; ?>' >
+									value='<?php echo $row['RML_ID']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Name:</label>
 								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-									value='<?php echo $row['EMP_NAME']; ?>' >
+									value='<?php echo $row['EMP_NAME']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Designation:</label>
 								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-									value='<?php echo $row['DESIGNATION']; ?>' >
+									value='<?php echo $row['DESIGNATION']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Department:</label>
 								<input required="" name="emp_name" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-									value='<?php echo $row['DEPT_NAME']; ?>' >
+									value='<?php echo $row['DEPT_NAME']; ?>'>
 							</div>
 						</div>
 
@@ -150,22 +149,22 @@ oci_execute($strSQL);
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">PMS Line Manager-1:</label>
 								<input class="form-control cust-control" required="" readonly type='text'
-									value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>' >
+									value='<?php echo $row['LINE_MANAGER_1_NAME']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">PMS Line Manager-2:</label>
 								<input required="" required="" class="form-control cust-control" readonly type='text'
-									value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>' >
+									value='<?php echo $row['LINE_MANAGER_2_NAME']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Group:</label>
 								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-									value='<?php echo $row['EMP_GROUP']; ?>' >
+									value='<?php echo $row['EMP_GROUP']; ?>'>
 							</div>
 							<div class="col-sm-3">
 								<label for="exampleInputEmail1">Employee Branch:</label>
 								<input required="" readonly placeholder="EMP Name" class="form-control cust-control" type='text'
-									value='<?php echo $row['BRANCH_NAME']; ?>' >
+									value='<?php echo $row['BRANCH_NAME']; ?>'>
 							</div>
 						</div>
 
@@ -191,7 +190,7 @@ oci_execute($strSQL);
 							</div>
 							<div class="col-sm-6">
 								<label for="remaks">Any Comment ?</label>
-								<input class="form-control cust-control" name="remarks" form="Form1" type='text' >
+								<input class="form-control cust-control" name="remarks" form="Form1" type='text'>
 
 							</div>
 							<div class="col-sm-3">
@@ -285,10 +284,13 @@ oci_execute($strSQL);
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>' style="display:none" >
+											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+												style="display:none">
 											<br>
 											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
-												<a class="btn btn-warning btn-sm" style="padding: 3% 8%;" href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i class='bx bxs-message-square-add'></i> </a>
+												<a class="btn btn-warning btn-sm" style="padding: 3% 8%;"
+													href="pms_kpi_dtls.php?key=<?php echo $row['HR_PMS_LIST_ID']; ?>">Add KPI <i
+														class='bx bxs-message-square-add'></i> </a>
 											<?php }
 											else {
 												echo '<a class="btn btn-info btn-sm" href="pms_kpi_dtls.php?key=' . $row['HR_PMS_LIST_ID'] . '" style="padding: 3% 8%;">View KPI</a>';
@@ -359,19 +361,20 @@ oci_execute($strSQL);
 										</td>
 										<td align="center">
 											<?php
-											if( $row['PMS_WEIGHTAGE'] == 100){
+											if ($row['PMS_WEIGHTAGE'] == 100) {
 												if ($row['SELF_SUBMITTED_STATUS'] == 0) {
 													?>
-													<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit " >
+													<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit ">
 													<?php
 												}
 												else {
 													echo '<input class="btn btn-success btn-sm" type="button"  value="Submited PMS" >';
-												} 
-											}else{
+												}
+											}
+											else {
 												echo '<strong class="text-info">Weightage value Must be equal to 100.</strong>';
 												echo '<br/>';
-												echo "<strong class='text-warning'>[Current Weight :".$row['PMS_WEIGHTAGE']."]</strong>";
+												echo "<strong class='text-warning'>[Current Weight :" . $row['PMS_WEIGHTAGE'] . "]</strong>";
 											}
 											?>
 
@@ -398,5 +401,5 @@ oci_execute($strSQL);
 </div>
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>
