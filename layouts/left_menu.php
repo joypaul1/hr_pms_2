@@ -901,7 +901,6 @@ function isActive($url)
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
-
                                 <?php if (checkPermission('pms-lm-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
@@ -1122,6 +1121,14 @@ function isActive($url)
                     </a>
                     <ul class="menu-sub">
 
+                        <?php //if (checkPermission('department-list')) { ?>
+
+                            <li class="menu-item <?php echo isActive('admin_setting/view/duplicate_att.php'); ?>">
+                                <a href="<?php echo $basePath ?>/admin_setting/view/duplicate_att.php" class="menu-link">
+                                    <div> Duplicate Attendance </div>
+                                </a>
+                            </li>
+                        <?php //} ?>
                         <?php if (checkPermission('department-list')) { ?>
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/department.php'); ?>">
@@ -1148,7 +1155,6 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('holiday-list')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/holiday.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/holiday.php" class="menu-link">
                                     <div data-i18n="Under Maintenance">Holiday List</div>
@@ -1160,7 +1166,7 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/user_create.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/user_create.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">User Create</div>
+                                    <div data-i18n="Under Maintenance"> User Create</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -1168,21 +1174,21 @@ function isActive($url)
 
                             <li class="menu-item <?php echo isActive('admin_setting/view/user_list.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/user_list.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">User List</div>
+                                    <div data-i18n="Under Maintenance"> User List</div>
                                 </a>
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('user-transfer')) { ?>
                             <li class="menu-item <?php echo isActive('admin_setting/view/user_transfer.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/user_transfer.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">User Transfer</div>
+                                    <div data-i18n="Under Maintenance"> User Transfer</div>
                                 </a>
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('concern-work-station')) { ?>
                             <li class="menu-item <?php echo isActive('admin_setting/view/workstation.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/workstation.php" class="menu-link">
-                                    <div data-i18n="Under Maintenance">Work Station Change</div>
+                                    <div data-i18n="Under Maintenance"> Work Station Change</div>
                                 </a>
                             </li>
                         <?php } ?>
@@ -1249,21 +1255,6 @@ function isActive($url)
                     </ul>
                 </li>
             <?php } ?>
-            <!-- </section>-->
-            <!-- role&permission Module -->
-
-            <!-- Application Sells Module -->
-            <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
-            <span class=""><b > Sells Apps </b></span> -->
-
-            <!-- Application Sells Module  -->
-            <!-- Application Collection Module  -->
-
-            <!-- <li class="menu-header big text-uppercase" style=" border-top: 2px solid #d2d2d2;border-bottom: 2px solid #d2d2d2;">
-            <span class=""><b > Collection Apps </b></span>
-        </li> -->
-            <!-- Application Collection Module  -->
-
 
     </ul>
 </aside>
