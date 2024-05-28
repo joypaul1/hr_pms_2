@@ -1123,22 +1123,27 @@ function isActive($url)
 
                         <?php //if (checkPermission('department-list')) { ?>
 
-                            <li class="menu-item <?php echo isActive('admin_setting/view/duplicate_att.php'); ?>">
-                                <a href="<?php echo $basePath ?>/admin_setting/view/duplicate_att.php" class="menu-link">
-                                    <div> Duplicate Attendance </div>
-                                </a>
-                            </li>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/duplicate_att.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/duplicate_att.php" class="menu-link">
+                                <div> Duplicate Attendance </div>
+                            </a>
+                        </li>
                         <?php //} ?>
                         <?php //if (checkPermission('department-list')) { ?>
-
-                            <li class="menu-item <?php echo isActive('admin_setting/view/grace_period.php'); ?>">
-                                <a href="<?php echo $basePath ?>/admin_setting/view/grace_period.php" class="menu-link">
-                                    <div> Grace Period </div>
-                                </a>
-                            </li>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/grace_period.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/grace_period.php" class="menu-link">
+                                <div> Grace Period </div>
+                            </a>
+                        </li>
+                        <?php //} ?>
+                        <?php //if (checkPermission('department-list')) { ?>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/leave_delete.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/leave_delete.php" class="menu-link">
+                                <div> Leave Delete </div>
+                            </a>
+                        </li>
                         <?php //} ?>
                         <?php if (checkPermission('department-list')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/department.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/department.php" class="menu-link">
                                     <div>Department List</div>
@@ -1146,7 +1151,6 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('designation-list')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/designation.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/designation.php" class="menu-link">
                                     <div>Designation List</div>
@@ -1154,7 +1158,6 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('branch-list')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/branch.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/branch.php" class="menu-link">
                                     <div>Branch List</div>
@@ -1201,7 +1204,6 @@ function isActive($url)
                             </li>
                         <?php } ?>
                     </ul>
-
                 </li>
             <?php } ?>
 
@@ -1209,8 +1211,7 @@ function isActive($url)
             <!-- role&permission Module -->
 
             <?php if (
-                checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list'))
-                    || (checkPermission('user-role-list')))
+                checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list')) || (checkPermission('user-role-list')))
             ) { ?>
 
                 <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">
@@ -1222,7 +1223,6 @@ function isActive($url)
                     </a>
                     <ul class="menu-sub">
                         <?php if (checkPermission('role-list')) { ?>
-
                             <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
                                     <div>Role List</div>
@@ -1231,7 +1231,6 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('permission-list')) { ?>
-
                             <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
                                     <div>Permssion List</div>
@@ -1240,7 +1239,6 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('role-permission-list')) { ?>
-
                             <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
                                     <div>Role & Permission </div>
@@ -1249,17 +1247,12 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('user-role-list')) { ?>
-
                             <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
                                     <div>User Role</div>
                                 </a>
                             </li>
                         <?php } ?>
-
-
-
-
                     </ul>
                 </li>
             <?php } ?>

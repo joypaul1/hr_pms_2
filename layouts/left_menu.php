@@ -43,25 +43,25 @@ function isActive($url)
 
                         <?php //if (checkPermission('department-list')) { ?>
 
-                            <li class="menu-item <?php echo isActive('admin_setting/view/duplicate_att.php'); ?>">
-                                <a href="<?php echo $basePath ?>/admin_setting/view/duplicate_att.php" class="menu-link">
-                                    <div> Duplicate Attendance </div>
-                                </a>
-                            </li>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/duplicate_att.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/duplicate_att.php" class="menu-link">
+                                <div> Duplicate Attendance </div>
+                            </a>
+                        </li>
                         <?php //} ?>
                         <?php //if (checkPermission('department-list')) { ?>
-                            <li class="menu-item <?php echo isActive('admin_setting/view/grace_period.php'); ?>">
-                                <a href="<?php echo $basePath ?>/admin_setting/view/grace_period.php" class="menu-link">
-                                    <div> Grace Period </div>
-                                </a>
-                            </li>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/grace_period.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/grace_period.php" class="menu-link">
+                                <div> Grace Period </div>
+                            </a>
+                        </li>
                         <?php //} ?>
                         <?php //if (checkPermission('department-list')) { ?>
-                            <li class="menu-item <?php echo isActive('admin_setting/view/leave_delete.php'); ?>">
-                                <a href="<?php echo $basePath ?>/admin_setting/view/leave_delete.php" class="menu-link">
-                                    <div> Leave Delete </div>
-                                </a>
-                            </li>
+                        <li class="menu-item <?php echo isActive('admin_setting/view/leave_delete.php'); ?>">
+                            <a href="<?php echo $basePath ?>/admin_setting/view/leave_delete.php" class="menu-link">
+                                <div> Leave Delete </div>
+                            </a>
+                        </li>
                         <?php //} ?>
                         <?php if (checkPermission('department-list')) { ?>
 
@@ -135,20 +135,16 @@ function isActive($url)
             <!-- role&permission Module -->
 
             <?php if (
-                checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list'))
-                    || (checkPermission('user-role-list')))
+                checkPermission('role-list') || (checkPermission('permission-list') || (checkPermission('role-permission-list')) || (checkPermission('user-role-list')))
             ) { ?>
 
                 <li class="menu-item  <?php echo isActive('/role_permission'); ?> ">
-
                     <a href="javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-accessibility"></i>
-
                         <div data-i18n="Misc"> Role Permission </div>
                     </a>
                     <ul class="menu-sub">
                         <?php if (checkPermission('role-list')) { ?>
-
                             <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
                                     <div>Role List</div>

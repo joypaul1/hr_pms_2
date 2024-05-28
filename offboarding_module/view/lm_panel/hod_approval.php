@@ -51,14 +51,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     $allDataSQL = oci_parse(
                         $objConnect,
                         "SELECT B.ID,
-							   C.EMP_NAME,
-							   C.RML_ID,
-							   C.R_CONCERN,
-							   C.DEPT_NAME,
-							   C.DESIGNATION,
-							   C.BRANCH_NAME,
-							   A.CREATED_DATE,
-							   A.CREATED_BY
+						C.EMP_NAME,
+						C.RML_ID,
+						C.R_CONCERN,
+						C.DEPT_NAME,
+						C.DESIGNATION,
+						C.BRANCH_NAME,
+						A.CREATED_DATE,
+						A.CREATED_BY
 						FROM EMP_CLEARENCE A,HOD_CLEARENCE_DTLS B,RML_HR_APPS_USER C
 						WHERE A.ID=B.EMP_CLEARENCE_ID
 						AND A.RML_HR_APPS_USER_ID=C.ID
