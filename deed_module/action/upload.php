@@ -101,7 +101,7 @@ if (isset($_GET["ref_code"]) && $_GET["invoice_number"]) {
         <label for="g_add_2">Guarantor/Dealer Address (2)</label>
         <input type="text" onkeypress="return false;" style="background-color: #d9dee3;" class="form-control" value="' . htmlspecialchars(isset($buyerSQL["SECOND_GUARANTOR_ADDRESS"]) ? $buyerSQL["SECOND_GUARANTOR_ADDRESS"] : '', ENT_QUOTES) . '" name="g_add_2" id="g_add_2" autocomplete="off" required placeholder="Guarantor/Dealer Address">
     </div>
-    <div id="dynamicOption" style="width:100%;"></div>
+  
     <div class="form-group">
         <label for="sales_amount"> Sales Amount</label>
         <input type="text" autocomplete="off" onkeypress="return false;" style="background-color: #d9dee3;" class="form-control" name="sales_amount" value="' . htmlspecialchars(isset($singleProduct["SALES_AMOUNT"]) ? number_format($singleProduct["SALES_AMOUNT"], 2) : ' ', ENT_QUOTES) . '" id="sales_amount" required placeholder="EX:10,00,000.00">

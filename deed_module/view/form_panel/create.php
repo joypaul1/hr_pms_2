@@ -160,6 +160,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <input type="text" class="form-control" name="unit_no" id="unit_no" required placeholder="0/1/2"
                                 onkeypress="return false;" style="background-color: #d9dee3;" autocomplete="off">
                         </div>
+                        <div id="dynamicOption" style="width:100%;"></div>
                         <div id="deedinfo"></div>
                     </div>
                 </div>
@@ -192,44 +193,23 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
         $('#emi_start_date').datepicker({
             dateFormat: 'dd-mm-yy'
         }).val();
-
-        $(document).on('click', '.ref_code', function () {
+        $(document).on('click', '.ref_code', async function () {
             var ref_code = $(this).val();
             $('#deedhtml').remove();
             if ($(this).is(':checked')) {
-                let codeno          = $(this).attr('data-code-no');
-                let invoice_number  = $(this).attr('data-invoice-id');
-                let engno           = $(this).attr('data-eng-no');
-                let brandName       = $(this).attr('data-brand-name');
-                let chassisno       = $(this).attr('data-chassis-no');
-              
+                let codeno = $(this).attr('data-code-no');
+                let invoice_number = $(this).attr('data-invoice-id');
+                let engno = $(this).attr('data-eng-no');
+                let brandName = $(this).attr('data-brand-name');
+                let chassisno = $(this).attr('data-chassis-no');
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: "GET",
-                    url: "<?php echo $basePath . "/deed_module/action/upload.php"; ?>",
-                    data: {
-                        ref_code: ref_code,
-                        invoice_number: invoice_number
-                    },
-                    success: function (data) {
-                        // Parse the JSON response
-                        var data = JSON.parse(data);
-                        $('#deedinfo').after(data);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('Error get data from ajax');
-                    }
-                });
+                try {
+                    const data = await fetchData(ref_code, invoice_number);
+                    $('#deedinfo').after(JSON.parse(data));
 
-
-                let html = `<span id="${ref_code}" style="width:100%">
-                            <input type="hidden"  class="form-control" name="product_brand" value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
-                            <input type="hidden"  class="form-control" name="product_model" value="${codeno}" id="product_model" placeholder="product brand(EX:AB-000)">
+                    let html = `<span id="${ref_code}" style="width:100%">
+                            <input type="hidden" class="form-control" name="product_brand" value="${brandName}" id="product_brand" placeholder="product brand(EX:EICHER)">
+                            <input type="hidden" class="form-control" name="product_model" value="${codeno}" id="product_model" placeholder="product brand(EX:AB-000)">
                             <div class="form-group">
                                 <label for="product_chassis_no"> Product Chassis No.</label>
                                 <input type="text" class="form-control" name="product_chassis_no[]" value="${chassisno}" id="product_chassis_no" placeholder="Prouduct chassis no..">
@@ -238,14 +218,37 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <label for="product_engine_no"> Product Engine No.</label>
                                 <input type="text" class="form-control" name="product_engine_no[]" value="${engno}" id="product_engine_no" placeholder="Prouduct Engine no..">
                             </div></span>`;
-                $('#dynamicOption').after(html);
-                
+                    $('#dynamicOption').after(html);
+                } catch (error) {
+                    alert('Error getting data from ajax');
+                    console.error(error);
+                }
+
             } else {
                 var escaped_ref_code = $.escapeSelector(ref_code);
                 $('span#' + escaped_ref_code).remove();
             }
-            let ref_length      = $('.ref_code').filter(':checked').length;
+            let ref_length = $('.ref_code').filter(':checked').length;
             $('#unit_no').val(ref_length);
         });
+
+        function fetchData(ref_code, invoice_number) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: "GET",
+                    url: "<?php echo $basePath . "/deed_module/action/upload.php"; ?>",
+                    data: {
+                        ref_code: ref_code,
+                        invoice_number: invoice_number
+                    },
+                    success: function (data) {
+                        resolve(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        reject(errorThrown);
+                    }
+                });
+            });
+        }
     });
 </script>
