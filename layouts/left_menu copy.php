@@ -1115,9 +1115,9 @@ function isActive($url)
             <?php if (checkPermission('designation-list') || (checkPermission('branch-list')) || (checkPermission('department-list')) || checkPermission('holiday-list')) { ?>
 
                 <li class="menu-item  <?php echo isActive('/admin_setting/view'); ?>">
-                    <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <a href=" javascript:void(0);" class="menu-link menu-toggle">
                         <i class="menu-icon tf-icons bx bx-cog"></i>
-                        <div data-i18n="Misc">Admin Setting </div>
+                        <div data-i18n="Misc"> Admin Setting </div>
                     </a>
                     <ul class="menu-sub">
 
@@ -1144,6 +1144,7 @@ function isActive($url)
                         </li>
                         <?php //} ?>
                         <?php if (checkPermission('department-list')) { ?>
+
                             <li class="menu-item <?php echo isActive('admin_setting/view/department.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/department.php" class="menu-link">
                                     <div>Department List</div>
@@ -1151,6 +1152,7 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('designation-list')) { ?>
+
                             <li class="menu-item <?php echo isActive('admin_setting/view/designation.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/designation.php" class="menu-link">
                                     <div>Designation List</div>
@@ -1158,6 +1160,7 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('branch-list')) { ?>
+
                             <li class="menu-item <?php echo isActive('admin_setting/view/branch.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/branch.php" class="menu-link">
                                     <div>Branch List</div>
@@ -1204,6 +1207,7 @@ function isActive($url)
                             </li>
                         <?php } ?>
                     </ul>
+
                 </li>
             <?php } ?>
 
