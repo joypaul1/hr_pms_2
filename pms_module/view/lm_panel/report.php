@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-lm-report')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -122,7 +122,7 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <?php if ($row['STEP_3_STATUS'] === '1' ) { ?>
+                                        <?php if ($row['STEP_3_STATUS'] === '1') { ?>
                                             <a
                                                 href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
                                                     type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
@@ -213,7 +213,7 @@ $v_view_approval = 0;
                                         <?php echo $number; ?>
                                     </td>
                                     <td>
-                                        <?php if ($row['STEP_3_STATUS'] === '1' ) { ?>
+                                        <?php if ($row['STEP_3_STATUS'] === '1') { ?>
                                             <a
                                                 href="rating_form.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
                                                     type="button" class="btn btn-sm btn-warning"><i class='bx bxs-edit-alt'></i></button>
@@ -282,5 +282,5 @@ $v_view_approval = 0;
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

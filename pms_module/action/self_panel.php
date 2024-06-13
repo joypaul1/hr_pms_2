@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once('../../inc/config.php');
-require_once('../../inc/connoracle.php');
+require_once ('../../inc/config.php');
+require_once ('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
 
@@ -87,6 +87,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit_pms') {
+    
+    $updateSQL = @oci_parse(
+        $objConnect,
+        "UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS =1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE IS_ACTIVE=1"
+    );
+
+    if (@oci_execute($updateSQL)) {
+        $message                  = [
+            'text'   => 'Submitted successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+    }
+    else {
+        $lastError                = error_get_last();
+        $error                    = @$lastError ? "" . @$lastError["message"] . "" : "";
+        $message                  = [
+            'text'   => $error,
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+    }
+    echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
+
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxkra_edit') {

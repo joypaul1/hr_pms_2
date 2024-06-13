@@ -127,7 +127,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                 </div>
                                 <div class="col-sm-3">
 
-                                    <label class="form-label" for="basic-default-fullname">Select Type</label>
+                                    <label class="form-label" for="basic-default-fullname">Select Type <SPAN></SPAN></label>
                                     <select name="app_status" class="form-control cust-control" required="">
                                         <option selected="" value="">---</option>
                                         <option value="1">Approve</option>

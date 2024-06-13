@@ -42,7 +42,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
 
                                     <?php

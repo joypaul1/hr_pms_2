@@ -19,7 +19,7 @@ $is_exel_download_eanble = 0;
 			<div class="">
 				<div class="card card-body">
 
-					<form action="" method="post">
+					<form action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]);?>" method="POST">
 						<div class="row">
 							<div class="col-sm-3">
 								<label class="form-label" for="basic-default-fullname">Select Department Type</label>
@@ -85,11 +85,14 @@ $is_exel_download_eanble = 0;
 							<div class="col-sm-3">
 							</div>
 							<div class="col-sm-3">
-								<!-- <?php print_r($_REQUEST['emp_dept']) ?> -->
+								233213
+								<?php print_r($_REQUEST) ?>
 
 							</div>
 							<div class="col-sm-3">
-								<input class="form-control btn btn-sm btn-primary" type="submit" value="Search Attendance">
+								<button class="form-control btn btn-sm btn-primary" type="submit">
+									Search Attendance
+								</button>
 							</div>
 
 						</div>
@@ -103,6 +106,8 @@ $is_exel_download_eanble = 0;
 				$v_emp_dept = isset($_REQUEST['emp_dept']) ? $_REQUEST['emp_dept'] : null;
 				@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
 				@$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
+				echo $v_emp_dept;
+
 				?>
 
 
@@ -235,7 +240,7 @@ $is_exel_download_eanble = 0;
 											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
 											order by a.ATTN_DATE";
 										}
-
+										echo $query;
 										$strSQL = oci_parse($objConnect, $query);
 
 										oci_execute($strSQL);

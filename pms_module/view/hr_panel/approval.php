@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-hr-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -15,17 +15,6 @@ $v_view_approval = 0;
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
-    <!-- form store request  -->
-    <form id="Form1" action="" method="post"></form>
-    <form id="Form2" action="" method="post"></form>
-    <form id="Form3" action="" method="post"></form>
-    <!-- form store request  -->
-
-
-    <div class="card col-lg-12">
-
-    </div>
-
 
     <!-- Bordered Table -->
     <div class="card mt-2">
@@ -45,25 +34,28 @@ $v_view_approval = 0;
                     <?php
                     if (isset($_POST['emp_concern'])) {
                         $emp_concern = $_REQUEST['emp_concern'];
-                        $strSQL      = oci_parse($objConnect, "SELECT A.ID,
-													   A.EMP_ID,
-													   A.EMP_NAME,
-													   A.EMP_DEPT,
-													   A.EMP_WORK_STATION,
-													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
-													   A.GROUP_NAME,
-													   A.GROUP_CONCERN,
-													   A.CREATED_DATE,
-													   A.CREATED_BY,
-													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
-													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-													FROM HR_PMS_EMP A
-													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS = 1
-                                                    AND HR_STATUS IS NULL
-                                                    AND LINE_MANAGER_2_STATUS =1
-													AND LINE_MANAGER_2_ID='$emp_session_id'
-													AND A.EMP_ID='$emp_concern'");
+                        $strSQL      = oci_parse(
+                            $objConnect,
+                            "SELECT A.ID,
+                            A.EMP_ID,
+                            A.EMP_NAME,
+                            A.EMP_DEPT,
+                            A.EMP_WORK_STATION,
+                            A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
+                            A.GROUP_NAME,
+                            A.GROUP_CONCERN,
+                            A.CREATED_DATE,
+                            A.CREATED_BY,
+                            A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+                            (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                            FROM HR_PMS_EMP A
+                            WHERE SELF_SUBMITTED_STATUS=1
+                            AND LINE_MANAGER_1_STATUS = 1
+                            AND HR_STATUS IS NULL
+                            AND LINE_MANAGER_2_STATUS =1
+                            AND LINE_MANAGER_2_ID='$emp_session_id'
+                            AND A.EMP_ID='$emp_concern'"
+                        );
 
                         oci_execute($strSQL);
                         $number = 0;
@@ -122,26 +114,27 @@ $v_view_approval = 0;
                             CREATED_BY,
                             LINE_MANAGE_1_REMARKS,
                             HR_PMS_LIST_ID,
-                           PMS_TITLE 
-                           FROM 
+                            PMS_TITLE
+                            FROM
                             (SELECT A.ID,
-							           A.EMP_ID,
-                                       PMS_HR_APPROVER (A.EMP_ID) AS HR_APPROVER,
-							           A.EMP_NAME,
-									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
-									   A.EMP_WORK_STATION,
-									   A.EMP_DESIGNATION,
-									   A.GROUP_NAME,
-									   A.GROUP_CONCERN,
-									   A.CREATED_DATE,
-									   A.CREATED_BY,
-									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
-                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-									FROM HR_PMS_EMP A 
+                                    A.EMP_ID,
+                                    PMS_HR_APPROVER (A.EMP_ID) AS HR_APPROVER,
+                                    A.EMP_NAME,
+                                    A.EMP_DEPT,
+                                    A.SELF_SUBMITTED_DATE,
+                                    A.EMP_WORK_STATION,
+                                    A.EMP_DESIGNATION,
+                                    A.GROUP_NAME,
+                                    A.GROUP_CONCERN,
+                                    A.CREATED_DATE,
+                                    A.CREATED_BY,
+                                    A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+                                    (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+									FROM HR_PMS_EMP A
                                     WHERE SELF_SUBMITTED_STATUS=1
                                     AND HR_STATUS IS NULL
-								    AND LINE_MANAGER_2_STATUS  =1)
-                                  where HR_APPROVER = '$emp_session_id'"
+								AND LINE_MANAGER_2_STATUS  =1)
+                                where HR_APPROVER = '$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);
@@ -157,8 +150,6 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <?php echo $row['PMS_TITLE']; ?>
-
-
                                     </td>
                                     <td>
                                         <?php
@@ -178,17 +169,16 @@ $v_view_approval = 0;
                                     </td>
                                     <td>
                                         <a
-                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button  type="button" class="btn btn-sm btn-primary">View for Approval</button>
+                                            href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>">
+                                            <button type="button" class="btn btn-sm btn-primary">View for Approval
+                                            </button>
                                         </a>
                                     </td>
-
                                 </tr>
                                 <?php
                         }
-
                     }
                     ?>
-
                     </tbody>
                 </table>
             </div>
@@ -202,5 +192,5 @@ $v_view_approval = 0;
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

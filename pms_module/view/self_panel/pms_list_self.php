@@ -337,16 +337,14 @@ oci_execute($strSQL);
 											echo '<br>';
 											echo $row['LINE_MANAGER_2_ID'];
 											echo '<br>';
-											echo $row['LINE_MANAGER_2_UPDATED'];
-											echo '<br>';
-
 											if ($row['LINE_MANAGER_2_STATUS'] == 1)
 												echo 'Status: Approved';
 											else if ($row['LINE_MANAGER_2_STATUS'] == '')
 												echo '';
 											else if ($row['LINE_MANAGER_2_STATUS'] == 0)
 												echo 'Status: Decline';
-
+											echo '<br>';
+											echo $row['LINE_MANAGER_2_UPDATED'];
 											?>
 										</td>
 										<td>

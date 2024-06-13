@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
@@ -47,7 +47,7 @@ if (isset($_POST['kra_name'])) {
             $objConnect,
             "INSERT INTO HR_PMS_KRA_LIST (
                              KRA_NAME,
-                             HR_PMS_LIST_ID,											 
+                             HR_PMS_LIST_ID,
                              CREATED_BY, 
                              CREATED_DATE, 
                              IS_ACTIVE) 
@@ -158,6 +158,10 @@ if (isset($_POST['kpi_name'])) {
         }
     }
 }
+
+//Submit pms profile
+
+//end submit request
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -210,8 +214,7 @@ if (isset($_POST['kpi_name'])) {
                         </label>
                         <select required="" name="weightage" class="form-control text-center cust-control" id='weightage'>
                             <option hidden value=""><- selecte Weightage -></option>
-
-                            <option value="5">5 (%)</option>
+                            <option value="5"> 5 (%)</option>
                             <option value="10">10 (%)</option>
                             <option value="15">15 (%)</option>
                             <option value="20">20 (%)</option>
@@ -301,10 +304,6 @@ if (isset($_POST['kpi_name'])) {
                                                 class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
                                     <?php } ?>
                                     <?php echo $row['KRA_NAME']; ?>
-
-
-
-
                                 </td>
                                 <td colspan="5">
                                     <table class="table table-bordered text-break" width="100%">
@@ -360,16 +359,22 @@ if (isset($_POST['kpi_name'])) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <!-- <td  class="text-right">
-                             
-
-                            </td> -->
                             <td colspan="2" class="text-center">
                                 <strong>
                                     Total Weightage :
                                 </strong> <strong style="text-decoration-line: underline;text-decoration-style: double;" id="sum">0</strong>
                             </td>
                         </tr>
+                        <?php if ((100 - $v_previous_weightage == 0) && $SUBMITTED_STATUS != 1) { ?>
+                            <tr class="text-end">
+                                <td colspan="2">
+                                    <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="GET">
+                                        <input type="hidden" name="actionType" value="submit_pms">
+                                        <button class="btn btn-primary btn-sm" type="submit"><i class='bx bxs-file-export'></i> Submit PMS ? </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tfoot>
                 </table>
             </div>
@@ -729,8 +734,8 @@ if (isset($_POST['kpi_name'])) {
 <!-- kpiEditModal -->
 
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>
 <script>
     calc_total();
     function calc_total() {
