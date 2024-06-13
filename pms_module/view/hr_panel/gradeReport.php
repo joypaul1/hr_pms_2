@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-hr-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -24,9 +24,9 @@ $v_excel_download = 0;
                     <select required name="HR_PMS_LIST_ID" class="form-control cust-control">
                         <option hidden value=""><-Select PMS -></option>
                         <?php
-                        $strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
-                        oci_execute($strSQL);
-                        while ($row = oci_fetch_assoc($strSQL)) { ?>
+                        $strSQL = @oci_parse($objConnect, "SELECT  ID,PMS_NAME from HR_PMS_LIST WHERE IS_ACTIVE = 1 ");
+                        @oci_execute($strSQL);
+                        while ($row = @oci_fetch_assoc($strSQL)) { ?>
                             <option value="<?php echo $row['ID']; ?>" <?php echo (isset($_POST['HR_PMS_LIST_ID']) && $_POST['HR_PMS_LIST_ID'] == $row['ID']) ? 'selected="selected"' : ''; ?>>
                                 <?php echo $row['PMS_NAME']; ?>
                             </option>
@@ -97,7 +97,7 @@ $v_excel_download = 0;
 
                             // Create the base SQL query
                             $sql = "SELECT B.EMP_NAME,B.RML_ID,B.R_CONCERN,B.DEPT_NAME,B.DESIGNATION,A.RATING_POINT,A.SCORE_POINT,A.GRADE,A.HR_PMS_LIST_ID,B.IS_ACTIVE
-                            FROM HR_PMS_EMP A,RML_HR_APPS_USER B
+                            FROM HR_PMS_EMP A, RML_HR_APPS_USER B
                             WHERE A.EMP_ID=B.RML_ID
                             AND A.HR_PMS_LIST_ID='$HR_PMS_LIST_ID'";
 
@@ -120,7 +120,7 @@ $v_excel_download = 0;
                             if ($v_rml_id) {
                                 oci_bind_by_name($strSQL, ":rml_id", $v_rml_id);
                             }
-
+                            echo $sql ;
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -129,7 +129,7 @@ $v_excel_download = 0;
                                 ?>
                                 <tr>
                                     <td>
-                                         <strong>
+                                        <strong>
                                             <?php echo $number; ?>
                                         </strong>
                                     </td>
@@ -167,7 +167,8 @@ $v_excel_download = 0;
             if ($v_excel_download == 1) {
                 ?>
                 <div class="text-right mt-2">
-                    <a class="btn btn-sm btn-success text-white" id="downloadLink" onclick="exportF(this)" style=""><i class='bx bxs-file-export'></i> Export To Excel</a>
+                    <a class="btn btn-sm btn-success text-white" id="downloadLink" onclick="exportF(this)" style=""><i class='bx bxs-file-export'></i>
+                        Export To Excel</a>
                 </div>
                 <?php
             }
@@ -195,5 +196,5 @@ $v_excel_download = 0;
         return false;
     }
 </script>
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

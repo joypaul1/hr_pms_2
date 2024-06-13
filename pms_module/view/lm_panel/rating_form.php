@@ -335,17 +335,17 @@ $EMP_ID         = $_GET['emp_id'];
                                     <table class="table table-bordered tex-center text-break">
                                         <thead style="background-color: #02c102;">
                                             <tr class="text-center">
-                                                <th>Achivement</th>
+                                                <!-- <th>Achivement</th> -->
                                                 <th>Grade</th>
                                                 <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody class='text-center'>
-                                            <tr>
+                                            <!-- <tr>
                                                 <td> 100% - Up</td>
                                                 <td>O</td>
                                                 <td>OUTSTADING</td>
-                                            </tr>
+                                            </tr> -->
                                             <tr>
                                                 <td>90% - 99%</td>
                                                 <td>E</td>

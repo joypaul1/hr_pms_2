@@ -211,7 +211,7 @@ $EMP_ID         = $_GET['emp_id'];
                                         ?>
                                     </div>
                                 </form>
-                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post"
+                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="POST"
                                     class=" justify-content-center" id="scoreForm">
                                     <input type="hidden" name="actionType" value="kpi_achivement">
                                     <input type="hidden" name="tab_id" value="<?php echo $_GET['tab_id'] ?>">
@@ -256,10 +256,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                     </div>
 
                                                 </div>
-                                                
                                                 <?php
-                                                  
-
                                                     $KRASQL = oci_parse(
                                                         $objConnect,
                                                         "SELECT  * FROM HR_PMS_KRA_LIST  WHERE CREATED_BY = '$EMP_ID' AND HR_PMS_LIST_ID = '$HR_PMS_LIST_ID'"
@@ -304,7 +301,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                             <?php if( $locakSataus){ 
                                                                 echo 'readonly';
                                                             }?>
-                                                        
+
                                                             class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?trim($rowIN['ACHIVEMENT_COMMENTS']):''; ?> </textarea>
                                                     </div>
                                                     <div class="col-2">
@@ -316,8 +313,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                             onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                             class="form-control text-center achivement" max="100" min='0' required  placeholder="target achivement">
                                                     </div>
-                                                
-                                                    
+
                                                     <div class="col-1">
                                                         <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                             class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
@@ -342,10 +338,6 @@ $EMP_ID         = $_GET['emp_id'];
                                                             value="<?php echo 0 ?>" class="form-control" id="totalScore" >
                                                     </strong>
                                                 </div>
-                                                
-                                              
-
-                                            
                                             </div>
                                         </div>
                                     </div>
@@ -404,11 +396,11 @@ $EMP_ID         = $_GET['emp_id'];
                                                         </tr>
                                                     </thead>
                                                     <tbody class='text-center'>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td> 100% - Up</td>
                                                             <td>O</td>
                                                             <td>OUTSTADING</td>
-                                                        </tr>
+                                                        </tr> -->
                                                         <tr>
                                                             <td>90% - 99%</td>
                                                             <td>E</td>
@@ -492,7 +484,7 @@ $EMP_ID         = $_GET['emp_id'];
 
     });
     $(document).on('change input', '.achivement', function () {
-        console.log(213123);
+       
         $achivement = $(this).val() || 0;
         $target = $(this).parent().parent('.row').find('.target').val();
         $targetWeightage = $(this).parent().parent('.row').find('.targetWeightage').val();
@@ -504,7 +496,7 @@ $EMP_ID         = $_GET['emp_id'];
     });
 
     function scoreCalculation() {
-        console.log(213123);
+       
         let totalScore = 0;
         let oldScore = $('#totalScore').val();
         $("form#scoreForm .score").each(function () {

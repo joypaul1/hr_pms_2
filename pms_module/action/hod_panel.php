@@ -16,7 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     $RATING_POINT        = $_POST['RATING_POINT'];
     $SCORE_POINT         = $_POST['SCORE_POINT'];
     $GRADE               = $_POST['GRADE'];
-
+    print_r($_POST['ACHIVEMENT']);
+    die();
     // Start a database transaction
     oci_parse($objConnect, 'BEGIN');
    
@@ -55,8 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
                     // Update failed, rollback the transaction
                     oci_rollback($objConnect);
                     oci_rollback($strSQL);
-                 
-
                     $e                        = oci_error($strSQL);
                     $message                  = [
                         'text'   => htmlentities($e['message'], ENT_QUOTES),
