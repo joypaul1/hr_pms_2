@@ -476,9 +476,10 @@ $EMP_ID         = $_GET['emp_id'];
         totalPoints = Math.round(totalPoints);
         let finalGrade = 'N/A';
 
-        if (totalPoints >= 100) {
+        /* if (totalPoints >= 100) {
             finalGrade = 'O';
-        } else if (totalPoints >= 90) {
+        } else  */
+        if (totalPoints >= 90) {
             finalGrade = 'E';
         } else if (totalPoints >= 80) {
             finalGrade = 'G';
