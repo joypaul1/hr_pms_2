@@ -6860,8 +6860,8 @@ a.invert-bg-dark:focus {
 }
 
 .table-dark {
-  --bs-table-bg: #0c184e;
-  --bs-table-striped-bg: #0c184e;
+  --bs-table-bg: #b8860b;
+  --bs-table-striped-bg: #b8860b;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #394859;
   --bs-table-active-color: #fff;

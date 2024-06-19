@@ -68,7 +68,7 @@ if (!checkPermission('resale-product-panel')) {
         <div class="card-body">
             <div class="table-responsive text-break">
                 <table class="table  table-bordered">
-                    <thead style="background-color: #0c184e;">
+                    <thead style="background-color: #b8860b;">
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Action</th>

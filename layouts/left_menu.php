@@ -36,7 +36,7 @@ function isActive($url)
             </a>
         </li>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>
-            <li class="menu-header big text-uppercase" style="background-color:lightslategray">
+            <li class="menu-header big text-uppercase" style="background-color: #b8860b;">
                 <span class="text-white"><b>Loyalty Card System </b></span>
             </li>
             <section style="width: 98%;">
@@ -93,7 +93,7 @@ function isActive($url)
             </section>
         <?php } ?>
         <?php if (checkPermission('resale-dashboard-panel') || checkPermission('resale-product-panel') || checkPermission('resale-report-panel')) { ?>
-            <li class="menu-header big text-uppercase" style="background-color:lightslategray">
+            <li class="menu-header big text-uppercase" style="background-color: #b8860b;">
                 <span class="text-white"><b>Resale Bidding System </b></span>
             </li>
             <section style="width: 98%;">
@@ -262,7 +262,7 @@ function isActive($url)
                 </li>
             </section>
         <?php } ?>
-        <li class="menu-header big text-uppercase" style="background-color:lightslategray">
+        <li class="menu-header big text-uppercase" style="background-color: #b8860b;">
             <span class="text-white"><b> HR Apps System</b></span>
         </li>
         <section style="width: 98%;">

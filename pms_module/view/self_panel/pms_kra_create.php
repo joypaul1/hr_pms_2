@@ -153,7 +153,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						<div class="">
 							<div class="table-responsive text-nowrap">
 								<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
-									<thead style="background-color: #0c184e;">
+									<thead style="background-color: #b8860b;">
 										<tr class="text-center">
 											<th class="text-center">Sl</th>
 											<th class="text-center">Key Result Areas</th>
