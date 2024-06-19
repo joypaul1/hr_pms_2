@@ -112,11 +112,8 @@ $userProfile = @oci_fetch_assoc($userSQL);
 						<?php
 						$imagePath = $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : ($basePath . '/assets/img/avatars/1.png');
 						?>
-
 						<img src="<?php echo $imagePath; ?>" alt="<?php echo $imagePath; ?>"
 							class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" width="200" height="200">
-
-
 					</div>
 					<div class="flex-grow-1 mt-3 ">
 						<div
