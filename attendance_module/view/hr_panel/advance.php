@@ -19,39 +19,22 @@ $is_exel_download_eanble = 0;
 			<div class="">
 				<div class="card card-body">
 
-					<form action="<?php echo htmlspecialchars($_SERVER[" PHP_SELF "]);?>" method="POST">
+					<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
 						<div class="row">
 							<div class="col-sm-3">
-								<label class="form-label" for="basic-default-fullname">Select Department Type</label>
-								<select name="emp_dept" class="form-control cust-control">
-									<option selected value="">---</option>
-									<?php
-									$strSQL = @oci_parse($objConnect, "SELECT distinct(DEPT_NAME) AS  DEPT_NAME from RML_HR_APPS_USER where DEPT_NAME is not null and is_active=1 order by DEPT_NAME");
-									@oci_execute($strSQL);
-									while ($row = @oci_fetch_assoc($strSQL)) {
-										?>
-										<option <?php if (isset($_POST['emp_dept'])) {
-											echo ($_POST['emp_dept']) === $row['DEPT_NAME'] ? 'Selected' : '';
-										}
-										?> value="<?php $row['DEPT_NAME'] ?>"><?php echo $row['DEPT_NAME']; ?></option>
-										<?php
-									}
-									?>
-								</select>
-							</div>
-							<div class="col-sm-2">
-								<label class="form-label" for="basic-default-fullname" style="color:red;">Select Start Date<b>**</b></label>
+								<label class="form-label" for="basic-default-fullname">Select Start Date <span
+										class="text-danger fw-bold">*</span></label>
 								<div class="input-group">
 									<div class="input-group-addon">
-										<i class="fa fa-calendar">
-										</i>
+										<i class="fa fa-calendar"></i>
 									</div>
 									<input required="" class="form-control cust-control" type='date' name='start_date'
 										value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 								</div>
 							</div>
-							<div class="col-sm-2">
-								<label class="form-label" for="basic-default-fullname" style="color:red;">Select End Date<b>**</b></label>
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname">Select End Date <span
+										class="text-danger fw-bold">*</span></label>
 								<div class="input-group">
 									<div class="input-group-addon">
 										<i class="fa fa-calendar">
@@ -62,39 +45,84 @@ $is_exel_download_eanble = 0;
 								</div>
 							</div>
 							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname"> Department Name </label>
+								<select name="emp_dept" class="form-control cust-control">
+									<option selected value=""><-- Select Department --></option>
+									<?php
+									// Connect to the database
+									$strSQL = @oci_parse($objConnect, "SELECT DISTINCT DEPT_NAME AS DEPT_NAME FROM RML_HR_APPS_USER WHERE DEPT_NAME IS NOT NULL AND IS_ACTIVE=1 ORDER BY DEPT_NAME");
+									if (!$strSQL) {
+										$error = @oci_error($objConnect);
+										echo "SQL parsing error: " . $error['message'];
+									}
+
+									$result = @oci_execute($strSQL);
+									// if (!$result) {
+									// 	$error = oci_error($strSQL);
+									// 	echo "SQL execution error: " . $error['message'];
+									// }
+									
+									while ($row = @oci_fetch_assoc($strSQL)) {
+										?>
+										<option <?php if (isset($_POST['emp_dept']) && $_POST['emp_dept'] === $row['DEPT_NAME']) {
+											echo 'selected';
+										} ?>
+											value="<?php echo $row['DEPT_NAME']; ?>"><?php echo $row['DEPT_NAME']; ?></option>
+										<?php
+									}
+									?>
+								</select>
+
+							</div>
+							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname"> Branch Name </label>
+								<select name="emp_branch" class="form-control cust-control">
+									<option selected value=""><-- Select Branch --></option>
+									<?php
+									$strSQL = oci_parse($objConnect, "SELECT distinct(BRANCH_NAME) AS BRANCH_NAME from RML_HR_APPS_USER where BRANCH_NAME is not null  and is_active=1
+									order by BRANCH_NAME");
+									oci_execute($strSQL);
+									while ($row = oci_fetch_assoc($strSQL)) {
+										?>
+										<!-- <option value="<?php echo $row['BRANCH_NAME']; ?>"><?php echo $row['BRANCH_NAME']; ?></option> -->
+										<option <?php if (isset($_POST['emp_branch']) && $_POST['emp_branch'] === $row['BRANCH_NAME']) {
+											echo 'selected';
+										} ?> value="<?php echo $row['BRANCH_NAME']; ?>"><?php echo $row['BRANCH_NAME']; ?>
+										</option>
+										<?php
+									}
+									?>
+								</select>
+							</div>
+							<div class="col-sm-3">
 								<label class="form-label" for="basic-default-fullname">Select Attendance Status</label>
 								<select name="attn_status" class="form-control cust-control">
-									<option selected value="">---</option>
+									<option selected value=""><-- Select Status --></option>
 									<option value="P">Present</option>
 									<option value="L">Late</option>
 									<option value="A">Absent</option>
 									<option value="RP">Roster Present</option>
+									<option value="SL">Sick Leave</option>
+									<option value="CL">Casual Leave</option>
+									<option value="EL">Earned/Annual Leave</option>
+									<option value="ML">Maternity Leave</option>
+									<option value="PL">Paternity Leave</option>
 								</select>
 							</div>
-							<div class="col-sm-2">
+
+							<div class="col-sm-3">
 								<label class="form-label" for="basic-default-fullname">REMARKS</label>
 								<select name="remarks_status" class="form-control cust-control">
 									<option selected value="<?= null ?>">Without Remarks</option>
 									<option value="with">With Remarks</option>
 								</select>
 							</div>
-						</div>
-						<div class="row mt-3">
 							<div class="col-sm-3">
-							</div>
-							<div class="col-sm-3">
-							</div>
-							<div class="col-sm-3">
-								233213
-								<?php print_r($_REQUEST) ?>
-
-							</div>
-							<div class="col-sm-3">
+								<label class="form-label" for="basic-default-fullname"></label>
 								<button class="form-control btn btn-sm btn-primary" type="submit">
 									Search Attendance
 								</button>
 							</div>
-
 						</div>
 						<!-- <hr> -->
 					</form>
@@ -103,43 +131,37 @@ $is_exel_download_eanble = 0;
 
 				@$emp_id = $_REQUEST['emp_id'];
 				@$attn_status = $_REQUEST['attn_status'];
-				$v_emp_dept = isset($_REQUEST['emp_dept']) ? $_REQUEST['emp_dept'] : null;
+				@$emp_branch = $_REQUEST['emp_branch'];
+				@$v_emp_dept = $_REQUEST['emp_dept'];
 				@$attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
 				@$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
-				echo $v_emp_dept;
-
 				?>
-
-
 
 				<div class="card mt-2" id="table">
 
 					<div class="card-body">
-						<div class="">
-							<div class="d-block text-uppercase text-center">
-								<div>
-									<h3><b>RANGS MOTORS LIMITED</b></h3>
-
-								</div>
-								<div>
-									<h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
-
-								</div>
-								<div>
-									<h6>Tejgoan,Dhaka-1215</h6>
-
-								</div>
-								<div>
-									<h6>Date :- <?php if (isset($_POST['attn_status'])) {
-										echo $attn_start_date . ' -To- ' . $attn_end_date;
-									} ?>
-										<h6>
-
-								</div>
-
-
+						<div class="d-block text-uppercase text-center">
+							<div>
+								<h3><b>RANGS MOTORS LIMITED</b></h3>
 
 							</div>
+							<div>
+								<h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
+
+							</div>
+							<div>
+								<h6>Tejgoan,Dhaka-1215</h6>
+
+							</div>
+							<div>
+								<h6>Date :- <?php if (isset($_POST['attn_status'])) {
+									echo $attn_start_date . ' -To- ' . $attn_end_date;
+								} ?>
+									<h6>
+
+							</div>
+
+
 
 						</div>
 					</div>
@@ -215,6 +237,7 @@ $is_exel_download_eanble = 0;
 											and trunc(a.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
 											and ('$attn_status' is null OR a.STATUS='$attn_status')
 											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
+											and ('$emp_branch' is null or a.BRANCH_NAME='$emp_branch')
 											order by a.ATTN_DATE";
 										}
 										else {
@@ -238,9 +261,9 @@ $is_exel_download_eanble = 0;
 											and trunc(a.ATTN_DATE) between to_date('$attn_start_date','dd/mm/yyyy') and to_date('$attn_end_date','dd/mm/yyyy')
 											and ('$attn_status' is null OR a.STATUS='$attn_status')
 											and ('$v_emp_dept' is null or a.DEPT_NAME='$v_emp_dept')
+											and ('$emp_branch' is null or a.BRANCH_NAME='$emp_branch')
 											order by a.ATTN_DATE";
 										}
-										echo $query;
 										$strSQL = oci_parse($objConnect, $query);
 
 										oci_execute($strSQL);

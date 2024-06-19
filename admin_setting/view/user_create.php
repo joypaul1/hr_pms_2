@@ -132,7 +132,7 @@ if (!checkPermission('user-create')) {
 
                                         <option selected value="">--</option>
                                         <?php
-                                        $strSQL  = oci_parse($objConnect, "select DISTINCT(BRANCH_NAME) AS BRANCH_NAME from RML_HR_APPS_USER WHERE IS_ACTIVE=1 ORDER BY BRANCH_NAME");
+                                        $strSQL  = oci_parse($objConnect, "SELECT DISTINCT(BRANCH_NAME) AS BRANCH_NAME from RML_HR_APPS_USER WHERE IS_ACTIVE=1 ORDER BY BRANCH_NAME");
                                         oci_execute($strSQL);
                                         while ($row = oci_fetch_assoc($strSQL)) {
                                         ?>
