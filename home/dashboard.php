@@ -106,18 +106,23 @@ $userProfile = @oci_fetch_assoc($userSQL);
 			</div>
 		</div>-->
 		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
-			<div class="card" style="background: linear-gradient(to bottom, #24ff72, #a69f9069);">
+			<div class="card" style="background: linear-gradient(to bottom, #004972, #a69f9069);">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
-						<img src="<?php echo $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : $basePath . '/' . "assets/img/avatars/1.png"; ?>"
-							alt="User Image" class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img">
+						<?php
+						$imagePath = $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : ($basePath . '/assets/img/avatars/1.png');
+						?>
+
+						<img src="<?php echo $imagePath; ?>" alt="<?php echo $imagePath; ?>"
+							class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" width="200" height="200">
+
+
 					</div>
 					<div class="flex-grow-1 mt-3 ">
 						<div
 							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
 							<div class="user-profile-info">
-
-								<h4 class="text-whites">
+								<h4 class="text-white">
 									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
 								</h4>
 								<ul

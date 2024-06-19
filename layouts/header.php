@@ -46,14 +46,14 @@ $basePath = $_SESSION['basePath'];
   <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/fonts/boxicons.css?v=0.2">
 
   <!-- Core CSS -->
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/css/core.css" class="template-customizer-core-css">
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/css/theme-default.css" class="template-customizer-theme-css">
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/css/demo.css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/css/core.css?v=0.2" class="template-customizer-core-css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/css/theme-default.css?v=0.2" class="template-customizer-theme-css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/css/demo.css?v=0.2">
 
   <!-- Vendors CSS -->
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css?v=0.2">
 
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/libs/apex-charts/apex-charts.css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/libs/apex-charts/apex-charts.css?v=0.2">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 
@@ -63,11 +63,11 @@ $basePath = $_SESSION['basePath'];
   <!-- Page CSS -->
 
   <!-- Helpers -->
-  <script src="<?php echo $basePath ?>/assets/vendor/js/helpers.js"></script>
+  <script src="<?php echo $basePath ?>/assets/vendor/js/helpers.js?v=0.2"></script>
 
   <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
   <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-  <script src="<?php echo $basePath ?>/assets/js/config.js"></script>
+  <script src="<?php echo $basePath ?>/assets/js/config.js?v=0.2"></script>
   <!-- // Echo the value of $dynamic_link_css to verify its content -->
 
   <?php
