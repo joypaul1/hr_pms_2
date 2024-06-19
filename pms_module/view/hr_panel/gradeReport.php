@@ -75,9 +75,9 @@ $v_excel_download = 0;
         </h5>
         <div class="card-body">
             <div class="table-responsive text-break">
-                <table class="table table-bordered" id="table">
+                <table class="table table-sm table-bordered text-center" id="table">
                     <thead class="table-dark">
-                        <tr class="text-center">
+                        <tr>
                             <th>SL</th>
                             <th scope="col">Name</th>
                             <th scope="col">Concern</th>
@@ -94,7 +94,6 @@ $v_excel_download = 0;
                             $v_rml_id       = isset($_REQUEST['rml_id']) ? $_REQUEST['rml_id'] : null;
                             $concern_name   = isset($_REQUEST['concern_name']) ? $_REQUEST['concern_name'] : null;
                             $HR_PMS_LIST_ID = $_REQUEST['HR_PMS_LIST_ID'];
-
                             // Create the base SQL query
                             $sql = "SELECT B.EMP_NAME,B.RML_ID,B.R_CONCERN,B.DEPT_NAME,B.DESIGNATION,A.RATING_POINT,A.SCORE_POINT,A.GRADE,A.HR_PMS_LIST_ID,B.IS_ACTIVE
                             FROM HR_PMS_EMP A, RML_HR_APPS_USER B
@@ -120,7 +119,6 @@ $v_excel_download = 0;
                             if ($v_rml_id) {
                                 oci_bind_by_name($strSQL, ":rml_id", $v_rml_id);
                             }
-                            echo $sql ;
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -133,7 +131,7 @@ $v_excel_download = 0;
                                             <?php echo $number; ?>
                                         </strong>
                                     </td>
-                                    <td>
+                                    <td class="text-start">
                                         <?php echo $row['EMP_NAME'] . '(' . $row['RML_ID'] . ')'; ?>
                                     </td>
                                     <td>

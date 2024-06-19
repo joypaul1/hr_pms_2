@@ -16,8 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     $RATING_POINT        = $_POST['RATING_POINT'];
     $SCORE_POINT         = $_POST['SCORE_POINT'];
     $GRADE               = $_POST['GRADE'];
-    print_r($_POST['ACHIVEMENT']);
-    die();
+    // print_r($_POST);
+    // print_r( $ACHIVEMENT );
+    // echo count($ACHIVEMENT);
+    // die();
     // Start a database transaction
     oci_parse($objConnect, 'BEGIN');
    
@@ -74,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
                 SCORE_POINT='$SCORE_POINT',
                 GRADE='$GRADE',
                 GRADE_CONFIRM_DATE_HOD=SYSDATE
-                WHERE ID='$tab_id");
+                WHERE ID=$tab_id");
             if (oci_execute($gradeSQL)) {
                 // Update successful
             } else {
