@@ -268,17 +268,17 @@ if (isset($_POST['kpi_name'])) {
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>KPI Details </b></h5>
         <div class="card-body">
             <div class="table-responsive text-break">
-                <table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
+                <table class="table table-sm table-bordered" border="1" cellspacing="0" cellpadding="0">
                     <thead class="table-dark">
                         <tr class="text-center">
-                            <th scope="col">Key Result Areas (KRA)</th>
+                            <th>Key Result Areas (KRA)</th>
                             <th colspan="5">
-                                <table class="table table-bordered text-break" width="100%">
-                                    <th style="width: 45%;" scope="col">Key Performance indicators<br>(KPI)</th>
-                                    <th style="width: 15%;" scope="col">Weightage<br>(5%-30%)</th>
-                                    <th style="width: 10%;" scope="col">Target</th>
-                                    <th style="width: 10%;" scope="col">Eligibility Factor</th>
-                                    <th style="width: 20%;" scope="col">Comment</th>
+                                <table class="table table-sm  table-bordered " width="100%">
+                                    <th style="width: 45%;">Key Performance indicators<br>(KPI)</th>
+                                    <th style="width: 15%;">Weightage<br>(5%-30%)</th>
+                                    <th style="width: 10%;">Target</th>
+                                    <th style="width: 10%;">Eligibility Factor</th>
+                                    <th style="width: 20%;">Comment</th>
                                 </table>
 
                             </th>
@@ -289,7 +289,7 @@ if (isset($_POST['kpi_name'])) {
                             <?php
                             $strSQL = oci_parse(
                                 $objConnect,
-                                "select A.KRA_NAME,A.ID, A.HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST A WHERE A.CREATED_BY='$emp_session_id' AND A.HR_PMS_LIST_ID='$v_key' ORDER BY A.ID"
+                                "SELECT A.KRA_NAME,A.ID, A.HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST A WHERE A.CREATED_BY='$emp_session_id' AND A.HR_PMS_LIST_ID='$v_key' ORDER BY A.ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -569,12 +569,11 @@ if (isset($_POST['kpi_name'])) {
             </h4>
         </u>
         <div class="card">
-            <div class="card-body row">
-                <div class="col-md-3  col-sm-4 content-card">
+            <div class="card-body row justify-content-between">
+                <div class="col-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                             <div class="content">
-                                <!-- <h6 class="category">Best cards</h6> -->
                                 <h4 class="title shadow-none bg-light rounded">Self </h4>
                                 <p class="description">
                                     <?php echo $SELF_REMARKS ?>
@@ -583,7 +582,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3  col-sm-4 content-card">
+                <div class="col-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                             <div class="content">
@@ -595,7 +594,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3  col-sm-4 content-card">
+                <div class="col-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                             <div class="content">
@@ -608,7 +607,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3  col-sm-4 content-card">
+                <!-- <div class="col-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">
@@ -619,7 +618,7 @@ if (isset($_POST['kpi_name'])) {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
             </div>
         </div>
@@ -768,7 +767,7 @@ if (isset($_POST['kpi_name'])) {
                 url: "<?php echo $_SESSION['basePath'] ?>/pms_module/action/self_panel.php",
                 data: { actionType: 'ajaxkpi_edit', 'editID': editId },
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response);
                     $('#kpiEditHTMl').html(response);
                     $('#kpiEditModal').modal('show');
                 }

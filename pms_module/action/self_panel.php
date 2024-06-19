@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit_pms') {
-    
+
     $updateSQL = @oci_parse(
         $objConnect,
         "UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS =1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE IS_ACTIVE=1"
@@ -200,7 +200,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
             </div>
             <div class="col-3 mt-3">
                 <label for="exampleInputEmail1">Eligibility Factor:</label>
-                <input required class="form-control cust-control" type="number" name="eli_factor" value="' . $row['ELIGIBILITY_FACTOR'] . '" />
+                <select required="" name="eli_factor" class="form-control cust-control">
+                        <option selected value="' . $row['ELIGIBILITY_FACTOR'] . '">
+                            ' . $row['ELIGIBILITY_FACTOR'] . '
+                        </option>
+                        <option value="60">60 (%)</option>
+                        <option value="70">70 (%)</option>
+                        <option value="80">80 (%)</option>
+                        <option value="90">90 (%)</option>
+                        <option value="100">100 (%)</option>
+                    </select>
             </div>
             <div class="col-12 mt-3">
                 <label for="comment">Comment:</label>

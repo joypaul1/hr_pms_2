@@ -109,6 +109,17 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                                 <label for="exampleInputEmail1">Eligibility Factor:</label>
                                 <input required="" class="form-control cust-control" type='number' name="eli_factor"
                                     value="<?php echo $row['ELIGIBILITY_FACTOR']; ?>" />
+
+                                <select required="" name="eli_factor" class="form-control cust-control">
+                                    <option selected value="<?php echo $row['ELIGIBILITY_FACTOR']; ?>">
+                                        <?php echo $row['ELIGIBILITY_FACTOR']; ?>
+                                    </option>
+                                    <option value="60">60 (%)</option>
+                                    <option value="70">70 (%)</option>
+                                    <option value="80">80 (%)</option>
+                                    <option value="90">90 (%)</option>
+                                    <option value="100">100 (%)</option>
+                                </select>
                             </div>
                         </div>
 
