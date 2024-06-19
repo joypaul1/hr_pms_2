@@ -1658,7 +1658,7 @@ li.ui-timepicker-selected,
 }
 
 .layout-navbar {
-  background-color: #f1f1f1  !important;
+  background-color: #a69f903d    !important;
   backdrop-filter: saturate(200%) blur(6px)
 }
 

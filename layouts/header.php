@@ -43,7 +43,7 @@ $basePath = $_SESSION['basePath'];
     rel="stylesheet">
 
   <!-- Icons. Uncomment required icon fonts -->
-  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/fonts/boxicons.css">
+  <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/fonts/boxicons.css?v=0.2">
 
   <!-- Core CSS -->
   <link rel="stylesheet" href="<?php echo $basePath ?>/assets/vendor/css/core.css" class="template-customizer-core-css">
