@@ -63,7 +63,7 @@ if (!checkPermission('resale-product-panel')) {
         <div class="card-body">
             <div class="table-responsive text-break">
                 <table class="table  table-bordered">
-                    <thead style="background-color: #02c102;">
+                    <thead style="background-color: #0c184e;">
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Product Info</th>

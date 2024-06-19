@@ -27,7 +27,7 @@ $number = 0;
         <div class="card-body">
             <div class="table-responsive  text-break">
                 <table class="table table-bordered" id="table">
-                    <thead style="background-color: #02c102;">
+                    <thead style="background-color: #0c184e;">
                         <tr class="text-center">
                             <th style="width:10px">SL</th>
                             <th>Name </th>
