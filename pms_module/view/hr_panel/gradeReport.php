@@ -102,26 +102,27 @@ $v_excel_download = 0;
 
                             // Add filters for $concern_name and $v_rml_id if they exist
                             if ($concern_name) {
-                                $sql .= " AND B.R_CONCERN = :concern_name";
+                                $sql .= " AND B.R_CONCERN = '$concern_name'";
                             }
 
                             if ($v_rml_id) {
-                                $sql .= " AND B.RML_ID = :rml_id";
+                                $sql .= " AND B.RML_ID = '$v_rml_id'";
                             }
-
                             $strSQL = oci_parse($objConnect, $sql);
 
                             // Bind parameters if filters exist
-                            if ($concern_name) {
-                                oci_bind_by_name($strSQL, ":concern_name", $concern_name);
-                            }
+                            // if ($concern_name) {
+                            //     oci_bind_by_name($strSQL, ":concern_name", $concern_name);
+                            // }
 
-                            if ($v_rml_id) {
-                                oci_bind_by_name($strSQL, ":rml_id", $v_rml_id);
-                            }
-                            oci_execute($strSQL);
+                            // if ($v_rml_id) {
+                            //     oci_bind_by_name($strSQL, ":rml_id", $v_rml_id);
+                            // }
+
+                            @oci_execute($strSQL);
+
                             $number = 0;
-                            while ($row = oci_fetch_assoc($strSQL)) {
+                            while ($row = @oci_fetch_assoc($strSQL)) {
                                 $number++;
                                 $v_excel_download = 1;
                                 ?>
