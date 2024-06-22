@@ -570,7 +570,7 @@ if (isset($_POST['kpi_name'])) {
         </u>
         <div class="card">
             <div class="card-body row justify-content-between">
-                <div class="col-4 content-card">
+                <div class="col-3 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="blue" data-radius="none">
                             <div class="content">
@@ -582,7 +582,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-4 content-card">
+                <div class="col-3 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="green" data-radius="none">
                             <div class="content">
@@ -594,7 +594,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <div class="col-4 content-card">
+                <div class="col-3 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="yellow" data-radius="none">
                             <div class="content">
@@ -607,7 +607,7 @@ if (isset($_POST['kpi_name'])) {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-4 content-card">
+                <div class="col-3 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">
@@ -618,7 +618,7 @@ if (isset($_POST['kpi_name'])) {
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
         </div>

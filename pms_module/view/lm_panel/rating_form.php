@@ -234,7 +234,6 @@ $EMP_ID         = $_GET['emp_id'];
                                                         <?php if( $locakSataus){ 
                                                             echo 'readonly';
                                                         }?>
-                                                      
                                                         class="form-control" required  placeholder="ACH. COMMENTS"> <?php echo $rowIN['ACHIVEMENT_COMMENTS']?trim($rowIN['ACHIVEMENT_COMMENTS']):''; ?> </textarea>
                                                 </div>
                                                 <div class="col-2">
@@ -246,8 +245,6 @@ $EMP_ID         = $_GET['emp_id'];
                                                         onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                         class="form-control text-center achivement" max="100" min='0' required  placeholder="target achivement">
                                                 </div>
-                                              
-                                                
                                                 <div class="col-1">
                                                     <input type="text" readonly onkeypress='return event.charCode >= 48 && event.charCode <= 57'
                                                         class="form-control text-center achivementWeightage" value="<?php echo $awValue ?>"
@@ -259,9 +256,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                         class="form-control text-center score" placeholder="score">
                                                 </div>
 
-
                                             </div>
-                                            
                                     <?php
                                         }
                                     }
@@ -277,18 +272,15 @@ $EMP_ID         = $_GET['emp_id'];
                                     </div>
                                     <div class="text-center">
                                         <?php if( $locakSataus){
-                                           echo '<span class="d-block text-center font-weight-bold mt-2">
-                                           All Ready Comfirmed ! <i class="bx bxs-home-smile text-success"></i>
-                                           </span>';
+                                            echo '<span class="d-block text-center font-weight-bold mt-2">
+                                            All Ready Comfirmed ! <i class="bx bxs-home-smile text-success"></i>
+                                            </span>';
                                         }else{
                                             echo ' <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Save <i class="bx bx-save" ></i> </button>
                                             </div>';
                                         }
                                             ?>
-                                           
                                     </div>
-                                  
-
                                 </form>
                             </div>
                         </div>
@@ -335,7 +327,7 @@ $EMP_ID         = $_GET['emp_id'];
                                     <table class="table table-bordered tex-center text-break">
                                         <thead style="background-color: #18392B;">
                                             <tr class="text-center">
-                                                <!-- <th>Achivement</th> -->
+                                                <th>Achivement</th>
                                                 <th>Grade</th>
                                                 <th>Status</th>
                                             </tr>

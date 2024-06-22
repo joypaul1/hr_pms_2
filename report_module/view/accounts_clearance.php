@@ -1,6 +1,6 @@
 <?php
-require_once('../../helper/2step_com_conn.php');
-require_once('../../inc/connoracle.php');
+require_once ('../../helper/2step_com_conn.php');
+require_once ('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 $basePath       = $_SESSION['basePath'];
 if (!checkPermission('accounts-clearance-report')) {
@@ -44,11 +44,11 @@ if (!checkPermission('accounts-clearance-report')) {
         //     $rightSideName = 'Offboarding Create';
         //     $routePath     = 'offboarding_module/view/hr_panel/create.php';
         // }
-        include('../../layouts/_tableHeader.php');
+        include ('../../layouts/_tableHeader.php');
         ?>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
-                <table class="table table-bordered">
+                <table class="table table-sm table-bordered">
                     <thead class="table-dark">
                         <tr class="text-center">
                             <th>SL</th>
@@ -101,7 +101,7 @@ if (!checkPermission('accounts-clearance-report')) {
                                 ?>
                                 <tr style="text-align: center;">
                                     <td>
-                                         <strong>
+                                        <strong>
                                             <?php echo $number; ?>
                                         </strong>
                                     </td>
@@ -376,8 +376,8 @@ if (!checkPermission('accounts-clearance-report')) {
 
 
 <!-- / Content -->
-<?php require_once('../../layouts/footer_info.php'); ?>
-<?php require_once('../../layouts/footer.php'); ?>
+<?php require_once ('../../layouts/footer_info.php'); ?>
+<?php require_once ('../../layouts/footer.php'); ?>
 
 <script>
     function seeStatus(id) {

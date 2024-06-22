@@ -2185,8 +2185,8 @@ progress {
 }
 
 .table-dark {
-  --bs-table-bg: #233446;
-  --bs-table-striped-bg: #2a3a4c;
+  --bs-table-bg: #18392b;
+  --bs-table-striped-bg: #18392b;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #394859;
   --bs-table-active-color: #fff;
@@ -6860,8 +6860,8 @@ a.invert-bg-dark:focus {
 }
 
 .table-dark {
-  --bs-table-bg: #b8860b;
-  --bs-table-striped-bg: #b8860b;
+  --bs-table-bg: #18392b;
+  --bs-table-striped-bg: #18392b;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #394859;
   --bs-table-active-color: #fff;
