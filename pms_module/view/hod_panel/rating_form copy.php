@@ -399,7 +399,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                             <td>OUTSTADING</td>
                                                         </tr> -->
                                                         <tr>
-                                                            <td>90% - 99%</td>
+                                                            <td>90% - 100%</td>
                                                             <td>E</td>
                                                             <td>EXCELLNT</td>
                                                         </tr>
