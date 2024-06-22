@@ -863,18 +863,18 @@ function isActive($url)
 
 
                                 <?php if (checkPermission('pms-hr-approval')) { ?>
-                                    <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/approval.php'); ?>">
+                                    <!-- <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/approval.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hr-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/report.php'); ?>">
+                                    <!-- <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/report.php'); ?>">
                                         <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/report.php" class="menu-link withoutIcon">
                                             <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
                                         </a>
-                                    </li>
+                                    </li> -->
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hr-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/gradeReport.php'); ?>">

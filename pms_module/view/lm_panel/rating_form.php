@@ -367,7 +367,7 @@ $EMP_ID         = $_GET['emp_id'];
                                                 <td>UNSATISFATORY</td>
                                             </tr>
                                             <tr>
-                                                <td>Up - 60 %</td>
+                                                <td> 60 % - Down </td>
                                                 <td>I</td>
                                                 <td>INCOMPETENT</td>
                                             </tr>
