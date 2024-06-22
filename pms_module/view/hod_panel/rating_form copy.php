@@ -48,86 +48,166 @@ $EMP_ID         = $_GET['emp_id'];
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <!-- Basic Layout & Basic with Icons -->
-    <div class="">
+    <div class="row">
         <!-- Basic Layout -->
         <div class="">
-            <div class="card">
+            <div class="card mb-4">
 
                 <div class="card-body">
+
                     <div class="row">
                         <div class="col-12">
-                        <div class="card card-body">
-                            <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">
-                                Line Manager RATING <i class="bx bx-star text-success"></i>
-                            </div>
-                            <div class="row">
-                                <!-- Line Manager Ratings -->
-                                <?php
-                                $ratings = [
-                                    'JOB_KNOWLEDGE' => 'JOB KNOWLEDGE',
-                                    'TRANSPARENCY' => 'TRANSPARENCY',
-                                    'OWNERSHIP_CAN_DO' => 'OWNERSHIP CAN DO',
-                                    'COMMUNICATION_SKILL' => 'COMMUNICATION SKILL',
-                                    'TEAM_WORK' => 'TEAM WORK',
-                                    'CREATIVITY_MAKER' => 'CREATIVITY MAKER',
-                                    'LEADERSHIP' => 'LEADERSHIP',
-                                    'CUSTOMER_RESPONSIBILITY' => 'CUSTOMER RESPONSIBILITY',
-                                    'PROBLEM_SOLVING' => 'PROBLEM SOLVING',
-                                    'WORK_ETHICS' => 'WORK ETHICS'
-                                ];
-
-                                foreach ($ratings as $key => $label) {
-                                    $value = isset($exitData[$key]) ? $exitData[$key] : 0;
-                                    echo "
-                                    <div class='col-sm-6 col-md-3 col-lg-3'>
-                                        <label for='$key'>$label</label>
-                                        <input type='number' readonly value='$value' class='form-control cust-control'>
-                                    </div>";
-                                }
-                                ?>
-                            </div>
-                            <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">
-                                Head Of Department RATING <i class="bx bxs-hand-down text-info"></i>
-                            </div>
-                            <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post" id="ratingForm">
-                                <input type='hidden' name='actionType' value='rating_form'>
-                                <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
-                                <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
-                                <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
-
-                                <div class="mt-3">
-                                    <div class="row">
-                                        <!-- Head of Department Ratings -->
-                                        <?php
-                                        foreach ($ratings as $key => $label) {
-                                            $value = isset($exitData_2[$key]) ? $exitData_2[$key] : (isset($exitData[$key]) ? $exitData[$key] : 0);
-                                            echo "
-                                            <div class='col-sm-6 col-md-3 col-lg-3'>
-                                                <label for='$key'>$label</label>
-                                                <input type='number' " . ($readonlyMood ? "readonly" : '') . " value='$value' class='form-control cust-control' id='$key' name='$key' required>
-                                            </div>";
-                                        }
-                                        ?>
-                                        <div class="col-sm-12 d-flex justify-content-end mt-2">
-                                            <strong class="d-flex justify-content-end gap-2 align-items-center">
-                                                <span style="color:chocolate">Total Rating Point :</span>
-                                                <input type="number" disabled style="width: 40%; height: 32px; text-align: center; background: lightgreen;" value="<?php echo 0 ?>" class="form-control" id="totalRating">
-                                            </strong>
-                                        </div>
+                            <div class='card card-body '>
+                                <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">Line Manger RATING <i
+                                        class="bx bx-star text-success"></i></div>
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['JOB_KNOWLEDGE'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="TRANSPARENCY">TRANSPARENCY </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['TRANSPARENCY'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['OWNERSHIP_CAN_DO'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="COMMUNICATION_SKILL"> COMMUNICATION SKILL </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['COMMUNICATION_SKILL'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="TEAM_WORK">TEAM WORK </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['TEAM_WORK'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="CREATIVITY_MAKER">CREATIVITY MAKER </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['CREATIVITY_MAKER'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="LEADERSHIP">LEADERSHIP </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['LEADERSHIP'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="CUSTOMER_RESPONSIBILITY">CUSTOMER RESPONSIBILITY </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['CUSTOMER_RESPONSIBILITY'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="PROBLEM_SOLVING">PROBLEM SOLVING </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['PROBLEM_SOLVING'] : 0 ?>"
+                                            class="form-control cust-control" >
+                                    </div>
+                                    <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                        <label for="WORK_ETHICS">WORK ETHICS </label>
+                                        <input type="number" readonly value="<?php echo $exitData ? $exitData['WORK_ETHICS'] : 0 ?>"
+                                            class="form-control cust-control" >
                                     </div>
 
-                                    <?php
-                                    if (!$readonlyMood) {
-                                        echo '<div class="text-center mt-2">
-                                                <button type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
-                                                <button type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save"></i></button>
-                                            </div>';
-                                    } else {
-                                        echo "<span class='d-block text-center font-weight-bold mt-2'>Already Confirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
-                                    }
-                                    ?>
                                 </div>
-                            </form>
+                                <div class="shadow-sm p-2 mt-3 mb-1 text-center text-white rounded font-weight-bold" style="background: #0e024efa;">
+                                    Head Of Department RATING <i class="bx bxs-hand-down text-info"></i></div>
+                                <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="post" id="ratingForm">
+                                    <input type='hidden' name='actionType' value='rating_form'>
+                                    <input type="hidden" name="tab_id" value="<?php echo $HR_PMS_EMP_ID ?>">
+                                    <input type="hidden" name="key" value="<?php echo $HR_PMS_LIST_ID ?>">
+                                    <input type="hidden" name="emp_id" value="<?php echo $EMP_ID ?>">
+                                    <div class="mt-3">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="KNOWLEDGE">JOB KNOWLEDGE </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['JOB_KNOWLEDGE'] : $exitData['JOB_KNOWLEDGE'] ?>"
+                                                    class="form-control cust-control" id="KNOWLEDGE" name="JOB_KNOWLEDGE" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="TRANSPARENCY">TRANSPARENCY </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['TRANSPARENCY'] : $exitData['TRANSPARENCY'] ?>"
+                                                    class="form-control cust-control" id="TRANSPARENCY" name="TRANSPARENCY" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['OWNERSHIP_CAN_DO'] : $exitData['OWNERSHIP_CAN_DO'] ?>"
+                                                    class="form-control cust-control" id="OWNERSHIP_CAN_DO" name="OWNERSHIP_CAN_DO" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="COMMUNICATION_SKILL"> COMMUNICATION SKILL </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['COMMUNICATION_SKILL'] : 0 ?>"
+                                                    class="form-control cust-control" id="COMMUNICATION_SKILL" name="COMMUNICATION_SKILL" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="TEAM_WORK">TEAM WORK </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['TEAM_WORK'] : $exitData['TEAM_WORK'] ?>"
+                                                    class="form-control cust-control" id="TEAM_WORK" name="TEAM_WORK" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="CREATIVITY_MAKER"> CREATIVITY MAKER </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData ? $exitData['CREATIVITY_MAKER'] : 0 ?>"
+                                                    class="form-control cust-control" id="CREATIVITY_MAKER" name="CREATIVITY_MAKER" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="LEADERSHIP"> LEADERSHIP </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['LEADERSHIP'] : $exitData['LEADERSHIP'] ?>"
+                                                    class="form-control cust-control" id="LEADERSHIP" name="LEADERSHIP" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="CUSTOMER_RESPONSIBILITY">CUSTOMER RESPONSIBILITY </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['CUSTOMER_RESPONSIBILITY'] : $exitData['CUSTOMER_RESPONSIBILITY'] ?>"
+                                                    class="form-control cust-control" id="CUSTOMER_RESPONSIBILITY" name="CUSTOMER_RESPONSIBILITY"
+                                                    required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="PROBLEM_SOLVING">PROBLEM SOLVING </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['PROBLEM_SOLVING'] : $exitData['PROBLEM_SOLVING'] ?>"
+                                                    class="form-control cust-control" id="PROBLEM_SOLVING" name="PROBLEM_SOLVING" required >
+                                            </div>
+                                            <div class="col-sm-6 col-md-3  col-lg-3 ">
+                                                <label for="WORK_ETHICS">WORK ETHICS </label>
+                                                <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
+                                                    value="<?php echo $exitData_2 ? $exitData_2['WORK_ETHICS'] : $exitData['WORK_ETHICS'] ?>"
+                                                    class="form-control cust-control" id="WORK_ETHICS" name="WORK_ETHICS" required >
+                                            </div>
+                                            <div class="col-sm-12 d-flex justify-content-end mt-2">
+                                                <strong class="d-flex justify-content-end gap-2  align-items-center">
+                                                    <span style="color:chocolate">Total Rating Point :</span>
+                                                    <input type="number" disabled
+                                                        style="width: 40%;height: 32px;text-align: center;background: lightgreen;"
+                                                        value="<?php echo 0 ?>" class="form-control" id="totalRating" >
+                                                </strong>
+                                            </div>
+                                        </div>
+
+
+                                        <?php
+
+                                        if ($readonlyMood != true) {
+                                            echo '<div class="text-center mt-2">
+                                                    <button  type="submit" name="submit_draft" class="btn btn-sm btn-info">Draft <i class="bx bxl-codepen"></i></button>
+                                                    <button  type="submit" name="submit_confirm" class="btn btn-sm btn-warning">Confirm <i class="bx bx-save" ></i> </button>
+                                                    </div>';
+                                        }
+                                        else {
+                                            echo "<span class='d-block text-center font-weight-bold mt-2'>All Ready Comfirmed Rating <i class='bx bxs-home-smile text-success'></i></span>";
+                                        }
+                                        ?>
+                                    </div>
+                                </form>
                                 <form action="<?php echo ($basePath . '/pms_module/action/hod_panel.php'); ?>" method="POST"
                                     class=" justify-content-center" id="scoreForm">
                                     <input type="hidden" name="actionType" value="kpi_achivement">

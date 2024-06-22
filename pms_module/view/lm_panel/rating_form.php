@@ -64,10 +64,10 @@ $EMP_ID         = $_GET['emp_id'];
                                                 id="KNOWLEDGE" name="JOB_KNOWLEDGE" required >
                                         </div>
                                         <div class="col-sm-6 col-md-3  col-lg-3 ">
-                                            <label for="TRANSPERANCY">TRANSPERANCY </label>
+                                            <label for="TRANSPARENCY">TRANSPARENCY </label>
                                             <input type="number" <?php echo $readonlyMood == true ? "readonly" : '' ?>
-                                                value="<?php echo $exitData ? $exitData['TRANSPERANCY'] : 0 ?>" class="form-control cust-control"
-                                                id="TRANSPERANCY" name="TRANSPERANCY" required >
+                                                value="<?php echo $exitData ? $exitData['TRANSPARENCY'] : 0 ?>" class="form-control cust-control"
+                                                id="TRANSPARENCY" name="TRANSPARENCY" required >
                                         </div>
                                         <div class="col-sm-6 col-md-3  col-lg-3 ">
                                             <label for="OWNERSHIP_CAN_DO">OWNERSHIP CAN DO </label>

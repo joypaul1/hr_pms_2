@@ -71,10 +71,10 @@ $HR_PMS_LIST_ID = $_GET['key'];
                                 </div>
                             </div>
                             <div class="row mb-3">
-                                <label class="col-sm-6 col-form-label" for="basic-default-company">TRANSPERANCY</label>
+                                <label class="col-sm-6 col-form-label" for="basic-default-company">TRANSPARENCY</label>
                                 <div class="col-sm-6">
-                                    <input type="number" class="form-control" id="basic-default-company" readonly name="TRANSPERANCY"
-                                        value="<?php echo $exitData ? $exitData['TRANSPERANCY'] : 0 ?>" required>
+                                    <input type="number" class="form-control" id="basic-default-company" readonly name="TRANSPARENCY"
+                                        value="<?php echo $exitData ? $exitData['TRANSPARENCY'] : 0 ?>" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -150,10 +150,10 @@ $HR_PMS_LIST_ID = $_GET['key'];
                                     </div>
                                 </div>
                                 <div class="row mb-3">
-                                    <label class="col-sm-6 col-form-label" for="basic-default-company">TRANSPERANCY</label>
+                                    <label class="col-sm-6 col-form-label" for="basic-default-company">TRANSPARENCY</label>
                                     <div class="col-sm-6">
-                                        <input type="number" class="form-control" id="basic-default-company" readonly name="TRANSPERANCY"
-                                            value="<?php echo $exitData_2 ? $exitData_2['TRANSPERANCY'] : 0 ?>" required>
+                                        <input type="number" class="form-control" id="basic-default-company" readonly name="TRANSPARENCY"
+                                            value="<?php echo $exitData_2 ? $exitData_2['TRANSPARENCY'] : 0 ?>" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
