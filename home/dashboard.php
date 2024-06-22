@@ -167,7 +167,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 				<div class="card-body ">
 					<div class="table-responsive text-nowrap">
 						<table class="table  table-bordered">
-							<thead class="table-darks" style="background-color:#a69f90">
+							<thead class="table-darks" style="background-color:#18392b">
 								<tr>
 									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Approval Type</strong></th>
@@ -213,7 +213,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 					<!-- <h5 class="card-title text-primary">.</h5> -->
 					<div class="table-responsive text-nowrap">
 						<table class="table table-bordered">
-							<thead class="table-darks" style="background-color:#a69f90">
+							<thead class="table-darks" style="background-color:#18392b">
 								<tr>
 									<th scope="col" align="center"> <strong>SL</strong></th>
 									<th scope="col" align="center"><strong>Date</strong></th>

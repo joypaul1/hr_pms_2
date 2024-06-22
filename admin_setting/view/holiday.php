@@ -91,10 +91,10 @@ if (!checkPermission('holiday-list')) {
             $strSQL = oci_parse(
                 $objConnect,
                 "INSERT INTO RML_COLL_ATTN_HOLIDAY (
-					   ATTN_DATE, STATUS, 
-					   ENTRY_DATE, REMARKS, CONCERN, 
-					   ENTRY_BY) 
-					VALUES ( TO_DATE('$holiday_date','dd/mm/yyyy') , 
+					   ATTN_DATE, STATUS,
+					   ENTRY_DATE, REMARKS, CONCERN,
+					   ENTRY_BY)
+					VALUES ( TO_DATE('$holiday_date','dd/mm/yyyy') ,
 					 '$holiday_type' ,
 					  SYSDATE ,
 					 '$holiday_ramarks' ,

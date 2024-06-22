@@ -385,7 +385,7 @@ $EMP_ID         = $_GET['emp_id'];
                                             <div class="card card-body mt-3">
                                                 <strong class="text-center">Grading System</strong>
                                                 <table class="table table-bordered tex-center text-break">
-                                                    <thead style="background-color: #b8860b;">
+                                                    <thead style="background-color: #18392B;">
                                                         <tr class="text-center">
                                                             <th>Achivement</th>
                                                             <th>Grade</th>

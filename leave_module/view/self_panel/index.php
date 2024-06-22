@@ -72,7 +72,7 @@ if (!checkPermission('self-leave-report')) {
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table  table-bordered">
-                    <thead style="background-color: #b8860b;">
+                    <thead style="background-color: #18392B;">
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Leave Type</th>

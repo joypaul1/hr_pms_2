@@ -71,7 +71,7 @@ require_once('../../inc/connoracle.php');
                 <div class="">
                     <div class="resume-item d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
-                            <thead style="background-color: #b8860b;">
+                            <thead style="background-color: #18392B;">
                                 <tr class="text-center">
                                     <th scope="col">Sl</th>
                                     <th scope="col">

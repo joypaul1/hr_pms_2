@@ -66,7 +66,7 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
             </div>
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered" id="downloadData">
-                    <thead style="background-color: #b8860b;">
+                    <thead style="background-color: #18392B;">
                         <tr class="text-center">
                             <th colspan="5">Start Date : <?= $v_start_date ?> - End Date : <?= $v_end_date ?></th>
                         </tr>
