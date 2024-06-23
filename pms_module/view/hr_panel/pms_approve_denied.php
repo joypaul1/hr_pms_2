@@ -55,8 +55,6 @@ while ($row = oci_fetch_assoc($commentSQL)) {
 
 ?>
 
-
-
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -187,8 +185,8 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             <?php
                             $strSQL = oci_parse(
                                 $objConnect,
-                                "select KRA_NAME,ID
-							        FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$v_emp_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
+                                "SELECT KRA_NAME,ID
+							    FROM HR_PMS_KRA_LIST WHERE CREATED_BY='$v_emp_id' AND HR_PMS_LIST_ID='$v_key' ORDER BY ID"
                             );
                             oci_execute($strSQL);
                             $number = 0;
@@ -196,15 +194,12 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                                 $table_ID = $row['ID'];
                                 $number++;
                                 ?>
-
-
                                 <td class="align-middle">
                                     <?php echo $row['KRA_NAME']; ?>
                                 </td>
                                 <td colspan="5">
                                     <table class="table table-bordered text-break" width="100%">
                                         <?php
-
                                         $slNumber    = 0;
                                         $strSQLInner = oci_parse($objConnect, "SELECT ID, KPI_NAME,WEIGHTAGE,TARGET,ELIGIBILITY_FACTOR,REMARKS from HR_PMS_KPI_LIST where HR_KRA_LIST_ID=$table_ID");
                                         oci_execute($strSQLInner);
@@ -473,7 +468,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                         </div>
                     </div>
                 </div>
-                 <div class="col-md-3  col-sm-4 content-card">
+                <div class="col-md-3  col-sm-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">

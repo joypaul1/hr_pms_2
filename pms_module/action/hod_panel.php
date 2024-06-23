@@ -116,13 +116,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
     $v_remarks               = $_POST['remarks'];
     $v_app_status            = $_POST['app_status'];
     $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
-
+    // echo $v_app_status;
+    // die();
     if ($v_app_status == 1) {
         $strSQL = oci_parse(
             $objConnect,
             "UPDATE HR_PMS_EMP SET 
             LINE_MANAGE_2_REMARKS='$v_remarks',LINE_MANAGER_2_STATUS=$v_app_status,LINE_MANAGER_2_UPDATED=SYSDATE
-                      WHERE ID=$hr_pms_pms_emp_table_id"
+            WHERE ID=$hr_pms_pms_emp_table_id"
         );
     }
     else if ($v_app_status == 0) {
@@ -130,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
             $objConnect,
             "UPDATE HR_PMS_EMP SET 
                       LINE_MANAGE_2_REMARKS='$v_remarks',
-                      LINE_MANAGER_2_STATUS=$v_app_status,
+                      LINE_MANAGER_2_STATUS='',
                       LINE_MANAGER_2_UPDATED=SYSDATE,
                       LINE_MANAGE_1_REMARKS='',
                       LINE_MANAGER_1_STATUS='',

@@ -102,9 +102,12 @@ $v_view_approval = 0;
 										(SELECT AA.STEP_3_STATUS FROM HR_PMS_LIST AA
 										WHERE AA.ID = HR_PMS_LIST_ID) AS STEP_3_STATUS
 									    FROM HR_PMS_EMP A
-										WHERE SELF_SUBMITTED_STATUS = 1
-										AND LINE_MANAGER_2_STATUS IS NOT NULL
-										AND LINE_MANAGER_2_ID = '$emp_session_id'
+                                        INNER JOIN
+                                        HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+										WHERE A.SELF_SUBMITTED_STATUS = 1
+                                        AND  CC.IS_ACTIVE = 1
+										AND A.LINE_MANAGER_2_STATUS IS NOT NULL
+										AND A.LINE_MANAGER_2_ID = '$emp_session_id'
 										AND A.EMP_ID = '$emp_concern'");
 
                         oci_execute($strSQL);
@@ -136,7 +139,6 @@ $v_view_approval = 0;
                                     <td>
                                         <?php if ($row['LINE_MANAGER_2_STATUS']) {
                                             echo "<button class='btn btn-sm btn-success'><i class='bx bxs-badge-check'></i></button>";
-
                                         }
                                         else {
                                             echo '<button class="btn btn-sm btn-danger"><i class="bx bxs-message-alt-x"></i></button>';
@@ -162,7 +164,6 @@ $v_view_approval = 0;
                                         echo $row['EMP_WORK_STATION'];
                                         ?>
                                     </td>
-
                                     <td>
                                         <a
                                             href="pms_approve_denied.php?key=<?php echo $row['HR_PMS_LIST_ID'] . '&emp_id=' . $row['EMP_ID'] . '&tab_id=' . $row['ID']; ?>"><button
@@ -195,9 +196,12 @@ $v_view_approval = 0;
                             (SELECT AA.STEP_2_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_2_STATUS,
                             (SELECT AA.STEP_3_STATUS FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS STEP_3_STATUS
 							FROM HR_PMS_EMP A
-							WHERE SELF_SUBMITTED_STATUS=1
-                            AND LINE_MANAGER_2_STATUS  IS NOT NULL
-                            AND LINE_MANAGER_2_ID='$emp_session_id'"
+							INNER JOIN
+                                HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+                            WHERE A.SELF_SUBMITTED_STATUS = 1
+                                AND  CC.IS_ACTIVE = 1
+                            AND A.LINE_MANAGER_2_STATUS  IS NOT NULL
+                            AND A.LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);

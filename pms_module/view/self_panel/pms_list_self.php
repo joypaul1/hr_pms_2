@@ -62,7 +62,7 @@ if (isset($_POST['submit_approval'])) {
 
 	$updateSQL = oci_parse(
 		$objConnect,
-		"UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS =1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE ID='$table_id'"
+		"UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS = 1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE ID='$table_id'"
 	);
 
 	if (oci_execute($updateSQL)) {
@@ -195,8 +195,7 @@ oci_execute($strSQL);
 							</div>
 							<div class="col-sm-3">
 								<div class="md-form mt-4">
-									<input class="form-control  btn  btn-sm  btn-primary" name="submit_profile" type="submit" form="Form1"
-										value="Create PMS Profile">
+									<input class="form-control  btn  btn-sm  btn-primary" name="submit_profile" type="submit" form="Form1" value="Create PMS Profile">
 								</div>
 							</div>
 

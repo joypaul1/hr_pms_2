@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
     else if ($v_app_status == 0) {
         $strSQL = oci_parse(
             $objConnect,
-            "UPDATE HR_PMS_EMP SET 
+            "UPDATE HR_PMS_EMP SET
             HR_STATUS_REMARKS='$v_remarks',
-            HR_STATUS=$v_app_status,
+            HR_STATUS='',
             HR_STATUS_DATE=SYSDATE,
             LINE_MANAGE_1_REMARKS='',
             LINE_MANAGER_1_STATUS='',
