@@ -181,18 +181,25 @@ if (isset($_POST['kpi_name'])) {
                         </button>
                         <select required="" name="kra_id" class="form-control text-center cust-control" id='kra_id'>
                             <option hidden value=""><- selecte KRA -></option>
-
                             <?php
                             $query = "SELECT BB.ID,
-                                    BB.KRA_NAME,
-                                    (select  PMS_NAME  FROM HR_PMS_LIST WHERE id=BB.HR_PMS_LIST_ID) PMS_NAME,
-                                    (SELECT A.SELF_SUBMITTED_STATUS FROM HR_PMS_EMP A WHERE A.HR_PMS_LIST_ID=BB.HR_PMS_LIST_ID 
-                                    AND A.EMP_ID='$emp_session_id')SUBMITTED_STATUS,
-                                    CREATED_BY,
-                                    CREATED_DATE,UPDATED_DATE,
-                                    IS_ACTIVE 
-                                FROM HR_PMS_KRA_LIST BB
-                                WHERE BB.CREATED_BY='$emp_session_id'";
+                                        BB.KRA_NAME,
+                                        (SELECT PMS_NAME
+                                            FROM HR_PMS_LIST
+                                            WHERE ID = BB.HR_PMS_LIST_ID)
+                                            AS PMS_NAME,
+                                        (SELECT A.SELF_SUBMITTED_STATUS
+                                            FROM HR_PMS_EMP A
+                                            WHERE  A.HR_PMS_LIST_ID = BB.HR_PMS_LIST_ID
+                                                AND A.EMP_ID = '$emp_session_id')
+                                            AS SUBMITTED_STATUS,
+                                        BB.CREATED_BY,
+                                        BB.CREATED_DATE,
+                                        BB.UPDATED_DATE,
+                                        BB.IS_ACTIVE
+                                    FROM HR_PMS_KRA_LIST BB
+                                        INNER JOIN HR_PMS_LIST CC ON CC.ID = BB.HR_PMS_LIST_ID
+                                    WHERE CC.IS_ACTIVE = 1 AND BB.CREATED_BY = '$emp_session_id'";
 
 
                             $strSQL = oci_parse($objConnect, $query);

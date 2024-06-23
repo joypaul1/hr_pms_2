@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-hod-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -94,11 +94,15 @@ $v_view_approval = 0;
 													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
 													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 													FROM HR_PMS_EMP A
-													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS = 1
-                                                    AND LINE_MANAGER_2_STATUS IS NULL
-													AND LINE_MANAGER_2_ID='$emp_session_id'
-													AND A.EMP_ID='$emp_concern'");
+                                                    INNER JOIN
+                                                        HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+													WHERE
+                                                        A.SELF_SUBMITTED_STATUS=1
+                                                        AND A.IS_ACTIVE = 1
+                                                        AND A.LINE_MANAGER_1_STATUS = 1
+                                                        AND A.LINE_MANAGER_2_STATUS IS NULL
+                                                        AND A.LINE_MANAGER_2_ID='$emp_session_id'
+                                                        AND A.EMP_ID='$emp_concern'");
 
                         oci_execute($strSQL);
                         $number = 0;
@@ -145,22 +149,25 @@ $v_view_approval = 0;
                         $allDataSQL = oci_parse(
                             $objConnect,
                             "SELECT A.ID,
-							           A.EMP_ID,
-							           A.EMP_NAME,
-									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
-									   A.EMP_WORK_STATION,
-									   A.EMP_DESIGNATION,
-									   A.GROUP_NAME,
-									   A.GROUP_CONCERN,
-									   A.CREATED_DATE,
-									   A.CREATED_BY,
-									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
-                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
+                                        A.EMP_ID,
+                                        A.EMP_NAME,
+                                        A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
+                                        A.EMP_WORK_STATION,
+                                        A.EMP_DESIGNATION,
+                                        A.GROUP_NAME,
+                                        A.GROUP_CONCERN,
+                                        A.CREATED_DATE,
+                                        A.CREATED_BY,
+                                        A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
+                                        (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
 									FROM HR_PMS_EMP A
-									WHERE SELF_SUBMITTED_STATUS=1
+                                    INNER JOIN
+                                        HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+                                    WHERE A.SELF_SUBMITTED_STATUS=1
+                                    AND A.IS_ACTIVE = 1
+									AND SELF_SUBMITTED_STATUS=1
 								    AND LINE_MANAGER_1_STATUS=1
                                     AND LINE_MANAGER_2_STATUS IS NULL
-                                    
 									AND LINE_MANAGER_2_ID='$emp_session_id'"
                         );
 
@@ -223,5 +230,5 @@ $v_view_approval = 0;
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

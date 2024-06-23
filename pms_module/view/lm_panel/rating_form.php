@@ -260,7 +260,6 @@ $EMP_ID         = $_GET['emp_id'];
                                     <?php
                                         }
                                     }
-
                                     ?>
                                     <div class="col-sm-12 d-flex justify-content-end mt-0">
                                         <strong class="d-flex justify-content-end gap-2  align-items-center">

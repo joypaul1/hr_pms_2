@@ -1,6 +1,6 @@
 <?php
-require_once('../../../helper/3step_com_conn.php');
-require_once('../../../inc/connoracle.php');
+require_once ('../../../helper/3step_com_conn.php');
+require_once ('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 if (!checkPermission('pms-lm-approval')) {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
@@ -81,23 +81,36 @@ $v_view_approval = 0;
                     <?php
                     if (isset($_POST['emp_concern'])) {
                         $emp_concern = $_REQUEST['emp_concern'];
-                        $strSQL      = oci_parse($objConnect, "SELECT A.ID,
-													   A.EMP_ID,
-													   A.EMP_NAME,
-													   A.EMP_DEPT,
-													   A.EMP_WORK_STATION,
-													   A.EMP_DESIGNATION,A.SELF_SUBMITTED_DATE,
-													   A.GROUP_NAME,
-													   A.GROUP_CONCERN,
-													   A.CREATED_DATE,
-													   A.CREATED_BY,
-													   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
-													  (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-													FROM HR_PMS_EMP A
-													WHERE SELF_SUBMITTED_STATUS=1
-                                                    AND LINE_MANAGER_1_STATUS IS NULL
-													AND LINE_MANAGER_1_ID='$emp_session_id'
-													AND A.EMP_ID='$emp_concern'");
+                        $strSQL      = oci_parse(
+                            $objConnect,
+                            "SELECT 
+                                A.ID,
+                                A.EMP_ID,
+                                A.EMP_NAME,
+                                A.EMP_DEPT,
+                                A.EMP_WORK_STATION,
+                                A.EMP_DESIGNATION,
+                                A.SELF_SUBMITTED_DATE,
+                                A.GROUP_NAME,
+                                A.GROUP_CONCERN,
+                                A.CREATED_DATE,
+                                A.CREATED_BY,
+                                A.LINE_MANAGE_1_REMARKS,
+                                A.HR_PMS_LIST_ID,
+                                (SELECT AA.PMS_NAME 
+                                FROM HR_PMS_LIST AA 
+                                WHERE AA.ID = A.HR_PMS_LIST_ID) AS PMS_TITLE
+                            FROM 
+                                HR_PMS_EMP A
+                            INNER JOIN 
+                                HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+                            WHERE 
+                                CC.IS_ACTIVE = 1 
+                                AND A.SELF_SUBMITTED_STATUS = 1
+                                AND A.LINE_MANAGER_1_STATUS IS NULL
+                                AND A.LINE_MANAGER_1_ID = '$emp_session_id'
+                                AND A.EMP_ID = '$emp_concern'"
+                        );
 
                         oci_execute($strSQL);
                         $number = 0;
@@ -143,22 +156,32 @@ $v_view_approval = 0;
                     else {
                         $allDataSQL = oci_parse(
                             $objConnect,
-                            "SELECT A.ID,
-							           A.EMP_ID,
-							           A.EMP_NAME,
-									   A.EMP_DEPT,A.SELF_SUBMITTED_DATE,
-									   A.EMP_WORK_STATION,
-									   A.EMP_DESIGNATION,
-									   A.GROUP_NAME,
-									   A.GROUP_CONCERN,
-									   A.CREATED_DATE,
-									   A.CREATED_BY,
-									   A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
-                                      (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
-									FROM HR_PMS_EMP A
-									WHERE SELF_SUBMITTED_STATUS=1
-								    AND LINE_MANAGER_1_STATUS IS NULL
-									AND LINE_MANAGER_1_ID='$emp_session_id'"
+                            "SELECT 
+                                A.ID,
+                                A.EMP_ID,
+                                A.EMP_NAME,
+                                A.EMP_DEPT,
+                                A.EMP_WORK_STATION,
+                                A.EMP_DESIGNATION,
+                                A.SELF_SUBMITTED_DATE,
+                                A.GROUP_NAME,
+                                A.GROUP_CONCERN,
+                                A.CREATED_DATE,
+                                A.CREATED_BY,
+                                A.LINE_MANAGE_1_REMARKS,
+                                A.HR_PMS_LIST_ID,
+                                (SELECT AA.PMS_NAME
+                                FROM HR_PMS_LIST AA
+                                WHERE AA.ID = A.HR_PMS_LIST_ID) AS PMS_TITLE
+                            FROM
+                                HR_PMS_EMP A
+                            INNER JOIN
+                                HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+                            WHERE
+                                CC.IS_ACTIVE = 1
+                                AND A.SELF_SUBMITTED_STATUS = 1
+                                AND A.LINE_MANAGER_1_STATUS IS NULL
+                                AND A.LINE_MANAGER_1_ID = '$emp_session_id'"
                         );
 
                         oci_execute($allDataSQL);
@@ -220,5 +243,5 @@ $v_view_approval = 0;
 
 <!-- / Content -->
 
-<?php require_once('../../../layouts/footer_info.php'); ?>
-<?php require_once('../../../layouts/footer.php'); ?>
+<?php require_once ('../../../layouts/footer_info.php'); ?>
+<?php require_once ('../../../layouts/footer.php'); ?>

@@ -476,7 +476,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                         </div>
                     </div>
                 </div>
-                <!-- <div class="col-md-3  col-sm-4 content-card">
+                <div class="col-md-3  col-sm-4 content-card">
                     <div class="card-big-shadow">
                         <div class="card card-just-text" data-background="color" data-color="brown" data-radius="none">
                             <div class="content">
@@ -487,7 +487,7 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
         </div>
