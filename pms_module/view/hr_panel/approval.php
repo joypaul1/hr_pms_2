@@ -49,11 +49,14 @@ $v_view_approval = 0;
                             A.LINE_MANAGE_1_REMARKS,HR_PMS_LIST_ID,
                             (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE
                             FROM HR_PMS_EMP A
-                            WHERE SELF_SUBMITTED_STATUS=1
-                            AND LINE_MANAGER_1_STATUS = 1
-                            AND HR_STATUS IS NULL
-                            AND LINE_MANAGER_2_STATUS =1
-                            AND LINE_MANAGER_2_ID='$emp_session_id'
+                             INNER JOIN
+                                HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
+                            WHERE A.SELF_SUBMITTED_STATUS=1
+                            AND A.IS_ACTIVE = 1
+                            AND A.LINE_MANAGER_1_STATUS = 1
+                            AND A.HR_STATUS IS NULL
+                            AND A.LINE_MANAGER_2_STATUS =1
+                            AND A.LINE_MANAGER_2_ID='$emp_session_id'
                             AND A.EMP_ID='$emp_concern'"
                         );
 

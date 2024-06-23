@@ -165,7 +165,6 @@ $v_view_approval = 0;
                                         HR_PMS_LIST CC ON CC.ID = A.HR_PMS_LIST_ID
                                     WHERE A.SELF_SUBMITTED_STATUS=1
                                     AND A.IS_ACTIVE = 1
-									AND SELF_SUBMITTED_STATUS=1
 								    AND LINE_MANAGER_1_STATUS=1
                                     AND LINE_MANAGER_2_STATUS IS NULL
 									AND LINE_MANAGER_2_ID='$emp_session_id'"
