@@ -19,9 +19,9 @@ if (isset($_POST['submit_delete'])) {
             );
             oci_execute($strSQL);
             $attnProcSQL  = oci_parse($objConnect, "DECLARE V_START_DATE VARCHAR2(100);
-						                V_END_DATE VARCHAR2(100);
-										V_RML_ID VARCHAR2(100);
-									  BEGIN
+						            V_END_DATE VARCHAR2(100);
+									V_RML_ID VARCHAR2(100);
+									BEGIN
 									   SELECT TO_CHAR(START_DATE,'dd/mm/yyyy'),TO_CHAR(END_DATE,'dd/mm/yyyy'),RML_ID 
 									   INTO V_START_DATE,V_END_DATE,V_RML_ID
 									   FROM RML_HR_EMP_LEAVE_DELETE
@@ -71,13 +71,12 @@ if (isset($_POST['submit_delete'])) {
                 </div>
             </div>
         </div>
-
     </div>
 
 
     <!-- Bordered Table -->
     <div class="card mt-2">
-        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Leave List[&#177; 10 Days]</b></h5>
+        <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Leave List[&#177; 30 Days]</b></h5>
         <div class="card-body">
             <div class="table-responsive text-nowrap">
                 <table class="table table-bordered">
@@ -90,7 +89,6 @@ if (isset($_POST['submit_delete'])) {
                         </tr>
                     </thead>
                     <tbody>
-
                         <?php
                         if (isset($_POST['emp_id'])) {
 
@@ -111,7 +109,7 @@ if (isset($_POST['submit_delete'])) {
 							WHERE  A.RML_ID=B.RML_ID
 							AND B.R_CONCERN IN (SELECT R_CONCERN from RML_HR_APPS_USER WHERE IS_ACTIVE=1 AND RML_ID ='$emp_session_id') 
 							AND ('$v_emp_id' IS NULL OR A.RML_ID='$v_emp_id')
-							AND trunc(START_DATE) BETWEEN trunc(sysdate)-10 and trunc(sysdate)+10
+							AND trunc(START_DATE) BETWEEN trunc(sysdate)-30 and trunc(sysdate)+30
 							ORDER BY START_DATE DESC"
                             );
                             oci_execute($strSQL);
@@ -135,12 +133,14 @@ if (isset($_POST['submit_delete'])) {
                                         ?>
                                     </td>
                                     <td><?php
-                                        $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
-                                        if ($leave_days == 1)
-                                            $display = $leave_days . ' Day';
-                                        else
-                                            $display = $leave_days . ' Days';
-                                        echo  $display;
+                                        $END_DATE   =  new DateTime($row['END_DATE']);
+                                        $START_DATE =  new DateTime($row['START_DATE']);
+                                        $interval = $START_DATE->diff($END_DATE);
+                                        if($interval->days == 0){
+                                            echo $interval->days + 1  . ' Day';
+                                        }else{
+                                            echo $interval->days + 1  . ' Days';
+                                        }
                                         echo '<br>';
                                         echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
                                         echo '<br>';
@@ -169,8 +169,6 @@ if (isset($_POST['submit_delete'])) {
                             <?php
                             }
                         } else {
-
-
                             $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
@@ -186,7 +184,7 @@ if (isset($_POST['submit_delete'])) {
 							FROM RML_HR_EMP_LEAVE A,RML_HR_APPS_USER B
 							WHERE  A.RML_ID=B.RML_ID
 							AND b.R_CONCERN='RMWL'
-							AND trunc(START_DATE) BETWEEN trunc(sysdate)-10 and trunc(sysdate)+10
+							AND trunc(START_DATE) BETWEEN trunc(sysdate)-30 and trunc(sysdate)+30
 							ORDER BY START_DATE DESC"
                             );
 
@@ -211,12 +209,14 @@ if (isset($_POST['submit_delete'])) {
                                         ?>
                                     </td>
                                     <td><?php
-                                        $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
-                                        if ($leave_days == 1)
-                                            $display = $leave_days . ' Day';
-                                        else
-                                            $display = $leave_days . ' Days';
-                                        echo  $display;
+                                        $END_DATE   =  new DateTime($row['END_DATE']);
+                                        $START_DATE =  new DateTime($row['START_DATE']);
+                                        $interval = $START_DATE->diff($END_DATE);
+                                        if($interval->days == 0){
+                                            echo $interval->days + 1  . ' Day';
+                                        }else{
+                                            echo $interval->days + 1  . ' Days';
+                                        }
                                         echo '<br>';
                                         echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
                                         echo '<br>';
@@ -244,9 +244,6 @@ if (isset($_POST['submit_delete'])) {
                             }
                         }
                         ?>
-
-
-
                     </tbody>
                 </table>
             </div>

@@ -7,10 +7,7 @@ if (!checkPermission('pms-hr-approval')) {
 }
 $emp_session_id  = $_SESSION['HR_APPS']['emp_id_hr'];
 $v_view_approval = 0;
-
 ?>
-
-
 
 <!-- / Content -->
 

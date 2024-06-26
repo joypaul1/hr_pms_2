@@ -115,15 +115,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         ?>
                                     </td>
                                     <td><?php
-                                        $END_DATE = date_create($row['END_DATE']);
-                                        $START_DATE = date_create($row['START_DATE']);
-                                        $leave_days = date_diff($END_DATE, $START_DATE);
-                                        // $leave_days = ($row['END_DATE'] - $row['START_DATE'] + 1);
-                                        // if ($leave_days == 1)
-                                        //     $display = $leave_days . ' Day';
-                                        // else
-                                        //     $display = $leave_days . ' Days';
-                                        echo  $leave_days . ' Day';
+                                       $END_DATE   =  new DateTime($row['END_DATE']);
+                                       $START_DATE =  new DateTime($row['START_DATE']);
+                                       $interval = $START_DATE->diff($END_DATE);
+                                       if($interval->days == 0){
+                                           echo $interval->days + 1  . ' Day';
+                                       }else{
+                                           echo $interval->days + 1  . ' Days';
+                                       }
                                         echo '<br>';
                                         echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
                                         echo '<br>';
@@ -188,17 +187,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         ?>
                                     </td>
                                     <td><?php
-                                        $END_DATE = strtotime($row['END_DATE']);
-                                        $START_DATE = strtotime($row['START_DATE']);
-                                        $leave_days = ($END_DATE - $START_DATE) / (60 * 60 * 24);
-                                        echo $leave_days;
-
-
-                                        // if ($leave_days == 1)
-                                        //     $display = $leave_days . ' Day';
-                                        // else
-                                        //     $display = $leave_days . ' Days';
-                                        // echo  $display;
+                                        $END_DATE   =  new DateTime($row['END_DATE']);
+                                        $START_DATE =  new DateTime($row['START_DATE']);
+                                        $interval = $START_DATE->diff($END_DATE);
+                                        if($interval->days == 0){
+                                            echo $interval->days + 1  . ' Day';
+                                        }else{
+                                            echo $interval->days + 1  . ' Days';
+                                        }
                                         echo '<br>';
                                         echo 'Leave Type:  ' . $row['LEAVE_TYPE'];
                                         echo '<br>';
@@ -217,24 +213,18 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         } else {
                                             echo 'Pending';
                                         }
-
                                         ?></td>
                                 </tr>
                         <?php
                             }
                         }
                         ?>
-
-
-
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
     <!--/ Bordered Table -->
-
-
 
 </div>
 
