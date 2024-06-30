@@ -9,7 +9,6 @@ if (!checkPermission('user-list')) {
 
 ?>
 
-
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -193,8 +192,7 @@ if (!checkPermission('user-list')) {
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-
+                                            <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                             </div>
                                         </div>
                                     </td>
@@ -267,8 +265,7 @@ if (!checkPermission('user-list')) {
                                                 <i class="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $encrypted_rml_id; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-
+                                            <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                                             </div>
                                         </div>
                                     </td>

@@ -1160,14 +1160,13 @@ function isActive($url)
                             </li>
                         <?php } ?>
                         <?php if (checkPermission('branch-list')) { ?>
-
                             <li class="menu-item <?php echo isActive('admin_setting/view/branch.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/branch.php" class="menu-link">
                                     <div>Branch List</div>
                                 </a>
                             </li>
                         <?php } ?>
-
+                        
                         <?php if (checkPermission('holiday-list')) { ?>
                             <li class="menu-item <?php echo isActive('admin_setting/view/holiday.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/holiday.php" class="menu-link">

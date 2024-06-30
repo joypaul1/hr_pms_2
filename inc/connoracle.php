@@ -4,3 +4,8 @@
     if (!$objConnect)
         echo 'Failed to connect to Oracle';
 ?>
+<!-- 
+(DESCRIPTION =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
+      (ADDRESS = (PROTOCOL = IPC)(KEY = EXTPROC1521))
+    ) -->
