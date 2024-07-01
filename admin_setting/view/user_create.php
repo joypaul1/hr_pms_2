@@ -114,8 +114,7 @@ if (!checkPermission('user-create')) {
                                         <option selected value="">--</option>
                                         <?php
                                         $strSQL  = oci_parse($objConnect, "SELECT distinct(DEPT_NAME) DEPT_NAME from RML_HR_DEPARTMENT 
-																								where DEPT_NAME is not null and is_active=1 
-																								order by DEPT_NAME");
+										where DEPT_NAME is not null and is_active=1  order by DEPT_NAME");
                                         oci_execute($strSQL);
                                         while ($row = oci_fetch_assoc($strSQL)) {
                                         ?>
