@@ -63,7 +63,7 @@ $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
                                 <select required="" name="kra_id" class="form-control cust-control">
                                     <option selected value="">--</option>
                                     <?php
-                                    $strSQL = oci_parse($objConnect, "select ID,KRA_NAME from HR_PMS_KRA_LIST where is_active=1 AND CREATED_BY='$emp_session_id' ORDER BY ID");
+                                    $strSQL = oci_parse($objConnect, "SELECT ID,KRA_NAME from HR_PMS_KRA_LIST where is_active=1 AND CREATED_BY='$emp_session_id' ORDER BY ID");
                                     oci_execute($strSQL);
                                     while ($row1 = oci_fetch_assoc($strSQL)) {
                                         if ($kra_id == $row1['ID']) {

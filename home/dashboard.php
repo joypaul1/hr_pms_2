@@ -225,7 +225,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 								<?php
 								$allDataSQL = oci_parse(
 									$objConnect,
-									"select ATTN_DATE,IN_TIME,OUT_TIME,STATUS,DAY_NAME
+									"SELECT ATTN_DATE,IN_TIME,OUT_TIME,STATUS,DAY_NAME
                                                                      from RML_HR_ATTN_DAILY_PROC
                                                                      where trunc(ATTN_DATE) between to_date(sysdate-6,'dd/mm/RRRR') and to_date(sysdate,'dd/mm/RRRR')
 																	and RML_ID='$emp_session_id'

@@ -117,7 +117,7 @@ require_once('../../inc/connoracle.php');
                                     $attn_start_date = date("d/m/Y", strtotime($_REQUEST['start_date']));
                                     $attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
-                                    $strSQL  = oci_parse($objConnect, "select a.ID,a.RML_ID,b.EMP_NAME,a.START_DATE,a.END_DATE,a.DAY_NAME,a.ENTRY_DATE,a.ENTRY_BY,a.STATUS,b.DEPT_NAME
+                                    $strSQL  = oci_parse($objConnect, "SELECT a.ID,a.RML_ID,b.EMP_NAME,a.START_DATE,a.END_DATE,a.DAY_NAME,a.ENTRY_DATE,a.ENTRY_BY,a.STATUS,b.DEPT_NAME
 															   from RML_HR_EMP_ROSTER a,RML_HR_APPS_USER b
 															   where A.RML_ID=B.RML_ID
 															   and ('$rml_id' is null or A.RML_ID ='$rml_id')

@@ -105,7 +105,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             $rml_name = $row['EMP_NAME'];
                                             $rml_dept = $row['DEPT_NAME'];
                                             if ($company == 'RMWL') {
-                                                $strPunchSQL  = "select convert(varchar(30),
+                                                $strPunchSQL  = "SELECT convert(varchar(30),
                                                 MIN(dteTime), 108) IN_TIME,
                                                 convert(varchar(30),
                                                 MAX(dteTime), 108) OUT_TIME,

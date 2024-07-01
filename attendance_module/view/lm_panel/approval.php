@@ -142,7 +142,7 @@ if (isset($_POST['submit_denied'])) { //to run PHP script on submit
                         <?php
 
 
-                        $strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                        $strSQL = oci_parse($objConnect, "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER 
                                                                             where LINE_MANAGER_RML_ID ='$emp_session_id'
                                                                             and is_active=1 
                                                                             order by EMP_NAME");
@@ -197,7 +197,7 @@ if (isset($_POST['submit_denied'])) { //to run PHP script on submit
                         @$attn_end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                         if (isset($_POST['start_date'])) {
-                            $sql = "select  a.ID,
+                            $sql = "SELECT  a.ID,
 											  b.EMP_NAME,
 											  a.RML_ID,
 											  a.ENTRY_DATE,
@@ -273,7 +273,7 @@ if (isset($_POST['submit_denied'])) { //to run PHP script on submit
                         }
                         else {
 
-                            $allDataSQL = oci_parse($objConnect, "select a.ID,
+                            $allDataSQL = oci_parse($objConnect, "SELECT a.ID,
 								                                              b.EMP_NAME,
 																			  a.RML_ID,
 																			  a.ENTRY_DATE,

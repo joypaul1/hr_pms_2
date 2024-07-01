@@ -27,7 +27,7 @@ if (isset($_POST["submit"]) && !empty($_FILES["file"]["name"])) {
             $insert   = false; //
             if ($filename) {
                 // delet previous image
-                $sql   = "select * from tbl_users where emp_id='$emp_sesssion_id'";
+                $sql   = "SELECT * from tbl_users where emp_id='$emp_sesssion_id'";
                 $query = mysqli_query($conn_hr, $sql);
                 $data  = mysqli_fetch_assoc($query);
 

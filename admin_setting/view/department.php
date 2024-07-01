@@ -58,7 +58,7 @@ if (!checkPermission('department-list')) {
 
                             $department_name = $_REQUEST['department_name'];
 
-                            $strSQL  = oci_parse($objConnect, "select ID,DEPT_NAME,CREATED_BY,CREATED_DATE,IS_ACTIVE,RESPONSIBLE_HR,UPDATED_DATE from RML_HR_DEPARTMENT where DEPT_NAME like '%$department_name%'");
+                            $strSQL  = oci_parse($objConnect, "SELECT ID,DEPT_NAME,CREATED_BY,CREATED_DATE,IS_ACTIVE,RESPONSIBLE_HR,UPDATED_DATE from RML_HR_DEPARTMENT where DEPT_NAME like '%$department_name%'");
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -90,7 +90,7 @@ if (!checkPermission('department-list')) {
                             $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             $allDataSQL  = oci_parse(
                                 $objConnect,
-                                "select 
+                                "SELECT 
 						    ID,
 						    DEPT_NAME,
 							CREATED_BY,

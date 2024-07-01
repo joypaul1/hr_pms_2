@@ -129,7 +129,7 @@ if (isset($_POST['submit_denied'])) {
 						<?php
 
 
-						$strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+						$strSQL = oci_parse($objConnect, "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER 
 																		where LINE_MANAGER_RML_ID ='$emp_session_id'
 																		and is_active=1 
 																		order by EMP_NAME");
@@ -203,7 +203,7 @@ if (isset($_POST['submit_denied'])) {
 
 
 
-									$strSQL = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
+									$strSQL = oci_parse($objConnect, "SELECT a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,b.DESIGNATION
 														from RML_HR_EMP_TOUR a,RML_HR_APPS_USER b
 														where a.RML_ID=b.RML_ID
 														and b.LINE_MANAGER_RML_ID='$emp_session_id'
@@ -269,7 +269,7 @@ if (isset($_POST['submit_denied'])) {
 									}
 								}
 								else {
-									$allDataSQL = oci_parse($objConnect, "select a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
+									$allDataSQL = oci_parse($objConnect, "SELECT a.ID,b.EMP_NAME,a.RML_ID,a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 																	a.REMARKS,
 																	a.ENTRY_BY,
 																	b.DEPT_NAME,

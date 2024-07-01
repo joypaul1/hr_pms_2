@@ -28,7 +28,7 @@ oci_execute($strSQL);
 $HR_STATUS = '';
 $strSQLsss = oci_parse(
     $objConnect,
-    "select HR_STATUS from HR_PMS_EMP where ID=$v_emp_table_id "
+    "SELECT HR_STATUS from HR_PMS_EMP where ID=$v_emp_table_id "
 );
 
 oci_execute($strSQLsss);

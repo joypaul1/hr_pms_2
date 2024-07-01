@@ -4,7 +4,7 @@ if (!empty($_GET['company_name'])) {
 
     $company_name=$_GET['company_name'];
 
-    $strSQL  = oci_parse($objConnect, "select DISTINCT(DEPT_NAME) AS DEPT_NAME from RML_HR_APPS_USER
+    $strSQL  = oci_parse($objConnect, "SELECT DISTINCT(DEPT_NAME) AS DEPT_NAME from RML_HR_APPS_USER
 where R_CONCERN='$company_name'
 order by DEPT_NAME");
 	oci_execute($strSQL);

@@ -50,7 +50,7 @@ require_once('../../inc/connoracle.php');
                             <?php
                             $strSQL = oci_parse(
                                 $objConnect,
-                                "select distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
+                                "SELECT distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
 														where R_CONCERN is not null  and is_active=1 
 														order by R_CONCERN"
                             );

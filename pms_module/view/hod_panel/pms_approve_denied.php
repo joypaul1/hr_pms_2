@@ -12,7 +12,7 @@ $v_emp_table_id = $_REQUEST['tab_id'];
 
 $strSQL = oci_parse(
     $objConnect,
-    "select RML_ID,
+    "SELECT RML_ID,
 EMPLOYEE_NAME EMP_NAME,
 COMPANY_NAME R_CONCERN,
 DEPARTMENT DEPT_NAME,
@@ -28,7 +28,7 @@ oci_execute($strSQL);
 $LINE_MANAGER_2_STATUS = '';
 $strSQLsss             = oci_parse(
     $objConnect,
-    "select LINE_MANAGER_2_STATUS from HR_PMS_EMP where ID=$v_emp_table_id "
+    "SELECT LINE_MANAGER_2_STATUS from HR_PMS_EMP where ID=$v_emp_table_id "
 );
 
 oci_execute($strSQLsss);

@@ -22,7 +22,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             <option hidden value=""><-- Concern --></option>
 
                             <?php
-                            $strSQL = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                            $strSQL = oci_parse($objConnect, "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER 
 																		where LINE_MANAGER_RML_ID ='$emp_session_id'
 																		and is_active=1 
 																		order by EMP_NAME");
@@ -98,7 +98,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                             @$end_date = date("d/m/Y", strtotime($_REQUEST['end_date']));
 
                             if (isset($_POST['emp_concern'])) {
-                                $strSQL = oci_parse($objConnect, "select a.RML_ID,
+                                $strSQL = oci_parse($objConnect, "SELECT a.RML_ID,
 															 a.EMP_NAME,
 															 b.ATTN_DATE,
 															 b.LAT,b.LANG,

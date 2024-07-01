@@ -163,7 +163,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                         else {
                             $allDataSQL = oci_parse(
                                 $objConnect,
-                                "select b.EMP_NAME,a.RML_ID,
+                                "SELECT b.EMP_NAME,a.RML_ID,
 				        a.ENTRY_DATE,a.START_DATE,a.END_DATE,
 						a.REMARKS,a.ENTRY_BY,b.DEPT_NAME,b.BRANCH_NAME,
 						b.DESIGNATION,a.LINE_MANAGER_APPROVAL_STATUS

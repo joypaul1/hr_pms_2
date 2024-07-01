@@ -145,7 +145,7 @@ if (isset($_POST['submit_denied'])) {
                         <?php
 
 
-                        $strSQL  = oci_parse($objConnect, "select RML_ID,EMP_NAME from RML_HR_APPS_USER 
+                        $strSQL  = oci_parse($objConnect, "SELECT RML_ID,EMP_NAME from RML_HR_APPS_USER 
                                                                             where LINE_MANAGER_RML_ID ='$emp_session_id'
                                                                             and is_active=1 
                                                                             order by EMP_NAME");

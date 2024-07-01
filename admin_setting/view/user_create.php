@@ -93,7 +93,7 @@ if (!checkPermission('user-create')) {
                                         <select required="" name="company_concern" class="form-control">
                                             <option selected value="">--</option>
                                             <?php
-                                            $strSQL  = oci_parse($objConnect, "select distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
+                                            $strSQL  = oci_parse($objConnect, "SELECT distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
                                                                                                         where R_CONCERN is not null  and is_active=1 
                                                                                                         order by R_CONCERN");
                                             oci_execute($strSQL);
@@ -113,7 +113,7 @@ if (!checkPermission('user-create')) {
 
                                         <option selected value="">--</option>
                                         <?php
-                                        $strSQL  = oci_parse($objConnect, "select distinct(DEPT_NAME) DEPT_NAME from RML_HR_DEPARTMENT 
+                                        $strSQL  = oci_parse($objConnect, "SELECT distinct(DEPT_NAME) DEPT_NAME from RML_HR_DEPARTMENT 
 																								where DEPT_NAME is not null and is_active=1 
 																								order by DEPT_NAME");
                                         oci_execute($strSQL);
@@ -161,7 +161,7 @@ if (!checkPermission('user-create')) {
 
                                         <option selected value="">--</option>
                                         <?php
-                                        $strSQL  = oci_parse($objConnect, "select distinct(DESIGNATION_NAME) DESIGNATION_NAME from RML_HR_DESIGNATION 
+                                        $strSQL  = oci_parse($objConnect, "SELECT distinct(DESIGNATION_NAME) DESIGNATION_NAME from RML_HR_DESIGNATION 
 																								where DESIGNATION_NAME is not null and is_active=1 
 																								order by DESIGNATION_NAME");
                                         oci_execute($strSQL);

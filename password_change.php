@@ -65,7 +65,7 @@ $emp_sesssion_id = $_SESSION['HR_APPS']['emp_id_hr'];
 			$md5NewPassword = md5($new_password);
 			$md5OldPassword = md5($old_password);
 
-			$sqlPass = "select password from tbl_users where emp_id = '$emp_sesssion_id' and password='$md5OldPassword'";
+			$sqlPass = "SELECT password from tbl_users where emp_id = '$emp_sesssion_id' and password='$md5OldPassword'";
 			$rsPass = mysqli_query($conn_hr, $sqlPass);
 			$getNumRowsPass = mysqli_num_rows($rsPass);
 

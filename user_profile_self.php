@@ -20,7 +20,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 		<?php
 		$strSQL = oci_parse(
 			$objConnect,
-			"select RML_ID,
+			"SELECT RML_ID,
 							EMP_NAME,
 							MOBILE_NO,
 							DEPT_NAME,

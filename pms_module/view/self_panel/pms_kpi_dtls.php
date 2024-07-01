@@ -656,7 +656,7 @@ if (isset($_POST['kpi_name'])) {
 
                                 <?php
 
-                                $strSQL = oci_parse($objConnect, "select ID,PMS_NAME from HR_PMS_LIST where is_active=1");
+                                $strSQL = oci_parse($objConnect, "SELECT ID,PMS_NAME from HR_PMS_LIST where is_active=1");
                                 oci_execute($strSQL);
                                 while ($row = oci_fetch_assoc($strSQL)) {
                                     ?>

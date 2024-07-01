@@ -120,7 +120,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         <option selected value="">--</option>
                                         <?php
 
-                                        $strSQL = oci_parse($objConnect, "select LEAVE_TITLE,SHORT_NAME from RML_HR_EMP_LEAVE_NAME ORDER BY LEAVE_TITLE");
+                                        $strSQL = oci_parse($objConnect, "SELECT LEAVE_TITLE,SHORT_NAME from RML_HR_EMP_LEAVE_NAME ORDER BY LEAVE_TITLE");
                                         oci_execute($strSQL);
                                         while ($row = oci_fetch_assoc($strSQL)) {
                                         ?>
