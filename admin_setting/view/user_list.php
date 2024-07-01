@@ -18,7 +18,8 @@ if (!checkPermission('user-list')) {
             <div class="row justify-content-center">
                 <div class="col-sm-3">
                     <label for="title">RML-ID</label>
-                    <input type="text" class="form-control cust-control" id="title" placeholder="EMP-ID" name="emp_rml_id">
+                    <input type="text" class="form-control cust-control" id="title" placeholder="EMP-ID"
+                        name="emp_rml_id">
                 </div>
             </div>
 
@@ -34,7 +35,9 @@ if (!checkPermission('user-list')) {
                         oci_execute($strSQL);
                         while ($row = oci_fetch_assoc($strSQL)) {
                         ?>
-                            <option value="<?php echo $row['R_CONCERN']; ?>" <?php echo (isset($_POST['r_concern']) && $_POST['r_concern'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>><?php echo $row['R_CONCERN']; ?></option>
+                        <option value="<?php echo $row['R_CONCERN']; ?>"
+                            <?php echo (isset($_POST['r_concern']) && $_POST['r_concern'] == $row['R_CONCERN']) ? 'selected="selected"' : ''; ?>>
+                            <?php echo $row['R_CONCERN']; ?></option>
                         <?php
                         }
                         ?>
@@ -54,7 +57,9 @@ if (!checkPermission('user-list')) {
                         oci_execute($strSQL);
                         while ($row = oci_fetch_assoc($strSQL)) {
                         ?>
-                            <option value="<?php echo $row['DEPT_NAME']; ?>" <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DEPT_NAME']) ? 'selected="selected"' : ''; ?>><?php echo $row['DEPT_NAME']; ?></option>
+                        <option value="<?php echo $row['DEPT_NAME']; ?>"
+                            <?php echo (isset($_POST['emp_dept']) && $_POST['emp_dept'] == $row['DEPT_NAME']) ? 'selected="selected"' : ''; ?>>
+                            <?php echo $row['DEPT_NAME']; ?></option>
                         <?php
                         }
                         ?>
@@ -75,7 +80,9 @@ if (!checkPermission('user-list')) {
                         oci_execute($strSQL);
                         while ($row = oci_fetch_assoc($strSQL)) {
                         ?>
-                            <option value="<?php echo $row['EMP_GROUP']; ?>" <?php echo (isset($_POST['emp_group']) && $_POST['emp_group'] == $row['EMP_GROUP']) ? 'selected="selected"' : ''; ?>><?php echo $row['EMP_GROUP']; ?></option>
+                        <option value="<?php echo $row['EMP_GROUP']; ?>"
+                            <?php echo (isset($_POST['emp_group']) && $_POST['emp_group'] == $row['EMP_GROUP']) ? 'selected="selected"' : ''; ?>>
+                            <?php echo $row['EMP_GROUP']; ?></option>
                         <?php
                         }
                         ?>
@@ -160,13 +167,13 @@ if (!checkPermission('user-list')) {
                                 $password = "p";
                                 $encrypted_rml_id = openssl_encrypt($row['RML_ID'], "AES-128-ECB", $password);
                         ?>
-                                <tr>
-                                    <td>
-                                        <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php echo $row['RML_ID']; ?></td>
-                                    <td class="text-center">
-                                        <?php if ($row['APPS_USER_STATUS'] == 'yes') {
+                        <tr>
+                            <td>
+                                <strong><?php echo $number; ?></strong>
+                            </td>
+                            <td><?php echo $row['RML_ID']; ?></td>
+                            <td class="text-center">
+                                <?php if ($row['APPS_USER_STATUS'] == 'yes') {
                                             echo '<span  class="badge  rounded-pill bg-success">
                                             <span class="tf-icons bx bx-check"></span>
                                             </span>';
@@ -178,28 +185,31 @@ if (!checkPermission('user-list')) {
                                                 </a>';
                                         } ?>
 
-                                    </td>
-                                    <td><?php echo $row['EMP_NAME']; ?></td>
-                                    <td><?php echo $row['DESIGNATION']; ?></td>
-                                    <td><?php echo $row['DEPT_NAME']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['MOBILE_NO']; ?></td>
-                                    <td><?php echo $row['LINE_MANAGER_RML_ID']; ?></td>
-                                    <td><?php echo $row['DEPT_HEAD_RML_ID']; ?></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            </td>
+                            <td><?php echo $row['EMP_NAME']; ?></td>
+                            <td><?php echo $row['DESIGNATION']; ?></td>
+                            <td><?php echo $row['DEPT_NAME']; ?></td>
+                            <td><?php echo $row['BRANCH_NAME']; ?></td>
+                            <td><?php echo $row['MOBILE_NO']; ?></td>
+                            <td><?php echo $row['LINE_MANAGER_RML_ID']; ?></td>
+                            <td><?php echo $row['DEPT_HEAD_RML_ID']; ?></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                            href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i
+                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
 
 
-                            <?php
+                        <?php
                             }
                         } else {
 
@@ -233,13 +243,13 @@ if (!checkPermission('user-list')) {
                                 $password = "";
                                 $encrypted_rml_id = openssl_encrypt($row['RML_ID'], "AES-128-ECB", $password);
                             ?>
-                                <tr>
-                                    <td>
-                                        <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php echo $row['RML_ID']; ?></td>
-                                    <td class="text-center">
-                                        <?php if ($row['APPS_USER_STATUS'] == 'yes') {
+                        <tr>
+                            <td>
+                                <strong><?php echo $number; ?></strong>
+                            </td>
+                            <td><?php echo $row['RML_ID']; ?></td>
+                            <td class="text-center">
+                                <?php if ($row['APPS_USER_STATUS'] == 'yes') {
                                             echo '<span  class="badge  rounded-pill bg-success">
                                             <span class="tf-icons bx bx-check"></span>
                                           </span>';
@@ -251,25 +261,28 @@ if (!checkPermission('user-list')) {
                                             </a>';
                                         } ?>
 
-                                    </td>
-                                    <td><?php echo $row['EMP_NAME']; ?></td>
-                                    <td><?php echo $row['DESIGNATION']; ?></td>
-                                    <td><?php echo $row['DEPT_NAME']; ?></td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['MOBILE_NO']; ?></td>
-                                    <td><?php echo $row['LINE_MANAGER_RML_ID']; ?></td>
-                                    <td><?php echo $row['DEPT_HEAD_RML_ID']; ?></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                            </td>
+                            <td><?php echo $row['EMP_NAME']; ?></td>
+                            <td><?php echo $row['DESIGNATION']; ?></td>
+                            <td><?php echo $row['DEPT_NAME']; ?></td>
+                            <td><?php echo $row['BRANCH_NAME']; ?></td>
+                            <td><?php echo $row['MOBILE_NO']; ?></td>
+                            <td><?php echo $row['LINE_MANAGER_RML_ID']; ?></td>
+                            <td><?php echo $row['DEPT_HEAD_RML_ID']; ?></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                            href="user_profile.php?emp_id=<?php echo $row['RML_ID']; ?>"><i
+                                                class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                         <?php
                             }
                         }

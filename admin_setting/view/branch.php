@@ -14,11 +14,13 @@ if (!checkPermission('branch-list')) {
 
     <div class="card card-body col-lg-12">
         <form action="" method="post">
-        <div class="row justify-content-center">
+            <div class="row justify-content-center">
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Branch Name</label>
-                        <input required="" placeholder="Branch Name" name="department_name" class="form-control cust-control" type='text' value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>' >
+                        <input required="" placeholder="Branch Name" name="department_name"
+                            class="form-control cust-control" type='text'
+                            value='<?php echo isset($_POST['department_name']) ? $_POST['department_name'] : ''; ?>'>
                     </div>
                 </div>
 
@@ -77,37 +79,40 @@ if (!checkPermission('branch-list')) {
                             while ($row = oci_fetch_assoc($strSQL)) {
                                 $number++;
                         ?>
-                                <tr>
-                                    <td>
-                                         <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['LATITUDE']; ?></td>
-                                    <td><?php echo $row['LONGITUDE']; ?></td>
-                                    <td><?php echo $row['CONCERN_NAME']; ?></td>
-                                    <td><?php echo $row['CREATED_BY']; ?></td>
-                                    <td><?php
+                        <tr>
+                            <td>
+                                <strong><?php echo $number; ?></strong>
+                            </td>
+                            <td><?php echo $row['BRANCH_NAME']; ?></td>
+                            <td><?php echo $row['LATITUDE']; ?></td>
+                            <td><?php echo $row['LONGITUDE']; ?></td>
+                            <td><?php echo $row['CONCERN_NAME']; ?></td>
+                            <td><?php echo $row['CREATED_BY']; ?></td>
+                            <td><?php
                                         if ($row['IS_ACTIVE'] == 1)
                                             echo 'Active';
                                         else
                                             echo 'In-Active';
                                         ?>
-                                    </td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="user_edit.php?emp_id=<?php echo $row['RML_ID'] ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                            href="user_edit.php?emp_id=<?php echo $row['RML_ID'] ?>"><i
+                                                class="bx bx-edit-alt me-1"></i> Edit</a>
 
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
 
 
-                            <?php
+                        <?php
                             }
                         } else {
 
@@ -116,42 +121,44 @@ if (!checkPermission('branch-list')) {
                             $allDataSQL  = oci_parse(
                                 $objConnect,
                                 "SELECT ID,BRANCH_NAME,CONCERN_NAME,CREATED_BY,IS_ACTIVE,LATITUDE,LONGITUDE 
-						FROM RML_HR_BRANCH
-                        ORDER BY BRANCH_NAME"
-                            );
+                                FROM RML_HR_BRANCH
+                                ORDER BY BRANCH_NAME");
 
                             oci_execute($allDataSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($allDataSQL)) {
                                 $number++;
                             ?>
-                                <tr>
-                                    <td>
-                                         <strong><?php echo $number; ?></strong>
-                                    </td>
-                                    <td><?php echo $row['BRANCH_NAME']; ?></td>
-                                    <td><?php echo $row['LATITUDE']; ?></td>
-                                    <td><?php echo $row['LONGITUDE']; ?></td>
-                                    <td><?php echo $row['CONCERN_NAME']; ?></td>
-                                    <td><?php echo $row['CREATED_BY']; ?></td>
-                                    <td><?php
-                                        if ($row['IS_ACTIVE'] == 1)
-                                            echo 'Active';
-                                        else
-                                            echo 'In-Active';
-                                        ?></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="user_edit.php?emp_id=<?php echo $row['RML_ID'] ?>"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
+                        <tr>
+                            <td>
+                                <strong><?php echo $number; ?></strong>
+                            </td>
+                            <td><?php echo $row['BRANCH_NAME']; ?></td>
+                            <td><?php echo $row['LATITUDE']; ?></td>
+                            <td><?php echo $row['LONGITUDE']; ?></td>
+                            <td><?php echo $row['CONCERN_NAME']; ?></td>
+                            <td><?php echo $row['CREATED_BY']; ?></td>
+                            <td><?php
+                                if ($row['IS_ACTIVE'] == 1)
+                                    echo 'Active';
+                                else
+                                    echo 'In-Active';
+                                ?>
+                            </td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                        data-bs-toggle="dropdown">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item"
+                                        href="user_edit.php?emp_id=<?php echo $row['RML_ID'] ?>">
+                                        <i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
                         <?php
                             }
                         }
