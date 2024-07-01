@@ -40,8 +40,8 @@ $emp_id = htmlentities($_GET['emp_id']);
 							ATTN_RANGE_M,
 							USER_CREATE_DATE,
 							USER_ROLE,
-							LAT,
-							LANG,
+							LAT,LAT_2,LAT_3,LAT_4,LAT_5,LAT_6,
+							LANG,LANG_2,LANG_3,LANG_4,LANG_5,LANG_6,
 							TRACE_LOCATION,
 							IS_ACTIVE
 					 		FROM RML_HR_APPS_USER
@@ -58,9 +58,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 						<div class="container">
 
 							<div class="row">
-								<div class="col-lg-12">
-									<div class="row">
-
+							
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Emp ID:</label>
@@ -87,9 +85,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 												<input type="text" name="emp_dept" class="form-control cust-control" id="title" value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
 											</div>
 										</div>
-									</div>
 
-									<div class="row">
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Responsible-1 ID:</label>
@@ -116,9 +112,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 												<input type="text" class="form-control cust-control" id="title" name="form_res2_mobile" value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>" form="Form2">
 											</div>
 										</div>
-									</div>
 
-									<div class="row">
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">IEMI_NO:</label>
@@ -145,8 +139,6 @@ $emp_id = htmlentities($_GET['emp_id']);
 												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>" readonly>
 											</div>
 										</div>
-									</div>
-									<div class="row">
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">DOC:</label>
@@ -180,8 +172,6 @@ $emp_id = htmlentities($_GET['emp_id']);
 												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['DOJ']; ?>" readonly>
 											</div>
 										</div>
-									</div>
-									<div class="row">
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Blood:</label>
@@ -208,9 +198,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 												<input type="text" class="form-control cust-control" id="title" value="<?php echo $row['USER_CREATE_DATE']; ?>" readonly>
 											</div>
 										</div>
-									</div>
 
-									<div class="row">
 										<div class="col-sm-3">
 											<div class="form-group">
 												<label for="title">Employee Status:</label>
@@ -248,20 +236,6 @@ $emp_id = htmlentities($_GET['emp_id']);
 										</div>
 										<div class="col-sm-3">
 											<div class="form-group">
-												<label for="title">Lat:</label>
-												<input type="text" class="form-control cust-control" name="lat" id="title" value="<?php echo $row['LAT']; ?>" form="Form2">
-											</div>
-										</div>
-										<div class="col-sm-3">
-											<div class="form-group">
-												<label for="title">Lang:</label>
-												<input type="text" class="form-control cust-control" name="lang" id="title" value="<?php echo $row['LANG']; ?>" form="Form2">
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-sm-3">
-											<div class="form-group">
 												<label for="title">Location Traceable Status:</label>
 												<select required="" name="traceable_status" class="form-control cust-control" form="Form2">
 													<?php
@@ -285,18 +259,89 @@ $emp_id = htmlentities($_GET['emp_id']);
 
 											</div>
 										</div>
-									</div>
-									<?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="d-block text-center mt-1">
-													<button type="submit" name="submit" class="btn btn-sm btn-info" form="Form2">Submit Update</button>
-												</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat:</label>
+												<input type="text" class="form-control cust-control" name="lat" id="title" value="<?php echo $row['LAT']; ?>" form="Form2">
 											</div>
 										</div>
-									<?php } ?>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang:</label>
+												<input type="text" class="form-control cust-control" name="lang" id="title" value="<?php echo $row['LANG']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat-2:</label>
+												<input type="text" class="form-control cust-control" name="lat_2" id="title" value="<?php echo $row['LAT_2']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang-2:</label>
+												<input type="text" class="form-control cust-control" name="lang_2" id="title" value="<?php echo $row['LANG_2']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat-3:</label>
+												<input type="text" class="form-control cust-control" name="lat_3" id="title" value="<?php echo $row['LAT_3']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang-3:</label>
+												<input type="text" class="form-control cust-control" name="lang_3" id="title" value="<?php echo $row['LANG_3']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat-4:</label>
+												<input type="text" class="form-control cust-control" name="lat_4" id="title" value="<?php echo $row['LAT_4']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang-4:</label>
+												<input type="text" class="form-control cust-control" name="lang_4" id="title" value="<?php echo $row['LANG_4']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat-5:</label>
+												<input type="text" class="form-control cust-control" name="lat_5" id="title" value="<?php echo $row['LAT_5']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang-5:</label>
+												<input type="text" class="form-control cust-control" name="lang_5" id="title" value="<?php echo $row['LANG_5']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lat-6:</label>
+												<input type="text" class="form-control cust-control" name="lat_6" id="title" value="<?php echo $row['LAT_6']; ?>" form="Form2">
+											</div>
+										</div>
+										<div class="col-sm-3">
+											<div class="form-group">
+												<label for="title">Lang-6:</label>
+												<input type="text" class="form-control cust-control" name="lang_6" id="title" value="<?php echo $row['LANG_6']; ?>" form="Form2">
+											</div>
+										</div>
+										
+										<?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
+											<div class="row">
+												<div class="col-lg-12">
+													<div class="d-block text-center mt-2">
+														<button type="submit" name="submit" class="btn btn-sm btn-info" form="Form2">Submit Update</button>
+													</div>
+												</div>
+											</div>
+										<?php } ?>
 
-								</div>
 							</div>
 
 						</div>
@@ -331,6 +376,16 @@ $emp_id = htmlentities($_GET['emp_id']);
 		@$form_emp_status = $_REQUEST['emp_status'];
 		@$form_emp_lat = $_REQUEST['lat'];
 		@$form_emp_lang = $_REQUEST['lang'];
+		@$v_emp_primary_lat_2 = $_REQUEST['lat_2'];
+		@$v_emp_primary_lang_2 = $_REQUEST['lang_2'];
+		@$v_emp_primary_lat_3 = $_REQUEST['lat_3'];
+		@$v_emp_primary_lang_3 = $_REQUEST['lang_3']; 
+		@$v_emp_primary_lat_4 = $_REQUEST['lat_4'];
+		@$v_emp_primary_lang_4 = $_REQUEST['lang_4'];
+		@$v_emp_primary_lat_5 = $_REQUEST['lat_5'];
+		@$v_emp_primary_lang_5 = $_REQUEST['lang_5'];
+		@$v_emp_primary_lat_6 = $_REQUEST['lat_6'];
+		@$v_emp_primary_lang_6 = $_REQUEST['lang_6'];
 		@$traceable_status = $_REQUEST['traceable_status'];
 
 		if (isset($_POST['form_iemi_no'])) {
@@ -347,7 +402,17 @@ $emp_id = htmlentities($_GET['emp_id']);
 										IS_ACTIVE='$form_emp_status',
 										USER_ROLE='$emp_role',
 										LAT='$form_emp_lat',
+										LAT_2='$v_emp_primary_lat_2',
+										LAT_3='$v_emp_primary_lat_3',
+										LAT_4='$v_emp_primary_lat_4',
+										LAT_5='$v_emp_primary_lat_5',
+										LAT_6='$v_emp_primary_lat_6',
 										LANG='$form_emp_lang',
+										LANG_2='$v_emp_primary_lang_2',
+										LANG_3='$v_emp_primary_lang_3',
+										LANG_4='$v_emp_primary_lang_4',
+										LANG_5='$v_emp_primary_lang_5',
+										LANG_6='$v_emp_primary_lang_6',
 										TRACE_LOCATION='$traceable_status'
 								where RML_ID='$form_rml_id'");
 
