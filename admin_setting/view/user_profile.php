@@ -21,41 +21,43 @@ $emp_id = htmlentities($_GET['emp_id']);
 		$strSQL = oci_parse(
 			$objConnect,
 			"SELECT RML_ID,
-							EMP_NAME,
-							MOBILE_NO,
-							DEPT_NAME,
-							IEMI_NO,
-							LINE_MANAGER_RML_ID,
-							LINE_MANAGER_MOBILE,
-							DEPT_HEAD_RML_ID,
-							DEPT_HEAD_MOBILE_NO,
-							BRANCH_NAME,
-							DESIGNATION,
-							BLOOD,
-							MAIL,
-							DOJ,
-							DOC,
-							GENDER,
-							R_CONCERN,
-							ATTN_RANGE_M,
-							USER_CREATE_DATE,
-							USER_ROLE,
-							LAT,LAT_2,LAT_3,LAT_4,LAT_5,LAT_6,
-							LANG,LANG_2,LANG_3,LANG_4,LANG_5,LANG_6,
-							TRACE_LOCATION,
-							IS_ACTIVE
-					 		FROM RML_HR_APPS_USER
-						  where RML_ID='$emp_id'"
+            EMP_NAME,
+            MOBILE_NO,
+            DEPT_NAME,
+            IEMI_NO,
+            LINE_MANAGER_RML_ID,
+            LINE_MANAGER_MOBILE,
+            DEPT_HEAD_RML_ID,
+            DEPT_HEAD_MOBILE_NO,
+            BRANCH_NAME,
+            DESIGNATION,
+            BLOOD,
+            MAIL,
+            DOJ,
+            DOC,
+            GENDER,
+            R_CONCERN,
+            ATTN_RANGE_M,
+            USER_CREATE_DATE,
+            USER_ROLE,
+            LAT,LAT_2,LAT_3,LAT_4,LAT_5,LAT_6,
+            LANG,LANG_2,LANG_3,LANG_4,LANG_5,LANG_6,
+            TRACE_LOCATION,
+            IS_ACTIVE
+            FROM RML_HR_APPS_USER
+            where RML_ID='$emp_id'"
 		);
-
+       
 		oci_execute($strSQL);
 		while ($row = oci_fetch_assoc($strSQL)) {
+        //print_r($row);
+
 		?>
         <div class="  ">
-            <div class="md-form ">
+            <div class="">
                 <h5 class="card-header text-center text-danger">You will be responsible. if you update anything here?
                 </h5>
-                <div class="resume-item d-flex flex-column flex-md-row">
+                <div class=" d-flex flex-column flex-md-row">
                     <div class="container">
 
                         <div class="row">
@@ -154,11 +156,12 @@ $emp_id = htmlentities($_GET['emp_id']);
                                         value="<?php echo $row['DOJ']; ?>" readonly>
                                 </div>
                             </div>
+                            <?php print_r($row)?>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="title">DOC:</label>
-                                    <input type="text" class="form-control cust-control" id="title"
-                                        value="<?php echo $row['DOC']; ?>" readonly>
+                                    <input type="text" date class="form-control cust-control" id="title"
+                                        value="<?php echo $row['DOC']; ?>" name="emp_doc" form="Form2">
                                 </div>
                             </div>
 
@@ -410,6 +413,9 @@ $emp_id = htmlentities($_GET['emp_id']);
 		@$form_res2_mobile = $_REQUEST['form_res2_mobile'];
 
 		@$emp_role = $_REQUEST['emp_role'];
+        @$emp_doc = date("d/m/Y", strtotime($_REQUEST['emp_doc']));
+
+
 		@$form_emp_status = $_REQUEST['emp_status'];
         @$traceable_status = $_REQUEST['traceable_status'];
         
@@ -433,7 +439,8 @@ $emp_id = htmlentities($_GET['emp_id']);
 							            EMP_NAME='$emp_form_name',
                                         MOBILE_NO='$emp_mobile',
 										DEPT_NAME='$emp_dept',
-										IEMI_NO='$form_iemi_no',
+										DOC='$emp_doc',
+                                        IEMI_NO='$form_iemi_no',
 										LINE_MANAGER_RML_ID='$form_res1_id',
 										LINE_MANAGER_MOBILE='$form_res1_mobile',
 										DEPT_HEAD_RML_ID='$form_res2_id',
@@ -456,9 +463,14 @@ $emp_id = htmlentities($_GET['emp_id']);
 								        where RML_ID='$form_rml_id'");
 
 			if (oci_execute($strSQL)) {
+                $message = [
+                    'text' => ' User Updated Successfully.',
+                    'status' => 'true',
+                ];
+                $_SESSION['noti_message'] = $message;
 		?>
 
-        <div class="container-fluid">
+        <!-- <div class="container-fluid">
             <div class="md-form mt-5">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">
@@ -466,7 +478,7 @@ $emp_id = htmlentities($_GET['emp_id']);
                     </li>
                 </ol>
             </div>
-        </div>
+        </div> -->
         <?php
 			}
 		}

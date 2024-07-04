@@ -67,7 +67,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>
                 Self Attendance List</b></h5>
         <div class="card-body ">
-            <div class="resume-item d-flex flex-column flex-md-row">
+            <div class=" d-flex flex-column flex-md-row">
                 <table class="table table-bordered piechart-key" id="" style="width:100%">
                     <thead class="table-dark">
                         <tr class="text-center">

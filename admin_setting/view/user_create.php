@@ -104,8 +104,8 @@ if (!checkPermission('user-create')) {
                                         <option selected value="">--</option>
                                         <?php
                                             $strSQL  = oci_parse($objConnect, "SELECT distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
-                                                                                                        where R_CONCERN is not null  and is_active=1 
-                                                                                                        order by R_CONCERN");
+                                                                            where R_CONCERN is not null  and is_active=1 
+                                                                            order by R_CONCERN");
                                             oci_execute($strSQL);
                                             while ($row = oci_fetch_assoc($strSQL)) {
                                             ?>
@@ -322,8 +322,8 @@ if (!checkPermission('user-create')) {
                             <div class="row">
                                 <div class="col-lg-12  text-right">
                                     <div class="mt-5">
-                                        <button type="submit" name="submit" class="btn btn-sm btn-info">Create &
-                                            Save
+                                        <button type="submit" name="submit" class="btn btn-sm btn-info">Submit &
+                                            Create
                                         </button>
                                     </div>
                                 </div>
@@ -451,7 +451,7 @@ if (!checkPermission('user-create')) {
                             'status' => 'true',
                         ];
                         $_SESSION['noti_message'] = $message;
-                        header("location:" . $basePath . "/admin_setting/view/user_create.php");
+                        // header("location:" . $basePath . "/admin_setting/view/user_create.php");
                     }
                 }
                 ?>

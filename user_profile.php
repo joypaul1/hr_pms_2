@@ -122,7 +122,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 						<div class="  ">
 							<div class="md-form ">
 								<h5 class="card-header text-center text-danger">You will be responsible. if you update anything here? </h5>
-								<div class="resume-item d-flex flex-column flex-md-row">
+								<div class=" d-flex flex-column flex-md-row">
 									<div class="container">
 
 										<div class="row">

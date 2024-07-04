@@ -66,7 +66,7 @@ $attn_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end
     <div class="card mt-2">
         <h5 class="card-header"><i class="menu-icon tf-icons bx bx-list-ul" style="margin:0;font-size:30px"></i><b>Attendance List</b></h5>
         <div class="card-body ">
-            <div class="resume-item d-flex flex-column flex-md-row">
+            <div class=" d-flex flex-column flex-md-row">
                 <table class="table table-bordered piechart-key" id="" style="width:100%">
                     <thead class="table-dark">
                         <tr class="text-center">

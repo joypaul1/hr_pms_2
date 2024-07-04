@@ -71,7 +71,7 @@
 						   <div class="col-lg-12">
 								<div class="md-form">
 							
-								 <div class="resume-item d-flex flex-column flex-md-row">
+								 <div class=" d-flex flex-column flex-md-row">
 						   
 						   
 							<div class="container">

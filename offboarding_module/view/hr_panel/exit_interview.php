@@ -45,7 +45,7 @@ $v_view_approval = 0;
             ?>
             <form id="Form2" action="" method="post " class="card-body">
                 <div class="">
-                    <div class="resume-item d-flex flex-column flex-md-row">
+                    <div class=" d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
                             <thead class="table-dark text-center">
                                 <tr class="text-center">

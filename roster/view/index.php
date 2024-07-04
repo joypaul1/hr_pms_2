@@ -69,7 +69,7 @@ require_once('../../inc/connoracle.php');
         <h5 class="card-header"><b>Roster List</b></h5>
             <div class="col-lg-12 card-body">
                 <div class="">
-                    <div class="resume-item d-flex flex-column flex-md-row">
+                    <div class=" d-flex flex-column flex-md-row">
                         <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
                             <thead style="background-color: #18392B;">
                                 <tr class="text-center">

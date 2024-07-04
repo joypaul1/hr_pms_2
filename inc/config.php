@@ -125,5 +125,6 @@ function getUserWiseRoleName($roleSlug)
 	} else {
 		$rolePermission = false;
 	}
+	
 	return $rolePermission;
 }

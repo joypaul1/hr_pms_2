@@ -179,7 +179,7 @@ if (isset($_POST['submit_denied'])) {
 			<div class="col-lg-12">
 				<form id="Form2" action="" method="post">
 					<div class="md-form">
-						<div class="resume-item d-flex flex-column flex-md-row">
+						<div class=" d-flex flex-column flex-md-row">
 							<table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
 								<thead class="table-dark text-center">
 									<tr class="text-center">
