@@ -379,7 +379,6 @@ $emp_id = htmlentities($_GET['emp_id']);
                                 </div>
                             </div>
                             <?php } ?>
-
                         </div>
 
                     </div>
@@ -412,6 +411,8 @@ $emp_id = htmlentities($_GET['emp_id']);
 
 		@$emp_role = $_REQUEST['emp_role'];
 		@$form_emp_status = $_REQUEST['emp_status'];
+        @$traceable_status = $_REQUEST['traceable_status'];
+        
 		@$form_emp_lat = $_REQUEST['lat'];
 		@$form_emp_lang = $_REQUEST['lang'];
 		@$v_emp_primary_lat_2 = $_REQUEST['lat_2'];
@@ -424,7 +425,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 		@$v_emp_primary_lang_5 = $_REQUEST['lang_5'];
 		@$v_emp_primary_lat_6 = $_REQUEST['lat_6'];
 		@$v_emp_primary_lang_6 = $_REQUEST['lang_6'];
-		@$traceable_status = $_REQUEST['traceable_status'];
+		
 
 		if (isset($_POST['form_iemi_no'])) {
 
@@ -452,7 +453,7 @@ $emp_id = htmlentities($_GET['emp_id']);
 										LANG_5='$v_emp_primary_lang_5',
 										LANG_6='$v_emp_primary_lang_6',
 										TRACE_LOCATION='$traceable_status'
-								where RML_ID='$form_rml_id'");
+								        where RML_ID='$form_rml_id'");
 
 			if (oci_execute($strSQL)) {
 		?>
