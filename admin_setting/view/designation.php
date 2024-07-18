@@ -58,10 +58,8 @@ if (!checkPermission('designation-list')) {
 
                             $department_name = $_REQUEST['department_name'];
 
-                            $strSQL  = oci_parse($objConnect, "SELECT 
-                          ID, DESIGNATION_NAME, CREATED_BY, 
-                          CREATED_DATE, IS_ACTIVE
-                           FROM RML_HR_DESIGNATION where DESIGNATION_NAME like '%$department_name%'");
+                            $strSQL  = oci_parse($objConnect, "SELECT ID, DESIGNATION_NAME, CREATED_BY, 
+                            CREATED_DATE, IS_ACTIVE FROM RML_HR_DESIGNATION where DESIGNATION_NAME like '%$department_name%'");
                             oci_execute($strSQL);
                             $number = 0;
                             while ($row = oci_fetch_assoc($strSQL)) {
@@ -69,7 +67,7 @@ if (!checkPermission('designation-list')) {
                         ?>
                                 <tr>
                                     <td>
-                                         <strong><?php echo $number; ?></strong>
+                                        <strong><?php echo $number; ?></strong>
                                     </td>
                                     <td><?php echo $row['DESIGNATION_NAME']; ?></td>
                                     <td><?php echo $row['CREATED_BY']; ?></td>

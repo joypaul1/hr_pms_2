@@ -71,7 +71,23 @@ function isActive($url)
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/list.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            List Of Card
+                                            Ready for Printing
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printing_on_process.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printing_on_process.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Printing in Progress
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printed_card.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printed_card.php" class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            Rec. Printed Card
                                         </div>
                                     </a>
                                 </li>
@@ -79,7 +95,7 @@ function isActive($url)
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cardReport.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Card OF Report
+                                            Hand Over Card Rep.
                                         </div>
                                     </a>
                                 </li>
