@@ -7,9 +7,6 @@ if (!checkPermission('lm-leave-approval')) {
 }
 $v_view_approval = 0;
 
-
-
-
 if (isset($_POST['submit_approval_single'])) {
     if (!empty($_POST['check_list'])) {
         foreach ($_POST['check_list'] as $TT_ID_SELECTTED) {
@@ -48,11 +45,6 @@ if (isset($_POST['submit_approval_single'])) {
 }
 
 
-
-
-
-
-
 //To run PHP script on submit
 if (isset($_POST['submit_approval'])) {
     if (!empty($_POST['check_list'])) {
@@ -89,11 +81,6 @@ if (isset($_POST['submit_approval'])) {
 }
 
 
-
-
-
-
-
 // Denied option
 if (isset($_POST['submit_denied'])) {
     if (!empty($_POST['check_list'])) {
@@ -124,8 +111,6 @@ if (isset($_POST['submit_denied'])) {
         $_SESSION['noti_message'] = $message;
     }
 }
-
-
 ?>
 
 

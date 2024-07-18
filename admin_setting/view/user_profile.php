@@ -156,7 +156,6 @@ $emp_id = htmlentities($_GET['emp_id']);
                                         value="<?php echo $row['DOJ']; ?>" readonly>
                                 </div>
                             </div>
-                            <?php print_r($row)?>
                             <div class="col-sm-3">
                                 <div class="form-group">
                                     <label for="title">DOC:</label>

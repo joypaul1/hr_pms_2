@@ -48,7 +48,7 @@ if (!checkPermission('loyalty-card-all-module')) {
                             <th>SL</th>
                             <th scope="col">Customer Info </th>
                             <th scope="col">Card VALIDity</th>
-                            <th scope="col">REceiver Details</th>
+                            <th scope="col">Created Details</th>
                             <th scope="col">HandOver Action </th>
                         </tr>
                     </thead>
@@ -69,12 +69,10 @@ if (!checkPermission('loyalty-card-all-module')) {
                         HANDOVER_MOBILE_NUMBER,
                         VARIFICATION_PIN,
                         HANDOVER_STATUS,
-                        RECEIVED_PRINT_BY,
-                        RECEIVED_PRINT_DATE,
+                        CREATED_DATE,
+                        CREATED_BY,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE ROWNUM <= 25
-                        AND RECEIVED_PRINT_STATUS = 1 AND RECEIVED_PRINT_BY IS NOT NULL
-                         ORDER BY ID DESC";
+                        FROM CARD_INFO WHERE ROWNUM <= 10";
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
@@ -141,9 +139,9 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     Expire : <?= $days ?> Days
 
                                 </td>
-                                <td class="text-center">
-                                    BY : <?= $row['RECEIVED_PRINT_BY'] ?></br>
-                                    Date : <?= $row['RECEIVED_PRINT_DATE'] ?> 
+                                <td>
+                                    Date : <?= $row['CREATED_DATE'] ?> </br>
+                                    BY : <?= $row['CREATED_BY'] ?>
                                 </td>
                                 <td class="text-start">
                                     <?php

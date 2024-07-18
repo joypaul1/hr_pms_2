@@ -111,7 +111,10 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
                         CREATED_DATE,
                         CREATED_BY,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE TRUNC (CREATED_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
+                        FROM CARD_INFO WHERE TRUNC (CREATED_DATE)
+                        BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
+                        AND HANDOVER_STATUS = 1
+                        ";
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
@@ -173,7 +176,7 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
                         <?php
                         }
                         if ($number === 0) {
-                            echo '<tr><td colspan="5" class="text-center text-danger fw-bold">Data Not Found.</td></tr>';
+                            echo '<tr><td colspan="16" class="text-center text-danger fw-bold">Data Not Found.</td></tr>';
                         }
 
                         ?>
