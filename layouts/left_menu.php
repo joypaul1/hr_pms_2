@@ -71,7 +71,7 @@ function isActive($url)
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/list.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Ready for Printing
+                                            Ready To Print
                                         </div>
                                     </a>
                                 </li>
@@ -79,7 +79,7 @@ function isActive($url)
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printing_on_process.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Printing in Progress
+                                            Print Progress Status
                                         </div>
                                     </a>
                                 </li>

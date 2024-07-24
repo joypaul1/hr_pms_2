@@ -73,6 +73,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                         <tr class="text-center">
                             <th>SL</th>
                             <th scope="col">Customer Info </th>
+                            <th scope="col">Card Type </th>
                             <th scope="col">Card VALIDity</th>
                             <th scope="col">Created Details</th>
                             <th scope="col">HandOver Action </th>
@@ -147,8 +148,9 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                 REG. NO. :
                                 <?php
                                     echo $row['REG_NO'];
-                                    ?></br>
-                                Type :
+                                    ?>
+                            </td>
+                            <td> 
                                 <span class="btn btn-sm btn-info">
                                     <?= $row['CARD_TYPE_NAME'] ?>
                                 </span>
