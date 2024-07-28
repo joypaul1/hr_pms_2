@@ -120,14 +120,13 @@ $v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_
                         FROM CARD_INFO WHERE HANDOVER_STATUS = 1
                         AND  TRUNC (HANDOVER_DATE)
                         BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
-                        // ECHO $query;
+                        
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_POST['search_data']) && $_POST['search_data']) {
                             $searchData = trim(urldecode($_POST['search_data']));
                             $query .= " AND REF_NO ='$searchData'";
                             $query .= " OR CUSTOMER_MOBILE ='$searchData'";
                         }
-                        echo $query;
                         $cardSQL = oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);
