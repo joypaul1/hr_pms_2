@@ -152,7 +152,9 @@ if (!checkPermission('loyalty-card-all-module')) {
 $query = "SELECT
 COUNT(ID) AS TOTAL_CARD,
 COUNT(CASE WHEN CI.HANDOVER_STATUS = 1 THEN ID END) AS ACTIVE_CARD,
-COUNT(CASE WHEN CI.HANDOVER_STATUS = 0 THEN ID END) AS DEACTIVE_CARD
+COUNT(CASE WHEN CI.RECEIVED_PRINT_STATUS = 1 THEN ID END) AS RECEIVED_PRINT,
+COUNT(CASE WHEN CI.PRINT_PROCESS_STATUS IS NULL THEN ID END) AS READY_TO_PRINT,
+COUNT(CASE WHEN CI.PRINTING_WORK_DONE_STATUS = 1 THEN ID END) AS PRINTING_WORK_DONE
 FROM CARD_INFO CI";
 $cardSQL = oci_parse($objConnect, $query);
 oci_execute($cardSQL);
@@ -171,11 +173,11 @@ $rowData = oci_fetch_assoc($cardSQL)
 					<div class="card-body">
 						<div class="d-flex align-items-center mb-2 pb-1">
 							<div class="avatar me-2">
-								<span class="avatar-initial rounded bg-label-info"><i class='bx bxs-message-alt-check'></i></span>
+								<span class="avatar-initial rounded bg-label-info"><i class='bx bx-printer'></i></span>
 							</div>
-							<h4 class="ms-1 mb-0"><?= $rowData['ACTIVE_CARD'] ?></h4>
+							<h4 class="ms-1 mb-0"><?= $rowData['READY_TO_PRINT'] ?></h4>
 						</div>
-						<p class="mb-1 fw-bold">Active Card</p>
+						<p class="mb-1 fw-bold">READY TO PRINT</p>
 					</div>
 				</div>
 			</div>
@@ -184,11 +186,38 @@ $rowData = oci_fetch_assoc($cardSQL)
 					<div class="card-body">
 						<div class="d-flex align-items-center mb-2 pb-1">
 							<div class="avatar me-2">
+								<span class="avatar-initial rounded bg-label-success"><i class='bx bx-credit-card'></i></span>
+							</div>
+							<h4 class="ms-1 mb-0"><?= $rowData['PRINTING_WORK_DONE'] ?></h4>
+						</div>
+						<p class="mb-1 fw-bold">VENDOR PRINTED CARD</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="col-sm-6 col-lg-3 mb-4">
+				<div class="card card-border-shadow-primary h-100">
+					<div class="card-body">
+						<div class="d-flex align-items-center mb-2 pb-1">
+							<div class="avatar me-2">
 								<span class="avatar-initial rounded bg-label-danger"><i class='bx bxs-hand'></i></span>
 							</div>
-							<h4 class="ms-1 mb-0"><?= $rowData['DEACTIVE_CARD'] ?></h4>
+							<h4 class="ms-1 mb-0"><?= $rowData['RECEIVED_PRINT'] ?></h4>
 						</div>
-						<p class="mb-1 fw-bold">Deactive Card</p>
+						<p class="mb-1 fw-bold">RECIVED FROM VENDOR</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-lg-3 mb-4">
+				<div class="card card-border-shadow-primary h-100">
+					<div class="card-body">
+						<div class="d-flex align-items-center mb-2 pb-1">
+							<div class="avatar me-2">
+								<span class="avatar-initial rounded bg-label-info"><i class='bx bxs-message-alt-check'></i></span>
+							</div>
+							<h4 class="ms-1 mb-0"><?= $rowData['ACTIVE_CARD'] ?></h4>
+						</div>
+						<p class="mb-1 fw-bold">HANDOVER CARD</p>
 					</div>
 				</div>
 			</div>
@@ -201,7 +230,7 @@ $rowData = oci_fetch_assoc($cardSQL)
 							</div>
 							<h4 class="ms-1 mb-0"><?= $rowData['TOTAL_CARD'] ?></h4>
 						</div>
-						<p class="mb-1 fw-bold">Total Card Processing</p>
+						<p class="mb-1 fw-bold">TOTAL CARD PROCESS</p>
 					</div>
 				</div>
 			</div>
