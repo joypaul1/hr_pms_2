@@ -6,22 +6,46 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-
+$v_start_date = isset($_POST['start_date']) ? date('d/m/Y', strtotime($_POST['start_date'])) : date('01/m/Y');
+$v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_date'])) : date('t/m/Y');
 ?>
 
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form method="GET" class="row justify-content-center align-items-center">
+        <form method="POST" class="row justify-content-center align-items-center">
             <div class="col-4">
-                <input class="form-control" type="text" placeholder="Mobile Number / Reference Code Enter.." name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : NULL ?>">
+                <label for="ref_code">Mobile Number / Reference Code : </label>
+
+                <input class="form-control" id="ref_code" type="text" placeholder="Mobile Number / Reference Code Enter.." name="search_data" value="<?= isset($_POST['search_data']) ? $_POST['search_data'] : NULL ?>">
+            </div>
+            <div class="col-2">
+                <label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar">
+                        </i>
+                    </div>
+                    <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $v_start_date)->format('Y-m-d') ?>" class="form-control" type="date" name="start_date">
+                </div>
+
+            </div>
+            <div class="col-2">
+                <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar">
+                        </i>
+                    </div>
+                    <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $v_end_date)->format('Y-m-d') ?>" class="form-control" type="date" name="end_date">
+                </div>
             </div>
 
-            <div class="col-4 ">
+            <div class="col-2">
                 <div class="d-flex justify-content-between align-items-center gap-2">
-                    <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/list.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
+                    <button class="form-control btn btn-sm btn-primary" type="submit">Search Data</button>
+                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/printed_card.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
                 </div>
             </div>
         </form>
@@ -46,8 +70,8 @@ if (!checkPermission('loyalty-card-all-module')) {
                     <thead style="background-color: #18392B;">
                         <tr class="text-center">
                             <th>SL</th>
-                            <th scope="col">Customer Info </th>
-                            <th scope="col">Card VALIDity</th>
+                            <th scope="col">Customer & VALIDity Info </th>
+                            <th scope="col">Card TYpe</th>
                             <th scope="col">REceiver Details</th>
                             <th scope="col">HandOver Action </th>
                         </tr>
@@ -74,20 +98,21 @@ if (!checkPermission('loyalty-card-all-module')) {
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
                         FROM CARD_INFO WHERE ROWNUM <= 25
                         AND RECEIVED_PRINT_STATUS = 1 AND RECEIVED_PRINT_BY IS NOT NULL
-                         ORDER BY ID DESC";
+                        AND TRUNC (RECEIVED_PRINT_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
 
                         // Checking and adding the BRAND_ID condition if applicable
-                        if (isset($_GET['search_data']) && $_GET['search_data']) {
-                            $searchData = urldecode($_GET['search_data']);
-                            $query .= " AND CUSTOMER_MOBILE ='$searchData'";
-                            $query .= " OR REF_NO ='$searchData'";
+                        if (isset($_POST['search_data']) && $_POST['search_data']) {
+                            $searchData = urldecode($_POST['search_data']);
+                            $query .= " AND REF_NO  ='$searchData'";
+                            $query .= " OR CUSTOMER_MOBILE ='$searchData'";
                         }
+                        $query .= "  ORDER BY ID DESC";
+                        // echo $query ;
+                        $cardSQL = @oci_parse($objConnect, $query);
 
-                        $cardSQL = oci_parse($objConnect, $query);
-
-                        oci_execute($cardSQL);
+                        @oci_execute($cardSQL);
                         $number = 0;
-                        while ($row = oci_fetch_assoc($cardSQL)) {
+                        while ($row = @oci_fetch_assoc($cardSQL)) {
                             $number++;
                         ?>
                             <tr>
@@ -123,14 +148,9 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     <?php
                                     echo $row['REG_NO'];
 
-                                    ?></br>
-                                    Type :
-                                    <span class="btn btn-sm btn-info">
-                                        <?= $row['CARD_TYPE_NAME'] ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    (<?= $row['VALID_START_DATE'] ?>) - (<?= $row['VALID_END_DATE'] ?>)
+                                    ?>
+                                    </br>
+                                    VALIDity :  <?= $row['VALID_START_DATE'] ?> TO <?= $row['VALID_END_DATE'] ?>
                                     <br>
                                     <?php
                                     $startDate  = date_create(date('Y-m-d', strtotime($row['VALID_END_DATE'])));
@@ -139,11 +159,16 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     $days =  $diff->format("%a")
                                     ?>
                                     Expire : <?= $days ?> Days
+                                </td>
+                                <td class="text-center">
+                                    <span class="btn btn-sm btn-info">
+                                        <?= $row['CARD_TYPE_NAME'] ?>
+                                    </span>
 
                                 </td>
                                 <td class="text-center">
-                                    BY : <?= $row['RECEIVED_PRINT_BY'] ?></br>
-                                    Date : <?= $row['RECEIVED_PRINT_DATE'] ?> 
+                                    REC. BY : <?= $row['RECEIVED_PRINT_BY'] ?></br>
+                                    Date : <?= $row['RECEIVED_PRINT_DATE'] ?>
                                 </td>
                                 <td class="text-start">
                                     <?php

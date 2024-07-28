@@ -7,16 +7,21 @@ $basePath = $_SESSION['basePath'];
 if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
-$v_start_date = isset($_GET['start_date']) ? date('d/m/Y', strtotime($_GET['start_date'])) : date('01/m/Y');
-$v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_date'])) : date('t/m/Y');
+$v_start_date = isset($_POST['start_date']) ? date('d/m/Y', strtotime($_POST['start_date'])) : date('01/m/Y');
+$v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_date'])) : date('t/m/Y');
 ?>
 
 <!-- / Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card card-body ">
-        <form method="GET" class="row justify-content-center align-items-center">
-            <div class="col-3">
+        <form method="POST" class="row justify-content-center align-items-center">
+            <div class="col-4">
+                <label for="ref_code">Mobile Number / Reference Code : </label>
+
+                <input class="form-control" id="ref_code" type="text" placeholder="Mobile Number / Reference Code Enter.." name="search_data" value="<?= isset($_POST['search_data']) ? $_POST['search_data'] : NULL ?>">
+            </div>
+            <div class="col-2">
                 <label class="form-label" for="basic-default-fullname">Start Date <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -25,8 +30,9 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
                     </div>
                     <input required value="<?php echo DateTime::createFromFormat('d/m/Y', $v_start_date)->format('Y-m-d') ?>" class="form-control" type="date" name="start_date">
                 </div>
+
             </div>
-            <div class="col-3">
+            <div class="col-2">
                 <label class="form-label" for="basic-default-fullname">End Date <span class="text-danger">*</span></label>
                 <div class="input-group">
                     <div class="input-group-addon">
@@ -36,14 +42,14 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
                     <input required="" value="<?php echo DateTime::createFromFormat('d/m/Y', $v_end_date)->format('Y-m-d') ?>" class="form-control" type="date" name="end_date">
                 </div>
             </div>
-            <div class="col-4 ">
-                <label class="form-label" for="basic-default-fullname">&nbsp;</label>
 
+            <div class="col-2">
                 <div class="d-flex justify-content-between align-items-center gap-2">
-                    <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/cardReport.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
+                    <button class="form-control btn btn-sm btn-primary" type="submit">Search Data</button>
+                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/printed_card.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
                 </div>
             </div>
+            <span class="text-danger text-center">[Note: Search By Handover Date wise]</span>
         </form>
 
     </div>
@@ -111,18 +117,17 @@ $v_end_date   = isset($_GET['end_date']) ? date('d/m/Y', strtotime($_GET['end_da
                         CREATED_DATE,
                         CREATED_BY,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE TRUNC (CREATED_DATE)
-                        BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')
-                        AND HANDOVER_STATUS = 1
-                        ";
-
+                        FROM CARD_INFO WHERE HANDOVER_STATUS = 1
+                        AND  TRUNC (HANDOVER_DATE)
+                        BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
+                        // ECHO $query;
                         // Checking and adding the BRAND_ID condition if applicable
-                        if (isset($_GET['search_data']) && $_GET['search_data']) {
-                            $searchData = urldecode($_GET['search_data']);
-                            $query .= " WHERE CUSTOMER_MOBILE ='$searchData'";
-                            $query .= " OR REF_NO ='$searchData'";
+                        if (isset($_POST['search_data']) && $_POST['search_data']) {
+                            $searchData = trim(urldecode($_POST['search_data']));
+                            $query .= " AND REF_NO ='$searchData'";
+                            $query .= " OR CUSTOMER_MOBILE ='$searchData'";
                         }
-
+                        echo $query;
                         $cardSQL = oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);
