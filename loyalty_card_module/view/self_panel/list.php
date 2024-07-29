@@ -104,7 +104,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
-                            $searchData = urldecode($_GET['search_data']);
+                            $searchData = urldecode(trim($_GET['search_data']));
                             $query .= " AND CUSTOMER_MOBILE ='$searchData'";
                             $query .= " OR REF_NO ='$searchData'";
                         }

@@ -76,20 +76,44 @@ $cardRow = oci_fetch_assoc($cardSQL);
         ?>
 
         <div class="card-body">
-            <div class="card text-white" style="background-color: #1d1a82bf !important;">
+            <div class="card text-white" style="background-color: #9ec9bdbf   !important;">
                 <div class="card-body d-flex justify-content-between">
-                    <span class="">
-                        <h4 class="card-text text-white"><?= $cardRow['CUSTOMER_NAME'] ?></h4>
-                        <p class="card-text"><?= $cardRow['CUSTOMER_MOBILE'] ?></p>
-                        <p class="card-text">REF. NO. : <?= $cardRow['REF_NO'] ?></p>
-                        <p class="card-text">ENG. NO. : <?= $cardRow['ENG_NO'] ?></p>
-                        <p class="card-text">CHS. NO. : <?= $cardRow['CHS_NO'] ?></p>
-                        <p class="card-text">VALID START DATE : <?= $cardRow['VALID_START_DATE'] ?></p>
-                        <p class="card-text">VALID END DATE : <?= $cardRow['VALID_END_DATE'] ?></p>
-                    </span>
-                    <span id="printarea">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $basePath ?>/loyalty_card_module/view/self_panel/cardDetails.php?chas_no=<?= $cardRow['CHS_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
-                    </span>
+                    <table class="table table-bordered" id="printarea">
+                        <tr>
+                            <td> NAME </td>
+                            <td><?= $cardRow['CUSTOMER_NAME'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>MOBILE </td>
+                            <td><?= $cardRow['CUSTOMER_NAME'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>REF. CODE </td>
+                            <td><?= $cardRow['REF_NO'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>ENG. NO. </td>
+                            <td><?= $cardRow['ENG_NO'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>CHS. NO.</td>
+                            <td><?= $cardRow['CHS_NO'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>VALID FROM</td>
+                            <td><?= $cardRow['VALID_START_DATE'] ?></td>
+                        </tr>
+                        <tr>
+                            <td>VALID THRU</td>
+                            <td><?= $cardRow['VALID_END_DATE'] ?></td>
+                        </tr>
+                        <tr>
+
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?data=<?= $basePath ?>/loyalty_card_module/view/self_panel/cardDetails.php?chas_no=<?= $cardRow['CHS_NO']; ?>&amp;size=300x100" alt="" title="Card QRCOde" />
+
+                        </tr>
+                    </table>
+
                 </div>
             </div>
         </div>
