@@ -101,10 +101,10 @@ $v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_
                         AND TRUNC (RECEIVED_PRINT_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
 
                         // Checking and adding the BRAND_ID condition if applicable
-                        if (isset($_POST['search_data']) && $_POST['search_data']) {
-                            $searchData = urldecode($_POST['search_data']);
-                            $query .= " AND REF_NO  ='$searchData'";
-                            $query .= " OR CUSTOMER_MOBILE ='$searchData'";
+                        if (isset($_GET['search_data']) && $_GET['search_data']) {
+                            $searchData = urldecode(trim($_GET['search_data']));
+                            $query .= " AND LOWER(REF_NO) LIKE LOWER('%$searchData%')";
+                            $query .= " OR LOWER(CUSTOMER_MOBILE) LIKE LOWER('%$searchData%')";
                         }
                         $query .= "  ORDER BY ID DESC";
                         // echo $query ;
@@ -150,7 +150,7 @@ $v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_
 
                                     ?>
                                     </br>
-                                    VALIDity :  <?= $row['VALID_START_DATE'] ?> TO <?= $row['VALID_END_DATE'] ?>
+                                    VALIDity : <?= $row['VALID_START_DATE'] ?> TO <?= $row['VALID_END_DATE'] ?>
                                     <br>
                                     <?php
                                     $startDate  = date_create(date('Y-m-d', strtotime($row['VALID_END_DATE'])));

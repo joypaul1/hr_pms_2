@@ -90,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hand
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/list.php'</script>";
+        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/printing_on_process.php'</script>";
     } else {
         $e                        = @oci_error($strSQL);
         $message                  = [
@@ -98,6 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hand
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/hand_over_card.php?id={$cardID}'</script>";
+        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/printing_on_process.php?id={$cardID}'</script>";
     }
 }

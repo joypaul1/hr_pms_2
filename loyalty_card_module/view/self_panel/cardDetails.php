@@ -75,10 +75,10 @@ $cardRow = oci_fetch_assoc($cardSQL);
         include('../../../layouts/_tableHeader.php');
         ?>
 
-        <div class="card-body">
+        <div class="card-body" id="printarea">
             <div class="card text-white" style="background-color: #9ec9bdbf   !important;">
                 <div class="card-body d-flex justify-content-between">
-                    <table class="table table-bordered" id="printarea">
+                    <table class="table table-bordered" >
                         <tr>
                             <td> NAME </td>
                             <td><?= $cardRow['CUSTOMER_NAME'] ?></td>

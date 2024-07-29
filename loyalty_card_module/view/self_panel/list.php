@@ -8,23 +8,23 @@ if (!checkPermission('loyalty-card-all-module')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id'])) {
-        $cardID =  $_POST['process_to_print_id'];
-        $query = "UPDATE CARD_INFO
+    $cardID =  $_POST['process_to_print_id'];
+    $query = "UPDATE CARD_INFO
         SET
         PRINT_PROCESS_STATUS = 1,
         PRINT_PROCESS_BY = '$emp_session_id',
         PRINT_PROCESS_DATE=SYSDATE
         WHERE ID = '$cardID'";
-        $strSQL = oci_parse( $objConnect, $query);
+    $strSQL = oci_parse($objConnect, $query);
 
 
-        if (@oci_execute($strSQL)) {
-            $message = [
-                'text' => 'Successfully Go to Printing Process',
-                'status' => 'true',
-            ];
-            $_SESSION['noti_message'] = $message;
-        }
+    if (@oci_execute($strSQL)) {
+        $message = [
+            'text' => 'Successfully Go to Printing Process',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+    }
 }
 // $message = [
 //     'text' => "Sorry! You have not select any ID.",
@@ -39,15 +39,13 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
     <div class="card card-body ">
         <form method="GET" class="row justify-content-center align-items-center">
             <div class="col-4">
-                <input class="form-control" type="text" placeholder="Mobile Number / Reference Code Enter.."
-                    name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : NULL ?>">
+                <input class="form-control" type="text" placeholder="Mobile Number / Reference Code Enter.." name="search_data" value="<?= isset($_GET['search_data']) ? $_GET['search_data'] : NULL ?>">
             </div>
 
             <div class="col-4 ">
                 <div class="d-flex justify-content-between align-items-center gap-2">
                     <input class="form-control btn btn-sm btn-primary" type="submit" value="Search Data">
-                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/list.php' ?>"
-                        class="form-control btn btn-sm btn-warning">Reset Data</a>
+                    <a href="<?php echo $basePath . '/loyalty_card_module/view/self_panel/list.php' ?>" class="form-control btn btn-sm btn-warning">Reset Data</a>
                 </div>
             </div>
         </form>
@@ -76,7 +74,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                             <th scope="col">Card Type </th>
                             <th scope="col">Card VALIDity</th>
                             <th scope="col">Created Details</th>
-                            <th scope="col">HandOver Action </th>
+                            <th scope="col"> Action </th>
 
                         </tr>
                     </thead>
@@ -105,10 +103,10 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
                             $searchData = urldecode(trim($_GET['search_data']));
-                            $query .= " AND CUSTOMER_MOBILE ='$searchData'";
-                            $query .= " OR REF_NO ='$searchData'";
+                            $query .= " AND LOWER(REF_NO) LIKE LOWER('%$searchData%')";
+                            $query .= " OR LOWER(CUSTOMER_MOBILE) LIKE LOWER('%$searchData%')";
                         }
-
+                        $query .= "  ORDER BY ID DESC";
                         $cardSQL = oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);
@@ -116,70 +114,69 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                         while ($row = oci_fetch_assoc($cardSQL)) {
                             $number++;
                         ?>
-                        <tr>
-                            <td>
-                                <?php
+                            <tr>
+                                <td>
+                                    <?php
                                     echo $number;
                                     ?>
-                            </td>
-                            <td>
-                                NAME :
-                                <?php
+                                </td>
+                                <td>
+                                    NAME :
+                                    <?php
                                     echo $row['CUSTOMER_NAME'];
                                     ?> </br>
-                                MOBILE :
-                                <?php
+                                    MOBILE :
+                                    <?php
                                     echo $row['CUSTOMER_MOBILE'];
                                     ?>
-                                </br>
-                                REF. NO. :
-                                <?php
+                                    </br>
+                                    REF. NO. :
+                                    <?php
                                     echo $row['REF_NO'];
                                     ?>
-                                </br>
-                                ENG. NO. :
-                                <?php
+                                    </br>
+                                    ENG. NO. :
+                                    <?php
                                     echo $row['ENG_NO'];
                                     ?></br>
-                                CHS. NO. :
-                                <?php
+                                    CHS. NO. :
+                                    <?php
                                     echo $row['CHS_NO'];
                                     ?> </br>
-                                REG. NO. :
-                                <?php
+                                    REG. NO. :
+                                    <?php
                                     echo $row['REG_NO'];
                                     ?>
-                            </td>
-                            <td> 
-                                <span class="btn btn-sm btn-info">
-                                    <?= $row['CARD_TYPE_NAME'] ?>
-                                </span>
-                            </td>
-                            <td>
-                                (<?= $row['VALID_START_DATE'] ?>) - (<?= $row['VALID_END_DATE'] ?>)
-                                <br>
-                                <?php
+                                </td>
+                                <td>
+                                    <span class="btn btn-sm btn-info">
+                                        <?= $row['CARD_TYPE_NAME'] ?>
+                                    </span>
+                                </td>
+                                <td>
+                                    (<?= $row['VALID_START_DATE'] ?>) - (<?= $row['VALID_END_DATE'] ?>)
+                                    <br>
+                                    <?php
                                     $startDate  = date_create(date('Y-m-d', strtotime($row['VALID_END_DATE'])));
                                     $endDate    = date_create(date('Y-m-d', strtotime($row['VALID_START_DATE'])));
                                     $diff = date_diff($startDate, $endDate);
                                     $days =  $diff->format("%a")
                                     ?>
-                                Expire : <?= $days ?> Days
+                                    Expire : <?= $days ?> Days
 
-                            </td>
-                            <td>
-                                Date : <?= $row['CREATED_DATE'] ?> </br>
-                                BY : <?= $row['CREATED_BY'] ?>
-                            </td>
-                            <td class="text-start">
-                                <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
-                                    <input type="hidden" name="process_to_print_id" value="<?=  $row['ID'] ?>">
-                                    <button class="btn btn-sm btn-warning "
-                                    type="submit"> Print On Process  <i class="bx bx-chevrons-right"></i> </button>
-                                </form>
-                            </td>
+                                </td>
+                                <td>
+                                    Date : <?= $row['CREATED_DATE'] ?> </br>
+                                    BY : <?= $row['CREATED_BY'] ?>
+                                </td>
+                                <td class="text-start">
+                                    <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+                                        <input type="hidden" name="process_to_print_id" value="<?= $row['ID'] ?>">
+                                        <button class="btn btn-sm btn-warning " type="submit"> Print On Process <i class="bx bx-chevrons-right"></i> </button>
+                                    </form>
+                                </td>
 
-                        </tr>
+                            </tr>
                         <?php
                         }
                         if ($number === 0) {

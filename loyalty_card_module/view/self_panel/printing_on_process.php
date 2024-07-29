@@ -97,15 +97,13 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
                         FROM CARD_INFO WHERE ROWNUM <= 25 AND PRINT_PROCESS_STATUS = 1
                         AND RECEIVED_PRINT_STATUS IS NULL OR RECEIVED_PRINT_STATUS = 1
-                        AND HANDOVER_STATUS IS NULL
-                        ORDER BY ID DESC";
-                        // echo $query;
-                        // $stmt = oci_parse($objConnect, $query);
+                        AND HANDOVER_STATUS = 0";
+
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
                             $searchData = urldecode(trim($_GET['search_data']));
-                            $query .= " AND CUSTOMER_MOBILE ='$searchData'";
-                            $query .= " OR REF_NO ='$searchData'";
+                            $query .= " AND LOWER(REF_NO) LIKE LOWER('%$searchData%')";
+                            $query .= " OR LOWER(CUSTOMER_MOBILE) LIKE LOWER('%$searchData%')";
                         }
 
                         $cardSQL = oci_parse($objConnect, $query);
@@ -163,13 +161,12 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                     }
                                     ?>
                                 </td>
-                                darkgreen
                                 <td class="text-center">
                                     <?php if (!$row['PRINTING_WORK_DONE_STATUS']) { ?>
                                         <button class="btn btn-sm btn-info " disabled type="submit"> Received Form Vendor
                                             <i class="bx bx-chevrons-right"></i>
                                         </button>
-                                    <?php }  else if(!$row['RECEIVED_PRINT_STATUS']) { ?>
+                                    <?php } else if (!$row['RECEIVED_PRINT_STATUS']) { ?>
                                         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
                                             <input type="hidden" name="process_to_print_id" value="<?= $row['ID'] ?>">
                                             <button class="btn btn-sm btn-success" type="submit"> Received Form Vendor
@@ -177,10 +174,10 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                             </button>
                                         </form>
                                     <?php } ?>
-                                   
-                                    <?php if ($row['RECEIVED_PRINT_BY']) {
+
+                                    <?php if ($row['RECEIVED_PRINT_STATUS']) {
                                         echo "<span class='badge bg-label-info'>Rec. By: " . $row['RECEIVED_PRINT_BY'] . "</span>";
-                                        ECHO "</br>";
+                                        echo "</br>";
                                         echo '<a href="' . ($basePath . '/loyalty_card_module/view/self_panel/hand_over_card.php?id=' . $row['ID']) . '"
                                         class="btn btn-sm btn-warning text-white"> Hand Over TO Customer <i class="bx bx-chevrons-right"></i> </a>';
                                     }
