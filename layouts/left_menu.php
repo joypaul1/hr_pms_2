@@ -79,18 +79,18 @@ function isActive($url)
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printing_on_process.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
-                                            Print Progress Status
+                                            Vendor Print & Rec.
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printed_card.php'); ?>">
+                                <!-- <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printed_card.php'); ?>">
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printed_card.php" class="menu-link withoutIcon">
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
                                             Rec. Printed Card
                                         </div>
                                     </a>
-                                </li>
+                                </li> -->
                                 <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/cardReport.php'); ?>">
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cardReport.php" class="menu-link withoutIcon">
                                         <div>
