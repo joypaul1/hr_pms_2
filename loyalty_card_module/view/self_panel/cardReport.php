@@ -100,34 +100,35 @@ $v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_
                     <tbody>
                         <?php
                         $query = "SELECT ID,
-                        CUSTOMER_NAME,
-                        CUSTOMER_MOBILE,
-                        REF_NO,
-                        ENG_NO,
-                        REG_NO,
-                        CHS_NO,
-                        VALID_START_DATE,
-                        VALID_END_DATE,
-                        CARD_TYPE_ID,
-                        HANDOVER_DATE,
-                        HANDOVER_TO_NAME,
-                        HANDOVER_MOBILE_NUMBER,
-                        VARIFICATION_PIN,
-                        HANDOVER_STATUS,
-                        CREATED_DATE,
-                        CREATED_BY,
-                        (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE HANDOVER_STATUS = 1
-                        AND  TRUNC (HANDOVER_DATE)
-                        BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
+                                    CUSTOMER_NAME,
+                                    CUSTOMER_MOBILE,
+                                    REF_NO,
+                                    ENG_NO,
+                                    REG_NO,
+                                    CHS_NO,
+                                    VALID_START_DATE,
+                                    VALID_END_DATE,
+                                    CARD_TYPE_ID,
+                                    HANDOVER_DATE,
+                                    HANDOVER_TO_NAME,
+                                    HANDOVER_MOBILE_NUMBER,
+                                    VARIFICATION_PIN,
+                                    HANDOVER_STATUS,
+                                    CREATED_DATE,
+                                    CREATED_BY,
+                                    (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
+                                    FROM CARD_INFO WHERE HANDOVER_STATUS = 1
+                                    AND  TRUNC (HANDOVER_DATE)
+                                    BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
 
                         // Checking and adding the BRAND_ID condition if applicable
-                        if (isset($_GET['search_data']) && $_GET['search_data']) {
-                            $searchData = urldecode(trim($_GET['search_data']));
+                        if (isset($_POST['search_data']) && $_POST['search_data']) {
+                            $searchData = urldecode(trim($_POST['search_data']));
                             $query .= " AND LOWER(REF_NO) LIKE LOWER('%$searchData%')";
                             $query .= " OR LOWER(CUSTOMER_MOBILE) LIKE LOWER('%$searchData%')";
                         }
                         $query .= "  ORDER BY ID DESC";
+                        
                         $cardSQL = oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);

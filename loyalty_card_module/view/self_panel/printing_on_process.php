@@ -73,31 +73,40 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                             <th scope="col">Customer Info </th>
                             <th scope="col">Card TYpe </th>
                             <th scope="col">VENDOR Status</th>
-                            <th scope="col"> Action </th>
+                            <th scope="col"> RECeive Action </th>
+                            <th scope="col"> HAND OVER Action </th>
 
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $query = "SELECT ID,
-                        CUSTOMER_NAME,
-                        CUSTOMER_MOBILE,
-                        REF_NO,
-                        ENG_NO,
-                        REG_NO,
-                        CHS_NO,
-                        VALID_START_DATE,
-                        VALID_END_DATE,
-                        CARD_TYPE_ID,
-                        PRINTING_WORK_DONE_STATUS,
-                        PRINTING_WORK_DONE_DATE,
-                        RECEIVED_PRINT_BY,
-                        RECEIVED_PRINT_DATE,
-                        RECEIVED_PRINT_STATUS,
-                        (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE ROWNUM <= 25 AND PRINT_PROCESS_STATUS = 1
-                        AND RECEIVED_PRINT_STATUS IS NULL OR RECEIVED_PRINT_STATUS = 1
-                        AND HANDOVER_STATUS = 0";
+                        $query = "SELECT
+                                    ID,
+                                    CUSTOMER_NAME,
+                                    CUSTOMER_MOBILE,
+                                    REF_NO,
+                                    ENG_NO,
+                                    REG_NO,
+                                    CHS_NO,
+                                    VALID_START_DATE,
+                                    VALID_END_DATE,
+                                    CARD_TYPE_ID,
+                                    PRINTING_WORK_DONE_STATUS,
+                                    PRINTING_WORK_DONE_DATE,
+                                    RECEIVED_PRINT_BY,
+                                    RECEIVED_PRINT_DATE,
+                                    RECEIVED_PRINT_STATUS,
+                                    (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
+                                FROM
+                                    CARD_INFO
+                                WHERE
+                                    ROWNUM <= 25
+                                    AND PRINT_PROCESS_STATUS = 1
+                                    AND (
+                                        RECEIVED_PRINT_STATUS IS NULL
+                                        OR RECEIVED_PRINT_STATUS = 1
+                                    )
+                                    AND HANDOVER_STATUS = 0";
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {
@@ -105,12 +114,11 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                             $query .= " AND LOWER(REF_NO) LIKE LOWER('%$searchData%')";
                             $query .= " OR LOWER(CUSTOMER_MOBILE) LIKE LOWER('%$searchData%')";
                         }
-
-                        $cardSQL = oci_parse($objConnect, $query);
+                        $cardSQL = @oci_parse($objConnect, $query);
 
                         oci_execute($cardSQL);
                         $number = 0;
-                        while ($row = oci_fetch_assoc($cardSQL)) {
+                        while ($row = @oci_fetch_assoc($cardSQL)) {
                             $number++;
                         ?>
                             <tr>
@@ -174,13 +182,20 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                             </button>
                                         </form>
                                     <?php } ?>
-
                                     <?php if ($row['RECEIVED_PRINT_STATUS']) {
-                                        echo "<span class='badge bg-label-info'>Rec. By: " . $row['RECEIVED_PRINT_BY'] . "</span>";
-                                        echo "</br>";
-                                        echo '<a href="' . ($basePath . '/loyalty_card_module/view/self_panel/hand_over_card.php?id=' . $row['ID']) . '"
-                                        class="btn btn-sm btn-warning text-white"> Hand Over TO Customer <i class="bx bx-chevrons-right"></i> </a>';
+                                        echo "<span class='badge bg-label-info'>Rec. By : " . $row['RECEIVED_PRINT_BY'] . "</span>";
+                                        echo "<span class='badge bg-label-primary'>Rec. Date : " . $row['RECEIVED_PRINT_DATE'] . "</span>";
                                     }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php if ($row['RECEIVED_PRINT_STATUS']) {
+                                        echo '<a href="' . ($basePath . '/loyalty_card_module/view/self_panel/hand_over_card.php?id=' . $row['ID']) . '"
+                                        class="btn btn-sm btn-warning text-white"> Hand Over TO Customer <i class="bx bxs-hand-right"></i> </a>';
+                                    } else {
+                                        echo '<button type="button" class="btn btn-sm btn-warning text-white" disabled> Hand Over TO Customer <i class="bx bxs-hand-right"></i> </button>';
+                                    }
+
                                     ?>
                                 </td>
 
