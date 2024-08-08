@@ -20,7 +20,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
 
     if (@oci_execute($strSQL)) {
         $message = [
-            'text' => 'Successfully Go to Printing Process',
+            'text' => 'Successfully Received From Vendor',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
@@ -171,13 +171,13 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                 </td>
                                 <td class="text-center">
                                     <?php if (!$row['PRINTING_WORK_DONE_STATUS']) { ?>
-                                        <button class="btn btn-sm btn-info " disabled type="submit"> Received Form Vendor
+                                        <button class="btn btn-sm btn-info" disabled type="submit"> Received From Vendor?
                                             <i class="bx bx-chevrons-right"></i>
                                         </button>
                                     <?php } else if (!$row['RECEIVED_PRINT_STATUS']) { ?>
                                         <form action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
                                             <input type="hidden" name="process_to_print_id" value="<?= $row['ID'] ?>">
-                                            <button class="btn btn-sm btn-success" type="submit"> Received Form Vendor
+                                            <button class="btn btn-sm btn-success" type="submit"> Received From Vendor?
                                                 <i class="bx bx-chevrons-right"></i>
                                             </button>
                                         </form>
