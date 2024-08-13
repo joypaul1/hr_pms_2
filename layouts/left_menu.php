@@ -37,6 +37,20 @@ function isActive($url)
         </li>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
+                <span class="text-white"><b>Track User Location</b></span>
+            </li>
+            <section style="width: 98%;">
+                <!-- Resale- module-list -->
+                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel'); ?>">
+                    <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/index.php" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-registered"></i>
+                        <div>Track User Location</div>
+                    </a>
+                </li>
+            </section>
+        <?php } ?>
+        <?php if (checkPermission('loyalty-card-all-module')) { ?>
+            <li class="menu-header big text-uppercase" style="background-color: #18392B;">
                 <span class="text-white"><b>Loyalty Card System </b></span>
             </li>
             <section style="width: 98%;">
