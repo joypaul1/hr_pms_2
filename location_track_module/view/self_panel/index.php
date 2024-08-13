@@ -21,7 +21,7 @@ if (!checkPermission('loyalty-card-all-module')) {
         ?>
 
         <div class="card-body">
-            <form action="<?php echo ($basePath . '/loyalty_card_module/action/self_panel.php'); ?>" method="post"
+            <form action="<?php echo ($basePath . '/location_track_module/action/self_panel.php'); ?>" method="post"
                 target="_blank">
                 <input type='hidden' hidden name='actionType' value='createCard'>
                 <div class="row justify-content-center">
