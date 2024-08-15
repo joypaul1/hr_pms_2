@@ -1,44 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Location View</title>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9i10Vq3dbgL7t8abfMpgScb_zhj0MvRc"></script>
-    <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-        }
+    <!DOCTYPE html>
+    <html lang="en">
 
-        #map {
-            height: 100%;
-        }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Employee Location View</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9i10Vq3dbgL7t8abfMpgScb_zhj0MvRc"></script>
+        <style>
+            html,
+            body {
+                height: 100%;
+                margin: 0;
+            }
 
-        .message {
-            text-align: center;
-            font-size: 24px;
-            margin-top: 20px;
-        }
-    </style>
+            #map {
+                height: 100%;
+            }
 
-</head>
+            .message {
+                text-align: center;
+                font-size: 24px;
+                margin-top: 20px;
+            }
+        </style>
 
-<body>
+    </head>
+
+    <body>
     <?php
     session_start();
     require_once('../../../inc/connoracle.php');
     $basePath = $_SESSION['basePath'];
     $rmlID = trim($_GET['rml_id']);
     $date = date('d/m/Y', strtotime($_GET['date']));
+    $infoQuery = "SELECT RML_ID,EMP_NAME,MOBILE_NO,DESIGNATION,DEPT_NAME,BRANCH_NAME FROM RML_HR_APPS_USER WHERE LOWER(RML_ID) = LOWER('$rmlID')";
+        $strSQL2 = oci_parse($objConnect, $infoQuery);
+        @oci_execute($strSQL2);
+        $infoData = @oci_fetch_assoc($strSQL2);
+        // print_r($infoData);
 
     $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG, B.EMP_NAME
-              FROM RML_HR_APPS_USER_LOCATION A
-              JOIN RML_HR_APPS_USER B ON A.RML_ID = B.RML_ID
-              WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-              AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')";
+                FROM RML_HR_APPS_USER_LOCATION A
+                JOIN RML_HR_APPS_USER B ON A.RML_ID = B.RML_ID
+                WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
+                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')";
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
@@ -56,16 +64,55 @@
     } else {
         // Output the locations in JSON format for use in JavaScript
         $locations_json = json_encode($locations);
-        ?>
-        <div style="text-align:center">
+    ?>
+        <div class="p-1 mt-1 mb-5">
+            <div class="row">
+                <!-- <div class="col-md-4 col-lg-4"><img src="https://i.imgur.com/aCwpF7V.jpg"></div> -->
+                <div class="col-4">
+                    <div class="d-flex flex-column text-center">
+                        <div class="d-flex flex-row justify-content-center align-items-center
+                            p-1 text-white " style="background-color:rgb(243 114 0) !important">
+                            <h4><?php echo $infoData['EMP_NAME'] ?></h4>
+                        </div>
+                        <!-- <div class="p-3 bg-black text-white">
+                            <h6>Web designer &amp; Developer</h6>
+                        </div> -->
+                        <div class="d-flex flex-row text-white">
+                            <div class="p-4 bg-primary text-center skill-block">
+                                <h6><?php echo $infoData['RML_ID'] ?></h6>
+                            </div>
+                            <div class="p-3 bg-success text-center skill-block">
+                                <h6><?php echo $infoData['DESIGNATION'] ?></h6>
+                            </div>
+                            <div class="p-3 bg-warning text-center skill-block">
+                                <h6><?php echo $infoData['BRANCH_NAME'] ?></h6>
+                            </div>
+                            <div class="p-3 bg-danger text-center skill-block">
+                                <h6><?php echo $infoData['BRANCH_NAME'] ?></h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="card">
+                      <div class="card-body">
+                            <marquee>This text will scroll from right to left</marquee>
+                      </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- <div style="text-align:center">
             <h4><u>Location View For: <?php echo $rmlID ?></u>
                 <br />
                 <u>Date : <?php echo $date ?> </u>
 
             </h4>
-        </div>
+        </div> -->
 
-        <div id="map"></div>
+        <!-- <div style="height: 100%" id="map"></div> -->
 
         <script>
             // Get the PHP data as a JavaScript object
@@ -150,8 +197,8 @@
             });
         </script>
         <?php
-    }
-    ?>
+}
+?>
 </body>
 
 </html>
