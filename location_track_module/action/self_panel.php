@@ -11,8 +11,12 @@ ini_set('memory_limit', '2560M');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createCard') {
 
+    $start_date = $_POST['start_date'];
+    $RMLID = $_POST['RML_ID'];
+    // echo $RMLID;
+    // die();
     // echo "<script> window.open( '{$basePath}/location_track_module/view/self_panel/create.php', '_blank').focus();</script>";
-    echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php'</script>";
+    echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php?rml_id=$RMLID&date=$start_date'</script>";
 
     // Prepare the SQL statement
     // $strSQL = @oci_parse($objConnect, $query);
