@@ -11,5 +11,8 @@
             "name": "joypaul1",
             "email": "jyla5102555@gmail.com"
         }
-    ]
+    ],
+    "require": {
+        "google/apiclient": "^2.17"
+    }
 }

@@ -18,7 +18,12 @@
         }
 
         #map {
-            height: 100%;
+            height: 500px;
+            /* Adjust height as needed */
+            width: 100%;
+            /* Ensure it takes full width */
+            border: 1px solid #ddd;
+            /* Optional: Add border for better visibility */
         }
 
         .message {
@@ -52,40 +57,40 @@ $infoData = @oci_fetch_assoc($strSQL2);
             <div class="col-4">
                 <table class="table table-secondary table-bordered table-responsive">
 
-                    <tr class="text-center">
+                    <tr class="text-center fw-bold">
                         <td colspan="3"><?php echo $infoData['EMP_NAME']; ?> (<span
                                 class="text-success"><?php echo $infoData['RML_ID']; ?></span>)</td>
                     </tr>
                     <tr class="text-center">
-                        <td><?php echo $infoData['MOBILE_NO']; ?></td>
                         <td><?php echo $infoData['DEPT_NAME']; ?></td>
                         <td><?php echo $infoData['BRANCH_NAME']; ?></td>
+                        <td><?php echo $infoData['MOBILE_NO']; ?></td>
                     </tr>
                 </table>
             </div>
-            <div class="col-5">
-                <marquee style="font-size:16px">Welcome to Rangs Tracking!
+            <div class="col-6">
+                <marquee
+                    style="font-size:16px;border-left: 3px solid;border-right: 3px solid;padding: 1%;border-color: #aba6a654;">
+                    "Welcome to Rangs Tracking!
                     Our tool for effective team oversight and streamlined
-                    management.</marquee>
+                    management."</marquee>
             </div>
             <div class="col-2">
                 <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/b/b6/Rangs-Group-Logo.png"
                     alt="Card image cap" style="height: 30px;">
-                    <span>Date : <?php echo $date ?></span> |
-                    <span>Powered By : RML IT & ERP </span>
+                <span>Date : <?php echo $date ?></span> |
+                <span>Powered By : RML IT & ERP </span>
             </div>
 
 
     </main>
-    <table>
 
-    </table>
     <?php
 
-    $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG
+    $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
                 FROM RML_HR_APPS_USER_LOCATION A
                 WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')";
+                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') AND  ROWNUM <= 25 ORDER BY ID";
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
@@ -94,7 +99,8 @@ $infoData = @oci_fetch_assoc($strSQL2);
     while ($row = @oci_fetch_assoc($strSQL)) {
         $locations[] = [
             'lat' => (float) $row['LOC_LAT'],
-            'lng' => (float) $row['LOC_LANG']
+            'lng' => (float) $row['LOC_LANG'],
+            'time' => $row['ENTRY_TIME'], // Format the time as HH:MM:SS
         ];
     }
     if (empty($locations)) {
@@ -157,7 +163,8 @@ $infoData = @oci_fetch_assoc($strSQL2);
 
                     // Get the steps for animation
                     const steps = response.routes[0].overview_path;
-
+                    // Create an InfoWindow
+                    const infoWindow = new google.maps.InfoWindow();
                     // Create the marker
                     const marker = new google.maps.Marker({
                         map: map,
@@ -168,7 +175,6 @@ $infoData = @oci_fetch_assoc($strSQL2);
                         label: '👱',
                         zIndex: 1,
                     });
-
                     // Move the marker along the route
                     let i = 0;
                     const interval = setInterval(function () {
@@ -183,7 +189,7 @@ $infoData = @oci_fetch_assoc($strSQL2);
                             lng: steps[i].lng()
                         });
 
-                    }, 100);
+                    }, 500);
 
                 } else {
                     console.error('Directions request failed due to ' + status);
@@ -193,6 +199,85 @@ $infoData = @oci_fetch_assoc($strSQL2);
         <?php
     }
     ?>
+    <footer>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-6 text-center">
+                    <button id="toggle-button" class="btn btn-primary mt-1 mb-1" onclick="toggleList()">&#10505; Show
+                        Location List &#8628;</button>
+                    <div class="location-list" style="width:100%">
+                        <div class="card">
+                            <div class="card-header fw-bold text-center"> Location marking point wise Date, Time &
+                                Address &#x1F550;
+                            </div>
+                        </div>
+                        <table class="table table-success table-striped table-bordered text-center">
+                            <thead>
+                                <tr>
+                                    <th>Serial Number</th>
+                                    <th>Time</th>
+                                    <th>Address</th> <!-- New column for Address -->
+                                </tr>
+                            </thead>
+                            <tbody id="location-body">
+                                <?php
+                                foreach ($locations as $index => $location) {
+                                    $serialNumber = chr(65 + $index); // Converts index to A, B, C, ...
+                                    echo "<tr>
+                                        <td>{$serialNumber}</td>
+                                        <td>{$location['time']}</td>
+                                        <td class='address-cell'>Fetching...</td> <!-- Placeholder for the address -->
+                                    </tr>";
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script>
+        // Geocode function to fetch addresses
+        function fetchAddress(lat, lng, callback) {
+            const geocoder = new google.maps.Geocoder();
+            const latlng = { lat: lat, lng: lng };
+            geocoder.geocode({ location: latlng }, (results, status) => {
+                if (status === google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        callback(results[0].formatted_address);
+                    } else {
+                        callback("No address found");
+                    }
+                } else {
+                    callback("Geocoder failed: " + status);
+                }
+            });
+        }
+
+        // Fetch and update addresses for each location
+        locations.forEach((location, index) => {
+            fetchAddress(location.lat, location.lng, function (address) {
+                const tableRow = document.querySelector(`#location-body tr:nth-child(${index + 1}) .address-cell`);
+                if (tableRow) {
+                    tableRow.textContent = address;
+                }
+            });
+        });
+
+        function toggleList() {
+            const list = document.querySelector('.location-list');
+            const button = document.querySelector('#toggle-button');
+            if (list.style.display === 'none' || list.style.display === '') {
+                list.style.display = 'table';
+                button.innerHTML = '&#10505; Hide Location List'; // Change button text to 'Hide'
+            } else {
+                list.style.display = 'none';
+                button.innerHTML = '&#10505; Show Location List &#8628;'; // Change button text to 'Show' with downwards arrow
+            }
+        }
+    </script>
+
 </body>
 
 </html>

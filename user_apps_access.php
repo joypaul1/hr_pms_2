@@ -82,7 +82,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						<?php
 						if (isset($_POST['emp_rml_id'])) {
 							$v_emp_id = $_REQUEST['emp_rml_id'];
-							$strSQL  = oci_parse($objConnect, "SELECT ID,
+							$strSQL = oci_parse($objConnect, "SELECT ID,
 						   (Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
 						   APPS_NAME,
 						   USE_ID,
@@ -95,10 +95,10 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$number = 0;
 							while ($row = oci_fetch_assoc($strSQL)) {
 								$number++;
-						?>
+								?>
 								<tr>
 									<td>
-										 <strong><?php echo $number; ?>
+										<strong><?php echo $number; ?>
 										</strong>
 									</td>
 									<td><?php echo $row['EMP_NAME']; ?></td>
@@ -110,11 +110,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 									<td><?php echo $row['REMARKS']; ?></td>
 									<td>
 										<div class="dropdown">
-											<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+											<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+												data-bs-toggle="dropdown">
 												<i class="bx bx-dots-vertical-rounded"></i>
 											</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $encrypted_rml_id; ?>">
+												<a class="dropdown-item"
+													href="user_profile.php?emp_id=<?php echo $encrypted_rml_id; ?>">
 													<i class="bx bx-edit-alt me-1"></i>
 													Edit
 												</a>
@@ -125,13 +127,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 								</tr>
 
 
-							<?php
+								<?php
 							}
 						} else {
 
 
 							$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-							$allDataSQL  = oci_parse(
+							$allDataSQL = oci_parse(
 								$objConnect,
 								"SELECT ID,
 						   (Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
@@ -147,12 +149,12 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$number = 0;
 							while ($row = oci_fetch_assoc($allDataSQL)) {
 								$number++;
-							?>
+								?>
 
 
 								<tr>
 									<td>
-										 <strong><?php echo $number; ?>
+										<strong><?php echo $number; ?>
 										</strong>
 									</td>
 									<td><?php echo $row['EMP_NAME']; ?></td>
@@ -163,11 +165,13 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 									<td><?php echo $row['REMARKS']; ?></td>
 									<td>
 										<div class="dropdown">
-											<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+											<button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+												data-bs-toggle="dropdown">
 												<i class="bx bx-dots-vertical-rounded"></i>
 											</button>
 											<div class="dropdown-menu">
-												<a class="dropdown-item" href="user_profile.php?emp_id=<?php echo $encrypted_rml_id; ?>">
+												<a class="dropdown-item"
+													href="user_profile.php?emp_id=<?php echo $encrypted_rml_id; ?>">
 													<i class="bx bx-edit-alt me-1"></i>
 													Edit
 												</a>
@@ -176,7 +180,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										</div>
 									</td>
 								</tr>
-						<?php
+								<?php
 							}
 						}
 						?>

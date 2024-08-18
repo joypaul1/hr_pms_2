@@ -5,10 +5,6 @@ session_regenerate_id(TRUE);
 require_once('inc/config.php');
 require_once('layouts/header.php');
 
-$v_page = 'punch_data_syn';
-$v_active_open = 'active open';
-$v_active = 'active';
-
 
 require_once('layouts/left_menu.php');
 require_once('layouts/top_menu.php');
@@ -43,7 +39,8 @@ require_once('inc/connoracle.php');
 									<i class="fa fa-calendar">
 									</i>
 								</div>
-								<input required="" class="form-control" type='date' name='start_date' value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
+								<input required="" class="form-control" type='date' name='start_date'
+									value='<?php echo isset($_POST['start_date']) ? $_POST['start_date'] : ''; ?>'>
 							</div>
 						</div>
 
@@ -53,7 +50,8 @@ require_once('inc/connoracle.php');
 						</div>
 						<div class="col-sm-4">
 							<div class="md-form mt">
-								<input class="form-control btn btn-primary" type="submit" value="Data Syn Machine To Apps Server">
+								<input class="form-control btn btn-primary" type="submit"
+									value="Data Syn Machine To Apps Server">
 							</div>
 						</div>
 					</div>
@@ -89,7 +87,7 @@ require_once('inc/connoracle.php');
 
 
 									if ($company == 'SASH') {
-										$synSQL  = oci_parse(
+										$synSQL = oci_parse(
 											$objConnect,
 											"SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,RML_ID,EMP_NAME,DEPT_NAME
 											from RML_HR_APPS_USER
@@ -98,7 +96,7 @@ require_once('inc/connoracle.php');
 											AND R_CONCERN='$company'"
 										);
 									} else {
-										$synSQL  = oci_parse(
+										$synSQL = oci_parse(
 											$objConnect,
 											"SELECT  to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,RML_ID,EMP_NAME,DEPT_NAME
 											from RML_HR_APPS_USER
@@ -132,7 +130,7 @@ require_once('inc/connoracle.php');
 
 
 											if ($company == 'SASH') {
-												$strPunchSQL  = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+												$strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
 											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
 											convert(varchar, dteDate, 103) AS ATTN_DATE 
 											FROM (
@@ -143,7 +141,7 @@ require_once('inc/connoracle.php');
 											) bb
 											group by dteDate";
 											} else {
-												$strPunchSQL  = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
+												$strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
 											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
 											convert(varchar, dteDate, 103) AS ATTN_DATE 
 											FROM (
@@ -172,39 +170,40 @@ require_once('inc/connoracle.php');
 
 												if ($isFound == 1) {
 													$number++;
-													$processSQL  = oci_parse($objConnect, "BEGIN RML_HR_ATTN_DATA_SYN('$v_rml_id','$ATTN_DATE','$IN_TIME','$OUT_TIME');END;");
+													$processSQL = oci_parse($objConnect, "BEGIN RML_HR_ATTN_DATA_SYN('$v_rml_id','$ATTN_DATE','$IN_TIME','$OUT_TIME');END;");
 
 
 													ini_set('max_execution_time', 0);
 													set_time_limit(1800);
 													ini_set('memory_limit', '-1');
 													if (oci_execute($processSQL)) {
-								?>
+														?>
 														<tr>
 															<td><?php echo $number; ?></td>
 															<td><?php echo $v_rml_id; ?></td>
 															<td><?php echo $rml_name; ?></td>
 															<td><?php echo $rml_dept; ?></td>
 															<td><?php echo $ATTN_DATE; ?></td>
-															<td><?php echo  $IN_TIME; ?></td>
+															<td><?php echo $IN_TIME; ?></td>
 															<td><?php echo $OUT_TIME; ?></td>
-															<td><?php echo "BEGIN RML_HR_ATTN_DATA_SYN('$v_rml_id','$ATTN_DATE','$IN_TIME','$OUT_TIME');END;"; ?></td>
+															<td><?php echo "BEGIN RML_HR_ATTN_DATA_SYN('$v_rml_id','$ATTN_DATE','$IN_TIME','$OUT_TIME');END;"; ?>
+															</td>
 														</tr>
-													<?php
+														<?php
 													} else {
-													?>
+														?>
 														<tr>
 															<td><?php echo $number; ?></td>
 															<td><?php echo $v_rml_id; ?></td>
 															<td><?php echo $rml_name; ?></td>
 															<td><?php echo $rml_dept; ?></td>
 															<td><?php echo $ATTN_DATE; ?></td>
-															<td><?php echo  $IN_TIME; ?></td>
+															<td><?php echo $IN_TIME; ?></td>
 															<td><?php echo $OUT_TIME; ?></td>
 															<td><?php echo 'Fail'; ?></td>
 														</tr>
 
-								<?php
+														<?php
 													}
 												}
 											}
