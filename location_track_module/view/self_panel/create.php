@@ -97,10 +97,12 @@ $infoData = @oci_fetch_assoc($strSQL2);
 
     $locations = [];
     while ($row = @oci_fetch_assoc($strSQL)) {
+        $dateTime = DateTime::createFromFormat('H:i:s', $row['ENTRY_TIME']);
+        $time12Hour = $dateTime->format('h:i:s A'); // Convert to 12-hour format with AM/PM
         $locations[] = [
             'lat' => (float) $row['LOC_LAT'],
             'lng' => (float) $row['LOC_LANG'],
-            'time' => $row['ENTRY_TIME'], // Format the time as HH:MM:SS
+            'time' => $time12Hour // Use the 12-hour formatted time
         ];
     }
     if (empty($locations)) {

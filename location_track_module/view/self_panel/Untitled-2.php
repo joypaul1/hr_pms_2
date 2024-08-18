@@ -87,20 +87,25 @@ $infoData = @oci_fetch_assoc($strSQL2);
 
     <?php
 
-    $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS AM') AS ENTRY_TIME
-                FROM RML_HR_APPS_USER_LOCATION A
-                WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') AND  ROWNUM <= 25 ORDER BY ID";
+    // Your SQL query to get the time in 24-hour format
+    $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG, TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
+    FROM RML_HR_APPS_USER_LOCATION A
+    WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
+    AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') 
+    AND ROWNUM <= 25 
+    ORDER BY ID";
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
 
     $locations = [];
     while ($row = @oci_fetch_assoc($strSQL)) {
+        $dateTime = DateTime::createFromFormat('H:i:s', $row['ENTRY_TIME']);
+        $time12Hour = $dateTime->format('h:i:s A'); // Convert to 12-hour format with AM/PM
         $locations[] = [
             'lat' => (float) $row['LOC_LAT'],
             'lng' => (float) $row['LOC_LANG'],
-            'time' => $row['ENTRY_TIME'], // Format the time as HH:MM:SS
+            'time' => $time12Hour // Use the 12-hour formatted time
         ];
     }
     if (empty($locations)) {
