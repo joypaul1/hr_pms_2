@@ -90,7 +90,7 @@ $infoData = @oci_fetch_assoc($strSQL2);
     $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
                 FROM RML_HR_APPS_USER_LOCATION A
                 WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') AND  ROWNUM <= 25 ORDER BY ID";
+                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') AND  ROWNUM <= 25 ORDER BY ID ASC";
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
@@ -203,11 +203,11 @@ $infoData = @oci_fetch_assoc($strSQL2);
     ?>
     <footer>
         <div class="container">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center"> 
                 <div class="col-6 text-center">
                     <button id="toggle-button" class="btn btn-primary mt-1 mb-1" onclick="toggleList()">&#10505; Show
                         Location List &#8628;</button>
-                    <div class="location-list" style="width:100%">
+                    <div class="location-list" style="width:100%;display:none">
                         <div class="card">
                             <div class="card-header fw-bold text-center"> Location marking point wise Date, Time &
                                 Address &#x1F550;

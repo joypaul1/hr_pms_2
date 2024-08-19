@@ -37,7 +37,7 @@ function isActive($url)
         </li>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
-                <span class="text-white"><b>Track User Location</b></span>
+                <span class="text-white"><b>GEO Location</b></span>
             </li>
             <section style="width: 98%;">
                 <!-- Resale- module-list -->
