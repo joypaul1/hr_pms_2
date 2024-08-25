@@ -6,8 +6,8 @@
  			<script>
  				document.write(new Date().getFullYear());
  			</script>
- 			,In-house made with ❤️ by
- 			<a href="" target="_blank" class="footer-link fw-bolder">IT & ERP</a>
+ 			,In-house made by
+ 			<a href="" target="_blank" class="footer-link fw-bolder">IT & ERP TERAM.</a>
  		</div>
  		<div>
  			<a href="" target="_blank" class="footer-link me-4">User Manual</a>

@@ -41,10 +41,16 @@ function isActive($url)
             </li>
             <section style="width: 98%;">
                 <!-- Resale- module-list -->
-                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel'); ?>">
+                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/index.php'); ?>">
                     <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/index.php" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-registered"></i>
                         <div>Track User Location</div>
+                    </a>
+                </li>
+                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/currentLoc.php'); ?>">
+                    <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/currentLoc.php" class="menu-link">
+                        <i class="menu-icon tf-icons bx bx-registered"></i>
+                        <div>Get Current Location</div>
                     </a>
                 </li>
             </section>

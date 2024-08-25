@@ -16,19 +16,15 @@ if (!checkPermission('loyalty-card-all-module')) {
     <div class="card  col-lg-12 ">
 
         <?php
-        $leftSideName = 'User Location Tracking';
+        $leftSideName = 'User Current Location Tracking';
         include('../../../layouts/_tableHeader.php');
         ?>
 
         <div class="card-body">
             <form action="<?php echo ($basePath . '/location_track_module/action/self_panel.php'); ?>" method="post"
                 target="_blank">
-                <input type='hidden' hidden name='actionType' value='createCard'>
+                <input type='hidden' hidden name='actionType' value='getCurentLocation'>
                 <div class="row justify-content-center">
-                    <div class="col-3">
-                        <label for="start_date">Select Date :<span class="text-danger"> *</span></label>
-                        <input class="form-control" id="start_date" name="start_date" required type="date">
-                    </div>
                     <div class="col-8">
                         <label>Search User By RML ID : <span class="text-danger"> *</span></label>
                         <input required class="form-control cust-control" id="autocomplete" type="text"
@@ -69,26 +65,30 @@ if (!checkPermission('loyalty-card-all-module')) {
                     beforeSend: function () {
                         $("#userInfo").empty();
                         showPleaseWaitMessage();
+
                     },
                     success: function (data) {
                         hidePleaseWaitMessage();
+                        // Process the response data here
                         response($.map(data, function (item) {
                             return {
                                 label: item.label,
                                 value: item.value,
                                 searchData: item.searchData,
+                                // empData: item
                             };
                         }));
                     },
-                    error: function () {
+                    error: function (data) {
                         hidePleaseWaitMessage();
-                        $('#message').text('Error occurred while searching. Please try again.');
                     }
                 });
             },
             select: function (event, ui) {
-                $('#autocomplete').val(ui.item.label);
-                $('#RML_ID').val(ui.item.value);
+                // Set selection
+                $('#autocomplete').val(ui.item.label); // display the selected text
+                $('#RML_ID').val(ui.item.value); // display the selected text
+                // userInfo(ui.item.empData.data);
                 buttonValidation();
                 return false;
             },
@@ -97,8 +97,6 @@ if (!checkPermission('loyalty-card-all-module')) {
             },
         });
 
-        // Initial button state
-        $("button[type='submit']").prop('disabled', true);
 
         // Function to display the "Please wait" message
         function showPleaseWaitMessage() {
@@ -110,18 +108,22 @@ if (!checkPermission('loyalty-card-all-module')) {
             $('#message').empty();
         }
 
-        // Validate button on input changes
-        $('#start_date, #autocomplete').on('change input', function () {
-            buttonValidation();
+        $(document).on('change', '#autocomplete', function () {
+            // buttonValidation();
+        });
+
+        $(document).on('input', '#star_date', function () {
+            // buttonValidation();
         });
 
         function buttonValidation() {
-            if ($('#RML_ID').val() && $('#start_date').val()) {
+            console.log($("#start_date").val());
+            if ($("input[name='RML_ID']").val() && $("#start_date").val()) {
                 $("button[type='submit']").prop('disabled', false);
             } else {
                 $("button[type='submit']").prop('disabled', true);
             }
         }
-    });
 
+    });
 </script>

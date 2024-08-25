@@ -10,32 +10,13 @@ ini_set('memory_limit', '2560M');
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'createCard') {
-
     $start_date = $_POST['start_date'];
     $RMLID = $_POST['RML_ID'];
-    // echo $RMLID;
-    // die();
-    // echo "<script> window.open( '{$basePath}/location_track_module/view/self_panel/create.php', '_blank').focus();</script>";
     echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php?rml_id=$RMLID&date=$start_date'</script>";
-
-    // Prepare the SQL statement
-    // $strSQL = @oci_parse($objConnect, $query);
-    // // Execute the query
-    // if (@oci_execute($strSQL)) {
-    //     $message                  = [
-    //         'text'   => 'Data Saved successfully.',
-    //         'status' => 'true',
-    //     ];
-    //     $_SESSION['noti_message'] = $message;
-    //     echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/cardDetails.php?chas_no={$CHS_NO}'</script>";
-    // } else {
-    //     $e                        = @oci_error($strSQL);
-    //     $message                  = [
-    //         'text'   => htmlentities($e['message'], ENT_QUOTES),
-    //         'status' => 'false',
-    //     ];
-    //     $_SESSION['noti_message'] = $message;
-    //     echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/create.php'</script>";
-    // }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'getCurentLocation') {
+    $start_date = $_POST['start_date'];
+    echo $RMLID = $_POST['RML_ID'];
+    // echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php?rml_id=$RMLID&date=$start_date'</script>";
 }
 
