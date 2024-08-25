@@ -90,7 +90,10 @@ $infoData = @oci_fetch_assoc($strSQL2);
     $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
                 FROM RML_HR_APPS_USER_LOCATION A
                 WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') AND  ROWNUM <= 25 ORDER BY ID ASC";
+                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') 
+                AND A.LOC_LAT != 0
+                AND A.LOC_LANG != 0
+                AND  ROWNUM <= 25 ORDER BY A.ENTRY_TIME ASC";
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
@@ -203,7 +206,7 @@ $infoData = @oci_fetch_assoc($strSQL2);
     ?>
     <footer>
         <div class="container">
-            <div class="row justify-content-center"> 
+            <div class="row justify-content-center">
                 <div class="col-6 text-center">
                     <button id="toggle-button" class="btn btn-primary mt-1 mb-1" onclick="toggleList()">&#10505; Show
                         Location List &#8628;</button>
@@ -223,7 +226,29 @@ $infoData = @oci_fetch_assoc($strSQL2);
                             </thead>
                             <tbody id="location-body">
                                 <?php
-                                foreach ($locations as $index => $location) {
+                                $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
+                                FROM RML_HR_APPS_USER_LOCATION A
+                                WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
+                                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')
+                                --AND A.LOC_LAT != 0
+                                --AND A.LOC_LANG != 0
+                                AND  ROWNUM <= 25 ORDER BY A.ENTRY_TIME ASC";
+
+                                $strSQL = oci_parse($objConnect, $query);
+                                @oci_execute($strSQL);
+
+                                $locations2 = [];
+                                while ($row = @oci_fetch_assoc($strSQL)) {
+                                    $dateTime = DateTime::createFromFormat('H:i:s', $row['ENTRY_TIME']);
+                                    $time12Hour = $dateTime->format('h:i:s A'); // Convert to 12-hour format with AM/PM
+                                    $locations2[] = [
+                                        'lat' => (float) $row['LOC_LAT'],
+                                        'lng' => (float) $row['LOC_LANG'],
+                                        'time' => $time12Hour // Use the 12-hour formatted time
+                                    ];
+                                }
+                                $locations_json2 = json_encode($locations2);
+                                foreach ($locations2 as $index => $location) {
                                     $serialNumber = chr(65 + $index); // Converts index to A, B, C, ...
                                     echo "<tr>
                                         <td>{$serialNumber}</td>
@@ -240,6 +265,7 @@ $infoData = @oci_fetch_assoc($strSQL2);
         </div>
     </footer>
     <script>
+        const locations2 = <?php echo $locations_json2; ?>;
         // Geocode function to fetch addresses
         function fetchAddress(lat, lng, callback) {
             const geocoder = new google.maps.Geocoder();
@@ -258,7 +284,7 @@ $infoData = @oci_fetch_assoc($strSQL2);
         }
 
         // Fetch and update addresses for each location
-        locations.forEach((location, index) => {
+        locations2.forEach((location, index) => {
             fetchAddress(location.lat, location.lng, function (address) {
                 const tableRow = document.querySelector(`#location-body tr:nth-child(${index + 1}) .address-cell`);
                 if (tableRow) {

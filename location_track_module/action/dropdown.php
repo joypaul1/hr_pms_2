@@ -10,11 +10,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'search
     $query = "SELECT RML_ID, EMP_NAME, MOBILE_NO
         FROM RML_HR_APPS_USER
         WHERE LOWER(RML_ID) LIKE LOWER('%" . trim($_GET['search']) . "%')
+        OR LOWER(EMP_NAME) LIKE LOWER('%" . trim($_GET['search']) . "%')
         AND ROWNUM <= 10
+        AND IS_ACTIVE = 1
         ORDER BY RML_ID";
-
-
-    // echo $query;
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
     while ($row = @oci_fetch_assoc($strSQL)) {
