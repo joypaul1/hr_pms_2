@@ -35,7 +35,7 @@ function isActive($url)
                 <div data-i18n="Analytics">Home</div>
             </a>
         </li>
-        <?php if (checkPermission('loyalty-card-all-module')) { ?>
+        <?php if (checkPermission('geo-location')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
                 <span class="text-white"><b>GEO Location</b></span>
             </li>
@@ -47,12 +47,12 @@ function isActive($url)
                         <div>Track User Location</div>
                     </a>
                 </li>
-                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/currentLoc.php'); ?>">
+                <!-- <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/currentLoc.php'); ?>">
                     <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/currentLoc.php" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-registered"></i>
                         <div>Get Current Location</div>
                     </a>
-                </li>
+                </li> -->
             </section>
         <?php } ?>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>

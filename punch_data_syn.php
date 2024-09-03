@@ -131,26 +131,26 @@ require_once('inc/connoracle.php');
 
 											if ($company == 'SASH') {
 												$strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-											convert(varchar, dteDate, 103) AS ATTN_DATE 
-											FROM (
-											SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-											FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
-											where  USERID=(SELECT USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-											) bb
+												convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+												convert(varchar, dteDate, 103) AS ATTN_DATE 
+												FROM (
+												SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+												FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
+												where  USERID=(SELECT USERID from [Attendence Amishee].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+												and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
+												) bb
 											group by dteDate";
 											} else {
 												$strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-											convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-											convert(varchar, dteDate, 103) AS ATTN_DATE 
-											FROM (
-											SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
-											FROM [attdb].[dbo].[CHECKINOUT] a
-											where  USERID=(SELECT USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
-											and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
-											) bb
-											group by dteDate";
+												convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+												convert(varchar, dteDate, 103) AS ATTN_DATE 
+												FROM (
+												SELECT CHECKTIME dteTime,convert(varchar, '$attn_start_date', 103)dteDate
+												FROM [attdb].[dbo].[CHECKINOUT] a
+												where  USERID=(SELECT USERID from [attdb].[dbo].[USERINFO] where BADGENUMBER='$ATTNMACHINE_ID')
+												and convert(varchar, CHECKTIME, 103)=convert(varchar, '$attn_start_date' , 103)
+												) bb
+												group by dteDate";
 											}
 
 

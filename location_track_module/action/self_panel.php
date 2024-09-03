@@ -15,8 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'crea
     echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php?rml_id=$RMLID&date=$start_date'</script>";
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'getCurentLocation') {
-    $start_date = $_POST['start_date'];
-    echo $RMLID = $_POST['RML_ID'];
+    // $start_date = $_POST['start_date'];
+     $RMLID = $_POST['RML_ID'];
+     echo $RMLID;
     // echo "<script> window.location.href = '{$basePath}/location_track_module/view/self_panel/create.php?rml_id=$RMLID&date=$start_date'</script>";
 }
 

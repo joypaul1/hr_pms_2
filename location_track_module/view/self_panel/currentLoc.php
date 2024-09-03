@@ -117,8 +117,7 @@ if (!checkPermission('loyalty-card-all-module')) {
         });
 
         function buttonValidation() {
-            console.log($("#start_date").val());
-            if ($("input[name='RML_ID']").val() && $("#start_date").val()) {
+            if ($("input[name='RML_ID']").val()) {
                 $("button[type='submit']").prop('disabled', false);
             } else {
                 $("button[type='submit']").prop('disabled', true);
