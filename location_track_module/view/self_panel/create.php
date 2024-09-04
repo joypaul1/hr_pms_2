@@ -97,7 +97,6 @@ $infoData = @oci_fetch_assoc($strSQL2);
                 AND A.ENTRY_TIME BETWEEN to_date('$date 08:00:00', 'DD/MM/YYYY hh24:mi:ss')  and
                 to_date('$date 20:00:00', 'DD/MM/YYYY hh24:mi:ss')
                 AND  ROWNUM <= 25 ORDER BY A.ENTRY_TIME ASC";
-    echo $query;
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
