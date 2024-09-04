@@ -35,7 +35,7 @@ function isActive($url)
                 <div data-i18n="Analytics">Home</div>
             </a>
         </li>
-        <?php if (checkPermission('geo-location')) { ?>
+        <?php //if (checkPermission('geo-location')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
                 <span class="text-white"><b>GEO Location</b></span>
             </li>
@@ -54,7 +54,7 @@ function isActive($url)
                     </a>
                 </li> -->
             </section>
-        <?php } ?>
+        <?php //} ?>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
                 <span class="text-white"><b>Loyalty Card System </b></span>

@@ -90,10 +90,14 @@ $infoData = @oci_fetch_assoc($strSQL2);
     $query = "SELECT A.RML_ID, A.LOC_LAT, A.LOC_LANG,TO_CHAR(A.ENTRY_TIME, 'HH24:MI:SS') AS ENTRY_TIME
                 FROM RML_HR_APPS_USER_LOCATION A
                 WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
-                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY') 
+                AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')
                 AND A.LOC_LAT != 0
                 AND A.LOC_LANG != 0
+                AND A.LOCATION_TYPE = 0
+                AND A.ENTRY_TIME BETWEEN to_date('$date 08:00:00', 'DD/MM/YYYY hh24:mi:ss')  and
+                to_date('$date 20:00:00', 'DD/MM/YYYY hh24:mi:ss')
                 AND  ROWNUM <= 25 ORDER BY A.ENTRY_TIME ASC";
+    echo $query;
 
     $strSQL = oci_parse($objConnect, $query);
     @oci_execute($strSQL);
@@ -230,8 +234,11 @@ $infoData = @oci_fetch_assoc($strSQL2);
                                 FROM RML_HR_APPS_USER_LOCATION A
                                 WHERE LOWER(A.RML_ID) = LOWER('$rmlID')
                                 AND TRUNC(A.ENTRY_TIME) = TO_DATE('$date', 'DD/MM/YYYY')
-                                --AND A.LOC_LAT != 0
-                                --AND A.LOC_LANG != 0
+                                AND A.LOC_LAT != 0
+                                AND A.LOC_LANG != 0
+                                AND A.LOCATION_TYPE = 0
+                                AND A.ENTRY_TIME BETWEEN to_date('$date 08:00:00', 'DD/MM/YYYY hh24:mi:ss')  and
+                                to_date('$date 20:00:00', 'DD/MM/YYYY hh24:mi:ss')
                                 AND  ROWNUM <= 25 ORDER BY A.ENTRY_TIME ASC";
 
                                 $strSQL = oci_parse($objConnect, $query);
