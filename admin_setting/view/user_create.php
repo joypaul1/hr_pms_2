@@ -397,7 +397,7 @@ if (!checkPermission('user-create')) {
                                                                     LAT, 
                                                                     LANG,
                                                                     PASS_MD5,
-                                                                    LAT_2
+                                                                    LAT_2,
                                                                     LAT_3,
                                                                     LAT_4,
                                                                     LAT_5,

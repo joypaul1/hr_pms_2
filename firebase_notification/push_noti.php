@@ -1,81 +1,142 @@
 <?php
 
-// Function to send the notification
-function sendNotification($to, $title, $body)
+// Path to your service account JSON file
+$serviceAccountJsonPath = '../fire-service-account-file.json';
+
+// URL-safe Base64 encoding function
+function base64UrlEncode($data)
 {
-	$url = 'https://fcm.googleapis.com/fcm/send';
-
-	// Your Firebase Server API Key
-	$apiKey = 'AAAAYQJP-_Q:APA91bE5NRrsjcbEkW71tJ57oXPJkqqiaR0wllx9W-065cE4IyqrHxiONWlBnf-72CLJmLHVNGnmBTrb0U2GrCPk8G4yRoFCORaH8CP5qrnBURo9DjjGJll4CSKqCapfwaB08fESymUX';
-
-	$notification = [
-		'title' => $title,
-		'body' => $body,
-		'sound' => 'default'
-	];
-
-	$data = [
-		'to' => $to,
-		'notification' => $notification
-	];
-
-	$headers = [
-		'Authorization: key=' . $apiKey,
-		'Content-Type: application/json'
-	];
-
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-
-	$result = curl_exec($ch);
-	if ($result === FALSE) {
-		die('FCM Send Error: ' . curl_error($ch));
-	}
-
-	curl_close($ch);
-	return $result;
+    return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
 }
 
-// Function to log the notification
-function logNotification($firebaseToken, $title, $body, $response)
+// Function to get OAuth 2.0 access token
+function getAccessToken($serviceAccountJsonPath)
 {
-	$logData = [
-		'token' => $firebaseToken,
-		'title' => $title,
-		'body' => $body,
-		'response' => $response,
-		'timestamp' => date('Y-m-d H:i:s')
-	];
+    // Prepare JWT header and payload
+    $jwtHeader = json_encode([
+        'alg' => 'RS256',
+        'typ' => 'JWT'
+    ]);
 
-	// Append log data to a file
-	file_put_contents('notification_log.txt', json_encode($logData) . PHP_EOL, FILE_APPEND);
+    $now = time();
+    $serviceAccount = json_decode(file_get_contents($serviceAccountJsonPath));
+
+    // Ensure service account JSON was parsed correctly
+    if (!$serviceAccount || !isset($serviceAccount->client_email, $serviceAccount->private_key)) {
+        die('Invalid service account JSON.');
+    }
+
+    $jwtPayload = json_encode([
+        'iss' => $serviceAccount->client_email,
+        'scope' => 'https://www.googleapis.com/auth/firebase.messaging',
+        'aud' => 'https://oauth2.googleapis.com/token',
+        'iat' => $now,
+        'exp' => $now + 3600 // 1 hour expiration
+    ]);
+
+    // Base64 URL encoding for JWT
+    $jwtToSign = base64UrlEncode($jwtHeader) . '.' . base64UrlEncode($jwtPayload);
+
+    // Extract the private key and prepare for signing
+    $privateKey = $serviceAccount->private_key;
+    $privateKeyResource = openssl_pkey_get_private($privateKey);
+
+    if (!$privateKeyResource) {
+        die('Failed to parse private key.');
+    }
+
+    // Sign the JWT using the private key
+    if (!openssl_sign($jwtToSign, $signature, $privateKeyResource, 'sha256')) {
+        die('Failed to sign the JWT.');
+    }
+
+    $jwtSignature = base64UrlEncode($signature);
+
+    // The complete JWT
+    $jwt = $jwtToSign . '.' . $jwtSignature;
+
+    // Free the private key resource
+    openssl_free_key($privateKeyResource);
+
+    // Get OAuth 2.0 token from Google
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, 'https://oauth2.googleapis.com/token');
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
+        'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+        'assertion' => $jwt
+    ]));
+
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        die('OAuth token request error: ' . curl_error($ch));
+    }
+
+    $response = json_decode($result, true);
+    curl_close($ch);
+
+    if (!isset($response['access_token'])) {
+        die('Failed to get access token: ' . $result);
+    }
+
+    return $response['access_token'];
+}
+
+// Function to send the notification using FCM v1 API
+function sendNotification($projectId, $firebaseToken, $title, $body, $accessToken)
+{
+    $url = 'https://fcm.googleapis.com/v1/projects/' . $projectId . '/messages:send';
+
+    $message = [
+        'message' => [
+            'token' => $firebaseToken,
+            'notification' => [
+                'title' => $title,
+                'body' => $body
+            ]
+        ]
+    ];
+
+    $headers = [
+        'Authorization: Bearer ' . $accessToken,
+        'Content-Type: application/json'
+    ];
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($message));
+
+    $result = curl_exec($ch);
+    if (curl_errno($ch)) {
+        die('FCM Send Error: ' . curl_error($ch));
+    }
+
+    curl_close($ch);
+    return $result;
 }
 
 // Example usage
-//joy
-// $firebaseToken = 'd5acv0QeStmEuGqR8SJKl5:APA91bHxAPvU9bztWBROh-CkRfibzUvhau8V_rT6VG1Fr5P8Zvgo_8H1i7EOGd0YFGRSDYEzBGryz8ARerc7JWE6YPv8ge6QGftLg0eV_wrAC7-ER6ue_pYiC2t1sdItr569zK6A1xJf';
-//rafiq
-// $firebaseToken = 'eUOhJlW4QPaOsvyTSxWQQX:APA91bEQNrsZe2rbLrHlzOSeWBq5AgUVDVJ8dsxHYlaRmShv514XS1WF9U9Io8LjUQoboClMaGhKbBM0qolestRssShZazhvXZv_F-TXPZeJnAlj5D7GD9s5YV4ijHh9salvVRMy0o5x';
-//kabir
-//$firebaseToken = 'dL-lIWYOREyvCcw1fv0Ose:APA91bEqThmSqYBfPwewrsMkKg9fa9ZdFjOF528Dl_P1grt-ydD9nBysEkv3Y-egAjQ_4gy0MiwL2FoYq4a94bbItyy4xVPiW9WVz_oAbOPJlsM2J4Li7ourtmiSAplBMQwYH3NkQWra';
-//mizan
-//$firebaseToken = 'dKmR3DgBS6aJda3N4kVU7Z:APA91bENuKYmfcPn_Y91m4pojjAaheqDQ_2Zncj0eArPfnll_G69uqj6Nuau3Mp2dEHsacVVUy9ssczp3z0ciUzJ6lAtSApoH4ONgwRH_62Bab7DOQW3a7XAK5QOIIVVQ0hAagfRadcZ';
-//sholayman
-$firebaseToken = 'dlBqM5GA2ZU:APA91bFdxRf8lN2yYfzYM-oRlAG82pNHKi_3g3bPxgt0wnayAnZcQwtsjqy4Dq91EQ3b-dpCLeDO-xYmQBpu-yBHez2eiADNA8kmgyjLG7TvbQpDMyzZdJQEjx5hySwgzAw_347KeO9P';
-$title = 'Hey dude!';
-$body = "what's Up? how's your day?";
+$serviceAccountJsonPath = '../fire-service-account-file.json';
+$projectId = 'rml-hr-app';
+$firebaseToken = 'cDKHicqISGax6ogBBKwACw:APA91bGV7I2wprzpswo7znIMj4L8K62yv4X_AIIfRIj_BKMg_rhRlSe0XoFNIl0sgM-2ycRFgl6C_bDHTYehLiUVsSu31HxPfPtzmcJmZVsnTCWDUAmsMUvkazrlqUGuwSUXgePh7kvb';
+$title = 'My Notification Title';
+$body = 'This is the notification message';
 
-$response = sendNotification($firebaseToken, $title, $body);
+// Get access token
+$accessToken = getAccessToken($serviceAccountJsonPath);
 
-// Print the response and notification details
+// Send notification
+$response = sendNotification($projectId, $firebaseToken, $title, $body, $accessToken);
+
+// Print response
 echo "Notification Title: $title\n";
 echo "Notification Body: $body\n";
 echo "FCM Response: $response\n";
 
-// Log the notification details
-logNotification($firebaseToken, $title, $body, $response);
+?>

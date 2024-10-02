@@ -1,81 +1,63 @@
 <?php
 
-// Function to send the notification
-function sendNotification($to, $title, $body)
-{
-	$url = 'https://fcm.googleapis.com/fcm/send';
+require 'vendor/autoload.php';
 
-	// Your Firebase Server API Key
-	$apiKey = 'AAAAYQJP-_Q:APA91bE5NRrsjcbEkW71tJ57oXPJkqqiaR0wllx9W-065cE4IyqrHxiONWlBnf-72CLJmLHVNGnmBTrb0U2GrCPk8G4yRoFCORaH8CP5qrnBURo9DjjGJll4CSKqCapfwaB08fESymUX';
+use Google\Client;
+// rml-hr-apps-notification@rml-hr-app.iam.gserviceaccount.com
+function sendFirebaseNotification($deviceToken, $title, $body)
+{
+	$client = new Google\Client();
+	$client->setAuthConfig(config: './fire-service-account-file.json'); // Service account file
+	$client->addScope(scope_or_scopes: 'https://www.googleapis.com/auth/firebase.messaging');
+
+	$accessToken = $client->fetchAccessTokenWithAssertion()['access_token'];
+
+	// Firebase URL for HTTP v1 API
+	$firebaseUrl = 'https://fcm.googleapis.com/v1/projects/rml-hr-app/messages:send';
 
 	$notification = [
-		'title' => $title,
-		'body' => $body,
-		'sound' => 'default'
-	];
-
-	$data = [
-		'to' => $to,
-		'notification' => $notification
+		'message' => [
+			'token' => $deviceToken,
+			'notification' => [
+				'title' => $title,
+				'body' => $body
+			],
+			'android' => [
+				'priority' => 'high'
+			]
+		]
 	];
 
 	$headers = [
-		'Authorization: key=' . $apiKey,
-		'Content-Type: application/json'
+		'Authorization: Bearer ' . $accessToken,
+		'Content-Type: application/json',
 	];
 
 	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $url);
+
+	curl_setopt($ch, CURLOPT_URL, $firebaseUrl);
 	curl_setopt($ch, CURLOPT_POST, true);
 	curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+	curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($notification));
 
-	$result = curl_exec($ch);
-	if ($result === FALSE) {
+	$response = curl_exec($ch);
+	// print_r($response);
+	if ($response === FALSE) {
 		die('FCM Send Error: ' . curl_error($ch));
 	}
 
 	curl_close($ch);
-	return $result;
+
+	return $response;
 }
 
-// Function to log the notification
-function logNotification($firebaseToken, $title, $body, $response)
-{
-	$logData = [
-		'token' => $firebaseToken,
-		'title' => $title,
-		'body' => $body,
-		'response' => $response,
-		'timestamp' => date('Y-m-d H:i:s')
-	];
+//$deviceToken = "d4YG2pCFSqG__lJeLE1Q4e:APA91bH40Hb1T4Ovg6NZvQGElXGZDl-DNeQjnpwnMi0CW-WXpjiJddeD6W9v_r9ViMm28zmzhi-JzOdsyw9mF7XE0Pld4YohXZrxMtx4o4pjzYLxkrcOTl7Z1F8945KJ43-YESeMndEP";
+$deviceToken = "c_vg2zTrQkNwqGKwPDRDGc:APA91bGa_tpkIrL2AkS1jt6k_D-2sjJ5UnKa3hR8AQvYLi_W36D0ZFVpxcwaEDOXLUdRyrmJ2cvN5L2IBOxkMgIQ239ZFQl3FVz_z0htjb-V30Z5C1U5pZOohg0HpNRYZ8kzZ7WIGgYg";
+//$deviceToken = "fzR0z7vaS5eq3Z9cuhVXA5:APA91bHXEUNoSJQTLwAQQ-Hk5s4mzxjKv2DYdzk7sF8ujVC2XBuPVdAi97B9KLuNJ2nr3Ah7gKEtW958zW0JlC-ni-mueMa_A1cTbIynYGO89oZJ7WyjrRIHe--aA3JXZ_5rTmojRHUS";
+$title = "Test Notification";
+$body = "This is a test push notification using OAuth 2.0.";
 
-	// Append log data to a file
-	file_put_contents('notification_log.txt', json_encode($logData) . PHP_EOL, FILE_APPEND);
-}
-
-// Example usage
-//joy
-// $firebaseToken = 'd5acv0QeStmEuGqR8SJKl5:APA91bHxAPvU9bztWBROh-CkRfibzUvhau8V_rT6VG1Fr5P8Zvgo_8H1i7EOGd0YFGRSDYEzBGryz8ARerc7JWE6YPv8ge6QGftLg0eV_wrAC7-ER6ue_pYiC2t1sdItr569zK6A1xJf';
-//rafiq
-// $firebaseToken = 'eUOhJlW4QPaOsvyTSxWQQX:APA91bEQNrsZe2rbLrHlzOSeWBq5AgUVDVJ8dsxHYlaRmShv514XS1WF9U9Io8LjUQoboClMaGhKbBM0qolestRssShZazhvXZv_F-TXPZeJnAlj5D7GD9s5YV4ijHh9salvVRMy0o5x';
-//kabir
-//$firebaseToken = 'dL-lIWYOREyvCcw1fv0Ose:APA91bEqThmSqYBfPwewrsMkKg9fa9ZdFjOF528Dl_P1grt-ydD9nBysEkv3Y-egAjQ_4gy0MiwL2FoYq4a94bbItyy4xVPiW9WVz_oAbOPJlsM2J4Li7ourtmiSAplBMQwYH3NkQWra';
-//mizan
-//$firebaseToken = 'dKmR3DgBS6aJda3N4kVU7Z:APA91bENuKYmfcPn_Y91m4pojjAaheqDQ_2Zncj0eArPfnll_G69uqj6Nuau3Mp2dEHsacVVUy9ssczp3z0ciUzJ6lAtSApoH4ONgwRH_62Bab7DOQW3a7XAK5QOIIVVQ0hAagfRadcZ';
-//sholayman
-$firebaseToken = 'dlBqM5GA2ZU:APA91bFdxRf8lN2yYfzYM-oRlAG82pNHKi_3g3bPxgt0wnayAnZcQwtsjqy4Dq91EQ3b-dpCLeDO-xYmQBpu-yBHez2eiADNA8kmgyjLG7TvbQpDMyzZdJQEjx5hySwgzAw_347KeO9P';
-$title = 'Hey dude!';
-$body = "what's Up? how's your day?";
-
-$response = sendNotification($firebaseToken, $title, $body);
-
-// Print the response and notification details
-echo "Notification Title: $title\n";
-echo "Notification Body: $body\n";
-echo "FCM Response: $response\n";
-
-// Log the notification details
-logNotification($firebaseToken, $title, $body, $response);
+$response = sendFirebaseNotification($deviceToken, $title, $body);
+echo $response;

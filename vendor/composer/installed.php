@@ -3,7 +3,7 @@
         'name' => 'dvries/number-to-words',
         'pretty_version' => '2.x-dev',
         'version' => '2.9999999.9999999.9999999-dev',
-        'reference' => '88dcd8736b4929f43c89cb3bb02e765b01c84ac8',
+        'reference' => '5c0d66d8d67424a3fbc9f162322d4052235f40e7',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'dvries/number-to-words' => array(
             'pretty_version' => '2.x-dev',
             'version' => '2.9999999.9999999.9999999-dev',
-            'reference' => '88dcd8736b4929f43c89cb3bb02e765b01c84ac8',
+            'reference' => '5c0d66d8d67424a3fbc9f162322d4052235f40e7',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
