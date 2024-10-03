@@ -141,11 +141,11 @@ $userProfile = @oci_fetch_assoc($userSQL);
 											<?php echo $userProfile['DOJ'] ?>
 										</span>
 									</li>
-									<li class="list-inline-item fw-medium">
+									<!-- <li class="list-inline-item fw-medium">
 										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
 											LM : <?php echo $userProfile['LINE_MANAGER_RML_ID'] ?>
 										</span>
-									</li>
+									</li> -->
 								</ul>
 							</div>
 							<a href="<?php echo $basePath.'/user_teammate.php'?>" class="btn btn btn-danger btn-buy-now text-nowrap">

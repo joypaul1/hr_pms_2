@@ -118,12 +118,12 @@ while ($row = oci_fetch_assoc($commentSQL)) {
                             ?>
                             <div class="row mt-3">
                                 <div class="col-sm-6">
-                                    <label class="form-label" for="basic-default-fullname">Comment</label>
+                                    <label class="form-label" for="basic-default-fullname">Comment <span class="text-danger">*</span></label>
                                     <input required="" name="remarks" placeholder="Approval Or Denied Remarks" class="form-control cust-control" type="text">
                                 </div>
                                 <div class="col-sm-3">
 
-                                    <label class="form-label" for="basic-default-fullname">Select Type</label>
+                                    <label class="form-label" for="basic-default-fullname">Select Type <span class="text-danger">*</span></label>
                                     <select name="app_status" class="form-control cust-control" required="">
                                         <option selected="" value="">---</option>
                                         <option value="1">Approve</option>
