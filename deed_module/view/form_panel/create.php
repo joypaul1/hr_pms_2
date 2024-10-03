@@ -1,11 +1,11 @@
 <?php
 
 $dynamic_link_css[] = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-$dynamic_link_js[]  = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
-require_once ('../../../helper/3step_com_conn.php');
-require_once ('../../../inc/connoracle.php');
+$dynamic_link_js[] = 'https://code.jquery.com/ui/1.13.2/jquery-ui.js';
+require_once('../../../helper/3step_com_conn.php');
+require_once('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
-if (!checkPermission('deed-create')) {
+if (!checkPermission(permissionSlug: 'deed-create')) {
     echo "<script> window.location.href ='$basePath/index.php?logout=true'; </script>";
 }
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
@@ -25,7 +25,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                 <div class="col-sm-4">
                     <div class="form-group">
                         <label class="form-label" for="basic-default-fullname">Sell invoice ID</label>
-                        <input required="" placeholder="Sell invoice  ID" name="invoice_id" class="form-control cust-control" type='text'
+                        <input required="" placeholder="Sell invoice  ID" name="invoice_id"
+                            class="form-control cust-control" type='text'
                             value='<?php echo isset($_POST['invoice_id']) ? $_POST['invoice_id'] : ''; ?>'>
                     </div>
                     <small class="text-danger">*** Invoice Number Case Sensitive</small>
@@ -43,8 +44,10 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
     <!-- Bordered Table -->
     <div class="card  mt-1">
-        <form action="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_preview.php' ?>" id="card_deed_form" method="POST">
-            <input type="hidden" name="invoice_number" value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
+        <form action="<?php echo $basePath . '/deed_module/view/form_panel/car_deed_print_preview.php' ?>"
+            id="card_deed_form" method="POST">
+            <input type="hidden" name="invoice_number"
+                value="<?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>">
             <input type="hidden" name="actionType" value="car_deed">
             <div class="card-body row">
                 <div class="col-md-7 ">
@@ -52,7 +55,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     padding: 1%;
                     margin: 1%;
                 ">
-                        <h5 class="text-center"> <i class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number :
+                        <h5 class="text-center"> <i
+                                class="menu-icon tf-icons bx bx-right-arrow m-0 text-info"></i>Invoice Number :
                             <?php echo isset($_POST["invoice_id"]) ? trim($_POST["invoice_id"]) : ' ' ?>
                         </h5>
                         <p class="text-center"> <i class=" m-0 text-info"></i><u>Car Reference List</u> </p>
@@ -86,7 +90,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                     A.PAMTMODE = 'CRT' AND
                                     A.DOCNUMBR = '$invoice_id'");
                                     oci_execute($deedSQL);
-                                    // print_r(oci_fetch_assoc($deedSQL));
                                     if ($row = oci_fetch_assoc($deedSQL)) {
                                         do {
                                             echo '<tr>
@@ -123,11 +126,9 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                         </br>
                                         <label class="form-check-label" for="' . $row['REF_CODE'] . '">ENGINE NO. : ' . $row['ENG_NO'] . '</label>
                                         </td>
-                                        
                                     </tr>';
                                         } while ($row = oci_fetch_assoc($deedSQL));
-                                    }
-                                    else {
+                                    } else {
                                         echo '<strong class="text-danger">Sorry! No data found.</strong>';
                                     }
                                 }
@@ -144,7 +145,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                 $singleProduct = [];
                 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'searchData') {
                     $invoice_id = trim($_POST["invoice_id"]);
-                    $deedSQL    = oci_parse($objConnect, "SELECT CUSTOMER_NAME,DELIVERY_DATE,PARTY_ADDRESS,SALES_AMOUNT,DP,LEASE_AMOUNT,INSTALLMENT_AMOUNT FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = '$invoice_id'");
+                    $deedSQL = oci_parse($objConnect, "SELECT CUSTOMER_NAME,DELIVERY_DATE,PARTY_ADDRESS,SALES_AMOUNT,DP,LEASE_AMOUNT,INSTALLMENT_AMOUNT FROM LEASE_ALL_INFO_ERP WHERE PAMTMODE ='CRT' and DOCNUMBR = '$invoice_id'");
                     oci_execute($deedSQL);
                     $singleProduct = oci_fetch_assoc($deedSQL);
                     // print_r($singleProduct);
@@ -157,8 +158,9 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                     <div style="border: 1px solid #eee5e5;padding: 2%; margin: 1%">
                         <div class="form-group">
                             <label for="unit_no">Unit No.</label>
-                            <input type="text" class="form-control" name="unit_no" id="unit_no" required placeholder="0/1/2"
-                                onkeypress="return false;" style="background-color: #d9dee3;" autocomplete="off">
+                            <input type="text" class="form-control" name="unit_no" id="unit_no" required
+                                placeholder="0/1/2" onkeypress="return false;" style="background-color: #d9dee3;"
+                                autocomplete="off">
                         </div>
                         <div id="dynamicOption" style="width:100%;"></div>
                         <div id="deedinfo"></div>
@@ -181,8 +183,8 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 
 <!-- / Content -->
 
-<?php require_once ('../../../layouts/footer_info.php'); ?>
-<?php require_once ('../../../layouts/footer.php'); ?>
+<?php require_once('../../../layouts/footer_info.php'); ?>
+<?php require_once('../../../layouts/footer.php'); ?>
 
 <script>
     $(document).ready(function () {

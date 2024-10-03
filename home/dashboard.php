@@ -1,6 +1,6 @@
 <?php
-require_once ('../helper/com_conn.php');
-require_once ('../inc/connoracle.php');
+require_once('../helper/com_conn.php');
+require_once('../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
 
 $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$basePath/offboarding_module/view/lm_panel/approval.php' 	APPROVAL_LINK
@@ -10,20 +10,19 @@ $sqlQuary = "SELECT 'Offboarding' APPROVAL_TYPE,count(C.RML_ID) NUMBER_TOTAL,'$b
 		AND B.APPROVAL_STATUS IS NULL
 		AND B.CONCERN_NAME IN (
 						SELECT R_CONCERN from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
-						(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
-						 )
+						(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id'))
 		AND B.DEPARTMENT_ID IN (
 						SELECT DEPARTMENT_ID from HR_DEPT_CLEARENCE_CONCERN WHERE RML_HR_APPS_USER_ID=
 						(SELECT ID FROM RML_HR_APPS_USER WHERE RML_ID='$emp_session_id')
 						)
 	UNION ALL
-	SELECT 'PMS [Level-1]' APPROVAL_TYPE,COUNT(EMP_ID)NUMBER_TOTAL,'lm_pms_approval.php' APPROVAL_LINK 
+	SELECT 'PMS [Level-1]' APPROVAL_TYPE,COUNT(EMP_ID)NUMBER_TOTAL,'lm_pms_approval.php' APPROVAL_LINK
 	FROM HR_PMS_EMP
 	WHERE SELF_SUBMITTED_STATUS=1
 	AND LINE_MANAGER_1_STATUS IS NULL
 	AND LINE_MANAGER_1_ID='$emp_session_id'
 	UNION ALL
-	SELECT 'PMS [Level-2]' APPROVAL_TYPE,COUNT(EMP_ID)NUMBER_TOTAL,'lm_pms_approval_2.php' APPROVAL_LINK 
+	SELECT 'PMS [Level-2]' APPROVAL_TYPE,COUNT(EMP_ID)NUMBER_TOTAL,'lm_pms_approval_2.php' APPROVAL_LINK
 	FROM HR_PMS_EMP
 	WHERE LINE_MANAGER_1_STATUS=1
 	AND SELF_SUBMITTED_STATUS=1
@@ -84,13 +83,13 @@ $attDataSQL = @oci_parse($objConnect, $sqlAtt);
 $attData = @oci_fetch_assoc($attDataSQL);
 // ($attData['PRESENT_TOTAL']);
 
-$attBarChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
-$attPieChartData = [ $attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL'] ];
+$attBarChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
+$attPieChartData = [$attData['PRESENT_TOTAL'], $attData['LATE_TOTAL'], $attData['ABSENT_TOTAL'], $attData['HOLIDAY_TOTAL'] + $attData['WEEKEND_TOTAL'], $attData['TOUR_TOTAL'], $attData['LEAVE_TOTAL']];
 
 $userProfile = [];
-$userSQL     = @oci_parse(
+$userSQL = @oci_parse(
 	$objConnect,
-	"SELECT DEPT_NAME, BRANCH_NAME, DESIGNATION, DOJ, R_CONCERN
+	"SELECT DEPT_NAME, BRANCH_NAME, DESIGNATION, DOJ, R_CONCERN,LINE_MANAGER_RML_ID,LINE_MANAGER_MOBILE
 	From RML_HR_APPS_USER  WHERE RML_ID='$emp_session_id'"
 );
 
@@ -100,11 +99,6 @@ $userProfile = @oci_fetch_assoc($userSQL);
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
 	<div class="row">
-		<!--	<div class="col-lg-12 ">
-			<div class=" card card-title p-2">
-				<marquee>Welcome to our new Rangs Group HR appps Web portal. If you face any problem please, inform us [IT & ERP Dept.]</marquee> 
-			</div>
-		</div>-->
 		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
 			<div class="card" style="background: linear-gradient(to bottom, #004972, #a69f9069);">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
@@ -120,12 +114,11 @@ $userProfile = @oci_fetch_assoc($userSQL);
 							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
 							<div class="user-profile-info">
 								<h4 class="text-white">
-									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?>
+									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?> | <?php echo $_SESSION['HR_APPS']['emp_id_hr']; ?>
 								</h4>
 								<ul
 									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
 									<li class="list-inline-item fw-medium">
-
 										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
 											<?php echo $userProfile['DESIGNATION'] ?>
 										</span>
@@ -142,16 +135,20 @@ $userProfile = @oci_fetch_assoc($userSQL);
 											<?php echo $userProfile['BRANCH_NAME'] ?>
 										</span>
 									</li>
-
 									<li class="list-inline-item fw-medium">
 										<span class="badge bg-label-warning">
 											<i class="bx bx-calendar-alt"></i>
 											<?php echo $userProfile['DOJ'] ?>
 										</span>
 									</li>
+									<li class="list-inline-item fw-medium">
+										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
+											LM : <?php echo $userProfile['LINE_MANAGER_RML_ID'] ?>
+										</span>
+									</li>
 								</ul>
 							</div>
-							<a href="javascript:void(0)" class="btn btn btn-danger btn-buy-now text-nowrap">
+							<a href="<?php echo $basePath.'/user_teammate.php'?>" class="btn btn btn-danger btn-buy-now text-nowrap">
 								<i class="bx bx-group me-1"></i>Team Member <i class='bx bx-arrow-from-left'></i>
 							</a>
 						</div>
@@ -162,6 +159,80 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 		</div>
 		<div class="col-sm-12 col-md-6  col-lg-6 order-0">
+			<div class="card">
+				<h5 class="card-header m-auto boxDkh text-white ">Employee Leave Summary</h5>
+				<div class="card-body ">
+					<div class="table-responsive text-nowrap">
+						<table class="table  table-bordered">
+							<thead class="table-darks" style="background-color:#18392b">
+								<tr>
+									<th scope="col" align="center"><strong>SL</strong></th>
+									<th scope="col" align="center"><strong> Type</strong></th>
+									<th scope="col" align="center"><strong>ASSING</strong></th>
+									<th scope="col" align="center"><strong>TAKEN</strong></th>
+									<th scope="col" align="center"><strong>REMAIN</strong></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								$SQLlv = "SELECT RML_ID,LEAVE_TYPE,
+										LEAVE_PERIOD,
+										LEAVE_ASSIGN,
+										LEAVE_TAKEN,
+										LATE_LEAVE
+									FROM LEAVE_DETAILS_INFORMATION
+									WHERE RML_ID='$emp_session_id'
+									and LEAVE_PERIOD='2024'
+									AND LEAVE_TYPE in ('CL','EL','SL')";
+
+								$strLVSQL = @oci_parse($objConnect, $SQLlv);
+								@oci_execute($strLVSQL);
+								// $responseData = [];
+								// while ($objResultFound = @oci_fetch_assoc($strSQL)) {
+								// 	$responseData[] = [
+								// 		"LEAVE_TYPE"    => $row['LEAVE_TYPE'] . '-' . $row['LEAVE_PERIOD'],
+								// 		"LEAVE_PERIOD"  => $row['LEAVE_PERIOD'],
+								// 		"LEAVE_ASSIGN"  => $row['LEAVE_ASSIGN'],
+								// 		"LEAVE_TAKEN"   => $row['LEAVE_TAKEN'],
+								// 	];
+								// }
+								
+								$number = 0;
+								while ($row = oci_fetch_assoc($strLVSQL)) {
+									$number++;
+									?>
+									<tr>
+										<td align="center"><i class="fab fa-angular fa-lg text-danger me-3 "></i>
+											<strong>
+												<?php echo $number; ?>
+											</strong>
+										</td>
+										<td align="center">
+											<?php echo $row['LEAVE_TYPE'] . '-' . $row['LEAVE_PERIOD'] ?>
+										</td>
+										<td align="center">
+											<?php echo $row['LEAVE_ASSIGN'] ?>
+											<!-- <a target="_blank" href=<?php echo $row['APPROVAL_LINK']; ?>>
+												<span class="badge badge-center rounded-pill bg-info">
+													<?php echo $row['NUMBER_TOTAL']; ?>
+												</span>
+											</a> -->
+										</td>
+										<td align="center">
+											<?php echo $row['LEAVE_TAKEN'] ?>
+										</td>
+										<td align="center">
+											<?php echo $row['LEAVE_ASSIGN'] - $row['LEAVE_TAKEN'] ?>
+										</td>
+									</tr>
+									<?php
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 			<div class="card">
 				<h5 class="card-header m-auto boxDkh text-white ">Approval Pending List</h5>
 				<div class="card-body ">
@@ -288,13 +359,15 @@ $userProfile = @oci_fetch_assoc($userSQL);
 						<ul class="nav nav-tabs nav-fill" role="tablist">
 							<li class="nav-item">
 								<button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart" aria-selected="false">
+									data-bs-target="#navs-justified-Barchart" aria-controls="navs-justified-Barchart"
+									aria-selected="false">
 									<i class='bx bxs-bar-chart-square' style="color:#37d7ce"></i> Barchart
 								</button>
 							</li>
 							<li class="nav-item">
-								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab" data-bs-target="#navs-justified-Piechart"
-									aria-controls="navs-justified-Piechart" aria-selected="true">
+								<button type="button" class="nav-link " role="tab" data-bs-toggle="tab"
+									data-bs-target="#navs-justified-Piechart" aria-controls="navs-justified-Piechart"
+									aria-selected="true">
 									<i class='bx bxs-pie-chart-alt-2' style="color:#37d7ce"></i> PieChart
 								</button>
 							</li>
@@ -319,9 +392,9 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 
 
-<?php require_once ('../layouts/footer_info.php'); ?>
+<?php require_once('../layouts/footer_info.php'); ?>
 
-<?php require_once ('../layouts/footer.php'); ?>
+<?php require_once('../layouts/footer.php'); ?>
 
 
 <script>

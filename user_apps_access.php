@@ -83,14 +83,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 						if (isset($_POST['emp_rml_id'])) {
 							$v_emp_id = $_REQUEST['emp_rml_id'];
 							$strSQL = oci_parse($objConnect, "SELECT ID,
-						   (Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
-						   APPS_NAME,
-						   USE_ID,
-						   STATUS,
-						   NAME_TITLE,
-						   REMARKS
-					FROM HR_EMP_APPS_ACCESS
-					where RML_HR_APPS_USER_ID=(Select ID from RML_HR_APPS_USER where RML_ID='$v_emp_id')");
+										(Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
+										APPS_NAME,
+										USE_ID,
+										STATUS,
+										NAME_TITLE,
+										REMARKS
+									FROM HR_EMP_APPS_ACCESS
+									where RML_HR_APPS_USER_ID=(Select ID from RML_HR_APPS_USER where RML_ID='$v_emp_id')");
 							oci_execute($strSQL);
 							$number = 0;
 							while ($row = oci_fetch_assoc($strSQL)) {
@@ -102,7 +102,6 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 										</strong>
 									</td>
 									<td><?php echo $row['EMP_NAME']; ?></td>
-
 									<td><?php echo $row['APPS_NAME']; ?></td>
 									<td><?php echo $row['NAME_TITLE']; ?></td>
 									<td><?php echo $row['USE_ID']; ?></td>
@@ -136,14 +135,14 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 							$allDataSQL = oci_parse(
 								$objConnect,
 								"SELECT ID,
-						   (Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
-						   APPS_NAME,
-						   USE_ID,
-						   STATUS,
-						   NAME_TITLE,
-						   REMARKS
-					FROM HR_EMP_APPS_ACCESS"
-							);
+										(Select EMP_NAME ||' ('|| RML_ID ||')' from RML_HR_APPS_USER where id=RML_HR_APPS_USER_ID) EMP_NAME,
+													APPS_NAME,
+													USE_ID,
+													STATUS,
+													NAME_TITLE,
+													REMARKS
+												FROM HR_EMP_APPS_ACCESS"
+											);
 
 							oci_execute($allDataSQL);
 							$number = 0;
