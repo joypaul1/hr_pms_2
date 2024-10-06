@@ -2,29 +2,27 @@
 require_once('../../../helper/3step_com_conn.php');
 require_once('../../../inc/connoracle.php');
 $basePath = $_SESSION['basePath'];
-if (!checkPermission('hr-attendance-punch-data-syn')) {
+
+$emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+if ($emp_session_id == 'SASH-3063') {
     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 }
-
 ?>
 
 <!-- / Content -->
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
-    <div class="row">
+    <div class="">
         <div class=" card card-body">
-            <div class="col-12">
+            <div class="col-lg-12">
                 <form action="" method="post">
                     <div class="row">
                         <div class="col-sm-4">
                             <label for="title">Select Company:</label>
                             <select required="" name="organization" id="select_company"
                                 class="form-control cust-control">
-                                <option selected value="">--</option>
-                                <option value="ALL">HO & Center Attendance Machine</option>
                                 <option value="SASH">Amishe Attendance Machine</option>
-                                <option value="RMWL">Gazipur Workshop Attendance Machine</option>
                             </select>
                         </div>
                         <div class="col-sm-4">
@@ -58,10 +56,10 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                 </form>
             </div>
 
-            <div class="col-12">
-                <div class="mt-5">
-                    <div class="table-responsive">
-                        <table class="table table-bordered" id="" style="width:100%">
+            <div class="col-lg-12">
+                <div class="md-form mt-5">
+                    <div class=" d-flex flex-column flex-md-row">
+                        <table class="table table-bordered piechart-key" id="admin_list" style="width:100%">
                             <thead class="table-dark">
                                 <tr class="text-center">
                                     <th scope="col">Sl</th>
@@ -87,31 +85,11 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                         $synSQL = @oci_parse(
                                             $objConnect,
                                             "SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-                                                RML_ID, EMP_NAME, DEPT_NAME
-                                                FROM RML_HR_APPS_USER
-                                                WHERE USER_ROLE IS NOT NULL
-                                                AND IS_ACTIVE=1
-                                                AND R_CONCERN='$company'"
-                                        );
-                                    } else if ($company == 'RMWL') {
-                                        $synSQL = @oci_parse(
-                                            $objConnect,
-                                            "SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-                                                RML_ID, EMP_NAME, DEPT_NAME
-                                                FROM RML_HR_APPS_USER
-                                                WHERE USER_ROLE IS NOT NULL
-                                                AND IS_ACTIVE=1
-                                                AND R_CONCERN='$company'"
-                                        );
-                                    } else {
-                                        $synSQL = @oci_parse(
-                                            $objConnect,
-                                            "SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-                                                RML_ID, EMP_NAME, DEPT_NAME
-                                                FROM RML_HR_APPS_USER
-                                                WHERE USER_ROLE IS NOT NULL
-                                                AND IS_ACTIVE=1
-                                                AND BRANCH_NAME IN ('Head Office', 'Rangs Center')"
+                                            RML_ID, EMP_NAME, DEPT_NAME
+                                            FROM RML_HR_APPS_USER
+                                            WHERE USER_ROLE IS NOT NULL
+                                            AND IS_ACTIVE=1
+                                            AND R_CONCERN='$company'"
                                         );
                                     }
 
@@ -120,14 +98,6 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                             $serverName = "202.40.191.76";
                                             $connectionInfo = array("Database" => "Attendence Amishee", "UID" => "sa", "PWD" => "R@ngs*it");
                                             $dbConnect = @sqlsrv_connect($serverName, $connectionInfo);
-                                        } else if ($company == 'RMWL') {
-                                            $serverName = "202.40.188.67";
-                                            $connectionInfo = array("Database" => "rmwlgattdb", "UID" => "sa", "PWD" => "RMWL@it2023");
-                                            $dbConnect = @sqlsrv_connect(serverName: $serverName, connectionInfo: $connectionInfo);
-                                        } else {
-                                            $serverName = "192.168.172.17";
-                                            $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = @sqlsrv_connect(serverName: $serverName, connectionInfo: $connectionInfo);
                                         }
 
                                         $number = 0;
@@ -139,40 +109,40 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
 
                                             if ($company == 'SASH') {
                                                 $strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-                                                    convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-                                                    convert(varchar, dteDate, 103) AS ATTN_DATE
-                                                FROM (
-                                                    SELECT CHECKTIME dteTime,
-                                                        convert(varchar, '$attn_start_date', 103) dteDate
-                                                    FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
-                                                    WHERE USERID = (SELECT TOP 1  USERID FROM [Attendence Amishee].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
-                                                    AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
-                                                ) bb
-                                                GROUP BY dteDate";
+                                                        convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+                                                        convert(varchar, dteDate, 103) AS ATTN_DATE
+                                                    FROM (
+                                                        SELECT CHECKTIME dteTime,
+                                                            convert(varchar, '$attn_start_date', 103) dteDate
+                                                        FROM [Attendence Amishee].[dbo].[CHECKINOUT] a
+                                                        WHERE USERID = (SELECT TOP 1  USERID FROM [Attendence Amishee].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
+                                                        AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
+                                                    ) bb
+                                                    GROUP BY dteDate";
                                             } else if ($company == 'RMWL') {
                                                 $strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-                                                    convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-                                                    convert(varchar, dteDate, 103) AS ATTN_DATE
-                                                FROM (
-                                                    SELECT CHECKTIME dteTime,
-                                                        convert(varchar, '$attn_start_date', 103) dteDate
-                                                    FROM [rmwlgattdb].[dbo].[CHECKINOUT] a
-                                                    WHERE USERID = (SELECT TOP 1  USERID FROM [rmwlgattdb].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
-                                                    AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
-                                                ) bb
-                                                GROUP BY dteDate";
+                                                        convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+                                                        convert(varchar, dteDate, 103) AS ATTN_DATE
+                                                    FROM (
+                                                        SELECT CHECKTIME dteTime,
+                                                            convert(varchar, '$attn_start_date', 103) dteDate
+                                                        FROM [rmwlgattdb].[dbo].[CHECKINOUT] a
+                                                        WHERE USERID = (SELECT TOP 1  USERID FROM [rmwlgattdb].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
+                                                        AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
+                                                    ) bb
+                                                    GROUP BY dteDate";
                                             } else {
                                                 $strPunchSQL = "SELECT convert(varchar(30), MIN(dteTime), 108) IN_TIME,
-                                                convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
-                                                convert(varchar, dteDate, 103) AS ATTN_DATE
-                                                FROM (
-                                                    SELECT CHECKTIME dteTime,
-                                                            convert(varchar, '$attn_start_date', 103) dteDate
-                                                    FROM [attdb].[dbo].[CHECKINOUT] a
-                                                    WHERE USERID = (SELECT TOP 1 USERID FROM [attdb].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
-                                                    AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
-                                                ) bb
-                                                GROUP BY dteDate";
+                                                    convert(varchar(30), MAX(dteTime), 108) OUT_TIME,
+                                                    convert(varchar, dteDate, 103) AS ATTN_DATE
+                                                    FROM (
+                                                        SELECT CHECKTIME dteTime,
+                                                                convert(varchar, '$attn_start_date', 103) dteDate
+                                                        FROM [attdb].[dbo].[CHECKINOUT] a
+                                                        WHERE USERID = (SELECT TOP 1 USERID FROM [attdb].[dbo].[USERINFO] WHERE BADGENUMBER='$ATTNMACHINE_ID' ORDER BY USERID ASC)
+                                                        AND convert(varchar, CHECKTIME, 103) = convert(varchar, '$attn_start_date', 103)
+                                                    ) bb
+                                                    GROUP BY dteDate";
 
                                             }
                                             // echo $ATTNMACHINE_ID; echo '</br>';

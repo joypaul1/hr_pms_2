@@ -1,8 +1,8 @@
 <!-- Menu -->
 <?php
-$v_active      = 'active';
+$v_active = 'active';
 $v_active_open = 'active open';
-$currentUrl    = $_SERVER['REQUEST_URI'];
+$currentUrl = $_SERVER['REQUEST_URI'];
 function isActive($url)
 {
     global $currentUrl;
@@ -36,24 +36,24 @@ function isActive($url)
             </a>
         </li>
         <?php //if (checkPermission('geo-location')) { ?>
-            <li class="menu-header big text-uppercase" style="background-color: #18392B;">
-                <span class="text-white"><b>GEO Location</b></span>
+        <li class="menu-header big text-uppercase" style="background-color: #18392B;">
+            <span class="text-white"><b>GEO Location</b></span>
+        </li>
+        <section style="width: 98%;">
+            <!-- Resale- module-list -->
+            <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/index.php'); ?>">
+                <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/index.php" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-registered"></i>
+                    <div>Track User Location</div>
+                </a>
             </li>
-            <section style="width: 98%;">
-                <!-- Resale- module-list -->
-                <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/index.php'); ?>">
-                    <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/index.php" class="menu-link">
-                        <i class="menu-icon tf-icons bx bx-registered"></i>
-                        <div>Track User Location</div>
-                    </a>
-                </li>
-                <!-- <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/currentLoc.php'); ?>">
+            <!-- <li class="menu-item  <?php echo isActive('/location_track_module/view/self_panel/currentLoc.php'); ?>">
                     <a href="<?php echo $basePath ?>/location_track_module/view/self_panel/currentLoc.php" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-registered"></i>
                         <div>Get Current Location</div>
                     </a>
                 </li> -->
-            </section>
+        </section>
         <?php //} ?>
         <?php if (checkPermission('loyalty-card-all-module')) { ?>
             <li class="menu-header big text-uppercase" style="background-color: #18392B;">
@@ -67,8 +67,10 @@ function isActive($url)
                         <div>Loyalty Card Module</div>
                     </a>
                     <ul class="menu-sub">
-                        <li class="menu-item <?php echo isActive('/loyalty_card_module/view/dashboard_panel/cardDashboard.php'); ?>  ">
-                            <a href="<?php echo $basePath ?>/loyalty_card_module/view/dashboard_panel/cardDashboard.php" class="menu-link ">
+                        <li
+                            class="menu-item <?php echo isActive('/loyalty_card_module/view/dashboard_panel/cardDashboard.php'); ?>  ">
+                            <a href="<?php echo $basePath ?>/loyalty_card_module/view/dashboard_panel/cardDashboard.php"
+                                class="menu-link ">
                                 <div>Dashboard Panel</div>
                             </a>
                         </li>
@@ -79,26 +81,35 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/create.php'); ?> ">
-                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/create.php" class="menu-link withoutIcon">
+                                <li
+                                    class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/create.php'); ?> ">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/create.php"
+                                        class="menu-link withoutIcon">
                                         <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
                                             Create Card
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/list.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/list.php" class="menu-link withoutIcon">
+                                <li
+                                    class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/list.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/list.php"
+                                        class="menu-link withoutIcon">
                                         <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
                                             Ready To Print
                                         </div>
                                     </a>
                                 </li>
-                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printing_on_process.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printing_on_process.php" class="menu-link withoutIcon">
+                                <li
+                                    class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/printing_on_process.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/printing_on_process.php"
+                                        class="menu-link withoutIcon">
                                         <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
                                             Vendor Print & Rec.
                                         </div>
                                     </a>
@@ -111,10 +122,13 @@ function isActive($url)
                                         </div>
                                     </a>
                                 </li> -->
-                                <li class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/cardReport.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cardReport.php" class="menu-link withoutIcon">
+                                <li
+                                    class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/cardReport.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cardReport.php"
+                                        class="menu-link withoutIcon">
                                         <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
                                             Hand Over Card Rep.
                                         </div>
                                     </a>
@@ -144,8 +158,10 @@ function isActive($url)
                     <ul class="menu-sub">
 
                         <?php if (checkPermission('resale-dashboard-panel')) { ?>
-                            <li class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
-                                <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php" class="menu-link ">
+                            <li
+                                class="menu-item <?php echo isActive('/resale_module/view/dashboard_panel/resaleDashboard.php'); ?>  ">
+                                <a href="<?php echo $basePath ?>/resale_module/view/dashboard_panel/resaleDashboard.php"
+                                    class="menu-link ">
                                     <div>Dashboard Panel</div>
                                 </a>
                             </li>
@@ -157,28 +173,36 @@ function isActive($url)
                                 </a>
                                 <ul class="menu-sub">
 
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/self_panel/pendingList.php'); ?> ">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/pendingList.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Pending List
                                             </div>
                                         </a>
                                     </li>
                                     <li
                                         class="menu-item <?php echo isActive('/resale_module/view/self_panel/prepublishedList.php'); ?> <?php echo isActive('/resale_module/view/self_panel/edit.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php" class="menu-link withoutIcon">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/prepublishedList.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Pre-Published List
                                             </div>
                                         </a>
                                     </li>
 
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/self_panel/publishedList.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/self_panel/publishedList.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Published List
                                             </div>
                                         </a>
@@ -197,18 +221,22 @@ function isActive($url)
 
                                     <li
                                         class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidReport.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidReport.php" class="menu-link withoutIcon">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidReport.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Bid Report
                                             </div>
                                         </a>
                                     </li>
                                     <li
                                         class="menu-item <?php echo isActive('/resale_module/view/bidreport_panel/bidSummary.php'); ?> <?php echo isActive('/resale_module/view/bidreport_panel/edit.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidSummary.php" class="menu-link withoutIcon">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/bidreport_panel/bidSummary.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Bid Summary
                                             </div>
                                         </a>
@@ -222,34 +250,46 @@ function isActive($url)
                                 </a>
                                 <ul class="menu-sub">
 
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/product_info.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/product_info.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/report_panel/product_info.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/product_info.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Product Info.
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/web_user.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/web_user.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/report_panel/web_user.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/web_user.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Web User List
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/contact_list.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/contact_list.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/report_panel/contact_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/contact_list.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Contact List
                                             </div>
                                         </a>
                                     </li>
-                                    <li class="menu-item <?php echo isActive('/resale_module/view/report_panel/subscriber_list.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/subscriber_list.php" class="menu-link withoutIcon">
+                                    <li
+                                        class="menu-item <?php echo isActive('/resale_module/view/report_panel/subscriber_list.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/report_panel/subscriber_list.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Subscriber List
                                             </div>
                                         </a>
@@ -271,7 +311,8 @@ function isActive($url)
                                         <a href="<?php echo $basePath ?>/resale_module/view/form_panel/customer_review/index.php"
                                             class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Customer Review
                                             </div>
                                         </a>
@@ -280,9 +321,11 @@ function isActive($url)
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/create.php'); ?>
                                 <?php echo isActive('/resale_module/view/form_panel/sale_concern/edit.php'); ?>
                                 ">
-                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php" class="menu-link withoutIcon">
+                                        <a href="<?php echo $basePath ?>/resale_module/view/form_panel/sale_concern/index.php"
+                                            class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Sale Concern
                                             </div>
                                         </a>
@@ -316,9 +359,11 @@ function isActive($url)
                         <ul class="menu-sub">
                             <?php if (checkPermission('self-leave-create')) { ?>
                                 <li class="menu-item <?php echo isActive('/leave_module/view/self_panel/create.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/leave_module/view/self_panel/create.php" class="menu-link withoutIcon">
+                                    <a href="<?php echo $basePath ?>/leave_module/view/self_panel/create.php"
+                                        class="menu-link withoutIcon">
                                         <div>
-                                            <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
                                             Leave Create
                                         </div>
                                     </a>
@@ -326,8 +371,10 @@ function isActive($url)
                             <?php } ?>
                             <?php if (checkPermission('self-leave-report')) { ?>
                                 <li class="menu-item <?php echo isActive('/leave_module/view/self_panel/index.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/leave_module/view/self_panel/index.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report
+                                    <a href="<?php echo $basePath ?>/leave_module/view/self_panel/index.php"
+                                        class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Leave Report
                                         </div>
                                     </a>
                                 </li>
@@ -343,24 +390,30 @@ function isActive($url)
                             <ul class="menu-sub">
                                 <?php if (checkPermission('hr-leave-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/create.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Create
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-leave-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Approval
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Approval
                                             </div>
                                         </a>
                                     </li>
@@ -368,8 +421,10 @@ function isActive($url)
                                 <?php if (checkPermission('hr-leave-assign')) {
                                     ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/assign.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Assign
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/assign.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Assign
                                                 (R&C)
                                             </div>
                                         </a>
@@ -378,8 +433,10 @@ function isActive($url)
                                 <?php if (checkPermission('hr-leave-advance')) {
                                     ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/hr_panel/advance.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Advance
+                                        <a href="<?php echo $basePath ?>/leave_module/view/hr_panel/advance.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Advance
                                             </div>
                                         </a>
                                     </li>
@@ -397,16 +454,20 @@ function isActive($url)
 
                                 <?php if (checkPermission('lm-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report
+                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('lm-leave-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/lm_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Approval
+                                        <a href="<?php echo $basePath ?>/leave_module/view/lm_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Approval
                                             </div>
                                         </a>
                                     </li>
@@ -426,25 +487,33 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('concern-leave-create')) { ?>
-                                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Create
+                                    <li
+                                        class="menu-item <?php echo isActive('/leave_module/view/concern_panel/create.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/create.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Create
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('concern-leave-delete')) { ?>
-                                    <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/delete.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/delete.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Delete
+                                    <li
+                                        class="menu-item <?php echo isActive('/leave_module/view/concern_panel/delete.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/delete.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Delete
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('concern-leave-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/leave_module/view/concern_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Leave Report
+                                        <a href="<?php echo $basePath ?>/leave_module/view/concern_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Leave Report
                                             </div>
                                         </a>
                                     </li>
@@ -472,16 +541,20 @@ function isActive($url)
                         <ul class="menu-sub">
                             <?php if (checkPermission('self-tour-create')) { ?>
                                 <li class="menu-item <?php echo isActive('/tour_module/view/self_panel/create.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/create.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
+                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/create.php"
+                                        class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Tour Create</div>
                                     </a>
                                 </li>
                             <?php } ?>
 
                             <?php if (checkPermission('self-tour-report')) { ?>
                                 <li class="menu-item <?php echo isActive('/tour_module/view/self_panel/index.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
+                                    <a href="<?php echo $basePath ?>/tour_module/view/self_panel/index.php"
+                                        class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Tour Report</div>
                                     </a>
                                 </li>
                             <?php } ?>
@@ -498,16 +571,20 @@ function isActive($url)
 
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
+                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/create.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if (checkPermission('hr-tour-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/tour_module/view/hr_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
+                                        <a href="<?php echo $basePath ?>/tour_module/view/hr_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -525,8 +602,10 @@ function isActive($url)
                                 <?php if (checkPermission('lm-tour-report')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
+                                        <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -534,8 +613,10 @@ function isActive($url)
                                 <?php if (checkPermission('lm-tour-approval')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/lm_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Approval
+                                        <a href="<?php echo $basePath ?>/tour_module/view/lm_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Approval
                                             </div>
                                         </a>
                                     </li>
@@ -554,8 +635,10 @@ function isActive($url)
                             <ul class="menu-sub">
                                 <?php if (checkPermission('concern-tour-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/tour_module/view/concern_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/create.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Create</div>
+                                        <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/create.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -563,8 +646,10 @@ function isActive($url)
                                 <?php if (checkPermission('concern-tour-report')) { ?>
 
                                     <li class="menu-item <?php echo isActive('/tour_module/view/concern_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Tour Report</div>
+                                        <a href="<?php echo $basePath ?>/tour_module/view/concern_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Tour Report</div>
                                         </a>
                                     </li>
 
@@ -592,12 +677,29 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
 
-                                <li class="menu-item <?php echo isActive('/attendance_module/view/self_panel/index.php'); ?>">
-                                    <a href="<?php echo $basePath ?>/attendance_module/view/self_panel/index.php" class="menu-link withoutIcon">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend Report
+                                <li
+                                    class="menu-item <?php echo isActive('/attendance_module/view/self_panel/index.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/self_panel/index.php"
+                                        class="menu-link withoutIcon">
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Attend Report
                                         </div>
                                     </a>
                                 </li>
+                                <?php
+                                $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+                                if ($emp_session_id == 'SASH-3063') { ?>
+                                <li
+                                    class="menu-item <?php echo isActive('/attendance_module/view/self_panel/punch_data_syn.php'); ?>">
+                                    <a href="<?php echo $basePath ?>/attendance_module/view/self_panel/punch_data_syn.php"
+                                        class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> W.S. Punch Data Syn
+                                        </div>
+                                    </a>
+                                </li>
+                                <?php } ?>
                             </ul>
                         </li>
                     <?php } ?>
@@ -608,38 +710,48 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('hr-attendance-manual-entry')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/manualEntry.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/manualEntry.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Manual Entry
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/manualEntry.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/manualEntry.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Manual Entry
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('hr-attendance-single-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/single_attendance.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/single_attendance.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Single Report
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/single_attendance.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/single_attendance.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Single Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
 
                                 <?php if (checkPermission('hr-attendance-advance-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/advance.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/advance.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Advance Report
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/advance.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/advance.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Advance Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
 
-
-
                                 <?php if (checkPermission('hr-attendance-punch-data-syn')) { ?>
 
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/punch_data_syn.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/punch_data_syn.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Punch Data Syn
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/hr_panel/punch_data_syn.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/hr_panel/punch_data_syn.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Punch Data Syn
                                             </div>
                                         </a>
                                     </li>
@@ -658,26 +770,35 @@ function isActive($url)
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('lm-attendance-approval')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend. Approval
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/approval.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Attend. Approval
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('lm-attendance-concern')) { ?>
 
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/concern.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/concern.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend. Concern
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/concern.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/concern.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Attend. Concern
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('lm-attendance-outdoor')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/outdoor.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/outdoor.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Attend. Outdoor
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/lm_panel/outdoor.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/lm_panel/outdoor.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Attend. Outdoor
                                             </div>
                                         </a>
                                     </li>
@@ -696,19 +817,24 @@ function isActive($url)
                             <ul class="menu-sub">
 
                                 <?php if (checkPermission('concern-attendance-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/index.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/index.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/index.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('concern-attendance-report')) { ?>
-                                    <li class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/punch_data_syn.php'); ?>">
+                                    <li
+                                        class="menu-item <?php echo isActive('/attendance_module/view/concern_panel/punch_data_syn.php'); ?>">
                                         <a href="<?php echo $basePath ?>/attendance_module/view/concern_panel/punch_data_syn.php"
                                             class="menu-link withoutIcon">
                                             <div>
-                                                <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> W.S. Punch Data Syn
+                                                <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> W.S. Punch Data Syn
                                             </div>
                                         </a>
                                     </li>
@@ -742,22 +868,30 @@ function isActive($url)
                                     <?php if (checkPermission('hr-offboarding-report')) { ?>
                                         <li
                                             class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/create.php'); ?> <?php echo isActive('/offboarding_module/view/hr_panel/index.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/index.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> List</div>
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/index.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> List</div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if (checkPermission('hr-offboarding-approval')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/approval.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/approval.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/approval.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Approval</div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if (checkPermission('hr-offboarding-exit-interview')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/exit_interview.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/exit_interview.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Exit Interview
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/exit_interview.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/exit_interview.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Exit Interview
                                                 </div>
                                             </a>
                                         </li>
@@ -766,8 +900,10 @@ function isActive($url)
                                     <?php if (checkPermission("hr-offboarding-id-assign-list")) { ?>
                                         <li
                                             class="menu-item <?php echo isActive('/offboarding_module/view/hr_panel/id_assign.php'); ?><?php echo isActive('/offboarding_module/view/hr_panel/id_assign_list.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/id_assign_list.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> ID Assign List
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/hr_panel/id_assign_list.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> ID Assign List
                                                 </div>
                                             </a>
                                         </li>
@@ -784,33 +920,45 @@ function isActive($url)
                                 </a>
                                 <ul class="menu-sub">
                                     <?php if (checkPermission('lm-hod-approval')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/hod_approval.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/hod_approval.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> HOD Approval
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/hod_approval.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/hod_approval.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> HOD Approval
                                                 </div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if (checkPermission('lm-offboarding-approval')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/approval.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/approval.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/approval.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Offboarding
                                                     Approval</div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if (checkPermission('lm-offboarding-report')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/index.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/index.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/index.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/index.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Offboarding
                                                     Report</div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if ($_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0605" || $_SESSION['HR_APPS']['emp_id_hr'] == "RMWL-0942") { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/exit_interview.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/exit_interview.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Exit Interview
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/lm_panel/exit_interview.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/lm_panel/exit_interview.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Exit Interview
                                                 </div>
                                             </a>
                                         </li>
@@ -828,17 +976,23 @@ function isActive($url)
                                     <?php if (checkPermission('concern-offboarding-create')) {
 
                                         ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/create.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/create.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/create.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/create.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Offboarding
                                                     Create</div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                     <?php if (checkPermission('concern-offboarding-report')) { ?>
-                                        <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/index.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/index.php" class="menu-link withoutIcon">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Offboarding
+                                        <li
+                                            class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel/index.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/offboarding_module/view/concern_panel/index.php"
+                                                class="menu-link withoutIcon">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Offboarding
                                                     Report</div>
                                             </a>
                                         </li>
@@ -868,22 +1022,31 @@ function isActive($url)
                             <div>Self Panel</div>
                         </a>
                         <ul class="menu-sub">
-                            <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_list_self.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_list_self.php" class="menu-link withoutIcon">
-                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>PMS List</div>
+                            <li
+                                class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_list_self.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_list_self.php"
+                                    class="menu-link withoutIcon">
+                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                            style="margin:0;font-size:20px"></i>PMS List</div>
                                 </a>
                             </li>
 
 
-                            <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kra_create.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kra_create.php" class="menu-link withoutIcon">
-                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>KRA List</div>
+                            <li
+                                class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kra_create.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kra_create.php"
+                                    class="menu-link withoutIcon">
+                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                            style="margin:0;font-size:20px"></i>KRA List</div>
                                 </a>
                             </li>
 
-                            <li class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kpi_list.php'); ?>">
-                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kpi_list.php" class="menu-link withoutIcon">
-                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>KPI List</div>
+                            <li
+                                class="menu-item <?php echo isActive('pms_module/view/self_panel/pms_kpi_list.php'); ?>">
+                                <a href="<?php echo $basePath ?>/pms_module/view/self_panel/pms_kpi_list.php"
+                                    class="menu-link withoutIcon">
+                                    <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                            style="margin:0;font-size:20px"></i>KPI List</div>
                                 </a>
                             </li>
 
@@ -900,30 +1063,38 @@ function isActive($url)
 
                                 <?php if (checkPermission('pms-hr-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Approval</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hr-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/report.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/report.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Report</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/report.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hr-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/gradeReport.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/gradeReport.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Grade Report
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/gradeReport.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Grade Report
                                             </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hr-year-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hr_panel/year.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Year Create</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hr_panel/year.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Year Create</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -932,36 +1103,45 @@ function isActive($url)
                     <?php } ?>
 
                     <?php if (checkPermission('pms-lm-approval') || checkPermission('pms-lm-report') || checkPermission('pms-hod-approval') || checkPermission('pms-hod-report')) { ?>
-                        <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?> <?php echo isActive('/pms_module/view/hod_panel'); ?>">
+                        <li
+                            class="menu-item <?php echo isActive('/pms_module/view/lm_panel'); ?> <?php echo isActive('/pms_module/view/hod_panel'); ?>">
                             <a href="javascript:void(0)" class="menu-link menu-toggle">
                                 <div>LM Panel</div>
                             </a>
                             <ul class="menu-sub">
                                 <?php if (checkPermission('pms-lm-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>LM Approval</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>LM Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-lm-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/lm_panel/report.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/report.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>LM Report</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/lm_panel/report.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>LM Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hod-approval')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/approval.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/approval.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Approval</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/approval.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>HOD Approval</div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('pms-hod-report')) { ?>
                                     <li class="menu-item <?php echo isActive('/pms_module/view/hod_panel/report.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/report.php" class="menu-link withoutIcon">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>HOD Report</div>
+                                        <a href="<?php echo $basePath ?>/pms_module/view/hod_panel/report.php"
+                                            class="menu-link withoutIcon">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>HOD Report</div>
                                         </a>
                                     </li>
                                 <?php } ?>
@@ -1015,16 +1195,21 @@ function isActive($url)
                             <ul class="menu-sub">
                                 <?php if (checkPermission('deed-create')) { ?>
                                     <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/create.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/create.php" class="menu-link">
-                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Create </div>
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/create.php"
+                                            class="menu-link">
+                                            <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i> Create </div>
                                         </a>
                                     </li>
                                 <?php } ?>
                                 <?php if (checkPermission('upload-document')) { ?>
 
-                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_doc.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php" class="menu-link">
-                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                    <li
+                                        class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_doc.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_doc.php"
+                                            class="menu-link">
+                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Upload Doc.
                                             </div>
                                         </a>
@@ -1033,9 +1218,12 @@ function isActive($url)
 
                                 <?php if (checkPermission('upload-check')) { ?>
 
-                                    <li class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_cheque.php'); ?>">
-                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_cheque.php" class="menu-link">
-                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i>
+                                    <li
+                                        class="menu-item <?php echo isActive('/deed_module/view/form_panel/upload_cheque.php'); ?>">
+                                        <a href="<?php echo $basePath ?>/deed_module/view/form_panel/upload_cheque.php"
+                                            class="menu-link">
+                                            <div><i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                    style="margin:0;font-size:20px"></i>
                                                 Upload Cheque
                                             </div>
                                         </a>
@@ -1054,9 +1242,12 @@ function isActive($url)
                                 <ul class="menu-sub">
                                     <?php if (checkPermission('report-one')) { ?>
 
-                                        <li class="menu-item <?php echo isActive('/deed_module/view/report_panel/complete_deed.php'); ?>">
-                                            <a href="<?php echo $basePath ?>/deed_module/view/report_panel/complete_deed.php" class="menu-link">
-                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Complete Deed
+                                        <li
+                                            class="menu-item <?php echo isActive('/deed_module/view/report_panel/complete_deed.php'); ?>">
+                                            <a href="<?php echo $basePath ?>/deed_module/view/report_panel/complete_deed.php"
+                                                class="menu-link">
+                                                <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                        style="margin:0;font-size:20px"></i> Complete Deed
                                                 </div>
                                             </a>
                                         </li>
@@ -1075,12 +1266,14 @@ function isActive($url)
 
                                 <li class="menu-item ">
                                     <a href="#" class="menu-link">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Module </div>
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Module </div>
                                     </a>
                                 </li>
                                 <li class="menu-item ">
                                     <a href="#" class="menu-link">
-                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right" style="margin:0;font-size:20px"></i> Root Path </div>
+                                        <div> <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i> Root Path </div>
                                     </a>
                                 </li>
 
@@ -1104,8 +1297,10 @@ function isActive($url)
                 </a>
                 <ul class="menu-sub">
                     <?php if (checkPermission('accounts-clearance-form')) { ?>
-                        <li class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
-                            <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php" class="menu-link">
+                        <li
+                            class="menu-item <?php echo isActive('/form_module/view/finance_accounts_clearance_list.php'); ?>">
+                            <a href="<?php echo $basePath ?>/form_module/view/finance_accounts_clearance_list.php"
+                                class="menu-link">
                                 <div>Accounts Clearence Form</div>
                             </a>
                         </li>
@@ -1202,7 +1397,7 @@ function isActive($url)
                                 </a>
                             </li>
                         <?php } ?>
-                        
+
                         <?php if (checkPermission('holiday-list')) { ?>
                             <li class="menu-item <?php echo isActive('admin_setting/view/holiday.php'); ?>">
                                 <a href="<?php echo $basePath ?>/admin_setting/view/holiday.php" class="menu-link">
@@ -1262,7 +1457,8 @@ function isActive($url)
                     </a>
                     <ul class="menu-sub">
                         <?php if (checkPermission('role-list')) { ?>
-                            <li class="menu-item <?php if ($v_page == 'role') echo $v_active; ?>">
+                            <li class="menu-item <?php if ($v_page == 'role')
+                                echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role/index.php" class="menu-link">
                                     <div>Role List</div>
                                 </a>
@@ -1270,7 +1466,8 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('permission-list')) { ?>
-                            <li class="menu-item <?php if ($v_page == 'permission') echo $v_active; ?>">
+                            <li class="menu-item <?php if ($v_page == 'permission')
+                                echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/permission/index.php" class="menu-link ">
                                     <div>Permssion List</div>
                                 </a>
@@ -1278,7 +1475,8 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('role-permission-list')) { ?>
-                            <li class="menu-item <?php if ($v_page == 'role_permission') echo $v_active; ?>">
+                            <li class="menu-item <?php if ($v_page == 'role_permission')
+                                echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/role_permission/index.php" class="menu-link">
                                     <div>Role & Permission </div>
                                 </a>
@@ -1286,7 +1484,8 @@ function isActive($url)
                         <?php } ?>
 
                         <?php if (checkPermission('user-role-list')) { ?>
-                            <li class="menu-item <?php if ($v_page == 'user_role') echo $v_active; ?>">
+                            <li class="menu-item <?php if ($v_page == 'user_role')
+                                echo $v_active; ?>">
                                 <a href="<?php echo $basePath ?>/role_permission/user_role/index.php" class="menu-link ">
                                     <div>User Role</div>
                                 </a>
