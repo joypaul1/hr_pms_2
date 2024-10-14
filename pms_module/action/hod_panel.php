@@ -9,7 +9,8 @@ $basePath       = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
     $ACHIVEMENT          = $_POST['achivement'];
-    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    // $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    $ACHIVEMENT_COMMENTS = trim(str_replace("'", "''", $_POST['ACHIVEMENT_COMMENTS']));
     $key                 = $_POST['key'];
     $emp_id              = $_POST['emp_id'];
     $tab_id              = $_POST['tab_id'];
@@ -113,7 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
 
-    $v_remarks               = $_POST['remarks'];
+    // $v_remarks               = $_POST['remarks'];
+    $v_remarks = trim(str_replace("'", "''", $_POST['remarks']));
     $v_app_status            = $_POST['app_status'];
     $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
     // echo $v_app_status;

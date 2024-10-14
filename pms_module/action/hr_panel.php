@@ -8,7 +8,8 @@ $basePath       = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
 
-    $v_remarks               = $_POST['remarks'];
+    // $v_remarks               = $_POST['remarks'];
+    $v_remarks = trim(str_replace("'", "''", $_POST['remarks']));
     $v_app_status            = $_POST['app_status'];
     $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
 
@@ -103,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
 
         $START_DATE = date('d-M-y', strtotime($_POST['start_date']));
         $END_DATE   = date('d-M-y', strtotime($_POST['end_date']));
-        $v_pms_name = $_POST['pms_name'];
+        // $v_pms_name = $_POST['pms_name'];
+        $v_pms_name = trim(str_replace("'", "''", $_POST['pms_name']));
         $status     = $_POST['status'];
         if ($status) {
             $query  = "UPDATE HR_PMS_LIST SET IS_ACTIVE = 0 ";
@@ -178,7 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'year
         $editId        = $_POST['editId'];
         $START_DATE    = date('d-M-y', strtotime($_POST['start_date']));
         $END_DATE      = date('d-M-y', strtotime($_POST['end_date']));
-        $v_pms_name    = $_POST['pms_name'];
+        // $v_pms_name    = $_POST['pms_name'];
+        $v_pms_name = trim(str_replace("'", "''", $_POST['pms_name']));
         $status        = $_POST['status'];
         $step_status_1 = isset($_POST['step_status_1']) ? $_POST['step_status_1'] : "";
         $step_status_2 = isset($_POST['step_status_2']) ? $_POST['step_status_2'] : "";

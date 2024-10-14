@@ -3,29 +3,29 @@ session_start();
 require_once('../../inc/config.php');
 require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-$basePath       = $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
 
     $ACHIVEMENT = $_POST['achivement'];
-    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
-    $key        = $_POST['key'];
-    $emp_id     = $_POST['emp_id'];
-    $tab_id     = $_POST['tab_id'];
+    // $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    $ACHIVEMENT_COMMENTS = trim(str_replace("'", "''", $_POST['ACHIVEMENT_COMMENTS']));
+    $key = $_POST['key'];
+    $emp_id = $_POST['emp_id'];
+    $tab_id = $_POST['tab_id'];
 
     if (count($ACHIVEMENT) > 0) {
 
         foreach ($ACHIVEMENT as $Idkey => $achValue) {
             $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$achValue',ACHIVEMENT_COMMENTS='$ACHIVEMENT_COMMENTS[$Idkey]' WHERE ID='$Idkey'");
             if (oci_execute($strSQL)) {
-            }
-            else {
+            } else {
 
-                $e                        = oci_error($strSQL);
-                $message                  = [
-                    'text'   => htmlentities($e['message'], ENT_QUOTES),
+                $e = oci_error($strSQL);
+                $message = [
+                    'text' => htmlentities($e['message'], ENT_QUOTES),
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -35,8 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
     }
 
-    $message                  = [
-        'text'   => 'KPI Achivement Saved successfully.',
+    $message = [
+        'text' => 'KPI Achivement Saved successfully.',
         'status' => 'true',
     ];
     $_SESSION['noti_message'] = $message;
@@ -49,8 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_approved_denied') {
 
-    $v_remarks               = $_POST['remarks'];
-    $v_app_status            = $_POST['app_status'];
+    // $v_remarks               = $_POST['remarks'];
+    $v_remarks = trim(str_replace("'", "''", $_POST['remarks']));
+    $v_app_status = $_POST['app_status'];
     $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
 
     if ($v_app_status == 1) {
@@ -60,8 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
                       LINE_MANAGE_1_REMARKS='$v_remarks',LINE_MANAGER_1_STATUS=$v_app_status,LINE_MANAGER_1_UPDATED=SYSDATE
                       WHERE ID=$hr_pms_pms_emp_table_id"
         );
-    }
-    else if ($v_app_status == 0) {
+    } else if ($v_app_status == 0) {
         $strSQL = oci_parse(
             $objConnect,
             "UPDATE HR_PMS_EMP SET 
@@ -75,28 +75,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
 
     if (oci_execute($strSQL)) {
         if ($v_app_status == 1) {
-            $message                  = [
-                'text'   => 'PMS Approved successfully.',
+            $message = [
+                'text' => 'PMS Approved successfully.',
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
             echo "<script> window.location.href ='$basePath/pms_module/view/lm_panel/approval.php'</script>";
-        }
-        else {
-            $message                  = [
-                'text'   => 'PMS Denied successfully.',
+        } else {
+            $message = [
+                'text' => 'PMS Denied successfully.',
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
             echo "<script> window.location.href ='$basePath/pms_module/view/lm_panel/approval.php'</script>";
         }
 
-    }
-    else {
+    } else {
 
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -123,21 +121,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
 
 
 
-    $JOB_KNOWLEDGE              = $_REQUEST['JOB_KNOWLEDGE'];
-    $TRANSPARENCY               = $_REQUEST['TRANSPARENCY'];
-    $OWNERSHIP_CAN_DO           = $_REQUEST['OWNERSHIP_CAN_DO'];
-    $COMMUNICATION_SKILL        = $_REQUEST['COMMUNICATION_SKILL'];
-    $TEAM_WORK                  = $_REQUEST['TEAM_WORK'];
-    $CREATIVITY_MAKER           = $_REQUEST['CREATIVITY_MAKER'];
-    $LEADERSHIP                 = $_REQUEST['LEADERSHIP'];
-    $CUSTOMER_RESPONSIBILITY    = $_REQUEST['CUSTOMER_RESPONSIBILITY'];
-    $PROBLEM_SOLVING            = $_REQUEST['PROBLEM_SOLVING'];
-    $WORK_ETHICS                = $_REQUEST['WORK_ETHICS'];
-    $HR_PMS_EMP_ID              = $_POST['tab_id'];
-    $HR_PMS_LIST_ID             = $_POST['key'];
-    $EMP_ID                     = $_POST['emp_id'];
+    $JOB_KNOWLEDGE = $_REQUEST['JOB_KNOWLEDGE'];
+    $TRANSPARENCY = $_REQUEST['TRANSPARENCY'];
+    $OWNERSHIP_CAN_DO = $_REQUEST['OWNERSHIP_CAN_DO'];
+    $COMMUNICATION_SKILL = $_REQUEST['COMMUNICATION_SKILL'];
+    $TEAM_WORK = $_REQUEST['TEAM_WORK'];
+    $CREATIVITY_MAKER = $_REQUEST['CREATIVITY_MAKER'];
+    $LEADERSHIP = $_REQUEST['LEADERSHIP'];
+    $CUSTOMER_RESPONSIBILITY = $_REQUEST['CUSTOMER_RESPONSIBILITY'];
+    $PROBLEM_SOLVING = $_REQUEST['PROBLEM_SOLVING'];
+    $WORK_ETHICS = $_REQUEST['WORK_ETHICS'];
+    $HR_PMS_EMP_ID = $_POST['tab_id'];
+    $HR_PMS_LIST_ID = $_POST['key'];
+    $EMP_ID = $_POST['emp_id'];
 
-   
+
 
     if (isset($_POST['submit_draft']) && empty($exitData)) {
 
@@ -158,20 +156,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
         if (oci_execute($strSQL)) {
 
 
-            $message                  = [
-                'text'   => "Successfully Draft Saved.",
+            $message = [
+                'text' => "Successfully Draft Saved.",
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
             header("location:" . $basePath . "/pms_module/view/lm_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
             exit();
 
-        }
-        else {
+        } else {
             @$lastError = error_get_last();
             @$error = $lastError ? "" . $lastError["message"] . "" : "";
-            $message                  = [
-                'text'   => (preg_split("/\@@@@/", @$error)[1]),
+            $message = [
+                'text' => (preg_split("/\@@@@/", @$error)[1]),
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
@@ -198,21 +195,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
 
         if (oci_execute($strSQL)) {
 
-            $message                  = [
-                'text'   => "Successfully Draft Saved.",
+            $message = [
+                'text' => "Successfully Draft Saved.",
                 'status' => 'true',
             ];
             $_SESSION['noti_message'] = $message;
-          
+
             header("location:" . $basePath . "/pms_module/view/lm_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
             exit();
 
-        }
-        else {
+        } else {
             @$lastError = error_get_last();
             @$error = $lastError ? "" . $lastError["message"] . "" : "";
-            $message                  = [
-                'text'   => (preg_split("/\@@@@/", @$error)[1]),
+            $message = [
+                'text' => (preg_split("/\@@@@/", @$error)[1]),
                 'status' => 'false',
             ];
             $_SESSION['noti_message'] = $message;
@@ -232,19 +228,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 SET JOB_KNOWLEDGE = '$JOB_KNOWLEDGE',TRANSPARENCY = '$TRANSPARENCY', OWNERSHIP_CAN_DO = '$OWNERSHIP_CAN_DO', COMMUNICATION_SKILL = '$COMMUNICATION_SKILL',TEAM_WORK = '$TEAM_WORK', CREATIVITY_MAKER = '$CREATIVITY_MAKER', LEADERSHIP = '$LEADERSHIP',CUSTOMER_RESPONSIBILITY = '$CUSTOMER_RESPONSIBILITY',PROBLEM_SOLVING = '$PROBLEM_SOLVING', WORK_ETHICS = '$WORK_ETHICS' WHERE  HR_PMS_EMP_ID =" . $_POST['tab_id'] . " AND HR_PMS_LIST_ID = " . $_POST['key']
             );
             if (oci_execute($strSQL)) {
-                $message                  = [
-                    'text'   => "Successfully Draft Saved.",
+                $message = [
+                    'text' => "Successfully Draft Saved.",
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
                 header("location:" . $basePath . "/pms_module/view/lm_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
                 exit();
-            }
-            else {
+            } else {
                 @$lastError = error_get_last();
                 @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                $message                  = [
-                    'text'   => (preg_split("/\@@@@/", @$error)[1]),
+                $message = [
+                    'text' => (preg_split("/\@@@@/", @$error)[1]),
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
@@ -252,8 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 exit();
             }
 
-        }
-        else if (isset($_POST['submit_confirm'])) {
+        } else if (isset($_POST['submit_confirm'])) {
 
             $strSQL = oci_parse(
                 $objConnect,
@@ -261,19 +255,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'rati
                 SET JOB_KNOWLEDGE = '$JOB_KNOWLEDGE',TRANSPARENCY = '$TRANSPARENCY', OWNERSHIP_CAN_DO = '$OWNERSHIP_CAN_DO', COMMUNICATION_SKILL = '$COMMUNICATION_SKILL',TEAM_WORK = '$TEAM_WORK', CREATIVITY_MAKER = '$CREATIVITY_MAKER', LEADERSHIP = '$LEADERSHIP',CUSTOMER_RESPONSIBILITY = '$CUSTOMER_RESPONSIBILITY',PROBLEM_SOLVING = '$PROBLEM_SOLVING', WORK_ETHICS = '$WORK_ETHICS', LM_STATUS = 1 WHERE  HR_PMS_EMP_ID =" . $_POST['tab_id'] . " AND HR_PMS_LIST_ID = " . $_POST['key']
             );
             if (oci_execute($strSQL)) {
-                $message                  = [
-                    'text'   => "Successfully Draft Saved.",
+                $message = [
+                    'text' => "Successfully Draft Saved.",
                     'status' => 'true',
                 ];
                 $_SESSION['noti_message'] = $message;
                 header("location:" . $basePath . "/pms_module/view/lm_panel/rating_form.php?key=$HR_PMS_LIST_ID&emp_id=$EMP_ID&tab_id=$HR_PMS_EMP_ID");
                 exit();
-            }
-            else {
+            } else {
                 @$lastError = error_get_last();
                 @$error = $lastError ? "" . $lastError["message"] . "" : "";
-                $message                  = [
-                    'text'   => (preg_split("/\@@@@/", @$error)[1]),
+                $message = [
+                    'text' => (preg_split("/\@@@@/", @$error)[1]),
                     'status' => 'false',
                 ];
                 $_SESSION['noti_message'] = $message;
