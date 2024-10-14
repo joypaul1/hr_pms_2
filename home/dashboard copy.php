@@ -68,80 +68,63 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-	<div class="">
-		<div class="mb-1 ">
-			<div class="card mb-3 p-3" style="max-height:200px;">
-				<div class="row">
-					<div class="col-2">
-						<?php
-						$imagePath = $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : ($basePath . '/assets/img/avatars/1.png');
-						?>
-						<img src="<?php echo $imagePath; ?>" class="card-img" alt="..." style="    width: 200px;height: 100%">
-					</div>
-					<div class="col-10">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- <div class="">
-							<div class="flex-grow-1">
-								<div
-									class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
-									<div class="user-profile-info">
-										<h4 class="text-white">
-											<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?> |
-											<?php echo $_SESSION['HR_APPS']['emp_id_hr']; ?>
-										</h4>
-										<ul
-											class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
-											<li class="list-inline-item fw-medium">
-												<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
-													<?php echo $userProfile['DESIGNATION'] ?>
-												</span>
-											</li>
-											<li class="list-inline-item fw-medium">
-
-												<span class="badge bg-label-danger"><i class='bx bx-network-chart'></i>
-													<?php echo $userProfile['DEPT_NAME'] ?>
-												</span>
-											</li>
-											<li class="list-inline-item fw-medium">
-
-												<span class="badge bg-label-info"><i class="bx bx-map"></i>
-													<?php echo $userProfile['BRANCH_NAME'] ?>
-												</span>
-											</li>
-											<li class="list-inline-item fw-medium">
-												<span class="badge bg-label-warning">
-													<i class="bx bx-calendar-alt"></i>
-													<?php echo $userProfile['DOJ'] ?>
-												</span>
-											</li>
-										</ul>
-									</div>
-									<a href="<?php echo $basePath . '/user_teammate.php' ?>"
-										class="btn btn btn-danger btn-buy-now text-nowrap">
-										<i class="bx bx-group me-1"></i>Team Member <i
-											class='bx bx-arrow-from-left'></i>
-									</a>
-								</div>
-							</div>
-						</div> -->
-		<!-- <div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12 mb-2 order-0">
 			<div class="card" style="background: linear-gradient(to bottom, #004972, #a69f9069);">
 				<div class="user-profile-header d-flex flex-column flex-sm-row text-sm-start text-center mb-4">
 					<div class="flex-shrink-0  mx-sm-0 mx-auto">
-						
+						<?php
+						$imagePath = $_SESSION['HR_APPS']['emp_image_hr'] != null ? ($basePath . '/' . $_SESSION['HR_APPS']['emp_image_hr']) : ($basePath . '/assets/img/avatars/1.png');
+						?>
 						<img src="<?php echo $imagePath; ?>" alt="<?php echo $imagePath; ?>"
 							class="d-block h-auto ms-0 ms-sm-4 rounded user-profile-img" width="100" height="100">
 					</div>
-					
+					<div class="flex-grow-1 mt-3 ">
+						<div
+							class="d-flex align-items-md-end align-items-sm-start align-items-center justify-content-md-between justify-content-start mx-4 flex-md-row flex-column gap-4">
+							<div class="user-profile-info">
+								<h4 class="text-white">
+									<?php echo $_SESSION['HR_APPS']['first_name_hr']; ?> |
+									<?php echo $_SESSION['HR_APPS']['emp_id_hr']; ?>
+								</h4>
+								<ul
+									class="list-inline mb-0 d-flex align-items-center flex-wrap justify-content-sm-start justify-content-center gap-2">
+									<li class="list-inline-item fw-medium">
+										<span class="badge bg-label-success"> <i class="bx bx-pen"></i>
+											<?php echo $userProfile['DESIGNATION'] ?>
+										</span>
+									</li>
+									<li class="list-inline-item fw-medium">
+
+										<span class="badge bg-label-danger"><i class='bx bx-network-chart'></i>
+											<?php echo $userProfile['DEPT_NAME'] ?>
+										</span>
+									</li>
+									<li class="list-inline-item fw-medium">
+
+										<span class="badge bg-label-info"><i class="bx bx-map"></i>
+											<?php echo $userProfile['BRANCH_NAME'] ?>
+										</span>
+									</li>
+									<li class="list-inline-item fw-medium">
+										<span class="badge bg-label-warning">
+											<i class="bx bx-calendar-alt"></i>
+											<?php echo $userProfile['DOJ'] ?>
+										</span>
+									</li>
+								</ul>
+							</div>
+							<a href="<?php echo $basePath . '/user_teammate.php' ?>"
+								class="btn btn btn-danger btn-buy-now text-nowrap">
+								<i class="bx bx-group me-1"></i>Team Member <i class='bx bx-arrow-from-left'></i>
+							</a>
+						</div>
+					</div>
 				</div>
 			</div>
 
 
-		</div> -->
+		</div>
 		<div class="col-sm-12 col-md-6  col-lg-6 order-0">
 			<div class="card">
 				<h5 class="card-header m-auto boxDkh text-white ">Employee Leave Summary</h5>
@@ -171,7 +154,7 @@ $userProfile = @oci_fetch_assoc($userSQL);
 
 								$strLVSQL = @oci_parse($objConnect, $SQLlv);
 								@oci_execute($strLVSQL);
-
+								
 								$number = 0;
 								while ($row = oci_fetch_assoc($strLVSQL)) {
 									$number++;

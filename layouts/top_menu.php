@@ -30,7 +30,7 @@ while ($row = @oci_fetch_assoc($allDataSQL)) {
                     <div class="nav-item d-flex align-items-center">
                         <i class="bx bx-search fs-4 lh-0"></i>
                         <?php if (getUserWiseRoleName('super-admin') || getUserWiseRoleName('hr')) { ?>
-                        <input type="text" name="emp_id" class="form-control border-0 shadow-none"
+                            <input type="text" name="emp_id" class="form-control border-0 shadow-none"
                             placeholder="Search Employee" aria-label="Search...">
                         <?php
             }

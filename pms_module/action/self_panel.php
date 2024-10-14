@@ -1,29 +1,30 @@
 <?php
 session_start();
-require_once ('../../inc/config.php');
-require_once ('../../inc/connoracle.php');
+require_once('../../inc/config.php');
+require_once('../../inc/connoracle.php');
 $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
-$basePath       = $_SESSION['basePath'];
+$basePath = $_SESSION['basePath'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_achivement') {
 
-    $editId              = $_POST['editId'];
-    $ACHIVEMENT          = $_POST['achivement'];
-    $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    $editId = $_POST['editId'];
+    $ACHIVEMENT = $_POST['achivement'];
+    // $ACHIVEMENT_COMMENTS = $_POST['ACHIVEMENT_COMMENTS'];
+    $achievementComments = str_replace("'", "''", $_POST['ACHIVEMENT_COMMENTS']); // Escape single quotes
+    $achievementComments = trim($achievementComments); // Remove extra whitespace
 
     $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET  ACHIVEMENT='$ACHIVEMENT', ACHIVEMENT_COMMENTS ='$ACHIVEMENT_COMMENTS' WHERE ID='$editId'");
     if (oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'KPI Achivement Saved successfully.',
+        $message = [
+            'text' => 'KPI Achivement Saved successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_list.php'</script>";
-    }
-    else {
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+    } else {
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -33,25 +34,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_edit') {
 
-    $editId         = $_POST['editId'];
-    $v_kra_name     = $_POST['kra_name'];
+    $editId = $_POST['editId'];
+    // $v_kra_name = $_POST['kra_name'];
+    $v_kra_name = trim(str_replace("'", "''", $_POST['kra_name']));
     $HR_PMS_LIST_ID = $_POST['pms_title_id'];
-    $query          = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
-    $strSQL         = oci_parse($objConnect, $query);
+    $query = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
+    $strSQL = oci_parse($objConnect, $query);
 
     if (oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'KRA is Edited successfully.',
+        $message = [
+            'text' => 'KRA is Edited successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kra_edit.php?id=$editId'</script>";
-    }
-    else {
+    } else {
 
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -60,26 +61,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_update') {
 
-    $editId         = $_POST['editId'];
-    $key            = $_POST['key'];
-    $v_kra_name     = $_POST['kra_name'];
+    $editId = $_POST['editId'];
+    $key = $_POST['key'];
+    // $v_kra_name = $_POST['kra_name'];
+    $v_kra_name = trim(str_replace("'", "''", $_POST['kra_name']));
     $HR_PMS_LIST_ID = $_POST['pms_title_id'];
-    $query          = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
-    $strSQL         = oci_parse($objConnect, $query);
+    $query = "UPDATE  HR_PMS_KRA_LIST SET KRA_NAME = '$v_kra_name', HR_PMS_LIST_ID = '$HR_PMS_LIST_ID' , UPDATED_DATE = SYSDATE WHERE ID='$editId'";
+    $strSQL = oci_parse($objConnect, $query);
 
     if (oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'KRA is Edited successfully.',
+        $message = [
+            'text' => 'KRA is Edited successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_dtls.php?key=$key'</script>";
-    }
-    else {
+    } else {
 
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -95,17 +96,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit
     );
 
     if (@oci_execute($updateSQL)) {
-        $message                  = [
-            'text'   => 'Submitted successfully.',
+        $message = [
+            'text' => 'Submitted successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-    }
-    else {
-        $lastError                = error_get_last();
-        $error                    = @$lastError ? "" . @$lastError["message"] . "" : "";
-        $message                  = [
-            'text'   => $error,
+    } else {
+        $lastError = error_get_last();
+        $error = @$lastError ? "" . @$lastError["message"] . "" : "";
+        $message = [
+            'text' => $error,
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxkra_edit') {
     $editId = $_POST['editId'];
-    $query  = "SELECT ID, KRA_NAME, HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID = $editId";
+    $query = "SELECT ID, KRA_NAME, HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID = $editId";
     $strSQL = oci_parse($objConnect, $query);
 
     if (oci_execute($strSQL)) {
@@ -143,8 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
         echo '</select>
                 </div>
             </div>';
-    }
-    else {
+    } else {
         echo 'Something went wrong!';
     }
 }
@@ -152,14 +151,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxkpi_edit') {
     $v_ACHIEVEMENT_LOCK_STATUS = 0;
-    $editID                    = $_REQUEST['editID'];
-    $emp_session_id            = $_SESSION['HR_APPS']['emp_id_hr'];
-    $query                     = "SELECT KPI_NAME, HR_KRA_LIST_ID, ACHIEVEMENT_LOCK_STATUS, WEIGHTAGE, REMARKS, TARGET, ELIGIBILITY_FACTOR, ACHIVEMENT, (SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP WHERE IS_ACTIVE=1 AND EMP_ID='$emp_session_id' AND HR_PMS_LIST_ID=(SELECT HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)) SUBMITTED_STATUS FROM HR_PMS_KPI_LIST WHERE ID=$editID";
-    $strSQL                    = oci_parse($objConnect, $query);
+    $editID = $_REQUEST['editID'];
+    $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
+    $query = "SELECT KPI_NAME, HR_KRA_LIST_ID, ACHIEVEMENT_LOCK_STATUS, WEIGHTAGE, REMARKS, TARGET, ELIGIBILITY_FACTOR, ACHIVEMENT, (SELECT SELF_SUBMITTED_STATUS FROM HR_PMS_EMP WHERE IS_ACTIVE=1 AND EMP_ID='$emp_session_id' AND HR_PMS_LIST_ID=(SELECT HR_PMS_LIST_ID FROM HR_PMS_KRA_LIST WHERE ID=HR_KRA_LIST_ID)) SUBMITTED_STATUS FROM HR_PMS_KPI_LIST WHERE ID=$editID";
+    $strSQL = oci_parse($objConnect, $query);
 
     if (oci_execute($strSQL)) {
-        $row                       = oci_fetch_assoc($strSQL);
-        $kra_id                    = $row['HR_KRA_LIST_ID'];
+        $row = oci_fetch_assoc($strSQL);
+        $kra_id = $row['HR_KRA_LIST_ID'];
         $v_ACHIEVEMENT_LOCK_STATUS = $row['ACHIEVEMENT_LOCK_STATUS'];
 
         echo '<div class="row">
@@ -216,8 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
                 <textarea class="form-control "  rows="2" id="comment" name="ramarks">' . $row["REMARKS"] . '</textarea>
             </div>
         </div>';
-    }
-    else {
+    } else {
         echo 'Something went wrong!';
     }
 }
@@ -225,21 +223,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajax
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_update') {
 
-    $key                       = $_POST['key'];
-    $editId                    = $_POST['editId'];
-    $v_kpi_name                = $_POST['kpi_name'];
-    $v_kra_id                  = $_POST['kra_id'];
-    $v_weightage               = $_POST['weightage'];
-    $v_target                  = $_POST['target'];
-    $v_eli_factor              = $_POST['eli_factor'];
-    $v_ramarks                 = $_POST['ramarks'];
-    $v_ramarks                 = $_POST['ramarks'];
-    $v_achivement              = isset($_POST['achivement']) ? $_POST['achivement'] : '';
+    $key = $_POST['key'];
+    $editId = $_POST['editId'];
+    $v_kpi_name = trim(str_replace("'", "''", $_POST['kpi_name']));
+    $v_kra_id = $_POST['kra_id'];
+    $v_weightage = $_POST['weightage'];
+    $v_target = $_POST['target'];
+    $v_eli_factor = $_POST['eli_factor'];
+    // $v_ramarks = $_POST['ramarks'];
+    $v_ramarks = trim(str_replace("'", "''", $_POST['ramarks'])); // Escape single quotes
+    // $v_ramarks = trim($v_ramarks); // Remove extra whitespace
+    // $v_ramarks = $_POST['ramarks'];
+    $v_achivement = isset($_POST['achivement']) ? $_POST['achivement'] : '';
     $v_ACHIEVEMENT_LOCK_STATUS = isset($_POST['v_ACHIEVEMENT_LOCK_STATUS']) ? $_POST['v_ACHIEVEMENT_LOCK_STATUS'] : '';
     if ($v_ACHIEVEMENT_LOCK_STATUS == 1) {
         $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET ACHIVEMENT='$v_achivement' WHERE ID='$editId'");
-    }
-    else {
+    } else {
         $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET 
                                            KPI_NAME='$v_kpi_name',
                                            HR_KRA_LIST_ID='$v_kra_id',
@@ -253,19 +252,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
 
     if (oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'KPI is Edited successfully.',
+        $message = [
+            'text' => 'KPI is Edited successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_dtls.php?key=$key'</script>";
 
-    }
-    else {
+    } else {
 
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
@@ -275,20 +273,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_edit') {
 
-    $editId                    = $_POST['editId'];
-    $v_kpi_name                = $_POST['kpi_name'];
-    $v_kra_id                  = $_POST['kra_id'];
-    $v_weightage               = $_POST['weightage'];
-    $v_target                  = $_POST['target'];
-    $v_eli_factor              = $_POST['eli_factor'];
-    $v_ramarks                 = $_POST['ramarks'];
-    $v_ramarks                 = $_POST['ramarks'];
-    $v_achivement              = isset($_POST['achivement']) ? $_POST['achivement'] : '';
+    $editId = $_POST['editId'];
+    $v_kpi_name = trim(str_replace("'", "''", $_POST['kpi_name']));
+    $v_kra_id = $_POST['kra_id'];
+    $v_weightage = $_POST['weightage'];
+    $v_target = $_POST['target'];
+    $v_eli_factor = $_POST['eli_factor'];
+    // $v_ramarks = $_POST['ramarks'];
+    $v_ramarks = trim(str_replace("'", "''", $_POST['ramarks'])); // Escape single quotes
+    
+    $v_achivement = isset($_POST['achivement']) ? $_POST['achivement'] : '';
     $v_ACHIEVEMENT_LOCK_STATUS = isset($_POST['v_ACHIEVEMENT_LOCK_STATUS']) ? $_POST['v_ACHIEVEMENT_LOCK_STATUS'] : '';
     if ($v_ACHIEVEMENT_LOCK_STATUS == 1) {
         $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET ACHIVEMENT='$v_achivement' WHERE ID='$editId'");
-    }
-    else {
+    } else {
         $strSQL = oci_parse($objConnect, "UPDATE HR_PMS_KPI_LIST SET 
                                            KPI_NAME='$v_kpi_name',
                                            HR_KRA_LIST_ID='$v_kra_id',
@@ -302,18 +300,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
 
 
     if (oci_execute($strSQL)) {
-        $message                  = [
-            'text'   => 'KPI is Edited successfully.',
+        $message = [
+            'text' => 'KPI is Edited successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
         echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_kpi_list_edit.php?id=$editId'</script>";
-    }
-    else {
+    } else {
 
-        $e                        = oci_error($strSQL);
-        $message                  = [
-            'text'   => htmlentities($e['message'], ENT_QUOTES),
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
