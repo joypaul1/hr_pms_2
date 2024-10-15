@@ -297,6 +297,8 @@ oci_execute($strSQL);
 
 										</td>
 										<td>
+										<button data-id="<?php echo $row['ID']; ?>" class="btn btn-sm btn-info editCom" style="padding: 1%;" href="#"><i
+										class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
 											<?php
 											echo '<i style="color:red;"><b>' . $row['SELF_REMARKS'] . '</b></i> ';
 											?>
@@ -397,6 +399,47 @@ oci_execute($strSQL);
 
 </div>
 
+<!-- comEditModal -->
+<div class="modal fade" id="comEditModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1"><i class='bx bxs-edit'></i> <u>Self Comment Edit : </u></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="POST">
+                <input type="hidden" name="actionType" value="com_update">
+                <div class="modal-body">
+                    <div id="comEditHTML"></div>
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-sm btn-outline-danger" data-bs-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-sm btn-info">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- comEditModal -->
 <?php require_once ('../../../layouts/footer_info.php'); ?>
 <?php require_once ('../../../layouts/footer.php'); ?>
+
+<script>
+	$('.editCom').click(function () {
+        var editId = $(this).attr('data-id');
+        if (editId !== '') {
+            $.ajax({
+                type: 'POST',
+                url: "<?php echo $_SESSION['basePath'] ?>/pms_module/action/self_panel.php",
+                data: { actionType: 'ajaxcom_edit', 'editId': editId },
+                success: function (response) {
+                    $('#comEditHTML').html(response);
+                    $('#comEditModal').modal('show');
+                }
+            });
+        }
+    });
+</script>

@@ -118,8 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'pms_
     $v_remarks = trim(str_replace("'", "''", $_POST['remarks']));
     $v_app_status            = $_POST['app_status'];
     $hr_pms_pms_emp_table_id = $_POST['hr_pms_pms_emp_table_id'];
-    // echo $v_app_status;
-    // die();
+
     if ($v_app_status == 1) {
         $strSQL = oci_parse(
             $objConnect,

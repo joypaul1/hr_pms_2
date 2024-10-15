@@ -59,6 +59,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
         echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_kra_edit.php?id=$editId'</script>";
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'com_update') {
+
+    $editId = $_POST['editId'];
+    $SELF_REMARKS = trim(str_replace("'", "''", $_POST['SELF_REMARKS']));
+    $query = "UPDATE  HR_PMS_EMP SET SELF_REMARKS = '$SELF_REMARKS' WHERE ID='$editId'";
+    $strSQL = oci_parse($objConnect, $query);
+
+    if (oci_execute($strSQL)) {
+        $message = [
+            'text' => 'Self Comment updated Successfully.',
+            'status' => 'true',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script>  window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
+    } else {
+
+        $e = oci_error($strSQL);
+        $message = [
+            'text' => htmlentities($e['message'], ENT_QUOTES),
+            'status' => 'false',
+        ];
+        $_SESSION['noti_message'] = $message;
+        echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
+    }
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_update') {
 
     $editId = $_POST['editId'];
@@ -112,6 +137,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit
     }
     echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
 
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'ajaxcom_edit') {
+    $editId = $_POST['editId'];
+    $query = "SELECT ID,SELF_REMARKS FROM HR_PMS_EMP WHERE ID = $editId";
+    $strSQL = oci_parse($objConnect, $query);
+
+    if (oci_execute($strSQL)) {
+        $data = oci_fetch_assoc($strSQL);
+
+        echo '<input type="hidden" name="editId" value="' . $editId . '"><div class="row">
+            <div class="col-12">
+                <textarea  name="SELF_REMARKS" placeholder="Enter your comment" rows="3" 
+                class="form-control" type="text">'.  $data['SELF_REMARKS'] .'</textarea>
+            </div>';
+    } else {
+        echo 'Something went wrong!';
+    }
 }
 
 
