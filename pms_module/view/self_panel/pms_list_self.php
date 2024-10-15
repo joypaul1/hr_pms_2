@@ -236,34 +236,34 @@ oci_execute($strSQL);
 								<?php
 								$strSQL = oci_parse(
 									$objConnect,
-									"SELECT 
-                                        ID, 
-										EMP_NAME, 
-										EMP_ID, 
-                                        EMP_DEPT, 
-										EMP_DESIGNATION, 
-										EMP_WORK_STATION, 
-                                        GROUP_NAME, 
-										GROUP_CONCERN, 
-										SELF_SUBMITTED_STATUS, 
-										SELF_REMARKS, 
-                                        SELF_SUBMITTED_DATE, 
+									"SELECT
+                                        ID,
+										EMP_NAME,
+										EMP_ID,
+                                        EMP_DEPT,
+										EMP_DESIGNATION,
+										EMP_WORK_STATION,
+                                        GROUP_NAME,
+										GROUP_CONCERN,
+										SELF_SUBMITTED_STATUS,
+										SELF_REMARKS,
+                                        SELF_SUBMITTED_DATE,
 										LINE_MANAGER_1_ID,
-                                        (SELECT BB.EMP_NAME FROM RML_HR_APPS_USER BB WHERE BB.RML_ID=PMS.LINE_MANAGER_1_ID)AS  LINE_MANAGER_1_NAME,										
-										LINE_MANAGER_1_STATUS, 
-                                        LINE_MANAGER_1_UPDATED, 
+                                        (SELECT BB.EMP_NAME FROM RML_HR_APPS_USER BB WHERE BB.RML_ID=PMS.LINE_MANAGER_1_ID)AS  LINE_MANAGER_1_NAME,
+										LINE_MANAGER_1_STATUS,
+                                        LINE_MANAGER_1_UPDATED,
 										LINE_MANAGER_2_ID,
-                                       (SELECT BB.EMP_NAME FROM RML_HR_APPS_USER BB WHERE BB.RML_ID=PMS.LINE_MANAGER_2_ID)AS  LINE_MANAGER_2_NAME,													
-										LINE_MANAGER_2_STATUS, 
-                                        LINE_MANAGER_2_UPDATED, 
+										(SELECT BB.EMP_NAME FROM RML_HR_APPS_USER BB WHERE BB.RML_ID=PMS.LINE_MANAGER_2_ID)AS  LINE_MANAGER_2_NAME,
+										LINE_MANAGER_2_STATUS,
+                                        LINE_MANAGER_2_UPDATED,
 										HR_PMS_LIST_ID,
 										PMS_WEIGHTAGE(EMP_ID,HR_PMS_LIST_ID) AS  PMS_WEIGHTAGE,
-                                       (SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,									
-										HR_ID, 
-                                        HR_STATUS, 
-										HR_STATUS_DATE, 
-										CREATED_BY, 
-                                        CREATED_DATE, 
+										(SELECT AA.PMS_NAME FROM HR_PMS_LIST AA WHERE AA.ID=HR_PMS_LIST_ID) AS PMS_TITLE,
+										HR_ID,
+                                        HR_STATUS,
+										HR_STATUS_DATE,
+										CREATED_BY,
+                                        CREATED_DATE,
 										IS_ACTIVE,
 										LINE_MANAGE_1_REMARKS
                                     FROM HR_PMS_EMP PMS
@@ -297,8 +297,10 @@ oci_execute($strSQL);
 
 										</td>
 										<td>
-										<button data-id="<?php echo $row['ID']; ?>" class="btn btn-sm btn-info editCom" style="padding: 1%;" href="#"><i
-										class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
+											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
+												<button data-id="<?php echo $row['ID']; ?>" class="btn btn-sm btn-info editCom" style="padding: 1%;" href="#"><i
+												class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:16px"></i></button>
+											<?php }?>
 											<?php
 											echo '<i style="color:red;"><b>' . $row['SELF_REMARKS'] . '</b></i> ';
 											?>
