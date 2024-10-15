@@ -58,11 +58,11 @@ if (isset($_POST['submit_profile']) && $_POST['submit_profile'] == "Create PMS P
 
 //Submit pms profile
 if (isset($_POST['submit_approval'])) {
-	$table_id = $_REQUEST['table_id'];
+	$pms_table_id = $_POST['pms_table_id'];
 
 	$updateSQL = oci_parse(
 		$objConnect,
-		"UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS = 1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE ID='$table_id'"
+		"UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS = 1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS = null WHERE ID='$pms_table_id'"
 	);
 
 	if (oci_execute($updateSQL)) {
@@ -213,8 +213,6 @@ oci_execute($strSQL);
 
 		<div class="card mt-2">
 			<div class="row card-body">
-
-
 				<div class="col-lg-12">
 					<div class="table-responsive text-break">
 						<table class="table table-bordered" border="1" cellspacing="0" cellpadding="0">
@@ -283,7 +281,7 @@ oci_execute($strSQL);
 										</td>
 										<td>
 											<?php echo $row['PMS_TITLE']; ?>
-											<input form="Form2" name="table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
+											<input form="Form2" name="pms_table_id" class="form-control" type='text' value='<?php echo $row['ID']; ?>'
 												style="display:none">
 											<br>
 											<?php if ($row['SELF_SUBMITTED_STATUS'] == 0) { ?>
@@ -354,8 +352,6 @@ oci_execute($strSQL);
 											<?php
 											if ($row['HR_STATUS'] == 1)
 												echo 'Closed';
-
-
 											echo '<br>';
 											echo $row['HR_STATUS_DATE'];
 											?>
