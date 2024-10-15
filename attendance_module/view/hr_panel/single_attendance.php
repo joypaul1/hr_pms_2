@@ -89,37 +89,27 @@ $is_exel_download_eanble = 0;
                             <div class="d-block text-uppercase text-center">
                                 <div>
                                     <h3><b>RANGS MOTORS LIMITED</b></h3>
-
                                 </div>
                                 <div>
                                     <h6>117/A,Lavel-04,Old Airport Road,Bijoy Sharani,</h6>
-
                                 </div>
                                 <div>
                                     <h6>Tejgoan,Dhaka-1215</h6>
-
                                 </div>
                                 <div>
                                     <h6>Date :- <?php if (isset($_POST['attn_status'])) {
                                         echo $attn_start_date . ' -To- ' . $attn_end_date;
                                     } ?>
-                                        <h6>
-
+                                    <h6>
                                 </div>
-
-
-
                             </div>
-
                         </div>
                     </div>
-
                     <!-- style for table-->
                     <style>
                         .table> :not(caption)>*>* {
                             padding: 0;
                         }
-
                         .subbtn {
                             color: #fff !important;
                             background: linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82);
@@ -130,7 +120,7 @@ $is_exel_download_eanble = 0;
 
                     <div class="card-body">
                         <div class="table-responsive text-nowrap">
-                            <table class="table table-bordered table-responsive" style="width:100%">
+                            <table class="table table-bordered table-responsive" style="width:100%" id="tableDownld">
                                 <thead class="table-dark text-center">
                                     <tr class="text-center">
                                         <th scope="col">Sl</th>
@@ -305,11 +295,11 @@ $is_exel_download_eanble = 0;
 
 <script>
     function exportF(elem) {
-        var table = document.getElementById("table");
+        var table = document.getElementById("tableDownld");
         var html = table.outerHTML;
         var url = 'data:application/vnd.ms-excel,' + escape(html); // Set your html table into url 
         elem.setAttribute("href", url);
-        elem.setAttribute("download", "EMP_ATTN.xls"); // Choose the file name
+        elem.setAttribute("download", "SINGLE_EMP_ATTN.xls"); // Choose the file name
         return false;
     }
 </script>

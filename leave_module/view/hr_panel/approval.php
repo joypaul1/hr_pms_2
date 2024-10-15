@@ -54,7 +54,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <select name="r_concern" class="form-control cust-control" onchange="onChangeCompany(this.value)" form="Form1">
                                     <option selected value="">--</option>
                                     <?php
-                                    $strSQL  = oci_parse($objConnect, "SELECT distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER 
+                                    $strSQL  = oci_parse($objConnect, "SELECT distinct(R_CONCERN) R_CONCERN from RML_HR_APPS_USER
 																				where R_CONCERN is not null  and is_active=1 
 																				order by R_CONCERN");
                                     oci_execute($strSQL);
