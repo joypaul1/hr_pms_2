@@ -113,29 +113,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kra_
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'submit_pms') {
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'SUBMIT_PMS_DATA') {
+
+    $pmsID = trim($_POST["pms_id"]);
     $updateSQL = @oci_parse(
         $objConnect,
-        "UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS =1, SELF_SUBMITTED_DATE=SYSDATE , LINE_MANAGER_1_STATUS=null WHERE IS_ACTIVE=1"
+        "UPDATE HR_PMS_EMP SET  SELF_SUBMITTED_STATUS = 1, SELF_SUBMITTED_DATE = SYSDATE , LINE_MANAGER_1_STATUS = null WHERE ID = '$pmsID' AND IS_ACTIVE=1"
     );
 
+    // Execute the query
     if (@oci_execute($updateSQL)) {
-        $message = [
-            'text' => 'Submitted successfully.',
-            'status' => 'true',
+
+        $response = [
+            'status'  => true,
+            'message' => 'PMS Submited Succesfully!'
         ];
-        $_SESSION['noti_message'] = $message;
+        print_r(json_encode($response));
     } else {
-        $lastError = error_get_last();
-        $error = @$lastError ? "" . @$lastError["message"] . "" : "";
-        $message = [
-            'text' => $error,
-            'status' => 'false',
+        $e        = @oci_error($strSQL);
+        $response = [
+            'status'  => true,
+            'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
-        $_SESSION['noti_message'] = $message;
+        print_r( json_encode($response));
     }
-    echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
+    // echo "<script> window.location.href = '$basePath/pms_module/view/self_panel/pms_list_self.php'</script>";
 
 }
 
@@ -273,10 +276,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'kpi_
     $v_weightage = $_POST['weightage'];
     $v_target = $_POST['target'];
     $v_eli_factor = $_POST['eli_factor'];
-    // $v_ramarks = $_POST['ramarks'];
     $v_ramarks = trim(str_replace("'", "''", $_POST['ramarks'])); // Escape single quotes
-    // $v_ramarks = trim($v_ramarks); // Remove extra whitespace
-    // $v_ramarks = $_POST['ramarks'];
     $v_achivement = isset($_POST['achivement']) ? $_POST['achivement'] : '';
     $v_ACHIEVEMENT_LOCK_STATUS = isset($_POST['v_ACHIEVEMENT_LOCK_STATUS']) ? $_POST['v_ACHIEVEMENT_LOCK_STATUS'] : '';
     if ($v_ACHIEVEMENT_LOCK_STATUS == 1) {

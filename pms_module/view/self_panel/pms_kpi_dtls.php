@@ -304,7 +304,6 @@ if (isset($_POST['kpi_name'])) {
                                 $table_ID = $row['ID'];
                                 $number++;
                                 ?>
-
                                 <td class="align-middle gap-2">
                                     <?php if ($SUBMITTED_STATUS != 1) { ?>
                                         <button data-id="<?php echo $table_ID; ?>" class="btn btn-sm btn-warning editKra" style="padding: 1%;" href="#"><i
@@ -373,14 +372,13 @@ if (isset($_POST['kpi_name'])) {
                             </td>
                         </tr>
                         <?php if ((100 - $v_previous_weightage == 0) && $SUBMITTED_STATUS != 1) { ?>
-                            <tr class="text-end">
+                            <!-- <tr class="text-end">
                                 <td colspan="2">
-                                    <form action="<?php echo $basePath . "/pms_module/action/self_panel.php" ?>" method="GET">
-                                        <input type="hidden" name="actionType" value="submit_pms">
-                                        <button class="btn btn-primary btn-sm" type="submit"><i class='bx bxs-file-export'></i> Submit PMS ? </button>
-                                    </form>
+                                    <button data-pms-id="<?php echo $row['ID'] ?>"
+                                    data-url-href="<?php echo ($basePath . '/pms_module/action/self_panel.php') ?>"
+                                    type="button" class="btn btn-sm btn-warning float-right PMS_SUBMIT_BUTTON"> PMS Submit <i class="bx bx-question-mark"></i> </button>
                                 </td>
-                            </tr>
+                            </tr> -->
                         <?php } ?>
                     </tfoot>
                 </table>
@@ -751,6 +749,51 @@ if (isset($_POST['kpi_name'])) {
         });
         $('#sum').text(sum);
     }
+    $(document).on('click', '.PMS_SUBMIT_BUTTON', function() {
+        var pms_id = $(this).data('pms-id');
+        let url = $(this).data('url-href');
+		console.log(pms_id,url);
+        swal.fire({
+            title: 'Are you sure to submit PMS?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            pms_id: pms_id,
+							actionType: 'SUBMIT_PMS_DATA'
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
+                        if (res.status) {
+                            swal.fire('Customer Confirm!', res.message, res.status);
+                            setInterval(function() {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function() {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+            }
+        });
+    });
 
     $('.editKra').click(function () {
         var editId = $(this).attr('data-id');

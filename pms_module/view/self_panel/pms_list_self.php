@@ -361,7 +361,9 @@ oci_execute($strSQL);
 											if ($row['PMS_WEIGHTAGE'] == 100) {
 												if ($row['SELF_SUBMITTED_STATUS'] == 0) {
 													?>
-													<input class="btn btn-warning btn-sm" form="Form2" type="submit" name="submit_approval" value="Submit ">
+													<button data-pms-id="<?php echo $row['ID'] ?>"
+													data-url-href="<?php echo ($basePath . '/pms_module/action/self_panel.php') ?>"
+													type="button" class="btn btn-sm btn-warning float-right PMS_SUBMIT_BUTTON"> PMS Submit <i class="bx bx-question-mark"></i> </button>
 													<?php
 												}
 												else {
@@ -385,11 +387,7 @@ oci_execute($strSQL);
 
 						</table>
 					</div>
-
 				</div>
-
-
-
 			</div>
 		</div>
 
@@ -439,5 +437,50 @@ oci_execute($strSQL);
                 }
             });
         }
+    });
+    //delete data processing
+	$(document).on('click', '.PMS_SUBMIT_BUTTON', function() {
+        var pms_id = $(this).data('pms-id');
+        let url = $(this).data('url-href');
+        swal.fire({
+            title: 'Are you sure to submit PMS?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Confirm!',
+        }).then((result) => {
+            if (result.value) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: {
+                            pms_id: pms_id,
+							actionType: 'SUBMIT_PMS_DATA'
+                        },
+                        dataType: 'json'
+                    })
+                    .done(function(res) {
+                        if (res.status) {
+                            swal.fire('PMS Confirm!', res.message, res.status);
+                            setInterval(function() {
+                                location.reload();
+                            }, 1000);
+
+                        } else {
+                            swal.fire('Oops...', res.message, res.status);
+
+                        }
+                    })
+                    .fail(function() {
+                        swal.fire('Oops...', 'Something went wrong!', 'error');
+                    });
+            }
+        });
     });
 </script>

@@ -383,7 +383,7 @@ if (($_GET["actionType"]) == 'bidLookedConfirm') {
             'status'  => true,
             'message' => htmlentities($e['message'], ENT_QUOTES)
         ];
-        print_r(json_encode($response));
+        print_r(value: json_encode($response));
     }
 }
 if (($_GET["actionType"]) == 'invoiceConfirm') {
