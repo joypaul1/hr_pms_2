@@ -1,14 +1,14 @@
 <?php
-$v_page        = 'role_permission';
+$v_page = 'role_permission';
 $v_active_open = 'active open';
-$v_active      = 'active';
+$v_active = 'active';
 
 require_once('../../helper/2step_com_conn.php');
 
 
 $userInfo = [];
-$userSql        = "SELECT id,first_name FROM tbl_users WHERE id=" . trim($_GET["id"]); //  select query execution
-$useResult     = mysqli_query($conn_hr, $userSql); 
+$userSql = "SELECT id,first_name FROM tbl_users WHERE id=" . trim($_GET["id"]); //  select query execution
+$useResult = mysqli_query($conn_hr, $userSql);
 if (mysqli_num_rows($useResult) == 1) {
     while ($row = mysqli_fetch_array($useResult)) {
         $userInfo = array(
@@ -17,8 +17,8 @@ if (mysqli_num_rows($useResult) == 1) {
         );
     }
 } else {
-    $message                  = [
-        'text'   => "Oops! Something went wrong. Please try again later.",
+    $message = [
+        'text' => "Oops! Something went wrong. Please try again later.",
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
@@ -33,8 +33,8 @@ if (mysqli_num_rows($useResult) == 1) {
 $roleArray = [];
 $userRoleArray = [];
 
-$sql        = "SELECT id,name FROM tbl_roles"; //  select query execution
-$perResult     = mysqli_query($conn_hr, $sql);
+$sql = "SELECT id,name FROM tbl_roles"; //  select query execution
+$perResult = mysqli_query($conn_hr, $sql);
 // Loop through the fetched rows
 if ($perResult) {
     while ($row = mysqli_fetch_array($perResult)) {
@@ -44,8 +44,8 @@ if ($perResult) {
         );
     }
 } else {
-    $message                  = [
-        'text'   => "Oops! Something went wrong. Please try again later.",
+    $message = [
+        'text' => "Oops! Something went wrong. Please try again later.",
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
@@ -60,18 +60,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
 
     $sql = "SELECT role_id FROM tbl_users_roles WHERE user_id=" . trim($_GET["id"]); // Prepare a select statement
 
-    $result     = mysqli_query($conn_hr, $sql);
+    $result = mysqli_query($conn_hr, $sql);
     if ($result) {
         while ($row = mysqli_fetch_array($result)) {
             $userRoleArray[] = array(
                 'role_id' => $row['role_id']
             );
-           
+
         }
     }
 } else {
-    $message                  = [
-        'text'   => "Oops! Something went wrong. Please try again later.",
+    $message = [
+        'text' => "Oops! Something went wrong. Please try again later.",
         'status' => 'false',
     ];
     $_SESSION['noti_message'] = $message;
@@ -93,59 +93,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && trim($_GET["actionType"]) == 'edit')
             <div class="card border-top">
                 <!-- table header -->
                 <?php
-                $leftSideName  = 'Role & Permission Edit';
+                $leftSideName = 'Role & Permission Edit';
                 $rightSideName = 'Role & Permission List';
-                $routePath     = 'role_permission/user_role/index.php';
+                $routePath = 'role_permission/user_role/index.php';
                 include('../../layouts/_tableHeader.php');
 
                 ?>
 
                 <!-- End table  header -->
                 <div class="card-body">
-
+                    <?php echo $basePath , $_GET["id"]?>
                     <div class="col-12">
-                        <form method="POST" action="<?php echo ($basePath . '/action/role_permission/user_role.php?editID=' . trim($_GET["id"])); ?>">
+                        <form method="POST"
+                            action="<?php echo htmlspecialchars($basePath . '/action/role_permission/user_role.php?editID=' . trim($_GET["id"])); ?>">
                             <input type="hidden" name="actionType" value="update">
-                            <input type="hidden" name="editId" value="<?php echo  $data['id'] ?>">
-                            <div class="row mb-3">
+                            <input type="hidden" name="editId" value="<?php echo htmlspecialchars($data['id']); ?>">
 
+                            <div class="row mb-3">
                                 <div class="col-md-3">
                                     <label for="name" class="col-12 col-form-label text-md-center">Role</label>
                                     <hr>
-                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i> <?php echo($userInfo['first_name']) ?>
-
-
+                                    <i class="menu-icon tf-icons bx bx-right-arrow"></i>
+                                    <?php echo htmlspecialchars($userInfo['first_name']); ?>
                                 </div>
+
                                 <div class="col-md-9">
-                                    <label for="name" class="col-12 col-form-label text-md-center">All
-                                        Permission</label>
+                                    <label for="permissions" class="col-12 col-form-label text-md-center">All
+                                        Permissions</label>
                                     <hr>
                                     <?php
-
                                     foreach ($roleArray as $key => $row) {
                                         echo '<div class="form-check-inline col-4">
-                                                    <input class="form-check-input" type="checkbox" name="role_id[]" ' .
-                                            (in_array($row["id"], array_column($userRoleArray, 'role_id')) ? 'checked' : '') . '
-                                                    id="checkbox1' . $row['id'] . '" value="' . $row['id'] . '">
-                                                    <label class="form-check-label" for="checkbox1' . $row['id'] . '">' . $row['name'] . '</label>
-                                                </div>';
+                                            <input class="form-check-input" type="checkbox" name="role_id[]" ' .
+                                                                (in_array($row["id"], array_column($userRoleArray, 'role_id')) ? 'checked' : '') . '
+                                            id="checkbox1' . htmlspecialchars($row['id']) . '" value="' . htmlspecialchars($row['id']) . '">
+                                            <label class="form-check-label" for="checkbox1' . htmlspecialchars($row['id']) . '">' . htmlspecialchars($row['name']) . '</label>
+                                        </div>';
                                     }
-
-
                                     ?>
                                 </div>
                             </div>
 
-
                             <div class="row mb-0">
                                 <div class="d-block text-center">
-                                    <button type="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
-
+                                    <button type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                         </form>
+
                     </div>
 
                 </div>

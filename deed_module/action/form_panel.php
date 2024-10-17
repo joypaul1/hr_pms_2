@@ -105,11 +105,6 @@ if (isset($_GET["deedPrintData"])) {
     }
 }
 
-
-// $imageStatus = '';
-
-// $valid_formats = array("jpg", "png", "gif", "bmp", "jpeg", "PNG", "JPG", "JPEG", "GIF", "BMP");
-
 if (isset($_POST["submit"]) && ($_POST["actionType"] == 'doc_upload') && !empty($_FILES["file"]["name"])) {
 
     date_default_timezone_set("Asia/Dhaka");

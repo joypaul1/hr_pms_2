@@ -1,10 +1,8 @@
 <?php
-session_start();
 require_once('../../inc/config.php');
 $basePath =  $_SESSION['basePath'];
-
+set_time_limit(0);
 $response = array();
-
 
 // Handle Create request
 if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'create') {
@@ -92,10 +90,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' &&  trim($_POST["actionType"]) == 'upd
         //delete data from database
         if (count($deleteID) > 0) {
             foreach ($deleteID as $key => $roleID) {
-                $sql = "DELETE FROM tbl_users_roles  WHERE user_id = $user_id AND role_id = $roleID"; //user role delete    
+                $sql = "DELETE FROM tbl_users_roles  WHERE user_id = $user_id AND role_id = $roleID"; //user role delete
                 $result = $conn_hr->query($sql);
                 if ($result) {
-                    //delete user role wise permission 
+                    //delete user role wise permission
                     $getRoleWisePermission = getRoleWisePermission($conn_hr, $roleID);
                     $getUserWisePermission = getUserWisePermission($conn_hr, $user_id);
                     foreach ($getRoleWisePermission as $key => $permissionData) {
