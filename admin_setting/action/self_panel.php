@@ -9,49 +9,42 @@ $folderPath = $rs_img_path;
 ini_set('memory_limit', '2560M');
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'handOverCard') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'updateProfie') {
 
-    $emp_id = htmlentities($_GET['emp_id']);
-    @$form_rml_id = $_POST['form_rml_id'];
-    @$emp_form_name = $_POST['emp_form_name'];
-    @$emp_mobile = $_POST['emp_mobile'];
-    @$emp_dept = $_POST['emp_dept'];
-    @$form_res1_id = $_POST['form_res1_id'];
-    @$form_res1_mobile = $_POST['form_res1_mobile'];
-    @$form_res2_id = $_POST['form_res2_id'];
-    @$form_res2_mobile = $_POST['form_res2_mobile'];
-
-    @$emp_role = $_POST['emp_role'];
-    @$emp_doc = date("d/m/Y", strtotime($_POST['emp_doc']));
-    @$form_emp_status = $_POST['emp_status'];
-    @$traceable_status = $_POST['traceable_status'];
-    @$form_emp_lat = $_POST['lat'];
-    @$form_emp_lang = $_POST['lang'];
-    @$v_emp_primary_lat_2 = $_POST['lat_2'];
-    @$v_emp_primary_lang_2 = $_POST['lang_2'];
-    @$v_emp_primary_lat_3 = $_POST['lat_3'];
-    @$v_emp_primary_lang_3 = $_POST['lang_3'];
-    @$v_emp_primary_lat_4 = $_POST['lat_4'];
-    @$v_emp_primary_lang_4 = $_POST['lang_4'];
-    @$v_emp_primary_lat_5 = $_POST['lat_5'];
-    @$v_emp_primary_lang_5 = $_POST['lang_5'];
-    @$v_emp_primary_lat_6 = $_POST['lat_6'];
-    @$v_emp_primary_lang_6 = $_POST['lang_6'];
+    //$emp_id         = htmlentities($_POST['emp_id']);
+    @$form_rml_id               = $_POST['emp_id'];
+    @$emp_form_name             = $_POST['emp_form_name'];
+    @$emp_mobile                = $_POST['emp_mobile'];
+    @$emp_dept                  = $_POST['emp_dept'];
+    @$form_res1_id              = $_POST['form_res1_id'];
+    @$form_res1_mobile          = $_POST['form_res1_mobile'];
+    @$form_res2_id              = $_POST['form_res2_id'];
+    @$form_res2_mobile          = $_POST['form_res2_mobile'];
+    @$emp_role                  = $_POST['emp_role'];
+    @$emp_doc                   = date("d/m/Y", strtotime($_POST['emp_doc']));
+    @$emp_doj                   = date("d/m/Y", strtotime($_POST['emp_doj']));
+    @$form_emp_status           = $_POST['emp_status'];
+    @$traceable_status          = $_POST['traceable_status'];
+    @$form_emp_lat              = $_POST['lat'];
+    @$form_emp_lang             = $_POST['lang'];
+    @$v_emp_primary_lat_2       = $_POST['lat_2'];
+    @$v_emp_primary_lang_2      = $_POST['lang_2'];
+    @$v_emp_primary_lat_3       = $_POST['lat_3'];
+    @$v_emp_primary_lang_3      = $_POST['lang_3'];
+    @$v_emp_primary_lat_4       = $_POST['lat_4'];
+    @$v_emp_primary_lang_4      = $_POST['lang_4'];
+    @$v_emp_primary_lat_5       = $_POST['lat_5'];
+    @$v_emp_primary_lang_5      = $_POST['lang_5'];
+    @$v_emp_primary_lat_6       = $_POST['lat_6'];
+    @$v_emp_primary_lang_6      = $_POST['lang_6'];
     $UPDATED_BY = $emp_session_id;
-
-    $query = "UPDATE CARD_INFO
-            SET HANDOVER_DATE =   TO_DATE('$HANDOVER_DATE','DD/MM/YYYY'),
-            HANDOVER_TO_NAME = '$HANDOVER_TO_NAME',
-            HANDOVER_MOBILE_NUMBER = '$HANDOVER_MOBILE_NUMBER',
-            HANDOVER_STATUS = '$HANDOVER_STATUS',
-            UPDATED_BY = '$UPDATED_BY',
-            UPDATED_DATE=SYSDATE
-            WHERE ID = '$cardID'";
-            $strSQL = oci_parse($objConnect, "UPDATE RML_HR_APPS_USER SET
+   
+    $sql = "UPDATE RML_HR_APPS_USER SET
             EMP_NAME='$emp_form_name',
             MOBILE_NO='$emp_mobile',
             DEPT_NAME='$emp_dept',
-            DOC='$emp_doc',
+            DOJ=TO_DATE( '$emp_doj', 'DD/MM/YYYY'),
+            DOC=TO_DATE( '$emp_doc', 'DD/MM/YYYY'),
             LINE_MANAGER_RML_ID='$form_res1_id',
             LINE_MANAGER_MOBILE='$form_res1_mobile',
             DEPT_HEAD_RML_ID='$form_res2_id',
@@ -71,10 +64,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hand
             LANG_5='$v_emp_primary_lang_5',
             LANG_6='$v_emp_primary_lang_6',
             TRACE_LOCATION='$traceable_status'
-            where RML_ID='$form_rml_id'");
-
-    // Prepare the SQL statement
-    $strSQL = @oci_parse($objConnect, $query);
+            where RML_ID='$form_rml_id'";
+    //  print_r($_POST); 
+    // echo $sql;
+    // die();
+    $strSQL = oci_parse($objConnect, $sql);
+    
     // Execute the query
     if (@oci_execute($strSQL)) {
         $message = [
@@ -82,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hand
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/printing_on_process.php'</script>";
+        echo "<script> window.location.href = '{$basePath}/admin_setting/view/user_profile.php?emp_id={$form_rml_id}'</script>";
     } else {
         $e = @oci_error($strSQL);
         $message = [
@@ -90,6 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'hand
             'status' => 'false',
         ];
         $_SESSION['noti_message'] = $message;
-        echo "<script> window.location.href = '{$basePath}/loyalty_card_module/view/self_panel/printing_on_process.php?id={$cardID}'</script>";
+        echo "<script> window.location.href = '{$basePath}/admin_setting/view/user_profile.php?emp_id={$form_rml_id}'</script>";
     }
 }

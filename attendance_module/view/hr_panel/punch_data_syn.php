@@ -123,13 +123,12 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                         } else if ($company == 'RMWL') {
                                             $serverName = "202.40.188.67";
                                             $connectionInfo = array("Database" => "rmwlgattdb", "UID" => "sa", "PWD" => "RMWL@it2023");
-                                            $dbConnect = @sqlsrv_connect(serverName: $serverName, connectionInfo: $connectionInfo);
+                                            $dbConnect = @sqlsrv_connect( $serverName, $connectionInfo);
                                         } else {
                                             $serverName = "192.168.172.17";
                                             $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = @sqlsrv_connect(serverName: $serverName, connectionInfo: $connectionInfo);
+                                            $dbConnect = @sqlsrv_connect( $serverName, $connectionInfo);
                                         }
-
                                         $number = 0;
                                         while ($row = @oci_fetch_assoc($synSQL)) {
                                             $ATTNMACHINE_ID = $row['ATTNMACHINE_ID'];
@@ -177,7 +176,7 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                             }
                                             // echo $ATTNMACHINE_ID; echo '</br>';
                                             // Execute the SQL query and check for errors
-                                            $stmt = @sqlsrv_query(conn: $dbConnect, sql: $strPunchSQL);
+                                            $stmt = @sqlsrv_query( $dbConnect,  $strPunchSQL);
                                             // if ($stmt === false) {
                                             //     echo 'SQL Error: ' . print_r(sqlsrv_errors(), true);
                                             //     continue; // Skip to the next iteration if query fails
@@ -187,7 +186,7 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                             }
 
                                             $isFound = 0;
-                                            while ($row = @sqlsrv_fetch_array(stmt: $stmt, SQLSRV_FETCH_ASSOC)) {
+                                            while ($row = @sqlsrv_fetch_array( $stmt, SQLSRV_FETCH_ASSOC)) {
                                                 $isFound = 1;
                                                 $ATTN_DATE = $row['ATTN_DATE'];
                                                 $IN_TIME = $row['IN_TIME'];

@@ -7,24 +7,16 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
 //     echo "<script> window.location.href = '$basePath/index.php?logout=true'; </script>";
 // }
 
-
-
-
-
-
 if (isset($_POST['form_iemi_no'])) {
-
-    
-
     if (oci_execute($strSQL)) {
         $message = [
             'text' => ' User Updated Successfully.',
             'status' => 'true',
         ];
         $_SESSION['noti_message'] = $message;
-
     }
 }
+$emp_id = $_GET['emp_id'];
 ?>
 
 
@@ -66,23 +58,22 @@ if (isset($_POST['form_iemi_no'])) {
 
         oci_execute($strSQL);
         while ($row = oci_fetch_assoc($strSQL)) {
-            //print_r($row);
-        
             ?>
             <div class="  ">
                 <div class="">
                     <h5 class="card-header text-center text-danger">You will be responsible. if you update anything here?
                     </h5>
-                    <div class=" d-flex flex-column flex-md-row">
+                    <form action="<?php echo $basePath . '/admin_setting/action/self_panel.php' ?>" method="POST">
+                        <input type="hidden" name="actionType" value="updateProfie">
+                        <input type="hidden" name="emp_id" value="<?php echo $emp_id ?>">
                         <div class="container">
-
                             <div class="row">
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Emp ID:</label>
-                                        <input type="text" class="form-control cust-control" id="title" form="Form2"
-                                            name="form_rml_id" value="<?php echo $row['RML_ID']; ?>" readonly>
+                                        <input type="text" class="form-control cust-control" id="title" name="form_rml_id"
+                                            value="<?php echo $row['RML_ID']; ?>" readonly>
                                     </div>
                                 </div>
 
@@ -90,7 +81,7 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Name:</label>
                                         <input type="text" name="emp_form_name" class="form-control cust-control" id="title"
-                                            value="<?php echo $row['EMP_NAME']; ?>" form="Form2">
+                                            value="<?php echo $row['EMP_NAME']; ?>">
                                     </div>
                                 </div>
 
@@ -98,14 +89,14 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Mobile:</label>
                                         <input type="text" name="emp_mobile" class="form-control cust-control" id="title"
-                                            value="<?php echo $row['MOBILE_NO']; ?>" form="Form2">
+                                            value="<?php echo $row['MOBILE_NO']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Department:</label>
                                         <input type="text" name="emp_dept" class="form-control cust-control" id="title"
-                                            value="<?php echo $row['DEPT_NAME']; ?>" form="Form2">
+                                            value="<?php echo $row['DEPT_NAME']; ?>">
                                     </div>
                                 </div>
 
@@ -113,7 +104,7 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Responsible-1 ID:</label>
                                         <input type="text" class="form-control cust-control" id="title" name="form_res1_id"
-                                            value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>" form="Form2">
+                                            value="<?php echo $row['LINE_MANAGER_RML_ID']; ?>">
                                     </div>
                                 </div>
 
@@ -121,8 +112,7 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Responsible-1 Mobile:</label>
                                         <input type="text" class="form-control cust-control" id="title"
-                                            name="form_res1_mobile" value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>"
-                                            form="Form2">
+                                            name="form_res1_mobile" value="<?php echo $row['LINE_MANAGER_MOBILE']; ?>">
                                     </div>
                                 </div>
 
@@ -130,25 +120,17 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Responsible-2 ID:</label>
                                         <input type="text" class="form-control cust-control" id="title" name="form_res2_id"
-                                            value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>" form="Form2">
+                                            value="<?php echo $row['DEPT_HEAD_RML_ID']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Responsible-2 Mobile:</label>
                                         <input type="text" class="form-control cust-control" id="title"
-                                            name="form_res2_mobile" value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>"
-                                            form="Form2">
+                                            name="form_res2_mobile" value="<?php echo $row['DEPT_HEAD_MOBILE_NO']; ?>">
                                     </div>
                                 </div>
 
-                                <!-- <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="title">IEMI_NO:</label>
-                                        <input type="text" class="form-control cust-control" id="title" name="form_iemi_no"
-                                            value="<?php echo $row['IEMI_NO']; ?>" form="Form2">
-                                    </div>
-                                </div> -->
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -168,15 +150,17 @@ if (isset($_POST['form_iemi_no'])) {
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">DOJ:</label>
-                                        <input type="text" class="form-control cust-control" id="title"
-                                            value="<?php echo $row['DOJ']; ?>" readonly>
+                                        <input type="date" class="form-control cust-control" id="title"
+                                            value="<?php echo date("Y-m-d", strtotime($row['DOJ'])); ?>" name="emp_doj">
+                                        <!-- <input type="date" class="form-control cust-control" id="title"
+                                            value="<?php echo date("d/m/Y", strtotime($row['DOJ'])) ?>" readonly> -->
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">DOC:</label>
-                                        <input type="text" date class="form-control cust-control" id="title"
-                                            value="<?php echo $row['DOC']; ?>" name="emp_doc" form="Form2">
+                                        <input type="date" class="form-control cust-control" id="title"
+                                            value="<?php echo date("Y-m-d", strtotime($row['DOC'])); ?>" name="emp_doc">
                                     </div>
                                 </div>
 
@@ -191,14 +175,10 @@ if (isset($_POST['form_iemi_no'])) {
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Gendar:</label>
-                                        <input type="text" class="form-control cust-control" id="title" value="
-                                                <?php
-                                                if ($row['GENDER'] === 'M') {
-                                                    echo 'Male';
-                                                } else if ($row['GENDER'] === 'F') {
-                                                    echo 'Female';
-                                                }
-                                                ?>" readonly>
+                                        <input type="text" class="form-control cust-control" id="title"
+                                        value="<?php echo ($row['GENDER'] === 'M') ? 'Male' : (($row['GENDER'] === 'F') ? 'Female' : ''); ?>" 
+                                        readonly>
+
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -242,7 +222,7 @@ if (isset($_POST['form_iemi_no'])) {
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Employee Status:</label>
-                                        <select name="emp_status" class="form-control cust-control" form="Form2">
+                                        <select name="emp_status" class="form-control cust-control">
                                             <option value="1" <?php echo $row['IS_ACTIVE'] == 1 ? 'selected' : ''; ?>>Active
                                             </option>
                                             <option value="0" <?php echo $row['IS_ACTIVE'] == 0 ? 'selected' : ''; ?>>
@@ -255,7 +235,7 @@ if (isset($_POST['form_iemi_no'])) {
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">User Role:</label>
-                                        <select required="" name="emp_role" class="form-control cust-control" form="Form2">
+                                        <select required="" name="emp_role" class="form-control cust-control">
                                             <?php
 
                                             if ($row['USER_ROLE'] == 'NU') {
@@ -279,8 +259,7 @@ if (isset($_POST['form_iemi_no'])) {
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Location Traceable Status:</label>
-                                        <select required="" name="traceable_status" class="form-control cust-control"
-                                            form="Form2">
+                                        <select required="" name="traceable_status" class="form-control cust-control">
                                             <?php
 
                                             if ($row['TRACE_LOCATION'] == '1') {
@@ -306,84 +285,84 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="form-group">
                                         <label for="title">Lat:</label>
                                         <input type="text" class="form-control cust-control" name="lat" id="title"
-                                            value="<?php echo $row['LAT']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang:</label>
                                         <input type="text" class="form-control cust-control" name="lang" id="title"
-                                            value="<?php echo $row['LANG']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lat-2:</label>
                                         <input type="text" class="form-control cust-control" name="lat_2" id="title"
-                                            value="<?php echo $row['LAT_2']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT_2']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang-2:</label>
                                         <input type="text" class="form-control cust-control" name="lang_2" id="title"
-                                            value="<?php echo $row['LANG_2']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG_2']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lat-3:</label>
                                         <input type="text" class="form-control cust-control" name="lat_3" id="title"
-                                            value="<?php echo $row['LAT_3']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT_3']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang-3:</label>
                                         <input type="text" class="form-control cust-control" name="lang_3" id="title"
-                                            value="<?php echo $row['LANG_3']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG_3']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lat-4:</label>
                                         <input type="text" class="form-control cust-control" name="lat_4" id="title"
-                                            value="<?php echo $row['LAT_4']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT_4']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang-4:</label>
                                         <input type="text" class="form-control cust-control" name="lang_4" id="title"
-                                            value="<?php echo $row['LANG_4']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG_4']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lat-5:</label>
                                         <input type="text" class="form-control cust-control" name="lat_5" id="title"
-                                            value="<?php echo $row['LAT_5']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT_5']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang-5:</label>
                                         <input type="text" class="form-control cust-control" name="lang_5" id="title"
-                                            value="<?php echo $row['LANG_5']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG_5']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lat-6:</label>
                                         <input type="text" class="form-control cust-control" name="lat_6" id="title"
-                                            value="<?php echo $row['LAT_6']; ?>" form="Form2">
+                                            value="<?php echo $row['LAT_6']; ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="title">Lang-6:</label>
                                         <input type="text" class="form-control cust-control" name="lang_6" id="title"
-                                            value="<?php echo $row['LANG_6']; ?>" form="Form2">
+                                            value="<?php echo $row['LANG_6']; ?>">
                                     </div>
                                 </div>
 
@@ -391,8 +370,8 @@ if (isset($_POST['form_iemi_no'])) {
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="d-block text-center mt-2">
-                                                <button type="submit" name="submit" class="btn btn-sm btn-info"
-                                                    form="Form2">Submit Update</button>
+                                                <button type="submit" name="submit" class="btn btn-sm btn-info">Submit
+                                                    Update</button>
                                             </div>
                                         </div>
                                     </div>
@@ -401,7 +380,7 @@ if (isset($_POST['form_iemi_no'])) {
 
                         </div>
 
-                    </div>
+                    </form>
 
                 </div>
 
@@ -415,7 +394,7 @@ if (isset($_POST['form_iemi_no'])) {
 
         <?php
 
-        
+
         ?>
     </div>
 </div>
