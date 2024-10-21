@@ -44,14 +44,12 @@ if (!checkPermission('hr-attendance-punch-data-syn')) {
                                 <input class="form-control  btn  btn-sm  btn-primary" type="submit"
                                     value="Data Syn Machine To Apps Server">
                             </div>
-
                         </div>
 
                     </div>
                     <div class="row md-form mt-3">
                         <div class="col-sm-4">
                         </div>
-
                     </div>
 
                     <hr>

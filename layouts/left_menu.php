@@ -845,7 +845,7 @@ function isActive($url)
                                             class="menu-link withoutIcon">
                                             <div>
                                                 <i class="menu-icon tf-icon bx bx-subdirectory-right"
-                                                    style="margin:0;font-size:20px"></i> W.S. Punch Data Syn
+                                                    style="margin:0;font-size:20px"></i>Punch Data Syn
                                             </div>
                                         </a>
                                     </li>
