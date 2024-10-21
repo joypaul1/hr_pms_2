@@ -82,6 +82,17 @@ function isActive($url)
                             <ul class="menu-sub">
 
                                 <li
+                                    class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/cust_create.php'); ?> ">
+                                    <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/cust_create.php"
+                                        class="menu-link withoutIcon">
+                                        <div>
+                                            <i class="menu-icon tf-icon bx bx-subdirectory-right"
+                                                style="margin:0;font-size:20px"></i>
+                                            Custom Create Card
+                                        </div>
+                                    </a>
+                                </li>
+                                <li
                                     class="menu-item <?php echo isActive('/loyalty_card_module/view/self_panel/create.php'); ?> ">
                                     <a href="<?php echo $basePath ?>/loyalty_card_module/view/self_panel/create.php"
                                         class="menu-link withoutIcon">
@@ -966,7 +977,6 @@ function isActive($url)
                                 </ul>
                             </li>
                         <?php } ?>
-
                         <?php if (checkPermission('concern-offboarding-create') || checkPermission('concern-offboarding-report')) { ?>
                             <li class="menu-item <?php echo isActive('/offboarding_module/view/concern_panel'); ?>">
                                 <a href="javascript:void(0)" class="menu-link menu-toggle">

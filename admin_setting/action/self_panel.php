@@ -37,7 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'upda
     @$v_emp_primary_lang_5      = $_POST['lang_5'];
     @$v_emp_primary_lat_6       = $_POST['lat_6'];
     @$v_emp_primary_lang_6      = $_POST['lang_6'];
-    $UPDATED_BY = $emp_session_id;
+    $UPDATED_BY                 = $emp_session_id;
+
     $sql = "UPDATE RML_HR_APPS_USER SET
             EMP_NAME='$emp_form_name',
             MOBILE_NO='$emp_mobile',
@@ -63,8 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && trim($_POST["actionType"]) == 'upda
             LANG_5='$v_emp_primary_lang_5',
             LANG_6='$v_emp_primary_lang_6',
             TRACE_LOCATION='$traceable_status',
-            UPDATED_BY='$UPDATED_BY',
-            UPDATED_DATE = SYSDATE
+            UPDATE_BY='$UPDATED_BY',
+            UPDATE_DATE = SYSDATE
             where RML_ID='$form_rml_id'";
     $strSQL = oci_parse($objConnect, $sql);
     // Execute the query
