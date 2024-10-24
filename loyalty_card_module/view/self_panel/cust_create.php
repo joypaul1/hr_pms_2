@@ -217,7 +217,6 @@ if (!checkPermission('loyalty-card-all-module')) {
 
             // Clone the first vehicle_info_add div
             var clone = $('.vehicle_info_add').first().clone();
-
             // Clear input values in the cloned div
             clone.find('input').val('');
             clone.find('select').prop('selectedIndex', 0);  // Reset selects to default

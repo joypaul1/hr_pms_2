@@ -24,7 +24,7 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                 <?php if($_SESSION['HR_APPS']['user_concern'] == 'RMWL') {?>
                                     <option value="RMWL">Gazipur Workshop Attendance Machine</option>
                                 <?php } else if($_SESSION['HR_APPS']['user_concern'] == 'SASH') {?>
-                                    <option value="SASH">Amishe Attendance Machine</option>
+                                    <option value="SASH">Amishee Attendance Machine </option>
                                 <?PHP } ?>
                             </select>
                         </div>

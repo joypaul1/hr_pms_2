@@ -95,6 +95,7 @@ if (!checkPermission('lm-offboarding-report')) {
                             <th scope="col">EMP NAME </th>
                             <th scope="col">DEPARTMENT</th>
                             <th scope="col">DESIGNATION</th>
+                            <th scope="col">REASON</th>
                             <th scope="col">OFFBORDING START DATE </th>
                             <th scope="col">ADMINISTRATION APPROVAL DATE </th>
                             <th scope="col">ADMINISTRATION REMARKS </th>
@@ -122,12 +123,14 @@ if (!checkPermission('lm-offboarding-report')) {
                                             A.ID AS EMP_CLEARENCE_ID,
                                             A.RML_HR_APPS_USER_ID,
                                             A.APPROVAL_STATUS,
-                                            A.CREATED_DATE
+                                            A.CREATED_DATE,
+                                            A.REASON
                                         FROM
                                             DEVELOPERS.EMP_CLEARENCE A
                                     )
                                     SELECT
                                         CTE_EMP_CLEARENCE.EMP_CLEARENCE_ID,
+                                        CTE_EMP_CLEARENCE.REASON,
                                         TO_DATE (CTE_EMP_CLEARENCE.CREATED_DATE, 'DD/MM/YYYY') AS CREATED_DATE,
                                         B.EMP_NAME,
                                         B.RML_ID,
@@ -287,6 +290,7 @@ if (!checkPermission('lm-offboarding-report')) {
                                     B.DEPT_NAME,
                                     B.DESIGNATION,
                                     CTE_EMP_CLEARENCE.APPROVAL_STATUS,
+                                    CTE_EMP_CLEARENCE.REASON,
                                     CTE_EMP_CLEARENCE.CREATED_DATE";
 
                         $allDataSQL  = oci_parse(
@@ -320,8 +324,8 @@ if (!checkPermission('lm-offboarding-report')) {
                                 <td> <?= $row['EMP_NAME']; ?></td>
                                 <td> <?= $row['DEPT_NAME']; ?></td>
                                 <td> <?= $row['DESIGNATION']; ?></td>
+                                <td> <?= $row['REASON']; ?></td>
                                 <td> <?= date('d/m/Y', strtotime($row['CREATED_DATE'])) ?></td>
-
                                 <td>
                                     <?php echo isset($row['ADMINISTRATION_APPROVAL_DATE']) ?
                                         date('d/m/Y', strtotime($row['ADMINISTRATION_APPROVAL_DATE'])) : "-"  ?>
