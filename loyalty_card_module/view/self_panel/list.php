@@ -98,7 +98,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                         CREATED_DATE,
                         CREATED_BY,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE ROWNUM <= 25 AND PRINT_PROCESS_STATUS IS NULL";
+                        FROM CARD_INFO WHERE PRINT_PROCESS_STATUS IS NULL";
 
                         // Checking and adding the BRAND_ID condition if applicable
                         if (isset($_GET['search_data']) && $_GET['search_data']) {

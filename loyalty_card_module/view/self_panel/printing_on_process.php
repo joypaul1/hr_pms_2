@@ -100,8 +100,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
                                 FROM
                                     CARD_INFO
                                 WHERE
-                                    ROWNUM <= 25
-                                    AND PRINT_PROCESS_STATUS = 1
+                                    PRINT_PROCESS_STATUS = 1
                                     AND (
                                         RECEIVED_PRINT_STATUS IS NULL
                                         OR RECEIVED_PRINT_STATUS = 1

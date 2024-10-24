@@ -88,7 +88,7 @@ function isActive($url)
                                         <div>
                                             <i class="menu-icon tf-icon bx bx-subdirectory-right"
                                                 style="margin:0;font-size:20px"></i>
-                                            Custom Create Card
+                                            Customer Profile Create 
                                         </div>
                                     </a>
                                 </li>

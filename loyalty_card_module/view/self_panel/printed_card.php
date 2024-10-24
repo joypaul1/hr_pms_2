@@ -96,8 +96,7 @@ $v_end_date   = isset($_POST['end_date']) ? date('d/m/Y', strtotime($_POST['end_
                         RECEIVED_PRINT_BY,
                         RECEIVED_PRINT_DATE,
                         (SELECT CP.TITLE FROM CARD_TYPE CP WHERE CP.ID = CARD_TYPE_ID) AS CARD_TYPE_NAME
-                        FROM CARD_INFO WHERE ROWNUM <= 25
-                        AND RECEIVED_PRINT_STATUS = 1 AND RECEIVED_PRINT_BY IS NOT NULL
+                        FROM CARD_INFO WHERE RECEIVED_PRINT_STATUS = 1 AND RECEIVED_PRINT_BY IS NOT NULL
                         AND TRUNC (RECEIVED_PRINT_DATE) BETWEEN TO_DATE('$v_start_date','DD/MM/YYYY') AND TO_DATE('$v_end_date','DD/MM/YYYY')";
 
                         // Checking and adding the BRAND_ID condition if applicable
