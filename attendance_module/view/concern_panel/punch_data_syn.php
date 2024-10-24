@@ -103,15 +103,15 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                                 AND R_CONCERN='$company'"
                                         );
                                     } else {
-                                        $synSQL = @oci_parse(
-                                            $objConnect,
-                                            "SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
-                                                RML_ID, EMP_NAME, DEPT_NAME
-                                                FROM RML_HR_APPS_USER
-                                                WHERE USER_ROLE IS NOT NULL
-                                                AND IS_ACTIVE=1
-                                                AND BRANCH_NAME IN ('Head Office', 'Rangs Center')"
-                                        );
+                                        // $synSQL = @oci_parse(
+                                        //     $objConnect,
+                                        //     "SELECT to_number(regexp_replace(RML_ID, '[^0-9]', '')) AS ATTNMACHINE_ID,
+                                        //         RML_ID, EMP_NAME, DEPT_NAME
+                                        //         FROM RML_HR_APPS_USER
+                                        //         WHERE USER_ROLE IS NOT NULL
+                                        //         AND IS_ACTIVE=1
+                                        //         AND BRANCH_NAME IN ('Head Office', 'Rangs Center')"
+                                        // );
                                     }
 
                                     if (@oci_execute($synSQL)) {
@@ -124,9 +124,9 @@ $emp_session_id = $_SESSION['HR_APPS']['emp_id_hr'];
                                             $connectionInfo = array("Database" => "rmwlgattdb", "UID" => "sa", "PWD" => "RMWL@it2023");
                                             $dbConnect = @sqlsrv_connect($serverName, $connectionInfo);
                                         } else {
-                                            $serverName = "192.168.172.17";
-                                            $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
-                                            $dbConnect = @sqlsrv_connect($serverName, $connectionInfo);
+                                            // $serverName = "192.168.172.17";
+                                            // $connectionInfo = array("Database" => "attdb", "UID" => "sa", "PWD" => "R@ngs*it");
+                                            // $dbConnect = @sqlsrv_connect($serverName, $connectionInfo);
                                         }
                                         $number = 0;
                                         while ($row = @oci_fetch_assoc($synSQL)) {
