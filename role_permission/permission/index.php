@@ -11,7 +11,7 @@ require_once('../../helper/2step_com_conn.php');
 // Initialize an empty array
 $dataArray = array();
 $tableName = 'tbl_permissions';
-$num_per_page = 100;
+$num_per_page = 50;
 if (isset($_GET["page"])) {
     $page = $_GET["page"];
 } else {

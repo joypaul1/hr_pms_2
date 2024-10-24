@@ -58,8 +58,8 @@ if (!checkPermission('loyalty-card-all-module')) {
                             placeholder="Customer Birthday here..">
                     </div>
                     <div class="col-4 mt-1">
-                        <label for="EMERGENCY_C/N">Emergency C/N : <span class="text-danger"> * </span></label>
-                        <input name='EMERGENCY_C/N' class="form-control cust-control" type="number" max="11"
+                        <label for="EMERGENCY_C_N">Emergency C/N : </label>
+                        <input name='EMERGENCY_C_N' class="form-control cust-control" type="number" max="11"
                             placeholder="Emergency Contact Number..">
                     </div>
                     <div class="col-4 mt-1">
@@ -81,14 +81,14 @@ if (!checkPermission('loyalty-card-all-module')) {
                         <input name="CUSTOMER_NID" id="CUSTOMER_NID" class="form-control cust-control" type="number"
                             placeholder="Customer nid here..">
                     </div>
-                    <div class="col-4 mt-1">
+                    <!-- <div class="col-4 mt-1">
                         <label for="CUSTOMER_NID"> Point Of Contact Person : </label>
                         <input name="CUSTOMER_NID" id="CUSTOMER_NID" class="form-control cust-control" type="text"
                             placeholder="Point Of Contact Person here..">
-                    </div>
+                    </div> -->
                     <div class="col-4 mt-1">
-                        <label for="CUSTOMER_NID">POC phone number : </label>
-                        <input name="CUSTOMER_NID" id="CUSTOMER_NID" class="form-control cust-control" type="number"
+                        <label for="POC_CONTACT">Point Of Contact Person phone number : </label>
+                        <input name="POC_CONTACT" id="POC_CONTACT" class="form-control cust-control" type="number"
                             placeholder="POC phone number here..">
                     </div>
                 </div>
@@ -97,8 +97,8 @@ if (!checkPermission('loyalty-card-all-module')) {
                         <div class="card-header d-flex align-items-center justify-content-between"
                             style="padding: 1.0% 1rem">
                             <div href="#" style="font-size: 16px;font-weight:700">
-                                <i class="menu-icon tf-icons bx bx-edit" style="margin:0;font-size:30px"></i>Vehicle
-                                Information
+                                <i class="menu-icon tf-icons bx bxs-car-wash" style="margin:0;font-size:30px"></i>
+                                Vehicle Information
                             </div>
                             <div>
                                 <a href="http://localhost/rHRT/loyalty_card_module/view/self_panel/list.php"
@@ -135,8 +135,8 @@ if (!checkPermission('loyalty-card-all-module')) {
                                     placeholder="Registration Number here..">
                             </div>
                             <div class="col-4  mt-1">
-                                <label for="ENG_NO"> VIN NO. : <span class="text-danger"> * </span></label>
-                                <input required class="form-control cust-control" name="ENG_NO" type="text"
+                                <label for="CHAS_NO"> VIN / Chassis NO. : <span class="text-danger"> * </span></label>
+                                <input required class="form-control cust-control" name="CHAS_NO" type="text"
                                     placeholder="VIN Number here..">
                             </div>
                             <div class="col-4  mt-1">
@@ -144,19 +144,18 @@ if (!checkPermission('loyalty-card-all-module')) {
                                 <input required class="form-control cust-control" name="ENG_NO" type="text"
                                     placeholder="Engine Number here..">
                             </div>
-                          
                             <div class="col-4 mt-1">
-                                <label for="DRIVER_NAME"> Driver Name :</label>
+                                <label for="DRIVER_NAME"> Driver / Transport Name :</label>
                                 <input required class="form-control cust-control" name="DRIVER_NAME" type="text"
-                                    placeholder="Reference Code here..">
+                                    placeholder="Driver / Transport name here..">
                             </div>
                             <div class="col-4 mt-1">
-                                <label for="DRIVER_MOBILE"> Driver Mobile Number:</label>
+                                <label for="DRIVER_MOBILE"> Driver / Transport Contat Number:</label>
                                 <input required class="form-control cust-control" name="DRIVER_MOBILE" type="number"
                                     placeholder="Driver mobile number here..">
                             </div>
-                            <div class="col-4 mt-2">
-                                <label for="VEHICLE_SOURCE_TYPE"> Mother Company Name :<span class="text-danger">*
+                            <div class="col-4 mt-1">
+                                <label for="VEHICLE_SOURCE_TYPE"> Brand Company :<span class="text-danger">*
                                     </span>
                                 </label>
                                 <select class="form-control cust-control select2" name="VEHICLE_SOURCE_TYPE"
@@ -172,22 +171,25 @@ if (!checkPermission('loyalty-card-all-module')) {
                                 </select>
                             </div>
                             <div class="col-4 mt-1">
+                                <label for="DISTRIBUTOR_NAME"> Distributor Name :</label>
+                                <input class="form-control cust-control" name="DISTRIBUTOR_NAME" type="text"
+                                    placeholder="Distributor Name here..">
+                            </div>
+                            <div class="col-4 mt-1">
                                 <label for="SERVICE_DAY"> Preferred Service Day/Time :</label>
                                 <input class="form-control cust-control" name="SERVICE_DAY" type="text"
                                     placeholder="Preferred Service Day/Time here..">
                             </div>
                             <div class="col-4 mt-1">
-                                <label for="SERVICE_DAY"> Special Requests/Notes :</label>
-                                <input class="form-control cust-control" name="SERVICE_DAY" type="text"
+                                <label for="SERVICE_NOTE"> Special Requests/Notes :</label>
+                                <input class="form-control cust-control" name="SERVICE_NOTE" type="text"
                                     placeholder="Special Requests/Notes  here..">
                             </div>
                             <div class="col-4 mt-1">
                                 <label for="BANNER_NAME"> Banner Name :</label>
                                 <input class="form-control cust-control" name="BANNER_NAME" type="text"
-                                    placeholder="Reference Code here..">
-                            </div>
-
-
+                                    placeholder="Banner Name here..">
+                            </div>ss
                         </div>
                     </div>
                 </div>

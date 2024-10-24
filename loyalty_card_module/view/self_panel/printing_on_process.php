@@ -26,11 +26,7 @@ if (isset($_POST['process_to_print_id']) && !empty($_POST['process_to_print_id']
         $_SESSION['noti_message'] = $message;
     }
 }
-// $message = [
-//     'text' => "Sorry! You have not select any ID.",
-//     'status' => 'false',
-// ];
-// $_SESSION['noti_message'] = $message;
+
 ?>
 
 <!-- / Content -->
